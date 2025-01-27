@@ -1,0 +1,226 @@
+TODO (action items)
+===================
+
+- [ ] **Friday 24th Jan 2025**: Collect laptops from ATI Comp (Uli, Renato, Mbz)
+- [ ] Simplify project modules:
+  - [x] Update naming convention (Renato)
+  - [ ] Update modules (Renato, Uli, Mbz)
+  - [ ] Update class plan (Renato, Uli, Mbz)
+- [x] Import tasks from previous classes (task sheets; Renato)
+- [ ] Fix HDMI issue (Mbz)
+- [ ] Project Repository:
+  - Include Forest Projects, supply chain management, and home automation
+  - Assigned: Renato, Uli, Mbz
+- [ ] Add Fedir to Discord (Renato, Uli)
+
+
+
+Notes
+=====
+
+
+
+- Matevz, Ulno, Fedir (welcome new team member!), Renato
+
+- Pick up computers at Aticomp on Friday 24
+
+- Matevz suggests using Snipe-IT + lable machine, ulno and Matevz are still evaluating
+
+- Fedir stresses github importance, Matevz and Fedir want to make list of pointers
+
+- Discord, prep new things, add Fedir to instructors - Renato/Ulno - drive engagement on discord
+
+- Ulno/Renato used VSCode for shared class devolopent in this git repo
+
+- Ulno/Renato: "If we cannot decide use K.I.S.S. - keep it as simple as possible" 
+
+- All teaching stuff on git
+
+- Matevz integrates discord
+
+- Grow IoTempower community!
+
+- Strengthen portfolio idea on git - TODO: add and polish sample portfolio (German and English version? @Ruben)
+
+- Tasks vs Contracts? Need to be simpler and easier to understand - add more personal agency to bind specific 
+  tasks to students, how to add projects earlier?
+
+- What about project portfolio? (given early)
+
+- Demo showcase on day one, Masterclass 
+
+- Demo showcase
+    - Demobox
+
+- more 3d printing
+  - USB power box
+
+- breadboarding individually!
+
+MASTER CLASS
+First class:
+
+- Hello, welcome - maybe agenda?
+
+- What is IoT
+
+  - ask question
+
+  - IoTempower intro video
+
+  - demo show case
+
+    - environment sensor demo (temp, humidity, gas)
+
+    - led panels
+
+    - phone demo
+
+    - demobox - access control + led's - maybe add PIR (better distance sensor) - replace pi with phone or tablet
+
+  - more iot introduction
+
+  - talk about modern teaching, modules, portfolio, git (personal repo, team repo/s)
+
+  - IoT Intro Masterclass (m5sitks with node-red)
+    - - Control LED panels with Dashboard on the PHONE. (students connect to WIFI)
+
+  - Contract-based grading introduction   
+
+  - Task/hw: describe and results, reflection!
+
+MODULE 1 - HARDWARE AND BASIC ELECTRONICS
+
+Second class:
+
+    - hardware, breadboarding
+
+    - show what's available - the IoT cart
+    
+    - Look at the kit
+
+    - Research microcontrollers, sensors and actuators
+    
+    - Relay - lock - button system.
+
+    - Arduino 1on1 on platformIO (set up project, import libraries)
+    
+    -  Blink.
+    
+    - Serial output debugging
+    
+    - Toggle Led with local button
+    
+    -  Meet the M5
+
+    -   Blink (as a challenge) or LED strip animation (possibly the bomb detect game)
+
+
+
+MODULE 2 - INFRASTRUCTURE AND GATEWAY SETUP
+
+Third class:
+
+  - Networking (Restaurant LARP - acting out the network) - maybe have a parallel demo in coding on the screen as they play it out
+  
+  - Intranet vs. Internet 
+
+  - Adafruit IOT videos
+
+  - The team repository is set up with git or Google Drive, local cloud, or Gittea. Personal portfolio reflection intro (useful feedback) - 1 per session
+
+  - Contract-based grading reinforcement 
+
+
+Fourth class:
+
+  - IoTempower installation on the laptop (Manjaro or Dietpi with KDE)
+
+  - Gateway setup
+
+  - Installation of openWRT and setting up router
+
+  - Mosquitto on router and/or laptop
+
+  - Small mqtt exercises, mqtt client on phones, on the computer (mosquitto pub messages), and M5sticks
+
+  - Send a message to another team (node-red different MQTT hosts, Wifi on the laptop) 
+
+  - network blink and button (with web requests, websocket or mqtt directly)
+
+MODULE 3 - INTEGRATION AND SIMULATION
+
+Fith class:
+
+  - IoTknit
+
+  - Node-RED dashboard
+
+  - Simulator in Pyhton
+
+  - Simulators - Restricted HVAC or personal Challenge.
+
+MODULE 4 - IOT SYSTEMS (IoTempower full power)
+
+Sixth class:
+
+  - Node management (cloudCommander or barebones CLI - MidnightCommnader) iot-systems and system.conf file
+
+  - IoT architecture 
+
+  - First and second node 
+
+  - Adopting a node
+
+  - OTA deployment
+
+Seventh class:
+
+  - One-line node programming
+
+  - ESP programming under the hood PlatformIO build folder (WIFI setup on ESP, MQTT setup on ESP, parallel processing on ESP - Problems with interrupts )
+
+  - Filters
+
+  - Advanced Node-RED - multiple nodes
+
+  - Midway project (small system)
+    Project Ideas:  Access Control challenge
+                    Water challenge
+                    Carnival costume challenge
+                    Dispenser with scale, liquid, or powder
+
+
+OPTIONAL MODULES (discuss with others)
+
+Eight and Ninth class:
+
+  - Database - influxDB and/or GRAFANA
+
+  - Story-driven method
+
+  - AI on the edge or data (Matvez and Steffen)
+
+  - Advanced Networking
+
+  - ESP Now
+
+  - LORA
+
+  - Bluetooth
+
+  - Mesh networks
+
+  - Security module/Internet of Broken Things
+
+  - Guest lecture (talk to Arnis, Danielle, and Raimundas)
+
+
+FINAL MODULE - FINAL PROJECT
+
+Project Ideas
+ 
+
+
+Crazy ideas:
+  - packaged Android app for IoTempower
