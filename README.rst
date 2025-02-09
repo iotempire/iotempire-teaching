@@ -1,3 +1,5 @@
+attention: development here is currently stalled as we don't have enough instructors maintaining this - help needed!
+
 Teaching Internet of Things (IoT) the IoTempower Way
 ====================================================
 
