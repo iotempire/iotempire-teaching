@@ -1,4 +1,4 @@
-attention: development here is currently stalled as we don't have enough instructors maintaining this - help needed!
+attention: development of this top-level document is currently stalled as we don't have enough instructors maintaining this - help needed!
 
 Teaching Internet of Things (IoT) the IoTempower Way
 ====================================================
@@ -10,20 +10,20 @@ Teaching Internet of Things (IoT) the IoTempower Way
 #. `References and Resources <#references-and-resources>`__
 s
 
-Welcome to teaching and learning the IoTempower way. 
+Welcome to teaching and learning the IoTempower way.
 The IoTempower framework has been developed to support educators and students alike in exploring the world
-of connected devices, systems, and the challenges they address. Here you find all our teaching 
-material and learning resources in a central point. 
+of connected devices, systems, and the challenges they address. Here you find all our teaching
+material and learning resources in a central point.
 
 Our course, “The Internet of Things,” is an engaging, hands-on course that bridges the virtual and physical to impact positive change. The course caters to different learning needs with flexible formats: Express (4h) Workshop, Intensive (16h) Workshop, and Full Course (60h guided, 20-40h unsupervised). Starting from the 16h version, we cover core topics of storytelling, basic electronics, IoT architecture, machine-to-machine communication, and exploring open-source IoT integration using Node-RED, all within our fully open-source and in-house developed IoT teaching framework - `IoTempower <https://github.com/iotempire/iotempower>`__.
 
 We advocate that challenge-based education (CBE) allows students to work with the technology themselves and apply it to real-world problems. Our students have a chance to truly understand IoT’s strengths and weaknesses and its potential to help us deal with today’s challenges in creative, innovative, collaborative, and communicative ways. We foster an inclusive course mindset, promoting storytelling, exploration, and working with failure as part of the learning process. We emphasize collaborative team and group work and encourage critical reflection, with no differentiation between labs and lectures. From the start, students experiment with hardware, programming, and networking aspects of IoT, bridging the gap between the virtual and physical worlds through prototyping.
 
 .. figure:: /pics/iot/iotempower-framework.png
-    :width: 60% 
-    :align: center 
+    :width: 60%
+    :align: center
     :alt: Iotempower Framework Overview
-    
+
     Overview of the IoTempower Framework.
 
 Course Elements
@@ -41,7 +41,7 @@ We provide a chat server that allows all students studying IoT to profit from ea
 We also provide `slides <https://drive.google.com/drive/u/1/folders/1yDEujSYP5BspnAYI0K_CjRdWSimEgR4->`__,
 `task descriptions <https://docs.google.com/document/d/1HcGwUVQM3lANhfRxZ_aJuPfk6O4GqHT7Zskn4EMPQc0>`__,
 `questions <https://docs.google.com/document/d/1HcGwUVQM3lANhfRxZ_aJuPfk6O4GqHT7Zskn4EMPQc0>`__,
-and `videos <https://www.youtube.com/@ut-teaching-ulno>`_ to help with technical challenges or supporting discussions. We are continually creating new video material to support upcoming technical challenges. Chatbots of large language models (LLMs) like ChatGPT, Copilot, or Gemini also enhance our class learning experience by speeding up individual and team in-class research tasks. They also enrich our discussions by allowing us to critically reflect on their answers and suggestions. 
+and `videos <https://www.youtube.com/@ut-teaching-ulno>`_ to help with technical challenges or supporting discussions. We are continually creating new video material to support upcoming technical challenges. Chatbots of large language models (LLMs) like ChatGPT, Copilot, or Gemini also enhance our class learning experience by speeding up individual and team in-class research tasks. They also enrich our discussions by allowing us to critically reflect on their answers and suggestions.
 
 In our course, we embrace the idea that hands-on experiences are crucial for the learning process. We provide a kit with sensors, actuators, cables, power supplies, a gateway, and microcontrollers to each student team. We paid special attention to selecting each kit component, prioritizing affordability and ease of sourcing in most regions worldwide. This approach equips each team with a truly practical experience as they can control every aspect of their network and do not have to depend on resources and services (from the university or the cloud) outside of the scope of their group.
 
