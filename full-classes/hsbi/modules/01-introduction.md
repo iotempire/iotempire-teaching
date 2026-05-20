@@ -14,15 +14,15 @@ Your goal is to accomplish the module requirements — not to mechanically compl
 ## Structure
 
 - Welcome
-  - [SLIDES] [010 IoT Course Introduction](https://docs.google.com/presentation/d/1ketOUAGZaEYXsQo3YdG-6WnXNuUQsKkq7bh3Lx9aFd0%20)
+  - [SLIDES] [010 IoT Course Introduction](https://docs.google.com/presentation/d/1ketOUAGZaEYXsQo3YdG-6WnXNuUQsKkq7bh3Lx9aFd0)
   - [VIDEO] [Teaching the IoTempower way](https://video.iotempower.us)
-  - [SLIDES] [020 IoT Topic Intro](http://docs.google.com/presentation/d/1Z-7AzwLFmrHiJAmN2MMXhgFtnVIneGEMy7BwNoCBQ2E/edit?slide=id.g2b83ef21a80_0_0#slide=id.g2b83ef21a80_0_0%20)
+  - [SLIDES] [020 IoT Topic Intro](http://docs.google.com/presentation/d/1Z-7AzwLFmrHiJAmN2MMXhgFtnVIneGEMy7BwNoCBQ2E)
   - [SLIDES] [040 Architecture](https://docs.google.com/presentation/d/1i9jHMFC56OSMqlfNVxrh5vAriykxFeolJC68u_LUxGY)
   - [Additional slides](https://docs.google.com/presentation/d/1V21aI1f97spd6EZYKtQ551cBfzbuERMJQ_R4crpfk4o)
 - What is IoT?
   - In-class discussion
   - Demo showcases
-  - [VIDEO] [IoT Intro Video playlist](https://youtube.com/playlist?list=PLlppUpfgGsvkfAGJ38_mzQc1-_Z7bNOgq&si=gWm-1xaEqIzaBB2a)
+  - [VIDEO] [IoT Intro Video playlist](https://youtube.com/playlist?list=PLlppUpfgGsvkfAGJ38_mzQc1-_Z7bNOgq&si=gWm-1xaEqIzaBB2)
 - Our teaching style
   - modules
   - portfolio on git (personal repository and team repository)
