@@ -40,7 +40,7 @@ Your goal is to accomplish the module requirements — not to mechanically compl
   - Share the repo with the instructor(s) and permit at least read access for **Ulno**.
   - Add your notes from class into the portfolio.
   - Collective work should only be documented once; others can link to the original documentation.
-- Reflections:
+- Reflections (for whole day, might include several modules):
   - These are always homework and should ideally be done on the day of class.
   - Address:
     - takeaways
@@ -53,6 +53,3 @@ Your goal is to accomplish the module requirements — not to mechanically compl
 - Homework:
   - Reflections are always homework.
   - If you do not finish things in class, continue them soon after class, ideally together with your partner.
-
-> [!WARNING] UT-ADAPT
-> The original workload assumptions in the old semester-based course mention a weekly rhythm and 4–6 hours of homework per week. This should be rephrased for the condensed 4×10h HSBI block format.
