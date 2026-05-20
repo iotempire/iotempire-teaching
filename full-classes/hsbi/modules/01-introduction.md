@@ -14,7 +14,7 @@ Your goal is to accomplish the module requirements — not to mechanically compl
 ## Structure
 
 - Welcome
-  - [SLIDES] [010 IoT Course Introduction](https://docs.google.com/presentation/d/1ketOUAGZaEYXsQo3YdG-6WnXNuUQsKkq7bh3Lx9aFd0)
+  - [SLIDES] [010 IoT Course Introduction](https://docs.google.com/presentation/d/10V8SSZjKCXIP8NQm2BnKhSpF5rVJkxg7On_UkL4zoUE/)
   - [VIDEO] [Teaching the IoTempower way](https://video.iotempower.us)
   - [SLIDES] [020 IoT Topic Intro](http://docs.google.com/presentation/d/1Z-7AzwLFmrHiJAmN2MMXhgFtnVIneGEMy7BwNoCBQ2E)
   - [SLIDES] [040 Architecture](https://docs.google.com/presentation/d/1i9jHMFC56OSMqlfNVxrh5vAriykxFeolJC68u_LUxGY)
