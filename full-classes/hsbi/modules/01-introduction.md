@@ -13,7 +13,7 @@ The course has a strong emphasis on **MCU programming and embedded systems work*
 
 This repository contains tasks, references, and suggested learning paths for the course. You do not have to complete every listed task mechanically. Instead, you should aim to meet the requirements of each module, document your work clearly, and use the material here as guidance and support.
 
-Your goal is to accomplish the module outcomes and document your learning — not to tick off every single bullet point without reflection.
+Your goal is to accomplish the module outcomes and document your learning - not to tick off every single bullet point without reflection.
 
 ## Structure
 
@@ -40,6 +40,8 @@ Your goal is to accomplish the module outcomes and document your learning — no
   - what IoT means in this course context
   - demo showcases or a short instructor example system
   - examples of hardware platforms such as M5 microcontrollers, Node-RED integration, and dashboard-based systems
+
+
 
 ## Assessment structure
 
@@ -82,6 +84,17 @@ Address at least some of the following:
 - How did collaboration with peers and instructors go?
 - What help did you receive or give?
 - What should you do differently in the next block?
+
+The original workbook also explicitly suggested addressing:
+
+- what was good
+- what was difficult
+- whether there was any good/fun struggling or exploration
+- whether there were any show stoppers where you should reach out to peers or instructors
+- self-evaluation
+- interaction with peers and instructors
+- help and extra work, including who helped you and whom you helped
+- whether you presented, implemented, made a PR, or fixed something important for the class itself
 
 ## Homework note for the block format
 
