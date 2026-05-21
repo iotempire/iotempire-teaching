@@ -371,40 +371,6 @@ Feel free to explore and create new dashboards with Node-RED. Dashboard 2.0 is p
 
 As an alternative, you can explore the IoT MQTT panel app on one phone.
 
-### Module 3 Notes for Further Preparation
-
-> [!WARNING] UT-ADAPT
-> The original workbook contains older instructor notes and week-based preparation fragments. Keep only what is useful for HSBI and remove stale references later.
-
-- build scenario hardware in Arduino
-- use Dallas sensor and OneWire
-- optionally build RGB LED status feedback
-- install IoTempower and study services
-- use Mosquitto CLI and Node-RED further
-- optionally run another local Mosquitto to deepen understanding of network infrastructure
-
-### Config file
-
-- communicate with the MQTT broker from the IoTempower environment
-- run `iot` to start the environment
-- listen to specific and wildcard topics in your system folder
-- check for `system.conf`
-- run `iot help` and learn about the MQTT API and wildcards
-
-Alternatively, you can use other MQTT clients such as VSMQTT in VS Code.
-
-### Smartphone Dashboard Variant: First Aid Station Emergency Button
-
-At the First Aid Station, in some critical situations, it takes too long to publish a message manually. The workers ask your team to create an easy-to-use button system.
-
-1. Install the IoT MQTT panel app on one phone.
-2. Deploy your network using the Mango Router.
-3. Create a connection on the IoT MQTT panel to connect to your network and MQTT broker.
-4. Create a panel.
-5. Create a blue button that sends `Rapid Response (RRT) on room 1` as payload on topic `allpersonnal/doctors`.
-6. Create another button, a big red one that publishes on topic `allpersonnal` with payload like `Code blue room 4`.
-7. Make sure the message is visible on another phone and on the central computer using MQTT Explorer.
-
 [image2]: ../images/image2.png
 [image3]: ../images/image3.png
 [image4]: ../images/image4.png
