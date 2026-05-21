@@ -1,6 +1,6 @@
 # HSBI module quick navigation
 
-For the full front page, workshop overview, and four-day structure, see [../workbook.md](../workbook.md).
+For the workshop front page and day-by-day structure, see [../workbook.md](../workbook.md).
 
 ## Modules
 
@@ -12,10 +12,3 @@ For the full front page, workshop overview, and four-day structure, see [../work
 6. [Module 6 – IoT Systems](./06-iot-systems.md)
 7. [Module 7 – Final Project](./07-final-project.md)
 8. [Extra and Archival Material](./08-extra-and-archival-material.md)
-
-## Day-by-day quick map
-
-- **Day 1:** Modules 1, 2, and Module 3 Part 1
-- **Day 2:** Module 3 continuation, then Module 4
-- **Day 3:** Modules 5 and 6
-- **Day 4:** Preparation for Module 7 final project
