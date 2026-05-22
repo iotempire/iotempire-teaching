@@ -243,7 +243,7 @@ and adapt the `Hello, World!` display to your own MQTT message display.
 Now that you have nodes with some sensors and actuators, integrate them in a simple system using Node-RED.
 
 - run `iot service start --web`
-- Node-RED should be served on `https://localhost:1880/nodered/`
+- Node-RED should be served on `http://localhost:40080/nodered/`
 - user: `admin`
 - password: `iotempire`
 - find the **MQTT IN** and **MQTT OUT** nodes in the left menu
@@ -257,36 +257,34 @@ Create a simple system where the **button** node can:
 
 - send a message to fire the **LED flashing** on the second node
 - send a message to the OLED display node
+- led strip, see below
 
 Use phone or CLI MQTT tools to send and receive messages on your system.
 
 **For the LED strip:**
 
-- the reference schematic is for a 5V LED strip, but the classroom strip is **12V**
-- use the Y cable to power the strip
-- the RGB LED strip is arranged in triplets, every 3 LEDs behave like one pixel, so adjust the code accordingly
-- pins are typically: red = power, green = signal, white = GND
+- the reference schematic is for a 5V LED strip like the one in class
 
 Tips:
 
 - understand how the MQTT server is configured on the MQTT IN and OUT nodes
 - make sure your topics are correct
-- use the **CHANGE** node too
+- use the **SWITCH** node to decide what shoudl happen based on the message received, and  **CHANGE** node to transform one command into another 
 - the **DEBUG** node is very useful
 
-## Task 10: Optional: Build support for the BME/BMP280 i2c sensor or colr sensor of teh kit to run on the ESP32 MiniKit
+## Task 10: Optional: Build support for the BME/BMP280 i2c sensor or color sensor of the kit to run on the ESP32 MiniKit or ESP32 Nodemcu
 
 - Verify whether you have BME280 or BMP280 and select the library correspondingly
 - For BME280, use Adafruit’s BME280 library
-- You can also try out to use the color sensor from the Arduino kit (and post it to an mqtt topic)
+- In teh class of HSBI, you only have  the color sensor from the Arduino kit (and post it to an mqtt topic)
 
 ### Optional: Alarm LED Strip extension
 
-Extend the smooth flashing via PWM node to flash the LED strip with 10 LEDs.
+Extend the smooth flashing via PWM node to flash the LED strip with 8 LEDs.
 
 Attention: use **NeoPixelBus** (to avoid interrupt crashes that can happen with FastLED when using WiFi and MQTT).
 
-## Task 11: Optional: Build support for the VL53L0X LIDAR Distance sensor to run on the ESP32 MiniKit
+## Task 11: Optional: Build support for the VL53L0X LIDAR Distance sensor to run on the ESP32
 
 - Find and test libraries to see which one can run on the ESP32 with multitasking (WiFi) without crashing
 - Report crashes and successes
