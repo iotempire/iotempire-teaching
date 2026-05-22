@@ -89,10 +89,6 @@ Next, set up a WiFi network on the LAN you just created. Log in to the router an
 **Phase 2 Tasks:**
 
 1. Research about 2.4 GHz Wi-Fi band and the European (ETSI) standards. Research what WiFi channels are and understand why it is important to choose a less busy one.
-
-> [!WARNING] UT-ADAPT
-> The original text asks: “Can all channels be used in Estonia?” This should be adapted to Germany / ETSI use at HSBI Gütersloh.
-
 2. Find a less-busy WiFi channel. There is a tool in OpenWRT that helps you with that.
 3. Set up a new WiFi access point with the SSID **IOTxx** (where `xx` is a unique name or number of your router).
 4. Set the WiFi password to **iotempire** and ensure the network is secure with WPA2-PSK encryption.
@@ -108,10 +104,6 @@ Okay, with the WiFi infrastructure working, we now need to set up the MQTT broke
 **Phase 3 Tasks:**
 
 1. Find the internet point. It is a switch full of cables in the room. Connect the router via Ethernet to WAN. You can connect the computer to the LAN via your new WiFi now.
-
-> [!WARNING] UT-ADAPT
-> This room-specific setup needs adapting to the actual HSBI classroom infrastructure.
-
 2. Test if you have internet connection on the router under **Network -> Diagnostics**. Ping `openwrt.org`.
 3. On the router’s menu, find a way to **install Mosquitto** using OpenWRT's package manager in LuCI (`System -> Software`). First update the list of packages.
 4. Install:
