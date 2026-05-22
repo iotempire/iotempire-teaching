@@ -272,17 +272,13 @@ Tips:
 - use the **SWITCH** node to decide what shoudl happen based on the message received, and  **CHANGE** node to transform one command into another 
 - the **DEBUG** node is very useful
 
+Attention: use the **NeoPixelBus** library (to avoid interrupt crashes that can happen with FastLED when using WiFi and MQTT at the same time).
+
 ## Task 10: Optional: Build support for the BME/BMP280 i2c sensor or color sensor of the kit to run on the ESP32 MiniKit or ESP32 Nodemcu
 
 - Verify whether you have BME280 or BMP280 and select the library correspondingly
 - For BME280, use Adafruit’s BME280 library
 - In teh class of HSBI, you only have  the color sensor from the Arduino kit (and post it to an mqtt topic)
-
-### Optional: Alarm LED Strip extension
-
-Extend the smooth flashing via PWM node to flash the LED strip with 8 LEDs.
-
-Attention: use **NeoPixelBus** (to avoid interrupt crashes that can happen with FastLED when using WiFi and MQTT).
 
 ## Task 11: Optional: Build support for the VL53L0X LIDAR Distance sensor to run on the ESP32
 
@@ -292,12 +288,11 @@ Attention: use **NeoPixelBus** (to avoid interrupt crashes that can happen with 
 
 ## Task 12: Optional: LED Animation
 
-If you have spare resources, try to build a simple animation for the LED strip.
+If you have spare resources, try to build a simple animation for the LED strip (on the MCU or via Node-RED)
 
 ## Task 13: Optional: Deep Sleep
 
-Test the deep sleep functionality of the Wemos D1 Mini. Why is deep sleep needed?
-
+Test the deep sleep functionality of the Wemos D1 Mini or esp32. Why is deep sleep needed? How does it effect OTA flashing?
 
 [image7]: ../images/image7.png
 [image8]: ../images/image8.png
