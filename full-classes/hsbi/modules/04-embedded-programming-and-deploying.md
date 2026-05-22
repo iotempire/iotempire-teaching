@@ -243,8 +243,6 @@ and adapt the `Hello, World!` display to your own MQTT message display.
 Now that you have nodes with some sensors and actuators, integrate them in a simple system using Node-RED.
 
 - run `iot service start --web`
-- from inside an IoTempower system folder, run `iot`
-- then run `nodered_starter`
 - Node-RED should be served on `https://localhost:1880/nodered/`
 - user: `admin`
 - password: `iotempire`
