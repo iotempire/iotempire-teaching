@@ -130,7 +130,7 @@ The original workbook example uses:
 
 Put your own code into the portfolio.
 
-## Adding an ESP32
+## General information for adding an ESP32 (not a task)
 
 Submit the code from following along with the projects described above.
 
@@ -276,10 +276,11 @@ Tips:
 - use the **CHANGE** node too
 - the **DEBUG** node is very useful
 
-## Task 10: Optional: Build support for the BME/BMP280 i2c sensor to run on the ESP32 MiniKit
+## Task 10: Optional: Build support for the BME/BMP280 i2c sensor or colr sensor of teh kit to run on the ESP32 MiniKit
 
 - Verify whether you have BME280 or BMP280 and select the library correspondingly
 - For BME280, use Adafruit’s BME280 library
+- You can also try out to use the color sensor from the Arduino kit (and post it to an mqtt topic)
 
 ### Optional: Alarm LED Strip extension
 
