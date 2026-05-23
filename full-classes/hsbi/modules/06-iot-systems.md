@@ -54,9 +54,6 @@ For the portfolio in this task, be very brief with the steps and focus on code, 
 
 ## Hostel HostmeWell Automation
 
-> [!WARNING] UT-ADAPT
-> This scenario is explicitly tied to **Tartu** and should be rewritten for HSBI/Gütersloh or replaced entirely.
-
 ### Team finding
 
 Spend some minutes finding potential teammates for this project. Team up with another pair.
