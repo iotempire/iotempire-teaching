@@ -60,7 +60,7 @@ This can be done on one node-red installation, but is more fun when different co
 
 Show the two simulators with the integrator in concert and fix things if they do not work.
 
-> Tips: if IoTknit is not working well for the simulators, `paho.mqtt` or another MQTT-capable approach is fine.
+> Old tips: if IoTknit is not working well for the simulators, `paho.mqtt` or another MQTT-capable approach is fine.
 
 Supply steps, code, and screenshots from running everything together in the portfolio.
 

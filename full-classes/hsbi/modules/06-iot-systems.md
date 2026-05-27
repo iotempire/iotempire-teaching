@@ -4,7 +4,7 @@
 
 **Block placement:** This module is scheduled for **Day 3**, together with Module 5. Try to reach the team (test) project today, we can use a bit of time on the fourth day to finish it.
 
-## Scaling IoT Systems
+## Task 1: Scaling IoT Systems
 
 Slides: [Scaling IoT Systems](https://docs.google.com/presentation/d/1Jqvox8ba1FuM9QS67BS8BsGoHe7STENVnbn3vzxJ2fU)
 
@@ -12,7 +12,7 @@ Slides: [Scaling IoT Systems](https://docs.google.com/presentation/d/1Jqvox8ba1F
 - Add your notes for scaling up here
 - Add your notes for Device Management and Integration for IoT Systems here
 
-## IoTempower as Device Management Framework
+## Demonstration:IoTempower as Device Management Framework
 
 Remark: Only one deploy command can run at a time on one IoTempower gateway. Coordinate with your peer(s). Also, this is a long lab. Use your time wisely and consider dividing tasks after you and your peers grasp the basics.
 
@@ -21,7 +21,7 @@ Start the services as discussed and tested in previous modules.
 Tool support in IoTempower:
 [https://github.com/iotempire/iotempower/blob/master/doc/tool-support.rst](https://github.com/iotempire/iotempower/blob/master/doc/tool-support.rst)
 
-### Task 1 (pre task): Creating Your First IoT System with IoTempower
+### Task 2 (pre task): Creating Your First IoT System with IoTempower
 
 This is meant to get you set up with IoTempower and configure, deploy, and manage IoT nodes.
 
@@ -35,11 +35,11 @@ For the step “Next deployments”, connect the node to external USB power as s
 
 TIPS: using [WSL USB GUI](https://gitlab.com/alelec/wsl-usb-gui/-/releases) can help with attaching the device for easy flashing.
 
-### Task 2: Second Node
+### Task 3: Second Node
 
 Follow the [manual here](https://github.com/iotempire/iotempower/blob/master/doc/second-node.rst) and do all the subtasks, also using the toggle node.
 
-### Task 3: Rebuild access control system with IoTempower (4+ nodes)
+### Task 4: Rebuild access control system with IoTempower (4+ nodes)
 
 Create a new IoT system and configure the config file.
 Rebuild a minimal version of your access control system with IoTempower nodes. You can re-use your Node-RED code and adjust the topics. Remember to create a **new node folder** inside your new IoT system for each separate node you are going to deploy. Use the `iot menu` if needed.
@@ -48,7 +48,7 @@ Pick at least 4 sensors from the last module and implement them in an IoTempower
 
 For the portfolio in this task, be very brief with the steps and focus on code, photos, screenshots, and explain only the important changes in your Node-RED flow as it should stay mainly the same as before.
 
-## Hostel HostmeWell Automation
+## Task 5: Hostel HostmeWell Automation
 
 TODO: consider bringing back water measurement task
 
@@ -89,7 +89,7 @@ You have to prototype one solution during this lab class.
 
 OBS: The challenges can be weird, absurd, and creative. They do not have to fully work as long as they explore creative solutions.
 
-### Portfolio report
+### Portfolio report for Task 5: Hostel HostmeWell Automation
 
 In the portfolio report your build system:
 
