@@ -4,6 +4,8 @@
 
 **Block placement:** **Day 4** is dedicated to preparation for this final project module: project ideation, architecture planning, integration preparation, implementation support, and presentation readiness.
 
+We might add a little bit on driver development for IoTempower here, maybe also on testing IoT projects using IoTempower as an example. This will involve showing off how to use AI for IoTempower. Another option might be dirty prototyping with cardboard.
+
 ## Stories / Scenarios
 
 Check the story on the last slide:
