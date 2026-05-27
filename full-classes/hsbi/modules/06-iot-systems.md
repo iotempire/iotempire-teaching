@@ -2,15 +2,15 @@
 
 [← Previous: Module 5](./05-integration-and-simulations.md) | [Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 7 →](./07-final-project.md)
 
-**Block placement:** This module is scheduled for **Day 3**, together with Module 5.
+**Block placement:** This module is scheduled for **Day 3**, together with Module 5. Try to reach the team (test) project today, we can use a bit of time on the fourth day to finish it.
 
 ## Scaling IoT Systems
 
 Slides: [Scaling IoT Systems](https://docs.google.com/presentation/d/1Jqvox8ba1FuM9QS67BS8BsGoHe7STENVnbn3vzxJ2fU)
 
-- Add your notes for building blocks and pain points
-- Add your notes for scaling up
-- Add your notes for Device Management and Integration for IoT Systems
+- Add your notes for building blocks and pain points here
+- Add your notes for scaling up here
+- Add your notes for Device Management and Integration for IoT Systems here
 
 ## IoTempower as Device Management Framework
 
@@ -21,18 +21,15 @@ Start the services as discussed and tested in previous modules.
 Tool support in IoTempower:
 [https://github.com/iotempire/iotempower/blob/master/doc/tool-support.rst](https://github.com/iotempire/iotempower/blob/master/doc/tool-support.rst)
 
-### Pre-task
+### Task 1 (pre task): Creating Your First IoT System with IoTempower
 
-This is meant to get you set up with IoTempower and configure the IoT nodes.
-
-### Task 1: Creating Your First IoT System
+This is meant to get you set up with IoTempower and configure, deploy, and manage IoT nodes.
 
 Follow the [quickstart](https://github.com/iotempire/iotempower/blob/master/doc/quickstart.rst) all the way to the second node as well as the linked tutorial video ([https://youtu.be/fTWNYXfet9E](https://youtu.be/fTWNYXfet9E)) and do all subtasks.
 
 Be aware that some things might not be updated. Ask the instructor and file issues if you spot potential improvements in the documentation — or even PRs.
 
-> [!WARNING] UT-ADAPT
-> The original workbook assumes the older UT setup and references `gw.iotempower.net`. For HSBI, replace this with the address of your actual gateway computer and port `40080`, for example `http://192.168.14.xxx:40080` or `http://localhost:40080`.
+The videos and some resources might still mention `gw.iotempower.net`. For HSBI, replace this with the address of your actual gateway computer and port `40080`, for example `http://192.168.14.xxx:40080` or `http://localhost:40080`.
 
 For the step “Next deployments”, connect the node to external USB power as suggested and show that the deploy step still works over OTA.
 
@@ -44,8 +41,7 @@ Follow the [manual here](https://github.com/iotempire/iotempower/blob/master/doc
 
 ### Task 3: Rebuild access control system with IoTempower (4+ nodes)
 
-Create a new IoT system and configure the config file. Also create a little story for your access control system. Write your story in the scenario file inside your system folder.
-
+Create a new IoT system and configure the config file.
 Rebuild a minimal version of your access control system with IoTempower nodes. You can re-use your Node-RED code and adjust the topics. Remember to create a **new node folder** inside your new IoT system for each separate node you are going to deploy. Use the `iot menu` if needed.
 
 Pick at least 4 sensors from the last module and implement them in an IoTempower system. You can take the examples of Module 5 task 2 and choose sensors and actuators such as OLED, RFID, lock-relay, etc.
@@ -54,9 +50,11 @@ For the portfolio in this task, be very brief with the steps and focus on code, 
 
 ## Hostel HostmeWell Automation
 
+TODO: consider bringing back water measurement task
+
 ### Team finding
 
-Spend some minutes finding potential teammates for this project. Team up with another pair.
+Spend some minutes finding potential teammates for this project. Team up with another pair if you didn't yet.
 
 ### Story
 

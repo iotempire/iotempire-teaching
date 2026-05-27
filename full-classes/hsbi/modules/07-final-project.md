@@ -7,7 +7,7 @@
 ## Stories / Scenarios
 
 Check the story on the last slide:
-[http://docs.google.com/presentation/d/1aP8I-Je3Z1NOvJS1IhlfhImQXkhzSygZ0q4VY9nivqM/edit?slide=id.g26870712a6b_0_90#slide=id.g26870712a6b_0_90](http://docs.google.com/presentation/d/1aP8I-Je3Z1NOvJS1IhlfhImQXkhzSygZ0q4VY9nivqM/edit?slide=id.g26870712a6b_0_90#slide=id.g26870712a6b_0_90)
+[http://docs.google.com/presentation/d/1aP8I-Je3Z1NOvJS1IhlfhImQXkhzSygZ0q4VY9nivqM](http://docs.google.com/presentation/d/1aP8I-Je3Z1NOvJS1IhlfhImQXkhzSygZ0q4VY9nivqM)
 
 Stories/Scenarios:
 
@@ -16,7 +16,7 @@ Stories/Scenarios:
   - If you do not have your own idea, use AI to generate a scenario. It is still for practice and does not need to become your final project.
 - Present the story/scenario to a neighboring team (2×5 minutes).
 - Discuss potential problems/challenges (5 min) and take notes.
-- Discuss implementation possibilities (10 min): how likely can you build something like this with the kit, what would need to be mocked up, and what kind of integration would be needed?
+- Discuss implementation possibilities (10 min): how likely can you build something like this with the kit and otehr hardware available in class, what would need to be mocked up, and what kind of integration would be needed?
 
 Remember:
 
@@ -26,13 +26,13 @@ Remember:
 ## Final Project
 
 Ideas for final projects can be found here:
-[https://docs.google.com/document/d/1teqr0nhfCHbBuo15FlxK9HuAG6_qJZO3SNs4zY_-MCs/edit?usp=sharing](https://docs.google.com/document/d/1teqr0nhfCHbBuo15FlxK9HuAG6_qJZO3SNs4zY_-MCs/edit?usp=sharing)
+[https://docs.google.com/document/d/1teqr0nhfCHbBuo15FlxK9HuAG6_qJZO3SNs4zY_-MCs](https://docs.google.com/document/d/1teqr0nhfCHbBuo15FlxK9HuAG6_qJZO3SNs4zY_-MCs)
 
 You can mainly decide yourselves how the final project will be done, but the original workbook defines at least the following constraints:
 
 - The challenge tackled should be meaningful for at least one team member, ideally more.
-- 4 people in a team.
-  - Use Scrum if you wish for the project.
+- 4-6 people in a team.
+  - Use Scrum if you wish for the project, but only if you know already - else it migh tbe overkill
 - Cross at least 2 domains (for example environment monitoring, security, remote access, home automation).
 - Create a story, including at least one pitchable story.
 - Try to use IoTempower as the framework for your project. Talk to the instructors if you wish to use something different.
@@ -45,21 +45,19 @@ You can mainly decide yourselves how the final project will be done, but the ori
   - optional simulated components
   - optional cloud connection
 
-## Extra Content
-
-There may be some presentation at the beginning of the next weeks about other IoT services and domains, depending on availability of guest lectures and instructors.
-
 ## Final Project Presentation
 
-Your final projects should be presented on the last day as a poster-style session for the whole class.
+Your final projects should be presented as a video presentation and made available to the instructor and all class members (probably will do pulic links in Ilias)
 
 Presentation expectations include:
 
-- prototypes are preferred
-- potentially an interactive poster or movie is also possible
+- prototypes are preferred (you can use cardboard and/or 3d printing)
+- have a visual aid: poster or slides
 - a presentable story
 - notes and guides in the portfolio about the architecture
 - notes and guides in the portfolio about technical and other challenges
-
-> [!WARNING] UT-ADAPT
-> The team size, scope, timing, and presentation assumptions still come from the original longer course. Review these for the condensed HSBI workshop format.
+- the video:
+  - you can have an opening slide sketching your project, but don't spend too much time here - narrate quickly what this will be about
+  - continue with a playthrough in a pitching style of your running prototype - then add technical explanation - you can add slides here to outline or mock things, but foxus on the physical running prototype presentation
+  - move on to a very short technical breakdown (can be supported by slides) showing challenges and succeses (things you are proud about) and "cool" solutions (how you solved things in particular "cool" ways)
+  - end with a positive take away and why someone (or even you) should continue this project beyond this class

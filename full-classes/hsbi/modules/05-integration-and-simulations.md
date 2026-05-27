@@ -8,7 +8,7 @@
 
 At this point, we assume that you can do the following things:
 
-1. Set up a spontaneous network infrastructure (hint: power your Mango from a >=2A USB charger).
+1. Set up a spontaneous network infrastructure (hint: power your Mango or small router from a >=2A USB charger -- do not power it from your computer USB port - nobody did so far, but was an issue in other classes).
 2. Send and receive messages via phone, Node-RED, and CLI in MQTT with at least one MQTT broker in your local network.
 3. Flash Wemos D1 Mini or ESP32 MiniKit from your own computers.
 4. Work in Visual Studio Code with PlatformIO or Arduino IDE on your PC.
@@ -17,31 +17,38 @@ At this point, we assume that you can do the following things:
 In class, you are expected to already be operational with the infrastructure basics and continue more independently.
 
 We will  skip the Python programming with IoTknit in class,
-consider taking a look if you are interested.
+but consider taking a look if you are interested and know a bit about Python.
 
+> Optional at HSBI:
+> 
 > Watch the [IoTknit](https://github.com/iotempire/iotknit) video and, ideally before class, take notes or try to set up a programming sketch:
 >[https://youtu.be/a3p9lALoUQY](https://youtu.be/a3p9lALoUQY)
 
-Optional recap videos:
+Optional (in general) recap videos:
 
 - MQTT barebones: [https://youtu.be/RxrCS5Fi2LY](https://youtu.be/RxrCS5Fi2LY)
 - Node-RED recap: [https://youtu.be/ycTVafrn3Pw](https://youtu.be/ycTVafrn3Pw)
 
-## Task 1: HVAC system with Integration (Orchestration)and Simulators/Mockups (Testers)
+## Task 1: HVAC system with Integration (Orchestration) and Simulators/Mockups (Testers)
 
 ### Task 1.1: Purely software integrator + mocks
 Integration, in the sense used here, is about separation of concerns, integration, testing, scaling, and orchestration.
 
 Build integration and mock components of an air condition unit in Node-RED:
-1. one flow that shows with a colored button in the dashboard 2 if it is turned on or off (the air conditioner mock-up) and listens on an mqtt topic for state changes
+
+1. one flow that shows with a colored button (check hints below) in the dashboard 2 if it is turned on or off (the air conditioner mock-up) and listens on an mqtt topic for state changes
+
 2. one flow that let's you set the temperature with the dashboard 2 slider and sends it to an mqtt topic
-3. a flowthat is the integrator that decides when to tund the air conditioner on or off
+
+3. a flow that is the integrator that decides when to tund the air conditioner on or off
 This can be done on one node-red installation, but is more fun when different components/flows are deployed on different installations
 
-Old Python based part:
+> Old (now optional for HSBI) Python based part:
+>
 > - Rebuild the air conditioning integrator component from the [video](https://youtu.be/a3p9lALoUQY?list=PLlppUpfgGsvkfAGJ38_mzQc1-_Z7bNOgq)
 > - the original example is with IoTknit in Python, but you may also build your own directly with `paho.mqtt` or another language/tool
 > - put your code in the portfolio and provide a small explanation of the problems faced and the steps taken
+>
 > Build two simulator components (software mockups of actual hardware sensors that behave like the hardware):
 >
 > - **Temperature Simulator:**
@@ -57,19 +64,19 @@ Show the two simulators with the integrator in concert and fix things if they do
 
 Supply steps, code, and screenshots from running everything together in the portfolio.
 
-## Task 1 (1.2+): HVAC system with real sensors in Node-RED
+## Task 1.2+: HVAC system with real sensors in Node-RED
 
 **Attention:** When attaching new actors or sensors to a microcontroller, disconnect the microcontroller from power first. Most things use 3.3V. Only wire things to 5V if explicitly stated. Be even more careful when using 12V.
 
 ### Task 1.2: Sensor: Node with Temperature Sensor
 
-Connect the Dallas sensor shield onto a tripler (or with dupont cables) onto an ESP and program it with PlatformIO or Arduino IDE to send the measured temperature to an MQTT topic.
+Connect the Dallas sensor shield onto a tripler (or with dupont cables) onto an ESP and program it with PlatformIO or Arduino IDE to send the measured temperature to an MQTT topic. Why do I ask you to not slot it on directly? You can also use the long cable water proof dallas sensor with a 5K resistor (check exact wiring online).
 
 ### Task 1.3: Actor: Second Node: AC as smoothly flashing LED
 
-Remember the smoothly flashing led? Use it to simulate an air conditioner turning on and off. (the light nicely pulsates when it is turned on, just turned off, when everything is turned off)
+Remember the smoothly flashing led? Use it to simulate an air conditioner turning on and off: This means, the light nicely pulsates when it is turned on and simply turned off when everything is turned off.
 
-- build a node that listens to a topic and turns on/off depending on the message
+- build a node that listens to a topic and turns on/off the pulsating led depending on the message
 - create a different topic to report the status of the AC (`ON` / `OFF`)
 - make sure it re-reports the status every 5 seconds
 
@@ -87,20 +94,19 @@ Node-RED dashboard: [http://localhost:40080/](http://localhost:40080/)
 2. Rebuild your MQTT integration component in Node-RED.
 3. Rebuild the switch simulator / AC unit simulator with a Node-RED dashboard text field whose color and value change depending on status.-->
 
-Hint: **Import** the following flow and adjust in Node-RED:
+Hint: **Import** the following flow and adjust in Node-RED for the colored button:
 
-\=== flow: copy behind \===
+**flow, copy and import:**
 
-\[{"id":"976557a0.10d4d8","type":"ui\_text","z":"4c5714c4d5ef2327","group":"2d409e5a629e3627","order":6,"width":"6","height":"1","name":"Colored text","label":"\<font color={{msg.labelcolor}}\>Display\</font\>","format":"\<font color= {{msg.color}}\>{{msg.payload}}\</font\>","layout":"row-spread","className":"","x":510,"y":860,"wires":\[\]},{"id":"c6bcdbe4.6822b8","type":"inject","z":"4c5714c4d5ef2327","name":"","props":\[{"p":"labelcolor","v":"lime","vt":"str"},{"p":"color","v":"blue","vt":"str"},{"p":"payload"}\],"repeat":"","crontab":"","once":false,"onceDelay":"0.1","topic":"","payload":"my-value","payloadType":"str","x":240,"y":800,"wires":\[\["976557a0.10d4d8"\]\]},{"id":"af3518c94a45b560","type":"inject","z":"4c5714c4d5ef2327","name":"","props":\[{"p":"labelcolor","v":"red","vt":"str"},{"p":"color","v":"green","vt":"str"},{"p":"payload"}\],"repeat":"","crontab":"","once":false,"onceDelay":"0.1","topic":"","payload":"other-value","payloadType":"str","x":240,"y":920,"wires":\[\["976557a0.10d4d8"\]\]},{"id":"2d409e5a629e3627","type":"ui\_group","name":"Default","tab":"48eda0fa9ee46e86","order":1,"disp":true,"width":"6","collapse":false,"className":""},{"id":"48eda0fa9ee46e86","type":"ui\_tab","name":"Home","icon":"dashboard","disabled":false,"hidden":false}\]
+```json
+[{"id":"976557a0.10d4d8","type":"ui_text","z":"4c5714c4d5ef2327","group":"2d409e5a629e3627","order":6,"width":"6","height":"1","name":"Colored text","label":"<font color={{msg.labelcolor}}>Display</font>","format":"<font color= {{msg.color}}>{{msg.payload}}</font>","layout":"row-spread","className":"","x":510,"y":860,"wires":[]},{"id":"c6bcdbe4.6822b8","type":"inject","z":"4c5714c4d5ef2327","name":"","props":[{"p":"labelcolor","v":"lime","vt":"str"},{"p":"color","v":"blue","vt":"str"},{"p":"payload"}],"repeat":"","crontab":"","once":false,"onceDelay":"0.1","topic":"","payload":"my-value","payloadType":"str","x":240,"y":800,"wires":[["976557a0.10d4d8"]]},{"id":"af3518c94a45b560","type":"inject","z":"4c5714c4d5ef2327","name":"","props":[{"p":"labelcolor","v":"red","vt":"str"},{"p":"color","v":"green","vt":"str"},{"p":"payload"}],"repeat":"","crontab":"","once":false,"onceDelay":"0.1","topic":"","payload":"other-value","payloadType":"str","x":240,"y":920,"wires":[["976557a0.10d4d8"]]},{"id":"2d409e5a629e3627","type":"ui_group","name":"Default","tab":"48eda0fa9ee46e86","order":1,"disp":true,"width":"6","collapse":false,"className":""},{"id":"48eda0fa9ee46e86","type":"ui_tab","name":"Home","icon":"dashboard","disabled":false,"hidden":false}]
+```
 
-\=== end flow: end copy selection before \===  
 Hint: **function** and **template** can used for text color changes
 
-You can also realize the same with a dashboard button \- for that one, assigning the color is explained in the local Node-RED manual. 
+You can also realize the same with a dashboard button - for that one, assigning the color is explained in the local Node-RED manual. 
 
 Please deliver your implementation steps, screenshots of the flows, and exports of your flows for your portfolio. 
-
-Please deliver your implementation steps, screenshots of flows, and exports of your flows for the portfolio.
 
 <!--## Make sure you can see your dashboard on any device on the network using a browser
 
@@ -117,11 +123,11 @@ Please deliver your implementation steps, screenshots of flows, and exports of y
 
 In this project, you will put together what you have learned so far. Build an access control system using the RFID reader, RGB LED, buzzer, OLED display, and the relay with the solenoid drawer lock.
 
-When access is granted:
+When access is granted (the following is the task description, it is broken down in subtasks below):
 
 - open the lock
 - make sure it locks again after a short while
-- write an access message to the display
+- write an access message to the physical display (oled or LCD)
 - turn the LED green
 - make a positive buzzer sound
 
@@ -141,30 +147,23 @@ Please deploy each sensor and actor in a different node, meaning different micro
 
 Here is the wiring diagram for the RFID-reader:
 
-Wemos
+```
+        Wemos D1 Mini/    mfrc522/
 
-         D1 Mini/    mfrc522/
-
-         NodeMCU      \-  rfid-rc522 board
-
+         NodeMCU      -  rfid-rc522 board
          (esp32)
 
-             3V3      \-  3.3V
+             3V3      -  3.3V
+              D8 ( 5) -  sda
+              D7 (23) -  MOSI
+              D6 (19) -  MISO
+              D5 (18) -  SCK
+              D0 (26) -  RST
+               G      -  GND
+             N/C      -  IRQ (IRQ not needed in a polling library)
+```
 
-              D8 ( 5\) \-  sda
-
-              D7 (23) \-  MOSI
-
-              D6 (19) \-  MISO
-
-              D5 (18) \-  SCK
-
-              D0 (26) \-  RST
-
-               G      \-  GND
-
-             N/C      \-  IRQ (IRQ not needed in a polling library)
-
+You will face alot of connection challenges and interferences in this task, embrace the challenges and make sure to document them in your portfolio task reports.
 
 ### Task 2.2: Sensor: Ultrasonic Distance Sensor / LIDAR / PIR as “presence” detector
 
@@ -183,12 +182,13 @@ Use the code from the PWM LED project to deploy a new node.
 - optionally add a second slider for frequency
 - extend this to playing notification sounds
 - in the Node-RED dashboard, create a notification system that plays a short deny-sound when access is denied
+- remark: there are some buzzers that can be turned on or off to make a sound and some that react to PWM for different tones - use the latter
 
 All necessary functionality should already be available in the installed dashboard nodes.
 
 ### Task 2.4: Actor: Mini OLED Text receiver
 
-Use the OLED I2C display mini project to implement a text receiver for the access control system.
+Use the OLED I2C display mini project to implement a text receiver for the access control system (or if you used the LCD display, use that - or if you want ot challnege yourself take the respective other)
 
 Examples:
 
@@ -200,20 +200,20 @@ Send some MQTT messages via phone or Mosquitto CLI tools to test that the messag
 
 ### Task 2.5: Actor: PWM LED or RGB LED
 
-If you managed smooth flashing via PWM before, now use Node-RED to control the brightness (duty cycle) of 2 LEDs (green and red).
+If you managed smooth flashing via PWM before, now use Node-RED to control the brightness directly (duty cycle) of 2 LEDs (green and red) - so transfer the "smoothness" away from the MCU to the integrating system with Node-RED. You should see a difference and learn something from that small experiment.
 
 - observe whether the smoothness changes when controlled by Node-RED
 - integrate the LEDs into the access control system
 - red for access denied
 - green for access granted
-- or use one RGB LED if available
+- or use one RGB LED if available (if you do the latter observe the mixing of colors)
 
 ## Task 3: Optional: Display Weather info on OLED display
 
-While the OLED display is idle and not being used by the access control, fetch some weather info from an API and display it there.
+While the OLED display is idle and not being used by the access control, fetch some weather info from an API in Node-REDand display it there (check out the pallette and available plug-ins/libraries).
 
 Find out on your own how this can be done using Node-RED.
 
 ## Task 4: Optional: Discord/Telegram bridge
 
-Build a bridge to Discord or Telegram to interact with your security system: notifications of attempted access and possibility to remote unlock.
+Build a bridge to Discord or Telegram (or another supported messaging service of your choice - no, mqtt already works!) to interact with your security system: notifications of attempted access and possibility to remote unlock.
