@@ -6,6 +6,8 @@
 
 ## Integration and Simulations
 
+The instructor will lead through this prelude and talk a and discuss a bit about the need for integration.
+
 At this point, we assume that you can do the following things:
 
 1. Set up a spontaneous network infrastructure (hint: power your Mango or small router from a >=2A USB charger -- do not power it from your computer USB port - nobody did so far, but was an issue in other classes).
