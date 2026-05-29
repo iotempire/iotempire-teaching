@@ -2,7 +2,7 @@
 
 [← Previous: Module 5](./05-integration-and-simulations.md) | [Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 7 →](./07-final-project.md)
 
-**Block placement:** This module is scheduled for **Day 3**, together with Module 5. Try to reach the team (test) project today, we can use a bit of time on the fourth day to finish it.
+**Block placement:** This module is scheduled for **Day 3**, together with Module 5. Try to reach the team (test) project today, we can use a bit of time on the fourth day to finish it. We will also reserve uo to three hours of **Day 4** for this module.
 
 ## Task 1: Scaling IoT Systems
 
@@ -99,3 +99,13 @@ In the portfolio report your build system:
 4. Make sure your story is also there.
 5. Report on difficulties you found with certain sensors.
 6. Report on how to use the filter you have chosen.
+
+## Task 6: more, more more
+
+Send someone or a delegation in front and check out all other sensors (and a few actors) that are available.
+
+You also have a step motor and a servo motor in your own kit.
+
+Implement at least three of these devices either in IoTempower or on your own. (Just connect to mqtt and show that you gan control them or get data.)
+
+Testing some of the new drivers in IoTempower (even showing that they are broken, counts also as one device).
