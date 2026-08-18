@@ -31,6 +31,21 @@ Course Elements
 
 The core sessions include storytelling and story-driven development, basic electronics, networking, communication protocols, IoT architecture, and exploring open-stack integrations using Node-RED, all seamlessly enabled within the umbrella IoTempower framework. All the software used in our course (including the IoTempower framework itself) is open-source and relies only on libraries with permissive licenses, making it a solution that is affordable and easy to replicate. Our students can even turn their projects into commercial products without any license restrictions.
 
+**Available Workbooks**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+We provide two comprehensive workbooks that serve as the foundation for our IoT courses, each tailored to different formats and contexts:
+
+- **University of Tartu (UT) Workbook**:
+  A modular, **16-week class** designed for in-depth exploration of IoT concepts. This workbook is split into per-module files for easier maintenance and covers a structured progression from introduction to final projects. It is ideal for semester-long courses.
+  For more details, see the `UT Lab Tutorials Workbook </full-classes/unitartu/workbook.md>`_.
+
+- **HSBI/GT Lab Tutorials Workbook**:
+  A **condensed four-day block format** designed for intensive workshops. This workbook adapts material from the UT version to fit a shorter timeframe, with a stronger emphasis on MCU programming and embedded systems while maintaining IoT as an application context.
+  For more details, see the `HSBI/GT Workbook </full-classes/hsbi/workbook.md>`_.
+
+
 We introduce the IoTempower framework early in the class to allow rapid prototyping and quick success, which keeps students motivated to learn more. Once the students have experienced key IoT development tools (after about 50 to 70% of the class), they start designing and then implementing their final project. Starting from stories, students describe a challenge inspired by a real-world problem and work towards constructing a feasible solution. Guest speakers from industry and academia highlight different problem domains to help guide the students in picking and describing challenges for their final projects.
 
 Learning Tools
@@ -41,7 +56,15 @@ We provide a chat server that allows all students studying IoT to profit from ea
 We also provide `slides <https://drive.google.com/drive/u/1/folders/1yDEujSYP5BspnAYI0K_CjRdWSimEgR4->`__,
 `task descriptions <https://docs.google.com/document/d/1HcGwUVQM3lANhfRxZ_aJuPfk6O4GqHT7Zskn4EMPQc0>`__,
 `questions <https://docs.google.com/document/d/1HcGwUVQM3lANhfRxZ_aJuPfk6O4GqHT7Zskn4EMPQc0>`__,
-and `videos <https://www.youtube.com/@ut-teaching-ulno>`_ to help with technical challenges or supporting discussions. We are continually creating new video material to support upcoming technical challenges. Chatbots of large language models (LLMs) like ChatGPT, Copilot, or Gemini also enhance our class learning experience by speeding up individual and team in-class research tasks. They also enrich our discussions by allowing us to critically reflect on their answers and suggestions.
+and `videos <https://www.youtube.com/@ut-teaching-ulno>`_
+to help with technical challenges or supporting discussions. We are continually creating new video material to support upcoming technical challenges. Chatbots of large language models (LLMs) like ChatGPT, Copilot, or Gemini also enhance our class learning experience by speeding up individual and team in-class research tasks. They also enrich our discussions by allowing us to critically reflect on their answers and suggestions.
+
+
+Our course material is organized into the two workbooks mentioned above:
+`[UT Workbook] </full-classes/unitartu/workbook.md>`_
+and
+`[HSBI/GT Workbook] </full-classes/hsbi/workbook.md>`_,
+which provide structured guidance and hands-on activities for students and instructors alike.
 
 In our course, we embrace the idea that hands-on experiences are crucial for the learning process. We provide a kit with sensors, actuators, cables, power supplies, a gateway, and microcontrollers to each student team. We paid special attention to selecting each kit component, prioritizing affordability and ease of sourcing in most regions worldwide. This approach equips each team with a truly practical experience as they can control every aspect of their network and do not have to depend on resources and services (from the university or the cloud) outside of the scope of their group.
 
@@ -63,6 +86,11 @@ please do not hesitate to `contact </contact>`__ me. However, below is all the r
 
 * Machado, R.P., Norbisrath, U., Jubeh, R.: *IoT educational framework case study: Devices as things for hands-on collaboration*. Journal of Engineering Education Transformations (37) (2024)
 * IoTempower, software that facilitates all this with lots of documentation and starting points for teaching, can be found at `IoTempower GitHub <https://github.com/iotempire/iotempower>`__
+
+Explore the available workbooks for detailed course structures and activities:
+* [University of Tartu (UT) Workbook](/full-classes/unitartu/workbook.md)
+* [HSBI/GT Lab Tutorials Workbook](/full-classes/hsbi/workbook.md)
+
 * Full stories describing our impact: `HarvestMate <https://iotempire.net/story-harvestmate>`_, `SmartNursing <https://iotempire.net/story-smartnursing>`_, `Teaching <https://iotempire.net/story-teaching>`_
 * More technical description of the used hardware of the kit: `IoT Dev Kits <https://ulno.net/iot/devkits/>`_
 * Teaching material (Syllabus, Slides, Contracts, Tasks) can be found on `Google Drive <https://drive.google.com/drive/folders/1emkQvl_Il7msQdKhZj36I3ct7NBkteIu>`_, and videos are available on `YouTube @ut-teaching-ulno <https://www.youtube.com/@ut-teaching-ulno>`_, with a `playlist <https://www.youtube.com/watch?v=v2kV6pgJxuo&list=PLlppUpfgGsvkfAGJ38_mzQc1-_Z7bNOgq&pp=iAQB>`_

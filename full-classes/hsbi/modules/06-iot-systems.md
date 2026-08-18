@@ -104,7 +104,7 @@ In the portfolio report your build system:
 
 Send someone or a delegation in front and check out all other sensors (and a few actors) that are available.
 
-You also have a step motor and a servo motor in your own kit.
+You also have a stepper motor and a servo motor in your own kit.
 
 Implement at least three of these devices either in IoTempower or on your own. (Just connect to mqtt and show that you gan control them or get data.)
 
