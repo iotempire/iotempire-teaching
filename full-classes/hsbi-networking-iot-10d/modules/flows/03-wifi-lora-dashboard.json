@@ -1,0 +1,75 @@
+[
+  {
+    "id": "wifi-lora-dashboard-tab",
+    "type": "tab",
+    "label": "Wifi vs LoRa Power & RSSI",
+    "info": "Dashboard visualizes power and rssi differences every 5 seconds."
+  },
+  {
+    "id": "wifi-rssi-chart",
+    "type": "ui_chart",
+    "z": "wifi-lora-dashboard-tab",
+    "name": "WiFi RSSI",
+    "group": "RSSI",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "label": "dBm",
+    "chartType": "line",
+    "legend": "false",
+    "x": 280,"y": 160,
+    "wires": []
+  },
+  {
+    "type": "ui_gauge",
+    "z": "wifi-lora-dashboard-tab",
+    "name": "WiFi Current (mA)",
+    "group": "Power",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "gtype": "wave",
+    "title": "mA",
+    "label": "units",
+    "format": "{{value}}",
+    "min": 0,"max": 300,
+    "colors": ["#00ff00","#ff9900","#ff0000"],
+    "seg1": "150","seg2": "250","x": 160,"y": 200,
+    "wires": []
+  },
+  {
+    "type": "ui_gauge",
+    "z": "wifi-lora-dashboard-tab",
+    "name": "LoRa Current (mA)",
+    "group": "Power",
+    "order": 1,
+    "width": 0,"height": 0,
+    "gtype": "wave","title": "mA",
+    "label": "units","format": "{{value}}",
+    "min": 0,"max": 300,
+    "seg1": "150","seg2": "250","x": 420,"y": 200,
+    "wires": []
+  },
+  {
+    "type": "ui_chart",
+    "z": "wifi-lora-dashboard-tab",
+    "name": "LoRa RSSI",
+    "group": "RSSI",
+    "order": 3,
+    "width":0,
+    "height":0,
+    "label":"dBm",
+    "chartType":"line","legend":false,
+    "x":280,"y":320,"wires":[]
+  },
+  {
+    "id":"power-topic-debug",
+    "type":"debug",
+    "z":"wifi-lora-dashboard-tab",
+    "name":"Power Debug",
+    "active":true,"tosidebar":true,"console":false,
+    "tostatus":false,"complete":false,
+    "x":580,"y":200,
+    "wires":[]
+  }
+]

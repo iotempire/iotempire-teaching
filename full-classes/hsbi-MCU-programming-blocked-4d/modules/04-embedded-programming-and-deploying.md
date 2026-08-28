@@ -278,7 +278,7 @@ Attention: use the **NeoPixelBus** library (to avoid interrupt crashes that can 
 
 - Verify whether you have BME280 or BMP280 and select the library correspondingly
 - For BME280, use Adafruit’s BME280 library
-- In teh class of HSBI, you only have  the color sensor from the Arduino kit (and post it to an mqtt topic)
+- In the case of this HSBI MCU programming class, you only have the color sensor from the Arduino kit (and post it to an mqtt topic)
 
 ## Task 11: Optional: Build support for the VL53L0X LIDAR Distance sensor to run on the ESP32
 

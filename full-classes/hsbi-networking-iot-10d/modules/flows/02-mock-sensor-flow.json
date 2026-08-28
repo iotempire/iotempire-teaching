@@ -1,0 +1,79 @@
+[
+  {
+    "id": "mock-sensor-tab",
+    "type": "tab",
+    "label": "Mock Sensor Dashboard",
+    "info": "Simple Node-RED dashboard to visualize Python/ESP32 mock messages."
+  },
+  {
+    "id": "mqtt-out-node",
+    "type": "mqtt out",
+    "z": "mock-sensor-tab",
+    "name": "Mock Sensor",
+    "topic": "iot/room/temp",
+    "qos": "2",
+    "retain": "",
+    "respTopic": "",
+    "contentType": "",
+    "userProps": "",
+    "correl": "",
+    "expiry": "",
+    "broker": "97e0669f.8c",
+    "x": 280,"y": 160,
+    "wires": []
+  },
+  {
+    "type": "inject",
+    "z": "mock-sensor-tab",
+    "name": "Trigger Mock",
+    "props": [{"p":"topic","vt":"str"}],
+    "repeat": "",
+    "crontab": "",
+    "once": true,"onceDelay": 0.1,
+    "topic": "iot/room/temp",
+    "payload": "21.5",
+    "payloadType": "num",
+    "x": 100,"y": 160,
+    "wires": [["mqtt-out-node"]]
+  },
+  {
+    "type": "ui_chart",
+    "z": "mock-sensor-tab",
+    "name": "Temperature Stream",
+    "group": "Monitor",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "label": "Temp (°C)",
+    "chartType": "line",
+    "legend": "false",
+    "x": 480,"y": 160,
+    "wires": []
+  },
+  {
+    "type": "debug",
+    "z": "mock-sensor-tab",
+    "name": "Topic Debug",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 280,"y": 240,
+    "wires": []
+  },
+  {
+    "id": "97e0669f.8c",
+    "type": "mqtt-broker",
+    "name": "Gateway Mosquitto",
+    "broker": "192.168.8.1",
+    "port": "1883",
+    "clientid": "node-red-mock",
+    "usetls": false,
+    "compatmode": false,
+    "protocolVersion": "5",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": ""
+  }
+]

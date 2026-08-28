@@ -2,12 +2,9 @@
 
 [← Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-hardware-and-basic-electronics.md)
 
-> [!NOTE]
-> This split version is based on the University of Tartu workbook export and keeps the original course context while reorganizing the material into separate module files.
-
 ## How to use this – important!
 
-This is a repository of tasks you can do in the IoT or MCU programming class. You do not have to complete every task individually, but you should aim to cover the module requirements as a pair or team. This workbook is a reference, a suggested sequence, and a collection of help material; some things may still be missing and require your own exploration.
+This is a repository of tasks you can do in an IoT or MCU programming class. You do not have to complete every task individually, but you should aim to cover the module requirements as a pair or team. This workbook is a reference, a suggested sequence, and a collection of help material; some things may still be missing and require your own exploration.
 
 Your goal is to accomplish the module requirements — not to mechanically complete every single task on this page.
 
@@ -53,6 +50,3 @@ Your goal is to accomplish the module requirements — not to mechanically compl
 - Homework:
   - Reflections are always homework.
   - If you do not finish things in class, continue them soon after class, ideally together with your partner.
-
-> [!NOTE]
-> The original workbook assumes a weekly rhythm with homework and reflection work between class meetings. That structure still fits this 16-week UT course.

@@ -1,8 +1,18 @@
-# UT Lab Tutorials
+# UT Lab Tutorials — IoT and Embedded Systems
 
-This workbook now serves as a compact landing page for the modular University of Tartu course structure.
+This workbook is the modular course hub for the University of Tartu IoT and Embedded Systems curriculum. It contains the syllabus, workbook navigation, quick links, and is split into weekly modules for easy maintenance.
 
-For the actively maintained version of the course material, use the split module files listed below.
+For all actively maintained module content, use the split module files listed below.
+
+
+---
+
+## Syllabus
+
+- [Course Syllabus: syllabus.md](./syllabus.md) – this semester’s structure, policies, and grading
+
+
+---
 
 ## Overview
 

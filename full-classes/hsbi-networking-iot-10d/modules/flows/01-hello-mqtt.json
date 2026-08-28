@@ -1,0 +1,93 @@
+[
+  {
+    "id": "c2e7bd473848a6b9",
+    "type": "tab",
+    "label": "IoT Module 01 Hello MQTT",
+    "disabled": false,
+    "info": "",
+    "env": [
+      {
+        "name": "ESP32_TEMP_TOPIC",
+        "type": "str",
+        "value": "temp",
+        "ui": {}
+      }
+    ]
+  },
+  {
+    "id": "de8226c0.e3f",
+    "type": "mqtt in",
+    "z": "c2e7bd473848a6b9",
+    "name": "",
+    "topic": "temp",
+    "qos": "2",
+    "datatype": "auto",
+    "broker": "4f1bc766d18de3a",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 180,
+    "y": 140,
+    "wires": [["6a41d29.ffe8028"]]
+  },
+  {
+    "id": "6a41d29.ffe8028",
+    "type": "ui_chart",
+    "z": "c2e7bd473848a6b9",
+    "name": "Temp Plot",
+    "group": "Monitor",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "label": "Temperature (°C)",
+    "chartType": "line",
+    "legend": "false",
+    "x": 350,
+    "y": 140,
+    "wires": [["1751cd94.5482f2"]]
+  },
+  {
+    "id": "48f3d6f9.b46308",
+    "type": "inject",
+    "z": "c2e7bd473848a6b9",
+    "name": "Trigger MQTT",
+    "props": [
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "temp",
+    "payload": "22.5",
+    "payloadType": "num",
+    "x": 180,
+    "y": 80,
+    "wires": [["de8226c0.e3f"]]
+  },
+  {
+    "id": "4f1bc766d18de3a",
+    "type": "mqtt-broker",
+    "name": "Gateway Mosquitto (192.168.8.1)",
+    "broker": "192.168.8.1",
+    "port": "1883",
+    "clientid": "node-red-module01",
+    "usetls": false,
+    "compatmode": false,
+    "protocolVersion": "5",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willPayload": ""
+  }
+]

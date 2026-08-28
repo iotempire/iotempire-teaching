@@ -8,7 +8,7 @@ Teaching Internet of Things (IoT) the IoTempower Way
 #. `Course Elements <#course-elements>`__
 #. `Learning Tools <#learning-tools>`__
 #. `References and Resources <#references-and-resources>`__
-s
+
 
 Welcome to teaching and learning the IoTempower way.
 The IoTempower framework has been developed to support educators and students alike in exploring the world
@@ -39,11 +39,11 @@ We provide two comprehensive workbooks that serve as the foundation for our IoT 
 
 - **University of Tartu (UT) Workbook**:
   A modular, **16-week class** designed for in-depth exploration of IoT concepts. This workbook is split into per-module files for easier maintenance and covers a structured progression from introduction to final projects. It is ideal for semester-long courses.
-  For more details, see the `UT Lab Tutorials Workbook </full-classes/unitartu/workbook.md>`_.
+  For more details, see the `UT Lab Tutorials Workbook </full-classes/unitartu-IoT-intro-15d/workbook.md>`_.
 
 - **HSBI/GT Lab Tutorials Workbook**:
   A **condensed four-day block format** designed for intensive workshops. This workbook adapts material from the UT version to fit a shorter timeframe, with a stronger emphasis on MCU programming and embedded systems while maintaining IoT as an application context.
-  For more details, see the `HSBI/GT Workbook </full-classes/hsbi/workbook.md>`_.
+  For more details, see the `HSBI/GT Workbook </full-classes/hsbi-MCU-programming-blocked-4d/workbook.md>`_.
 
 
 We introduce the IoTempower framework early in the class to allow rapid prototyping and quick success, which keeps students motivated to learn more. Once the students have experienced key IoT development tools (after about 50 to 70% of the class), they start designing and then implementing their final project. Starting from stories, students describe a challenge inspired by a real-world problem and work towards constructing a feasible solution. Guest speakers from industry and academia highlight different problem domains to help guide the students in picking and describing challenges for their final projects.
@@ -61,9 +61,9 @@ to help with technical challenges or supporting discussions. We are continually 
 
 
 Our course material is organized into the two workbooks mentioned above:
-`[UT Workbook] </full-classes/unitartu/workbook.md>`_
+`[UT Workbook] </full-classes/unitartu-IoT-intro-15d/workbook.md>`_
 and
-`[HSBI/GT Workbook] </full-classes/hsbi/workbook.md>`_,
+`[HSBI/GT Workbook] </full-classes/hsbi-MCU-programming-blocked-4d/workbook.md>`_,
 which provide structured guidance and hands-on activities for students and instructors alike.
 
 In our course, we embrace the idea that hands-on experiences are crucial for the learning process. We provide a kit with sensors, actuators, cables, power supplies, a gateway, and microcontrollers to each student team. We paid special attention to selecting each kit component, prioritizing affordability and ease of sourcing in most regions worldwide. This approach equips each team with a truly practical experience as they can control every aspect of their network and do not have to depend on resources and services (from the university or the cloud) outside of the scope of their group.
@@ -88,8 +88,8 @@ please do not hesitate to `contact </contact>`__ me. However, below is all the r
 * IoTempower, software that facilitates all this with lots of documentation and starting points for teaching, can be found at `IoTempower GitHub <https://github.com/iotempire/iotempower>`__
 
 Explore the available workbooks for detailed course structures and activities:
-* [University of Tartu (UT) Workbook](/full-classes/unitartu/workbook.md)
-* [HSBI/GT Lab Tutorials Workbook](/full-classes/hsbi/workbook.md)
+* [University of Tartu (UT) Workbook](/full-classes/unitartu-IoT-intro-15d/workbook.md)
+* [HSBI/GT Lab Tutorials Workbook](/full-classes/hsbi-MCU-programming-blocked-4d/workbook.md)
 
 * Full stories describing our impact: `HarvestMate <https://iotempire.net/story-harvestmate>`_, `SmartNursing <https://iotempire.net/story-smartnursing>`_, `Teaching <https://iotempire.net/story-teaching>`_
 * More technical description of the used hardware of the kit: `IoT Dev Kits <https://ulno.net/iot/devkits/>`_
