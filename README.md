@@ -38,7 +38,7 @@ We now introduce a small AI-lab: two new modular workshops that can be slotted i
 
 ## Learning Tools & Classroom Environment
 
-We provide a chat server that allows all students studying IoT to profit from each other across university and country boundaries. After several tries and discussions with students, we use Discord in the Tartu, Linz, and Regensburg case and open that for any teacher else approaching us. However, other chat environments should work as well but will lose the networking effect with other students and teachers being involved in IoTempower.
+We provide a community channel that allows all students studying IoT to profit from each other across university and country boundaries. After several tries and discussions with students, we use Discord in the Tartu, Linz, and Regensburg case and open that for any teacher else approaching us. However, other chat environments should work as well but will lose the networking effect with other students and teachers being involved in IoTempower.
 
 We also provide slides and resources to help with technical challenges or supporting discussions. We are continually creating new video material to support upcoming technical challenges. Chatbots of large language models (LLMs) like ChatGPT, Copilot, or Gemini also enhance our class learning experience by speeding up individual and team in-class research tasks. They also enrich our discussions by allowing us to critically reflect on their answers and suggestions.
 
