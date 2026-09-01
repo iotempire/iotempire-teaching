@@ -164,10 +164,13 @@ Your logbook should mirror an engineering notebook — continuous, scannable, an
 Your working environment is the **local microcontroller workbook** provided for this course:
 
 - **Primary Workbook:** [./README.md](README.md) and modular weekly modules under [./modules/](./modules)
-- **Portfolio Starter Templates:** [https://github.com/iotempower/iotempower-portfolio-template](https://github.com/iotempower/iotempower-portfolio-template)
-- **IoTempower Framework:** [https://github.com/iotempower/iotempower](https://github.com/iotempower/iotempower)
+- **Portfolio Starter Templates:** [https://github.com/iotempire/iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template)
+- **IoTempower Framework:** [https://github.com/iotempire/iotempower](https://github.com/iotempire/iotempower) (vanity URL [https://iotempower.us](https://iotempower.us))
+- **IoTempire Organization** (behind all our IoT teaching, tools, and community efforts): [https://iotempire.net/](https://iotempire.net/)
 - **Useful Libraries:** ESP8266/ESP32 Arduino Cores, Adafruit (DHT22, BME280), PubSubClient (MQTT), OneWire, MFRC522 (RFID), U8g2 (OLED), FastLED (RGB)
 - **Hardware Kit:** Supplied at course start; see [Module 2 – Hardware Overview](./modules/02-hardware.md) module for details
+
+> **Naming note:** *IoTempire* is the organization behind all our IoT activities (courses, tools, community). *IoTempower* is the specific open-source framework we use for device management, flashing, and integration — we still talk about "IoTempower" in the teaching context, but its GitHub repositories live under the `iotempire` organization.
 
 All artifacts (code, logs, schematics) must be published under permissive or open licenses (MIT, CC-BY-SA) to enable reuse and learning.
 

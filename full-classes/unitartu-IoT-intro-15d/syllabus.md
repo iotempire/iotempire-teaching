@@ -120,10 +120,13 @@ Grades are based on:
 deployed using this workbook:
 
 - **Primary Workbook**: [./README.rst](README.rst) and modular per-week files under [./modules/](./modules)
-- **Portfolio Template & Starter**: [https://github.com/iotempower/iotempower-portfolio-template](https://github.com/iotempower/iotempower-portfolio-template)
-- **IoTempower Framework**: [https://github.com/iotempower/iotempower](https://github.com/iotempower/iotempower)
-- **MQTT & Node-RED Guides**: See modules 3–5
-- **Hardware Kits**: Provided at course start—see [Module 2 – Hardware and Basic Electronics](./modules/02-hardware-and-basic-electronics.md)
+- **Portfolio Template & Starter**: [https://github.com/iotempire/iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template)
+- **IoTempower Framework**: [https://github.com/iotempire/iotempower](https://github.com/iotempire/iotempower) (vanity URL [https://iotempower.us](https://iotempower.us))
+- **IoTempire Organization** (behind all our IoT teaching, tools, and community efforts): [https://iotempire.net/](https://iotempire.net/)
+- **MQTT & Node-RED Guides**: See modules 3–5
+- **Hardware Kits**: Provided at course start—see [Module 2 – Hardware and Basic Electronics](./modules/02-hardware-and-basic-electronics.md)
+
+> **Naming note:** *IoTempire* is the organization behind all our IoT activities (courses, tools, community). *IoTempower* is the specific open-source framework we use for device management, flashing, and integration — we still talk about "IoTempower" in the teaching context, but its GitHub repositories live under the `iotempire` organization.
 
 All project code, logs, and reflections must be published to your GitHub portfolio under permissive and open licenses (MIT, CC-BY-SA) to enable learning and reuse.
 

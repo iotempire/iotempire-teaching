@@ -104,6 +104,8 @@ Your final grade is based on:
 
 ## Additional Resources
 
+> **Naming note:** *IoTempire* is the organization behind all our IoT activities (courses, tools, community) — see [https://iotempire.net/](https://iotempire.net/). *IoTempower* is the specific open-source framework used elsewhere in our courses for device management, flashing, and integration — [https://iotempower.us](https://iotempower.us) (resolves to [github.com/iotempire/iotempower](https://github.com/iotempire/iotempower)). We still say "IoTempower" in the teaching context, but its GitHub repositories live under the `iotempire` organization.
+
 ### IoT Frameworks and Libraries
 - [ESP-IDF (Espressif IoT Development Framework)](https://github.com/espressif/esp-idf)
 - [MQTT-Client-Library for Arduino](https://github.com/knolleary/pubsubclient)

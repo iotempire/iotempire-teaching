@@ -78,7 +78,7 @@ Section title retained for migration clarity. Original material moved to respect
 
 
 - [https://iotempower.us/docs](https://iotempower.us/docs)
-- [https://github.com/iotempower/iotempower](https://github.com/iotempower/iotempower)
+- [https://github.com/iotempire/iotempower](https://github.com/iotempire/iotempower)
 - [https://play.google.com/store/apps/details?id=snr.lab.iotmqttpanel.prod](https://play.google.com/store/apps/details?id=snr.lab.iotmqttpanel.prod)
 
 - [https://apps.apple.com/us/app/iot-mqtt-panel](https://apps.apple.com/us/app/iot-mqtt-panel)

@@ -31,7 +31,7 @@ IoTempower provides server-side tooling to ease managing fleets of IoT nodes. Le
 - Service orchestration and failure recovery
 
 **Pre-Task:**
-Install IoTempower on your development machine and create a folder `~/iotempower/systems/workgroupX` following the [GetStarted guide](https://github.com/iotempower/iotempower#getstarted). Familiarize yourself with commands `iot env`, `iot service start`, and `iot conf help`.
+Install IoTempower on your development machine and create a folder `~/iotempower/systems/workgroupX` following the [GetStarted guide](https://github.com/iotempire/iotempower#getstarted). Familiarize yourself with commands `iot env`, `iot service start`, and `iot conf help`.
 
 
 ### Task 1: Creating Your First IoT System

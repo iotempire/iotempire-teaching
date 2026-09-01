@@ -96,7 +96,7 @@ Complete these **before** the meetup. Take notes in your end-of-week reflection 
 ## 🔧 Labs and Hands-On (Practical Work)
 ### **Lab 1: Portfolio Repository Setup**
 1. **Create your portfolio repo** on GitHub:
-   - Use [this template](https://portfolio.iotempower.us) or fork [iotempower-portfolio-template](https://github.com/iotempower/portfolio-template).
+   - Use [this template](https://portfolio.iotempower.us) or fork [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template).
    - Share with instructors (add `ulno` as a reader).
    - Add a `README.md` with:
      - Your name/project title.
