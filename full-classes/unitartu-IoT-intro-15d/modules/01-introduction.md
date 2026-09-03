@@ -1,6 +1,6 @@
 # Module 1 – Introduction
 
-[← Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-hardware-and-basic-electronics.md)
+[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-hardware-and-basic-electronics.md)
 
 ## How to use this – important!
 

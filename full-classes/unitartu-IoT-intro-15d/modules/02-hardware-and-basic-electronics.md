@@ -1,6 +1,6 @@
 # Module 2 – Hardware and Basic Electronics
 
-[← Previous: Module 1](./01-introduction.md) | [Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 3 →](./03-infrastructure-and-gateway-setup.md)
+[← Previous: Module 1](./01-introduction.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 3 →](./03-infrastructure-and-gateway-setup.md)
 
 
 All tasks of this module can be executed as a pair. **Don't forget to take photos for your GitHub report and save your code.**

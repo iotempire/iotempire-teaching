@@ -1,7 +1,20 @@
-# Networking and IoT Solutions Workbook
+# Networking and IoT Solutions
 
-This workbook is the **front page** for the 10-11 day *IoT Networking* course taught at **Hochschule Bielefeld University of Applied Sciences and Arts (HSBI)**, Campus Gütersloh. The course is structured for regular delivery and over 10-11 days with 4 to 8 hours per meetup.
+## Contents
 
+| Start here | What it contains |
+|---|---|
+| [Module 1 — IoT Story & OSI](./modules/01-introduction.md) | System stories and networking foundations |
+| [Module 2 — MQTT Abstraction](./modules/02-mqtt-abstraction.md) | Publish/subscribe with mock devices |
+| [Module 3 — Wireless Power](./modules/03-wireless-power.md) | Wi-Fi, LoRaWAN, power, and latency |
+| [Module 4 — Routing & Gateways](./modules/04-routing-gateways.md) | Networks, routing, NAT, and gateways |
+| [Module 5 — Industrial Protocols](./modules/05-industrial-protocols.md) | OPC-UA and Modbus |
+| [Module 6 — Power & Latency](./modules/06-power-latency.md) | Measurement and optimisation |
+| [Module 7 — Final Project Rehearsal](./modules/07-final-project-rehearsal.md) | Peer review and dry runs |
+| [Resources & prompts](./modules/Y-resources-prompt-bank.md) | Portfolio prompts and quick references |
+| [Resource bank](./modules/Z-resources-bank.md) | Extra resources and troubleshooting |
+
+This README is the workbook front page for the 10–11 day *IoT Networking* course taught at **Hochschule Bielefeld University of Applied Sciences and Arts (HSBI)**, Campus Gütersloh. It is structured for regular delivery with 4–8 hours per meetup.
 
 ---
 
@@ -34,7 +47,7 @@ By the end of this course, you will be able to:
 
 ---
 
-## Weekly Modules
+## Suggested Weekly Rhythm
 
 Navigate the course using the links below. Each module includes:
 - **Learning objectives** for the week.
@@ -59,11 +72,10 @@ Navigate the course using the links below. Each module includes:
 | 9        | **Security in IoT Networks**                | TLS 1.3 for MQTT, cert pinning, auth.                                                               | Ed Harmoush [SSL/TLS overview video in course outline](https://classes.pracnet.net/courses/networking) *(free access)*                                              | Lab: Secure Mosquitto, Node-RED TLS + Node-RED chain.         |
 | 10       | **Final Project Rehearsal**               | Dry-run demo, peer review rubric, portfolio finalization.                                            | None. Prepare your **3-min demo** and `.md` report.                                                                        | Lab: Peer feedback & video cut.                                                                     |
 
-### Optional/Archival Modules
+### Supplementary resources
 
-- [Module A – Historical Networking Protocols](./modules/A-historical-protocols.md) (e.g., X.25, Frame Relay)
-- [Module B – Advanced IoT Topics](./modules/B-advanced-iot.md) (e.g., edge computing, NB-IoT)
-- [Module Z – Extra Exercises](./modules/Z-extra-exercises.md) (e.g., challenges, quizzes)
+- [Portfolio Prompts & Quick Reference](./modules/Y-resources-prompt-bank.md)
+- [Resources Bank](./modules/Z-resources-bank.md)
 
 ---
 
@@ -130,7 +142,7 @@ Your final grade is based on:
 
 ### Common Issues
 ### FAQ
-Find answers to common questions in [FAQs](./modules/Z-extra-exercises.md).
+Find additional references and troubleshooting material in the [Resources Bank](./modules/Z-resources-bank.md).
 
 ---
 
@@ -143,11 +155,12 @@ Find answers to common questions in [FAQs](./modules/Z-extra-exercises.md).
 
 ---
 
-## Template Files
+## Templates
 
-**[Portfolio Template (Markdown)](./templates/portfolio-template.md)**
-- [Lab Report Template (Markdown)](./templates/lab-report-template.md)
-- [Project Report Template (Markdown)](./templates/project-report-template.md)
+Use the shared [IoTempire portfolio template](https://github.com/iotempire/iot-portfolio-template) for portfolio structure and documentation conventions.
+
+> [!NOTE]
+> Local lab-report and project-report template files are not currently supplied in this course folder. Add them here only when the corresponding files are available.
 
 ---
 

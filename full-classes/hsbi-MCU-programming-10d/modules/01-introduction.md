@@ -1,8 +1,8 @@
 # Module 1 – Introduction
 
-[← Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-hardware-and-basic-electronics.md)
+[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-hardware-and-basic-electronics.md)
 
-**Day placement:** Day 1, together with the **IoT/Node-RED Masterclass** mini-workshop (see [workbook.md](../workbook.md) for the day-by-day plan).
+**Day placement:** Day 1, together with the **IoT/Node-RED Masterclass** mini-workshop (see [README.md](../README.md) for the day-by-day plan).
 
 > [!NOTE]
 > This workbook is based on the **University of Tartu** curriculum, adapted here for the extended **HSBI/GT Gütersloh** 10-day format.

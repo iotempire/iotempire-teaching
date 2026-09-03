@@ -1,10 +1,10 @@
 # Module 3 – Infrastructure and Gateway Setup
 
-[← Previous: Module 2](./02-hardware-and-basic-electronics.md) | [Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 4 →](./04-embedded-programming-and-deploying.md)
+[← Previous: Module 2](./02-hardware-and-basic-electronics.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 4 →](./04-embedded-programming-and-deploying.md)
 
 In this module, you will set up the infrastructure needed for your IoT projects, including a network, a gateway, and system management. We will set up a router and install IoTempower on your computer. All the activities for the first part of the module were gamified. We used a real-world earthquake scenario to create the game's steps. By playing the game, each team will learn hands-on how to set up and configure a router for an IoT network. It is an ad hoc local area network that uses IPv4, 2.4 GHz WiFi, and the MQTT protocol for communication. This network will be used for all modules going forward, including the final project for this course. Get acquainted with it. Have fun!
 
-**Block placement:** This module is scheduled for **Day 3**. If more time is needed, use the buffer/stretcher time reserved on this day (see [workbook.md](../workbook.md)) to complete it.
+**Block placement:** This module is scheduled for **Day 3**. If more time is needed, use the buffer/stretcher time reserved on this day (see [README.md](../README.md)) to complete it.
 
 Slide: [Network setup - wifi/mqtt](https://docs.google.com/presentation/d/1nZmo6BYIS8HC2pnfGSesTfHjYayNzHuSUgl4YLhbYP4/edit?slide=id.g31c039e65c1_0_0#slide=id.g31c039e65c1_0_0)
 

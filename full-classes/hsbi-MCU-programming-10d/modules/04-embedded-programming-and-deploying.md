@@ -1,11 +1,11 @@
 # Module 4 – Embedded Programming and Deploying Nodes
 
-[← Previous: Module 3](./03-infrastructure-and-gateway-setup.md) | [Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-integration-and-simulations.md)
+[← Previous: Module 3](./03-infrastructure-and-gateway-setup.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-integration-and-simulations.md)
 
 **Preparation:** Both Arduino and PlatformIO can be used.
 PlatformIO IDE installation in VSCode ([Link](https://docs.platformio.org/en/latest/integration/ide/vscode.html#installation))
 
-**Block placement:** This module is scheduled for **Day 4**. If more time is needed, use the buffer/stretcher time reserved on this day (see [workbook.md](../workbook.md)) to complete it; otherwise the stretcher tasks are bonus material.
+**Block placement:** This module is scheduled for **Day 4**. If more time is needed, use the buffer/stretcher time reserved on this day (see [README.md](../README.md)) to complete it; otherwise the stretcher tasks are bonus material.
 
 ## Breaking Things (with Software) and Simple Debugging via Serial Console Monitor
 

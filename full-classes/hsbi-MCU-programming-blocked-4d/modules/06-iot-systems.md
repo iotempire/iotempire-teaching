@@ -1,6 +1,6 @@
 # Module 6 – IoT Systems
 
-[← Previous: Module 5](./05-integration-and-simulations.md) | [Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 7 →](./07-final-project.md)
+[← Previous: Module 5](./05-integration-and-simulations.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 7 →](./07-final-project.md)
 
 **Block placement:** This module is scheduled for **Day 3**, together with Module 5. Try to reach the team (test) project today, we can use a bit of time on the fourth day to finish it. We will also reserve uo to three hours of **Day 4** for this module.
 

@@ -1,8 +1,20 @@
 # HSBI/GT Lab Tutorials 2026
 
-This workbook is the **front page** for the condensed HSBI/GT workshop.
+## Contents
 
-The course is organized as a **four-day block format** with linked module files. The material is still being adapted from an earlier longer University of Tartu version to the blocked HSBI format.
+| Start here | What it contains |
+|---|---|
+| [Syllabus](./syllabus.md) | Schedule, assessment, and course policies |
+| [Module 1 — Introduction](./modules/01-introduction.md) | Course framing and first steps |
+| [Module 2 — Hardware & Electronics](./modules/02-hardware-and-basic-electronics.md) | Breadboards, GPIO, and circuits |
+| [Module 3 — Infrastructure & Gateway](./modules/03-infrastructure-and-gateway-setup.md) | Local network and MQTT setup |
+| [Module 4 — Embedded Programming](./modules/04-embedded-programming-and-deploying.md) | Firmware and deployment |
+| [Module 5 — Integration & Simulations](./modules/05-integration-and-simulations.md) | System integration practice |
+| [Module 6 — IoT Systems](./modules/06-iot-systems.md) | Complete IoT systems |
+| [Module 7 — Final Project](./modules/07-final-project.md) | Project planning and implementation |
+| [Module 8 — Extra & Archive](./modules/08-extra-and-archival-material.md) | Optional material |
+
+This README is the **workbook front page** for the condensed HSBI/GT workshop. The course is organized as a **four-day block format** with linked module files and is still being adapted from an earlier, longer University of Tartu version.
 
 ## Day 1
 
@@ -36,7 +48,7 @@ The course is organized as a **four-day block format** with linked module files.
 
 ## Additional navigation
 
-- [Quick module index](./modules/00-index.md)
+- [Module index](./modules/00-index.md) — compact module navigation
 - [Extra and Archival Material](./modules/08-extra-and-archival-material.md)
 
 ## Notes

@@ -1,6 +1,6 @@
 # Module 4 – Embedded Programming and Deploying Nodes
 
-[← Previous: Module 3](./03-infrastructure-and-gateway-setup.md) | [Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-integration-and-simulations.md)
+[← Previous: Module 3](./03-infrastructure-and-gateway-setup.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-integration-and-simulations.md)
 
 **Preparation**: Both Arduino and PlatformIO can be used.  
 PlatformIO IDE installation in VSCode ([Link](https://docs.platformio.org/en/latest/integration/ide/vscode.html#installation))

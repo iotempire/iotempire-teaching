@@ -1,6 +1,6 @@
 # Module 7 – Final Project
 
-[← Previous: Module 6](./06-iot-systems.md) | [Back to front page](../workbook.md) | [Quick module index](./00-index.md)
+[← Previous: Module 6](./06-iot-systems.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md)
 
 
 The final project is an opportunity to synthesize knowledge and skills from all modules. Students design, build, document, and present an IoT system of their choice, demonstrating integration of hardware, embedded programming, networking, and orchestration. The project must be completed as a team and includes a **portfolio entry**, a **public presentation**, and a **project showcase**. Projects will be assessed on technical and documentation quality and novelty.

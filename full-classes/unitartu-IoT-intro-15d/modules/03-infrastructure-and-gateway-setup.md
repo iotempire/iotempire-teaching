@@ -1,6 +1,6 @@
 # Module 3 – Infrastructure and Gateway Setup
 
-[← Previous: Module 2](./02-hardware-and-basic-electronics.md) | [Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 4 →](./04-embedded-programming-and-deploying.md)
+[← Previous: Module 2](./02-hardware-and-basic-electronics.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 4 →](./04-embedded-programming-and-deploying.md)
 
 Module 3 focuses on establishing the foundational infrastructure for IoT projects, including network setup, gateway and router configuration, installing an MQTT broker, and safety protocols. The module uses a gamified emergency network setup scenario to help students understand network roles and communication protocols using OpenWRT routers and MQTT.
 

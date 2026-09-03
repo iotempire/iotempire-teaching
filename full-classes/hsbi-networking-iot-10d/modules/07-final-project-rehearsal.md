@@ -1,6 +1,6 @@
 # Module 7 – Final Project Rehearsal: Peer Feedback & Dry Runs
 
-[← Back to Module 6](./06-routing-gateways.md) | [Quick module index](./00-index.md)
+[← Back to Module 6](./06-power-latency.md) | [Quick module index](./00-index.md)
 
 ---
 

@@ -1,6 +1,6 @@
 # Module 1 – Introduction
 
-[← Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-hardware-and-basic-electronics.md)
+[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-hardware-and-basic-electronics.md)
 
 > [!WARNING] UT-ADAPT
 > This workbook is still mainly based on the earlier **University of Tartu** version and is being adapted for the condensed **HSBI/GT** format.

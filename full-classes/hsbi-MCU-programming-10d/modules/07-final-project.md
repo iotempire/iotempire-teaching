@@ -1,6 +1,6 @@
 # Module 7 – Final Project
 
-[← Previous: Module 6](./06-iot-systems.md) | [Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Extra / Archive →](./08-extra-and-archival-material.md)
+[← Previous: Module 6](./06-iot-systems.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Extra / Archive →](./08-extra-and-archival-material.md)
 
 **Block placement:** **Days 7–9** are dedicated to this final project module: project ideation, architecture planning, integration preparation, implementation support, and presentation readiness. Depending on the group's pace, a flexible **Day 10** may be used as extra project time.
 

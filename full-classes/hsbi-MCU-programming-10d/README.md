@@ -1,128 +1,102 @@
-# HSBI/GT Microcontroller Programming – 10-Day Extended Course
+# HSBI/GT Microcontroller Programming — 10-Day Extended Edition
+
+## Contents
+
+| Start here | What it contains |
+|---|---|
+| [Pre-study guide](./pre-study.md) | A practical first IoT build and essential preparation |
+| [Syllabus](./syllabus.md) | Schedule, language guidance, assessment, and policies |
+| [Module 1 — Introduction](./modules/01-introduction.md) | Course start and Node-RED master class |
+| [Module 2 — Hardware & Electronics](./modules/02-hardware-and-basic-electronics.md) | Breadboards, GPIO, sensors, and actuators |
+| [Module 3 — Infrastructure & Gateway](./modules/03-infrastructure-and-gateway-setup.md) | Local LAN, OpenWRT, and MQTT |
+| [Module 4 — Embedded Programming](./modules/04-embedded-programming-and-deploying.md) | Firmware, debugging, and deployment |
+| [Module 5 — Integration & Simulations](./modules/05-integration-and-simulations.md) | Node-RED integration and system mocks |
+| [Module 6 — IoT Systems](./modules/06-iot-systems.md) | Scaling and IoTempower management |
+| [Module 7 — Final Project](./modules/07-final-project.md) | Build, document, and demonstrate a system |
+| [Module 8 — Extra & Archive](./modules/08-extra-and-archival-material.md) | Optional and historical material |
+
+This README is the course workbook and front page for the HSBI/GT Microcontroller Programming course, delivered over **10 weeks** in roughly one four-hour session per week.
+
+The course reuses the modules of the condensed HSBI/GT four-day workshop, paced more gradually with room to catch up, explore, and build a substantial final project.
+
+> [!NOTE]
+> This is a living document. Expect minor adaptations as the semester progresses; check weekly announcements for calendar details.
 
 ---
 
-Welcome to the **Microcontroller Programming** course at **HSBI Campus Gütersloh**!
+## Course Times & Location
 
-This repository contains your course workbook, syllabus, and modules. The course reuses the **same modules** as the condensed HSBI/GT 4-day blocked workshop, but spreads them out over **10 weeks** (roughly one 4h session per week), paced like the **University of Tartu IoT Introduction** course — **about one module per day**, with a bit of built-in flexibility.
+| Setting | Details |
+|---|---|
+| **Time** | Tuesday, 10:15–13:45 |
+| **Location** | Delta 1022 (IoT Lab / Mechatronics Workshop) |
+| **Languages** | English and German; shared materials are in English |
 
----
-
-## 🚀 Course Goal
-Build **real embedded systems**, from blinking LEDs to full MQTT-connected sensor networks that collect, process, and act on real-world data.
-
-You'll work hands-on with **ESP32/ESP8266 microcontrollers** (and M5StickC for the Day 1 Master Class), wire circuits, write firmware, and document your journey in a **GitHub portfolio** that doubles as a future job reference.
-
----
-
-## 📚 Day-by-Day Plan
-
-| Day  | Focus                                                                     | Points |
-|------|-----------------------------------------------------------------------------|--------|
-| 1    | **Module 1** – Introduction + **Master Class** (M5StickC + Node-RED)        | 1 module pt + 1 reflection pt |
-| 2    | **Module 2** – Hardware and Basic Electronics                               | 2 module pts |
-| 3    | **Module 3** – Infrastructure and Gateway Setup *(+ stretcher time if needed)* | 2 module pts |
-| 4    | **Module 4** – Embedded Programming and Deploying Nodes *(+ stretcher time if needed, else bonus)* | 2 module pts |
-| 5    | **Module 5** – Integration and Simulations                                  | 2 module pts |
-| 6    | **Module 6** – IoT Systems                                                   | 2 module pts |
-| 7–9  | **Module 7** – Final Project: ideation → prototyping → build → live demo    | 5 project pts + 3 reflection pts (1/day) |
-| 10   | *Flexible buffer* — extra final-project time if the group needs it          | — |
-
-This gives roughly the same total contact time as the earlier 4-day blocked version (4 × 10h = 40h), just spread out at a more relaxed pace across the semester, with **Days 7–9 fully dedicated to the final project** (ideation → build → demo), and an optional **Day 10** buffer if more time is needed.
+For the complete language arrangement, teaching team, learning objectives, assessment rules, and policies, read the [syllabus](./syllabus.md).
 
 ---
 
-## 🗂️ How to Navigate This Workbook
+## Course Plan
 
-Start here:
-```
-📖 /workbook.md            ← overall course guide
-🗂️ /modules/00-index.md    ← module map
-🗂️ /modules/01-introduction.md → your first day
-```
+| Day | Module / focus | Points |
+|---|---|---|
+| 1 | [Module 1 — Introduction](./modules/01-introduction.md) + [Mastering IoT Solutions](../../workshops/mastering-iot-solutions/README.md) | 1 module pt + 1 reflection pt |
+| 2 | [Module 2 — Hardware and Basic Electronics](./modules/02-hardware-and-basic-electronics.md) | 2 module pts |
+| 3 | [Module 3 — Infrastructure and Gateway Setup](./modules/03-infrastructure-and-gateway-setup.md) | 2 module pts |
+| 4 | [Module 4 — Embedded Programming and Deploying Nodes](./modules/04-embedded-programming-and-deploying.md) | 2 module pts |
+| 5 | [Module 5 — Integration and Simulations](./modules/05-integration-and-simulations.md) | 2 module pts |
+| 6 | [Module 6 — IoT Systems](./modules/06-iot-systems.md) | 2 module pts |
+| 7–9 | [Module 7 — Final Project](./modules/07-final-project.md) | 5 project pts |
+| 10 | Flexible final-project buffer | — |
 
-Every module lists learning goals, hands-on lab instructions, and expected artifacts (code, diagrams, measurements) for your portfolio.
-
----
-
-## 🛠️ Key Tools & Hardware
-- **Microcontrollers**: Wemos D1 Mini, ESP32, ESP8266, M5StickC (Day 1 Master Class)
-- **Sensors**: DHT22, BME280, PIR, Ultrasonic, RFID (MFRC522), OLED
-- **Actuators**: LEDs, RGB-LEDs, relays, motors (ULN), buzzer, stepper
-- **Dev Stack**: Arduino IDE v2 / PlatformIO (VSCode)
-- **Networking**: MQTT broker, Node-RED dashboards, IoTempower OTA
-- **VCS**: Git & GitHub (portfolio linked via template)
-- **Docs**: engineering logbook (markdown in repo)
-
-Hardware kits issued in **Day 2 – Hardware & Electronics** lab.
+Every session combines a short introduction, hands-on lab work, and portfolio documentation. Days 3 and 4 include stretcher time for catching up or bonus work; Day 10 is available when the group needs more project time.
 
 ---
 
-## ✅ Grading & Portfolio
+## Portfolio & Hardware
 
-| Category               | Points | %   |
-|------------------------|--------|-----|
-| Module Labs + Participation (Days 1–6) | 11     | 55% |
-| Reflections (Day 1 + Days 7–9) | 4      | 20% |
-| Final Project (Days 7–9)      | 5      | 25% |
-| **Total**             | **20**   | 100% |
+Publish your work in a GitHub portfolio: source code, binaries, schematics, serial logs, dashboard screenshots, measurements, and reflections. Use the [portfolio template](https://github.com/iotempire/iot-portfolio-template) and its [reflection guidance](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/README.md).
 
-- **Must pass project ≥2/5** to pass the course.
-- **All artifacts live in GitHub portfolio** under permissive license (MIT/CC-BY-SA).
-- **Reflections use the same standard format every time** — see the [reflection guidance in the portfolio template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/README.md); done after Day 1 and after each final-project day.
-- **Day 1's Master Class is not a special reflection** — it's documented like any other day's work: pictures, notes on how the Node-RED/MQTT exercise and peer collaboration went, and how wiring the temperature sensor to the M5StickC (your first hands-on electronics) worked out.
+Document the Day 1 Master Class as a normal work report—pictures, process notes, peer collaboration, Node-RED/MQTT observations, and your M5StickC temperature-sensor wiring—not as a special reflection topic. The laboratory kit is issued at the course start; see [Module 2](./modules/02-hardware-and-basic-electronics.md) for the inventory and safety notes.
 
 ---
 
-## 🧰 Portfolio Template
-Kick-off your **engineering notebook** with our template repo:
-> 🔗 [https://github.com/iotempire/iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template)
+## Navigation & Resources
 
-Fork, commit, reflect, and grow. Your portfolio is your **job reference** and **grade artifact** combined.
+- [Module index](./modules/00-index.md) — compact navigation only
+- [Master Class material](../../workshops/mastering-iot-solutions/README.md)
+- [IoTempower](https://github.com/iotempire/iotempower) — local deployment and fleet-management framework
+- [IoTempire](https://iotempire.net/) — organisation, teaching tools, and community
 
----
+### How to work well
 
-## 🏷️ A Note on Naming: IoTempire vs. IoTempower
-- **IoTempire** is the organization behind all our IoT activities — courses, tools, and community: [https://iotempire.net/](https://iotempire.net/)
-- **IoTempower** is the specific open-source framework we use for device management, flashing, and integration throughout this course: [https://iotempower.us](https://iotempower.us) (resolves to the GitHub project at [github.com/iotempire/iotempower](https://github.com/iotempire/iotempower))
+- Keep a clean repository with meaningful commits and linked issues or pull requests.
+- Reflect after Day 1 and each final-project day using the portfolio template.
+- Collaborate openly: pair-debug, review work, and share useful discoveries.
+- Treat hardware and documentation with equal care. When something fails, record the symptoms, inspect the circuit, verify power and pins, and keep useful serial logs.
 
----
+### Contacts & support
 
-## 🆘 Support & Etiquette
-- **Technical issues?** Open a GitHub issue with screen shots & serial logs.
-- **Need help?** Schedule 10-minute TA huddles during lab or via Discord.
-- **Academic integrity:** Cite sources; ask early if unsure.
-- **Collaboration:** Review teammates' PRs; share discoveries openly.
-- **Hardware can break.** Keep logs, power-cycle, scope the pins.
-
----
-
-## 🏁 Final Project Checklist (Days 7–9)
-1. **Idea:** user story + problem statement in README
-2. **Architecture:** block diagram + data flow + failure modes
-3. **Hardware:** ≥3 MCUs, sensors & actors wired & tested
-4. **Firmware:** C/C++ source with comments & OTA tokens
-5. **Integration:** MQTT → gateway → Node-RED → dashboard
-6. **Documentation:** README + short reflection
-7. **Demo:** live showcase + Q&A
+- **Technical issues:** Open an issue in your portfolio repository with relevant screenshots and serial logs.
+- **Main Instructor:** Ulrich Norbisrath (**Ulno**) — [ulno.net](https://ulno.net/)
+- **Teaching Support:** Fabian Tilman Schmid-Michels *(if available)*
+- **Discord:** To be announced
 
 ---
 
-## 📜 License & Open by Default
-All course artifacts (code, logs, schematics) are published under the **MIT License** unless otherwise specified.
+## ⚠️ Review: material retained from the previous README
 
-Why? So you can **reuse**, **remix**, and **showcase** your work without friction.
+> [!WARNING]
+> The following items appeared in the previous top-level README but not in the workbook that this page is based on. They are retained for an instructor to review, reconcile with the [syllabus](./syllabus.md), and either promote, revise, or remove.
 
----
+### Course goal and toolchain
 
-## 🚀 Go Ahead
+The previous page foregrounded the goal of building real embedded systems—from LEDs to MQTT-connected sensor networks—and explicitly named ESP32/ESP8266 and M5StickC boards, Arduino IDE/PlatformIO, MQTT, Node-RED, IoTempower, Git/GitHub, and Markdown engineering logbooks. Review whether this compact overview should return as a student-facing section or remain covered by the syllabus and individual modules.
 
-```bash
-# Clone your portfolio template to get started
-git clone https://github.com/iotempire/iot-portfolio-template.git my-portfolio
-git remote add upstream https://github.com/iotempire/iotempire-teaching.git
-```
+### Assessment, final project, and licensing
 
-Now open your workbook and jump into **Module 1 – Introduction** 👇
+The previous page stated an 11/4/5 point split, a minimum final-project score of 2/5, and a final-project checklist covering a user story, architecture and failure modes, tested hardware, firmware, MQTT-to-gateway-to-Node-RED integration, documentation, and a live demo. These requirements should stay aligned with the authoritative [syllabus assessment section](./syllabus.md#grading-breakdown). It also contained conflicting license language (MIT/CC-BY-SA in one place, MIT by default in another); decide and document the intended code/documentation licensing policy.
 
-> 📖 [/modules/01-introduction.md](./modules/01-introduction.md)
+### Operational details
+
+Review whether to retain the prior portfolio setup commands and any promise of TA huddles or Discord support. The old page said that kits arrived on Day 2, while the workbook said they were issued at course start; this README follows the workbook pending confirmation. If firmware deployment credentials are discussed, never commit secrets or tokens to student portfolios.

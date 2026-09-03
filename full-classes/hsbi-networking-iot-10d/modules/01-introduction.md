@@ -1,6 +1,6 @@
 # Module 1 – What’s Your IoT Story? Introduction and Critical OSI Exercise
 
-[← Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-mqtt-abstraction.md)
+[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-mqtt-abstraction.md)
 
 ---
 

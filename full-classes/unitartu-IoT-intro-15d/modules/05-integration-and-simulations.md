@@ -1,6 +1,6 @@
 # Module 5 – Integration and Simulations
 
-[← Previous: Module 4](./04-embedded-programming-and-deploying.md) | [Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 6 →](./06-iot-systems.md)
+[← Previous: Module 4](./04-embedded-programming-and-deploying.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 6 →](./06-iot-systems.md)
 
 
 **Placement:** The tasks in this module assume working infrastructure and embedded nodes from Modules 3-4. This module focuses on orchestration, simulation, and user interfaces, expanding into Node-RED workflows and mock data sources with HVAC and access control scenarios.

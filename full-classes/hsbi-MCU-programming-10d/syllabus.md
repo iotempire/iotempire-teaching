@@ -9,21 +9,32 @@
 - **Day:** Tuesday
 - **Location & Room:** Delta 1022 (IoT Lab / Mechatronics Workshop)
 - **Time:** 10:15–13:45
-- **Language of Instruction:** English
+- **Languages of Instruction:** English and German
+- **Course Materials:** English
 
 ---
 
 ## Instructors & Teaching Team (HSBI Gütersloh)
 
-| **Role**               | **Name / Placeholder**             | **Contact (placeholder)**       | **Discord**         | **GitHub**       |
-|------------------------|-----------------------------------|--------------------------------|---------------------|--------------------|
-| Module Lead            | <Instructor 1>                  | <email>                      | <discord-handle>    | <github>           |
-| Instructor             | <Instructor 2>                  | <email>                      | <discord-handle>    | <github>           |
-| Teaching Assistant     | <TA 1>                           | <email>                      | <discord-handle>    | <github>           |
-| Teaching Assistant     | <TA 2>                           | <email>                      | <discord-handle>    | <github>           |
+| **Role** | **Name** | **Contact / Status** |
+|---|---|---|
+| Main Instructor | Ulrich Norbisrath (**Ulno**) | [ulno.net](https://ulno.net) |
+| Possible teaching support | Fabian Tilman Schmid-Michels | To be confirmed |
 
-**Course Discord Invite:**
-Add your course Discord invite once available.
+> [!NOTE]
+> **Local course information:** Ulno is the primary instructor for this HSBI offering. If you reuse or fork this course, replace the teaching-team and contact details. **TODO:** Consider moving site-specific people, rooms, contacts, and Discord details to an untracked local-course configuration file.
+
+**Course Discord Invite:** To be announced.
+
+---
+
+## Language, Communication & Course Material
+
+This class is taught in **English and German**. The shared workbook, slides, code, documentation, and most existing teaching material are in English, so English will be the common written language and often the main spoken language in class. This keeps the materials reusable across both German- and English-taught offerings.
+
+Ulno is bilingual. You are welcome to speak with the teaching team and collaborate in **German, English, or a mixture of both**. Notes, portfolio documentation, and presentations may likewise be in German, English, or mixed language. Ask whenever technical vocabulary or a task formulation needs clarification in either language. A mixed-language discussion is normal here—switching the instructor’s language at an inconvenient moment is an unofficial side quest.
+
+**For German speakers / Für deutschsprachige Studierende:** Diese Lehrveranstaltung findet auf Englisch und Deutsch statt. Das gemeinsame Workbook, die Folien, der Code, die Dokumentation und die meisten bestehenden Unterrichtsmaterialien bleiben auf Englisch, damit sie in englisch- und deutschsprachigen Kursen einheitlich genutzt werden können. Ulno ist zweisprachig; Sie/Du können/kannst mit dem Lehrteam auf Deutsch, Englisch oder in einer Mischung aus beiden Sprachen sprechen und zusammenarbeiten. Notizen, Portfolio-Dokumentation und Präsentationen dürfen ebenfalls auf Deutsch, Englisch oder gemischt erstellt werden. Fragen Sie / Frag jederzeit nach, wenn Fachbegriffe oder Aufgabenstellungen in einer der beiden Sprachen geklärt werden sollen.
 
 ---
 
@@ -83,7 +94,7 @@ None beyond course registration.
 - Basics in programming (helpful but not required; C/C++ basics will be scaffolded)
 - Linux/CLI basics (terminal, package management)
 - Version control with Git/GitHub
-- English B1/B2 (documentation, discussions, IDE menus), but feel free to use AI tools to translate any content of the current workbook into your native language
+- English at roughly B1/B2 is helpful for documentation and IDE menus; it is not a barrier to participation—see [Language, Communication & Course Material](#language-communication--course-material) for the bilingual course approach and feel free to use AI tools to translate workbook material when useful
 
 ### Tools & Hardware Kit
 - **Development Environment**: Arduino IDE v2 or PlatformIO (VSCode)
@@ -205,8 +216,9 @@ All artifacts (code, logs, schematics) must be published under permissive or ope
 - **Course Feedback:** Mid- and end-semester evaluation forms
 - **Academic Integrity:** Cite sources, ask instructors for clarification before doubt arises
 
-- **Local Course Contacts:** <replace>
-- **Discord Server:** <replace> (course invite URL)
+- **Main Instructor:** Ulrich Norbisrath (**Ulno**) — [ulno.net](https://ulno.net/)
+- **Teaching Support:** Fabian Tilman Schmid-Michels *(if available)*
+- **Discord Server:** To be announced
 
 ---
 

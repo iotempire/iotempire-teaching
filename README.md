@@ -22,15 +22,18 @@ The core sessions include storytelling and story-driven development, basic elect
 
 We provide several comprehensive workbooks that serve as the foundation for our IoT courses, each tailored to different formats and contexts:
 
-- [University of Tartu (UT) IoT Introduction Workbook (15-16 weeks)](full-classes/unitartu-IoT-intro-15d/workbook.md): A modular, 16-week class designed for in-depth exploration of IoT concepts. This workbook is split into per-module files for easier maintenance and covers a structured progression from introduction to final projects. It is ideal for semester-long courses.
+- [University of Tartu (UT) IoT Introduction Workbook (15-16 weeks)](full-classes/unitartu-IoT-intro-15d/README.md): A modular, 16-week class designed for in-depth exploration of IoT concepts. This workbook is split into per-module files for easier maintenance and covers a structured progression from introduction to final projects. It is ideal for semester-long courses.
 
-- [HSBI/GT Lab Tutorials Workbook (4 days)](full-classes/hsbi-MCU-programming-blocked-4d/workbook.md): A condensed four-day block format designed for intensive workshops. This workbook adapts material from the UT version to fit a shorter timeframe, with a stronger emphasis on MCU programming and embedded systems while maintaining IoT as an application context.
+- [HSBI/GT Lab Tutorials Workbook (4 days)](full-classes/hsbi-MCU-programming-blocked-4d/README.md): A condensed four-day block format designed for intensive workshops. This workbook adapts material from the UT version to fit a shorter timeframe, with a stronger emphasis on MCU programming and embedded systems while maintaining IoT as an application context.
 
-- [HSBI/GT Networking and IoT Solutions (10 weeks)](full-classes/hsbi-networking-iot-10d/workbook.md): Focused on networking concepts in IoT systems, covering protocols, security, and practical networking setup for IoT devices.
+- [HSBI/GT Microcontroller Programming (10-day extended edition)](full-classes/hsbi-MCU-programming-10d/README.md): A bilingual, local-first MCU and IoT course delivered over ten weeks, from basic electronics through multi-node final projects.
+
+- [HSBI/GT Networking and IoT Solutions (10 weeks)](full-classes/hsbi-networking-iot-10d/README.md): Focused on networking concepts in IoT systems, covering protocols, security, and practical networking setup for IoT devices.
 
 - [Mastering IoT Solutions (draft)](workshops/iot-solutions/README.md): This workshop explores IoT solutions from a business and implementation perspective. Note: This is currently in **draft/scaffold stage** - content may be incomplete.
 
 - [Spatial and Edge Computng Workshop (draft)](workshops/ai-lab/README.md): Introduction to AI techniques for IoT applications. Note: This is currently in **draft/scaffold stage** - content may be incomplete.
+
 
 We introduce the IoTempower framework early in the class to allow rapid prototyping and quick success, which keeps students motivated to learn more. Once the students have experienced key IoT development tools (after about 50 to 70% of the class), they start designing and then implementing their final project. Starting from stories, students describe a challenge inspired by a real-world problem and work towards constructing a feasible solution. Guest speakers from industry and academia highlight different problem domains to help guide the students in picking and describing challenges for their final projects.
 

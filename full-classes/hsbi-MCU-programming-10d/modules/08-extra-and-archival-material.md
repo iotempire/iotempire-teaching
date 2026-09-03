@@ -1,6 +1,6 @@
 # Extra and Archival Material
 
-[← Previous: Module 7](./07-final-project.md) | [Back to front page](../workbook.md) | [Quick module index](./00-index.md)
+[← Previous: Module 7](./07-final-project.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md)
 
 This file collects material from the later parts of the original workbook that are clearly marked as unfinished, optional, obsolete, or archival.
 

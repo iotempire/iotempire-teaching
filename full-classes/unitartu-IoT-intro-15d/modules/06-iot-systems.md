@@ -1,6 +1,6 @@
 # Module 6 – IoT Systems
 
-[← Previous: Module 5](./05-integration-and-simulations.md) | [Back to front page](../workbook.md) | [Quick module index](./00-index.md) | [Next: Module 7 →](./07-final-project.md)
+[← Previous: Module 5](./05-integration-and-simulations.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 7 →](./07-final-project.md)
 
 
 ## Scaling IoT Systems
