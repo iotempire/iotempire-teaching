@@ -53,7 +53,10 @@ Ulno is bilingual. You are welcome to speak with the teaching team and collabora
 
 ## Grading Breakdown
 
-- **Module Points:** 11 — earned across Days 1–6 (see day-by-day plan below)
+> [!IMPORTANT]
+> **Planned assessment update — to be completed before the in-person course begins:** Documented pre-study in each student's personal portfolio will most likely become **Module 0**, worth **one module point**. The module-point allocation for the later modules will most likely be rebalanced slightly to keep the assessment proportionate. This is not yet the final allocation: the evidence requirements and revised point table will be confirmed here before the ten in-person teaching weeks start. See the [pre-study guide](./pre-study.md) for suitable evidence, including a Wokwi circuit/code, architecture sketch, and short reflection.
+
+- **Module Points:** **Provisional: 11** — currently assigned across Days 1–6; subject to the Module 0 rebalancing above
 - **Reflection Points:** 4 — same standard reflection format (see portfolio template) after Day 1, and one per final-project day (Days 7–9)
 - **Final Project:** 5 points (minimum 2 required to pass)
 - **Extra Points:** Up to 3 — outstanding contributions, help, extra projects, completed stretcher tasks

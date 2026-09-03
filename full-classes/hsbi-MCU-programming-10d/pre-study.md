@@ -9,6 +9,9 @@ You do **not** need to arrive as an embedded developer or network engineer. This
 >
 > **For German speakers / Für deutschsprachige Studierende:** Diese Lehrveranstaltung wird auf Englisch und Deutsch unterrichtet; die gemeinsamen Materialien bleiben auf Englisch. Sie/Du können/kannst im Unterricht und für Ihre/deine Arbeiten Deutsch, Englisch oder eine Mischung aus beidem verwenden. Die vollständige Sprachregelung finden Sie / findest du in den [Hinweisen zur Sprache im Syllabus](./syllabus.md#language-communication--course-material).
 
+> [!IMPORTANT]
+> **Planned assessment update — before the in-person course begins:** We will most likely recognise documented pre-study in your personal portfolio as **Module 0**, worth **one module point**. To keep the assessment balanced, the points assigned to the later modules will most likely be adjusted slightly. This is a planned change, not yet the final allocation: the criteria and final point table will be confirmed in the [syllabus](./syllabus.md) before the ten in-person teaching weeks start. Keep useful evidence of your pre-study—such as your Wokwi circuit/code, architecture sketch, and a short reflection.
+
 ## 1. IoT Systems — The Big Picture
 
 A useful first model is:
@@ -26,15 +29,16 @@ This is the shape of the Day 1 Master Class and Modules 3, 5, and 6. It is delib
 > [!IMPORTANT]
 > **This course is local-first, not cloud-first.** In Module 3, each team creates a stand-alone LAN using an OpenWRT travel router, Wi-Fi, and a Mosquitto MQTT broker. The system must still work when there is no public internet connection. Cloud services are useful in some real projects and may be explored later, but no cloud account or AWS knowledge is required here.
 
-### Start now: make a tiny IoT interaction (30–45 minutes)
+### Start now: find an IoT story and make a tiny interaction (45–60 minutes)
 
-Do not only read or watch—make the first link in the system before class:
+Do not only read or watch—begin your personal portfolio record, find a problem worth solving, and make the first link in an IoT system before class:
 
-1. Watch the first six minutes of the TIA Channel’s **[The Internet of Things: Connecting it All](https://youtu.be/jJaWMWz6RpE?list=PLlppUpfgGsvkfAGJ38_mzQc1-_Z7bNOgq)**. Its opening overview is enough to begin; watch the full documentary if it catches your interest. List the devices/appliances, protocols, and other technologies you notice.
-2. Open **[Wokwi](https://wokwi.com/)** and create a new **ESP32** project. Add an LED, a current-limiting resistor, and a pushbutton. Write a sketch in which the LED follows the button; as a bonus, make each press toggle the LED. You have now made the sensor/input → microcontroller → actuator part of an IoT system.
-3. Watch the course’s **[Blink on a Wemos D1 Mini](https://youtu.be/2nN_ZVyWLzg)** video. Identify the roles of `setup()`, `loop()`, `pinMode()`, and `digitalWrite()`—you will use these on real hardware in Module 2.
+1. Watch the **[IoTempower inspiration video](https://video.iotempower.us)**. Note what inspires you and record one or more stories, local needs, or problems that you might be able to address with the things you learn here. These notes will be useful again when you develop your final project.
+2. Watch the first six minutes of the TIA Channel’s **[The Internet of Things: Connecting it All](https://youtu.be/jJaWMWz6RpE?list=PLlppUpfgGsvkfAGJ38_mzQc1-_Z7bNOgq)**. Its opening overview is enough to begin; watch the full documentary if it catches your interest. Start the evolving IoT observation list in the guiding questions below.
+3. Open **[Wokwi](https://wokwi.com/)** and create a new **ESP32** project. Add an LED, a current-limiting resistor, and a pushbutton. Write a sketch in which the LED follows the button; as a bonus, make each press toggle the LED. You have now made the sensor/input → microcontroller → actuator part of an IoT system.
+4. Watch the course’s **[Blink on a Wemos D1 Mini](https://youtu.be/2nN_ZVyWLzg)** video. Identify the roles of `setup()`, `loop()`, `pinMode()`, and `digitalWrite()`—you will use these on real hardware in Module 2.
 
-Keep a screenshot of your Wokwi circuit and code. It is a useful first portfolio artefact and gives you something concrete to improve when the hardware kit arrives.
+Keep your inspiration notes and a screenshot of your Wokwi circuit and code. Together, they are useful first portfolio artefacts and give you something concrete to improve when the hardware kit arrives.
 
 ### Choose one perspective before going deeper
 
@@ -45,12 +49,14 @@ Keep a screenshot of your Wokwi circuit and code. It is a useful first portfolio
 
 Course-specific MQTT and Node-RED videos appear with the relevant preparation below. The [IoTempower documentation](https://github.com/iotempire/iotempower) becomes useful after you have the system picture; Module 6 returns to it in detail. For independent hands-on inspiration, Andreas Spiess’s [YouTube channel](https://www.youtube.com/@AndreasSpiess) is an excellent optional complement, although it may use different boards, libraries, and infrastructure.
 
-### Guiding questions
+### Guiding questions and your evolving IoT observation list
 
-1. In a typical IoT deployment, what are the roles of the **device**, **gateway/broker**, **integrator**, and **dashboard**?
-2. Why does the course use a broker between devices and a dashboard instead of wiring every node directly to every other node?
-3. What can still work on a local network after the public internet fails? Which features would require a remote or cloud service?
-4. Why is an IoT system more than “an Arduino connected to Wi-Fi”?
+1. Keep an evolving list in your personal portfolio while watching the videos. Start with **three IoT domains**, **two commonly used data protocols**, **two typical devices or appliances**, **two benefits**, and **two challenges**. Add at least one new domain, device, protocol, benefit, challenge, or noteworthy detail from each additional video. Also add one **cloud/architecture observation**: where do you think sensing, local control, gateway/edge work, and optional cloud services belong—and why?
+2. What inspired you in the [IoTempower inspiration video](https://video.iotempower.us)? Which story, personal interest, local need, or problem could you imagine exploring with the technologies in this course?
+3. In a typical IoT deployment, what are the roles of the **device**, **gateway/broker**, **integrator**, and **dashboard**?
+4. Why does the course use a broker between devices and a dashboard instead of wiring every node directly to every other node?
+5. What can still work on a local network after the public internet fails? Which features would require a remote or cloud service?
+6. Why is an IoT system more than “an Arduino connected to Wi-Fi”?
 
 ## 2. Architecture Studio — Map, Place, and Question the Computing Continuum
 
@@ -114,8 +120,8 @@ Make a small timeline with three points: **five years ago**, **today**, and **fi
 
 ### Guiding questions
 
-5. Why is “cloud vs. local” usually a false choice? Give one well-justified hybrid split for the first-aid-station scenario.
-6. What would you measure or investigate before calling an architecture more sustainable?
+7. Why is “cloud vs. local” usually a false choice? Give one well-justified hybrid split for the first-aid-station scenario.
+8. What would you measure or investigate before calling an architecture more sustainable?
 
 ---
 
@@ -134,11 +140,11 @@ Module 3 asks each team to configure a 2.4 GHz Wi-Fi LAN, receive IPv4 addresses
 
 ### Guiding questions
 
-7. What is the difference between a **MAC address**, an **IP address**, a **hostname**, and a **domain name**?
-8. When an ESP joins your Wi-Fi, what jobs does the access point/router perform, and what does DHCP provide?
-9. What is a gateway in this course's network? Which parts are routing, service hosting, and protocol/message brokering?
-10. In MQTT, how do a **broker**, **client**, and **topic** differ? What does `station/alert/#` mean?
-11. Why is a local broker useful for the earthquake/first-aid-station scenario in Module 3?
+9. What is the difference between a **MAC address**, an **IP address**, a **hostname**, and a **domain name**?
+10. When an ESP joins your Wi-Fi, what jobs does the access point/router perform, and what does DHCP provide?
+11. What is a gateway in this course's network? Which parts are routing, service hosting, and protocol/message brokering?
+12. In MQTT, how do a **broker**, **client**, and **topic** differ? What does `station/alert/#` mean?
+13. Why is a local broker useful for the earthquake/first-aid-station scenario in Module 3?
 
 > [!TIP]
 > A device connected to your local Wi-Fi is **not** automatically reachable from the public internet. That separation is desirable: do not expose an MQTT broker or ESP web server to the internet casually. Authentication, encryption, firewall rules, and updates matter whenever a system crosses the local-network boundary.
@@ -178,11 +184,11 @@ Then explain what you would change to use an **external LED connected through a 
 
 ### Guiding questions
 
-12. What is the difference between `setup()` and `loop()`? Where does Arduino-framework startup happen before these functions run?
-13. What does `pinMode(pin, OUTPUT)` mean electrically and in software?
-14. Why must an LED normally have a current-limiting resistor?
-15. Why should a Wemos/ESP GPIO never directly power a relay, solenoid lock, or 12 V load?
-16. What problem does a pull-up or pull-down resistor solve for a pushbutton input?
+14. What is the difference between `setup()` and `loop()`? Where does Arduino-framework startup happen before these functions run?
+15. What does `pinMode(pin, OUTPUT)` mean electrically and in software?
+16. Why must an LED normally have a current-limiting resistor?
+17. Why should a Wemos/ESP GPIO never directly power a relay, solenoid lock, or 12 V load?
+18. What problem does a pull-up or pull-down resistor solve for a pushbutton input?
 
 ---
 
@@ -201,10 +207,10 @@ The course uses MQTT most often because devices and services must both report ev
 
 ### Guiding questions
 
-17. In an HTTP `GET`, where does request data commonly appear? What can a `POST` add?
-18. In HTTP request/response, who initiates each interaction? How does this contrast with MQTT publish/subscribe?
-19. A temperature node publishes once, while a dashboard and an alarm node both subscribe. What needs to know about the other components?
-20. What is an **integrator** in the Module 5 HVAC task, and why is it useful to keep it separate from the sensor and actuator?
+19. In an HTTP `GET`, where does request data commonly appear? What can a `POST` add?
+20. In HTTP request/response, who initiates each interaction? How does this contrast with MQTT publish/subscribe?
+21. A temperature node publishes once, while a dashboard and an alarm node both subscribe. What needs to know about the other components?
+22. What is an **integrator** in the Module 5 HVAC task, and why is it useful to keep it separate from the sensor and actuator?
 
 ---
 
@@ -216,8 +222,8 @@ A real Wemos/ESP setup adds the things engineers must learn to handle: board-spe
 
 ### Guiding questions
 
-21. How can simulation shorten the early design-debug cycle?
-22. Which measurements or failures can only be discovered with real hardware and a real local network?
+23. How can simulation shorten the early design-debug cycle?
+24. Which measurements or failures can only be discovered with real hardware and a real local network?
 
 ---
 
