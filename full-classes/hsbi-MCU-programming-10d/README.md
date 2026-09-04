@@ -24,13 +24,6 @@ The course reuses the modules of the condensed HSBI/GT four-day workshop, paced 
 
 ---
 
-## Course Times & Location
-
-| Setting | Details |
-|---|---|
-| **Time** | Tuesday, 10:15–13:45 |
-| **Location** | Delta 1022 (IoT Lab / Mechatronics Workshop) |
-| **Languages** | English and German; shared materials are in English |
 
 For the complete language arrangement, teaching team, learning objectives, assessment rules, and policies, read the [syllabus](./syllabus.md).
 
