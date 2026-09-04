@@ -1,4 +1,4 @@
-# Syllabus: Microcontroller Programming (MCP) – 10-Day Extended Edition
+# Syllabus: Microcontroller Programming (MCP) – 10 Weeks
 
 > **Important**: This syllabus is a living document and will evolve throughout the semester. Smaller updates may apply based on class progress and feedback.
 
