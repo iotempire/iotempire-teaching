@@ -7,8 +7,8 @@
 ## Class Times and Locations
 
 - **Day:** Tuesday
-- **Location & Room:** Delta 1022 (IoT Lab / Mechatronics Workshop)
-- **Time:** 10:15–13:45
+- **Location & Room:** TBA
+- **Time:** TBA
 - **Languages of Instruction:** English and German
 - **Course Materials:** English
 
