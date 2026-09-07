@@ -1,4 +1,4 @@
-# Syllabus: Microcontroller Programming (MCP) – 10-Day Extended Edition
+# Syllabus: Microcontroller Programming (MCP) – 10 Weeks
 
 > **Important**: This syllabus is a living document and will evolve throughout the semester. Smaller updates may apply based on class progress and feedback.
 
@@ -7,8 +7,8 @@
 ## Class Times and Locations
 
 - **Day:** Tuesday
-- **Location & Room:** Delta 1022 (IoT Lab / Mechatronics Workshop)
-- **Time:** 10:15–13:45
+- **Location & Room:** TBA
+- **Time:** TBA
 - **Languages of Instruction:** English and German
 - **Course Materials:** English
 
