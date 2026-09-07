@@ -1,4 +1,4 @@
-# HSBI/GT Microcontroller Programming — 10-Day Extended Edition
+# HSBI/GT Microcontroller Programming — 10-Weeks (10-Days/12 4h Sessions) Edition
 
 ## Contents
 

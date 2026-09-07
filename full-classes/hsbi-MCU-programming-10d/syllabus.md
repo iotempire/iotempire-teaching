@@ -1,4 +1,4 @@
-# Syllabus: Microcontroller Programming (MCP) – 10 Weeks
+# Syllabus: Microcontroller Programming (MCP) – 10-Weeks (10-Days/12 4h Sessions) Edition
 
 > **Important**: This syllabus is a living document and will evolve throughout the semester. Smaller updates may apply based on class progress and feedback.
 
