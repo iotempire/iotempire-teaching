@@ -1,0 +1,4 @@
+# Ignore runtime configurations and generated student node directories
+.nodered-config/
+stick-config/0[2-9]/
+stick-config/[1-9][0-9]/
