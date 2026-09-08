@@ -5,7 +5,7 @@
 **Day placement:** Day 1, together with the **IoT/Node-RED Masterclass** mini-workshop (see [README.md](../README.md) for the day-by-day plan).
 
 > [!NOTE]
-> This workbook is based on the **University of Tartu** curriculum, adapted here for the extended **HSBI/GT Gütersloh** 10-day format.
+> This workbook is based on the **University of Tartu** curriculum, adapted here for the extended **HSBI/GT Gütersloh** 10-weeks format.
 
 This introduction helps you understand **how the class works**, what is expected from you, how assessment is structured, and how the workshop modules fit together.
 

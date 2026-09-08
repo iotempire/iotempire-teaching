@@ -1,4 +1,4 @@
-# 🍎 Mastering IoT Solutions – Hands-On Workbook
+# Mastering IoT Solutions – Hands-On Workbook
 
 [Overview & Learning Outcomes](./workshop-overview.md) | [Instructor Guide](./INSTRUCTOR-GUIDE.md)
 
@@ -6,7 +6,7 @@ Welcome to the **Mastering IoT Solutions** hands-on lab! This workbook is your i
 
 ---
 
-## 👥 Team Setup & Working Style
+## Team Setup & Working Style
 
 You will work in **teams of two (or three)**:
 - 🧭 **The Navigator:** Keeps this workbook open, guides the tasks, tracks pinouts and MQTT topics, and takes quick notes/photos for the portfolio.
@@ -18,7 +18,7 @@ You will work in **teams of two (or three)**:
 
 ---
 
-## 🚀 Phase 1: First Contact & Hello World in Node-RED
+## Phase 1: First Contact & Hello World in Node-RED
 
 ### 1. Connect to the Workshop Network
 Connect your laptop or tablet to the workshop Wi-Fi:
@@ -42,7 +42,7 @@ Each team has a private, isolated Node-RED instance running in a container on th
 
 ---
 
-## 🕹️ Phase 2: Interacting with Your M5StickC
+## Phase 2: Interacting with Your M5StickC
 
 Your instructor will hand you an **M5StickC** pre-programmed with [IoTempower](https://iotempower.us). Check the two-digit number displayed on its screen (e.g. `01`, `02`, `14`). This is your **Stick ID** (`<id>`).
 
@@ -165,7 +165,7 @@ Want to know if one corner of the room is warmer than another?
 
 ---
 
-## 🌟 Open-Ended Explorations
+## Open-Ended Explorations
 
 Done with the basics? Pick any of these challenges to explore further:
 
@@ -197,7 +197,7 @@ Your M5StickC has an onboard 6-axis IMU (MPU6886).
 
 ---
 
-## 📚 On-Demand Reference & Concepts
+## On-Demand Reference & Concepts
 
 > *Read this section whenever you are curious about what is happening under the hood!*
 

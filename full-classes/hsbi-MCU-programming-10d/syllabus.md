@@ -6,7 +6,7 @@
 
 ## Class Times and Locations
 
-- **Day:** Tuesday
+- **Day:** TBA
 - **Location & Room:** TBA
 - **Time:** TBA
 - **Languages of Instruction:** English and German
@@ -119,24 +119,25 @@ The course reuses the modules of the original HSBI blocked 4-day workshop, paced
 
 | Day | Module / Focus                                                        | Points |
 |-----|------------------------------------------------------------------------|--------|
-| 1   | **Module 1** – Introduction + **Master Class** (M5StickC + Node-RED mini-workshop) | 1 module pt + 1 reflection pt |
+| 1   | **Module 1** – Introduction including **Master Class** (M5StickC + Node-RED mini-workshop) | 1 module pt  |
 | 2   | **Module 2** – Hardware and Basic Electronics                          | 2 module pts |
 | 3   | **Module 3** – Infrastructure and Gateway Setup *(+ stretcher time if needed)* | 2 module pts |
 | 4   | **Module 4** – Embedded Programming and Deploying Nodes *(+ stretcher time if needed, else bonus)* | 2 module pts |
 | 5   | **Module 5** – Integration and Simulations                             | 2 module pts |
 | 6   | **Module 6** – IoT Systems                                              | 2 module pts |
 | 7–9 | **Module 7** – Final Project: ideation → prototyping → build → live demo | 5 project pts |
-| 10  | *Flexible buffer* — extra final-project time if the group needs it     | — |
+
+Every session combines a short introduction, hands-on lab work, and portfolio documentation. There is a bit of flexibility in the time depending on your needs. 
 
 - **Module points total:** 1 + 2 + 2 + 2 + 2 + 2 = **11**
-- **Reflection points total:** 10 days, 2 can be skipped, so 0.5 points each **4**
+- **Reflection points total:** 10 days, 2 can be skipped, so 0.5 points each resulting in **4**
 - **Final project points:** **5**
 
 All labs and reflections are captured in your GitHub portfolio.
 
 ### Portfolio as Primary Artifact
 **All course deliverables are captured in your GitHub Portfolio:**
-- Datasheets & schematics (hand-drawn or Fritzing)
+- Pictures, Datasheets, and/or schematics (hand-drawn or Wokwi/Fritzing)
 - Firmware source & binaries
 - Screenshots: serial console, dashboard values, logic analyzers
 - Measured performance graphs (energy, timing, memory footprint)
@@ -153,9 +154,8 @@ Your logbook should mirror an engineering notebook — continuous, scannable, an
 - **Must-Haves**: ≥3 microcontrollers, MQTT, sensors & actors, OTA ready, permissive license (MIT/CC-BY-SA)
 - **Assessment Criteria** (out of 5):
   – **Functionality & Robustness** (2) [system meets spec & handles errors]
-  – **Documentation & Architecture** (1) [README, block diagrams, timing charts]
-  – **Performance & Efficiency** (1) [resource usage, responsiveness, low-power behavior]
-  – **Presentation & Peer Review** (1) [10 min live demo + 5 min feedback]
+  – **Documentation, Architecture, Performance, Efficiency** (1) [README, diagrams, resource usage, responsiveness, low-power behavior]
+  – **Presentation & Peer Review** (2) [10 min story driven live demo or embedded in video+ 3-5 min feedback/reflection]
 - **Pass Condition:** Minimum 2/5 points required to pass.
 
 ---
@@ -198,7 +198,7 @@ All artifacts (code, logs, schematics) must be published under permissive or ope
 - **In-class Presence:** Active participation in hands-on lab work is mandatory. Unexcused absences may affect module points.
 - **Teamwork:** Form teams of 1–2 students for early labs and 4–6 for the capstone project. Document roles and tasks in your portfolio to ensure transparent contribution tracking.
 - **Ethics & Respect:** Handle kit, peers, and data respectfully. Build **safe prototypes**, document **failure modes**, and consider **stakeholders** in your scenarios.
-- **Open by Default:** Publish all project code, logs, and schematics under permissive open licenses.
+- **Open by Default:** Publish all project code, logs, and schematics under permissive open licenses - ask if industrial needs require something else
 
 ---
 
@@ -207,9 +207,8 @@ All artifacts (code, logs, schematics) must be published under permissive or ope
 1. **Repo housekeeping every session.** Run `git status`, write concise commit messages, link issues to commits. Use branches for experiments.
 2. **Reflect continuously.** Use the same standard reflection format after Day 1 and each final-project day — see the [reflection guidance in the portfolio template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/README.md). The Day 1 Master Class itself gets a normal work report (pictures, notes), not a special reflection.
 3. **Fail early, fail often.** Hardware burnout is part of the journey; fall back to serial logs, schematic inspection, and power-pin sanity checks. Report to us if things break, if you are unsure, talk to us.
-4. **Portfolio is your lifeline.** Reflections and hardware builds are both graded; treat documentation as seriously as the build.
-5. **Collaborate generously.** Review teammate PRs, attend pair-debug sessions, and share exploration artifacts openly.
-6. **Use stretcher time wisely.** Days 3 and 4 have built-in buffer time — use it to catch up, or to tackle bonus tasks if you're ahead.
+4. **Portfolio is your lifeline.** Reflections and hardware builds are both graded; treat documentation as seriously as the build. Problems and struggle (when documented) are features and looked upon positively. No problems are worse than documented struggle.
+5. **Collaborate generously.** Review teammate's work/PRs or audit or help out with work in another team, attend pair-debug sessions, and share exploration artifacts openly.
 
 ---
 
@@ -222,9 +221,3 @@ All artifacts (code, logs, schematics) must be published under permissive or ope
 - **Main Instructor:** Ulrich Norbisrath (**Ulno**) — [ulno.net](https://ulno.net/)
 - **Teaching Support:** Fabian Tilman Schmid-Michels *(if available)*
 - **Discord Server:** To be announced
-
----
-
-> ###### 
-Document Version: 4.0 (HSBI Campus Gütersloh 10-Day Edition)  
-Last Updated: August 2026

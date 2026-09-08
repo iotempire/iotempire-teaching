@@ -17,13 +17,10 @@
 
 This README is the course workbook and front page for the HSBI/GT Microcontroller Programming course, delivered over **10 weeks** in roughly one four-hour session per week.
 
-The course reuses the modules of the condensed HSBI/GT four-day workshop, paced more gradually with room to catch up, explore, and build a substantial final project.
-
 > [!NOTE]
 > This is a living document. Expect minor adaptations as the semester progresses; check weekly announcements for calendar details.
 
 ---
-
 
 For the complete language arrangement, teaching team, learning objectives, assessment rules, and policies, read the [syllabus](./syllabus.md).
 
@@ -31,18 +28,9 @@ For the complete language arrangement, teaching team, learning objectives, asses
 
 ## Course Plan
 
-| Day | Module / focus | Points |
-|---|---|---|
-| 1 | [Module 1 — Introduction](./modules/01-introduction.md) + [Mastering IoT Solutions](../../workshops/mastering-iot-solutions/README.md) | 1 module pt + 1 reflection pt |
-| 2 | [Module 2 — Hardware and Basic Electronics](./modules/02-hardware-and-basic-electronics.md) | 2 module pts |
-| 3 | [Module 3 — Infrastructure and Gateway Setup](./modules/03-infrastructure-and-gateway-setup.md) | 2 module pts |
-| 4 | [Module 4 — Embedded Programming and Deploying Nodes](./modules/04-embedded-programming-and-deploying.md) | 2 module pts |
-| 5 | [Module 5 — Integration and Simulations](./modules/05-integration-and-simulations.md) | 2 module pts |
-| 6 | [Module 6 — IoT Systems](./modules/06-iot-systems.md) | 2 module pts |
-| 7–9 | [Module 7 — Final Project](./modules/07-final-project.md) | 5 project pts |
-| 10 | Flexible final-project buffer | — |
+See above under Contents.
 
-Every session combines a short introduction, hands-on lab work, and portfolio documentation. Days 3 and 4 include stretcher time for catching up or bonus work; Day 10 is available when the group needs more project time.
+Every session combines a short introduction, hands-on lab work, and portfolio documentation. Approximately one session/day per module. There is a bit of flexibility in the time depending on your needs. 
 
 ---
 
@@ -89,7 +77,3 @@ The previous page foregrounded the goal of building real embedded systems—from
 ### Assessment, final project, and licensing
 
 The previous page stated an 11/4/5 point split, a minimum final-project score of 2/5, and a final-project checklist covering a user story, architecture and failure modes, tested hardware, firmware, MQTT-to-gateway-to-Node-RED integration, documentation, and a live demo. These requirements should stay aligned with the authoritative [syllabus assessment section](./syllabus.md#grading-breakdown). It also contained conflicting license language (MIT/CC-BY-SA in one place, MIT by default in another); decide and document the intended code/documentation licensing policy.
-
-### Operational details
-
-Review whether to retain the prior portfolio setup commands and any promise of TA huddles or Discord support. The old page said that kits arrived on Day 2, while the workbook said they were issued at course start; this README follows the workbook pending confirmation. If firmware deployment credentials are discussed, never commit secrets or tokens to student portfolios.
