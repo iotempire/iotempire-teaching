@@ -129,7 +129,7 @@ This task is about the hardware basics of building an access control system (and
     (remember to take a video of the result and convert it to .gif before uploading to GitHub)
   * **QUESTION:** *What will happen if you wire the relay differently than instructed? Specifically, if you swap the wires connected to **COM** and **NO** in the relay?* Figure it out and tell why it happens.
 * **Required Extra Logic (Conceptual):**
-  * In this basic setup, first test relay control without a button by connecting the relay control input to a digital pin on the Wemos D1 Mini and driving it from Arduino IDE using a for loop (or a timed loop) to switch the relay ON and OFF with a 5-6 second loop with a short unlocking interval. **DO NOT KEEP IT ACTIVATED FOR MORE THAN 0,5 SECOND - IT GET'S VERY HOT, VERY QUICKLY.**
+  * In this basic setup, first test relay control without a button by connecting the relay control input to a digital pin on the Wemos D1 Mini and driving it from Arduino IDE using a for loop (or a timed loop) to switch the relay ON and OFF with a 5-6 second loop with a short unlocking interval. **DO NOT KEEP IT ACTIVATED FOR MORE THAN 0,5 SECOND - IT GETS VERY HOT, VERY QUICKLY.**
   * After that, implement command handling through the Serial port: type keyword from the keyboard in the Serial Monitor (for example, UNLOCK, OFF), and make the Wemos parse this command and switch the relay state for some short amount of time.
   * Finally, modify the circuit and add a button using a  **separate Wemos D1 Mini pin** so that closing the button contact sends a trigger signal to the relay input. Write code for that and prove stable switching behavior.
   * (remember to take a video of the result and convert it to .gif before uploading to GitHub)

@@ -18,7 +18,7 @@ Stories/Scenarios:
   - If you do not have your own idea, use AI to generate a scenario. It is still for practice and does not need to become your final project.
 - Present the story/scenario to a neighboring team (2×5 minutes).
 - Discuss potential problems/challenges (5 min) and take notes.
-- Discuss implementation possibilities (10 min): how likely can you build something like this with the kit and otehr hardware available in class, what would need to be mocked up, and what kind of integration would be needed?
+- Discuss implementation possibilities (10 min): how likely can you build something like this with the kit and other hardware available in class, what would need to be mocked up, and what kind of integration would be needed?
 
 Remember:
 
@@ -34,7 +34,7 @@ You can mainly decide yourselves how the final project will be done, but the ori
 
 - The challenge tackled should be meaningful for at least one team member, ideally more.
 - 4-6 people in a team.
-  - Use Scrum if you wish for the project, but only if you know already - else it migh tbe overkill
+  - Use Scrum if you wish for the project, but only if you know already - else it might be overkill
 - Cross at least 2 domains (for example environment monitoring, security, remote access, home automation).
 - Create a story, including at least one pitchable story.
 - Try to use IoTempower as the framework for your project. Talk to the instructors if you wish to use something different.
@@ -49,7 +49,7 @@ You can mainly decide yourselves how the final project will be done, but the ori
 
 ## Final Project Presentation
 
-Your final projects should be presented as a video presentation and made available to the instructor and all class members (probably will do pulic links in Ilias)
+Your final projects should be presented as a video presentation and made available to the instructor and all class members (probably will do public links in Ilias)
 
 Presentation expectations include:
 
@@ -60,6 +60,6 @@ Presentation expectations include:
 - notes and guides in the portfolio about technical and other challenges
 - the video:
   - you can have an opening slide sketching your project, but don't spend too much time here - narrate quickly what this will be about
-  - continue with a playthrough in a pitching style of your running prototype - then add technical explanation - you can add slides here to outline or mock things, but foxus on the physical running prototype presentation
-  - move on to a very short technical breakdown (can be supported by slides) showing challenges and succeses (things you are proud about) and "cool" solutions (how you solved things in particular "cool" ways)
+  - continue with a playthrough in a pitching style of your running prototype - then add technical explanation - you can add slides here to outline or mock things, but focus on the physical running prototype presentation
+  - move on to a very short technical breakdown (can be supported by slides) showing challenges and successes (things you are proud about) and "cool" solutions (how you solved things in particular "cool" ways)
   - end with a positive take away and why someone (or even you) should continue this project beyond this class

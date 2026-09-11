@@ -119,7 +119,7 @@ Create a sketch that consists of two communicating devices, one acting as a "sen
 
 **Hardware connections:**
 If your facility is larger than 2-5m, an RS-485 bus might be a more applicable alternative:
-- Using an RS-485 transreciever module on both ends for long-range wired communication
+- Using an RS-485 transceiver module on both ends for long-range wired communication
 - terminate with **120 Ohm** bus termination resistors at both ends
 - Use **pull-up/pull-downs** if required by the modules to prevent floating line states when no sender is active
 
@@ -133,7 +133,7 @@ If your facility is larger than 2-5m, an RS-485 bus might be a more applicable a
 1\. Connect RS-485 module to both boards (uart connections) including power.
 2\. Wire the buses as follows - A to A, B to B (do not forget GND and power rails) and terminate appropriately with 120 Ohm.
 3\. Use a modified Arduino SerialPassthrough example using either TinyGPS or a simple frame protocol to send/receive data
-4\. connect both arduinos to a same power supply and wires in a Y cable (cut apart USB cable and solder it for intance) and deliver power to both boards
+4\. connect both arduinos to a same power supply and wires in a Y cable (cut apart USB cable and solder it for instance) and deliver power to both boards
 5\. Implement to send/receive (sensor) information over the RS485 link and document your process in your portfolio.
 
 

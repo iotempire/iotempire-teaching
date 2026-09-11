@@ -171,11 +171,11 @@ This task is about the hardware basics of building an access control system and 
 - Measure the duration of one full cycle (`0 → max → 0`). Is it the same as in your theoretical calculation?
 - Change one parameter at a time (step size or delay), retest, and briefly note whether it affects smoothness and cycle time and why.
 
-## Task 9 – Get to know the devices and oeripheral communication
+## Task 9 – Get to know the devices and peripheral communication
 
 - Get to know the hardware, check what else is available in front of the class as well as catalog your own lab kit so far
 - Example part list:
-  - Dallas temperature sensor (`DS1820B`)
+  - Dallas temperature sensor (`DS18B20`)
   - DHT22
   - MPR121 touch sensor
   - gesture sensor

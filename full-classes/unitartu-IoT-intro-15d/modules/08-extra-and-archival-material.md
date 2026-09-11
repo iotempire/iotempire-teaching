@@ -55,7 +55,7 @@ Legacy material retained for educational value and inspiration.
 # Obsolete
 
 
-Section title retained for migration clarity. Original material moved to respective archived modules or superceded by updated guides as above.
+Section title retained for migration clarity. Original material moved to respective archived modules or superseded by updated guides as above.
 
 
 
@@ -67,7 +67,7 @@ Section title retained for migration clarity. Original material moved to respect
 
 
 
-## Additional Temperature Sensors (superceded)
+## Additional Temperature Sensors (superseded)
 
 
 *Use Adafruit unified sensor libraries; OneWire and DHT libraries are standard for Arduino ecosystem.*

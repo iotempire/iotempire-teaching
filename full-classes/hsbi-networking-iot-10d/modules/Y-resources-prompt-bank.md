@@ -1,6 +1,6 @@
 # Portfolio Prompts Bank – Networking and IoT Solutions
 
-*Use these prompts to guide your reflections. You may choose any 5 prompts per moodule (mix technical, project, and process).
+*Use these prompts to guide your reflections. You may choose any 5 prompts per module (mix technical, project, and process).
 Write 1–2 paragraphs per answer; include screenshots, logs, or code snippets where relevant.*
 
 [↩ Back to Resources Bank](./Z-resources-bank.md)  [↩ Back to Module Index](./00-index.md)

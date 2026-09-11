@@ -67,7 +67,7 @@ By the end of this course, you will be able to:
 
 - **understand embedded systems fundamentals**: architecture, resource constraints (memory, energy, real-time capability), and trade-offs
 - **select and program microcontroller platforms** (ESP32 and ESP8266) and optimize performance and power usage
-- **read sensors and control actuators** using basic digital/analog I/O, extend into advanced perhipherals (AD/DA converters, counters, watchdogs, low-power modes)
+- **read sensors and control actuators** using basic digital/analog I/O, extend into advanced peripherals (AD/DA converters, counters, watchdogs, low-power modes)
 - **use bus systems and M2M communication** (I²C, SPI, UART, MQTT, REST/HTTP) to connect systems and devices robustly
 - **design and implement customer/user requirements** into modular microcontroller-based products, making reasoned trade-offs between performance, deployment cost, and maintainability
 - **plan, prototype, test, and document** embedded solutions in a complete engineering notebook (portfolio)
@@ -84,7 +84,7 @@ None beyond course registration.
 - basics in programming (helpful but not required; C/C++ basics will be scaffolded)
 - Linux basics (terminal, package management)
 - version control with Git/GitHub
-- English B1/B2 (documentation, discussions, IDE menus), but feel free to use AI tools to translate anythign of the current workbook into your native language
+- English B1/B2 (documentation, discussions, IDE menus), but feel free to use AI tools to translate anything of the current workbook into your native language
 
 ### Tools & Hardware Kit
 - **Development Environment**:
@@ -152,7 +152,7 @@ Your logbook should mirror an engineering notebook — continuous, scannable, an
 | 18–19              | Good / gut                 |
 | 20                 | Very Good / sehr gut       |
 
-- **Modul Points:** 11
+- **Module Points:** 11
 - **Reflection Points:** 4 (rounded up)
 - **Project Points:** 5
 - **Extra Points / Bonus:** Up to 3

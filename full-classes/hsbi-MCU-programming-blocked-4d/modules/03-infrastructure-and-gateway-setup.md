@@ -14,7 +14,7 @@ Research and take notes.
 
 ## Game: “MQTT to the Rescue”
 
-Read through this game as inspiration, but we will only do the actual tasks (router setup, mqtt communcation, and sensor/actor setup mentioned in it)
+Read through this game as inspiration, but we will only do the actual tasks (router setup, mqtt communication, and sensor/actor setup mentioned in it)
 
 ### Story
 

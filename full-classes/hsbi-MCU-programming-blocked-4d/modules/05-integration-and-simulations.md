@@ -42,7 +42,7 @@ Build integration and mock components of an air condition unit in Node-RED:
 
 2. one flow that let's you set the temperature with the dashboard 2 slider and sends it to an mqtt topic
 
-3. a flow that is the integrator that decides when to tund the air conditioner on or off
+3. a flow that is the integrator that decides when to turn the air conditioner on or off
 This can be done on one node-red installation, but is more fun when different components/flows are deployed on different installations
 
 > Old (now optional for HSBI) Python based part:
@@ -163,7 +163,7 @@ Here is the wiring diagram for the RFID-reader:
              N/C      -  IRQ (IRQ not needed in a polling library)
 ```
 
-You will face alot of connection challenges and interferences in this task, embrace the challenges and make sure to document them in your portfolio task reports.
+You will face a lot of connection challenges and interferences in this task, embrace the challenges and make sure to document them in your portfolio task reports.
 
 ### Task 2.2: Sensor: Ultrasonic Distance Sensor / LIDAR / PIR as “presence” detector
 
@@ -188,7 +188,7 @@ All necessary functionality should already be available in the installed dashboa
 
 ### Task 2.4: Actor: Mini OLED Text receiver
 
-Use the OLED I2C display mini project to implement a text receiver for the access control system (or if you used the LCD display, use that - or if you want ot challnege yourself take the respective other)
+Use the OLED I2C display mini project to implement a text receiver for the access control system (or if you used the LCD display, use that - or if you want to challenge yourself take the respective other)
 
 Examples:
 
@@ -210,7 +210,7 @@ If you managed smooth flashing via PWM before, now use Node-RED to control the b
 
 ## Task 3: Optional: Display Weather info on OLED display
 
-While the OLED display is idle and not being used by the access control, fetch some weather info from an API in Node-REDand display it there (check out the pallette and available plug-ins/libraries).
+While the OLED display is idle and not being used by the access control, fetch some weather info from an API in Node-RED and display it there (check out the palette and available plug-ins/libraries).
 
 Find out on your own how this can be done using Node-RED.
 
