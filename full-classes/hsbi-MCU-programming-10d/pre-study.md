@@ -1,16 +1,20 @@
 # Pre-Study Guide
 
-Welcome to **Microcontroller Programming (MCP) – 10-Weeks (10-Days/12 4h Sessions) Edition**! You will progress from a blinking LED to a real IoT system: ESP32/ESP8266 nodes read sensors and control actuators; a local Wi-Fi network and MQTT broker connect them; Node-RED integrates the parts and provides a dashboard; IoTempower helps manage deployments. See the [syllabus](./syllabus.md) for the complete journey.
+Welcome to **Microcontroller Programming (MCP) – 10-Week Edition**! You will progress from a blinking LED to a real IoT system: ESP32/ESP8266 nodes read sensors and control actuators; a local Wi-Fi network and MQTT broker connect them; Node-RED integrates the parts and provides a dashboard; IoTempower helps manage deployments. See the [syllabus](./syllabus.md) for the complete journey.
 
-You do **not** need to arrive as an embedded developer or network engineer. This short guide lets you make a first thing now, then provides the minimum background that will make the early lab sessions more hands-on and less vocabulary-heavy.
+You do **not** need to arrive as an embedded developer or network engineer. This guide lets you make a first thing now, then provides background that will make the early lab sessions more hands-on and less vocabulary-heavy.
 
 > [!NOTE]
-> **Language:** This course is taught in English and German, while its shared materials are kept in English. Use German, English, or a mixture of both in class and in your work; see the [syllabus language guidance](./syllabus.md#language-communication--course-material) for the full arrangement.
+> **Language:** This course is taught in English and German, while its shared materials are kept in English. You may use German, English, or a mixture of both in class and in your work; see the [syllabus language guidance](./syllabus.md#language-communication--course-material) for the full arrangement.
 >
-> **For German speakers / Für deutschsprachige Studierende:** Diese Lehrveranstaltung wird auf Englisch und Deutsch unterrichtet; die gemeinsamen Materialien bleiben auf Englisch. Sie/Du können/kannst im Unterricht und für Ihre/deine Arbeiten Deutsch, Englisch oder eine Mischung aus beidem verwenden. Die vollständige Sprachregelung finden Sie / findest du in den [Hinweisen zur Sprache im Syllabus](./syllabus.md#language-communication--course-material).
+> **Für deutschsprachige Studierende:** Diese Lehrveranstaltung wird auf Englisch und Deutsch unterrichtet; die gemeinsamen Materialien bleiben auf Englisch. Sie können im Unterricht und für Ihre Arbeiten Deutsch, Englisch oder eine Mischung aus beidem verwenden. Die vollständige Sprachregelung finden Sie in den [Hinweisen zur Sprache im Syllabus](./syllabus.md#language-communication--course-material).
+
+<!-- Instructor reuse note: For younger audiences, adapt the German form of address and translate all material as appropriate for the local teaching context. -->
 
 > [!IMPORTANT]
-> **Planned assessment update — before the in-person course begins:** We will most likely recognise documented pre-study in your personal portfolio as **Module 0**, worth **one module point**. To keep the assessment balanced, the points assigned to the later modules will most likely be adjusted slightly. This is a planned change, not yet the final allocation: the criteria and final point table will be confirmed in the [syllabus](./syllabus.md) before the ten in-person teaching weeks start. Keep useful evidence of your pre-study—such as your Wokwi circuit/code, architecture sketch, and a short reflection.
+> **Required Module 0 — one module point:** Before the first session, create your personal portfolio from the [course Git template](https://github.com/iotempire/iot-portfolio-template) and add a first pre-study entry. Include notes responding to Guiding Questions 1–6, at least one architecture drawing, and at least two Wokwi screenshots—including the completed simulation artifact. Module 0 is assessed in the second session. No separate reflection is required for the pre-study.
+>
+> **Preparation time and access:** The course provides up to 40 hours of independent preparation before the first session. Plan approximately 4–8 hours for the required core below; the remaining material is optional deeper preparation. You need no hardware and no paid account. Wokwi may require an account to save or share a simulation. If you cannot use Wokwi, a hand-drawn circuit and agreed alternative evidence are acceptable; contact the instructor through the LMS before the second session.
 
 ## 1. IoT Systems — The Big Picture
 
@@ -29,22 +33,22 @@ This is the shape of the Day 1 Master Class and Modules 3, 5, and 6. It is delib
 > [!IMPORTANT]
 > **This course is local-first, not cloud-first.** In Module 3, each team creates a stand-alone LAN using an OpenWRT travel router, Wi-Fi, and a Mosquitto MQTT broker. The system must still work when there is no public internet connection. Cloud services are useful in some real projects and may be explored later, but no cloud account or AWS knowledge is required here.
 
-### Start now: find an IoT story and make a tiny interaction (45–60 minutes)
+### Required core: find an IoT story and make a first interaction
 
 Do not only read or watch—begin your personal portfolio record, find a problem worth solving, and make the first link in an IoT system before class:
 
 1. Watch the **[IoTempower inspiration video](https://video.iotempower.us)** (it's pretty dense and short - feel free to watch it twice or slower). Note what inspires you and record one or more stories, local needs, or problems that you might be able to address with the things you learn here. These notes will be useful again when you develop your final project.
 2. Watch (at least) the first six minutes of the TIA Channel’s **[The Internet of Things: Connecting it All](https://youtu.be/jJaWMWz6RpE?list=PLlppUpfgGsvkfAGJ38_mzQc1-_Z7bNOgq)**. Its opening overview is enough to begin; watch the full documentary if it catches your interest. Start the evolving IoT observation list in the guiding questions below.
-3. Watch the course’s **[Blink on a Wemos D1 Mini](https://youtu.be/2nN_ZVyWLzg)** video. Identify the roles of `setup()`, `loop()`, `pinMode()`, and `digitalWrite()`—you will use these on real hardware in Module 2. I forgot to give the right sources for the boards in that video - what do I mean with that (and where do you find them - you can save time later in class if you find them now)?
-4. Open **[Wokwi](https://wokwi.com/)** and create a new **ESP32** project. Add an LED, a current-limiting resistor, and a pushbutton. Write a sketch in which the LED follows the button; as a bonus, make each press toggle the LED. You have now made the sensor/input → microcontroller → actuator part of an IoT system.
+3. Watch the course’s **[Blink on a Wemos D1 Mini](https://youtu.be/2nN_ZVyWLzg)** video. Identify the roles of `setup()`, `loop()`, `pinMode()`, and `digitalWrite()`—you will use these on real hardware in Module 2. Find the official board-support documentation for the ESP8266/Wemos D1 Mini and ESP32, and record where each board package is installed in Arduino IDE or selected in PlatformIO.
+4. Open **[Wokwi](https://wokwi.com/)** and explore an **ESP32** project. Familiarize yourself with its board, inputs, outputs, wiring, and simple Arduino code; build or adapt a small LED/button interaction and save evidence of the result. The course uses several ESP32 and ESP8266/Wemos variants, so treat the simulation as exploration rather than assuming every pin label, voltage limit, or board behaviour will match the classroom hardware.
 
 Keep your inspiration notes and a screenshot of your Wokwi circuit and code. Together, they are useful first portfolio artefacts and give you something concrete to improve when the hardware kit arrives.
 
-### Choose one perspective before going deeper
+### Optional extensions: choose one perspective before going deeper
 
-(CHeck teh evolving list below - you want to take notes while or directly after watchign the videos - check out below.)
+Review the evolving observation-list prompts below before watching. Take notes during or immediately after each video.
 
-* **[IoT Intro Videos playlist](https://www.youtube.com/playlist?list=PLlppUpfgGsvkfAGJ38_mzQc1-_Z7bNOgq)** — the course’s curated collection, including the TIA material, short Bosch videos, and course-specific demonstrations. Pick one additional video rather than trying to watch the entire list (see below for selecting, though if something else catches your eye, feel free to watch, but be aware that some things might already get outdated, so be ready for slight updates).
+* **[IoT Intro Videos playlist](https://www.youtube.com/playlist?list=PLlppUpfgGsvkfAGJ38_mzQc1-_Z7bNOgq)** — the course’s curated collection, including TIA material, short Bosch videos, and course-specific demonstrations. Pick one additional video rather than trying to watch the entire playlist. You are welcome to explore further, but evaluate older material critically because tools and recommendations change.
 * **TIA Channel – [The Cloud: Building in Mid-Air](https://youtu.be/MDTRQ0dbcRE?list=PLlppUpfgGsvkfAGJ38_mzQc1-_Z7bNOgq)** — an optional historical cloud primer. It is a starting point, not a current design recommendation: as you watch, ask what it assumes about connectivity, centralisation, data growth, energy, ownership, and failure modes.
 * **Bosch Global – [The Internet of Things presents – #LikeABosch](https://youtu.be/v2kV6pgJxuo?list=PLlppUpfgGsvkfAGJ38_mzQc1-_Z7bNOgq)** — a short application-oriented product vision. Consider both the user experience it promises and the technical constraints it omits.
 * **Simplilearn – [*What is IoT?* on the Simplilearn channel](https://www.youtube.com/@SimplilearnOfficial/search?query=what%20is%20iot)** — a second beginner-friendly explanation for comparing how different educators frame devices, data, connectivity, and action.
@@ -60,10 +64,12 @@ Q4. Why does the course use a broker between devices and a dashboard instead of 
 Q5. What can still work on a local network after the public internet fails? Which features would require a remote or cloud service?
 Q6. Why is an IoT system more than “an Arduino connected to Wi-Fi”?
 
+> **Module 0 core complete:** The remaining sections and Guiding Questions 7–24 are optional deeper preparation unless the instructor announces otherwise. Keep useful notes and evidence because they can strengthen your portfolio and support later module work.
+
 ## 2. Architecture Studio — Map, Place, and Question the Computing Continuum
 
 > [!TIP]
-> **This is the most valuable optional pre-study task (30–45 minutes).** Keep a photo or scan of the result for your portfolio. It is not a test with one correct diagram; the point is to make placement decisions visible and explainable.
+> **Optional architecture extension.** Keep a photo or scan of the result for your portfolio. It is not a test with one correct diagram; the point is to make placement decisions visible and explainable.
 
 The cloud is neither magic nor a distant icon on a diagram: it is physical infrastructure—servers, storage, networks, power, cooling, maintenance work, and organisations. Equally, “local” is not automatically greener or better. A distributed system can reduce unnecessary data transfer and keep working offline, but it also introduces more hardware, maintenance, security responsibilities, and potential e-waste. Good engineering makes the trade-offs explicit.
 
@@ -138,7 +144,7 @@ Module 3 asks each team to configure a 2.4 GHz Wi-Fi LAN, receive IPv4 addresses
 * **OpenWrt – [User Guide](https://openwrt.org/docs/guide-user/start)** *(reference, not required reading)*
   Keep this available for Module 3. It provides terminology for the router's LuCI interface, LAN/WAN interfaces, Wi-Fi, DHCP, and package management.
 * **Course video – [Barebone MQTT with Mosquitto Clients](https://youtu.be/4bACqRAr1qg)**
-  A course-aligned introduction to observing and sending MQTT traffic with command-line tools. It makes more sense after you have seen the basic publish/subscribe model. (Take into account that we will have an openwrt router, not the raspbberry pi gateway.)
+  A course-aligned introduction to observing and sending MQTT traffic with command-line tools. It makes more sense after you have seen the basic publish/subscribe model. Note that the course uses an OpenWrt router, not a Raspberry Pi gateway.
 
 ### Guiding questions
 
@@ -231,7 +237,7 @@ Q24. Which measurements or failures can only be discovered with real hardware an
 
 ## 7. Prepare Like an Engineer
 
-The final project asks you to build a multi-node system with sensors, actuators, MQTT, an integration layer, a dashboard, documentation, and a clear user scenario. You do not need to choose your project now, but get used to looking at examples critically.
+The final project asks you to build a multi-node system with sensors, actuators, MQTT, an integration layer, a dashboard, documentation, and a clear user scenario. You do not need to choose your project now, but get used to looking at examples critically. The exact presentation format—live demonstration or video—will be agreed during the course.
 
 When you watch any IoT video—course material, Bosch, TIA, Andreas Spiess, Simplilearn, or something else—make a tiny engineering note:
 

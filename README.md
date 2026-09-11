@@ -32,7 +32,7 @@ We provide several comprehensive workbooks that serve as the foundation for our 
 
 - [Mastering IoT Solutions (draft)](workshops/iot-solutions/README.md): This workshop explores IoT solutions from a business and implementation perspective. Note: This is currently in **draft/scaffold stage** - content may be incomplete.
 
-- [Spatial and Edge Computng Workshop (draft)](workshops/ai-lab/README.md): Introduction to AI techniques for IoT applications. Note: This is currently in **draft/scaffold stage** - content may be incomplete.
+- [Spatial and Edge Computing Workshop (draft)](workshops/ai-lab/README.md): Introduction to AI techniques for IoT applications. Note: This is currently in **draft/scaffold stage** - content may be incomplete.
 
 
 We introduce the IoTempower framework early in the class to allow rapid prototyping and quick success, which keeps students motivated to learn more. Once the students have experienced key IoT development tools (after about 50 to 70% of the class), they start designing and then implementing their final project. Starting from stories, students describe a challenge inspired by a real-world problem and work towards constructing a feasible solution. Guest speakers from industry and academia highlight different problem domains to help guide the students in picking and describing challenges for their final projects.

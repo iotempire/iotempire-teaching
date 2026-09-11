@@ -42,7 +42,7 @@ Build integration and mock components of an air condition unit in Node-RED:
 
 2. one flow that let's you set the temperature with the dashboard 2 slider and sends it to an mqtt topic
 
-3. a flow that is the integrator that decides when to tund the air conditioner on or off
+3. a flow that is the integrator that decides when to turn the air conditioner on or off
 This can be done on one node-red installation, but is more fun when different components/flows are deployed on different installations
 
 > Old (now optional for HSBI) Python based part:
@@ -68,13 +68,13 @@ Supply steps, code, and screenshots from running everything together in the port
 
 ## Task 1.2+: HVAC system with real sensors in Node-RED
 
-**Attention:** When attaching new actors or sensors to a microcontroller, disconnect the microcontroller from power first. Most things use 3.3V. Only wire things to 5V if explicitly stated. Be even more careful when using 12V.
+**Attention:** When attaching new actuators or sensors to a microcontroller, disconnect the microcontroller from power first. Most components use 3.3 V. Only wire components to 5 V if explicitly stated, and take extra care with 12 V.
 
 ### Task 1.2: Sensor: Node with Temperature Sensor
 
 Connect the Dallas sensor shield onto a tripler (or with dupont cables) onto an ESP and program it with PlatformIO or Arduino IDE to send the measured temperature to an MQTT topic. Why do I ask you to not slot it on directly? You can also use the long cable water proof dallas sensor with a 5K resistor (check exact wiring online).
 
-### Task 1.3: Actor: Second Node: AC as smoothly flashing LED
+### Task 1.3: Actuator: Second Node: AC as smoothly flashing LED
 
 Remember the smoothly flashing led? Use it to simulate an air conditioner turning on and off: This means, the light nicely pulsates when it is turned on and simply turned off when everything is turned off.
 
@@ -133,7 +133,7 @@ When access is granted (the following is the task description, it is broken down
 
 ## More actuators and sensors
 
-Please deploy each sensor and actor in a different node, meaning different microcontroller boards, where possible.
+Please deploy each sensor and actuator on a different node, meaning different microcontroller boards, where possible.
 
 ### Task 2.1: Sensor: RFID reader and UI
 
@@ -143,7 +143,7 @@ Please deploy each sensor and actor in a different node, meaning different micro
 - Based on the detected UID, make a Node-RED dashboard button either red and display `Access Denied` or green and display `Access Granted`
 - If you press the button, reset its color and make it display `Scan Tag`
 - Optionally try out your own personal tags if the given ones show no ID
-- Power the reader from the multiport USB charger
+- Power the ESP board from the multiport USB charger if needed. Power the MFRC522 reader only from the board’s **3.3 V** pin as shown in the wiring diagram; do not connect the reader directly to USB 5 V.
 
 Here is the wiring diagram for the RFID-reader:
 
@@ -163,7 +163,7 @@ Here is the wiring diagram for the RFID-reader:
              N/C      -  IRQ (IRQ not needed in a polling library)
 ```
 
-You will face alot of connection challenges and interferences in this task, embrace the challenges and make sure to document them in your portfolio task reports.
+You will face a lot of connection challenges and interference in this task. Embrace the challenges and document them in your portfolio task reports.
 
 ### Task 2.2: Sensor: Ultrasonic Distance Sensor / LIDAR / PIR as “presence” detector
 
@@ -171,7 +171,7 @@ Connect the 3.3V ultrasonic distance sensor (or LIDAR / PIR if used) to an ESP a
 
 This is supposed to detect if there is an actual person in front of the door before it unlocks.
 
-### Task 2.3: Actor: UI Sound notification / PWM Buzzer
+### Task 2.3: Actuator: UI Sound notification / PWM Buzzer
 
 Use the code from the PWM LED project to deploy a new node.
 
@@ -186,9 +186,9 @@ Use the code from the PWM LED project to deploy a new node.
 
 All necessary functionality should already be available in the installed dashboard nodes.
 
-### Task 2.4: Actor: Mini OLED Text receiver
+### Task 2.4: Actuator: Mini OLED Text receiver
 
-Use the OLED I2C display mini project to implement a text receiver for the access control system (or if you used the LCD display, use that - or if you want ot challnege yourself take the respective other)
+Use the OLED I²C display mini project to implement a text receiver for the access-control system. If you used the LCD display, use the OLED instead; if you want to challenge yourself, implement the respective other display.
 
 Examples:
 
@@ -198,7 +198,7 @@ Examples:
 
 Send some MQTT messages via phone or Mosquitto CLI tools to test that the message arrives on the display.
 
-### Task 2.5: Actor: PWM LED or RGB LED
+### Task 2.5: Actuator: PWM LED or RGB LED
 
 If you managed smooth flashing via PWM before, now use Node-RED to control the brightness directly (duty cycle) of 2 LEDs (green and red) - so transfer the "smoothness" away from the MCU to the integrating system with Node-RED. You should see a difference and learn something from that small experiment.
 
@@ -210,7 +210,7 @@ If you managed smooth flashing via PWM before, now use Node-RED to control the b
 
 ## Task 3: Optional: Display Weather info on OLED display
 
-While the OLED display is idle and not being used by the access control, fetch some weather info from an API in Node-REDand display it there (check out the pallette and available plug-ins/libraries).
+While the OLED display is idle and not being used by the access-control system, fetch weather information from an API in Node-RED and display it there. Check the palette and available plug-ins/libraries.
 
 Find out on your own how this can be done using Node-RED.
 

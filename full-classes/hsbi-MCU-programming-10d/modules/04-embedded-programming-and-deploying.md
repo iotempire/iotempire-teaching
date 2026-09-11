@@ -263,22 +263,23 @@ Use phone or CLI MQTT tools to send and receive messages on your system.
 
 **For the LED strip:**
 
-- the reference schematic is for a 5V LED strip like the one in class
+- LED strips in the classroom may use either 5 V or 12 V. Identify the actual strip, its power supply, signal requirements, and wiring before connecting it; never assume that a reference schematic matches the available hardware.
 
 Tips:
 
 - understand how the MQTT server is configured on the MQTT IN and OUT nodes
 - make sure your topics are correct
-- use the **SWITCH** node to decide what shoudl happen based on the message received, and  **CHANGE** node to transform one command into another 
+- use the **SWITCH** node to decide what should happen based on the message received, and **CHANGE** node to transform one command into another
 - the **DEBUG** node is very useful
 
 Attention: use the **NeoPixelBus** library (to avoid interrupt crashes that can happen with FastLED when using WiFi and MQTT at the same time).
 
-## Task 10: Optional: Build support for the BME/BMP280 i2c sensor or color sensor of the kit to run on the ESP32 MiniKit or ESP32 Nodemcu
+## Task 10: Optional: Use one additional I²C sensor from the available hardware with an ESP32 MiniKit or ESP32 NodeMCU
 
-- Verify whether you have BME280 or BMP280 and select the library correspondingly
-- For BME280, use Adafruit’s BME280 library
-- In the case of this HSBI MCU programming class, you only have the color sensor from the Arduino kit (and post it to an mqtt topic)
+- Choose one available I²C sensor. BME280/BMP280 and the Arduino-kit color sensor are examples; the actual selection depends on the hardware provided in class.
+- Identify the sensor, verify its voltage and I²C address, and select the appropriate library.
+- For BME280, use Adafruit’s BME280 library.
+- Read a useful value and publish it to an MQTT topic.
 
 ## Task 11: Optional: Build support for the VL53L0X LIDAR Distance sensor to run on the ESP32
 
@@ -292,7 +293,7 @@ If you have spare resources, try to build a simple animation for the LED strip (
 
 ## Task 13: Optional: Deep Sleep
 
-Test the deep sleep functionality of the Wemos D1 Mini or esp32. Why is deep sleep needed? How does it effect OTA flashing?
+Test the deep sleep functionality of the Wemos D1 Mini or ESP32. Why is deep sleep needed? How does it affect OTA flashing?
 
 [image7]: ../images/image7.png
 [image8]: ../images/image8.png

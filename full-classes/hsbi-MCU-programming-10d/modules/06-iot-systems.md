@@ -102,10 +102,10 @@ In the portfolio report your build system:
 
 ## Task 6: more, more more
 
-Send someone or a delegation in front and check out all other sensors (and a few actors) that are available.
+Send someone or a delegation to inspect all other available sensors and actuators.
 
 You also have a stepper motor and a servo motor in your own kit.
 
-Implement at least three of these devices either in IoTempower or on your own. (Just connect to mqtt and show that you gan control them or get data.)
+Implement at least three of these devices either in IoTempower or on your own. Connect them to MQTT and show that you can control them or receive data.
 
 Testing some of the new drivers in IoTempower (even showing that they are broken, counts also as one device).

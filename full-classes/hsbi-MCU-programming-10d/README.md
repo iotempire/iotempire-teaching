@@ -1,4 +1,4 @@
-# HSBI/GT Microcontroller Programming — 10-Weeks (10-Days/12 4h Sessions) Edition
+# HSBI/GT Microcontroller Programming — 10-Week Edition
 
 ## Contents
 
@@ -15,10 +15,10 @@
 | [Module 7 — Final Project](./modules/07-final-project.md) | Build, document, and demonstrate a system |
 | [Module 8 — Extra & Archive](./modules/08-extra-and-archival-material.md) | Optional and historical material |
 
-This README is the course workbook and front page for the HSBI/GT Microcontroller Programming course, delivered over **10 weeks** in roughly one four-hour session per week.
+This README is the course workbook and front page for the HSBI/GT Microcontroller Programming course. It is delivered over **8–12 sessions/days** across the semester; the official timetable, room, and announcements are published through the course LMS.
 
 > [!NOTE]
-> This is a living document. Expect minor adaptations as the semester progresses; check weekly announcements for calendar details.
+> This is a living document. Expect minor adaptations as the semester progresses; check LMS announcements for current schedule details.
 
 ---
 
@@ -30,15 +30,15 @@ For the complete language arrangement, teaching team, learning objectives, asses
 
 See above under Contents.
 
-Every session combines a short introduction, hands-on lab work, and portfolio documentation. Approximately one session/day per module. There is a bit of flexibility in the time depending on your needs. 
+Every session combines a short introduction, hands-on lab work, and portfolio documentation. Module pacing is flexible: sessions may include stretcher time, begin the next module, or support groups progressing at different speeds. The syllabus is the single source of truth for assessment and final-project requirements.
 
 ---
 
 ## Portfolio & Hardware
 
-Publish your work in a GitHub portfolio: source code, binaries, schematics, serial logs, dashboard screenshots, measurements, and reflections. Use the [portfolio template](https://github.com/iotempire/iot-portfolio-template) and its [reflection guidance](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/README.md).
+Maintain a personal GitHub portfolio with source code, binaries, schematics, serial logs, dashboard screenshots, measurements, and reflections. Start from the [portfolio template](https://github.com/iotempire/iot-portfolio-template). Public sharing is encouraged but optional; the instructor must be able to assess your evidence.
 
-Document the Day 1 Master Class as a normal work report—pictures, process notes, peer collaboration, Node-RED/MQTT observations, and your M5StickC temperature-sensor wiring—not as a special reflection topic. The laboratory kit is issued at the course start; see [Module 2](./modules/02-hardware-and-basic-electronics.md) for the inventory and safety notes.
+**Module 0 is required:** before the first session, create your personal portfolio and add the pre-study entry described in the [pre-study guide](./pre-study.md). Document the Day 1 Master Class as a normal work report—pictures, process notes, peer collaboration, Node-RED/MQTT observations, and M5StickC temperature-sensor wiring—not as a separate reflection. The laboratory kit is issued at the course start; see [Module 2](./modules/02-hardware-and-basic-electronics.md) for the inventory and safety notes.
 
 ---
 
@@ -52,13 +52,14 @@ Document the Day 1 Master Class as a normal work report—pictures, process note
 ### How to work well
 
 - Keep a clean repository with meaningful commits and linked issues or pull requests.
-- Reflect after Day 1 and each final-project day using the portfolio template.
+- Complete one reflection for each working day, using the format and deadlines announced through the LMS.
 - Collaborate openly: pair-debug, review work, and share useful discoveries.
 - Treat hardware and documentation with equal care. When something fails, record the symptoms, inspect the circuit, verify power and pins, and keep useful serial logs.
 
 ### Contacts & support
 
-- **Technical issues:** Open an issue in your portfolio repository with relevant screenshots and serial logs.
+- **Questions, schedule, and technical support:** Use the course LMS, the authoritative course communication channel.
+- **Technical issues:** Report portfolio-repository issues through the agreed course channel with relevant screenshots and serial logs.
 - **Main Instructor:** Ulrich Norbisrath (**Ulno**) — [ulno.net](https://ulno.net/)
 - **Teaching Support:** Fabian Tilman Schmid-Michels *(if available)*
-- **Discord:** To be announced
+- **Optional community channel:** Announced through the LMS, if offered

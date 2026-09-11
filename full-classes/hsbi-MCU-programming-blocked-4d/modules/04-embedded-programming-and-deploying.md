@@ -269,7 +269,7 @@ Tips:
 
 - understand how the MQTT server is configured on the MQTT IN and OUT nodes
 - make sure your topics are correct
-- use the **SWITCH** node to decide what shoudl happen based on the message received, and  **CHANGE** node to transform one command into another 
+- use the **SWITCH** node to decide what should happen based on the message received, and  **CHANGE** node to transform one command into another
 - the **DEBUG** node is very useful
 
 Attention: use the **NeoPixelBus** library (to avoid interrupt crashes that can happen with FastLED when using WiFi and MQTT at the same time).
@@ -292,7 +292,7 @@ If you have spare resources, try to build a simple animation for the LED strip (
 
 ## Task 13: Optional: Deep Sleep
 
-Test the deep sleep functionality of the Wemos D1 Mini or esp32. Why is deep sleep needed? How does it effect OTA flashing?
+Test the deep sleep functionality of the Wemos D1 Mini or esp32. Why is deep sleep needed? How does it affect OTA flashing?
 
 [image7]: ../images/image7.png
 [image8]: ../images/image8.png

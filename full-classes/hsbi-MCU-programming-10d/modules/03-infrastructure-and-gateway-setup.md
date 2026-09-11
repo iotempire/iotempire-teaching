@@ -14,7 +14,7 @@ Research and take notes.
 
 ## Game: “MQTT to the Rescue”
 
-Read through this game as inspiration, but we will only do the actual tasks (router setup, mqtt communcation, and sensor/actor setup mentioned in it)
+Read through this game as inspiration, but we will only do the actual tasks (router setup, MQTT communication, and sensor/actuator setup mentioned in it).
 
 ### Story
 
@@ -322,7 +322,7 @@ Follow the instructions on the IoTempower GitHub page:
 
 ## Explore IoTempower Services
 
-Check out `iot_service` and other commands in the IoTempower `bin` directory:
+Check out `iot service` and other IoTempower commands in the `bin` directory:
 [https://github.com/iotempire/iotempower/tree/master/bin](https://github.com/iotempire/iotempower/tree/master/bin)
 
 There is also a bit more documentation here, but critically hunt for new information together and prepare an update of this page:

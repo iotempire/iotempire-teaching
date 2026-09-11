@@ -1,4 +1,4 @@
-# Syllabus: Microcontroller Programming (MCP) – 10-Weeks (10-Days/12 4h Sessions) Edition
+# Syllabus: Microcontroller Programming (MCP) – 10-Week Edition
 
 > **Important**: This syllabus is a living document and will evolve throughout the semester. Smaller updates may apply based on class progress and feedback.
 
@@ -6,9 +6,8 @@
 
 ## Class Times and Locations
 
-- **Day:** TBA
-- **Location & Room:** TBA
-- **Time:** TBA
+- **Schedule, location, and room:** Published in the official HSBI timetable and course LMS before teaching begins
+- **Official announcements and course contact:** Course LMS
 - **Languages of Instruction:** English and German
 - **Course Materials:** English
 
@@ -22,9 +21,9 @@
 | Possible teaching support | Fabian Tilman Schmid-Michels | To be confirmed |
 
 > [!NOTE]
-> **Local course information:** Ulno is the primary instructor for this HSBI offering. If you reuse or fork this course, replace the teaching-team and contact details. **TODO:** Consider moving site-specific people, rooms, contacts, and Discord details to an untracked local-course configuration file.
+> **Course information:** Ulno is the primary instructor for this HSBI offering. The course LMS is the authoritative source for local dates, rooms, contact details, and announcements. A Discord space may be offered as an additional community channel.
 
-**Course Discord Invite:** To be announced.
+<!-- Instructor reuse note: For younger audiences, adapt the German form of address and translate all material as appropriate for the local teaching context. -->
 
 ---
 
@@ -34,34 +33,7 @@ This class is taught in **English and German**. The shared workbook, slides, cod
 
 Ulno is bilingual. You are welcome to speak with the teaching team and collaborate in **German, English, or a mixture of both**. Notes, portfolio documentation, and presentations may likewise be in German, English, or mixed language. Ask whenever technical vocabulary or a task formulation needs clarification in either language. A mixed-language discussion is normal here—switching the instructor’s language at an inconvenient moment is an unofficial side quest.
 
-**For German speakers / Für deutschsprachige Studierende:** Diese Lehrveranstaltung findet auf Englisch und Deutsch statt. Das gemeinsame Workbook, die Folien, der Code, die Dokumentation und die meisten bestehenden Unterrichtsmaterialien bleiben auf Englisch, damit sie in englisch- und deutschsprachigen Kursen einheitlich genutzt werden können. Ulno ist zweisprachig; Sie/Du können/kannst mit dem Lehrteam auf Deutsch, Englisch oder in einer Mischung aus beiden Sprachen sprechen und zusammenarbeiten. Notizen, Portfolio-Dokumentation und Präsentationen dürfen ebenfalls auf Deutsch, Englisch oder gemischt erstellt werden. Fragen Sie / Frag jederzeit nach, wenn Fachbegriffe oder Aufgabenstellungen in einer der beiden Sprachen geklärt werden sollen.
-
----
-
-## Course Load & Credits
-
-- **Contact Hours (in-class):** 12 sessions × 4h = **48 hours** (5 ECTS)
-  - Delivered over **10 weeks**, roughly **one session per week**
-  - **Days 3 and 4** each reserve optional **stretcher time** in case a module needs longer
-  - **Day 10** is kept flexible as a buffer for final-project work if the group needs it
-- **unsupervised self-study and homework:** 102 hours
-- **Total workload:** 150 hours / 5 ECTS
-
-- **ECTS Credits:** 5
-
----
-
-## Grading Breakdown
-
-> [!IMPORTANT]
-> **Planned assessment update — to be completed before the in-person course begins:** Documented pre-study in each student's personal portfolio will most likely become **Module 0**, worth **one module point**. The module-point allocation for the later modules will most likely be rebalanced slightly to keep the assessment proportionate. This is not yet the final allocation: the evidence requirements and revised point table will be confirmed here before the ten in-person teaching weeks start. See the [pre-study guide](./pre-study.md) for suitable evidence, including a Wokwi circuit/code, architecture sketch, and short reflection.
-
-- **Module Points:** **Provisional: 11** — currently assigned across Days 1–6; subject to the Module 0 rebalancing above
-- **Reflection Points:** 4 — same standard reflection format (see portfolio template) after Day 1, and one per final-project day (Days 7–9)
-- **Final Project:** 5 points (minimum 2 required to pass)
-- **Extra Points:** Up to 3 — outstanding contributions, help, extra projects, completed stretcher tasks
-
-- **Minimum Passing Grade:** 14/20 points (≈70 %)
+**Für deutschsprachige Studierende:** Diese Lehrveranstaltung findet auf Englisch und Deutsch statt. Das gemeinsame Workbook, die Folien, der Code, die Dokumentation und die meisten bestehenden Unterrichtsmaterialien bleiben auf Englisch, damit sie in englisch- und deutschsprachigen Kursen einheitlich genutzt werden können. Ulno ist zweisprachig; Sie können mit dem Lehrteam auf Deutsch, Englisch oder in einer Mischung aus beiden Sprachen sprechen und zusammenarbeiten. Notizen, Portfolio-Dokumentation und Präsentationen dürfen ebenfalls auf Deutsch, Englisch oder gemischt erstellt werden. Fragen Sie jederzeit nach, wenn Fachbegriffe oder Aufgabenstellungen in einer der beiden Sprachen geklärt werden sollen.
 
 ---
 
@@ -88,6 +60,34 @@ By the end of this course, you will be able to:
 
 ---
 
+## Course Load & Credits
+
+- **In-person delivery:** **8–12 sessions/days** across the semester. The exact timetable and contact hours are published through the official HSBI timetable and course LMS.
+  - Module pacing is flexible: a session may provide stretcher time, begin the next module, or support groups progressing at different speeds.
+- **Independent study and homework:** **102 hours** across the course.
+  - Before the first session, students are expected to invest approximately **40 hours** in independent preparation. The required Module 0 core is a realistic **4–8-hour** starting point; optional resources support deeper preparation.
+- **Total workload:** 150 hours / 5 ECTS
+- **ECTS Credits:** 5
+
+---
+
+## Grading Breakdown
+
+Assessment is conducted as a **Kombinationsprüfung**: portfolio evidence, reflections, and a final project.
+
+> [!IMPORTANT]
+> **Module 0 is required and worth one point.** Before the first session, create your personal portfolio from the course Git template and add a first entry based on the pre-study guide. Include notes responding to Guiding Questions 1–6, at least one architecture drawing, and at least two screenshots from Wokwi—including the completed simulation artifact. Module 0 is assessed in the second session. This point replaces the former separate assessment point for the introductory session; the Day 1 Master Class remains required portfolio practice.
+
+- **Module 0 and module points:** 11 points total — 1 point for the required pre-study and 10 points across the later module work
+- **Reflection points:** 4 points total — one reflection is required for each working day; the exact number of working days, reflection format, and deadlines are announced with the timetable
+- **Final project:** 5 points (**25% of the 20 base points**)
+- **Extra points:** Up to 3 — outstanding contributions, help, extra projects, completed stretcher tasks, or accepted contributions to IoTempower or this teaching repository
+- **Score cap:** The final score is capped at **20**, even if extra points are earned. Extra points can compensate for weaker compulsory components, but all required deliverables must still be attempted and supported by convincing portfolio evidence.
+- **Minimum passing score:** 14/20 points (≈70%)
+
+---
+
+
 ## Prerequisites & Tools
 
 ### Formal
@@ -106,34 +106,31 @@ None beyond course registration.
 - **Laboratory Hardware Kit** (issued during classes):
   – Breadboards and jumper wires
   – Wemos D1 Mini / ESP32 & ESP8266 boards, plus M5StickC for the Day 1 Master class
-  – Sensors: Temperature/DHT22, Ultrasonic/PIR, BME280, RFID/MFRC522, OLED displays
+  – Sensors: Temperature/DHT22, Ultrasonic/PIR, RFID/MFRC522, OLED displays, and additional I²C sensors (for example BME280/BMP280 or a color sensor, depending on availability)
   – Actuators: LEDs, RGB-LEDs, relays, motors (ULN kit), buzzer, stepper (on-demand)
   – Interface kits: I²C & SPI test boards, basic GPIO tools
   – Tools: USB cables, multimeters
 
 ---
 
-## Day-by-Day Plan & Assessment
+## Indicative Progression & Assessment
 
-The course reuses the modules of the original HSBI blocked 4-day workshop, paced like the extended University of Tartu course — roughly **one module per day** instead of cramming several modules into a single block day. **Some flexibility is built in**: fast groups can use stretcher time for bonus material, slower groups can use it to finish the core module.
+The course reuses and extends modules from the HSBI block workshop. It is delivered over **8–12 sessions/days**, depending on the official timetable, group progress, and available lab time. Some sessions may provide stretcher time; the instructor may also begin the next module during a session, and groups may progress at slightly different speeds.
 
-| Day | Module / Focus                                                        | Points |
-|-----|------------------------------------------------------------------------|--------|
-| 1   | **Module 1** – Introduction including **Master Class** (M5StickC + Node-RED mini-workshop) | 1 module pt  |
-| 2   | **Module 2** – Hardware and Basic Electronics                          | 2 module pts |
-| 3   | **Module 3** – Infrastructure and Gateway Setup *(+ stretcher time if needed)* | 2 module pts |
-| 4   | **Module 4** – Embedded Programming and Deploying Nodes *(+ stretcher time if needed, else bonus)* | 2 module pts |
-| 5   | **Module 5** – Integration and Simulations                             | 2 module pts |
-| 6   | **Module 6** – IoT Systems                                              | 2 module pts |
-| 7–9 | **Module 7** – Final Project: ideation → prototyping → build → live demo | 5 project pts |
+| Indicative phase | Module / focus | Assessment |
+|---|---|---|
+| Before the first session | **Module 0** – portfolio setup and pre-study | **1 module point**; assessed in the second session |
+| Opening session | **Module 1** – introduction and Master Class (M5StickC + Node-RED mini-workshop) | Required portfolio practice; no separate module point |
+| Early lab sessions | **Modules 2–6** – electronics, infrastructure, embedded programming, integration, and IoT systems | **10 module points** total |
+| Remaining sessions | **Module 7** – final project: ideation → prototyping → build → live demonstration or video presentation, as agreed during the course | **5 project points** |
 
-Every session combines a short introduction, hands-on lab work, and portfolio documentation. There is a bit of flexibility in the time depending on your needs. 
+Every session combines a short introduction, hands-on lab work, and portfolio documentation. Every working day requires a reflection; together, reflections are worth **4 points**. The LMS will publish the final session plan, reflection details, and deadlines.
 
-- **Module points total:** 1 + 2 + 2 + 2 + 2 + 2 = **11**
-- **Reflection points total:** 10 days, 2 can be skipped, so 0.5 points each resulting in **4**
-- **Final project points:** **5**
+- **Module-related points total:** Module 0 (1) + Modules 2–6 (10) = **11**
+- **Reflection points total:** **4**
+- **Final-project points:** **5**
 
-All labs and reflections are captured in your GitHub portfolio.
+All labs and reflections are captured in your personal portfolio.
 
 ### Portfolio as Primary Artifact
 **All course deliverables are captured in your GitHub Portfolio:**
@@ -141,22 +138,22 @@ All labs and reflections are captured in your GitHub portfolio.
 - Firmware source & binaries
 - Screenshots: serial console, dashboard values, logic analyzers
 - Measured performance graphs (energy, timing, memory footprint)
-- Reflections: same standard reflection format (see [reflection guidance in the portfolio template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/README.md)) after Day 1, and one per final-project day. Note: the Day 1 Master Class itself is documented as a normal portfolio work report (pictures, process notes, peer collaboration), not as a special reflection topic.
+- Reflections: one reflection for each working day, using the standard format announced through the course LMS. Together, reflections are worth 4 points. The Day 1 Master Class is documented as a normal portfolio work report (pictures, process notes, and peer collaboration), not as a separate reflection topic.
 
 Your logbook should mirror an engineering notebook — continuous, scannable, and explicit.
 
-### Final Capstone Project (5 pts; ≥30 % grade weight)
+### Final Capstone Project (5 pts; 25% of base score)
 - **Goal**: implement a **complete embedded microcontroller system** with sensors and MQTT/REST integration. Example stories:
   – Patient-monitoring device mock-up (temperature, BME280 data via MQTT)
   – Smart access-control turnstile with RFID badge reader and Node-RED dashboard
   – Autonomous follow-me robot car (ultrasonic ranging, motor H-bridge, MQTT bridge to PC)
   – IoTempower multi-node fleet + monitoring dashboard
-- **Must-Haves**: ≥3 microcontrollers, MQTT, sensors & actors, OTA ready, permissive license (MIT/CC-BY-SA)
+- **Must-Haves**: a multi-node system with at least **6 nodes or mobile/wireless devices**; at least **two sensor types and one actuator across three nodes**; a gateway with MQTT; an integration layer (for example Node-RED); a dashboard; and documented architecture. Simulated components and cloud connections are optional. Use IoTempower where appropriate; OTA capability should be demonstrated or documented where feasible.
 - **Assessment Criteria** (out of 5):
-  – **Functionality & Robustness** (2) [system meets spec & handles errors]
+  – **Functionality & Robustness** (2) [system meets specification and handles errors]
   – **Documentation, Architecture, Performance, Efficiency** (1) [README, diagrams, resource usage, responsiveness, low-power behavior]
-  – **Presentation & Peer Review** (2) [10 min story driven live demo or embedded in video+ 3-5 min feedback/reflection]
-- **Pass Condition:** Minimum 2/5 points required to pass.
+  – **Presentation** (2) [story-driven live demonstration or video presentation, as agreed during the course, plus feedback/reflection]
+- **Peer review:** The course may introduce peer-review activities; their format and assessment role will be announced before use.
 
 ---
 
@@ -170,10 +167,10 @@ Your logbook should mirror an engineering notebook — continuous, scannable, an
 | 18–19              | Good / gut                 |
 | 20                 | Very Good / sehr gut       |
 
-- **Modul Points:** 11
-- **Reflection Points:** 4
-- **Project Points:** 5
-- **Extra Points / Bonus:** Up to 3
+- **Module 0 and module points:** 11
+- **Reflection points:** 4
+- **Project points:** 5
+- **Extra points / bonus:** Up to 3; the final score remains capped at 20
 
 ---
 
@@ -181,7 +178,7 @@ Your logbook should mirror an engineering notebook — continuous, scannable, an
 
 Your working environment is the **local microcontroller workbook provided for this course**:
 
-- **Primary Workbook:** [./README.md](./README.md) and modular files under [./modules/](./modules)
+- **Primary Workbook:** [Course front page](./README.md) and [module index](./modules/00-index.md)
 - **Master Class Material:** [Mastering IoT Solutions mini-workshop](../../workshops/mastering-iot-solutions/README.md)
 - **Portfolio Starter Templates:** [https://github.com/iotempire/iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template)
 - **IoTempower Framework:** [https://github.com/iotempire/iotempower](https://github.com/iotempire/iotempower) (vanity URL [https://iotempower.us](https://iotempower.us))
@@ -189,23 +186,23 @@ Your working environment is the **local microcontroller workbook provided for th
 - **Useful Libraries:** ESP8266/ESP32 Arduino Cores, Adafruit (DHT22, BME280), PubSubClient (MQTT), OneWire, MFRC522 (RFID), U8g2 (OLED), FastLED (RGB)
 - **Hardware Kit:** Supplied at course start; see Module 2 – Hardware & Electronics for details
 
-All artifacts (code, logs, schematics) must be published under permissive or open licenses (MIT, CC-BY-SA) to enable reuse and learning.
+Your portfolio must provide the instructor with the evidence needed for assessment. Public sharing of code, logs, schematics, and learning materials is encouraged but **not required**. If you publish, use a suitable licence: for example, MIT for code and CC BY-SA for documentation or media. Accepted pull requests to IoTempower or this teaching repository follow their existing licensing and are an easy route to extra points.
 
 ---
 
 ## Expectations & Classroom Policies
 
-- **In-class Presence:** Active participation in hands-on lab work is mandatory. Unexcused absences may affect module points.
-- **Teamwork:** Form teams of 1–2 students for early labs and 4–6 for the capstone project. Document roles and tasks in your portfolio to ensure transparent contribution tracking.
-- **Ethics & Respect:** Handle kit, peers, and data respectfully. Build **safe prototypes**, document **failure modes**, and consider **stakeholders** in your scenarios.
-- **Open by Default:** Publish all project code, logs, and schematics under permissive open licenses - ask if industrial needs require something else
+- **In-class presence:** Active participation in hands-on hardware work is expected and strongly recommended. Students may complete work outside class by agreement with their teammate(s), provided their portfolio convincingly demonstrates skillful completion of the tasks, independent exploration—including failures—and understanding beyond blindly following AI-generated instructions. Students who cannot demonstrate this proficiency and evidence may not receive the relevant module points.
+- **Teamwork:** Form teams of 1–2 students for early labs and 4–6 for the capstone project. Document individual roles, tasks, and contributions in your personal portfolio for transparent assessment.
+- **Ethics & respect:** Handle kit, peers, and data respectfully. Build **safe prototypes**, document **failure modes**, and consider **stakeholders** in your scenarios.
+- **Open by default:** Public sharing is welcome but optional; see the licensing and portfolio guidance above.
 
 ---
 
 ## Success Strategies – Lab-Tested Tips
 
 1. **Repo housekeeping every session.** Run `git status`, write concise commit messages, link issues to commits. Use branches for experiments.
-2. **Reflect continuously.** Use the same standard reflection format after Day 1 and each final-project day — see the [reflection guidance in the portfolio template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/README.md). The Day 1 Master Class itself gets a normal work report (pictures, notes), not a special reflection.
+2. **Reflect continuously.** Use the same standard reflection format after Day 1 and each final-project day — see the [reflection guidance in the portfolio template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/README.md). Complete one reflection for every working day using the deadlines announced through the LMS. Use the same standard reflection format after Day 1 and each final-project day — see the [reflection guidance in the portfolio template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/README.md). 
 3. **Fail early, fail often.** Hardware burnout is part of the journey; fall back to serial logs, schematic inspection, and power-pin sanity checks. Report to us if things break, if you are unsure, talk to us.
 4. **Portfolio is your lifeline.** Reflections and hardware builds are both graded; treat documentation as seriously as the build. Problems and struggle (when documented) are features and looked upon positively. No problems are worse than documented struggle.
 5. **Collaborate generously.** Review teammate's work/PRs or audit or help out with work in another team, attend pair-debug sessions, and share exploration artifacts openly.
@@ -214,10 +211,11 @@ All artifacts (code, logs, schematics) must be published under permissive or ope
 
 ## Contacts & Questions
 
-- **Technical Issues:** Report via GitHub issues in your personal portfolio repo
-- **Course Feedback:** Mid- and end-semester evaluation forms
-- **Academic Integrity:** Cite sources, ask instructors for clarification before doubt arises
+- **Questions, schedule, and technical support:** Use the course LMS; the LMS is the authoritative communication channel before and during the course
+- **Technical issues:** Report portfolio-repository issues through the agreed course channel
+- **Course feedback:** Mid- and end-semester evaluation forms
+- **Academic integrity:** Cite sources and ask instructors for clarification before doubt arises
 
-- **Main Instructor:** Ulrich Norbisrath (**Ulno**) — [ulno.net](https://ulno.net/)
-- **Teaching Support:** Fabian Tilman Schmid-Michels *(if available)*
-- **Discord Server:** To be announced
+- **Main instructor:** Ulrich Norbisrath (**Ulno**) — [ulno.net](https://ulno.net/)
+- **Teaching support:** Fabian Tilman Schmid-Michels *(if available)*
+- **Optional community channel:** Announced through the LMS, if offered
