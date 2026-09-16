@@ -56,6 +56,24 @@ Maintain a personal GitHub portfolio with source code, binaries, schematics, ser
 - Collaborate openly: pair-debug, review work, and share useful discoveries.
 - Treat hardware and documentation with equal care. When something fails, record the symptoms, inspect the circuit, verify power and pins, and keep useful serial logs.
 
+### LMS PDF exports
+
+Generate dated, upload-ready PDFs with LibreOffice (default), with Pandoc → Chromium and LaTeX fallbacks:
+
+```sh
+./generate-lms-pdfs.sh 2026-27
+```
+
+The script creates ignored PDFs in `lms-announcements/`. **LibreOffice is the default engine** — it also generates an untracked `.odt` file alongside each PDF that can be marginally edited as a fallback. You can hard-select a different engine:
+
+```sh
+./generate-lms-pdfs.sh --engine chromium 2026-27
+./generate-lms-pdfs.sh --engine pandoc-latex 2026-27
+./generate-lms-pdfs.sh --engine soffice 2026-27
+```
+
+GitHub-style callouts are normalized to labelled blockquotes in temporary export copies, so they render with every converter. The release label, generation date, and source revision are also inserted only into those temporary copies; the Markdown sources remain unchanged. The canonical GitHub source link stays in each Markdown document and therefore appears only once in each PDF.
+
 ### Contacts & support
 
 - **Questions, schedule, and technical support:** Use the course LMS, the authoritative course communication channel.

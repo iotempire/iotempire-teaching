@@ -4,6 +4,8 @@ Welcome to **Microcontroller Programming (MCP) – 10-Week Edition**! You will p
 
 You do **not** need to arrive as an embedded developer or network engineer. This guide lets you make a first thing now, then provides background that will make the early lab sessions more hands-on and less vocabulary-heavy.
 
+> **Canonical source:** [IoTempire Teaching repository — HSBI/GT Microcontroller Programming](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-MCU-programming-10d)
+
 > [!NOTE]
 > **Language:** This course is taught in English and German, while its shared materials are kept in English. You may use German, English, or a mixture of both in class and in your work; see the [syllabus language guidance](./syllabus.md#language-communication--course-material) for the full arrangement.
 >

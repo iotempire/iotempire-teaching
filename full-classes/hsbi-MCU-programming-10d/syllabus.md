@@ -1,6 +1,8 @@
 # Syllabus: Microcontroller Programming (MCP) – 10-Week Edition
 
 > **Important**: This syllabus is a living document and will evolve throughout the semester. Smaller updates may apply based on class progress and feedback.
+>
+> **Canonical source:** [IoTempire Teaching repository — HSBI/GT Microcontroller Programming](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-MCU-programming-10d)
 
 ---
 
@@ -78,7 +80,7 @@ Assessment is conducted as a **Kombinationsprüfung**: portfolio evidence, refle
 > [!IMPORTANT]
 > **Module 0 is required and worth one point.** Before the first session, create your personal portfolio from the course Git template and add a first entry based on the pre-study guide. Include notes responding to Guiding Questions 1–6, at least one architecture drawing, and at least two screenshots from Wokwi—including the completed simulation artifact. Module 0 is assessed in the second session. This point replaces the former separate assessment point for the introductory session; the Day 1 Master Class remains required portfolio practice.
 
-- **Module 0 and module points:** 11 points total — 1 point for the required pre-study and 10 points across the later module work
+- **module points:** 11 points total — 1 point for the required pre-study and 10 points across the later module work
 - **Reflection points:** 4 points total — one reflection is required for each working day; the exact number of working days, reflection format, and deadlines are announced with the timetable
 - **Final project:** 5 points (**25% of the 20 base points**)
 - **Extra points:** Up to 3 — outstanding contributions, help, extra projects, completed stretcher tasks, or accepted contributions to IoTempower or this teaching repository
@@ -120,8 +122,8 @@ The course reuses and extends modules from the HSBI block workshop. It is delive
 | Indicative phase | Module / focus | Assessment |
 |---|---|---|
 | Before the first session | **Module 0** – portfolio setup and pre-study | **1 module point**; assessed in the second session |
-| Opening session | **Module 1** – introduction and Master Class (M5StickC + Node-RED mini-workshop) | Required portfolio practice; no separate module point |
-| Early lab sessions | **Modules 2–6** – electronics, infrastructure, embedded programming, integration, and IoT systems | **10 module points** total |
+| Opening session | **Module 1** – introduction and Master Class (M5StickC + Node-RED mini-workshop) | **1 Module point** |
+| Early lab sessions | **Modules 2–6** – electronics, infrastructure, embedded programming, integration, and IoT systems | **9 Module Points** total |
 | Remaining sessions | **Module 7** – final project: ideation → prototyping → build → live demonstration or video presentation, as agreed during the course | **5 project points** |
 
 Every session combines a short introduction, hands-on lab work, and portfolio documentation. Every working day requires a reflection; together, reflections are worth **4 points**. The LMS will publish the final session plan, reflection details, and deadlines.
@@ -167,7 +169,7 @@ Your logbook should mirror an engineering notebook — continuous, scannable, an
 | 18–19              | Good / gut                 |
 | 20                 | Very Good / sehr gut       |
 
-- **Module 0 and module points:** 11
+- **Module points:** 11
 - **Reflection points:** 4
 - **Project points:** 5
 - **Extra points / bonus:** Up to 3; the final score remains capped at 20
@@ -202,7 +204,7 @@ Your portfolio must provide the instructor with the evidence needed for assessme
 ## Success Strategies – Lab-Tested Tips
 
 1. **Repo housekeeping every session.** Run `git status`, write concise commit messages, link issues to commits. Use branches for experiments.
-2. **Reflect continuously.** Use the same standard reflection format after Day 1 and each final-project day — see the [reflection guidance in the portfolio template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/README.md). Complete one reflection for every working day using the deadlines announced through the LMS. Use the same standard reflection format after Day 1 and each final-project day — see the [reflection guidance in the portfolio template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/README.md). 
+2. **Reflect continuously.** Complete one reflection for every working day, using the standard format and deadlines announced through the LMS.
 3. **Fail early, fail often.** Hardware burnout is part of the journey; fall back to serial logs, schematic inspection, and power-pin sanity checks. Report to us if things break, if you are unsure, talk to us.
 4. **Portfolio is your lifeline.** Reflections and hardware builds are both graded; treat documentation as seriously as the build. Problems and struggle (when documented) are features and looked upon positively. No problems are worse than documented struggle.
 5. **Collaborate generously.** Review teammate's work/PRs or audit or help out with work in another team, attend pair-debug sessions, and share exploration artifacts openly.
