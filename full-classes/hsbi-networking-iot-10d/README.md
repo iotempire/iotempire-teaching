@@ -1,175 +1,91 @@
-# Networking and IoT Solutions
+# HSBI/GT Networking and IoT Solutions — 10-Week Edition
 
 ## Contents
 
 | Start here | What it contains |
 |---|---|
-| [Module 1 — IoT Story & OSI](./modules/01-introduction.md) | System stories and networking foundations |
-| [Module 2 — MQTT Abstraction](./modules/02-mqtt-abstraction.md) | Publish/subscribe with mock devices |
-| [Module 3 — Wireless Power](./modules/03-wireless-power.md) | Wi-Fi, LoRaWAN, power, and latency |
-| [Module 4 — Routing & Gateways](./modules/04-routing-gateways.md) | Networks, routing, NAT, and gateways |
-| [Module 5 — Industrial Protocols](./modules/05-industrial-protocols.md) | OPC-UA and Modbus |
-| [Module 6 — Power & Latency](./modules/06-power-latency.md) | Measurement and optimisation |
-| [Module 7 — Final Project Rehearsal](./modules/07-final-project-rehearsal.md) | Peer review and dry runs |
-| [Resources & prompts](./modules/Y-resources-prompt-bank.md) | Portfolio prompts and quick references |
-| [Resource bank](./modules/Z-resources-bank.md) | Extra resources and troubleshooting |
+| [Pre-study guide](./pre-study.md) | Essential networking preparation and first MQTT exploration (Module 0) |
+| [Syllabus](./syllabus.md) | Course schedule, learning objectives, assessment rules, and hardware kit |
+| [Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md) | The IoT continuum, OSI vs. TCP/IP critique, Master Class live integration |
+| [Module 2 — Local Networking & OpenWrt Gateways](./modules/02-local-networking-and-gateways.md) | IPv4 subnetting, DHCP, DNS, NAT, routing, OpenWrt, Wireshark & `tcpdump` |
+| [Module 3 — Mesh & Overlay Networks](./modules/03-overlay-and-mesh-networks.md) | Nebula peer-to-peer overlay, Yggdrasil IPv6 mesh, B.A.T.M.A.N. Layer-2 router mesh & failover |
+| [Module 4 — MQTT Deep Dive & Integration](./modules/04-mqtt-and-integration.md) | Pub/Sub, QoS, Retain, LWT, Node-RED flows, Python `paho-mqtt` & IoTknit |
+| [Module 5 — Wireless Technologies & ESP-NOW](./modules/05-wireless-technologies-and-espnow.md) | Spectrum, ISM bands, Wi-Fi vs BLE vs LoRa, ESP-NOW action frames & gateway bridge |
+| [Module 6 — Industrial Protocols & Edge Bridging](./modules/06-industrial-protocols-and-bridging.md) | Modbus RTU/TCP, OPC-UA information model, TSN context, Python/Node-RED edge bridge |
+| [Module 7 — Fleet Management & IoTempower](./modules/07-fleet-management-and-iotempower.md) | Declarative node configuration, Over-The-Air (OTA) flashing, M5Stack fleet scaling |
+| [Module 8 — Capstone Project Studio](./modules/08-capstone-project-studio.md) | Project kickoff & story, multi-node integration, resilience testing, peer review rehearsal |
+| [Module 9 — Capstone Demonstrations & Defense](./modules/09-demonstrations-and-defense.md) | Live multi-node demonstration, network fault-injection test, portfolio defense |
+| [Resource Prompts](./modules/Y-resources-prompt-bank.md) | Portfolio prompts and quick references |
+| [Resource Bank](./modules/Z-resources-bank.md) | Extra resources, cheat sheets, and troubleshooting |
 
-This README is the workbook front page for the 10–11 day *IoT Networking* course taught at **Hochschule Bielefeld University of Applied Sciences and Arts (HSBI)**, Campus Gütersloh. It is structured for regular delivery with 4–8 hours per meetup.
+This README is the course workbook and front page for the **Networking and IoT Solutions (Vernetzung und IoT-Lösungen)** course taught at **Hochschule Bielefeld University of Applied Sciences and Arts (HSBI)**, Campus Gütersloh. It is delivered over **10 working days / 12 sessions** (4 hours each) across the semester. The official timetable, room, and announcements are published through the course LMS (ILIAS).
+
+> [!NOTE]
+> This is a living document. Expect minor adaptations as the semester progresses; check LMS announcements for current schedule details.
 
 ---
 
 ## Course Overview
 
-- **Duration:** 10 weeks (one to two meetups per week, 4–8 hours).
-- **Target Group:** Software Engineering and Digital Technologies students.
-- **Workload:** 150 hours (5 ECTS).
-- **Format:** Modular, self-driven learning with hands-on labs and project-based assessment.
-- **Prerequisites:** Basic programming (C/Python), familiarity with Linux command line.
+- **Duration:** 10 working days / 12 sessions (4 hours each).
+- **Target Group:** Bachelor students in *Digitale Technologien* and *Software Engineering* (3rd semester).
+- **Workload:** 150 hours (5 ECTS credits).
+- **Format:** Practical, laboratory-driven course combining edge networking, routing infrastructure, visual and programmatic integration, and declarative fleet management.
+- **Hardware Kit:**
+  - **OpenWrt Edge Routers** (1 router per 2 students): Primarily the **Cudy TR1200** flashed to pure upstream OpenWrt. (With **GL.iNet GL-MT300N-V2 "Mango"** and **GL-AR300M "Shadow"** as partner/fallback options; avoiding restricted vendor forks like the GL-SFT1200 "Opal") for local subnetting, routing, NAT, and wireless mesh (`batman-adv`).
+  - **M5Stack Modular Nodes** (M5StickC Plus, M5Atom Matrix/Lite) with Grove sensors and actuators—minimizing breadboard wiring to maximize focus on protocols and integration.
 - **Software Stack:**
-  - **MQTT Broker:** Mosquitto or EMQX
-  - **IoT Devices:** ESP32 (Arduino framework), Raspberry Pi
-  - **Networking Tools:** Wireshark, Tcpdump, MQTTX
-  - **Version Control:** Git + GitHub/GitLab
+  - **Networking & Routing:** OpenWrt, LuCI, `tcpdump`, Wireshark, Nebula overlay, Yggdrasil IPv6 mesh, B.A.T.M.A.N. advanced + `batctl`.
+  - **Application Messaging:** Mosquitto MQTT broker, MQTT Explorer, `mosquitto_sub`/`pub`.
+  - **Integration & Code:** Node-RED, Python 3 (`paho-mqtt`, `pymodbus`, `asyncua`), IoTknit.
+  - **Fleet Orchestration:** [IoTempower](https://github.com/iotempire/iotempower) for declarative node definition and Over-The-Air (OTA) updates.
 
-
----
-
-## Learning Outcomes
-
-By the end of this course, you will be able to:
-
-1. **Use** TCP/IP and understand its role in IoT networks (without over-relying on the OSI model).
-2. **Compare and contrast** wired vs. wireless communication technologies for IoT.
-3. **Design and implement** IoT solutions using MQTT, HTTP, and explore alternative protocols like CoAP or raw sockets.
-4. **Configure** IP networks, subnets, and routing for IoT devices.
-5. **Measure and optimize** power efficiency and latency in IoT networks.
-6. **Document and present** your IoT projects in a technical portfolio.
+For the complete language arrangement, teaching team, learning objectives, assessment rules, and policies, read the [syllabus](./syllabus.md).
 
 ---
 
-## Suggested Weekly Rhythm
+## Assessment: Kombinationsprüfung (20 Points Base + Bonus)
 
-Navigate the course using the links below. Each module includes:
-- **Learning objectives** for the week.
-- **Theory** (condensed reading + references).
-- **Hands-on Labs** (practical exercises).
-- **Reflection Questions** (for your portfolio).
-- **Project Milestones** (if applicable).
+Your final grade is assessed continuously through your personal **GitHub Portfolio** and the final capstone project:
 
-
-### Core Modules
-
-| **Week** | **Module Title**                          | **Focus Area**                                                                                     | **Pre-Class Video Resources**                                                                                                                                                     | **Key Activities**                                                                                     |
-|----------|-------------------------------------------|---------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| 1        | Introduction to IoT and Networking         | TCP/IP vs. OSI lenses, storytelling, portable repo setup, Node-RED warmup.                           | [Ed Harmoush: How data moves through the Internet (overview)](https://www.practicalnetworking.net/index/networking-fundamentals-how-data-moves-through-the-internet/) *(Guiding Qs: “Why do the first 3 videos matter?”)* | Lab: OSI friction exercise; Node-RED “hello-mqtt” dashboard.  |
-| 2        | Networking from the Ground Up: **TCP/IP for IoT** | IP addressing, subnetting, VLANs, static IPs, port forwarding via OpenWRT gateway LuCI.            | [Ed Harmoush Subnetting Mastery playlist (videos 1–3)](https://www.practicalnetworking.net/stand-alone/subnetting-mastery/) | Lab: Reconfigure home router; measure ping latency `traceroute`.      |
-| 3        | **MQTT and TCP in IoT**                   | Why MQTT rides TCP; latency debugging; MQTTX vs PubSubClient (Arduino/MQTT.js).                      | [MQTT for Beginners (2aHV2Fn0I60)](https://www.youtube.com/watch?v=2aHV2Fn0I60) *(guiding Q: “What’s pub/sub vs. HTTP?”)* + [Practical MQTT start (GhjYFJqJsmY)](https://www.youtube.com/watch?v=GhjYFJqJsmY) | Lab: Mosquitto broker + Node-RED mock swap.                  |
-| 4        | **Wireless IoT Communication**            | WiFi, BLE, LoRaWAN trade-offs (power, range, bandwidth).                                           | User playlist: [IoT playlist v2kV6pgJxuo (item 2)](https://www.youtube.com/watch?v=v2kV6pgJxuo&list=PLlppUpfgGsvkfAGJ38_mzQc1-_Z7bNOgq&index=2&pp=iAQB) + [jJaWMWz6RpE (item 3)](https://www.youtube.com/watch?v=jJaWMWz6RpE&list=PLlppUpfgGsvkfAGJ38_mzQc1-_Z7bNOgq&index=3&t=2s&pp=iAQB) | Lab: Profile WiFi vs LoRa; RSSI + power scatter CSV.              |
-| 5        | **Protocol Exploration**                    | Compare MQTT vs. CoAP vs. HTTP vs. raw sockets – which fits which use case?                              | None; use RFCs or Week-3 MQTT intro videos.                                                                                                                                   | Lab: CoAP test in Node-RED.                                                                         |
-| 6        | **Routing and Gateways**                    | IP routing, NAT, firewalls, OpenWRT gateway config (LuCI panel `http://192.168.8.1`).                | [Ed Harmoush “Everything Routers Do” vids 1–2](https://www.practicalnetworking.net/classes/network-fundamentals/) *(guiding Q: “Where does NAT lie in ISO-OSI?”)* | Lab: OpenWRT LuCI + NAT/Port forwarding; RTT `ping` tests.   |
-| 7        | **(Optional) Industrial Protocols**        | OPC-UA vs. Modbus – bridging to legacy factory systems via gateway.                                    | None; docs: [python-opcua.readthedocs.io](https://python-opcua.readthedocs.io/), [pymodbus.readthedocs.io](https://pymodbus.readthedocs.io/en/latest/) | Lab: ESP32 OPC-UA client or Modbus sim.                    |
-| 8        | **Power and Latency Optimization**          | Deep-sleep tuning, battery math, RTT profiling.                                                     | Watch [“WiFi vs LoRa” Paul Clark (Invensor)](https://www.youtube.com/watch?v=fFoRz2q2yqA) *(guiding Q: “How does latency determine protocol for coin-cell device?”)* | Lab: USB power meter CSV + sleep interval tuning.               |
-| 9        | **Security in IoT Networks**                | TLS 1.3 for MQTT, cert pinning, auth.                                                               | Ed Harmoush [SSL/TLS overview video in course outline](https://classes.pracnet.net/courses/networking) *(free access)*                                              | Lab: Secure Mosquitto, Node-RED TLS + Node-RED chain.         |
-| 10       | **Final Project Rehearsal**               | Dry-run demo, peer review rubric, portfolio finalization.                                            | None. Prepare your **3-min demo** and `.md` report.                                                                        | Lab: Peer feedback & video cut.                                                                     |
-
-### Supplementary resources
-
-- [Portfolio Prompts & Quick Reference](./modules/Y-resources-prompt-bank.md)
-- [Resources Bank](./modules/Z-resources-bank.md)
+- **Module 0 (Pre-Study):** 1 point (compulsory preparation before the first session; see [pre-study guide](./pre-study.md)).
+- **Modules 2–7 (Labs & Protocols):** 10 points across the hands-on laboratory modules.
+- **Working-Day Reflections:** 4 points (one reflection for each working day documenting discoveries, struggles, and solutions).
+- **Final Capstone Project:** 5 points (25% of base score; multi-node, multi-protocol networked system with live failover demo).
+- **Bonus / Extra Points:** Up to 3 points for outstanding work, peer mentoring, advanced stretcher tasks, or accepted upstream pull requests to IoTempower or this curriculum repository.
+- **Passing Mark:** 14 / 20 points (~70%).
 
 ---
 
-## Assessment
+## Portfolio & Hardware
 
-Your final grade is based on:
+Maintain a personal GitHub portfolio with network diagrams, configuration files, Wireshark packet captures, Node-RED flows, Python integration scripts, serial logs, and working-day reflections. Start from the [portfolio template](https://github.com/iotempire/iot-portfolio-template).
 
-| **Component**          | **Weight** | **Details**                                                                                     |
-|------------------------|------------|-------------------------------------------------------------------------------------------------|
-| **Weekly Reflections** | 25%        | Submit a 1–2 page reflection after each module (portfolio entries).                                |
-| **Labs**              | 30%        | Complete hands-on labs (submit screenshots, logs, or code via GitHub).                           |
-| **Final Project**      | 40%        | Build an IoT solution (e.g., a sensor node publishing to an MQTT broker) and present your work.   |
-| **Participation**      | 5%         | Active participation in discussions, peer feedback, and Q&A sessions.                              |
+**Module 0 is required:** before the first session, fork your portfolio and complete the pre-study tasks in [pre-study.md](./pre-study.md). In networking and IoT, **documented struggles and debugging traces are valued highly**—capturing a failed route and showing how you resolved it using `tcpdump` is an essential engineering skill.
 
 ---
 
-## Workflow and Tools
+## Navigation & Resources
 
-### Step-by-Step Guide
-1. **Read the module** and complete the **theory exercises** (if any).
-2. **Work through the lab** (document your process!).
-3. **Answer reflection questions** and add them to your portfolio.
-4. **Push your code/lab reports** to your Git repository.
-5. **Attend the meetup** to discuss questions and present progress.
+- [Module index](./modules/00-index.md) — compact navigation
+- [Pre-study guide](./pre-study.md) — start here before Day 1
+- [Syllabus](./syllabus.md) — official course rules and policies
+- [IoTempower](https://github.com/iotempire/iotempower) — declarative fleet management framework ([iotempower.us](https://iotempower.us))
+- [IoTempire](https://iotempire.net/) — organization, teaching tools, and community
 
-### Project Guidelines
-- **Scope:** Your project should utilize **MQTT** as the primary IoT protocol and optionally explore alternatives like CoAP or raw sockets. Include **one sensor/actor** (e.g., temperature sensor, LED).
-- **Deliverables:**
-  - GitHub repository with code.
-  - 2-page project report (describe design choices, challenges, solutions).
-  - 5-minute presentation (demo + Q&A).
-- **Examples:**
-  - A **smart farm monitor** (ESP32 + MQTT).
-  - An **industrial sensor node** (OPC-UA + Modbus).
-  - A **wearable BLE tracker** (ESP32 + smartphone app).
+### LMS PDF Exports
+
+Generate dated, upload-ready PDFs from the syllabus and pre-study guide using LibreOffice (default), Chromium, or LaTeX:
+
+```sh
+./generate-lms-pdfs.sh 2026-27
+```
 
 ---
 
-## Additional Resources
+## Contacts & Support
 
-> **Naming note:** *IoTempire* is the organization behind all our IoT activities (courses, tools, community) — see [https://iotempire.net/](https://iotempire.net/). *IoTempower* is the specific open-source framework used elsewhere in our courses for device management, flashing, and integration — [https://iotempower.us](https://iotempower.us) (resolves to [github.com/iotempire/iotempower](https://github.com/iotempire/iotempower)). We still say "IoTempower" in the teaching context, but its GitHub repositories live under the `iotempire` organization.
-
-### IoT Frameworks and Libraries
-- [ESP-IDF (Espressif IoT Development Framework)](https://github.com/espressif/esp-idf)
-- [MQTT-Client-Library for Arduino](https://github.com/knolleary/pubsubclient)
-- [OPC-UA Client for Python](https://python-opcua.readthedocs.io/)
-
-### Networking Tools
-- [Wireshark](https://www.wireshark.org/) (packet analysis)
-- [MQTTX](https://mqttx.app/) (MQTT client)
-- [ESP32 Arduino Core](https://github.com/espressif/arduino-esp32)
-- [Raspberry Pi OS](https://www.raspberrypi.com/software/)
-
-### References
-- **ISO-OSI Model:** [Wikipedia](https://en.wikipedia.org/wiki/OSI_model)
-- **MQTT Protocol:** [MQTT Specification](http://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)
-- **Industrial Protocols:** [OPC Foundation](https://opcfoundation.org/)
-- **Wireless IoT:** [LoRaWAN Specification](https://lora-alliance.org/resource-hub/)
-
-
----
-
-## Troubleshooting
-
-### Common Issues
-### FAQ
-Find additional references and troubleshooting material in the [Resources Bank](./modules/Z-resources-bank.md).
-
----
-
-
-### Pre-Class Protocol Discovery
-**For your portfolio:** Before the course starts, explore and compare at least 2 IoT protocols (e.g., MQTT, CoAP, HTTP, raw sockets). Document your findings in a short entry (1 page).
-- How do they differ in power usage?
-- What are their ideal use cases?
-- Include a code snippet or diagram illustrating the protocol workflow.
-
----
-
-## Templates
-
-Use the shared [IoTempire portfolio template](https://github.com/iotempire/iot-portfolio-template) for portfolio structure and documentation conventions.
-
-> [!NOTE]
-> Local lab-report and project-report template files are not currently supplied in this course folder. Add them here only when the corresponding files are available.
-
----
-
-## License and Attribution
-
-This workbook is licensed under [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
-
-
----
-
-**Start here:**
-[Module 1 – Introduction to IoT and Networking](./modules/01-introduction.md)
+- **Questions, schedule, and technical support:** Use the course LMS (ILIAS), the authoritative communication channel.
+- **Main Instructor:** Prof. Dr. Ulrich Norbisrath (**Ulno**) — [ulno.net](https://ulno.net/)
+- **Teaching Support:** Fabian Tilman Schmid-Michels *(if available)*
+- **Community:** [IoTempire](https://iotempire.net/)
