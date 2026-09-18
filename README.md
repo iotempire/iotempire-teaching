@@ -32,14 +32,14 @@ We provide several comprehensive workbooks that serve as the foundation for our 
 
 - [HSBI/GT Sensors and Actuators (10 days)](full-classes/hsbi-sensors-actuators-10d/README.md): A bilingual, hands-on sensors and actuators course: measurement technique and uncertainty, I²C and sensor addressing, sensor characterization and calibration, distance/motion/environment sensors, LEDs and LED animation, servos and other motors, and IoTempower-based sensor/actuator systems with a characterized capstone project.
 
-- [Mastering IoT Solutions (draft)](workshops/iot-solutions/README.md): This workshop explores IoT solutions from a business and implementation perspective. Note: This is currently in **draft/scaffold stage** - content may be incomplete.
+- [Mastering IoT Solutions – Hands-On Workshop (2–3 h)](workshops/mastering-iot-solutions/README.md): The hands-on Day 1 master class (M5StickC, Node-RED, and the local IoTempower stack) exploring IoT solutions from a business and implementation perspective.
 
-- [Spatial and Edge Computing Workshop (draft)](workshops/ai-lab/README.md): Introduction to AI techniques for IoT applications. Note: This is currently in **draft/scaffold stage** - content may be incomplete.
+- [Magic Wands – Edge & Voice Computing Workshop (4–16 h, draft)](workshops/magic-wands-edge-computing/README.md): Voice- and gesture-driven IoT using an M5StickC, a local Whisper speech-to-text server, and Node-RED. Note: This is currently in **draft stage** - content may be incomplete.
 
 
 We introduce the IoTempower framework early in the class to allow rapid prototyping and quick success, which keeps students motivated to learn more. Once the students have experienced key IoT development tools (after about 50 to 70% of the class), they start designing and then implementing their final project. Starting from stories, students describe a challenge inspired by a real-world problem and work towards constructing a feasible solution. Guest speakers from industry and academia highlight different problem domains to help guide the students in picking and describing challenges for their final projects.
 
-We now introduce a small AI-lab: two new modular workshops that can be slotted into the program. See subfolders in /workshops for details.
+We also provide modular workshops that can be slotted into a program: the **Mastering IoT Solutions** master class and the **Magic Wands** edge/voice-computing AI-lab. See the subfolders in `/workshops` for details.
 
 ## Learning Tools & Classroom Environment
 
@@ -53,7 +53,13 @@ I offer several classes in the area of the Internet of Things (IoT).
 Teaching material is generally publicly available.
 If you want to teach a class, feel free to use the published material, but give attribution to IoTempower and Ulrich Norbisrath.
 
-Initially, I taught these classes based on different sets of material, but we are now using a more unified material base. We also depend more and more strongly on my IoTempower teaching framework. If you are looking for legacy IoT classes, please check the legacy section.
+Initially, I taught these classes based on different sets of material, but we are now using a more unified material base. We also depend more and more strongly on my IoTempower teaching framework.
+
+## For Instructors
+
+Each class folder ships a `generate-lms-pdfs.sh` wrapper that renders its `syllabus.md` and `pre-study.md` into dated, upload-ready LMS PDFs via the shared generator [`tools/generate-lms-pdfs.sh`](tools/generate-lms-pdfs.sh). LibreOffice is used by default (it also leaves an editable `.odt`); Pandoc, headless Chromium, and LaTeX are fallbacks. Run it from a class folder, or point the tool at any class with `--class-dir`. To add the exports to a new class, see [`tools/README.md`](tools/README.md).
+
+---
 
 ## References & Resources
 

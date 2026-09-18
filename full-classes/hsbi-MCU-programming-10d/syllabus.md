@@ -23,7 +23,7 @@
 | Possible teaching support | Fabian Tilman Schmid-Michels | To be confirmed |
 
 > [!NOTE]
-> **Course information:** Ulno is the primary instructor for this HSBI offering. The course LMS is the authoritative source for local dates, rooms, contact details, and announcements. A Discord space may be offered as an additional community channel.
+> **Course information:** Ulno is the primary instructor for this HSBI offering. The course LMS is the authoritative source for local dates, rooms, contact details, and announcements. A Discord space may be offered as an additional community channel; students and interested people are always welcome to join the main **IoTempire community Discord** (link maintained in the [repository README](../../README.md#references--resources)).
 
 <!-- Instructor reuse note: For younger audiences, adapt the German form of address and translate all material as appropriate for the local teaching context. -->
 

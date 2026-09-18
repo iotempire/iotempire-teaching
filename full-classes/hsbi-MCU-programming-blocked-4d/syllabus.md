@@ -23,8 +23,8 @@
 | Teaching Assistant     | <TA 1>                           | <email>                      | <discord-handle>    | <github>           |
 | Teaching Assistant     | <TA 2>                           | <email>                      | <discord-handle>    | <github>           |
 
-**Course Discord Invite:**
-Add your course Discord invite once available.
+**Course Discord:**
+No separate course invite is maintained for this local edition. Students and interested people are always welcome to join the main **IoTempire community Discord** — see the link in the [repository README](../../README.md#references--resources).
 
 ---
 
@@ -231,7 +231,7 @@ All artifacts (code, logs, schematics) must be published under permissive or ope
 - **Academic Integrity:** Cite sources, ask instructors for clarification before doubt arises
 
 - **Local Course Contacts:** <replace>
-- **Discord Server:** <replace> (course invite URL)
+- **Discord:** Join the main **IoTempire community Discord** — see the link in the [repository README](../../README.md#references--resources)
 
 ---
 

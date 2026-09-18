@@ -22,8 +22,8 @@
 | Lead Instructor| <Instructor 1>           | <email or contact link>                  | <discord handle>   | <github handle>      |
 | Instructor     | <Instructor 2>           | <email or contact link>                  | <discord handle>   | <github handle>      |
 
-**Course Discord Invite:**
-Add your course Discord invite once available.
+**Course Discord:**
+No separate course invite is maintained for this local edition. Students and interested people are always welcome to join the main **IoTempire community Discord** — see the link in the [repository README](../../README.md#references--resources).
 
 ---
 
@@ -189,7 +189,7 @@ Actual dates will shift; stay on top of commits and communication.
 - **Course feedback:** Mid- and end-of-semester forms
 - **Academic integrity:** Cite sources; talk to instructors
 - **Local course contact:** <replace>
-- **Discord server:** <replace>
+- **Discord:** Join the main **IoTempire community Discord** — see the link in the [repository README](../../README.md#references--resources)
 
 ---
 
