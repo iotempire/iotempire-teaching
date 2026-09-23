@@ -67,7 +67,7 @@ A toy IoT project works only when every component is connected under ideal condi
                            |
 [Integration Layer]  Node-RED Dashboards + Python / IoTknit Event Bridge
                            |
-[Industrial / Cloud] OPC-UA / Modbus Bridge or External Services
+[Industrial / Cloud] External Services (or optional OPC-UA / Modbus bridge)
 ===========================================================================
 ```
 
@@ -96,7 +96,7 @@ You do **not** have to use every layer. A strong project uses each layer it incl
 
 Verify that your system meets the Capstone Must-Haves:
 1. **Multi-Node:** At least 4 independent physical nodes active (e.g. 2 M5Stack nodes, 1 OpenWrt router, 1 laptop/edge server).
-2. **Multi-Network:** At least two distinct communication/networking layers working together (e.g. ESP-NOW → Wi-Fi gateway; OpenWrt B.A.T.M.A.N. mesh; or Nebula/Yggdrasil overlay access).
+2. **Multi-Network:** At least two distinct communication/networking layers working together (e.g. ESP-NOW → Wi-Fi gateway; a Nebula/Yggdrasil overlay; or, optionally, an OpenWrt B.A.T.M.A.N. mesh).
 3. **Structured MQTT Topics:** Clear, documented hierarchy with QoS, Retain for state topics, and LWT for node health.
 4. **Integration Engine:** Node-RED flow and/or Python script orchestrating real-time logic.
 5. **Declarative Management:** At least one node managed and updatable via IoTempower Over-The-Air (OTA).

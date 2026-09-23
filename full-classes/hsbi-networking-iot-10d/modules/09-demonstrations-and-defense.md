@@ -61,10 +61,10 @@ Ensure your personal GitHub portfolio includes all required evidence before fina
 - [ ] **Module 0:** Pre-study notes, initial network exploration, and answers to guiding questions.
 - [ ] **Module 1:** Node-RED hello-world screenshot, Wireshark packet capture, and OSI critique reflection.
 - [ ] **Module 2:** OpenWrt setup, network topology diagram, DHCP/ARP captures, and NAT/port forwarding test.
-- [ ] **Module 3:** Nebula overlay setup, cross-NAT ping/SSH proof, Yggdrasil comparison, plus OpenWrt B.A.T.M.A.N. advanced configuration, `batctl` originator tables, and mesh failover report.
+- [ ] **Module 3:** Nebula overlay setup, cross-NAT ping/SSH proof, and Yggdrasil comparison (optional: B.A.T.M.A.N. `batctl` tables and mesh failover report).
 - [ ] **Module 4:** MQTT QoS, Retain, LWT analysis, Node-RED flows (`.json`), and Python/IoTknit integration scripts.
 - [ ] **Module 5:** Wireless comparison table, ESP-NOW peer-to-peer code, and ESP-NOW to MQTT gateway bridge proof.
-- [ ] **Module 6:** Industrial protocol analysis, simulated Modbus/OPC-UA server, and edge bridge implementation.
+- [ ] **Module 6:** Industrial protocol analysis (recommended); optional simulated Modbus/OPC-UA server and bridge.
 - [ ] **Module 7:** IoTempower declarative node configuration (`setup.cpp`), OTA deployment logs, and fleet integration.
 - [ ] **Modules 8 & 9:** Capstone architecture diagrams, fault-injection test logs, presentation slides/script, and final course retrospective.
 - [ ] **Working-Day Reflections:** Complete entries for every working day.
@@ -78,7 +78,7 @@ Congratulations on completing **Networking and IoT Solutions**!
 You have developed a deep, practical mastery of:
 - **Network Reality over Dogma:** Moving from rigid 7-layer diagrams to pragmatic TCP/IP, Layer-2 action frames (ESP-NOW), and kernel mesh routing (`batman-adv`).
 - **Software-Defined Edge Networking:** Deploying modern overlays (Nebula, Yggdrasil) that make devices accessible anywhere without fragile port forwarding.
-- **Robust Asynchronous Systems:** Decoupled messaging with MQTT, resilient integrations with Node-RED and Python, and industrial interoperability with OPC-UA and Modbus.
+- **Robust Asynchronous Systems:** Decoupled messaging with MQTT, resilient integrations with Node-RED and Python, and an awareness of industrial interoperability (OPC-UA, Modbus).
 - **Fleet-Scale Thinking:** Managing hardware fleets declaratively with IoTempower.
 
 ### Next Steps:

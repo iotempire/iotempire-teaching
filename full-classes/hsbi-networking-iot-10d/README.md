@@ -8,10 +8,10 @@
 | [Syllabus](./syllabus.md) | Course schedule, learning objectives, assessment rules, and hardware kit |
 | [Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md) | The IoT continuum, OSI vs. TCP/IP critique, Master Class live integration |
 | [Module 2 — Local Networking & OpenWrt Gateways](./modules/02-local-networking-and-gateways.md) | IPv4 subnetting, DHCP, DNS, NAT, routing, OpenWrt, Wireshark & `tcpdump` |
-| [Module 3 — Mesh & Overlay Networks](./modules/03-overlay-and-mesh-networks.md) | Nebula peer-to-peer overlay, Yggdrasil IPv6 mesh, B.A.T.M.A.N. Layer-2 router mesh & failover |
+| [Module 3 — Mesh & Overlay Networks](./modules/03-overlay-and-mesh-networks.md) | Nebula overlay, Yggdrasil IPv6 mesh, optional B.A.T.M.A.N. mesh stretcher |
 | [Module 4 — MQTT Deep Dive & Integration](./modules/04-mqtt-and-integration.md) | Pub/Sub, QoS, Retain, LWT, Node-RED flows, Python `paho-mqtt` & IoTknit |
 | [Module 5 — Wireless Technologies & ESP-NOW](./modules/05-wireless-technologies-and-espnow.md) | Spectrum, ISM bands, Wi-Fi vs BLE vs LoRa, ESP-NOW action frames & gateway bridge |
-| [Module 6 — Industrial Protocols & Edge Bridging](./modules/06-industrial-protocols-and-bridging.md) | Modbus RTU/TCP, OPC-UA information model, TSN context, Python/Node-RED edge bridge |
+| [Module 6 — Industrial Protocols & Edge Bridging](./modules/06-industrial-protocols-and-bridging.md) | Modbus/OPC-UA/RS-485 overview, TSN context; optional simulated edge bridge |
 | [Module 7 — Fleet Management & IoTempower](./modules/07-fleet-management-and-iotempower.md) | Declarative node configuration, Over-The-Air (OTA) flashing, M5Stack fleet scaling |
 | [Module 8 — Capstone Project Studio](./modules/08-capstone-project-studio.md) | Project kickoff & story, multi-node integration, resilience testing, peer review rehearsal |
 | [Module 9 — Capstone Demonstrations & Defense](./modules/09-demonstrations-and-defense.md) | Live multi-node demonstration, network fault-injection test, portfolio defense |
@@ -32,12 +32,12 @@ This README is the course workbook and front page for the **Networking and IoT S
 - **Workload:** 150 hours (5 ECTS credits).
 - **Format:** Practical, laboratory-driven course combining edge networking, routing infrastructure, visual and programmatic integration, and declarative fleet management.
 - **Hardware Kit:**
-  - **OpenWrt Edge Routers** (1 router per 2 students): Primarily the **Cudy TR1200** flashed to pure upstream OpenWrt. (With **GL.iNet GL-MT300N-V2 "Mango"** and **GL-AR300M "Shadow"** as partner/fallback options; avoiding restricted vendor forks like the GL-SFT1200 "Opal") for local subnetting, routing, NAT, and wireless mesh (`batman-adv`).
+  - **OpenWrt Edge Routers** (1 router per 2 students): Primarily the **Cudy TR1200** flashed to pure upstream OpenWrt. (With **GL.iNet GL-MT300N-V2 "Mango"** and **GL-AR300M "Shadow"** as partner/fallback options; avoiding restricted vendor forks like the GL-SFT1200 "Opal") for local subnetting, routing, NAT, and (optionally) wireless mesh (`batman-adv`).
   - **M5Stack Modular Nodes** (M5StickC Plus, M5Atom Matrix/Lite) with Grove sensors and actuators—minimizing breadboard wiring to maximize focus on protocols and integration.
 - **Software Stack:**
-  - **Networking & Routing:** OpenWrt, LuCI, `tcpdump`, Wireshark, Nebula overlay, Yggdrasil IPv6 mesh, B.A.T.M.A.N. advanced + `batctl`.
+  - **Networking & Routing:** OpenWrt, LuCI, `tcpdump`, Wireshark, Nebula overlay, Yggdrasil IPv6 mesh; optional B.A.T.M.A.N. advanced + `batctl`.
   - **Application Messaging:** Mosquitto MQTT broker, MQTT Explorer, `mosquitto_sub`/`pub`.
-  - **Integration & Code:** Node-RED, Python 3 (`paho-mqtt`, `pymodbus`, `asyncua`), IoTknit.
+  - **Integration & Code:** Node-RED, Python 3 (`paho-mqtt`, IoTknit; optional `pymodbus`/`asyncua` for the industrial stretch).
   - **Fleet Orchestration:** [IoTempower](https://github.com/iotempire/iotempower) for declarative node definition and Over-The-Air (OTA) updates.
 
 For the complete language arrangement, teaching team, learning objectives, assessment rules, and policies, read the [syllabus](./syllabus.md).

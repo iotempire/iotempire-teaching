@@ -27,7 +27,7 @@
 ---
 
 ## 📌 Module 3 – Mesh & Overlay Networks (Nebula, Yggdrasil & B.A.T.M.A.N.)
-*Focus: NAT traversal, Nebula lighthouse, UDP hole punching, Yggdrasil encrypted IPv6, Layer-2 mesh routing, `batctl` originators, dynamic failover.*
+*Focus: NAT traversal, Nebula lighthouse, UDP hole punching, Yggdrasil encrypted IPv6, and the concepts of Layer-2 mesh routing and failover (B.A.T.M.A.N. prompts 5–8 are optional stretchers).*
 
 1. **Technical:** *Nebula vs. Port Forwarding:* How does Nebula’s lighthouse enable two nodes behind restrictive firewalls or Carrier-Grade NAT (CGNAT) to establish a direct, encrypted tunnel?
 2. **Technical:** *Decentralized Routing with Yggdrasil:* What makes Yggdrasil's cryptographic IPv6 addressing and tree routing fundamentally different from classical IP routing?
@@ -61,7 +61,7 @@
 ---
 
 ## 📌 Module 6 – Industrial Protocols & Edge Bridging
-*Focus: Modbus RTU/TCP, OPC-UA information model, TSN context, edge translation.*
+*Focus: Modbus RTU/TCP, OPC-UA information model, TSN context, edge translation (mostly conceptual; hands-on optional).*
 
 1. **Technical:** *Translating Semantic Worlds:* Contrast Modbus 16-bit register addresses with OPC-UA structured object nodes and MQTT JSON topics. What are the key friction points when bridging between them?
 2. **Technical:** *Real-Time Constraints:* Why is standard Ethernet non-deterministic, and how does Time-Sensitive Networking (TSN) guarantee microsecond latency for factory motion control?

@@ -15,8 +15,8 @@
 | 5          | LoRaWAN Deep Dive          | [LoRaWAN Protocol & Hardware](https://www.youtube.com/watch?v=VhB1Iv7Q3HY)           | What’s the trade-off between WiFi’s throughput and LoRaWAN’s range?                      |
 | 5          | WiFi vs LoRaWAN Choices    | [WiFi LoRaWAN Infographic](https://www.youtube.com/watch?v=fFoRz2q2yqA)             | If a project needs a 15 km line-of-sight, which would you pick and why?                      |
 | 7          | Raspberry Pi Gateway        | [Pi as IoT Gateway](https://www.youtube.com/watch?v=6Nz7Xv7sLqM)                     | What job does the gateway perform that neither the sensor nor the cloud can do alone?        |
-| 6          | OPC-UA for Beginners       | [OPC-UA Explained](https://www.youtube.com/watch?v=5m5q6XZKJXQ)                        | How is an OPC-UA node different from a Modbus register?                                     |
-| 6          | Modbus for Beginners       | [Modbus Explained](https://www.youtube.com/watch?v=Txv-OT-AJrA)                         | What happens when 100 Modbus devices share a single RS-485 line?                        |
+| 6 (optional) | OPC-UA for Beginners       | [OPC-UA Explained](https://www.youtube.com/watch?v=5m5q6XZKJXQ)                        | How is an OPC-UA node different from a Modbus register?                                     |
+| 6 (optional) | Modbus for Beginners       | [Modbus Explained](https://www.youtube.com/watch?v=Txv-OT-AJrA)                         | What happens when 100 Modbus devices share a single RS-485 line?                        |
 | 5          | ESP32 Deep Sleep Modes      | [ESP32 Deep Sleep vs Light Sleep](https://www.youtube.com/watch?v=ZvfA1XxjVa4)       | What sleep mode achieves 6-month battery life on your ESP-NOW soil sensor?                          |
 | 5          | IoT Power Optimization      | [IoT Power Techniques](https://www.youtube.com/watch?v=eEE9xTQHw9c)                   | Why is frequency scaling often unused in IoT? What’s cheaper instead?                         |
 
@@ -33,7 +33,7 @@
 | [RFC 1958](https://tools.ietf.org/html/rfc1958)                     | Architectural principles of the Internet (end-to-end principle)                          | Explains why TCP/IP succeeded over rigid OSI stacks (Module 1).                            |
 | [MQTT v5.0 Spec](http://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html) | Publish/subscribe, QoS levels, session management                                       | Defines how ESP32 MQTT clients in Modules 4–9 must behave.                                   |
 | [LoRaWAN 1.0 Spec](https://lora-alliance.org/resource-hub/)        | Physical layer, MAC commands, ADR                                                    | Helps debug why LoRaWAN range sometimes jumps 2 km suddenly (Module 5).                      |
-| [OPC-UA Part 3](https://www.opcfoundation.org/ua/part3/)           | Address space and data model                                                          | Explains what an OPC-UA node/tag means (Module 6).                                        |
+| [OPC-UA Part 3](https://www.opcfoundation.org/ua/part3/)           | Address space and data model                                                          | Explains what an OPC-UA node/tag means (Module 6, optional).                                        |
 | [ESP32 Technical Reference](https://www.espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf) | Power states, clock domains, sleep modes                                               | Each µA in deep sleep; core text for Module 5 optimizations.                                 |
 
 ---
@@ -79,7 +79,7 @@
 | Serial Monitor   | `Serial.print(digitalRead(3V3))`          | Quick sanity check                       |
 | Multimeter shunt | Attach to GND rail on Pi (yellow wire)  | Accurate deep sleep µA measurement        |
 
-### 📌 OPC-UA Quick Nodes
+### 📌 OPC-UA Quick Nodes *(optional)*
 | Node Type                   | Example Path / ID          | Purpose                        |
 |-----------------------------|----------------------------|--------------------------------|
 | **Variable**                | `ns=3;i=1008`                     | Simple temp reading              |
@@ -90,7 +90,7 @@
 
 
 
-### 📌 Modbus Address Map (Simplified)
+### 📌 Modbus Address Map (Simplified) *(optional)*
 | Description               | Address Range       | Example Usage          |
 |---------------------------|--------------------|-----------------------|
 | Coils/Discrete Outputs    | 0x0000–0xFFFF    | On/Off states         |
@@ -107,9 +107,9 @@
 |-----------------------------|-----------------------------------------------------------|-----------------------------------------------------------------------------------------|---------------------------------------------|
 | MQTT Client (ESP32)         | PubSubClient ESP                     | [GitHub](https://github.com/knolleary/pubsubclient)                            | Modules 4, 5, 7, 8                         |
 | LoRaWAN ESP32               | RadioHead or LoRa library              | [LoRa-Net](https://github.com/LoRa-net/LoRa)                                      | Module 5                                    |
-| OPC-UA Client (ESP32)        | [open62541](https://github.com/open62541/open62541)      | [open62541](https://github.com/open62541/open62541)                              | Module 6                                    |
-| OPC-UA Python                | freeOPC-UA (UA-Expert)                | [GitHub](https://github.com/FreeOpcUa/python-opcua)                               | Module 6                                    |
-| Modbus TCP (Python)          | pymodbus                              | [Docs](https://pymodbus.readthedocs.io/)                                           | Module 6                                    |
+| OPC-UA Client (ESP32)        | [open62541](https://github.com/open62541/open62541)      | [open62541](https://github.com/open62541/open62541)                              | Module 6 (optional)                                    |
+| OPC-UA Python                | freeOPC-UA (UA-Expert)                | [GitHub](https://github.com/FreeOpcUa/python-opcua)                               | Module 6 (optional)                                    |
+| Modbus TCP (Python)          | pymodbus                              | [Docs](https://pymodbus.readthedocs.io/)                                           | Module 6 (optional)                                    |
 | ESP32 Gateway Firmware        | ESP32-MQTT-Client via Arduino Core    | [GitHub](https://github.com/espressif/arduino-esp32)                             | Modules 4–8                                  |
 
 ---
@@ -124,7 +124,7 @@
 | RSSI jumps wildly (+/-15 dBm)                 | Multipath interference         | Move router to higher shelf; switch channels or use 5 GHz.                               | 5                  |
 | LoRa messages arrive 20% packet loss          | Channel busy or ADR hysteresis  | Lora.begin(915E6); check `lora.receive(2000)` timeout.                                | 5                  |
 | Battery voltage drops 10% overnight            | Deep sleep leaking 50 µA         | Comment out `Serial.begin()`; add `#ifdef DEBUG` guard.                               | 5                  |
-| OPC-UA discovery fails                         | Firewall blocking 4840           | `sudo ufw allow 4840`; use open62541 debug logging.                                 | 6                  |
+| OPC-UA discovery fails                         | Firewall blocking 4840           | `sudo ufw allow 4840`; use open62541 debug logging.                                 | 6 (optional)                  |
 
 ---
 
@@ -142,7 +142,7 @@ Use these as portfolio prompts or in-class hook.
 - *"Your gateway lost WiFi every 30 mins—switch to *USB WiFi dongle* or move router? What’s the **lowest-effort fix**?"*
 
 
-### Industrial Protocols (Module 6)
+### Industrial Protocols (Module 6, optional)
 - *"Would you rewrite factory code if OPC-UA adds 10 JSON fields? How does JSON compare to Tag encoded as 32-bit int?"*
 
 

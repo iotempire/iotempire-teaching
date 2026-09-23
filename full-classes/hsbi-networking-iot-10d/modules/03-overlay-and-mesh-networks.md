@@ -2,8 +2,8 @@
 
 [← Back to Module 2](./02-local-networking-and-gateways.md) | [Quick module index](./00-index.md) | [Next: Module 4 →](./04-mqtt-and-integration.md)
 
-> **One session, three tools, one question:** *How do I extend my network beyond a single router — locally and across the Internet?*
-> This module merges the former "Overlay & Mesh" and "Router Mesh (B.A.T.M.A.N.)" sessions so that you learn the two answers side by side and we keep more time for the capstone project.
+> **One session, one question:** *How do I extend my network beyond a single router — locally and across the Internet?*
+> The core is the overlay/remote-access work (Nebula, plus the Yggdrasil IPv6 mesh); the **B.A.T.M.A.N. Layer-2 mesh is an optional stretcher** you can explore if time and routers allow.
 
 ---
 
@@ -11,14 +11,14 @@
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
-This module gives you the opportunity to explore **extending a network beyond a single router** and achieve competency in **NAT traversal with Nebula and Yggdrasil overlays, B.A.T.M.A.N. Layer-2 router meshes, and self-healing failover**.
+This module gives you the opportunity to explore **extending a network beyond a single router** and achieve competency in **NAT traversal and remote access with the Nebula overlay and the Yggdrasil IPv6 mesh, plus the concepts of Layer-2 router meshes and self-healing failover**.
 
 By the end of this module, you can:
 1. Explain why classical port forwarding fails under **Carrier-Grade NAT (CGNAT)**, DS-Lite, and campus/enterprise firewalls.
 2. Deploy **Nebula**, a peer-to-peer overlay with lighthouse discovery and UDP hole punching.
 3. Evaluate **Yggdrasil**, a self-arranging, cryptographically addressed IPv6 mesh.
 4. Distinguish a **Layer-3 overlay** (Nebula/Yggdrasil) from a **Layer-2 router mesh** (B.A.T.M.A.N. advanced) and choose the right tool for local vs. wide-area coverage.
-5. Configure an **OpenWrt 802.11s + `batman-adv`** mesh across several routers, inspect it with `batctl`, and observe self-healing rerouting under live traffic.
+5. *(Optional stretch)* Configure an **OpenWrt 802.11s + `batman-adv`** mesh across several routers, inspect it with `batctl`, and observe self-healing rerouting under live traffic.
 
 > [!NOTE]
 > **Task tiers.** Tasks marked **★ Core** must be completed by everyone. Tasks marked **◇ Stretcher** are optional and are the natural trim point if time runs short — they are excellent bonus-task material.
@@ -65,6 +65,9 @@ Overlay Network (Nebula / Yggdrasil):
 
 ## 📖 Part B — Layer-2 Router Mesh: `batman-adv`
 
+> [!NOTE]
+> **Optional stretcher territory.** Layer-2 mesh is worth understanding conceptually, but the hands-on B.A.T.M.A.N. lab is **optional (stretcher)**: it needs several routers sharing a Wi-Fi channel, and the core of this module is the overlay/remote-access work. Do the mesh lab only if time, routers, and interest allow.
+
 ### Why Layer-2 Mesh Instead of IP Routing?
 In traditional networks, extending a network across multiple hops requires Layer-3 routing (OSPF, RIP, BGP) with complex IP subnetting and routing tables on every node. If a link drops, IP routes must recalculate, dropping existing TCP sessions.
 
@@ -94,7 +97,7 @@ In traditional networks, extending a network across multiple hops requires Layer
 
 ## 📖 Part C — Choosing the Right Tool
 
-| | **Port Forwarding** | **Nebula** | **Yggdrasil** | **B.A.T.M.A.N. adv** |
+| | **Port Forwarding** | **Nebula** | **Yggdrasil** | **B.A.T.M.A.N. adv** *(optional)* |
 |---|---|---|---|---|
 | **Layer / model** | Layer 3/4 (NAT rule) | Layer 3 overlay | Layer 3 overlay (IPv6) | **Layer 2 mesh** |
 | **Scope** | One exposed service | Wide-area, P2P | Wide-area, P2P | **Local / campus** |
@@ -108,9 +111,9 @@ In traditional networks, extending a network across multiple hops requires Layer
 
 ## 🛠️ In-Class Lab: One Session, Three Networks
 
-*Hardware:* 1× OpenWrt router per student pair + laptops with a connection to the university/mobile network. For the mesh part, the whole class connects **3–6 routers** into a shared multi-hop mesh.
+*Hardware:* 1× OpenWrt router per student pair + laptops with a connection to the university/mobile network. For the optional mesh stretcher, the class connects **3–6 routers** into a shared multi-hop mesh.
 
-Time budget: **★ Core ≈ 115 min**, **◇ Stretcher ≈ 25 min**, plus theory, reflection, and portfolio work.
+Time budget: **★ Core ≈ 40 min** (Nebula), **◇ Stretchers ≈ 100 min** (B.A.T.M.A.N. mesh + Yggdrasil), plus theory, reflection, and portfolio work.
 
 ---
 
@@ -155,7 +158,7 @@ Time budget: **★ Core ≈ 115 min**, **◇ Stretcher ≈ 25 min**, plus theory
 
 ---
 
-### ★ Task 2: Building the Class Mesh with B.A.T.M.A.N. advanced (60 min)
+### ◇ Task 2 (Stretcher): Building the Class Mesh with B.A.T.M.A.N. advanced (60 min)
 
 Work in pairs. The classroom becomes a single multi-hop mesh — coordinate mesh IDs and channels with your neighbors!
 
@@ -202,7 +205,7 @@ Work in pairs. The classroom becomes a single multi-hop mesh — coordinate mesh
 
 ---
 
-### ★ Task 3: The Live Failover Test (15 min)
+### ◇ Task 3 (Stretcher): The Live Failover Test (15 min)
 
 Because this session runs *before* the MQTT module, we test resilience at the network level — which is exactly where routing decisions are made anyway. We will re-run the same experiment *with* MQTT traffic in the capstone studio (Module 8).
 
@@ -241,6 +244,6 @@ Do this task if you finish the core labs early, or as homework/bonus.
 In your portfolio under `modules/03-mesh-overlay/`:
 1. **Tool Selection Matrix:** Compare **Port Forwarding**, **Nebula**, **Yggdrasil**, and **B.A.T.M.A.N. advanced** across: central infrastructure required, NAT traversal, encryption model, layer, and suitability for remote vs. local coverage. (Extend the table from Part C with your own observations.)
 2. **Remote-Access Proof:** Terminal screenshot showing your laptop on an external network (e.g. mobile hotspot) with a successful `ping` and `ssh` session to your OpenWrt router via its Nebula IP (`10.100.0.x`).
-3. **Mesh Routing Artifacts:** Capture `batctl n` and `batctl o` output showing your router's multi-hop neighbors, plus a `batctl traceroute` across the room.
-4. **Failover Experiment Report:** Describe what happened during the link drop: how many pings/packets were lost before B.A.T.M.A.N. converged on the alternate route?
+3. *(Optional)* **Mesh Routing Artifacts:** Capture `batctl n` and `batctl o` output showing your router's multi-hop neighbors, plus a `batctl traceroute` across the room.
+4. *(Optional)* **Failover Experiment Report:** Describe what happened during the link drop: how many pings/packets were lost before B.A.T.M.A.N. converged on the alternate route?
 5. **Reflection:** Why can `batman-adv` give you a flat subnet across the room, while Nebula/Yggdrasil are needed to reach a device across the Internet? Which one would your capstone project use — and why?
