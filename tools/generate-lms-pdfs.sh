@@ -330,7 +330,13 @@ convert_with_soffice() {
         return 1
     fi
 
-    mv "$staged_pdf" "$final_pdf"
+    # LibreOffice writes the PDF next to the (staged) source basename. With our
+    # naming that path already *is* the final PDF (the staged file carries the
+    # output basename), so moving it would fail with "are the same file".
+    # Only move it when the two names actually differ.
+    if [[ "$staged_pdf" != "$final_pdf" ]]; then
+        mv "$staged_pdf" "$final_pdf"
+    fi
     # ODT is intentionally kept (untracked) as a marginal-edit fallback
 }
 
