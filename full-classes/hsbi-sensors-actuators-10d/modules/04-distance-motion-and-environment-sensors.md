@@ -2,7 +2,7 @@
 
 [← Back to Module 3](./03-sensor-characterization-and-calibration.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-leds-and-light-output.md)
 
-> **Today: how the world around the node is measured.** Distance and motion are the workhorses of the example projects — people counters, flow sensors, interactive installations.
+> **Today: how the world around the node is measured.** Distance, motion, touch, and environment are the workhorses of the example projects — people counters, flow sensors, interactive installations.
 
 ---
 
@@ -10,12 +10,12 @@
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
-This module gives you the opportunity to explore **distance, motion, and environment sensing** and achieve competency in **ToF, ultrasonic, and IR distance principles, IMU orientation and fusion, and Hall-effect/current and environment sensors**.
+This module gives you the opportunity to explore **distance, motion, and environment sensing** and achieve competency in **ToF, ultrasonic, and IR distance principles, motion/orientation sensing (or an agreed alternative sensor), and Hall-effect/current and environment sensing**.
 
 By the end of this module, you can:
 1. Compare the main **distance-sensing principles**: IR triangulation, ultrasonic time-of-flight, optical time-of-flight.
 2. Use a **ToF sensor** (VL53L0X) and an **ultrasonic sensor** and explain their failure modes.
-3. Read an **IMU** (accelerometer + gyroscope), compute tilt, recognize drift, and apply a simple sensor fusion.
+3. Read a **motion/orientation sensor** (IMU, or an agreed alternative), compute a derived quantity such as tilt, recognize drift, and apply a simple processing or fusion step.
 4. Explain **Hall-effect** and **current** sensing and use a Hall sensor.
 5. Choose an appropriate **environment sensor** (temperature, humidity, pressure) for a task.
 
@@ -44,7 +44,7 @@ Because an ultrasonic or ToF unit fires energy and waits, **two of them pointed 
 
 ## 📖 Part B — Motion and Orientation
 
-An **IMU** (e.g. MPU6050 at I²C `0x68`) combines:
+A **motion sensor** — an IMU such as the **MPU6050** (I²C `0x68`), the **M5StickC's built-in IMU** (e.g. MPU6886), or a similar part — combines:
 
 - an **accelerometer** (measures proper acceleration, including gravity) — good for *static tilt*, noisy for quick motion;
 - a **gyroscope** (measures angular velocity) — good for *short-term rotation*, but **drifts** over time due to bias.
@@ -63,13 +63,17 @@ For simple use cases you often do not need full fusion — a tilt angle from the
 - **DS18B20** (OneWire): robust, cheap temperature, addressable in chains, slower.
 - **DHT22**: cheap T + RH, slower and with modest accuracy.
 - **BME280 / environment modules** (I²C): T + RH + pressure, faster, more accurate — usually the right default for a station.
+- If the **DS18B20** is the only environment sensor available, treat it as a full lab sensor — see Task 4, Option C.
 - Remember the lessons from Modules 2 and 3: these are I²C devices with **addresses and registers**, and they have **time constants** and **self-heating** (a sensor near a hot MCU reads warm — isolate or compensate).
 
 ---
 
-## 🛠️ In-Class Lab: Distance and Motion
+## 🛠️ In-Class Lab: Distance, Motion & Environment
 
-*Hardware:* VL53L0X (I²C) + MPU6050 (I²C) for the fast path; optionally HC-SR04 and a Hall sensor for the physics path. Ruler or measuring tape as reference.
+*Hardware:* a distance sensor (VL53L0X ToF and/or an ultrasonic module) plus **one motion/environment sensor chosen from what is available** — the **MPU6050** or the **M5StickC's built-in IMU**, the **MPR121** capacitive-touch controller, or the **DS18B20** (OneWire) temperature sensor. A ruler or measuring tape as reference; a Hall sensor is optional.
+
+> [!NOTE]
+> **Use what you have.** This module is about *sensing principles*, not one specific part. Do the motion/environment task with whichever sensor you can actually get working — MPU6050, the M5StickC's built-in IMU, an MPR121 touch sensor, or "just" the DS18B20 temperature sensor — and note in your portfolio which one you used and why.
 
 > [!WARNING]
 > Some ultrasonic modules are 5 V devices — check before connecting to 3.3 V logic, and use a level shifter/divider for the echo line if required.
@@ -106,12 +110,27 @@ Build the first half of an example project from the announcement:
 
 ---
 
-### ★ Task 4: IMU — Tilt, Rotation, Drift (30 min)
+### ★ Task 4: Motion, Touch, or Temperature — Pick What You Have (30 min)
 
-1. Read accelerometer and gyroscope raw values from the MPU6050 (I²C address `0x68`).
+Read a **motion/environment sensor** and find its characteristic behavior. Do **one** of the options below (whichever hardware you have), and state in your portfolio which you chose and why.
+
+**Option A — IMU (MPU6050, or the M5StickC's built-in IMU):**
+1. Read accelerometer and gyroscope raw values (the MPU6050 is at I²C `0x68`).
 2. Compute a **tilt angle** from the accelerometer alone. Check it against a spirit level or a protractor.
 3. Integrate the gyroscope over a few seconds while the sensor is **static** and show that the angle **drifts**. That is bias.
 4. Implement a simple **complementary filter** (e.g. 98 % gyro + 2 % accelerometer per step) and show that drift is corrected.
+
+**Option B — MPR121 capacitive touch (I²C, `0x5A`):**
+1. Read the capacitive channels and establish a **baseline** with nothing touching.
+2. Detect touch/proximity on one or more channels and tune a **threshold** and filtering (sensitivity).
+3. Show that touch sensors **drift** too (baseline wandering, temperature/humidity effects) and that re-baselining corrects it — the same "drift" idea as the gyro, in a different sensor.
+4. Note what the capacitive reading depends on (contact area, grounding, nearby objects).
+
+**Option C — DS18B20 temperature (OneWire):**
+1. Read the temperature and compare it against a reference thermometer.
+2. Do a **step-response** measurement (move it from cold to warm) and estimate the **time constant τ**.
+3. Note **self-heating** and the effect of the measurement rate; read a chained/second sensor and record its 64-bit **OneWire address** (parallel to I²C addressing).
+4. Estimate the resolution and uncertainty of your reading.
 
 ---
 
@@ -132,5 +151,5 @@ In your portfolio under `modules/04-distance-motion/`:
 1. **ToF characterization:** distance-error table across the range and under different targets.
 2. **Comparison table:** IR/ultrasonic/ToF and your recommendation for two scenarios.
 3. **People counter:** state diagram, timing window, observed false detections.
-4. **IMU results:** tilt accuracy, observed gyro drift over time, and the effect of your complementary filter.
+4. **Sensor results (Task 4):** for the option you chose, report the characterized behavior — e.g. tilt accuracy and gyro drift (IMU), baseline drift and threshold tuning (MPR121), or time constant, resolution, and OneWire address (DS18B20).
 5. **Reflection:** Why can no single distance principle be "the best"? Give one task where each wins.

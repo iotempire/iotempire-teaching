@@ -90,9 +90,9 @@ The simulation is for program flow and logic. Real hardware adds everything this
 
 ## 3. Read Like a Sensor Engineer (45–60 min)
 
-You will be given, or can use, a standard sensor reference such as J. Fraden, ***Handbook of Modern Sensors*** (the legacy class read the first chapters). If you do not have it, use any *two* sensor datasheets from our kit (for example the **VL53L0X** ToF sensor and the **MPU6050** IMU) and answer the same questions about them.
+Now practice on real datasheets — the reference you will actually use. **Google the datasheet** for the **VL53L0X** ToF distance sensor and for the **MPR121** capacitive touch sensor, and answer the same questions about both.
 
-For one sensor, find and note:
+For each sensor, find and note:
 
 - What physical quantity does it measure, by **which physical principle**?
 - What is its **supply voltage**, **interface** (I²C / SPI / analog / PWM / OneWire), and **address** (if I²C)?
