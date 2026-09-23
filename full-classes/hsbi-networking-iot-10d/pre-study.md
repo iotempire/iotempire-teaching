@@ -23,6 +23,11 @@ See the [syllabus](./syllabus.md) for the complete course schedule and policies.
 >
 > **Preparation time:** Plan approximately **3 to 6 hours** for this guide. You need no special hardware—only your laptop and an internet connection.
 
+> [!NOTE]
+> **This pre-study guide is final for this first run.** Work through it as written — there is no need to keep checking back on it.
+>
+> That said, this is the **first time we run this**, so please keep your eyes open. The **main class is still in flux** and may even change based on what you experience here. Take notes as you go: anything that felt **strange**, tasks that seem **unnecessary for the main class**, or anything you found **missing**. Please share those notes with me — they directly shape the class.
+
 ---
 
 ## 1. IoT Systems & Networking — The Big Picture

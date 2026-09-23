@@ -6,12 +6,22 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this session, you will:
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **engineering communication and defense** and achieve competency in **delivering a live sensor/actuator demonstration, defending your measurements, and presenting your portfolio**.
+
+By the end of this module, you can:
 1. Deliver a compelling **5-minute live demonstration** of your sensor/actuator system.
 2. Defend your **measurement and characterization** decisions, your **actuator** choices, and your **resilience** design.
 3. Complete the **portfolio evaluation and assessment defense**.
 4. Reflect on your journey from an ADC code to a documented, characterized system.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

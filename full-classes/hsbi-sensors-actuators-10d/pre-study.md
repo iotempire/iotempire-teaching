@@ -23,6 +23,11 @@ See the [syllabus](./syllabus.md) for the complete course schedule and policies.
 >
 > **Preparation time and access:** Plan approximately **3 to 6 hours** for the required core. You need **no special hardware and no paid account** — a laptop with a browser is enough. Wokwi may require a free account to save or share a simulation; if you cannot use it, contact the instructor through the LMS before the second session so an agreed alternative evidence (for example a hand-drawn circuit plus explanation) can be used.
 
+> [!NOTE]
+> **This pre-study guide is final for this first run.** Work through it as written — there is no need to keep checking back on it.
+>
+> That said, this is the **first time we run this**, so please keep your eyes open. The **main class is still in flux** and may even change based on what you experience here. Take notes as you go: anything that felt **strange**, tasks that seem **unnecessary for the main class**, or anything you found **missing**. Please share those notes with me — they directly shape the class.
+
 ---
 
 ## 1. Sensors and Actuators — The Big Picture

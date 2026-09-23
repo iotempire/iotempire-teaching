@@ -7,8 +7,13 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this session, you will:
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **extending a network beyond a single router** and achieve competency in **NAT traversal with Nebula and Yggdrasil overlays, B.A.T.M.A.N. Layer-2 router meshes, and self-healing failover**.
+
+By the end of this module, you can:
 1. Explain why classical port forwarding fails under **Carrier-Grade NAT (CGNAT)**, DS-Lite, and campus/enterprise firewalls.
 2. Deploy **Nebula**, a peer-to-peer overlay with lighthouse discovery and UDP hole punching.
 3. Evaluate **Yggdrasil**, a self-arranging, cryptographically addressed IPv6 mesh.
@@ -17,6 +22,11 @@ By the end of this session, you will:
 
 > [!NOTE]
 > **Task tiers.** Tasks marked **★ Core** must be completed by everyone. Tasks marked **◇ Stretcher** are optional and are the natural trim point if time runs short — they are excellent bonus-task material.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

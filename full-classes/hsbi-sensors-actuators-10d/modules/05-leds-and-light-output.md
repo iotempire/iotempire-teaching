@@ -6,13 +6,23 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this session, you will:
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **light as an actuator** and achieve competency in **LED current limiting, PWM and gamma, RGB mixing, addressable WS2812 strips, and power budgeting**.
+
+By the end of this module, you can:
 1. Explain LED physics and **dimension a current-limiting resistor** correctly.
 2. Use **PWM** to dim an LED and explain duty cycle, frequency, and **gamma**.
 3. Mix colors on an **RGB LED** and describe additive mixing.
 4. Bring up an **addressable WS2812 (NeoPixel) strip** and explain how the data reaches every pixel.
 5. Compute and **measure the power budget** of a strip and explain why it cannot be powered from a GPIO pin.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

@@ -4,12 +4,22 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this session, you will:
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **decoupled messaging and system integration** and achieve competency in **MQTT mechanics (topics, QoS, retain, LWT), Node-RED flows, and Python (`paho-mqtt` / IoTknit) services**.
+
+By the end of this module, you can:
 1. Deeply understand the **MQTT protocol mechanisms**: topic hierarchies, QoS levels, retained messages, and Last Will and Testament (LWT).
 2. Build data pipelines, state machines, and dashboards in **Node-RED**.
 3. Develop event-driven programmatic integration services in **Python using `paho-mqtt` and IoTknit**.
 4. Experience the power of pub/sub abstraction by swapping simulated/mock devices with physical M5Stack nodes with zero downstream code changes.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

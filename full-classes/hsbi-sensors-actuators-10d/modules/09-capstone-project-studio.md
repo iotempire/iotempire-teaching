@@ -6,13 +6,23 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this module, you will:
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **sensor/actuator system engineering** and achieve competency in **requirement mapping, sensor characterization and evaluation, and resilience testing**.
+
+By the end of this module, you can:
 1. Turn a stakeholder **story** into a concrete sensor/actuator architecture with explicit requirements.
 2. Build and integrate a working sensor/actuator system on the local-first stack.
 3. **Characterize and evaluate** the system: transfer function, resolution/uncertainty, actuator performance, and at least one system metric.
 4. Perform **fault injection** and show that the system degrades gracefully.
 5. Conduct a structured **peer review and dry run** of your demonstration.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

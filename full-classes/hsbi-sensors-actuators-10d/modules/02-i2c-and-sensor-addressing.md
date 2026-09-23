@@ -6,13 +6,23 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this session, you will:
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **sensor buses and device addressing** and achieve competency in **I²C physics and addressing, register maps, multi-device buses, and bus comparison (SPI, UART, OneWire, analog)**.
+
+By the end of this module, you can:
 1. Explain how **I²C** works physically and logically: two wires, open-drain, pull-ups, addressing, ACK/NACK, repeated start, clock stretching.
 2. **Wire and scan** an I²C bus and identify every connected device by address.
 3. Read a sensor through a library **and** read its raw registers directly.
 4. Run **two devices on one bus** and resolve an **address conflict**.
 5. Recognize when a device is I²C, SPI, UART, OneWire, or analog, and why that matters for wiring and debugging.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

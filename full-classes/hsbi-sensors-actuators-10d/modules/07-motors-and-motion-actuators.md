@@ -6,14 +6,24 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this session, you will:
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **motion actuation** and achieve competency in **servo, DC-motor, and stepper control, driver selection, and current/torque/safety**.
+
+By the end of this module, you can:
 1. Place actuators in the classical taxonomy: **mechanical, thermal, optical, unconventional** — and choose appropriately.
 2. Control a **servo** by position with a 50 Hz PWM signal.
 3. Control a **brushed DC motor's** speed and direction with an **H-bridge** and PWM.
 4. Step a **stepper motor** precisely and explain the difference from the other two.
 5. Measure motor **current**, recognize **stall**, and follow the safety rules for motor supplies and grounds.
 6. Couple a **sensor to a motor** with a simple control logic.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

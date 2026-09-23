@@ -4,12 +4,22 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this session, you will:
-1. Master **IPv4 addressing, CIDR subnetting, default gateways, and routing tables**.
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **TCP/IP at the network edge** and achieve competency in **IPv4 addressing and subnetting, DHCP/DNS/NAT, OpenWrt administration, and packet capture with Wireshark and `tcpdump`**.
+
+By the end of this module, you can:
+1. Configure **IPv4 addressing, CIDR subnetting, default gateways, and routing tables**.
 2. Inspect and diagnose the core IP plumbing services: **ARP, DHCP (DORA), DNS, and NAT**.
 3. Configure, administer, and secure an **OpenWrt edge router** via SSH and the LuCI web interface.
 4. Capture and analyze real-time network traffic directly on the router using `tcpdump` and stream it into **Wireshark**.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

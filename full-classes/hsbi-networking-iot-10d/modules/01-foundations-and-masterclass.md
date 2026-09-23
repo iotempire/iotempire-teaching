@@ -4,12 +4,22 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this session, you will:
-1. Understand the **course philosophy, workflow, and portfolio-based assessment**.
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **IoT systems and networking foundations** and achieve competency in **the computing continuum, the OSI-vs-TCP/IP debate, and a first end-to-end sensor-to-dashboard integration**.
+
+By the end of this module, you can:
+1. Explain the **course philosophy, workflow, and portfolio-based assessment**.
 2. Critically analyze the **ISO/OSI 7-layer model vs. real-world TCP/IP** in IoT systems (referencing RFC 3439 and RFC 1958).
 3. Complete the **Master Class hands-on integration**: connect an M5Stack edge node to a local MQTT broker and visualize live data on a Node-RED dashboard.
 4. Craft an **IoT system story** with clear stakeholder needs and interfaces across the computing continuum.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

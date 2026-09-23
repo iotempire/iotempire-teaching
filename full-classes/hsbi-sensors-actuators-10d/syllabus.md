@@ -4,6 +4,9 @@
 >
 > **Canonical source:** [IoTempire Teaching repository — HSBI/GT Sensors and Actuators](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-sensors-actuators-10d)
 
+> [!NOTE]
+> **Work in progress — new class, first taught in WS 2026/27.** Expect this syllabus to keep changing before and during the semester, and **please come back to check it often**. **Large parts are still a draft**: in each module a *DRAFT BOUNDARY* marks the content that is not settled yet, and it moves down as we approve sections together. Your input is valued and appreciated — I am glad to adapt this class to your program, and your suggestions can change the plan, the tasks, and even this syllabus. If something does not fit, say so early.
+
 ---
 
 ## Class Times and Locations
@@ -103,7 +106,7 @@ Assessment is conducted as a **Kombinationsprüfung** combining continuous portf
 | Component | Points | Details |
 |---|---|---|
 | **Module 0 (Pre-Study)** | **1 point** | Portfolio setup, Wokwi simulation, datasheet reading, and answers to guiding questions. |
-| **Modules 1–8 (Labs & Characterization)** | **10 points** | Verified hands-on lab work (measurement, I²C scan and register reads, sensor characterization, distance/motion labs, LED and animation labs, motor control, IoTempower integration). |
+| **Modules 1–8 (Learning goals)** | **10 points** | Earned through **checkpoint presentations** (~10 min each, covering 2–3 modules) that prove the module learning goals from your portfolio and reflections — not by completing every task. Lab evidence: measurement, I²C scan and register reads, sensor characterization, distance/motion labs, LED and animation labs, motor control, IoTempower integration. |
 | **Working-Day Reflections** | **4 points** | Individual reflections submitted for each working day/session documenting measurements, failed attempts, and conceptual takeaways. |
 | **Final Capstone Project** | **5 points** | 25% of the base score. A documented sensor/actuator system with real characterization, an actuator demonstration, and an integration layer. |
 | **Base Total** | **20 points** | **100% base score.** |
@@ -111,6 +114,21 @@ Assessment is conducted as a **Kombinationsprüfung** combining continuous portf
 
 - **Score cap:** The final score is capped at **20 points**, even if bonus points are earned. Bonus points compensate for minor weaknesses in regular deliverables, but all compulsory components must still be attempted.
 - **Passing threshold:** Minimum 14 out of 20 points (~70%) to pass (*bestanden*).
+
+### How module points are earned: checkpoint presentations
+
+You do **not** submit and grade every task. Instead, you earn a module's points in a short, **personal checkpoint presentation** (about **10 minutes**) with the instructor, based on your **portfolio and working-day reflections**. Checkpoints happen in class and cover **2–3 modules at a time**; the schedule is announced through the LMS.
+
+In a checkpoint, you:
+1. **Show your evidence** — portfolio entries, measurements, code, diagrams, and reflections for the modules being checked.
+2. **Prove the learning goals** — the goals listed at the top of each module. Walk the instructor through how your work shows you reached them, and answer questions about them.
+
+Because assessment targets the **learning goals, not task completion**, you are free to **skip tasks, fail at tasks, or add your own**. An honest, documented failure counts as **exploration**, not as a loss, and a convincing demonstration of **deep understanding or analysis** is rewarded generously. If a topic excites you, go deep — that is exactly what this format is meant to encourage.
+
+Practical notes:
+- Bring your portfolio (and any device or demo) to the checkpoint.
+- Expect to explain a measurement, justify a design choice, or read a register or datasheet live.
+- If you cannot attend a checkpoint, talk to the instructor early; a missed checkpoint is handled like a missed deadline.
 
 ### Grade Scale
 
@@ -151,6 +169,8 @@ The kit is deliberately **two-layered**, so you can move fast and still meet rea
 ## 10-Day Course Schedule
 
 The 10 days correspond to the 12 4-hour sessions across the semester. Modules 1–8 deliver the technical foundations; the capstone arc (Modules 9–10) spans the remaining studio sessions so there is genuine build, characterization, and rehearsal time.
+
+> **Indicative plan.** The day-by-day mapping below is a planning draft and may shift — including during the semester — as we refine this class together. The learning objectives and the capstone matter more than the exact day a topic lands on.
 
 | Day | Session(s) | Module / Topic | Core Hands-on Focus |
 |:---:|:---:|---|---|

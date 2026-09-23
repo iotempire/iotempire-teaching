@@ -6,13 +6,23 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this module, you will:
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **systems integration and resilience engineering** and achieve competency in **turning a story into an architecture, integrating sensors/actuators/network layers, and fault-injection testing**.
+
+By the end of this module, you can:
 1. Turn a **stakeholder story** into a concrete networked IoT system architecture with explicit roles and interfaces.
 2. Synthesize all networking, messaging, and hardware layers into an integrated **Capstone IoT Architecture**.
 3. Perform **fault-injection testing and resilience validation**: verify how the system behaves under network partition, packet loss, or node failure.
 4. Conduct a structured **peer review and rehearsal** of your capstone demonstration.
 5. Refine your system documentation and live demonstration script for the final defense.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

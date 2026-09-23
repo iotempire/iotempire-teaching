@@ -6,13 +6,23 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this session, you will:
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **interactive and animated lighting** and achieve competency in **non-blocking animation, palettes and blending, and sensor- and sound-reactive installations**.
+
+By the end of this module, you can:
 1. Structure animation as a **non-blocking, time-based state machine** (no `delay()` in the main loop).
 2. Build recognizable patterns and use **palettes/HSV** and blending instead of hard-coded RGB values.
 3. Fuse a **sensor input** with the animation so the installation reacts to the world.
 4. Read a simple audio signal and drive LEDs from its **envelope** (and, as a stretch, a beat).
 5. Reason about the practical constraints of a real installation: **power, heat, mounting, and safety**.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

@@ -6,13 +6,23 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this session, you will:
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **distance, motion, and environment sensing** and achieve competency in **ToF, ultrasonic, and IR distance principles, IMU orientation and fusion, and Hall-effect/current and environment sensors**.
+
+By the end of this module, you can:
 1. Compare the main **distance-sensing principles**: IR triangulation, ultrasonic time-of-flight, optical time-of-flight.
 2. Use a **ToF sensor** (VL53L0X) and an **ultrasonic sensor** and explain their failure modes.
 3. Read an **IMU** (accelerometer + gyroscope), compute tilt, recognize drift, and apply a simple sensor fusion.
 4. Explain **Hall-effect** and **current** sensing and use a Hall sensor.
 5. Choose an appropriate **environment sensor** (temperature, humidity, pressure) for a task.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

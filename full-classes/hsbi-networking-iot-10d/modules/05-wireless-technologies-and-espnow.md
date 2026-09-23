@@ -4,12 +4,22 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this session, you will:
-1. Understand the **physics and trade-offs of the wireless spectrum**: 2.4 GHz vs. Sub-GHz ISM bands, path loss, and channel interference.
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **wireless IoT communication** and achieve competency in **radio and ISM-band trade-offs, Wi-Fi vs. BLE vs. LoRaWAN, and connectionless ESP-NOW with a gateway bridge**.
+
+By the end of this module, you can:
+1. Explain the **physics and trade-offs of the wireless spectrum**: 2.4 GHz vs. Sub-GHz ISM bands, path loss, and channel interference.
 2. Compare **Wi-Fi, Bluetooth Low Energy (BLE), LoRaWAN, and ESP-NOW** across bandwidth, latency, range, and power consumption.
-3. Master **ESP-NOW**: connectionless IEEE 802.11 action frames for ultra-low latency, sub-millisecond edge communication.
+3. Use **ESP-NOW**: connectionless IEEE 802.11 action frames for ultra-low latency, sub-millisecond edge communication.
 4. Architect and deploy an **ESP-NOW to MQTT Gateway Bridge** using M5Stack hardware.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

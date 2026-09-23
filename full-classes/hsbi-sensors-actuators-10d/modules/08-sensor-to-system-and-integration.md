@@ -6,13 +6,23 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this session, you will:
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **embedded-to-system integration** and achieve competency in **declarative IoTempower nodes, filters, MQTT and Node-RED integration, and closed-loop control**.
+
+By the end of this module, you can:
 1. Deploy a sensor **and** an actuator as one declarative **IoTempower** node.
 2. Use **filters** for processing instead of hard-coding it in the sketch.
 3. Publish a clean, documented **MQTT topic** structure and control an actuator from it.
 4. Build a **Node-RED dashboard** and one **closed-loop / rule-based behavior**.
 5. Inject faults (sensor disconnect, actuator stall, broker restart) and show graceful recovery.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 

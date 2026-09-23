@@ -21,7 +21,7 @@
 This README is the course workbook and front page for the **Networking and IoT Solutions (Vernetzung und IoT-Lösungen)** course taught at **Hochschule Bielefeld University of Applied Sciences and Arts (HSBI)**, Campus Gütersloh. It is delivered over **10 working days / 12 sessions** (4 hours each) across the semester. The official timetable, room, and announcements are published through the course LMS (ILIAS).
 
 > [!NOTE]
-> This is a living document. Expect minor adaptations as the semester progresses; check LMS announcements for current schedule details.
+> This is a **new class, first taught in WS 2026/27**, and a living document: expect adaptations before and during the semester. **Large parts are still a draft** — each module marks unsettled content with a moving *DRAFT BOUNDARY* that we raise as we approve it together, and your feedback is explicitly welcome and can shape the class.
 
 ---
 
@@ -49,7 +49,7 @@ For the complete language arrangement, teaching team, learning objectives, asses
 Your final grade is assessed continuously through your personal **GitHub Portfolio** and the final capstone project:
 
 - **Module 0 (Pre-Study):** 1 point (compulsory preparation before the first session; see [pre-study guide](./pre-study.md)).
-- **Modules 2–7 (Labs & Protocols):** 10 points across the hands-on laboratory modules.
+- **Modules 2–7 (Learning goals):** 10 points, earned through **checkpoint presentations** (~10 min each, covering 2–3 modules) that prove the module learning goals from your portfolio and reflections — not by completing every task. You may skip tasks, fail at some, or add your own. See the [syllabus](./syllabus.md#how-module-points-are-earned-checkpoint-presentations).
 - **Working-Day Reflections:** 4 points (one reflection for each working day documenting discoveries, struggles, and solutions).
 - **Final Capstone Project:** 5 points (25% of base score; multi-node, multi-protocol networked system with live failover demo).
 - **Bonus / Extra Points:** Up to 3 points for outstanding work, peer mentoring, advanced stretcher tasks, or accepted upstream pull requests to IoTempower or this curriculum repository.

@@ -4,12 +4,22 @@
 
 ---
 
-## 📌 Module Outcomes
-By the end of this session, you will:
-1. Understand why **Modbus and OPC-UA** dominate industrial automation, factory floors, and energy grids.
-2. Grasp the principles of **deterministic industrial networking**, field buses (RS-485, CAN, Profinet), and **Time-Sensitive Networking (TSN)**.
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore **industrial interoperability** and achieve competency in **Modbus and OPC-UA, deterministic/real-time networking, and edge bridging into MQTT**.
+
+By the end of this module, you can:
+1. Explain why **Modbus and OPC-UA** dominate industrial automation, factory floors, and energy grids.
+2. Describe the principles of **deterministic industrial networking**, field buses (RS-485, CAN, Profinet), and **Time-Sensitive Networking (TSN)**.
 3. Contrast the register/tag-based industrial paradigm with the topic-based pub/sub model of modern IoT.
 4. Build a bidirectional **Industrial-to-IoT Edge Bridge** in Python or Node-RED that translates Modbus/OPC-UA into MQTT telemetry.
+
+> [!WARNING]
+> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 
