@@ -305,37 +305,47 @@ convert_with_soffice() {
     local final_pdf="$2"
     local staged_basename="${staged_source##*/}"
     local base_name="${staged_basename%.md}"
-    local staged_odt="$OUTPUT_DIR/${base_name}.odt"
-    local staged_pdf="$OUTPUT_DIR/${base_name}.pdf"
+    local produced_odt="$OUTPUT_DIR/${base_name}.odt"
+    local produced_pdf="$OUTPUT_DIR/${base_name}.pdf"
 
-    rm -f "$staged_odt" "$staged_pdf" "$final_pdf"
+    # Isolate LibreOffice from any running desktop instance: a shared user
+    # profile makes headless --convert-to silently fail or reuse the wrong
+    # instance. A throwaway profile in the per-run staging dir avoids that.
+    local lo_profile="file://${STAGE_DIR}/lo-profile"
 
-    # First convert to ODT (editable fallback)
-    soffice --headless \
+    rm -f "$produced_odt" "$produced_pdf"
+
+    # 1) Markdown -> ODT (kept next to the PDF as an editable fallback)
+    soffice \
+        -env:UserInstallation="$lo_profile" \
+        --headless \
         --convert-to odt \
         --outdir "$OUTPUT_DIR" \
         "$staged_source"
 
-    if [[ ! -f "$staged_odt" ]]; then
+    if [[ ! -f "$produced_odt" ]]; then
         return 1
     fi
 
-    # Then convert the ODT to PDF
-    soffice --headless \
+    # 2) ODT -> PDF. LibreOffice names the result after the ODT, which already
+    #    carries the final output basename, so the PDF lands exactly at
+    #    $final_pdf. Never "move" a file onto itself.
+    soffice \
+        -env:UserInstallation="$lo_profile" \
+        --headless \
         --convert-to pdf \
         --outdir "$OUTPUT_DIR" \
-        "$staged_odt"
+        "$produced_odt"
 
-    if [[ ! -f "$staged_pdf" ]]; then
+    if [[ ! -s "$produced_pdf" ]]; then
         return 1
     fi
 
-    # LibreOffice writes the PDF next to the (staged) source basename. With our
-    # naming that path already *is* the final PDF (the staged file carries the
-    # output basename), so moving it would fail with "are the same file".
-    # Only move it when the two names actually differ.
-    if [[ "$staged_pdf" != "$final_pdf" ]]; then
-        mv "$staged_pdf" "$final_pdf"
+    # The produced name normally equals the final name (nothing to do). Only if
+    # they ever diverge do we relocate once - and never onto the same inode,
+    # which would make mv fail with "are the same file".
+    if [[ "$produced_pdf" != "$final_pdf" ]] && [[ ! "$produced_pdf" -ef "$final_pdf" ]]; then
+        mv -f "$produced_pdf" "$final_pdf"
     fi
     # ODT is intentionally kept (untracked) as a marginal-edit fallback
 }
