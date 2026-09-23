@@ -45,11 +45,29 @@ Useful ways to classify sensors (get used to naming the class of any sensor you 
 ### The chain you must always be able to draw
 
 ```text
-physical quantity        transducer         signal conditioning         ADC + MCU            system
-(temperature, distance) -> (sensor)       -> (amplifier, divider,    -> (sample, filter,   -> (MQTT, Node-RED,
-                                             filter, reference)          calibrate)           actuator, dashboard)
-                                                                                                  |
-                                                                      actuator <- PWM/driver <----+
+physical quantity
+        |
+        v
+  transducer (sensor)
+        |
+        v
+  signal conditioning
+  (amplifier, divider,
+   filter, reference)
+        |
+        v
+  ADC + MCU
+  (sample, filter, calibrate)
+        |
+        v
+  system
+  (MQTT, Node-RED, dashboard)
+        |
+        |  command
+        |  (PWM / driver)
+        v
+  actuator
+  (acts on the world)
 ```
 
 Every lab in this course is one link of this chain. When something does not work, ask *which link* is failing: the physics, the conditioning, the conversion, the calculation, or the system.
