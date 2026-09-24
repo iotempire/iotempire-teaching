@@ -58,6 +58,18 @@ In this course, you will do **less raw microcontroller breadboard wiring** (whic
 
 ---
 
+### How We Teach — Challenge- and Project-Based, In Person, and Always in Flux
+
+This course is deliberately taught as **Challenge-Based** and **Project-Based Learning** (CBL/PBL): you learn by investigating an authentic challenge and building a real solution, not by reproducing a lecture. We begin from **stories** — a real problem that matters to you and the people it touches — because you learn best what connects to something meaningful for your own life, studies, or community. Your instructors genuinely care that you find that connection.
+
+It also matters that we do this **in person, together** — a university class is at its best where we actually meet. You will learn a great deal from direct interaction with your peers: explaining, questioning, debugging, and demoing to one another, while your instructors learn alongside you.
+
+And this class is **always in flux — that is a feature, not a bug**. No course is ever finished: every offering is adjusted while it runs, and each class teaches us as much as it teaches you. Expect the plan, the tasks, and even this syllabus to move as we discover together what works best; your questions, ideas, and feedback are part of the design.
+
+> **Want to read more?** Challenge-Based Learning — [en.wikipedia.org/wiki/Challenge-based_learning](https://en.wikipedia.org/wiki/Challenge-based_learning) · Project-Based Learning — [pblworks.org/what-is-pbl](https://www.pblworks.org/what-is-pbl) · Why active, interactive learning beats passive lectures — [Harvard Gazette, 2019](https://news.harvard.edu/gazette/story/2019/09/study-shows-that-students-learn-more-when-taking-part-in-classrooms-that-employ-active-learning-strategies)
+
+---
+
 ## Learning Objectives
 
 By the end of this course, you will be able to:
