@@ -153,8 +153,7 @@ Unlike pure microcontroller classes, our hardware focuses on **modular, ready-to
 - **Edge Routers (1 router per 2 students):**
   - Primarily the **Cudy TR1200** flashed to pure upstream OpenWrt.
   - Partner and fallback models: **GL.iNet GL-MT300N-V2 ("Mango")** (used by colleagues in Tartu and Regensburg) and **GL-AR300M ("Shadow")** (to fill gaps).
-  - *Hardware Note on Vendor Forks:* We intentionally avoid devices like the GL-SFT1200 ("Opal"), which run an outdated, proprietary 2018 vendor fork with closed drivers that severely restricts bridging, access-point mode, and modern mesh packages. (Exploring why upstream OpenWrt is superior to pseudo-OpenWrt vendor forks serves as an educational side case study in edge infrastructure selection).
-  - Running OpenWrt with LuCI, Mosquitto MQTT broker, `tcpdump`, and `iperf3`; optional `kmod-batman-adv` and mesh tools for the B.A.T.M.A.N. stretcher.
+  - All routers run **upstream OpenWrt** with LuCI, Mosquitto MQTT broker, `tcpdump`, and `iperf3`; optional `kmod-batman-adv` and mesh tools for the B.A.T.M.A.N. stretcher.
 - **Modular Edge Nodes (M5Stack Ecosystem):**
   - **M5StickC Plus / Plus2** and/or **M5Atom Matrix / Lite / S3**: ESP32-based devices with built-in displays, buttons, IMU, and Grove I²C/GPIO ports.
   - Eliminates fragile breadboard wiring so lab time is spent on protocols, integration, and packet flow.

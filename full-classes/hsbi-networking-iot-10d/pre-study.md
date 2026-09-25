@@ -59,8 +59,13 @@ Complete these steps and document your findings in your portfolio:
 1. Watch **["Teaching the IoTempower Way"](https://video.iotempower.us)** (the IoTempower inspiration video, about 1–2 minutes, dense and fast-paced).
 2. Note what excites you. What kind of distributed system, smart environment, or networked automation would you love to build?
 
-### Step B: The Journey of a Packet (15 min)
-1. Watch **[How Data Moves Through the Internet](https://www.practicalnetworking.net/index/networking-fundamentals-how-data-moves-through-the-internet/)** (videos 1–3 by Ed Harmoush) or a similar concise review of IP routing and encapsulation.
+### Step B: The Journey of a Packet (≈40 min)
+1. Watch the first module of **[How Data Moves Through the Internet](https://www.practicalnetworking.net/index/networking-fundamentals-how-data-moves-through-the-internet/)** by Ed Harmoush (short lessons, numbered `1a`, `1b`, `2a`, …). For this pre-study, watch **at least these three**:
+   - **Lesson 1a — Network Devices: Hosts, IP Addresses, Networks**
+   - **Lesson 1b — Network Devices: Repeaters, Hubs, Bridges, Switches, Routers**
+   - **Lesson 2a — OSI Model: Layers 1, 2, 3**
+
+   If you want the complete picture (recommended, roughly 30 min more), continue with **Lesson 2b — OSI Model: Layers 4 and 5/6/7, Encapsulation/De-Encapsulation**, and then **Lessons 3a and 3b — what hosts do when speaking to hosts on the *same* vs. a *foreign* network**. Lessons 3a/3b are the actual "journey of a packet" and the best preparation for Day 1. (A similar concise review of IP routing and encapsulation is fine too if you prefer another source.)
 2. Note why practical network engineers usually work with the **TCP/IP 4-layer model** rather than the theoretical 7-layer OSI model.
 
 ### Step C: Hands-on Network Discovery on Your Laptop (30 min)
@@ -77,7 +82,7 @@ Open your terminal (Linux/macOS terminal, or WSL/PowerShell on Windows) and insp
 3. **Inspect MQTT in Action (15 min):**
    - You do not need to install a broker yet. Use an MQTT client like **MQTTX** (download from [mqttx.app](https://mqttx.app)), `mosquitto_sub`/`mosquitto_pub` via CLI, or an online web client (e.g. [HiveMQ Web Client](https://www.hivemq.com/demos/websocket-client/)).
    - Connect to the public test broker `broker.hivemq.com` (port 1883, or port 8000 for WebSockets).
-   - Subscribe to a unique topic, for example: `hsbi/student/<your-name>/test`.
+   - Choose a short **pseudonym or random ID** — do **not** use your real name; this broker is public. Subscribe to a unique topic such as `hsbi/student/<pseudonym-or-random-id>/test`.
    - Publish a message like `{"status": "online", "message": "Hello Vernetzung!"}` to that topic and verify that your subscriber receives it immediately.
    - Take a screenshot of the received message for your portfolio!
 
