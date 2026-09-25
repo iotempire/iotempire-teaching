@@ -2,8 +2,6 @@
 
 [← Back to Module 3](./03-overlay-and-mesh-networks.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-wireless-technologies-and-espnow.md)
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -20,8 +18,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 The Architecture of Decoupled Messaging
 
@@ -60,8 +56,6 @@ Traditional web architectures rely on client-server request/response over HTTP:
 - **Retained Messages:** The broker stores the last message published with `retain=true`. When a new dashboard or node subscribes, it immediately receives the current state instead of waiting minutes for the next publish.
 - **Last Will and Testament (LWT):** When a client connects, it gives the broker a "will" message (e.g. topic `devices/m5stick1/status`, payload `offline`, retain `true`). If the device suddenly loses power or drops Wi-Fi, the broker automatically publishes this message.
 
----
-
 ## 🛠️ In-Class Lab: Building the Integration Engine
 
 ### Task 1: Exploring QoS, Retain & LWT with MQTT Explorer (20 min)
@@ -76,8 +70,6 @@ Traditional web architectures rely on client-server request/response over HTTP:
 4. **The Hard Disconnect Test:** Unplug the M5Stack node from power (do not send a graceful disconnect).
 5. Watch how many seconds pass before the broker detects the missing TCP keep-alive (PINGREQ) and automatically fires the LWT `offline` payload!
 
----
-
 ### Task 2: Visual Integration with Node-RED (30 min)
 1. Open Node-RED on your OpenWrt gateway (`http://192.168.8.1:1880`).
 2. Build an intelligent thermostat/alarm flow:
@@ -90,8 +82,6 @@ Traditional web architectures rely on client-server request/response over HTTP:
    mosquitto_pub -h 192.168.8.1 -t "devices/sensor1/temp" -m '{"temp": 29.5, "battery": 92}'
    ```
 4. Verify the dashboard triggers and the control topic receives the command.
-
----
 
 ### Task 3: Programmatic Integration with Python & `paho-mqtt` / IoTknit (40 min)
 Instead of putting all logic in Node-RED, modern production systems often use lightweight Python background services or **IoTknit** to bridge systems, write to databases, or handle custom business logic.
@@ -140,8 +130,6 @@ Instead of putting all logic in Node-RED, modern production systems often use li
    - Run it. Observe Node-RED and your Python bridge processing the mock data.
    - Turn on your physical M5Stack node publishing to the same topic structure.
    - Notice how neither Node-RED nor the Python bridge care whether the message originated from a mock script or a real M5Stack device!
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

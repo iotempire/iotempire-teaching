@@ -5,8 +5,6 @@
 > **One session, one question:** *How do I extend my network beyond a single router — locally and across the Internet?*
 > The core is the overlay/remote-access work (Nebula, plus the Yggdrasil IPv6 mesh); the **B.A.T.M.A.N. Layer-2 mesh is an optional stretcher** you can explore if time and routers allow.
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -27,8 +25,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 Part A — Overlay Networks: Remote Access Without Port Forwarding
 
@@ -61,8 +57,6 @@ Overlay Network (Nebula / Yggdrasil):
 - **Cryptographic Addressing:** Node IPs are derived directly from a public encryption key (in the `200::/7` range).
 - **Self-Healing Tree Routing:** Yggdrasil peers establish connections over TCP, TLS, or raw link-local Wi-Fi, forming a global or private spanning-tree metric space. Packets route greedily along the tree even across complex, dynamic topologies.
 
----
-
 ## 📖 Part B — Layer-2 Router Mesh: `batman-adv`
 
 > [!NOTE]
@@ -93,8 +87,6 @@ In traditional networks, extending a network across multiple hops requires Layer
 > [!TIP]
 > Notice how `batman-adv` (Part B) and ESP-NOW (Module 5) share the same superpower: they move routing/adjacency decisions down the stack so that the layers above do not have to care. Keep that pattern in mind — it recurs throughout the course.
 
----
-
 ## 📖 Part C — Choosing the Right Tool
 
 | | **Port Forwarding** | **Nebula** | **Yggdrasil** | **B.A.T.M.A.N. adv** *(optional)* |
@@ -107,15 +99,11 @@ In traditional networks, extending a network across multiple hops requires Layer
 | **Infrastructure needed** | Upstream NAT access | Lighthouse (1 node) | At least one reachable peer | Wi-Fi coverage + 802.11s |
 | **Best for** | Quick one-off demo | Remote access to your gateway | Decentralized class mesh | Multi-hop coverage across rooms |
 
----
-
 ## 🛠️ In-Class Lab: One Session, Three Networks
 
 *Hardware:* 1× OpenWrt router per student pair + laptops with a connection to the university/mobile network. For the optional mesh stretcher, the class connects **3–6 routers** into a shared multi-hop mesh.
 
 Time budget: **★ Core ≈ 40 min** (Nebula), **◇ Stretchers ≈ 100 min** (B.A.T.M.A.N. mesh + Yggdrasil), plus theory, reflection, and portfolio work.
-
----
 
 ### ★ Task 1: Deploying Nebula for Team Remote Access (40 min)
 
@@ -155,8 +143,6 @@ Time budget: **★ Core ≈ 40 min** (Nebula), **◇ Stretchers ≈ 100 min** (B
      mosquitto_sub -h 10.100.0.10 -t "test/#" -v
      ```
    - *Success:* You now have secure, direct, bidirectional access to your IoT gateway from anywhere!
-
----
 
 ### ◇ Task 2 (Stretcher): Building the Class Mesh with B.A.T.M.A.N. advanced (60 min)
 
@@ -203,8 +189,6 @@ Work in pairs. The classroom becomes a single multi-hop mesh — coordinate mesh
    - **Originator routing table:** `batctl o` — all nodes across the multi-hop mesh and the best next-hop MAC address to reach them.
    - **Trace multi-hop paths:** `batctl traceroute <target_mac>` — watch packets hop across intermediate student routers.
 
----
-
 ### ◇ Task 3 (Stretcher): The Live Failover Test (15 min)
 
 Because this session runs *before* the MQTT module, we test resilience at the network level — which is exactly where routing decisions are made anyway. We will re-run the same experiment *with* MQTT traffic in the final project studio (Module 8).
@@ -215,8 +199,6 @@ Because this session runs *before* the MQTT module, we test resilience at the ne
    - Watch `batctl o` immediately detect the missing OGMs.
    - Traffic dynamically re-routes through a different neighbor.
    - Notice that the flat Layer-2 subnet and any TCP sessions it carried survive the reroute without re-addressing.
-
----
 
 ### ◇ Task 4 (Stretcher): Exploring Decentralized Mesh with Yggdrasil (25 min)
 
@@ -236,8 +218,6 @@ Do this task if you finish the core labs early, or as homework/bonus.
    yggdrasilctl getPaths
    ```
 4. **End-to-end IPv6 ping:** ask another student for their Yggdrasil IPv6 address and `ping -6 200:...` — then reach a simple service (for example an HTTP server or SSH) listening on that Yggdrasil IPv6 socket.
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

@@ -6,8 +6,6 @@ Voice- and motion-driven IoT: use **M5StickC** (ESP32 + mic + IMU), a **local Wh
 
 The same basic idea can be run as a **4 h taste**, **8 h standard lab**, or **2-day deep-dive** with performance measurements and small research-style write-ups.
 
----
-
 ## 1. Concept (Draft)
 
 - **Input 1 – Voice:** M5StickC microphone sends audio to a local Whisper instance (on a laptop/Raspberry Pi). Recognised spell words are pushed via MQTT (e.g. `spells/voice`).
@@ -15,8 +13,6 @@ The same basic idea can be run as a **4 h taste**, **8 h standard lab**, or **2-
 - **Fusion:** Node-RED combines both to trigger effects: LEDs, images, dashboards, maybe a relay or servo.
 
 > TODO: Decide minimal spell set (e.g. `fireball`, `heal`, `freeze`) and what each spell does in the room.
-
----
 
 ## 2. Rough Learning Outcomes
 
@@ -28,8 +24,6 @@ Participants should be able to:
 
 > TODO: For the long version, add explicit outcomes on measuring latency and power consumption.
 
----
-
 ## 3. Variants by Time Budget
 
 | Variant | Time | Focus |
@@ -39,8 +33,6 @@ Participants should be able to:
 | **Deep-dive** | 12–16 h | collect small dataset, track latency & energy, mini report / poster |
 
 > TODO: For each variant, sketch 3–4 concrete tasks or milestones.
-
----
 
 ## 4. Minimal Hardware & Software Checklist
 
@@ -54,8 +46,6 @@ Participants should be able to:
 
 > TODO: Add suggested wiring / extra hardware if we want relay, LED strip, or other tangible output.
 
----
-
 ## 5. High-Level Flow
 
 1. **Bring-up:** test that M5StickC is visible via serial and can publish simple MQTT messages.
@@ -66,8 +56,6 @@ Participants should be able to:
 
 > TODO: Insert 1–2 Node-RED screenshots and very small code snippets once the prototype is stable.
 
----
-
 ## 6. Open Design Questions / Ideas
 
 - How much of the **Whisper pipeline** should students see vs. be pre-packaged?
@@ -76,7 +64,5 @@ Participants should be able to:
 - Could we reuse this workshop as a starting point for **student projects or theses** (e.g. privacy-preserving edge AI)?
 
 > TODO: Add a short safety note about local processing of voice data and data-retention policies.
-
----
 
 _Last touched: AI-draft August 2026 – please revise with concrete tasks, wiring diagrams, screenshots, and institutional details before use._

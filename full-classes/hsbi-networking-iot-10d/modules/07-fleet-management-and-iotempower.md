@@ -2,8 +2,6 @@
 
 [← Back to Module 6](./06-industrial-protocols-and-bridging.md) | [Quick module index](./00-index.md) | [Next: Module 8 →](./08-final-project-studio.md)
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -20,8 +18,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 The Scaling Challenge: From 1 Prototype to a Fleet
 
@@ -58,13 +54,9 @@ When hacking a single Arduino or ESP32 node, developers often:
                                       (OpenWrt)
 ```
 
----
-
 ## 🛠️ In-Class Lab: Declarative Fleet Deployment
 
 *Hardware:* 2× M5Stack nodes (e.g. M5StickC + M5Atom) + 1× OpenWrt Router.
-
----
 
 ### Task 1: Setting Up the IoTempower Node Environment (25 min)
 
@@ -84,8 +76,6 @@ When hacking a single Arduino or ESP32 node, developers often:
    wifi_password="class-password"
    mqtt_broker="192.168.8.1"
    ```
-
----
 
 ### Task 2: Declarative Node Definition for M5Stack (30 min)
 
@@ -117,8 +107,6 @@ Notice what is missing: **no Wi-Fi connection logic, no MQTT connect code, no re
    ```
 2. Once flashed, observe the node connect to your OpenWrt router and announce itself.
 
----
-
 ### Task 3: The Magic of Over-The-Air (OTA) Updates (25 min)
 
 Now, unplug the USB cable! Power the node from a battery pack or standard USB wall charger.
@@ -134,8 +122,6 @@ Now, unplug the USB cable! Power the node from a battery pack or standard USB wa
    ```
 3. Watch the terminal: IoTempower compiles the firmware, discovers the node via mDNS, contacts the internal OTA server on the ESP32, uploads the binary, and reboots the node—**all over Wi-Fi without touching the device!**
 
----
-
 ### Task 4: Coordinating Fleet Actions via MQTT (30 min)
 
 1. Have your teammate deploy a second node (`node2` — e.g. M5Atom with a relay or buzzer).
@@ -146,8 +132,6 @@ Now, unplug the USB cable! Power the node from a battery pack or standard USB wa
 3. In Node-RED, create a simple integration link:
    - When `node1/btn` is `pressed`, publish `ON` to `node2/relay/set`.
 4. Congratulations: You have built a fully declarative, wirelessly updatable, networked fleet!
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

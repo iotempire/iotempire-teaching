@@ -4,8 +4,6 @@
 
 > **A characterized sensor and a working actuator are still not a product.** Today they become a deployed system: declared in IoTempower, published over MQTT, shown and controlled in Node-RED, and closed into a control loop.
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -23,8 +21,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 Part A — Why Declarative Deployment
 
@@ -62,16 +58,12 @@ Design for these — you will test some of them today and during the final proje
 - The **broker restarts** → do publisher and controller reconnect and resubscribe?
 - The **network drops** → does local behavior continue, and does the system re-sync when it returns?
 
----
-
 ## 🛠️ In-Class Lab: Close the Loop
 
 *Hardware:* 1× M5Stack node and/or a raw ESP board (ESP32 DevKit, ESP32 Ethernet mini kit, or Wemos D1 Mini) with a sensor (e.g. environment or ToF) and an actuator (relay/fan mock, LED, or servo), plus a local broker/gateway (OpenWrt router or Linux host) running Mosquitto + Node-RED.
 
 > [!WARNING]
 > Power off before rewiring, and re-check that any motor/relay/LED load has its own supply and a common ground (Module 7).
-
----
 
 ### ★ Task 1: Declare Sensor + Actuator in One Node (35 min)
 
@@ -85,23 +77,17 @@ Design for these — you will test some of them today and during the final proje
 2. Flash once over USB, then verify the node's MQTT topics: telemetry on `<node>/temp`, commands on `<node>/fan/set`.
 3. Publish a command from the CLI (`mosquitto_pub`) and watch the actuator react.
 
----
-
 ### ★ Task 2: Process the Signal with a Filter (25 min)
 
 1. Add an **average** (or median) filter to the sensor and observe the reduction in jitter.
 2. Compare the raw and filtered values on the same dashboard. State the window size you chose and why.
 3. Note the added latency and whether it matters for your intended behavior.
 
----
-
 ### ★ Task 3: Dashboard and Rule (35 min)
 
 1. In **Node-RED**, build a dashboard showing the measured value (gauge + chart) and a control for the actuator.
 2. Add at least one **rule**: a threshold with **hysteresis** that automatically drives the actuator (e.g. fan on/off, warning LED, servo position).
 3. Verify that manual control and the automatic rule do not fight each other (document how you arbitrate them).
-
----
 
 ### ★ Task 4: Deploy Over the Air and Inject Faults (30 min)
 
@@ -112,16 +98,12 @@ Design for these — you will test some of them today and during the final proje
    - **Broker restart:** restart Mosquitto; do the node and the dashboard reconnect and resubscribe?
 3. Document each recovery (or missing recovery) — these are the seeds of the final project's resilience test.
 
----
-
 ### ◇ Task 5 (Stretcher): A Smarter Loop or a Data Log (30 min)
 
 Either:
 
 - implement a simple **P (or PI) controller** for your actuator and record the step response (overshoot, settling time), comparing it with plain on/off control; **or**
 - log the sensor stream to a local **database** (SQLite/InfluxDB) and plot a longer trend in Node-RED.
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

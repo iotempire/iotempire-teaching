@@ -2,9 +2,6 @@
 
 > **Warning:** This syllabus is a living document and will evolve throughout the semester. Expect minor updates based on class progress and feedback.
 
-
----
-
 ## Class Times and Locations
 
 - **Day:** TBA
@@ -12,10 +9,7 @@
 - **Time:** TBA
 - **Language of Instruction:** English
 
----
-
 ## Instructors (TBD for local instance)
-
 
 | **Role**       | **Name (example)**         | **Contact**                             | **Discord**       | **GitHub**          |
 |----------------|---------------------------|------------------------------------------|-------------------|---------------------
@@ -24,8 +18,6 @@
 
 **Course Discord:**
 No separate course invite is maintained for this local edition. Students and interested people are always welcome to join the main **IoTempire community Discord** — see the link in the [repository README](../../README.md#references--resources).
-
----
 
 ## Course Load
 
@@ -39,8 +31,6 @@ No separate course invite is maintained for this local edition. Students and int
   - **Extra Points:** Up to 3 — exemplary contributions, help, or extra projects
 - **Minimum Passing Grade:** 14/20 points (~70%)
 
----
-
 ## Description
 
 ### What is the Internet of Things (IoT)?
@@ -51,7 +41,6 @@ In this hands-on course, you won’t just study IoT—you’ll **build it**. You
 
 By the end, you’ll be able to **tame the physical world with code and electronics**—turning coffee makers into learning tools, clinics into data-driven teams, and waste bins into intelligent services.
 
-
 ### How You Will Learn
 
 In this course, **you won’t just watch demos—you’ll lift the hood, break things on purpose, and put them back together stronger.** Classes blend mini-lectures, hands-on labs, and team challenges. You’ll debug real-time sensor failures, orchestrate MQTT messages across networks, design dashboards that turn data into clarity, and complete a real IoT deployment every two weeks.
@@ -59,8 +48,6 @@ In this course, **you won’t just watch demos—you’ll lift the hood, break t
 Each project is a **live demo**: sensors arriving in your lab kit, Node-RED flows that flip LEDs, and systems that respond to emergencies. Every week, you’ll leave with working hardware in your hands and a new hacking story.
 
 Finally, you’ll **demo your final project**: a live five-node IoT system, complete with documentation, dashboards, and a public showcase ready for your portfolio.
-
----
 
 ### How We Teach — Challenge- and Project-Based, In Person, and Always in Flux
 
@@ -72,8 +59,6 @@ And this class is **always in flux — that is a feature, not a bug**. No course
 
 > **Want to read more?** Challenge-Based Learning — [en.wikipedia.org/wiki/Challenge-based_learning](https://en.wikipedia.org/wiki/Challenge-based_learning) · Project-Based Learning — [pblworks.org/what-is-pbl](https://www.pblworks.org/what-is-pbl) · Why active, interactive learning beats passive lectures — [Harvard Gazette, 2019](https://news.harvard.edu/gazette/story/2019/09/study-shows-that-students-learn-more-when-taking-part-in-classrooms-that-employ-active-learning-strategies)
 
----
-
 ## Learning Objectives
 
 After completing this course, you will be able to:
@@ -84,15 +69,11 @@ After completing this course, you will be able to:
 - **Design iterative systems**: Prototype, test, debug, and refine IoT systems using Arduino/PlatformIO, IoTempower, and collaborative workflows.
 - **Reflect and present**: Document your work in a GitHub portfolio and defend designs in live presentations and reports.
 
----
-
 ## Prerequisites and Tools
 
 This course assumes **basic technical curiosity**—no advanced prior knowledge is required. Helpful starting points include: Git/GitHub, Linux basics (CLI navigation), Python/JavaScript basics, C++ basics, network protocols (MQTT/http), and user stories/scenarios.
 
 All tools and languages are taught or scaffolded in class using guided labs and template repositories.
-
----
 
 ## Projects and Assessment
 
@@ -112,8 +93,6 @@ Your **GitHub portfolio** is the primary artifact for grading. It documents code
 - **Assessment**: system functionality (2), documentation + diagrams (1), robustness + ethical sensitivity (1), presentation (1). Minimum 2/5 required to pass.
 - **Showcase**: Present live demos in final two weeks; record videos for assessment clarity.
 
----
-
 ## Evaluation Criteria and Grading Scale
 
 Grades are based on:
@@ -125,8 +104,6 @@ Grades are based on:
 **Grading Scale:**
 - 0–13 pts: Fail
 - 14–20 pts: Pass (19–20 = A equivalence for Erasmus students)
----
-
 ## Course Materials and Resources
 
 deployed using this workbook:
@@ -142,8 +119,6 @@ deployed using this workbook:
 
 All project code, logs, and reflections must be published to your GitHub portfolio under permissive and open licenses (MIT, CC-BY-SA) to enable learning and reuse.
 
----
-
 ## Module Overview
 
 | Week | Module | Core Activities                                                         |
@@ -157,8 +132,6 @@ All project code, logs, and reflections must be published to your GitHub portfol
 
 Each module pairs mini-lecture, lab, guided setup, and reflective writing, building toward your final project.
 
----
-
 ## Expectations and Policies
 
 - **Punctuality:** Doors close at 10:20; late arrivals may miss critical setup steps.
@@ -166,8 +139,6 @@ Each module pairs mini-lecture, lab, guided setup, and reflective writing, build
 - **Collaboration:** Pair/group expected. Document roles in logs.
 - **Conduct & Ethics:** Treat tools, peers, and data with respect; build ethically and with stakeholders in mind.
 - **Open by Default:** Publish portfolio and project artifacts under permissive licenses to enable reuse and learning.
-
----
 
 ## How to Succeed
 
@@ -177,8 +148,6 @@ Each module pairs mini-lecture, lab, guided setup, and reflective writing, build
 4. **Portfolio first.** Reflections = 25% of grade; treat hardware as seriously as your write-up.
 5. **Be generous.** Review teammates’ drafts, co-present honestly, and share your pain points.
 6. **Finish strong.** Plan final two weeks for polish, rehearsal, and video recording.
-
----
 
 ## Course Flow & Cadence
 
@@ -193,8 +162,6 @@ Each module pairs mini-lecture, lab, guided setup, and reflective writing, build
 
 Actual dates will shift; stay on top of commits and communication.
 
----
-
 ## Contacts & Questions
 
 - **Technical issues:** GitHub issues in repo (issue tracker)
@@ -202,8 +169,6 @@ Actual dates will shift; stay on top of commits and communication.
 - **Academic integrity:** Cite sources; talk to instructors
 - **Local course contact:** <replace>
 - **Discord:** Join the main **IoTempire community Discord** — see the link in the [repository README](../../README.md#references--resources)
-
----
 
 > ###### 
 Document version: 2.0 (UT edition)  

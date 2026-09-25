@@ -2,8 +2,6 @@
 
 *A living cheat sheet for students and instructors. Contribute improvements via your portfolio!*
 
----
-
 ## 🎥 Pre-Class and In-Class Videos by Module
 
 | **Module** | **Topic** | **Suggested video** | **Guiding question** |
@@ -22,8 +20,6 @@
 | 7 | Servo / motor / stepper | A "servo vs DC motor vs stepper" comparison | Which needs feedback, and which needs a driver? |
 | 8 | IoTempower | See the course's [IoTempower docs and videos](https://github.com/iotempire/iotempower) | What does "declarative" remove from your code? |
 
----
-
 ## 📄 Datasheets & Standards to Read Once
 
 | **Document** | **Focus** | **Why it matters** |
@@ -38,8 +34,6 @@
 | I²C-bus specification (NXP, UM10204) | Addressing, clock stretching, open-drain | The definitive reference behind Module 2 |
 
 > Reminder: the datasheet is a **measurement document**. Every performance number has conditions attached — read them.
-
----
 
 ## 🗺️ Cheat Sheets & Quick References
 
@@ -79,8 +73,6 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Logic analyzer (optional) | I²C transactions, PWM duty, WS2812 timing |
 | Reference thermometer / lux meter | A reference for your characterization labs |
 
----
-
 ## 🧰 Troubleshooting Quick Drops
 
 | **Symptom** | **Likely cause** | **Fix** | **Module** |
@@ -101,8 +93,6 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Motor does not turn / driver hot | Undersized supply/driver, stall | Size for stall current; check H-bridge wiring and PWM enable | 7 |
 | ADC reads are wildly non-linear | ESP32 ADC non-linearity near the rails | Keep the signal in the linear region; calibrate | 1, 3 |
 
----
-
 ## 📚 Software & Library Landmarks
 
 | **Use case** | **Tool / library** | **Notes** |
@@ -116,8 +106,6 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Integration & dashboards | Node-RED, Mosquitto | Local-first IoT stack |
 | Simulation | [Wokwi](https://wokwi.com/) | Pre-study and quick prototyping |
 
----
-
 ## 🧑‍🏫 Discussion Starters
 
 - *"Your sensor is precise but inaccurate. Which of the two can calibration fix, and which can it not?"*
@@ -126,14 +114,10 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 - *"Your strip is beautiful for 10 minutes and browns out at full white. What did you forget?"*
 - *"The gyro drifts and the accelerometer is noisy. Why is blending them better than choosing one?"*
 
----
-
 ## 📌 Next Steps
 
 - Add your tricks and measurements to this page via a pull request into this class folder.
 - Contribute corrected wiring, extra datasheet notes, or better calibration recipes — good candidates for bonus points.
 - Reuse this bank during the final project and keep it as a reference for later projects.
-
----
 
 *[Back to Workbook](../README.md)*

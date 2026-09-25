@@ -2,8 +2,6 @@
 
 *A living cheat sheet for students and instructors. Contribute improvements in your portfolio portfolios!*(Roll in the table with your changes.)
 
----
-
 ## 🎥 Pre-Class Videos by Module
 
 | **Module** | **Topic**                 | **Video**                                                                               | **Guiding Question**                                                                 |
@@ -20,10 +18,6 @@
 | 5          | ESP32 Deep Sleep Modes      | [ESP32 Deep Sleep vs Light Sleep](https://www.youtube.com/watch?v=ZvfA1XxjVa4)       | What sleep mode achieves 6-month battery life on your ESP-NOW soil sensor?                          |
 | 5          | IoT Power Optimization      | [IoT Power Techniques](https://www.youtube.com/watch?v=eEE9xTQHw9c)                   | Why is frequency scaling often unused in IoT? What’s cheaper instead?                         |
 
----
-
-
-
 ## 📖 RFCs & Standards Every Student Should Glance Once
 
 | **RFC/Document**                                                    | **Focus**                                                                              | **Why it Matters**                                                                         |
@@ -36,16 +30,12 @@
 | [OPC-UA Part 3](https://www.opcfoundation.org/ua/part3/)           | Address space and data model                                                          | Explains what an OPC-UA node/tag means (Module 6, optional).                                        |
 | [ESP32 Technical Reference](https://www.espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf) | Power states, clock domains, sleep modes                                               | Each µA in deep sleep; core text for Module 5 optimizations.                                 |
 
----
-
-
 ## 🛒 Cheat Sheets & Quick References
 
 ### 📌 Hardware Quick Guides
 - **[ESP32 Pinout](https://www.etechnophiles.com/esp32-gpio-pinout-datasheet/)** – A0–A3, GPIO, power domains.
 - **[RPi 4 Pinout](https://www.raspberrypi.com/documentation/computers/os.html#gpio-and-the-40-pin-header)** – UART, I2C, power pins.
 - **[LiPo vs Coin Cell](https://www.ti.com/lit/an/slyt670/slyt670.pdf)** – Discharge curves, self-discharge.
-
 
 ### 📌 Networking Snippets (Copy/Paste)
 - **Ping sweep to find ESP32 IP:**
@@ -88,8 +78,6 @@
 
 *Use [UA Expert](https://www.unified-automation.com/products/development-tools/uaexpert.html) to explore.*
 
-
-
 ### 📌 Modbus Address Map (Simplified) *(optional)*
 | Description               | Address Range       | Example Usage          |
 |---------------------------|--------------------|-----------------------|
@@ -97,9 +85,6 @@
 | Discrete Inputs            | 0x1000–0x1FFF    | Door sensors           |
 | Holding Registers           | 0x2000–0x2FFF    | Temperature x10       |
 | Input Registers             | 0x3000–0x3FFF    | Analog sensor readings  |
-
-
----
 
 ## 📚 Software & Library Landmarks
 
@@ -111,8 +96,6 @@
 | OPC-UA Python                | freeOPC-UA (UA-Expert)                | [GitHub](https://github.com/FreeOpcUa/python-opcua)                               | Module 6 (optional)                                    |
 | Modbus TCP (Python)          | pymodbus                              | [Docs](https://pymodbus.readthedocs.io/)                                           | Module 6 (optional)                                    |
 | ESP32 Gateway Firmware        | ESP32-MQTT-Client via Arduino Core    | [GitHub](https://github.com/espressif/arduino-esp32)                             | Modules 4–8                                  |
-
----
 
 ## 🧰 Troubleshooting Quick Drops
 
@@ -126,8 +109,6 @@
 | Battery voltage drops 10% overnight            | Deep sleep leaking 50 µA         | Comment out `Serial.begin()`; add `#ifdef DEBUG` guard.                               | 5                  |
 | OPC-UA discovery fails                         | Firewall blocking 4840           | `sudo ufw allow 4840`; use open62541 debug logging.                                 | 6 (optional)                  |
 
----
-
 ## 🧑‍🏫 Reflection Questions Bank (Snippets to Spark Discussions)
 
 Use these as portfolio prompts or in-class hook.
@@ -137,16 +118,11 @@ Use these as portfolio prompts or in-class hook.
 
 - *"What’s more painful: hunting for 1 µA leaks or waiting for firmware flashes? What’s the bigger impact on time schedule?"*
 
-
 ### Gateway Design
 - *"Your gateway lost WiFi every 30 mins—switch to *USB WiFi dongle* or move router? What’s the **lowest-effort fix**?"*
 
-
 ### Industrial Protocols (Module 6, optional)
 - *"Would you rewrite factory code if OPC-UA adds 10 JSON fields? How does JSON compare to Tag encoded as 32-bit int?"*
-
-
----
 
 ## 💡 Tips from Students & Instructors (Pull-Requests Welcome)
 
@@ -154,16 +130,9 @@ Use these as portfolio prompts or in-class hook.
 
 - **From Prof #3:** "Keep 2 *batteries* per lab: fresh coin cell and reused 2000 mAh LiPo for comparison. **Lesson:** students never touch the LiPo due to fear of fire—** bring a 5 V USB power probe instead**."
 
-
----
-
-
 ## 📌 Next Steps
 - **Add your tricks** to this page via Pull Request into your class folder.
 - Contribute **dataset screenshots**, **CSV logs**, or **fixed typos** to the portfolio repositories.
 - *Tip: Use this bank as your session ‘go-to’ sheet—annotate margins with sticky notes!*
-
-
----
 
 *[Back to Workbook](../README.md)*

@@ -2,8 +2,6 @@
 
 [← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-local-networking-and-gateways.md)
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -20,8 +18,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 Context & Concepts
 
@@ -51,16 +47,12 @@ In modern IoT, rigid adherence to these 7 layers creates immense friction:
   Layer 1: Physical              -->     2.4 GHz / Sub-GHz Radio / Twisted Pair
 ```
 
----
-
 ## 🛠️ In-Class Lab & Master Class
 
 ### Hardware Issued Today:
 - **1× OpenWrt Travel Router** (e.g. GL.iNet) per 2 students (pre-configured with Mosquitto broker and Node-RED on `192.168.8.1`).
 - **1× M5Stack Node** (e.g. M5StickC Plus or M5Atom Matrix) per student with Grove environmental sensor or onboard IMU.
 - USB-C cable.
-
----
 
 ### Task 1: The Master Class Integration Sprint (45 min)
 The goal of Day 1 is to experience the complete end-to-end loop immediately without low-level breadboard debugging.
@@ -80,8 +72,6 @@ The goal of Day 1 is to experience the complete end-to-end loop immediately with
    - Watch the debug tab and dashboard (`http://192.168.8.1:1880/ui`) update with live sensor telemetry!
    - *Portfolio Evidence:* Take a screenshot of the Node-RED flow receiving live packets from your M5Stack node.
 
----
-
 ### Task 2: The Layering & Overhead Friction Challenge (30 min)
 *Work in pairs with Wireshark.*
 
@@ -98,16 +88,12 @@ The goal of Day 1 is to experience the complete end-to-end loop immediately with
    $$\text{Overhead Ratio} = \frac{\text{Total Frame Size} - \text{Payload Size}}{\text{Payload Size}}$$
 6. Discuss with your partner: If this node is powered by a 100 mAh coin cell and publishes every 5 seconds, how much energy is spent transmitting protocol metadata vs. actual sensor data?
 
----
-
 ### Task 3: System Storytelling & Architecture Sketch (30 min)
 Craft a 2-minute system story for a multi-node IoT deployment:
 - **The Persona & Problem:** Who needs this information? (e.g. cold-chain food transporter, hospital ward, smart greenhouse).
 - **The Devices:** What physical M5Stack nodes gather data, where is the OpenWrt router placed, and where does the integrator run?
 - **Draw the Continuum:** Draw a simple block diagram showing:
   `Sensor Node -> Wi-Fi/ESP-NOW -> Router Gateway (MQTT Broker) -> Node-RED -> Dashboard / Alerting`.
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

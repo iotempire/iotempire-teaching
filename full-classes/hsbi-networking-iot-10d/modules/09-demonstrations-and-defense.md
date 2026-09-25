@@ -2,8 +2,6 @@
 
 [← Back to Module 8](./08-final-project-studio.md) | [Quick module index](./00-index.md)
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -21,13 +19,9 @@ By the end of this module, you can:
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
----
-
 ## 🛠️ In-Class Demo & Defense Procedure
 
 *Format: 5-minute presentation + 3-minute live interaction / fault injection + 2-minute Q&A per team.*
-
----
 
 ### Demonstration Script Guidelines (5 min)
 
@@ -43,8 +37,6 @@ By the end of this module, you can:
    - The instructor or a peer will test the resilience of your system (e.g. pulling power on an intermediate mesh router or disconnecting a Wi-Fi link).
    - Show how the system degrades gracefully, re-routes, or recovers automatically.
 
----
-
 ## 📋 Final Project Assessment Rubric (5 Points)
 
 | Criteria | Max Points | Expectations |
@@ -52,8 +44,6 @@ By the end of this module, you can:
 | **System Functionality & Resilience** | **2.0 pts** | System fulfills all must-haves: 4+ nodes, 2+ network layers, MQTT pub/sub, integration engine (Node-RED/Python), and IoTempower OTA. Graceful recovery under fault injection. |
 | **Architecture & Engineering Metrics** | **1.5 pts** | Clear network diagram, IP/topic documentation, Wireshark packet captures, latency/overhead analysis, and clean Git commits in portfolio. |
 | **Live Presentation & Technical Defense** | **1.5 pts** | Clear, fluent demonstration; confident explanation of networking trade-offs; thoughtful answers to technical questions. |
-
----
 
 ## 📝 Final Portfolio Submission Checklist
 
@@ -68,8 +58,6 @@ Ensure your personal GitHub portfolio includes all required evidence before fina
 - [ ] **Module 7:** IoTempower declarative node configuration (`setup.cpp`), OTA deployment logs, and fleet integration.
 - [ ] **Modules 8 & 9:** Final Project architecture diagrams, fault-injection test logs, presentation slides/script, and final course retrospective.
 - [ ] **Working-Day Reflections:** Complete entries for every working day.
-
----
 
 ## 🎓 Course Retrospective & What's Next
 

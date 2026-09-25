@@ -4,8 +4,6 @@
 
 > **Today: how the world around the node is measured.** Distance, motion, touch, and environment are the workhorses of the example projects — people counters, flow sensors, interactive installations.
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -23,8 +21,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 Part A — Measuring Distance
 
@@ -66,8 +62,6 @@ For simple use cases you often do not need full fusion — a tilt angle from the
 - If the **DS18B20** is the only environment sensor available, treat it as a full lab sensor — see Task 4, Option C.
 - Remember the lessons from Modules 2 and 3: these are I²C devices with **addresses and registers**, and they have **time constants** and **self-heating** (a sensor near a hot MCU reads warm — isolate or compensate).
 
----
-
 ## 🛠️ In-Class Lab: Distance, Motion & Environment
 
 *Hardware:* a distance sensor (VL53L0X ToF and/or an ultrasonic module) plus **one motion/environment sensor chosen from what is available** — the **MPU6050** or the **M5StickC's built-in IMU**, the **MPR121** capacitive-touch controller, or the **DS18B20** (OneWire) temperature sensor. A ruler or measuring tape as reference; a Hall sensor is optional.
@@ -78,8 +72,6 @@ For simple use cases you often do not need full fusion — a tilt angle from the
 > [!WARNING]
 > Some ultrasonic modules are 5 V devices — check before connecting to 3.3 V logic, and use a level shifter/divider for the echo line if required.
 
----
-
 ### ★ Task 1: Characterize a ToF Sensor (40 min)
 
 1. Mount the VL53L0X firmly and measure against a ruler at **ten known distances** across its range.
@@ -87,15 +79,11 @@ For simple use cases you often do not need full fusion — a tilt angle from the
 3. Repeat near the extremes of the range and with a **dark** and a **shiny/angled** target. Note where the sensor becomes unreliable.
 4. Produce a short distance-vs-error table and name the **weaknesses** you observed (this is characterization — Module 3 skills applied to a different sensor).
 
----
-
 ### ★ Task 2: Ultrasonic vs. ToF Comparison (30 min)
 
 1. Measure the same targets with an ultrasonic sensor (if available).
 2. Compare **accuracy**, **repeatability**, **measuring rate**, **beam shape** (does one see obstacles the other misses?), and **surface sensitivity**.
 3. With two ultrasonic units, try to trigger **crosstalk** and describe how you would avoid it in a product.
-
----
 
 ### ★ Task 3: A People Counter / Detector (30 min)
 
@@ -107,8 +95,6 @@ Build the first half of an example project from the announcement:
 4. Note the false detections you get and the timing window that reduces them.
 
 *This is the seed of a final project: "**person counter with several distance sensors**" is a listed example project.*
-
----
 
 ### ★ Task 4: Motion, Touch, or Temperature — Pick What You Have (30 min)
 
@@ -132,8 +118,6 @@ Read a **motion/environment sensor** and find its characteristic behavior. Do **
 3. Note **self-heating** and the effect of the measurement rate; read a chained/second sensor and record its 64-bit **OneWire address** (parallel to I²C addressing).
 4. Estimate the resolution and uncertainty of your reading.
 
----
-
 ### ◇ Task 5 (Stretcher): Hall-Effect Current Monitor (25 min)
 
 Use a Hall sensor to build a simple current monitor (the announcement lists "**current/power sensor with Hall effect**"):
@@ -142,8 +126,6 @@ Use a Hall sensor to build a simple current monitor (the announcement lists "**c
 2. Pass a known current through a wire near/by the sensor (a calibrated load, or a known resistor) and record the output change.
 3. Compute the sensitivity (mV per ampere) and state the resolution and uncertainty.
 4. Alternatively, use a **digital Hall latch** as a light barrier / flow sensor: count pulses and convert to a rate.
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

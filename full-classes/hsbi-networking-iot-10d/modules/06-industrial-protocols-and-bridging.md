@@ -5,8 +5,6 @@
 > [!NOTE]
 > **Mostly conceptual — industrial hardware is usually unavailable.** We normally do not have industrial gear (PLCs, Modbus meters, OPC-UA servers) in the lab, so this module is primarily a **conceptual tour**. Hands-on work is **optional and mostly simulated**; real **RS-485** devices (if we have any) are the closest genuine Modbus experience. Learn what these protocols *are* and how they would bridge into IoT — you are not expected to own a factory.
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -23,8 +21,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 Industrial Communication vs. Modern IoT
 
@@ -62,13 +58,9 @@ Standard Ethernet and Wi-Fi are **best-effort**: CSMA/CD and CSMA/CA allow colli
 [OpenWrt Broker / Node-RED / IoTempower Dashboard]
 ```
 
----
-
 ## 🛠️ Optional Lab: Bridging Industry to the Cloud (simulated)
 
 *No tedious C++ compilation on microcontrollers — and no industrial hardware required.* These are **stretcher tasks**: we implement clean, educational edge bridging on the gateway/laptop using Python and Node-RED, mostly against **simulated** Modbus/OPC-UA servers. If you have a real **RS-485** device (for example a Modbus RTU meter) and a USB-RS485 adapter, that is the closest genuine experience and makes a great bonus task.
-
----
 
 ### ◇ Task 1 (Stretcher): Simulating an Industrial Modbus Power Meter (20 min)
 
@@ -99,8 +91,6 @@ Standard Ethernet and Wi-Fi are **best-effort**: CSMA/CD and CSMA/CA allow colli
    StartTcpServer(context=context, address=("0.0.0.0", 5020))
    ```
 3. Read the registers using a quick client script or CLI to verify voltage, current, and power.
-
----
 
 ### ◇ Task 2 (Stretcher): Building the Modbus-to-MQTT Bridge in Python (35 min)
 
@@ -139,8 +129,6 @@ while True:
 
 Run the bridge and verify in Node-RED or MQTT Explorer that the industrial registers now appear as real-time MQTT streams!
 
----
-
 ### ◇ Task 3 (Stretcher): OPC-UA Integration in Node-RED (35 min)
 *Alternatively or in addition, explore OPC-UA:*
 
@@ -150,8 +138,6 @@ Run the bridge and verify in Node-RED or MQTT Explorer that the industrial regis
    `Root -> Objects -> Server -> ServerStatus -> CurrentTime`.
 4. Create an inject/read node in Node-RED that subscribes to variable changes and outputs them to the Node-RED UI dashboard.
 5. Create a reverse flow: A button on the Node-RED dashboard writes a setpoint value into an OPC-UA Variable Node!
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

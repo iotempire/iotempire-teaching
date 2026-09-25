@@ -2,12 +2,9 @@
 
 [← Previous: Module 6](./06-iot-systems.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md)
 
-
 The final project is an opportunity to synthesize knowledge and skills from all modules. Students design, build, document, and present an IoT system of their choice, demonstrating integration of hardware, embedded programming, networking, and orchestration. The project must be completed as a team and includes a **portfolio entry**, a **public presentation**, and a **project showcase**. Projects will be assessed on technical and documentation quality and novelty.
 
-
 The project builds upon the hardware and software toolchain used throughout the course. Teams are encouraged to leverage IoTempower for device management, Node-RED for integration, MQTT for communication, and open repositories for libraries and examples.
-
 
 ## Stories/Scenarios
 
@@ -20,13 +17,9 @@ The final project can be inspired by real-world scenarios or your own creative v
 
 - **Patient monitoring in home care**: collect metrics from BME280 health sensors, push alerts on abnormal thresholds to caretaker’s phone via Telegram/Discord
 
-
-
 Use your creativity, but align your proposal with available resources and feasibility.
 
-
 ## Final Project
-
 
 ### Project Proposal (Week ___)
 Each team must prepare a one-page project proposal including:
@@ -39,9 +32,7 @@ Each team must prepare a one-page project proposal including:
 
 Approvals and feedback must be completed before project execution. Capture your milestones in a shared Git repository — reflections are expected at each step.
 
-
 ### Development Phase
-
 
 - **Design and Planning**
   - Collect hardware and prototype sensor-node circuits
@@ -62,14 +53,11 @@ Approvals and feedback must be completed before project execution. Capture your 
 
 Review with instructors; revise design and improve robustness.
 
-
 - **Testing and Validation**
   - Test edge cases (sensor failure, network latency)
   - Refine thresholds and alert logic
   - Perform live demos and collect feedback
   - Add robustness (watchdog timers, MQTT QoS 1, buffering on disconnect)
-
-
 
 ### Project Documentation - Portfolio Entry (Week ___)
 
@@ -89,11 +77,7 @@ Each team member must create a **portfolio entry** in your **personal GitHub rep
 - **Video Demo** (or set of GIFs) showing each use case and user interaction
 - **User Guide** for day-to-day operation and troubleshooting
 
-
 Highlight key design decisions and creative solutions. Include links to repository and live dashboard.
-
-
-
 
 ### Final Project Presentation (Week ___)
 
@@ -108,19 +92,13 @@ Teams present a **10 minute live demonstration** focusing on impact and technica
 
 Presentations are assessed on clarity, technical depth, and delivery. Record a backup video in case of technical failure.
 
-
-
 ## Extra Content
 
 Materials outside the core modules, kept for historical or elective use.
 
-
 ## Final Project Presentation
 
 Guidelines and templates for preparing and delivering final project presentations as week 15 or 16 depending on syllabus schedule.
-
-
-----
 
 **Assessment weight and rubric:**
 - Proposal quality and instructor feedback incorporation (10%)

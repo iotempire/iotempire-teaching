@@ -26,8 +26,6 @@ See the [syllabus](./syllabus.md) for the complete course schedule and policies.
 > [!NOTE]
 > **This is the first time we run this**, so please keep your eyes open. The **main class is still in flux** and may even change based on what you experience here. Take notes as you go: anything that felt **strange**, tasks that seem **unnecessary for the main class**, or anything you found **missing**. Please share those notes with me — they directly shape the class.
 
----
-
 ## 1. Sensors and Actuators — The Big Picture
 
 Almost every sensor system follows the same chain. Learn to draw it and to point at every stage:
@@ -64,8 +62,6 @@ Key ideas to internalize early:
 - **Every number carries uncertainty.** Resolution, accuracy, noise, and calibration all limit what you may claim. "23.4 °C" is a statement with conditions and an uncertainty attached.
 - **Actuators are also physical.** A motor needs current and a driver; a single LED needs a current-limiting resistor; an **addressable LED strip** (WS2812/NeoPixel) needs a **power budget** — dozens of LEDs at full white draw far more current than any logic pin can supply. Logic pins command; they do not power.
 
----
-
 ## 2. Required Mini-Exercise: Wokwi Simulation (60–90 min)
 
 Wokwi is a browser-based ESP32/Arduino simulator. It lets you practice the signal chain before the hardware kit arrives and see the difference between a *value* and a *measurement*.
@@ -84,8 +80,6 @@ Wokwi is a browser-based ESP32/Arduino simulator. It lets you practice the signa
 
 The simulation is for program flow and logic. Real hardware adds everything this course is about: board pin labels, voltage limits, loose wires, noise, offset, self-heating, and current draw. Simulation never replaces the multimeter.
 
----
-
 ## 3. Read Like a Sensor Engineer (45–60 min)
 
 Now practice on real datasheets — the reference you will actually use. **Google the datasheet** for the **VL53L0X** ToF distance sensor and for the **MPR121** capacitive touch sensor, and answer the same questions about both.
@@ -99,8 +93,6 @@ For each sensor, find and note:
 
 > **Tip:** The datasheet is a measurement document, not marketing. Look for the conditions attached to every performance number.
 
----
-
 ## 4. Measurement and Uncertainty Basics (45–60 min)
 
 Look up and be able to explain, in your own words and with one concrete example from our kit:
@@ -110,8 +102,6 @@ Look up and be able to explain, in your own words and with one concrete example 
 - **Resolution vs. accuracy** — why a 12-bit ADC does not by itself make a good sensor.
 - **Systematic vs. random error** — which one does calibration address? Which one does averaging address?
 - **Sampling and quantization** — what does the **Nyquist** condition require, and what does quantization error do to a small signal?
-
----
 
 ## 5. Actuators Primer (30–45 min)
 
@@ -123,8 +113,6 @@ Look up short answers for:
 - **Motors:** what is the difference between a **servo**, a **brushed DC motor**, and a **stepper** — in terms of what they are good at, and what electronics they need?
 - **Isolation and drivers:** why do motors and relays need a driver (transistor/H-bridge/driver IC) rather than a direct GPIO connection?
 
----
-
 ## 6. Prepare Your Project Idea (30 min)
 
 Your **final project** is a documented sensor/actuator system. You do not have to fix it now, but start thinking. Write a short **abstract (5–10 lines)** in your portfolio describing:
@@ -134,8 +122,6 @@ Your **final project** is a documented sensor/actuator system. You do not have t
 - the **actuators** that respond.
 
 The announcement lists example directions: liquid measurement in a forest, a **people counter with several distance sensors**, a **flow sensor with light barriers**, a **power/current sensor using the Hall effect**, **interactive LED installations**, and **music-synchronized fountains**. You may use one of these or invent your own. The abstract is a first direction, not a commitment — it may change during the course.
-
----
 
 ## 7. Guiding Questions for Your Portfolio
 
@@ -149,8 +135,6 @@ Answer these in your portfolio under `pre-study/README.md` (or `00-pre-study.md`
 6. **Actuator choice:** For "move a small door latch once every few minutes", which actuator would you choose — and which would you not? Justify by torque, simple control, and power.
 7. **LED power math:** A short WS2812 strip has 30 LEDs. Assuming each draws up to ~60 mA at full white, what current must the power supply provide, and why can the microcontroller's 5 V pin not supply this?
 8. **Project abstract:** Include your 5–10 line scenario abstract from Section 6 and note which two sensors and one actuator you would start with.
-
----
 
 ## Ready for Day 1? Checklist
 

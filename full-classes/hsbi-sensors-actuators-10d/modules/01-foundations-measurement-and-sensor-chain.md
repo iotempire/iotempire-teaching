@@ -4,8 +4,6 @@
 
 > **One question for the whole course:** *How does a physical quantity become a trustworthy number — and how does that number move the world?*
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -26,8 +24,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 Part A — What a Sensor Really Is
 
@@ -72,8 +68,6 @@ physical quantity
 
 Every lab in this course is one link of this chain. When something does not work, ask *which link* is failing: the physics, the conditioning, the conversion, the calculation, or the system.
 
----
-
 ## 📖 Part B — Measurement Fundamentals
 
 - **True value:** the value we would obtain with a perfect measurement. We never know it exactly; we estimate it and state an uncertainty.
@@ -83,8 +77,6 @@ Every lab in this course is one link of this chain. When something does not work
 - **Resolution:** the smallest distinguishable change it can report (often set by the ADC and the conditioning). Resolution ≠ accuracy.
 - **Range / span:** the minimum and maximum quantity the sensor is specified for. Outside the range, all bets are off.
 - **Sensitivity:** how much the output changes per unit of input (e.g. mV per °C).
-
----
 
 ## 📖 Part C — The Digital Signal Chain
 
@@ -99,13 +91,9 @@ Every lab in this course is one link of this chain. When something does not work
 > [!TIP]
 > The ESP32 has a **12-bit** ADC with a **non-linear** region near the rails and some channel-to-channel variation. Its absolute accuracy is far worse than its resolution — a perfect illustration of this module. In Module 3 you will calibrate around exactly this.
 
----
-
 ## 🛠️ In-Class Lab: From Blink to Measurement
 
 *Hardware:* 1× M5Stack node (or ESP32 DevKit / ESP32 Ethernet mini kit / Wemos D1 Mini + breadboard), 1× potentiometer, a local broker/gateway with Mosquitto + Node-RED, multimeter.
-
----
 
 ### ★ Task 1: Master Class — A First Sensor Node (45 min)
 
@@ -125,8 +113,6 @@ The goal is to experience the complete loop immediately, using the fast path.
 
 *Portfolio:* screenshot of the node's MQTT topics plus the dashboard receiving live values.
 
----
-
 ### ★ Task 2: The ADC Precision Dance (45 min)
 
 *Work in pairs; one person measures, the other records.*
@@ -143,19 +129,13 @@ The goal is to experience the complete loop immediately, using the fast path.
 
 > **Document the failure worth having:** the flat/erratic regions near 0 V and 3.3 V. This is where the ESP32 ADC is least trustworthy — remember it in Module 3.
 
----
-
 ### ★ Task 3: Draw Your Own Chain (20 min)
 
 Pick one sensor from the kit (NTC, LDR, VL53L0X, MPU6050, DS18B20). Draw the full chain for it: physical quantity → transducer principle → conditioning (if any) → interface (analog? I²C?) → MCU processing → system use. Label where error and noise enter.
 
----
-
 ### ◇ Task 4 (Stretcher): Resolution vs. Reality (20 min)
 
 Reduce the ADC to the smallest signal change you can measure at the top of the range and at the bottom. Where is the effective resolution worst, and why? Propose one conditioning change (e.g. an op-amp, a better reference, or a different divider ratio) that would improve it.
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

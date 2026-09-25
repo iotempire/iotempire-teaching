@@ -23,8 +23,6 @@ This README is the course workbook and front page for the **Networking and IoT S
 > [!NOTE]
 > This is a **new class, first taught in WS 2026/27**, and a living document: expect adaptations before and during the semester. **Large parts are still a draft** — each module marks unsettled content with a moving *DRAFT BOUNDARY* that we raise as we approve it together, and your feedback is explicitly welcome and can shape the class.
 
----
-
 ## Course Overview
 
 - **Duration:** 10 working days / 12 sessions (4 hours each).
@@ -45,8 +43,6 @@ This README is the course workbook and front page for the **Networking and IoT S
 
 For the complete language arrangement, teaching team, learning objectives, assessment rules, and policies, read the [syllabus](./syllabus.md).
 
----
-
 ## Assessment: Kombinationsprüfung (20 Points Base + Bonus)
 
 Your final grade is assessed continuously through your personal **GitHub Portfolio** and the final project:
@@ -58,15 +54,11 @@ Your final grade is assessed continuously through your personal **GitHub Portfol
 - **Bonus / Extra Points:** Up to 3 points for outstanding work, peer mentoring, advanced stretcher tasks, or accepted upstream pull requests to IoTempower or this curriculum repository.
 - **Passing Mark:** 14 / 20 points (~70%).
 
----
-
 ## Portfolio & Hardware
 
 Maintain a personal GitHub portfolio with network diagrams, configuration files, Wireshark packet captures, Node-RED flows, Python integration scripts, serial logs, and working-day reflections. Start from the [portfolio template](https://github.com/iotempire/iot-portfolio-template).
 
 **Module 0 is required:** before the first session, fork your portfolio and complete the pre-study tasks in [pre-study.md](./pre-study.md). In networking and IoT, **documented struggles and debugging traces are valued highly**—capturing a failed route and showing how you resolved it using `tcpdump` is an essential engineering skill.
-
----
 
 ## Navigation & Resources
 
@@ -83,8 +75,6 @@ Generate dated, upload-ready PDFs from the syllabus and pre-study guide using Li
 ```sh
 ./generate-lms-pdfs.sh 2026-27
 ```
-
----
 
 ## Contacts & Support
 

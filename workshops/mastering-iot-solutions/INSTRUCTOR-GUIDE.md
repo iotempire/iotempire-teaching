@@ -4,8 +4,6 @@
 
 This guide provides operational guidance for instructors and lab assistants delivering the **Mastering IoT Solutions** workshop.
 
----
-
 ## 1. Didactical Approach & Core Principles
 
 ```mermaid
@@ -27,8 +25,6 @@ Avoid rigid time blocks or artificial school bells. Treat the workshop as an **o
 - **Pacing is team-driven:** Teams pair up (one driver at the keyboard, one navigator with the workbook/notes). Faster teams can progress ahead into open-ended challenges, while teams needing wiring assistance receive immediate coaching.
 - **On-Demand Explanations:** Do not front-load heavy lectures on MQTT protocols, packet headers, or broker architectures. Demonstrate the effect first; explain the mechanism when curiosity peaks or when students ask questions.
 
----
-
 ## 2. Hardware & Infrastructure Checklist
 
 ### Per Team (Pairs or Trios, up to 15 Teams)
@@ -49,8 +45,6 @@ Avoid rigid time blocks or artificial school bells. Treat the workshop as an **o
   - **IoTempower** framework installed (`iot` CLI in path, see [iotempower.us](https://iotempower.us)).
   - HDMI connection to projector.
   - 1× Instructor M5StickC (e.g. labeled `00`) for live demonstration.
-
----
 
 ## 3. Pre-Workshop Setup & Fleet Provisioning
 
@@ -117,8 +111,6 @@ The parent directory contains **`system.conf`** with the workshop Wi-Fi credenti
    ```
    *(Tip: When called from inside a node directory like `stick-config/01`, `mqtt_listen` automatically filters and shows only topics belonging to that node!).*
 
----
-
 ## 4. Workshop Conductor Flow (~90 Min Baseline)
 
 ### Stage 1: Warm-Up & Instructor Live Spark (~15 min)
@@ -180,8 +172,6 @@ The parent directory contains **`system.conf`** with the workshop Wi-Fi credenti
    - Show the wildcard subscription `+/temp`.
    - Everyone sees the entire classroom's temperature profile live on a single chart.
 
----
-
 ## 5. Spontaneous Breakouts & Open Exploration
 
 For fast teams, 3-hour editions, or open labs, encourage teams to pick an exploration path:
@@ -190,8 +180,6 @@ For fast teams, 3-hour editions, or open labs, encourage teams to pick an explor
 - **IMU Orientation:** Read `<id>/imu/pitch` and `<id>/imu/roll` to detect stick tilt or build a digital level.
 - **Telegram / Webhook Bridge:** Wire an alert to notify a smartphone when the temperature exceeds a threshold.
 - **IoTempower Exploration:** Browse [iotempower.us](https://iotempower.us) to inspect how easy it is to add NeoPixels, relays, or RFID tags.
-
----
 
 ## 6. Troubleshooting Playbook
 
@@ -202,8 +190,6 @@ For fast teams, 3-hour editions, or open labs, encourage teams to pick an explor
 | Node-RED shows `Disconnected` on broker | Broker address misconfigured | Use `broker.internal` or host IP (`192.168.15.1`), not `127.0.0.1`. |
 | Temperature reads `-127` or `85` | 1-wire pin contact loose | Check DuPont jumper on pin `G26` and `GND`. `-127` means disconnected bus. |
 | Student broke their flow | Accidental deletion | Re-import from [`sample-flows.json`](./instructor-tools/sample-flows.json) via Menu -> Import. |
-
----
 
 ## 7. Post-Workshop Cleanup
 

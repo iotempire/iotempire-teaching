@@ -4,8 +4,6 @@
 
 > **Today the light comes alive.** Static colors become animation, and animation becomes an interaction: the strip reacts to a hand or to music. This directly seeds the "**interactive LED installations**" and "**music-synchronized fountains**" example projects.
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -23,8 +21,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 Part A — Animation as a Time-Based State Machine
 
@@ -71,13 +67,9 @@ Technical success is not the same as a good installation. Plan for:
 - **Robustness:** strain relief on wires, a stable 5 V supply, and a plan for what happens if the sensor or the network drops.
 - **Safety:** keep mains and high-voltage far away from breadboards; if an installation uses a pump, motor, or mains-driven element, keep it physically and electrically separated from the logic.
 
----
-
 ## 🛠️ In-Class Lab: Make It Move
 
 *Hardware:* WS2812 strip + separate 5 V supply, ESP32/ESP8266, a distance sensor from Module 4, a simple analog sound sensor (or microphone module).
-
----
 
 ### ★ Task 1: A Non-Blocking Animation Engine (40 min)
 
@@ -85,15 +77,11 @@ Technical success is not the same as a good installation. Plan for:
 2. Implement at least **two** patterns (e.g. a breathing effect and a color wipe) and switch between them without restarting the sketch.
 3. While the animation runs, print a counter on the serial console every second to prove the loop is not blocked.
 
----
-
 ### ★ Task 2: Palettes, Hue, and Blending (30 min)
 
 1. Re-implement one pattern using **HSV** so a single "speed/phase" parameter drives the hue.
 2. Add a **palette** and a smooth cross-fade or trail decay between frames.
 3. Make the frame interval and the effect speed **parameters** you can change live. Note how the same code now supports slow and fast effects.
-
----
 
 ### ★ Task 3: Sensor → Animation (30 min)
 
@@ -106,15 +94,11 @@ Fuse Module 4 with today:
 
 *This is the "interactive LED installation" seed project.*
 
----
-
 ### ★ Task 4: Sound-Reactive LEDs (35 min)
 
 1. Sample the audio signal **fast** in the loop and compute a short-term **envelope** (peak or RMS).
 2. Map the envelope to brightness and/or hue. Confirm the strip visibly responds to speech/music.
 3. Add **automatic gain control** (normalize to a recent maximum) so it works in both quiet and loud rooms. Note why this matters for a real installation.
-
----
 
 ### ◇ Task 5 (Stretcher): Toward the Music-Synchronized Fountain (30 min)
 
@@ -123,8 +107,6 @@ Combine a "water" actuator with the light show:
 1. Use a **servo** or a small **pump/valve** as the water element (mock it with a servo arm or an LED if a pump is not available).
 2. Drive both the strip and the actuator from the same envelope/beat signal so they move together — the announcement's "**music-synchronized fountain**" in miniature.
 3. Note the **latency** between audio and visible action, and how you would reduce it.
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

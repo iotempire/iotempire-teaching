@@ -4,8 +4,6 @@
 
 > **Course placement:** This module spans the final project arc — the studio sessions dedicated to ideation, requirement mapping, building, characterization, hardening, and rehearsal. The exact split depends on the timetable and group progress; the schedule deliberately reserves buffer time here so slower labs do not eat into the project.
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -23,8 +21,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 How the Studio Sessions Work
 
@@ -45,8 +41,6 @@ The project is a short engineering sprint, not a single lab:
 ```
 
 Sessions are **open-ended by design**. If you finish a milestone early, harden the system, take more measurements, or help a neighboring team (which counts toward bonus points).
-
----
 
 ## 📖 The Final Project Architecture Stack
 
@@ -71,13 +65,9 @@ Sessions are **open-ended by design**. If you finish a milestone early, harden t
 
 A strong project uses each layer it includes **deliberately** and can defend the choice.
 
----
-
 ## 🛠️ Studio Labs
 
 *Teams of 2–4 students. Work through the milestones; they are not a rigid clock.*
-
----
 
 ### Task 1: Project Kickoff — Story, Team & Requirements (45 min)
 
@@ -85,8 +75,6 @@ A strong project uses each layer it includes **deliberately** and can defend the
 2. **Pitch to a neighboring team (2×5 min)** and note their questions.
 3. **Form your team of 2–4** and document individual roles and contributions in each portfolio. If a team wants to continue an earlier project of their own instead of starting fresh, agree on this with the instructor — it is a possibility, not the default.
 4. **Map requirements** onto the final-project must-haves (see the syllabus): which sensors (with which bus/addresses), which actuator, which characterization you will perform, which integration, which resilience test.
-
----
 
 ### Task 2: Build and Integrate (milestones across sessions)
 
@@ -98,8 +86,6 @@ Verify your system against the must-haves:
 4. **Node-RED dashboard** with display **and** control, plus one closed-loop/rule-based behavior.
 5. **Safety and interlocks:** a defined safe state and at least one limit (max duty, timeout, or limit switch).
 
----
-
 ### Task 3: Characterize and Evaluate (60 min)
 
 This is what distinguishes a Sensors-and-Actuators project from a generic IoT project.
@@ -109,8 +95,6 @@ This is what distinguishes a Sensors-and-Actuators project from a generic IoT pr
 3. **System metrics:** pick and measure at least one — sampling rate, end-to-end **latency**, current consumption, or robustness to noise/interference.
 4. Present the results as a small table/plot with conditions stated.
 
----
-
 ### Task 4: Fault Injection & Resilience Testing (30 min)
 
 Intentionally break things and document the recovery:
@@ -119,8 +103,6 @@ Intentionally break things and document the recovery:
 - **Test B (noise/interference):** introduce noise (motor running, longer wires, a light source) and show how your filtering/characterization copes.
 - **Test C (actuator limit):** block the motor/servo. Does current rise, and does your interlock/timeout react safely?
 - **Test D (broker restart):** restart Mosquitto. Do node and dashboard reconnect and resubscribe?
-
----
 
 ### Task 5: Peer Review & Dry Run Rehearsal (40 min)
 
@@ -135,8 +117,6 @@ Pair with another team for a reciprocal dry run:
 - **Measurement quality:** is the characterization credible, with units, conditions, and uncertainty?
 - **Robustness:** what happens under the fault-injection tests?
 - **Evidence:** are wiring, addresses, transfer functions, and metrics documented in the portfolio?
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

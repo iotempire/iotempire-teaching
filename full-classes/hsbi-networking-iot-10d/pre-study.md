@@ -26,8 +26,6 @@ See the [syllabus](./syllabus.md) for the complete course schedule and policies.
 > [!NOTE]
 > **This is the first time we run this**, so please keep your eyes open. The **main class is still in flux** and may even change based on what you experience here. Take notes as you go: anything that felt **strange**, tasks that seem **unnecessary for the main class**, or anything you found **missing**. Please share those notes with me — they directly shape the class.
 
----
-
 ## 1. IoT Systems & Networking — The Big Picture
 
 In classical networking, the focus is often on client-server connections (a browser downloading a web page). In modern IoT, systems are distributed, decentralized, and asynchronous:
@@ -48,8 +46,6 @@ Key architectural concepts to grasp early:
 - **Local-First Architecture:** Devices talk to a local gateway. The system must continue operating even if the external internet connection drops.
 - **Decoupling via Pub/Sub:** Sensors do not make direct TCP connections to every subscriber; they publish lightweight messages to an MQTT broker, which fans them out.
 - **Overlays over Firewalls:** Instead of tedious port forwarding or risky public IPs, modern mesh overlays (**Nebula**, **Yggdrasil**) create secure, flat, end-to-end encrypted networks across any firewall or NAT.
-
----
 
 ## 2. Required Preparation: Watch & Explore
 
@@ -86,8 +82,6 @@ Open your terminal (Linux/macOS terminal, or WSL/PowerShell on Windows) and insp
    - Publish a message like `{"status": "online", "message": "Hello Vernetzung!"}` to that topic and verify that your subscriber receives it immediately.
    - Take a screenshot of the received message for your portfolio!
 
----
-
 ## 3. Guiding Questions for Your Portfolio
 
 Answer these questions in your portfolio under `pre-study/README.md` (or `00-pre-study.md`):
@@ -97,8 +91,6 @@ Answer these questions in your portfolio under `pre-study/README.md` (or `00-pre
 3. **OSI vs. TCP/IP Reality:** The ISO/OSI model specifies 7 layers, while TCP/IP uses 4. In real-world IoT systems, why do rigid layer boundaries often break down or cause unnecessary overhead? (Hint: consider tiny sensor packets vs. large headers).
 4. **Decoupling with Pub/Sub:** In a smart home with 10 temperature sensors and 3 displays, why is an MQTT broker more maintainable than each sensor opening direct HTTP connections to every display?
 5. **Network Boundary Reflection:** When you work from home, can your laptop directly ping a device on a classmate's home Wi-Fi? Why or why not? What does a mesh overlay network like Nebula or Yggdrasil change about this?
-
----
 
 ## Ready for Day 1? Checklist
 

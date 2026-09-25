@@ -4,8 +4,6 @@
 
 > The final session: you demonstrate a characterized sensor/actuator system and defend the engineering behind it.
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -23,13 +21,9 @@ By the end of this module, you can:
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
----
-
 ## 🛠️ In-Class Demo & Defense Procedure
 
 *Format: 5-minute presentation + 2-minute live interaction / fault injection + 2-minute Q&A per team.*
-
----
 
 ### Demonstration Script Guidelines (5 min)
 
@@ -46,8 +40,6 @@ By the end of this module, you can:
    - The instructor or a peer will test your resilience (disconnect the sensor, block the actuator, restart the broker).
    - Show how the system fails gracefully, reports the fault, or recovers.
 
----
-
 ## 📋 Final Project Assessment Rubric (5 Points)
 
 | Criteria | Max Points | Expectations |
@@ -55,8 +47,6 @@ By the end of this module, you can:
 | **System Functionality & Measurement Quality** | **2.0 pts** | Two sensors (≥1 I²C, with addresses documented), one actuator demonstrated under control, credible transfer function/calibration with resolution and uncertainty, and correct addressing/register handling. |
 | **Architecture, Documentation & Evaluation** | **1.5 pts** | Clear wiring/system diagram, bus and address documentation, IoTempower node + filter, MQTT topics, actuator performance and at least one system metric, and clean Git commits in the portfolio. |
 | **Live Presentation & Technical Defense** | **1.5 pts** | Clear, fluent demonstration; confident explanation of sensor/actuator principles, characterization, and trade-offs; thoughtful answers to technical questions. |
-
----
 
 ## 📝 Final Portfolio Submission Checklist
 
@@ -72,8 +62,6 @@ Ensure your personal GitHub portfolio includes all required evidence before fina
 - [ ] **Module 8:** IoTempower node definition, MQTT topics, filter evidence, Node-RED flow export and dashboard, fault-injection report.
 - [ ] **Modules 9 & 10:** Final Project architecture diagram, characterization and evaluation reports, fault-injection log, presentation slides/script, and final retrospective.
 - [ ] **Working-Day Reflections:** Complete entries for every working day.
-
----
 
 ## 🎓 Course Retrospective & What's Next
 

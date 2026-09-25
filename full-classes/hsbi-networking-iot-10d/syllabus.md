@@ -7,16 +7,12 @@
 > [!NOTE]
 > **Work in progress — new class, first taught in WS 2026/27.** Expect this syllabus to keep changing before and during the semester, and **please come back to check it often**. **Large parts are still a draft**: in each module a *DRAFT BOUNDARY* marks the content that is not settled yet, and it moves down as we approve sections together. Your input is valued and appreciated — I am glad to adapt this class to your program, and your suggestions can change the plan, the tasks, and even this syllabus. If something does not fit, say so early.
 
----
-
 ## Class Times and Locations
 
 - **Schedule, location, and room:** Published in the official HSBI timetable and course LMS before teaching begins.
 - **Official announcements and course contact:** Course LMS.
 - **Languages of Instruction:** English and German.
 - **Course Materials:** English.
-
----
 
 ## Instructors & Teaching Team (HSBI Gütersloh)
 
@@ -28,8 +24,6 @@
 > [!NOTE]
 > **Course information:** Ulno is the primary instructor for this HSBI offering. The course LMS is the authoritative source for local dates, rooms, contact details, and announcements. An optional Discord space or chat may be offered as an additional community channel; students and interested people are always welcome to join the main **IoTempire community Discord** (link maintained in the [repository README](../../README.md#references--resources)).
 
----
-
 ## Language, Communication & Course Material
 
 This class is taught in **English and German**. The shared workbook, slides, code, documentation, and technical exercises are in English to ensure reusability and align with modern engineering practice.
@@ -37,8 +31,6 @@ This class is taught in **English and German**. The shared workbook, slides, cod
 Ulno is fully bilingual. You are welcome to speak with the teaching team and collaborate with your peers in **German, English, or a mixture of both**. Notes, portfolio documentation, reports, and presentations may likewise be submitted in German, English, or mixed language. Ask whenever technical vocabulary or a task formulation needs clarification in either language.
 
 **Für deutschsprachige Studierende:** Diese Lehrveranstaltung findet auf Englisch und Deutsch statt. Das gemeinsame Workbook, die Folien, der Code, die Dokumentation und die Übungen bleiben auf Englisch, damit sie einheitlich genutzt werden können. Ulno ist zweisprachig; Sie können mit dem Lehrteam und untereinander auf Deutsch, Englisch oder in einer Mischung aus beiden Sprachen sprechen und arbeiten. Notizen, Portfolio-Dokumentation und Präsentationen dürfen ebenfalls auf Deutsch, Englisch oder gemischt verfasst werden. Fragen Sie jederzeit nach, wenn Fachbegriffe oder Aufgabenstellungen geklärt werden sollen.
-
----
 
 ## Course Description & Philosophy
 
@@ -56,8 +48,6 @@ Modern IoT is not merely "an Arduino connected to Wi-Fi." It is a heterogeneous 
 
 In this course, you will do **less raw microcontroller breadboard wiring** (which is emphasized in *Microcontroller Programming* and *Sensorik & Aktorik*) and significantly **more networking, system integration, edge routing, and fleet deployment**.
 
----
-
 ### How We Teach — Challenge- and Project-Based, In Person, and Always in Flux
 
 This course is deliberately taught as **Challenge-Based** and **Project-Based Learning** (CBL/PBL): you learn by investigating an authentic challenge and building a real solution, not by reproducing a lecture. We begin from **stories** — a real problem that matters to you and the people it touches — because you learn best what connects to something meaningful for your own life, studies, or community. Your instructors genuinely care that you find that connection.
@@ -67,8 +57,6 @@ It also matters that we do this **in person, together** — a university class i
 And this class is **always in flux — that is a feature, not a bug**. No course is ever finished: every offering is adjusted while it runs, and each class teaches us as much as it teaches you. Expect the plan, the tasks, and even this syllabus to move as we discover together what works best; your questions, ideas, and feedback are part of the design.
 
 > **Want to read more?** Challenge-Based Learning — [en.wikipedia.org/wiki/Challenge-based_learning](https://en.wikipedia.org/wiki/Challenge-based_learning) · Project-Based Learning — [pblworks.org/what-is-pbl](https://www.pblworks.org/what-is-pbl) · Why active, interactive learning beats passive lectures — [Harvard Gazette, 2019](https://news.harvard.edu/gazette/story/2019/09/study-shows-that-students-learn-more-when-taking-part-in-classrooms-that-employ-active-learning-strategies)
-
----
 
 ## Learning Objectives
 
@@ -84,8 +72,6 @@ By the end of this course, you will be able to:
 8. **Manage IoT Fleets Declaratively:** Use **IoTempower** to manage, configure, and update multiple M5Stack nodes over-the-air.
 9. **Engineer a Resilient IoT Network:** Design, build, troubleshoot, and document a complete multi-node IoT solution with automated failover and verifiable engineering metrics.
 
----
-
 ## Course Load & Credits
 
 - **Format:** 10 working days / 12 sessions (4 hours each) across the semester. The final project arc occupies several of these sessions (see the schedule below).
@@ -95,8 +81,6 @@ By the end of this course, you will be able to:
   - In-person lab and seminar contact: 48 hours.
   - Independent preparation and pre-study (Module 0): approx. 40 hours allocated (3–6 hours for the compulsory core).
   - Guided self-study, portfolio documentation, and final project: approx. 62 hours.
-
----
 
 ## Assessment: Kombinationsprüfung (20 Base Points + Bonus)
 
@@ -144,8 +128,6 @@ Practical notes:
 | 18–19 | Gut (2.0) | Good |
 | 20 | Sehr gut (1.0) | Very Good |
 
----
-
 ## Hardware Kit & Laboratory Equipment
 
 Unlike pure microcontroller classes, our hardware focuses on **modular, ready-to-network hardware and real routing infrastructure**:
@@ -163,8 +145,6 @@ Unlike pure microcontroller classes, our hardware focuses on **modular, ready-to
 - **Cables & Networking Gear:**
   - USB-C data cables, Ethernet patch cables, USB power hubs.
   - Dedicated lab switches and access points for isolated mesh/subnet testing.
-
----
 
 ## 10-Day Course Schedule
 
@@ -189,8 +169,6 @@ The 10 days correspond to the 12 4-hour sessions across the semester. Modules 1�
 > [!TIP]
 > **Buffer and pacing:** Days 8–9 provide four studio sessions. At least one of them is deliberately loose and can absorb spill-over from earlier labs, be released as flexible/wiggle time, or be used for stretcher tasks and peer mentoring. Announce the concrete use of each studio session in the LMS as the course progresses.
 
----
-
 ## Final Project Requirements (5 Points)
 
 The final project is an end-to-end networked system built by teams of 2–4 students. Teams form and pitch a stakeholder **story** during the project kickoff (Module 8), then map their requirements onto the criteria below.
@@ -209,8 +187,6 @@ The final project is an end-to-end networked system built by teams of 2–4 stud
 - **Architecture, Documentation & Metrics (1.5 points):** Clear network topology diagram, routing explanation, Wireshark/throughput/latency measurements in portfolio.
 - **Live Demonstration & Presentation (1.5 points):** Clear 5-minute technical demo showing live sensor data, control actions, and intentional fault injection (e.g., unplugging an intermediate router).
 
----
-
 ## Portfolio & Documentation Standards
 
 All assessments are based on your personal **GitHub Portfolio** (forked from [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template)):
@@ -222,16 +198,12 @@ All assessments are based on your personal **GitHub Portfolio** (forked from [io
   - Working-day reflections (what worked, what failed, what you learned, open questions).
 - In hardware and networking, **documented failure is rewarded**: showing how you identified a broken route or a misconfigured subnet using `tcpdump` is worth more than a superficial "it worked" report.
 
----
-
 ## Classroom Policies & Success Strategies
 
 1. **Active Participation:** Labs require hands-on physical collaboration with routers and hardware. Bring your laptop (Linux, macOS, or Windows with WSL2/virtual machine).
 2. **Network Hygiene:** You will be configuring DHCP servers, routing protocols, and ad-hoc Wi-Fi networks. Never plug rogue DHCP servers into the campus network infrastructure; always work within our isolated lab router networks!
 3. **Pair & Collaborate:** Work in pairs during router and mesh labs. Debugging packet flow is twice as fast when one student monitors the sender and the other runs `tcpdump` on the receiver.
 4. **Open Source Mindset:** Share discoveries and help peer teams. Accepted pull requests to IoTempower, the course repository, or open-source tools qualify for extra credit.
-
----
 
 ## Contacts & Support
 

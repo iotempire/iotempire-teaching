@@ -4,8 +4,6 @@
 
 > **Course placement:** This module spans the final project arc — several sessions dedicated to project ideation, architecture planning, integration, resilience testing, and presentation readiness. The exact split depends on the timetable and group progress; the schedule deliberately reserves buffer time here so that slower labs elsewhere do not eat into the project.
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -24,8 +22,6 @@ By the end of this module, you can:
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
----
-
 ## 📖 How the Studio Sessions Work
 
 The project is not a single lab exercise; it is a short engineering sprint. Expect roughly this arc:
@@ -43,8 +39,6 @@ The project is not a single lab exercise; it is a short engineering sprint. Expe
 ```
 
 Sessions are **open-ended by design**: teams naturally progress at different speeds. If you finish an integration milestone early, use the time for hardening, measurements, or helping a neighboring team (which counts toward bonus points). If a lab from an earlier module ran over, this is the buffer that absorbs it.
-
----
 
 ## 📖 Architecting for Resiliency in the Continuum
 
@@ -73,13 +67,9 @@ A toy IoT project works only when every component is connected under ideal condi
 
 You do **not** have to use every layer. A strong project uses each layer it includes *deliberately* and can defend that choice. If you configured a B.A.T.M.A.N. mesh in Module 3, this is where it earns its place by carrying real traffic across a link you can physically break.
 
----
-
 ## 🛠️ Studio Labs
 
 *Teams of 2–4 students assemble their full hardware and networking setup. Work through the tasks as milestones, not as a rigid clock.*
-
----
 
 ### Task 1: Project Kickoff — Story, Team & Requirements (45 min)
 
@@ -90,8 +80,6 @@ You do **not** have to use every layer. A strong project uses each layer it incl
 4. **Form your team of 2–4** and document individual roles and contributions in each personal portfolio.
 5. **Map requirements** onto the final project must-haves (see the syllabus): which nodes, which network layers, which messaging, which integration, which resilience test will you demonstrate?
 
----
-
 ### Task 2: Complete System Integration (45 min)
 
 Verify that your system meets the Final Project Must-Haves:
@@ -100,8 +88,6 @@ Verify that your system meets the Final Project Must-Haves:
 3. **Structured MQTT Topics:** Clear, documented hierarchy with QoS, Retain for state topics, and LWT for node health.
 4. **Integration Engine:** Node-RED flow and/or Python script orchestrating real-time logic.
 5. **Declarative Management:** At least one node managed and updatable via IoTempower Over-The-Air (OTA).
-
----
 
 ### Task 3: Fault Injection & Resilience Testing (30 min)
 
@@ -112,8 +98,6 @@ Before presenting, intentionally break your system and document the recovery:
 - **Test C (Broker Restart):** Restart Mosquitto (`/etc/init.d/mosquitto restart`). Do the M5Stack nodes and Python bridges automatically reconnect and resubscribe?
 
 Document these failure scenarios and your mitigation strategies in your portfolio!
-
----
 
 ### Task 4: Peer Review & Dry Run Rehearsal (40 min)
 
@@ -128,8 +112,6 @@ Pair with another team for a 15-minute reciprocal dry run:
 - **Clarity:** Did they explain *why* specific protocols were chosen?
 - **Robustness:** What happens if the network drops? Did they demonstrate resilience?
 - **Evidence:** Are the network configs and packet flows documented in their GitHub repository?
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

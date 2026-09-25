@@ -20,11 +20,7 @@ This README is the course workbook and front page for the HSBI/GT Microcontrolle
 > [!NOTE]
 > This is a living document. Expect minor adaptations as the semester progresses; check LMS announcements for current schedule details.
 
----
-
 For the complete language arrangement, teaching team, learning objectives, assessment rules, and policies, read the [syllabus](./syllabus.md).
-
----
 
 ## Course Plan
 
@@ -32,15 +28,11 @@ See above under Contents.
 
 Every session combines a short introduction, hands-on lab work, and portfolio documentation. Module pacing is flexible: sessions may include stretcher time, begin the next module, or support groups progressing at different speeds. The syllabus is the single source of truth for assessment and final-project requirements.
 
----
-
 ## Portfolio & Hardware
 
 Maintain a personal GitHub portfolio with source code, binaries, schematics, serial logs, dashboard screenshots, measurements, and reflections. Start from the [portfolio template](https://github.com/iotempire/iot-portfolio-template). Public sharing is encouraged but optional; the instructor must be able to assess your evidence.
 
 **Module 0 is required:** before the first session, create your personal portfolio and add the pre-study entry described in the [pre-study guide](./pre-study.md). Document the Day 1 Master Class as a normal work report—pictures, process notes, peer collaboration, Node-RED/MQTT observations, and M5StickC temperature-sensor wiring—not as a separate reflection. The laboratory kit is issued at the course start; see [Module 2](./modules/02-hardware-and-basic-electronics.md) for the inventory and safety notes.
-
----
 
 ## Navigation & Resources
 

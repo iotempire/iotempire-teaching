@@ -2,8 +2,6 @@
 
 > **Development note:** This top-level document is actively maintained. If you spot an error or want to add your class/workbook, open a pull request!
 
-
-
 ## Welcome
 
 Welcome to teaching and learning the IoTempower way. The IoTempower framework has been developed to support educators and students alike in exploring the world
@@ -36,7 +34,6 @@ We provide several comprehensive workbooks that serve as the foundation for our 
 
 - [Magic Wands – Edge & Voice Computing Workshop (4–16 h, draft)](workshops/magic-wands-edge-computing/README.md): Voice- and gesture-driven IoT using an M5StickC, a local Whisper speech-to-text server, and Node-RED. Note: This is currently in **draft stage** - content may be incomplete.
 
-
 We introduce the IoTempower framework early in the class to allow rapid prototyping and quick success, which keeps students motivated to learn more. Once the students have experienced key IoT development tools (after about 50 to 70% of the class), they start designing and then implementing their final project. Starting from stories, students describe a challenge inspired by a real-world problem and work towards constructing a feasible solution. Guest speakers from industry and academia highlight different problem domains to help guide the students in picking and describing challenges for their final projects.
 
 We also provide modular workshops that can be slotted into a program: the **Mastering IoT Solutions** master class and the **Magic Wands** edge/voice-computing AI-lab. See the subfolders in `/workshops` for details.
@@ -58,8 +55,6 @@ Initially, I taught these classes based on different sets of material, but we ar
 ## For Instructors
 
 Each class folder ships a `generate-lms-pdfs.sh` wrapper that renders its `syllabus.md` and `pre-study.md` into dated, upload-ready LMS PDFs via the shared generator [`tools/generate-lms-pdfs.sh`](tools/generate-lms-pdfs.sh). LibreOffice is used by default (it also leaves an editable `.odt`); Pandoc, headless Chromium, and LaTeX are fallbacks. Run it from a class folder, or point the tool at any class with `--class-dir`. To add the exports to a new class, see [`tools/README.md`](tools/README.md).
-
----
 
 ## References & Resources
 

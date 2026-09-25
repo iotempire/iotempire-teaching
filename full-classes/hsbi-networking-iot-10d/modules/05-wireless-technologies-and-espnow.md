@@ -2,8 +2,6 @@
 
 [← Back to Module 4](./04-mqtt-and-integration.md) | [Quick module index](./00-index.md) | [Next: Module 6 →](./06-industrial-protocols-and-bridging.md)
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -21,8 +19,6 @@ By the end of this module, you can:
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
----
-
 ## 📖 The Wireless Landscape for IoT
 
 ### 1. The Physics of Radio & The ISM Band
@@ -36,8 +32,6 @@ IoT wireless technologies operate largely in unlicensed **ISM (Industrial, Scien
 | **BLE (Bluetooth LE)** | 2.4 GHz | ~10–30 m | ~20–250 bytes | ~10–100 ms | ~10–20 mA |
 | **LoRa / LoRaWAN** | 868 MHz (EU) | 2–15 km | ~51–222 bytes | 1–10 seconds | ~30–50 mA (burst) |
 | **ESP-NOW** | 2.4 GHz | ~50–100 m | 250 bytes | **< 2 ms** | 100 mA (for <10 ms) |
-
----
 
 ### 2. What Makes ESP-NOW Unique?
 Standard Wi-Fi requires:
@@ -66,13 +60,9 @@ Standard Wi-Fi requires:
 [OpenWrt Router / Mosquitto MQTT Broker]
 ```
 
----
-
 ## 🛠️ In-Class Lab: The Sub-Millisecond ESP-NOW Swarm
 
 *Hardware:* 2× M5Stack nodes (e.g. 1 M5StickC and 1 M5Atom) + 1× OpenWrt Router.
-
----
 
 ### Task 1: Peer Discovery & Sending Raw Action Frames (30 min)
 
@@ -135,8 +125,6 @@ Standard Wi-Fi requires:
    Set up a callback on Node B using `esp_now_register_recv_cb()`.
    Watch the incoming packets appear instantly on the serial monitor with zero Wi-Fi network or router involved!
 
----
-
 ### Task 2: Building the ESP-NOW to MQTT Gateway Bridge (40 min)
 Can a single ESP32 speak ESP-NOW and connect to standard Wi-Fi simultaneously? **Yes!** As long as both use the **same Wi-Fi radio channel** (e.g. Channel 1, 6, or 11).
 
@@ -151,15 +139,11 @@ Can a single ESP32 speak ESP-NOW and connect to standard Wi-Fi simultaneously? *
 4. Verify the flow in Node-RED:
    `M5 Sensor (ESP-NOW) -> M5 Bridge Node (Wi-Fi) -> OpenWrt Broker -> Node-RED Dashboard`.
 
----
-
 ### Task 3: Latency & Interference Shootout (20 min)
 1. Trigger a physical button press on Node A that controls an LED on Node B via ESP-NOW.
 2. Measure the response time (perceived latency is essentially instantaneous, <5 ms).
 3. Compare this with triggering the LED via traditional Wi-Fi MQTT through the router:
    - Notice the difference in latency, especially when the Wi-Fi channel is heavily congested with class traffic.
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

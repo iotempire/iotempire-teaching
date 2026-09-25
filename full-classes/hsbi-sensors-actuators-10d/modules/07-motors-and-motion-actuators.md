@@ -4,8 +4,6 @@
 
 > **Now the node moves things.** Servos, DC motors, and steppers each solve a different motion problem — and each has its own driver, current draw, and safety rules.
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -24,8 +22,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 Part A — The Actuator Landscape
 
@@ -69,13 +65,9 @@ A stepper moves in **discrete steps** (e.g. 28BYJ-48 with ULN2003 driver) — id
 > [!WARNING]
 > **Motor safety rules.** Never power a motor, servo, or pump from the MCU's pins or 3.3 V rail. Use a motor supply sized for **stall** current, keep a **common ground**, add decoupling, and disconnect power before rewiring.
 
----
-
 ## 🛠️ In-Class Lab: Make It Move
 
 *Hardware:* SG90 servo, small DC motor, 28BYJ-48 stepper + ULN2003, H-bridge driver (TB6612/L298N), separate 5 V supply, multimeter, USB power meter.
-
----
 
 ### ★ Task 1: Servo by Position (35 min)
 
@@ -84,8 +76,6 @@ A stepper moves in **discrete steps** (e.g. 28BYJ-48 with ULN2003 driver) — id
 3. Measure the servo's current with the meter: idle/holding, sweeping, and **blocked** (gently hold the arm). Note the difference.
 4. Add a serial command (`0`–`180`) so you can set the angle by typing.
 
----
-
 ### ★ Task 2: DC Motor Speed and Direction (40 min)
 
 1. Wire the motor to an H-bridge; connect the H-bridge logic to the MCU and the motor supply to the separate 5 V rail (common ground).
@@ -93,16 +83,12 @@ A stepper moves in **discrete steps** (e.g. 28BYJ-48 with ULN2003 driver) — id
 3. Measure the current at low speed, high speed, and with the shaft **gently blocked** (stall). Record the stall current — this is why driver ratings matter.
 4. Observe the motor's behavior at very low duty cycles (a motor may not even start) and explain why.
 
----
-
 ### ★ Task 3: Precise Steps with the Stepper (30 min)
 
 1. Drive the 28BYJ-48 through the ULN2003 in **full-step** and then **half-step** mode.
 2. Command an exact number of steps (e.g. one revolution) and verify the angle against a protractor/mark.
 3. Compare **positional precision** with the servo and **speed** with the DC motor in one sentence each.
 4. Note how warm the motor becomes while holding position.
-
----
 
 ### ★ Task 4: Sensor in the Loop (30 min)
 
@@ -113,14 +99,10 @@ Join a sensor to a motor with real control logic:
 3. Add a safety condition (e.g. never run the motor if a limit/beam is broken).
 4. Test with moving objects and document the timing and any jitter.
 
----
-
 ### ◇ Task 5 (Stretcher): Thermal Actuator and Context (30 min)
 
 1. If available, power a **Peltier element** through a suitable driver and measure its current, the temperature change, and how hot the hot side gets. Relate this to "thermal actuators" from the taxonomy.
 2. Or research a **pump/valve** working point (flow, pressure, voltage, current) for the fountain/flow projects and write a short engineering note on how you would drive it safely.
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

@@ -4,8 +4,6 @@
 
 > **A number without a transfer function and an uncertainty is not a measurement.** Today you turn raw readings into characterized, calibrated, trustworthy values.
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -23,8 +21,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 Part A — Static Characteristics
 
@@ -87,13 +83,9 @@ Noise comes from the sensor, the wiring, the ADC, and the environment. Practical
 > [!TIP]
 > IoTempower has built-in **filters** (`average`, `median`, smoothing, mapping). You can move processing out of your sketch and declare it instead — try this as a stretcher task.
 
----
-
 ## 🛠️ In-Class Lab: Characterize, Calibrate, Trust
 
 *Hardware:* 1× ESP32/ESP8266 + breadboard, 1× NTC 10 kΩ (or LDR), resistors for the divider, reference thermometer (or lux meter/phone), multimeter.
-
----
 
 ### ★ Task 1: Determine a Transfer Function (50 min)
 
@@ -107,22 +99,16 @@ Noise comes from the sensor, the wiring, the ADC, and the environment. Practical
 
 > No NTC? Do the same with an **LDR** and a phone lux meter (or a fixed light source at different distances), and characterize light instead of temperature.
 
----
-
 ### ★ Task 2: Two-Point Calibration and Validation (30 min)
 
 1. From Task 1, fit an offset and gain correction using **two** reference points spread across the range.
 2. Apply it and re-measure a **third**, independent point.
 3. Compare: how large was the error before and after calibration? Did validation pass?
 
----
-
 ### ★ Task 3: Hysteresis and Repeatability (25 min)
 
 1. Sweep the input **up** and then **down** slowly, logging both directions. Overlay the two curves; measure the maximum vertical gap at the same input — that is your **hysteresis**.
 2. Repeat the same measurement three times and report the spread — that is your **repeatability**.
-
----
 
 ### ★ Task 4: Noise and Filtering (30 min)
 
@@ -131,14 +117,10 @@ Noise comes from the sensor, the wiring, the ADC, and the environment. Practical
 3. Introduce a deliberate **spike** (tap/light change) and compare how the two filters react.
 4. Measure the **latency** each filter adds on a step change. State the trade-off in one sentence.
 
----
-
 ### ◇ Task 5 (Stretcher): Uncertainty and Declarative Filtering (25 min)
 
 1. Write a small **uncertainty budget** for your measurement (reference, resolution, repeatability, noise, drift). Report `y ± U` with a reasonable `k`.
 2. Move your smoothing into **IoTempower**: declare an average/median filter on the device and compare its behavior with your software filter.
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

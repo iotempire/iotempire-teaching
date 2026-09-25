@@ -2,17 +2,12 @@
 
 > **Important**: This syllabus is a living document and will evolve throughout the semester. Smaller updates may apply based on class progress and feedback.
 
-
----
-
 ## Class Times and Locations
 
 - **Day:** Tuesday
 - **Location & Room:** Delta 1022 (IoT Lab / Mechatronics Workshop)
 - **Time:** 10:15–13:45
 - **Language of Instruction:** English
-
----
 
 ## Instructors & Teaching Team (local placeholders)
 
@@ -25,8 +20,6 @@
 
 **Course Discord:**
 No separate course invite is maintained for this local edition. Students and interested people are always welcome to join the main **IoTempire community Discord** — see the link in the [repository README](../../README.md#references--resources).
-
----
 
 ## Course Load & Credits
 
@@ -44,21 +37,13 @@ No separate course invite is maintained for this local edition. Students and int
 
 - **Minimum Passing Grade:** 14/20 points (≈70 %)
 
----
-
 ## Course Description & Goal
-
 
 ### Microcontroller Programming — what is it?
 
-
 Embedded systems are the **hidden brains** behind dishwashers, cars, pacemakers, and smart-home hubs. Microcontrollers (MCUs) like ESP32, Arduino, or ARM-based boards are the central building blocks of modern automation: they read sensors, control actuators, communicate machine-to-machine (M2M), and optimize resources such as energy, memory, and compute power.
 
-
 In this course you **won’t merely study theory** — you will design, build, and debug real embedded systems: low-level circuits on breadboards, firmware in C/C++ using Arduino/PlatformIO, and system integration for automation and monitoring tasks. You’ll bring hardware **to live**, implement algorithms in real time, and document results in comprehensive protocols.
-
-
----
 
 ### How We Teach — Challenge- and Project-Based, In Person, and Always in Flux
 
@@ -70,10 +55,7 @@ And this class is **always in flux — that is a feature, not a bug**. No course
 
 > **Want to read more?** Challenge-Based Learning — [en.wikipedia.org/wiki/Challenge-based_learning](https://en.wikipedia.org/wiki/Challenge-based_learning) · Project-Based Learning — [pblworks.org/what-is-pbl](https://www.pblworks.org/what-is-pbl) · Why active, interactive learning beats passive lectures — [Harvard Gazette, 2019](https://news.harvard.edu/gazette/story/2019/09/study-shows-that-students-learn-more-when-taking-part-in-classrooms-that-employ-active-learning-strategies)
 
----
-
 ## Learning Objectives — aligned with module handbook
-
 
 By the end of this course, you will be able to:
 
@@ -83,9 +65,6 @@ By the end of this course, you will be able to:
 - **use bus systems and M2M communication** (I²C, SPI, UART, MQTT, REST/HTTP) to connect systems and devices robustly
 - **design and implement customer/user requirements** into modular microcontroller-based products, making reasoned trade-offs between performance, deployment cost, and maintainability
 - **plan, prototype, test, and document** embedded solutions in a complete engineering notebook (portfolio)
-
-
----
 
 ## Prerequisites & Tools
 
@@ -113,8 +92,6 @@ None beyond course registration.
   – Tools: USB cables, multimeters
 
 All items are detailed in **Module 2 – Hardware & Electronics** of your workbook.
-
----
 
 ## Projects & Assessment
 
@@ -152,8 +129,6 @@ Your logbook should mirror an engineering notebook — continuous, scannable, an
   – **Presentation & Peer Review** (1) [10 min live demo + 5 min feedback]
 - **Pass Condition:** Minimum 2/5 points required to pass.
 
----
-
 ## Grade Scale (German terms, English labels)
 
 | **Points (0–20)** | **Grade (German)**       |
@@ -169,8 +144,6 @@ Your logbook should mirror an engineering notebook — continuous, scannable, an
 - **Project Points:** 5
 - **Extra Points / Bonus:** Up to 3
 
----
-
 ## Course Materials & Resources (Workbook-based)
 
 Your working environment is the **local microcontroller workbook** provided for this course:
@@ -185,8 +158,6 @@ Your working environment is the **local microcontroller workbook** provided for 
 > **Naming note:** *IoTempire* is the organization behind all our IoT activities (courses, tools, community). *IoTempower* is the specific open-source framework we use for device management, flashing, and integration — we still talk about "IoTempower" in the teaching context, but its GitHub repositories live under the `iotempire` organization.
 
 All artifacts (code, logs, schematics) must be published under permissive or open licenses (MIT, CC-BY-SA) to enable reuse and learning.
-
----
 
 ## Module Overview – Weekly Plan
 
@@ -211,8 +182,6 @@ All artifacts (code, logs, schematics) must be published under permissive or ope
 
 > Small shifts possible; keep track of git commits and weekly module releases.
 
----
-
 ## Expectations & Classroom Policies
 
 - **In-class Presence:** Active participation in hands-on lab work is mandatory. Unexcused absences may affect module points.
@@ -223,8 +192,6 @@ All artifacts (code, logs, schematics) must be published under permissive or ope
 
 - **Open by Default:** Publish all project code, logs, and schematics under permissive open licenses.
 
----
-
 ## Success Strategies – Lab-Tested Tips
 
 1. **Repo housekeeping every session.** Run `git status`, write concise commit messages, link issues to commits. Use branches for experiments.
@@ -234,8 +201,6 @@ All artifacts (code, logs, schematics) must be published under permissive or ope
 5. **Collaborate generously.** Review teammate PRs, attend pair-debug sessions, and share exploration artifacts openly.
 6. **Final Project timebox.** Start architecture documentation early; leave two full weeks for stabilization, polish, and video recording for assessment evidence.
 
----
-
 ## Contacts & Questions
 
 - **Technical Issues:** Report via GitHub issues in your personal portfolio repo
@@ -244,8 +209,6 @@ All artifacts (code, logs, schematics) must be published under permissive or ope
 
 - **Local Course Contacts:** <replace>
 - **Discord:** Join the main **IoTempire community Discord** — see the link in the [repository README](../../README.md#references--resources)
-
----
 
 > ###### 
 Document Version: 1.0 (HSBI-to-local Workbook Edition)  

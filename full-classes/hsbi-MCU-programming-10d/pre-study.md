@@ -133,8 +133,6 @@ Make a small timeline with three points: **five years ago**, **today**, and **fi
 Q7. Why is “cloud vs. local” usually a false choice? Give one well-justified hybrid split for the first-aid-station scenario.
 Q8. What would you measure or investigate before calling an architecture more sustainable?
 
----
-
 ## 3. Local Networking, Gateways, and MQTT
 
 Module 3 asks each team to configure a 2.4 GHz Wi-Fi LAN, receive IPv4 addresses through DHCP, run a Mosquitto broker on an OpenWRT router, and exchange MQTT messages between phones, computers, and ESP nodes. The goal is not abstract networking theory: it is to understand the network you will actually operate.
@@ -158,8 +156,6 @@ Q13. Why is a local broker useful for the earthquake/first-aid-station scenario 
 
 > [!TIP]
 > A device connected to your local Wi-Fi is **not** automatically reachable from the public internet. That separation is desirable: do not expose an MQTT broker or ESP web server to the internet casually. Authentication, encryption, firewall rules, and updates matter whenever a system crosses the local-network boundary.
-
----
 
 ## 4. Arduino, GPIO, and Basic Electronics
 
@@ -200,8 +196,6 @@ Q16. Why must an LED normally have a current-limiting resistor?
 Q17. Why should a Wemos/ESP GPIO never directly power a relay, solenoid lock, or 12 V load?
 Q18. What problem does a pull-up or pull-down resistor solve for a pushbutton input?
 
----
-
 ## 5. HTTP, MQTT, and System Integration
 
 The course uses MQTT most often because devices and services must both report events and receive commands. It also covers REST/HTTP as an important contrasting pattern and for integrations such as APIs. Module 5 then turns separate nodes into an HVAC simulation and an access-control system.
@@ -222,8 +216,6 @@ Q20. In HTTP request/response, who initiates each interaction? How does this con
 Q21. A temperature node publishes once, while a dashboard and an alarm node both subscribe. What needs to know about the other components?
 Q22. What is an **integrator** in the Module 5 HVAC task, and why is it useful to keep it separate from the sensor and actuator?
 
----
-
 ## 6. ESP32 Simulation — Extend What You Already Built
 
 The Wokwi task in [Section 1](#1-iot-systems-the-big-picture) is your first simulation. Use the browser-based ESP32/Arduino simulator to try changes quickly before the hardware kit arrives on Day 2: alter the blink rate, add another input or output, or deliberately break and repair a connection. Simulation supports program-flow and wiring practice; it never replaces hardware testing.
@@ -234,8 +226,6 @@ A real Wemos/ESP setup adds the things engineers must learn to handle: board-spe
 
 Q23. How can simulation shorten the early design-debug cycle?
 Q24. Which measurements or failures can only be discovered with real hardware and a real local network?
-
----
 
 ## 7. Prepare Like an Engineer
 
@@ -250,8 +240,6 @@ When you watch any IoT video—course material, Bosch, TIA, Andreas Spiess, Simp
 - **Trade-offs and failure modes:** What happens if Wi-Fi, the broker, power, or a sensor fails?
 
 This habit will directly support your portfolio, the Module 5 simulations, Module 6 system scaling discussions, and the architecture of the final project.
-
----
 
 ## Ready for Day 1?
 

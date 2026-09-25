@@ -2,8 +2,6 @@
 
 [← Back to Module 1](./01-foundations-and-masterclass.md) | [Quick module index](./00-index.md) | [Next: Module 3 →](./03-overlay-and-mesh-networks.md)
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -20,8 +18,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 Network Fundamentals: The TCP/IP Edge
 
@@ -42,8 +38,6 @@ If two IoT nodes have the IP `192.168.8.10/24` and `192.168.9.10/24`, can they c
 - **DHCP (Dynamic Host Configuration Protocol):** Automatically assigns IP, subnet mask, gateway, and DNS servers via the **DORA** sequence (**D**iscover $\rightarrow$ **O**ffer $\rightarrow$ **R**equest $\rightarrow$ **A**cknowledge).
 - **NAT (Network Address Translation - Masquerading):** Allows dozens of private IoT devices behind the OpenWrt router to share a single upstream WAN IP address by mapping TCP/UDP ports.
 - **DNS (Domain Name System) & mDNS:** Translates human-readable names to IPs. In local IoT networks, mDNS (Zeroconf/Avahi, e.g. `openwrt.local` or `node1.local`) allows discovery without a central DNS server.
-
----
 
 ## 🛠️ In-Class Lab: Taming the OpenWrt Edge Router
 
@@ -72,8 +66,6 @@ If two IoT nodes have the IP `192.168.8.10/24` and `192.168.9.10/24`, can they c
    brctl show   # Check the br-lan bridge
    ```
 
----
-
 ### Task 2: Live Packet Inspection with `tcpdump` and Wireshark (30 min)
 Instead of capturing packets only on your laptop, capture packets *at the choke point*—the OpenWrt router itself!
 
@@ -91,8 +83,6 @@ Instead of capturing packets only on your laptop, capture packets *at the choke 
    - **ARP:** Flush your laptop's ARP table (`ip -s -s neigh flush all` or `arp -d *`) and ping `192.168.8.1`. Observe the `Who has 192.168.8.1? Tell ...` broadcast frame and unicast reply.
    - **TCP Handshake:** Connect MQTTX or curl an HTTP page. Observe the 3-way handshake (`[SYN]`, `[SYN, ACK]`, `[ACK]`) and subsequent teardown (`[FIN, ACK]`).
 
----
-
 ### Task 3: Custom Subnets, Static Leases & Port Forwarding (30 min)
 1. Open the LuCI web interface: `http://192.168.8.1` (Network $\rightarrow$ DHCP and DNS).
 2. Assign a **Static DHCP Lease** to your M5Stack node based on its MAC address so it always receives `192.168.8.150`.
@@ -101,8 +91,6 @@ Instead of capturing packets only on your laptop, capture packets *at the choke 
    - Create a firewall port forwarding rule in LuCI (Network $\rightarrow$ Firewall $\rightarrow$ Port Forwards):
      - Forward external port `11883` on WAN to internal port `1883` (Mosquitto) on `192.168.8.1`.
    - Ask a neighboring team to connect their MQTT client to your router's WAN IP on port `11883`. Confirm the connection in `logread`!
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

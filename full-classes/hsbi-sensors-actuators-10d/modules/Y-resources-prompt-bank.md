@@ -4,8 +4,6 @@
 
 [← Back to Module Index](./00-index.md) | [Back to Resources Bank](./Z-resources-bank.md)
 
----
-
 ## 📌 Module 1 – Foundations: Measurement, Signals & the Chain
 *Focus: transducer, error/uncertainty, accuracy vs. precision, ADC, sampling, quantization.*
 
@@ -13,8 +11,6 @@
 2. **Technical:** *ADC precision dance:* Report your observed code range, step count, and step size, and compare with the theoretical `Vref/2^n`.
 3. **Technical:** *Accuracy vs. precision:* Give one example from your own measurements of a precise-but-inaccurate and an accurate-but-imprecise result.
 4. **Process:** *Master Class first impressions:* What was smooth about getting a sensor onto the dashboard, and where did you get stuck?
-
----
 
 ## 📌 Module 2 – I²C & Sensor Addressing
 *Focus: bus physics, addresses, register maps, conflicts, bus comparison.*
@@ -24,8 +20,6 @@
 3. **Hybrid:** *Conflict resolution:* Describe the address conflict you created and exactly how you resolved (or would resolve) it.
 4. **Project Context:** *Why not just add pins?* Explain why one data pair for many devices is elegant, and name its limits.
 
----
-
 ## 📌 Module 3 – Sensor Characterization, Calibration & Data Quality
 *Focus: transfer function, linearity, hysteresis, calibration, uncertainty, filtering.*
 
@@ -33,8 +27,6 @@
 2. **Technical:** *Calibration:* Compare error before and after two-point calibration, and report the independent validation point.
 3. **Technical:** *Noise vs. latency:* Present your raw/mean/median noise numbers and the latency each filter adds.
 4. **Process:** *Uncertainty honesty:* Write your uncertainty budget and state `y ± U`. Which contribution dominates, and why?
-
----
 
 ## 📌 Module 4 – Distance, Motion & Environment Sensors
 *Focus: ToF/ultrasonic/IR, IMU, Hall/current, environment sensors.*
@@ -44,8 +36,6 @@
 3. **Hybrid:** *People counter:* Present your state machine, timing window, and the false detections you observed.
 4. **Technical:** *IMU drift:* Show the gyro drift over time and the effect of your complementary filter.
 
----
-
 ## 📌 Module 5 – LEDs & Light as Output
 *Focus: current limiting, PWM/gamma, RGB mixing, addressable strips, power budget.*
 
@@ -53,8 +43,6 @@
 2. **Technical:** *Gamma:* Explain why a linear duty ramp looks wrong and how gamma correction fixed it.
 3. **Technical:** *Power budget:* Compare calculated and measured strip current for the three states and justify your supply.
 4. **Project Context:** *Installation realism:* What would you change about your strip wiring for a permanent installation?
-
----
 
 ## 📌 Module 6 – LED Animation, Sound & Interactive Installations
 *Focus: non-blocking animation, palettes, sensor/sound interaction, installation constraints.*
@@ -64,8 +52,6 @@
 3. **Hybrid:** *Interaction:* Describe your sensor→animation mapping and the hysteresis you needed.
 4. **Project Context:** *Two-hour show:* What did you have to consider about power, heat, and mounting to make it survive a long run?
 
----
-
 ## 📌 Module 7 – Motors & Motion Actuators
 *Focus: servo, DC motor + H-bridge, stepper, drivers, current, safety.*
 
@@ -73,8 +59,6 @@
 2. **Technical:** *Actuator selection:* For a pointer gauge, a wheel, and a precise dial, pick servo/DC/stepper with justification.
 3. **Hybrid:** *Sensor→motor logic:* Present your control rule, hysteresis, and safety interlock.
 4. **Process:** *Safety near-miss or lesson:* Document one wiring/current/ground lesson you will not forget.
-
----
 
 ## 📌 Module 8 – From Sensor to System: IoTempower & Integration
 *Focus: declarative nodes, filters, MQTT, Node-RED, control loops, failures.*
@@ -84,8 +68,6 @@
 3. **Hybrid:** *Closed loop:* Describe your control rule and how you arbitrated manual vs. automatic control.
 4. **Process:** *Fault injection:* Which of the four faults did your system survive, and what did you fix afterward?
 
----
-
 ## 📌 Module 9 – Final Project Studio
 *Focus: requirements, integration, characterization, evaluation, resilience.*
 
@@ -93,8 +75,6 @@
 2. **Technical:** *Evaluation:* Present the actuator performance and one system metric (latency, rate, current) with conditions.
 3. **Project Context:** *Architecture split:* Which processing lives on the node and which in the integration layer — and why?
 4. **Process:** *Peer review value:* What blind spot did your review team find, and how did you fix it before the defense?
-
----
 
 ## 📌 Module 10 – Demonstration & Portfolio Defense
 *Focus: live demo, technical defense, retrospective.*

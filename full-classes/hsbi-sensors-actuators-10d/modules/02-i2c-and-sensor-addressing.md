@@ -4,8 +4,6 @@
 
 > **This is the module that turns "a sensor in a library example" into "a device on a bus that you understand."** We deliberately scan and poke the bus *before* trusting a library.
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -23,8 +21,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 Part A — The I²C Bus
 
@@ -69,16 +65,12 @@ Most I²C sensors are not "send a command, get a value". They expose a **registe
 | **OneWire** | 1 + GND | 64-bit ROM ID per device | DS18B20 temperature chains |
 | **Analog / PWM** | 1 signal | None | Simple sensors, servos, dimming |
 
----
-
 ## 🛠️ In-Class Lab: Talk to the Bus
 
 *Hardware:* 1× ESP32/ESP8266 (or M5Stack), 2× I²C sensor modules with different addresses (e.g. environment sensor + MPU6050 or VL53L0X), jumper wires, optional logic analyzer, optional Linux host or Raspberry Pi with `i2c-tools`.
 
 > [!WARNING]
 > Power off before rewiring. Check that every module's logic voltage matches **3.3 V**. I²C modules with their own 5 V pull-ups can over-voltage a 3.3 V device — check before connecting.
-
----
 
 ### ★ Task 1: Wire the Bus and Scan It (30 min)
 
@@ -106,8 +98,6 @@ Most I²C sensors are not "send a command, get a value". They expose a **registe
 
 > **Alternative/complement:** if you have a Linux host with an exposed I²C bus, run `i2cdetect -y 1`. It shows the same map and is the standard tool on gateways and Raspberry Pis.
 
----
-
 ### ★ Task 2: Read Through the Library, Then Read the Register (35 min)
 
 1. Read one sensor using its **library** (e.g. an environment sensor) and log values.
@@ -116,16 +106,12 @@ Most I²C sensors are not "send a command, get a value". They expose a **registe
 
 > **This step is the difference between "it works" and "I understand it."** You will need it whenever a library is missing, outdated, or wrong.
 
----
-
 ### ★ Task 3: Two Devices on One Bus (30 min)
 
 1. Add a **second** I²C sensor with a *different* address to the same SCL/SDA pair (no extra pins). Power and ground both.
 2. Scan again: both addresses must appear.
 3. Read both sensors in one sketch. Confirm that adding a device did not require new pins.
 4. Note the two addresses in your portfolio and explain why they can coexist.
-
----
 
 ### ★ Task 4: Create and Resolve an Address Conflict (25 min)
 
@@ -135,8 +121,6 @@ Most I²C sensors are not "send a command, get a value". They expose a **registe
    - use an **I²C multiplexer** to give each device its own channel.
 3. Document the conflict and the fix — this is exactly the kind of engineering note the portfolio rewards.
 
----
-
 ### ◇ Task 5 (Stretcher): See the Bits on the Wire (30 min)
 
 With a USB logic analyzer (or an oscilloscope), capture one transaction:
@@ -144,8 +128,6 @@ With a USB logic analyzer (or an oscilloscope), capture one transaction:
 - Identify START, the 7-bit address, the R/W bit, the ACK from the device, the data byte(s), and STOP.
 - Measure the actual clock frequency and compare it with the configured speed.
 - Try a longer/poorer cable or remove a pull-up and observe the signal integrity degrade. Record what you see.
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

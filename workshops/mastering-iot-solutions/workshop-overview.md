@@ -4,8 +4,6 @@
 
 This document describes the high-level structure, didactical concept, learning outcomes, and dual role of the **Mastering IoT Solutions** workshop.
 
----
-
 ## 1. Concept & Purpose
 
 The **Mastering IoT Solutions** masterclass is a hardware-first, highly practical workshop designed to introduce participants to distributed IoT architectures, edge device management, and visual dataflow integration.
@@ -20,8 +18,6 @@ It serves a **dual purpose**:
 ### B. Standalone Masterclass & Outreach
 - Functions as an inspiring, self-contained workshop (2–3 hours) for maker faires, summer schools, engineering meetups, or professional continuous education.
 - Shows how modern edge frameworks ([IoTempower](https://iotempower.us)) and visual integration engines ([Node-RED](https://nodered.org)) make IoT accessible, rapid, and fun.
-
----
 
 ## 2. Didactical Approach & Flexible Cadence
 
@@ -40,8 +36,6 @@ Rather than adhering to rigid, school-like bells and 45-minute cutoffs, the work
 5. **Dashboards & Aggregation (~25 min):** Teams assemble live gauges, historical line charts, and subscribe to class-wide room telemetry using MQTT wildcards (`+/temp`).
 6. **Open-Ended Extensions & Spontaneous Breakouts:** For faster teams or longer (3h) sessions, participants branch into custom explorations (e.g. CO2 sensor integration, IMU tilt control, Telegram bot messaging, or diving into IoTempower's fluent syntax).
 
----
-
 ## 3. Learning Outcomes
 
 By the end of this workshop, participants are able to:
@@ -50,8 +44,6 @@ By the end of this workshop, participants are able to:
 - **Connect Physical Digital Sensors:** Interface a 1-wire digital temperature sensor (Dallas DS18B20) to microcontroller GPIO headers.
 - **Experience Declarative Edge Management:** Understand single-line hardware abstractions in IoTempower and witness fleet-wide Over-The-Air (OTA) firmware deployment.
 - **Build Real-Time Dashboards:** Visualise streaming telemetry using gauges and charts, and aggregate multi-node classroom data.
-
----
 
 ## 4. Hardware & Equipment Inventory
 
@@ -63,8 +55,6 @@ By the end of this workshop, participants are able to:
 | *(Optional)* **Sensirion SCD4x** | Optional | I2C sensor for CO2, temperature, and relative humidity. |
 | **Wi-Fi Router (e.g. GL-iNet B1300)** | 1 for room | Local network (`iotempire-b1300`), isolates workshop traffic. |
 | **Instructor Laptop** | 1 for room | Runs Mosquitto broker, Node-RED containers, and IoTempower CLI. |
-
----
 
 ## 5. Course Alignment & Portfolio Deliverables
 

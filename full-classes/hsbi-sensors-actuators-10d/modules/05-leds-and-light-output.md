@@ -4,8 +4,6 @@
 
 > **Light is the actuator you will use most in this course.** Today: how to drive it correctly — safely, dimmably, in color, and addressably.
 
----
-
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -23,8 +21,6 @@ By the end of this module, you can:
 > **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
----
 
 ## 📖 Part A — LED Physics and Current Limiting
 
@@ -73,8 +69,6 @@ Requirements and traps:
 
 **FastLED** is a convenient, well-documented library for driving these strips (and plain RGB/PWM too).
 
----
-
 ## 🛠️ In-Class Lab: Drive the Light
 
 *Hardware:* breadboard, 2 LEDs + resistors, RGB LED, WS2812 strip, separate 5 V supply, USB power meter, multimeter.
@@ -82,15 +76,11 @@ Requirements and traps:
 > [!WARNING]
 > Power off before rewiring. For the strip: connect **5 V, GND, and data correctly**, share ground with the MCU, and add the decoupling capacitor before powering on. Wrong polarity kills the strip instantly.
 
----
-
 ### ★ Task 1: Size and Verify a Resistor (25 min)
 
 1. Pick an LED and compute the resistor for a target current (e.g. 10 mA) at 3.3 V. Install the next higher standard value.
 2. Power it and **measure** the actual forward voltage and current with a multimeter.
 3. Compute the real current from the measured values and compare with your target. Explain any difference.
-
----
 
 ### ★ Task 2: PWM Fade with Gamma (30 min)
 
@@ -98,23 +88,17 @@ Requirements and traps:
 2. First with a **linear** duty ramp, then with a **gamma-corrected** ramp. Watch both closely: which looks smooth, and which appears to "jump" near the top?
 3. Note your PWM frequency and resolution, and confirm there is **no visible flicker**.
 
----
-
 ### ★ Task 3: RGB Mixing (25 min)
 
 1. Drive the red, green, and blue channels of the RGB LED with independent PWM values.
 2. Produce at least **six colors** (red, green, blue, yellow, cyan, magenta) and "white" by balancing the channels.
 3. Compare the mixed result with a color wheel/picker. Note how accurate "white" is with three channels.
 
----
-
 ### ★ Task 4: Addressable Strip First Light (35 min)
 
 1. Wire the WS2812 strip: **5 V** and **GND** from the separate supply, **data** through the ~330 Ω resistor to a GPIO, and a **common ground** between MCU and supply.
 2. With **FastLED**, light a single pixel, then a **color wipe**, then a **rainbow**.
 3. Change the number of LEDs and the brightness and observe the effects. Note the first-pixel (start-of-strip) orientation.
-
----
 
 ### ★ Task 5: Power Budget — Compute and Measure (30 min)
 
@@ -123,13 +107,9 @@ Requirements and traps:
 3. Compare measurement with your calculation and explain the difference (color/white composition, brightness setting, per-LED variation).
 4. State clearly why the microcontroller's 5 V pin is not an option here.
 
----
-
 ### ◇ Task 6 (Stretcher): Signal Integrity and Reliability (25 min)
 
 Deliberately introduce problems and record the symptoms: remove the data-line resistor, remove the decoupling capacitor, use a long/unshielded data wire, drive a longer strip from one injection point only. Document which glitches appear and which fix restores reliable operation.
-
----
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 

@@ -4,8 +4,6 @@
 
 Welcome to the **Mastering IoT Solutions** hands-on lab! This workbook is your interactive companion during the session.
 
----
-
 ## Team Setup & Working Style
 
 You will work in **teams of two (or three)**:
@@ -15,8 +13,6 @@ You will work in **teams of two (or three)**:
 
 > [!TIP]
 > **Pacing is flexible:** You do not need to wait for everyone before moving to the next step. Tasks may be introduced orally by the instructor or explored self-paced through this workbook. If you finish core tasks early, jump straight into the [Open-Ended Explorations](#-open-ended-explorations)!
-
----
 
 ## Phase 1: First Contact & Hello World in Node-RED
 
@@ -39,8 +35,6 @@ Each team has a private, isolated Node-RED instance running in a container on th
 5. Click the red **Deploy** button in the top-right corner.
 6. Click the small square button on the left edge of your inject node.
 7. Open the **Debug sidebar** (the small bug icon 🪲 on the right panel). You should see your message arrive!
-
----
 
 ## Phase 2: Interacting with Your M5StickC
 
@@ -75,8 +69,6 @@ Your instructor will hand you an **M5StickC** pre-programmed with [IoTempower](h
 2. Wire it to an **mqtt out** node with topic `<id>/console/set` (e.g. `01/console/set`).
 3. Deploy and trigger the node -> The text prints live on your microcontroller's screen!
 
----
-
 ## ⚡ Phase 3: The Classroom Domino Chain
 
 Now let's connect your stick to your neighbors' sticks across the room!
@@ -98,8 +90,6 @@ graph LR
 4. Wire the change node to an **mqtt out** node pointing to **your neighbor's stick** (e.g. if you are Team 01, send to `02/led/set`; if you are the last team, wrap around to `01/led/set`).
 5. Click **Deploy**.
 6. When everyone is ready, press your button -> Watch the pulse of light ripple across all tables in the room!
-
----
 
 ## 🌡️ Phase 4: Adding the Dallas Temperature Sensor & Live OTA
 
@@ -129,8 +119,6 @@ ds18b20(temp, 26);
 - The instructor uncomments that line in your stick's configuration and deploys it **Over-The-Air (OTA)** over Wi-Fi.
 - Watch your stick screen: it reboots and reconnects within seconds—**no USB flashing cable required!**
 - Create an **mqtt in** node subscribing to `<id>/temp` (e.g. `01/temp`) and wire it to a debug node. You will now see live Celsius temperature readings stream in every few seconds!
-
----
 
 ## 📊 Phase 5: Building a Live Dashboard
 
@@ -163,8 +151,6 @@ Want to know if one corner of the room is warmer than another?
 3. Wire the function output into a **ui-chart** node.
 4. Deploy and check your dashboard: you now see a multi-line comparison of all teams in the room!
 
----
-
 ## Open-Ended Explorations
 
 Done with the basics? Pick any of these challenges to explore further:
@@ -195,8 +181,6 @@ Your M5StickC has an onboard 6-axis IMU (MPU6886).
 - Browse the official framework site: [iotempower.us](https://iotempower.us).
 - Inspect how simple it is to add RFID readers, RGB LED matrices, relays, and servo motors using the same fluent syntax.
 
----
-
 ## On-Demand Reference & Concepts
 
 > *Read this section whenever you are curious about what is happening under the hood!*
@@ -221,8 +205,6 @@ Your M5StickC has an onboard 6-axis IMU (MPU6886).
 | `<id>/console/set` | Node <- Broker | `"Hello!"` | Print text on stick screen |
 | `<id>/temp` | Node -> Broker | `23.8` | Dallas DS18B20 temperature in °C |
 | `<id>/imu/pitch` | Node -> Broker | `-5.2` | Pitch angle in degrees |
-
----
 
 ## 📝 University Portfolio Deliverables (Day 1)
 

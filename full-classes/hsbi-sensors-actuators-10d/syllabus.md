@@ -7,16 +7,12 @@
 > [!NOTE]
 > **Work in progress — new class, first taught in WS 2026/27.** Expect this syllabus to keep changing before and during the semester, and **please come back to check it often**. **Large parts are still a draft**: in each module a *DRAFT BOUNDARY* marks the content that is not settled yet, and it moves down as we approve sections together. Your input is valued and appreciated — I am glad to adapt this class to your program, and your suggestions can change the plan, the tasks, and even this syllabus. If something does not fit, say so early.
 
----
-
 ## Class Times and Locations
 
 - **Schedule, location, and room:** Published in the official HSBI timetable and course LMS before teaching begins.
 - **Official announcements and course contact:** Course LMS.
 - **Languages of Instruction:** English and German.
 - **Course Materials:** English.
-
----
 
 ## Instructors & Teaching Team (HSBI Gütersloh)
 
@@ -28,8 +24,6 @@
 > [!NOTE]
 > **Course information:** Ulno is the primary instructor for this HSBI offering. The course LMS is the authoritative source for local dates, rooms, contact details, and announcements. An optional Discord space or chat may be offered as an additional community channel; students and interested people are always welcome to join the main **IoTempire community Discord** (link maintained in the [repository README](../../README.md#references--resources)).
 
----
-
 ## Language, Communication & Course Material
 
 This class is taught in **English and German**. The shared workbook, slides, code, documentation, and technical exercises are in English to ensure reusability and align with modern engineering practice.
@@ -37,8 +31,6 @@ This class is taught in **English and German**. The shared workbook, slides, cod
 Ulno is fully bilingual. You are welcome to speak with the teaching team and collaborate with your peers in **German, English, or a mixture of both**. Notes, portfolio documentation, reports, and presentations may likewise be submitted in German, English, or mixed language. Ask whenever technical vocabulary or a task formulation needs clarification in either language.
 
 **Für deutschsprachige Studierende:** Diese Lehrveranstaltung findet auf Englisch und Deutsch statt. Das gemeinsame Workbook, die Folien, der Code, die Dokumentation und die Übungen bleiben auf Englisch, damit sie einheitlich genutzt werden können. Ulno ist zweisprachig; Sie können mit dem Lehrteam und untereinander auf Deutsch, Englisch oder in einer Mischung aus beiden Sprachen sprechen und arbeiten. Notizen, Portfolio-Dokumentation und Präsentationen dürfen ebenfalls auf Deutsch, Englisch oder gemischt verfasst werden. Fragen Sie jederzeit nach, wenn Fachbegriffe oder Aufgabenstellungen geklärt werden sollen.
-
----
 
 ## Course Description & Philosophy
 
@@ -58,8 +50,6 @@ This gives you both: the measurement competence that a sensor engineer needs, an
 > [!IMPORTANT]
 > **Local-first, buildable, documented.** The course is designed around hardware you actually have: M5Stack nodes with Grove modules for the fast path, and raw ESP32/ESP8266 plus breadboard parts when physics matters. Cloud services are optional; everything core runs on the local network.
 
----
-
 ### How We Teach — Challenge- and Project-Based, In Person, and Always in Flux
 
 This course is deliberately taught as **Challenge-Based** and **Project-Based Learning** (CBL/PBL): you learn by investigating an authentic challenge and building a real solution, not by reproducing a lecture. We begin from **stories** — a real problem that matters to you and the people it touches — because you learn best what connects to something meaningful for your own life, studies, or community. Your instructors genuinely care that you find that connection.
@@ -69,8 +59,6 @@ It also matters that we do this **in person, together** — a university class i
 And this class is **always in flux — that is a feature, not a bug**. No course is ever finished: every offering is adjusted while it runs, and each class teaches us as much as it teaches you. Expect the plan, the tasks, and even this syllabus to move as we discover together what works best; your questions, ideas, and feedback are part of the design.
 
 > **Want to read more?** Challenge-Based Learning — [en.wikipedia.org/wiki/Challenge-based_learning](https://en.wikipedia.org/wiki/Challenge-based_learning) · Project-Based Learning — [pblworks.org/what-is-pbl](https://www.pblworks.org/what-is-pbl) · Why active, interactive learning beats passive lectures — [Harvard Gazette, 2019](https://news.harvard.edu/gazette/story/2019/09/study-shows-that-students-learn-more-when-taking-part-in-classrooms-that-employ-active-learning-strategies)
-
----
 
 ## Learning Objectives
 
@@ -84,8 +72,6 @@ By the end of this course, you will be able to:
 6. **Use buses competently:** wire, scan, and debug an **I²C** bus, handle device addresses and register maps, and distinguish I²C from SPI, UART, OneWire, and direct GPIO/PWM.
 7. **Drive actuators safely:** implement PWM brightness and LED animation (RGB, addressable WS2812), control servos, DC motors, and steppers with suitable drivers, respecting voltage, current, and thermal limits.
 8. **Build and evaluate sensor/actuator systems:** design an embedded node that senses and acts, integrate it via IoTempower, MQTT, and Node-RED, and document performance (resolution, latency, power, robustness).
-
----
 
 ## Course Load & Credits
 
@@ -103,8 +89,6 @@ By the end of this course, you will be able to:
 - **Content:** mathematical and technical fundamentals (basic algebra, physical units, basic electronics help); ability to work with Git, a terminal, and a markup language is expected, as in the other IoT courses.
 - **Standalone elective:** *Sensorik und Aktorik* is a **6th-semester elective (Wahlmodul)** that stands on its own — it neither requires nor continues a specific earlier module. It concentrates on the *physical* side of IoT — what a sensor really measures and how an actuator really moves — and introduces the small amount of local-first infrastructure it uses (a node, a local MQTT broker, Node-RED) within the course itself.
 - **Building on an earlier project (optional, by agreement):** the final project is **self-contained by default**. If you would like to continue an earlier project of your own, that is very welcome — **just talk to the instructor**, and we will agree on the scope and on how the sensors/actuators part is deepened (each module is graded separately).
-
----
 
 ## Assessment: Kombinationsprüfung (20 Base Points + Bonus)
 
@@ -152,8 +136,6 @@ Practical notes:
 | 18–19 | Gut (2.0) | Good |
 | 20 | Sehr gut (1.0) | Very Good |
 
----
-
 ## Hardware Kit & Laboratory Equipment
 
 The kit is deliberately **two-layered**, so you can move fast and still meet real physics:
@@ -175,8 +157,6 @@ The kit is deliberately **two-layered**, so you can move fast and still meet rea
 
 > [!WARNING]
 > **Electrical safety.** All microcontrollers here are 3.3 V logic. Never power motors, relays, strips, or locks directly from a GPIO pin. Always share a common ground between logic and load supplies, and never connect 5 V or 12 V to a 3.3 V pin.
-
----
 
 ## 10-Day Course Schedule
 
@@ -202,8 +182,6 @@ The 10 days correspond to the 12 4-hour sessions across the semester. Modules 1�
 > [!TIP]
 > **Buffer and pacing:** Days 9–10 provide four studio sessions. At least one is deliberately loose and can absorb spill-over from earlier labs, be released as flexible/wiggle time, or be used for stretcher tasks and peer mentoring. Announce the concrete use of each studio session in the LMS as the course progresses.
 
----
-
 ## Final Project Requirements (5 Points)
 
 The final project is a **sensor/actuator system** built by teams of 2–4 students. Teams form and pitch a stakeholder **story** during the project kickoff (Module 9), then map their requirements onto the criteria below. A team may, **by agreement with the instructor**, continue an earlier project of their own instead of starting fresh — this is a possibility, not a requirement; the default is a self-contained sensor/actuator project.
@@ -222,8 +200,6 @@ The final project is a **sensor/actuator system** built by teams of 2–4 studen
 - **Architecture, Documentation & Evaluation (1.5 points):** Clear wiring/system diagram, bus and addressing documentation, transfer-function/calibration evidence and evaluation in the portfolio.
 - **Live Demonstration & Presentation (1.5 points):** Clear 5-minute technical demo showing the measured quantity, the actuation, and explanation of the underlying sensor/actuator principles.
 
----
-
 ## Portfolio & Documentation Standards
 
 All assessments are based on your personal **GitHub Portfolio** (forked from [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template)):
@@ -237,8 +213,6 @@ All assessments are based on your personal **GitHub Portfolio** (forked from [io
   - Working-day reflections (what worked, what failed, what you learned, open questions).
 - In sensor work, **documented calibration and honest uncertainty beat a single lucky reading**. Showing how you discovered a noisy channel, an off-by-one register, or a wrong address is worth more than a superficial "it worked" report.
 
----
-
 ## Classroom Policies & Success Strategies
 
 1. **Active Participation:** Labs require hands-on physical work with breadboards, sensors, motors, and strips. Bring your laptop (Arduino IDE or PlatformIO installed).
@@ -246,8 +220,6 @@ All assessments are based on your personal **GitHub Portfolio** (forked from [io
 3. **Pair & Collaborate:** Work in pairs during wiring labs. Two pairs of eyes on a floating SDA line or a hot motor driver save the afternoon.
 4. **Measurement Mindset:** Write down what you measured, with what, and how uncertain it is. A number without units, conditions, or uncertainty is not a measurement.
 5. **Open Source Mindset:** Share discoveries and help peer teams. Accepted pull requests to IoTempower, the course repository, or open-source tools qualify for extra credit.
-
----
 
 ## Contacts & Support
 
