@@ -1,6 +1,6 @@
 # Pre-Study Guide: Sensors and Actuators (Sensorik und Aktorik)
 
-Welcome to **Sensors and Actuators (Sensorik und Aktorik) – 10-Day Edition**!
+Welcome to **Sensors and Actuators (Sensorik und Aktorik)!
 
 This course is about the physical side of IoT: how a real quantity in the world becomes a trustworthy number, and how that number becomes motion, light, or heat. We keep the classical foundations — **measurement technique, error, the digital signal chain, sensor characterization, and actuator principles** — and we build them:
 

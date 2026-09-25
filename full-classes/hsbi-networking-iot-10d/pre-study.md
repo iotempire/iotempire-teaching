@@ -1,6 +1,6 @@
 # Pre-Study Guide: Networking and IoT Solutions
 
-Welcome to **Networking and IoT Solutions (Vernetzung und IoT-Lösungen) – 10-Week Edition**! 
+Welcome to **Networking and IoT Solutions (Vernetzung und IoT-Lösungen)! 
 
 In this course, we move beyond isolated microcontrollers and rigid textbook abstractions to build **real, resilient, interconnected IoT networks**:
 - M5Stack edge nodes communicating locally via Wi-Fi and **ESP-NOW**.
