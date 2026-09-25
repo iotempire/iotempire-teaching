@@ -4,18 +4,18 @@
 
 ## 🎯 Learning Goals
 
-> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
-This module gives you the opportunity to explore **IoT fleet operations at scale** and achieve competency in **declarative node definition, Over-The-Air deployment, and topic standardization with IoTempower**.
+This module gives you the opportunity to explore IoT fleet operations at scale and achieve competency in declarative node definition, Over-The-Air deployment, and topic standardization with IoTempower.
 
 By the end of this module, you can:
-1. Explain the operational challenge of **IoT fleet management**: provisioning, configuration drift, and over-the-air deployment.
-2. Apply **IoTempower**, an open-source framework for declarative IoT node definition, Over-The-Air (OTA) updates, and automated MQTT integration.
-3. Configure and deploy **M5Stack nodes** using IoTempower's declarative syntax.
+1. Explain the operational challenge of IoT fleet management: provisioning, configuration drift, and over-the-air deployment.
+2. Apply IoTempower, an open-source framework for declarative IoT node definition, Over-The-Air (OTA) updates, and automated MQTT integration.
+3. Configure and deploy M5Stack nodes using IoTempower's declarative syntax.
 4. Orchestrate a fleet of heterogeneous nodes publishing and receiving synchronized control messages across your OpenWrt network.
 
 > [!WARNING]
-> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
@@ -33,12 +33,12 @@ When hacking a single Arduino or ESP32 node, developers often:
 - A changed Wi-Fi password bricks the entire fleet.
 
 ### The IoTempower Solution: Declarative Configuration & OTA
-**IoTempower** (developed by Prof. Dr. Ulrich Norbisrath / IoTempire) shifts embedded IoT from imperative programming to **declarative infrastructure-as-code**:
-- **Configuration Over Coding:** Instead of writing boilerplate Wi-Fi reconnect loops, MQTT pub/sub handlers, and debouncers, you declare what devices are connected to which pins in a clean configuration file (`setup.cpp`).
-- **Standardized Topic Namespaces:** Every node automatically adheres to a strict, predictable MQTT topic hierarchy:
+IoTempower (developed by Prof. Dr. Ulrich Norbisrath / IoTempire) shifts embedded IoT from imperative programming to declarative infrastructure-as-code:
+- Configuration Over Coding: Instead of writing boilerplate Wi-Fi reconnect loops, MQTT pub/sub handlers, and debouncers, you declare what devices are connected to which pins in a clean configuration file (`setup.cpp`).
+- Standardized Topic Namespaces: Every node automatically adheres to a strict, predictable MQTT topic hierarchy:
   - Telemetry: `<node>/<device>`
   - Commands: `<node>/<device>/set`
-- **Zero-Friction OTA (Over-The-Air) Updates:** Once initially provisioned, nodes are discovered on the local network (or over Nebula). You re-flash firmware over Wi-Fi with a single command: `iot deploy <node_name>`.
+- Zero-Friction OTA (Over-The-Air) Updates: Once initially provisioned, nodes are discovered on the local network (or over Nebula). You re-flash firmware over Wi-Fi with a single command: `iot deploy <node_name>`.
 
 ```text
                                 IoTempower Host
@@ -98,9 +98,9 @@ humidity(hum, "SHT30");
 rgb_single(led, "M5_LED", "WS2812");
 ```
 
-Notice what is missing: **no Wi-Fi connection logic, no MQTT connect code, no reconnect timers!** IoTempower generates the full robust C++ runtime automatically.
+Notice what is missing: no Wi-Fi connection logic, no MQTT connect code, no reconnect timers! IoTempower generates the full robust C++ runtime automatically.
 
-1. **First Flash (USB):**
+1. First Flash (USB):
    Connect your M5Stack via USB-C and run:
    ```bash
    iot flash
@@ -120,7 +120,7 @@ Now, unplug the USB cable! Power the node from a battery pack or standard USB wa
    ```bash
    iot deploy
    ```
-3. Watch the terminal: IoTempower compiles the firmware, discovers the node via mDNS, contacts the internal OTA server on the ESP32, uploads the binary, and reboots the node—**all over Wi-Fi without touching the device!**
+3. Watch the terminal: IoTempower compiles the firmware, discovers the node via mDNS, contacts the internal OTA server on the ESP32, uploads the binary, and reboots the node—all over Wi-Fi without touching the device!
 
 ### Task 4: Coordinating Fleet Actions via MQTT (30 min)
 
@@ -136,7 +136,7 @@ Now, unplug the USB cable! Power the node from a battery pack or standard USB wa
 ## 📝 Working-Day Reflection & Portfolio Tasks
 
 In your portfolio under `modules/07-fleet-management/`:
-1. **IoTempower vs. Raw Firmware Comparison:** Explain how declarative configuration changes the maintenance burden of a 100-node deployment compared to raw C++ sketches.
-2. **OTA Deployment Log:** Include terminal output from a successful Over-The-Air (`iot deploy`) update.
-3. **Topic Structure Documentation:** Document the exact MQTT topics generated by your IoTempower nodes.
-4. **Reflection:** How does combining IoTempower with an overlay network like Nebula enable remote fleet maintenance across different geographic sites?
+1. IoTempower vs. Raw Firmware Comparison: Explain how declarative configuration changes the maintenance burden of a 100-node deployment compared to raw C++ sketches.
+2. OTA Deployment Log: Include terminal output from a successful Over-The-Air (`iot deploy`) update.
+3. Topic Structure Documentation: Document the exact MQTT topics generated by your IoTempower nodes.
+4. Reflection: How does combining IoTempower with an overlay network like Nebula enable remote fleet maintenance across different geographic sites?

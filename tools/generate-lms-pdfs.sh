@@ -249,11 +249,11 @@ stage_document() {
         printf '> **Source revision:** `%s`\n\n' "$SOURCE_REVISION"
         tail -n +2 "$source"
     } | sed \
-        -e 's/^> \[!NOTE\]/> **Note**/' \
-        -e 's/^> \[!IMPORTANT\]/> **Important**/' \
-        -e 's/^> \[!TIP\]/> **Tip**/' \
-        -e 's/^> \[!WARNING\]/> **Warning**/' \
-        -e 's/^> \[!CAUTION\]/> **Caution**/' \
+        -e 's/^> \[!NOTE\]/> **Note:**/' \
+        -e 's/^> \[!IMPORTANT\]/> **Important:**/' \
+        -e 's/^> \[!TIP\]/> **Tip:**/' \
+        -e 's/^> \[!WARNING\]/> **Warning:**/' \
+        -e 's/^> \[!CAUTION\]/> **Caution:**/' \
         > "$staged_source"
 }
 

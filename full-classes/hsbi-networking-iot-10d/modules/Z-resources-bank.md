@@ -4,7 +4,7 @@
 
 ## 🎥 Pre-Class Videos by Module
 
-| **Module** | **Topic**                 | **Video**                                                                               | **Guiding Question**                                                                 |
+| Module | Topic                 | Video                                                                               | Guiding Question                                                                 |
 |------------|---------------------------|---------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
 | 1          | OSI Model Critique         | [OSI Model – Practical Perspective](https://www.youtube.com/watch?v=vv4y_vyBGN8)        | How does layering help—or hinder—debugging an MQTT broker crash?                            |
 | 1          | OSI vs TCP/IP             | [OSI Model vs TCP/IP](https://www.youtube.com/watch?v=ZT07sZ0tJcc)                     | What benefit does TCP/IP’s flexible layering bring to real-time IoT?                      |
@@ -20,7 +20,7 @@
 
 ## 📖 RFCs & Standards Every Student Should Glance Once
 
-| **RFC/Document**                                                    | **Focus**                                                                              | **Why it Matters**                                                                         |
+| RFC/Document                                                    | Focus                                                                              | Why it Matters                                                                         |
 |---------------------------------------------------------------------|-----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
 | [RFC 1918](https://tools.ietf.org/html/rfc1918)                     | Private IPv4 networks (`192.168.x.x`, `10.x.x.x`)                                    | Gateway NAT + port forwarding depends on reserving private IP blocks (Module 2).                |
 | [RFC 3439 Section 3](https://tools.ietf.org/html/rfc3439#section-3) | "Layering Considered Harmful"                                                         | Forces students to question if OSI layers help or hinder engineering *in practice* (Module 1).  |
@@ -33,24 +33,24 @@
 ## 🛒 Cheat Sheets & Quick References
 
 ### 📌 Hardware Quick Guides
-- **[ESP32 Pinout](https://www.etechnophiles.com/esp32-gpio-pinout-datasheet/)** – A0–A3, GPIO, power domains.
-- **[RPi 4 Pinout](https://www.raspberrypi.com/documentation/computers/os.html#gpio-and-the-40-pin-header)** – UART, I2C, power pins.
-- **[LiPo vs Coin Cell](https://www.ti.com/lit/an/slyt670/slyt670.pdf)** – Discharge curves, self-discharge.
+- [ESP32 Pinout](https://www.etechnophiles.com/esp32-gpio-pinout-datasheet/) – A0–A3, GPIO, power domains.
+- [RPi 4 Pinout](https://www.raspberrypi.com/documentation/computers/os.html#gpio-and-the-40-pin-header) – UART, I2C, power pins.
+- [LiPo vs Coin Cell](https://www.ti.com/lit/an/slyt670/slyt670.pdf) – Discharge curves, self-discharge.
 
 ### 📌 Networking Snippets (Copy/Paste)
-- **Ping sweep to find ESP32 IP:**
+- Ping sweep to find ESP32 IP:
   ```bash
   nmap -sn 192.168.1.0/24 | grep "IoT"
   ```
-- **Find open ports on Pi:**
+- Find open ports on Pi:
   ```bash
   sudo netstat -tulnp | grep mosquitto
   ```
-- **Port forward Pi 1883 → WAN:**
+- Port forward Pi 1883 → WAN:
   ```bash
   sudo iptables -t nat -A PREROUTING -p tcp --dport 1883 -j DNAT --to-destination 192.168.1.100:1883
   ```
-- **Enable Avahi for Pi host naming:**
+- Enable Avahi for Pi host naming:
   ```bash
   sudo apt install avahi-daemon avahi-utils
   ```
@@ -72,9 +72,9 @@
 ### 📌 OPC-UA Quick Nodes *(optional)*
 | Node Type                   | Example Path / ID          | Purpose                        |
 |-----------------------------|----------------------------|--------------------------------|
-| **Variable**                | `ns=3;i=1008`                     | Simple temp reading              |
-| **Method Call**             | `ns=3;i=2001`                     | Remote procedure invoke          |
-| **Object**                  | `ns=2;i=58880`                     | A folder holding variables       |
+| Variable                | `ns=3;i=1008`                     | Simple temp reading              |
+| Method Call             | `ns=3;i=2001`                     | Remote procedure invoke          |
+| Object                  | `ns=2;i=58880`                     | A folder holding variables       |
 
 *Use [UA Expert](https://www.unified-automation.com/products/development-tools/uaexpert.html) to explore.*
 
@@ -88,7 +88,7 @@
 
 ## 📚 Software & Library Landmarks
 
-| **Use Case**               | **Library / Framework**                                     | **Quick Link**                                                                         | **Typical Module**                          |
+| Use Case               | Library / Framework                                     | Quick Link                                                                         | Typical Module                          |
 |-----------------------------|-----------------------------------------------------------|-----------------------------------------------------------------------------------------|---------------------------------------------|
 | MQTT Client (ESP32)         | PubSubClient ESP                     | [GitHub](https://github.com/knolleary/pubsubclient)                            | Modules 4, 5, 7, 8                         |
 | LoRaWAN ESP32               | RadioHead or LoRa library              | [LoRa-Net](https://github.com/LoRa-net/LoRa)                                      | Module 5                                    |
@@ -99,11 +99,11 @@
 
 ## 🧰 Troubleshooting Quick Drops
 
-| **Symptom**                                   | **Diagnosis**               | **Fix**                                                                              | **Module**         |
+| Symptom                                   | Diagnosis               | Fix                                                                              | Module         |
 |-----------------------------------------------|-------------------------------|---------------------------------------------------------------------------------------|--------------------|
 | ESP32 can’t `pubsub.connect()`              | Wrong broker IP/port           | Check `client.setServer()` vs. `mosquitto` running status.                            | 4, 5, 7, 8         |
 | `mosquitto_sub` sees no messages              | ESP32 not publishing            | Firmware crashed; check `Serial.print()`; reboot.                                      | 4, 5              |
-| Pi gateway loses WiFi every 5 min             | Router deauth drops ESP32        | Switch router to **WPA2-AES**; ESP32 power saving = 0 in config.h.                   | 7                  |
+| Pi gateway loses WiFi every 5 min             | Router deauth drops ESP32        | Switch router to WPA2-AES; ESP32 power saving = 0 in config.h.                   | 7                  |
 | RSSI jumps wildly (+/-15 dBm)                 | Multipath interference         | Move router to higher shelf; switch channels or use 5 GHz.                               | 5                  |
 | LoRa messages arrive 20% packet loss          | Channel busy or ADR hysteresis  | Lora.begin(915E6); check `lora.receive(2000)` timeout.                                | 5                  |
 | Battery voltage drops 10% overnight            | Deep sleep leaking 50 µA         | Comment out `Serial.begin()`; add `#ifdef DEBUG` guard.                               | 5                  |
@@ -114,25 +114,25 @@
 Use these as portfolio prompts or in-class hook.
 
 ### Power & Battery Life
-- *"If your ESP32 consumes 8 mA in light sleep and 100 mA awake every 15 min, how long does a 500 mAh coin cell last? (**≈100 days**)"*
+- *"If your ESP32 consumes 8 mA in light sleep and 100 mA awake every 15 min, how long does a 500 mAh coin cell last? (≈100 days)"*
 
 - *"What’s more painful: hunting for 1 µA leaks or waiting for firmware flashes? What’s the bigger impact on time schedule?"*
 
 ### Gateway Design
-- *"Your gateway lost WiFi every 30 mins—switch to *USB WiFi dongle* or move router? What’s the **lowest-effort fix**?"*
+- *"Your gateway lost WiFi every 30 mins—switch to *USB WiFi dongle* or move router? What’s the lowest-effort fix?"*
 
 ### Industrial Protocols (Module 6, optional)
 - *"Would you rewrite factory code if OPC-UA adds 10 JSON fields? How does JSON compare to Tag encoded as 32-bit int?"*
 
 ## 💡 Tips from Students & Instructors (Pull-Requests Welcome)
 
-- **From CS Student #23:** "I added `setCpuFrequencyMhz(80)` to `setup()` in sleep-heavy firmware—dropped active current 60 mA → 25 mA. **Portfolio entry:** *‘Power hack cheatsheet’* guide."
+- From CS Student #23: "I added `setCpuFrequencyMhz(80)` to `setup()` in sleep-heavy firmware—dropped active current 60 mA → 25 mA. Portfolio entry: *‘Power hack cheatsheet’* guide."
 
-- **From Prof #3:** "Keep 2 *batteries* per lab: fresh coin cell and reused 2000 mAh LiPo for comparison. **Lesson:** students never touch the LiPo due to fear of fire—** bring a 5 V USB power probe instead**."
+- From Prof #3: "Keep 2 *batteries* per lab: fresh coin cell and reused 2000 mAh LiPo for comparison. Lesson: students never touch the LiPo due to fear of fire— bring a 5 V USB power probe instead."
 
 ## 📌 Next Steps
-- **Add your tricks** to this page via Pull Request into your class folder.
-- Contribute **dataset screenshots**, **CSV logs**, or **fixed typos** to the portfolio repositories.
+- Add your tricks to this page via Pull Request into your class folder.
+- Contribute dataset screenshots, CSV logs, or fixed typos to the portfolio repositories.
 - *Tip: Use this bank as your session ‘go-to’ sheet—annotate margins with sticky notes!*
 
 *[Back to Workbook](../README.md)*

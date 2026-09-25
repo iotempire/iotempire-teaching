@@ -4,7 +4,7 @@
 
 ## 🎥 Pre-Class and In-Class Videos by Module
 
-| **Module** | **Topic** | **Suggested video** | **Guiding question** |
+| Module | Topic | Suggested video | Guiding question |
 |---|---|---|---|
 | 1 | Measurement & uncertainty | Search for a short "accuracy vs precision" or "measurement uncertainty" explainer | Which error is systematic and which is random in your ADC reading? |
 | 1 | The signal chain / ADC | A short "how an ADC works" explainer | What limits resolution? What limits accuracy? |
@@ -22,7 +22,7 @@
 
 ## 📄 Datasheets & Standards to Read Once
 
-| **Document** | **Focus** | **Why it matters** |
+| Document | Focus | Why it matters |
 |---|---|---|
 | VL53L0X datasheet | Optical ToF, registers, I²C address `0x29` | Your primary distance sensor; the register map is the lesson |
 | MPU6050 register map | Accel/gyro scales, `0x68`/`0x69`, WHO_AM_I | Shows how an IMU is configured via registers |
@@ -33,7 +33,7 @@
 | BME280 / SHT3x datasheet | I²C addresses, accuracy, self-heating | Choosing and calibrating an environment sensor |
 | I²C-bus specification (NXP, UM10204) | Addressing, clock stretching, open-drain | The definitive reference behind Module 2 |
 
-> Reminder: the datasheet is a **measurement document**. Every performance number has conditions attached — read them.
+> Reminder: the datasheet is a measurement document. Every performance number has conditions attached — read them.
 
 ## 🗺️ Cheat Sheets & Quick References
 
@@ -75,7 +75,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 
 ## 🧰 Troubleshooting Quick Drops
 
-| **Symptom** | **Likely cause** | **Fix** | **Module** |
+| Symptom | Likely cause | Fix | Module |
 |---|---|---|---|
 | I²C scan finds nothing | Wiring, power, or missing pull-ups | Check SDA/SCL/power/GND; confirm pull-ups; try 100 kHz | 2 |
 | Device found at an unexpected address | 8-bit vs. 7-bit confusion | Shift the address (`0x3C → 0x78`) or trust the scan | 2 |
@@ -95,7 +95,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 
 ## 📚 Software & Library Landmarks
 
-| **Use case** | **Tool / library** | **Notes** |
+| Use case | Tool / library | Notes |
 |---|---|---|
 | ESP32/ESP8266 development | Arduino IDE v2, PlatformIO | Pick one and stay consistent |
 | Declarative deployment | [IoTempower](https://github.com/iotempire/iotempower) | Drivers, filters, OTA deploy |

@@ -3,22 +3,22 @@
 [← Back to Module 5](./05-wireless-technologies-and-espnow.md) | [Quick module index](./00-index.md) | [Next: Module 7 →](./07-fleet-management-and-iotempower.md)
 
 > [!NOTE]
-> **Mostly conceptual — industrial hardware is usually unavailable.** We normally do not have industrial gear (PLCs, Modbus meters, OPC-UA servers) in the lab, so this module is primarily a **conceptual tour**. Hands-on work is **optional and mostly simulated**; real **RS-485** devices (if we have any) are the closest genuine Modbus experience. Learn what these protocols *are* and how they would bridge into IoT — you are not expected to own a factory.
+> Mostly conceptual — industrial hardware is usually unavailable. We normally do not have industrial gear (PLCs, Modbus meters, OPC-UA servers) in the lab, so this module is primarily a conceptual tour. Hands-on work is optional and mostly simulated; real RS-485 devices (if we have any) are the closest genuine Modbus experience. Learn what these protocols *are* and how they would bridge into IoT — you are not expected to own a factory.
 
 ## 🎯 Learning Goals
 
-> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
-This module gives you the opportunity to explore **industrial interoperability** and achieve competency in **the concepts of Modbus, OPC-UA, RS-485, and deterministic/real-time networking, plus (optionally) a simulated bridge into MQTT**.
+This module gives you the opportunity to explore industrial interoperability and achieve competency in the concepts of Modbus, OPC-UA, RS-485, and deterministic/real-time networking, plus (optionally) a simulated bridge into MQTT.
 
 By the end of this module, you can:
-1. Explain why **Modbus and OPC-UA** dominate industrial automation, factory floors, and energy grids.
-2. Describe the principles of **deterministic industrial networking**, field buses (RS-485, CAN, Profinet), and **Time-Sensitive Networking (TSN)**.
+1. Explain why Modbus and OPC-UA dominate industrial automation, factory floors, and energy grids.
+2. Describe the principles of deterministic industrial networking, field buses (RS-485, CAN, Profinet), and Time-Sensitive Networking (TSN).
 3. Contrast the register/tag-based industrial paradigm with the topic-based pub/sub model of modern IoT.
-4. *(Optional)* Build a simulated **Industrial-to-IoT Edge Bridge** in Python or Node-RED that translates Modbus/OPC-UA into MQTT telemetry.
+4. *(Optional)* Build a simulated Industrial-to-IoT Edge Bridge in Python or Node-RED that translates Modbus/OPC-UA into MQTT telemetry.
 
 > [!WARNING]
-> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
@@ -26,25 +26,25 @@ By the end of this module, you can:
 
 ### 1. The Legacy Factory Floor: Modbus (RTU & TCP)
 Developed in 1979 by Modicon, Modbus is still the most ubiquitous protocol in industrial sensors, PLCs, solar inverters, and power meters:
-- **Master/Slave (Client/Server) Architecture:** The Master polls; slaves never speak unless asked.
-- **Register-Based Memory Model:**
-  - **Discrete Inputs (1 bit, Read-Only):** Digital sensors.
-  - **Coils (1 bit, Read/Write):** Relays, solenoid valves.
-  - **Input Registers (16 bit, Read-Only):** Analog measurements.
-  - **Holding Registers (16 bit, Read/Write):** Configuration parameters, setpoints.
-- **Modbus RTU:** Serial over RS-485 with CRC16 checksum.
-- **Modbus TCP:** Encapsulates the Modbus frame inside standard TCP (port 502).
+- Master/Slave (Client/Server) Architecture: The Master polls; slaves never speak unless asked.
+- Register-Based Memory Model:
+  - Discrete Inputs (1 bit, Read-Only): Digital sensors.
+  - Coils (1 bit, Read/Write): Relays, solenoid valves.
+  - Input Registers (16 bit, Read-Only): Analog measurements.
+  - Holding Registers (16 bit, Read/Write): Configuration parameters, setpoints.
+- Modbus RTU: Serial over RS-485 with CRC16 checksum.
+- Modbus TCP: Encapsulates the Modbus frame inside standard TCP (port 502).
 
 ### 2. The Modern Industrial Standard: OPC-UA (IEC 62541)
 OPC Unified Architecture (OPC-UA) replaces brittle register tables with rich, object-oriented semantics:
-- **Information Model & Address Space:** Every sensor, motor, and machine is represented as a structured object node with metadata, engineering units (`°C`, `bar`), data types, and timestamps.
-- **Built-in Security:** Certificate-based authentication, integrity signing, and payload encryption.
-- **Transport:** Standardized binary protocol over TCP (`opc.tcp://host:4840`) or WebSockets, with emerging Pub/Sub extensions over UDP/TSN.
+- Information Model & Address Space: Every sensor, motor, and machine is represented as a structured object node with metadata, engineering units (`°C`, `bar`), data types, and timestamps.
+- Built-in Security: Certificate-based authentication, integrity signing, and payload encryption.
+- Transport: Standardized binary protocol over TCP (`opc.tcp://host:4840`) or WebSockets, with emerging Pub/Sub extensions over UDP/TSN.
 
 ### 3. Real-Time Ethernet & Time-Sensitive Networking (TSN)
-Standard Ethernet and Wi-Fi are **best-effort**: CSMA/CD and CSMA/CA allow collisions and indeterminate queueing delay.
-- In robotics and precision manufacturing, a control loop requires **bounded latency and microsecond jitter**.
-- Solutions include proprietary real-time Ethernet (EtherCAT, Profinet IRT) and standardized **IEEE 802.1 TSN (Time-Sensitive Networking)**, which introduces time-aware traffic shapers (IEEE 802.1Qbv) to guarantee scheduled bandwidth for critical control frames alongside regular IT traffic.
+Standard Ethernet and Wi-Fi are best-effort: CSMA/CD and CSMA/CA allow collisions and indeterminate queueing delay.
+- In robotics and precision manufacturing, a control loop requires bounded latency and microsecond jitter.
+- Solutions include proprietary real-time Ethernet (EtherCAT, Profinet IRT) and standardized IEEE 802.1 TSN (Time-Sensitive Networking), which introduces time-aware traffic shapers (IEEE 802.1Qbv) to guarantee scheduled bandwidth for critical control frames alongside regular IT traffic.
 
 ```text
 [Factory PLC / Sensor]
@@ -60,7 +60,7 @@ Standard Ethernet and Wi-Fi are **best-effort**: CSMA/CD and CSMA/CA allow colli
 
 ## 🛠️ Optional Lab: Bridging Industry to the Cloud (simulated)
 
-*No tedious C++ compilation on microcontrollers — and no industrial hardware required.* These are **stretcher tasks**: we implement clean, educational edge bridging on the gateway/laptop using Python and Node-RED, mostly against **simulated** Modbus/OPC-UA servers. If you have a real **RS-485** device (for example a Modbus RTU meter) and a USB-RS485 adapter, that is the closest genuine experience and makes a great bonus task.
+*No tedious C++ compilation on microcontrollers — and no industrial hardware required.* These are stretcher tasks: we implement clean, educational edge bridging on the gateway/laptop using Python and Node-RED, mostly against simulated Modbus/OPC-UA servers. If you have a real RS-485 device (for example a Modbus RTU meter) and a USB-RS485 adapter, that is the closest genuine experience and makes a great bonus task.
 
 ### ◇ Task 1 (Stretcher): Simulating an Industrial Modbus Power Meter (20 min)
 
@@ -142,11 +142,11 @@ Run the bridge and verify in Node-RED or MQTT Explorer that the industrial regis
 ## 📝 Working-Day Reflection & Portfolio Tasks
 
 In your portfolio under `modules/06-industrial-protocols/`:
-1. **Protocol Translation Matrix** *(recommended)*: Compare **Modbus TCP**, **OPC-UA**, and **MQTT**:
+1. Protocol Translation Matrix *(recommended)*: Compare Modbus TCP, OPC-UA, and MQTT:
    - Data model (registers vs. objects/tags vs. topic payloads)
    - Read/Write model (polling vs. events/pub-sub)
    - Security features
    - Primary deployment domain
-2. **Real-Time Reflection** *(recommended)*: Why cannot standard Wi-Fi or standard TCP/IP be used for microsecond-precise motion control in a factory, and how does TSN address this?
-3. *(Optional)* **Bridge Architecture & Code:** Include your bridge script and a diagram showing how the edge gateway bridges the factory domain to the IT/IoT domain.
-4. *(Optional, bonus)* **Real RS-485/Modbus:** If you have an RS-485 device, document reading it (physical layer, wiring, adapter, registers) and bridging it to MQTT.
+2. Real-Time Reflection *(recommended)*: Why cannot standard Wi-Fi or standard TCP/IP be used for microsecond-precise motion control in a factory, and how does TSN address this?
+3. *(Optional)* Bridge Architecture & Code: Include your bridge script and a diagram showing how the edge gateway bridges the factory domain to the IT/IoT domain.
+4. *(Optional, bonus)* Real RS-485/Modbus: If you have an RS-485 device, document reading it (physical layer, wiring, adapter, registers) and bridging it to MQTT.

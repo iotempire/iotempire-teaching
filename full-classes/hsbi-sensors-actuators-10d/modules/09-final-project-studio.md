@@ -6,19 +6,19 @@
 
 ## 🎯 Learning Goals
 
-> **How these are assessed:** You earn this module's points by **proving these goals** in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
-This module gives you the opportunity to explore **sensor/actuator system engineering** and achieve competency in **requirement mapping, sensor characterization and evaluation, and resilience testing**.
+This module gives you the opportunity to explore sensor/actuator system engineering and achieve competency in requirement mapping, sensor characterization and evaluation, and resilience testing.
 
 By the end of this module, you can:
-1. Turn a stakeholder **story** into a concrete sensor/actuator architecture with explicit requirements.
+1. Turn a stakeholder story into a concrete sensor/actuator architecture with explicit requirements.
 2. Build and integrate a working sensor/actuator system on the local-first stack.
-3. **Characterize and evaluate** the system: transfer function, resolution/uncertainty, actuator performance, and at least one system metric.
-4. Perform **fault injection** and show that the system degrades gracefully.
-5. Conduct a structured **peer review and dry run** of your demonstration.
+3. Characterize and evaluate the system: transfer function, resolution/uncertainty, actuator performance, and at least one system metric.
+4. Perform fault injection and show that the system degrades gracefully.
+5. Conduct a structured peer review and dry run of your demonstration.
 
 > [!WARNING]
-> **DRAFT — first taught in WS 2026/27.** Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
@@ -40,7 +40,7 @@ The project is a short engineering sprint, not a single lab:
 [Defend]         Module 10: live demo + portfolio defense
 ```
 
-Sessions are **open-ended by design**. If you finish a milestone early, harden the system, take more measurements, or help a neighboring team (which counts toward bonus points).
+Sessions are open-ended by design. If you finish a milestone early, harden the system, take more measurements, or help a neighboring team (which counts toward bonus points).
 
 ## 📖 The Final Project Architecture Stack
 
@@ -63,7 +63,7 @@ Sessions are **open-ended by design**. If you finish a milestone early, harden t
 =========================================================================
 ```
 
-A strong project uses each layer it includes **deliberately** and can defend the choice.
+A strong project uses each layer it includes deliberately and can defend the choice.
 
 ## 🛠️ Studio Labs
 
@@ -71,59 +71,59 @@ A strong project uses each layer it includes **deliberately** and can defend the
 
 ### Task 1: Project Kickoff — Story, Team & Requirements (45 min)
 
-1. **Craft a story** around a real stakeholder (a person with a name and a problem). Start from your pre-study abstract and refine it. It must be **playable and pitchable**.
-2. **Pitch to a neighboring team (2×5 min)** and note their questions.
-3. **Form your team of 2–4** and document individual roles and contributions in each portfolio. If a team wants to continue an earlier project of their own instead of starting fresh, agree on this with the instructor — it is a possibility, not the default.
-4. **Map requirements** onto the final-project must-haves (see the syllabus): which sensors (with which bus/addresses), which actuator, which characterization you will perform, which integration, which resilience test.
+1. Craft a story around a real stakeholder (a person with a name and a problem). Start from your pre-study abstract and refine it. It must be playable and pitchable.
+2. Pitch to a neighboring team (2×5 min) and note their questions.
+3. Form your team of 2–4 and document individual roles and contributions in each portfolio. If a team wants to continue an earlier project of their own instead of starting fresh, agree on this with the instructor — it is a possibility, not the default.
+4. Map requirements onto the final-project must-haves (see the syllabus): which sensors (with which bus/addresses), which actuator, which characterization you will perform, which integration, which resilience test.
 
 ### Task 2: Build and Integrate (milestones across sessions)
 
 Verify your system against the must-haves:
 
-1. **Two sensors, at least one I²C**, both identified by address in your documentation.
-2. **One actuator that physically acts** — motor/servo/stepper or an addressable LED installation.
-3. **One IoTempower filter** for processing.
-4. **Node-RED dashboard** with display **and** control, plus one closed-loop/rule-based behavior.
-5. **Safety and interlocks:** a defined safe state and at least one limit (max duty, timeout, or limit switch).
+1. Two sensors, at least one I²C, both identified by address in your documentation.
+2. One actuator that physically acts — motor/servo/stepper or an addressable LED installation.
+3. One IoTempower filter for processing.
+4. Node-RED dashboard with display and control, plus one closed-loop/rule-based behavior.
+5. Safety and interlocks: a defined safe state and at least one limit (max duty, timeout, or limit switch).
 
 ### Task 3: Characterize and Evaluate (60 min)
 
 This is what distinguishes a Sensors-and-Actuators project from a generic IoT project.
 
-1. **Sensor characterization:** determine the **transfer function** (or a calibration table) of at least one sensor from your own reference measurements; report **resolution** and a simple **uncertainty** (Module 3).
-2. **Actuator performance:** measure what the actuator actually does — speed, torque/force proxy, current, and the **stall/limit** behavior (Module 7).
-3. **System metrics:** pick and measure at least one — sampling rate, end-to-end **latency**, current consumption, or robustness to noise/interference.
+1. Sensor characterization: determine the transfer function (or a calibration table) of at least one sensor from your own reference measurements; report resolution and a simple uncertainty (Module 3).
+2. Actuator performance: measure what the actuator actually does — speed, torque/force proxy, current, and the stall/limit behavior (Module 7).
+3. System metrics: pick and measure at least one — sampling rate, end-to-end latency, current consumption, or robustness to noise/interference.
 4. Present the results as a small table/plot with conditions stated.
 
 ### Task 4: Fault Injection & Resilience Testing (30 min)
 
 Intentionally break things and document the recovery:
 
-- **Test A (sensor fault):** disconnect the I²C sensor. Does the node stay alive and report a fault?
-- **Test B (noise/interference):** introduce noise (motor running, longer wires, a light source) and show how your filtering/characterization copes.
-- **Test C (actuator limit):** block the motor/servo. Does current rise, and does your interlock/timeout react safely?
-- **Test D (broker restart):** restart Mosquitto. Do node and dashboard reconnect and resubscribe?
+- Test A (sensor fault): disconnect the I²C sensor. Does the node stay alive and report a fault?
+- Test B (noise/interference): introduce noise (motor running, longer wires, a light source) and show how your filtering/characterization copes.
+- Test C (actuator limit): block the motor/servo. Does current rise, and does your interlock/timeout react safely?
+- Test D (broker restart): restart Mosquitto. Do node and dashboard reconnect and resubscribe?
 
 ### Task 5: Peer Review & Dry Run Rehearsal (40 min)
 
 Pair with another team for a reciprocal dry run:
 
 #### Presenting Team (5 min):
-1. **Story (1 min):** problem, users, and value.
-2. **Architecture (2 min):** sensors (bus/addresses), actuator, drivers, data path.
-3. **Live demo (2 min):** measure a real quantity and make the actuator respond; show one characterization result.
+1. Story (1 min): problem, users, and value.
+2. Architecture (2 min): sensors (bus/addresses), actuator, drivers, data path.
+3. Live demo (2 min): measure a real quantity and make the actuator respond; show one characterization result.
 
 #### Reviewing Team (5 min, against the rubric):
-- **Measurement quality:** is the characterization credible, with units, conditions, and uncertainty?
-- **Robustness:** what happens under the fault-injection tests?
-- **Evidence:** are wiring, addresses, transfer functions, and metrics documented in the portfolio?
+- Measurement quality: is the characterization credible, with units, conditions, and uncertainty?
+- Robustness: what happens under the fault-injection tests?
+- Evidence: are wiring, addresses, transfer functions, and metrics documented in the portfolio?
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 
 In your portfolio under `modules/09-final-project-studio/`:
-1. **Kickoff story** and the requirement-to-must-have mapping.
-2. **System architecture diagram:** sensors (with bus/addresses), conditioning, actuator + driver, node, data path.
-3. **Characterization report:** transfer function/calibration, resolution, uncertainty.
-4. **Evaluation report:** actuator performance and at least one system metric.
-5. **Fault-injection log** for the four tests.
-6. **Peer feedback log** and the concrete changes you will make before the final defense.
+1. Kickoff story and the requirement-to-must-have mapping.
+2. System architecture diagram: sensors (with bus/addresses), conditioning, actuator + driver, node, data path.
+3. Characterization report: transfer function/calibration, resolution, uncertainty.
+4. Evaluation report: actuator performance and at least one system metric.
+5. Fault-injection log for the four tests.
+6. Peer feedback log and the concrete changes you will make before the final defense.
