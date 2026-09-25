@@ -281,6 +281,7 @@ convert_with_chromium() {
         --no-default-browser-check \
         --user-data-dir="$browser_profile" \
         --print-to-pdf="$final_pdf" \
+        --no-pdf-header-footer \
         --print-to-pdf-no-header \
         "file://$staged_html"
 }
@@ -290,12 +291,36 @@ convert_with_pandoc_latex() {
     local final_pdf="$2"
     local pdf_engine="$3"
 
+    # Serif article typography (the publication-friendly default), but tuned so
+    # an announcement does not look sparse: 11pt, comfortable margins and
+    # line spacing, and clearly visible links. When DejaVu Serif is installed we
+    # pin it (xelatex/lualatex only, via fontspec) because Latin Modern lacks
+    # glyphs such as U+2248 '≈'.
+    local -a font_args=()
+    case "$pdf_engine" in
+        xelatex|lualatex)
+            if command -v fc-list >/dev/null 2>&1 && \
+               fc-list : family 2>/dev/null | grep -qi 'DejaVu Serif'; then
+                font_args=(-V "mainfont=DejaVu Serif")
+            fi
+            ;;
+    esac
+
     pandoc \
         --from=gfm \
         --to=pdf \
         --pdf-engine="$pdf_engine" \
         --pdf-engine-opt=-interaction=nonstopmode \
         --pdf-engine-opt=-halt-on-error \
+        -V documentclass=article \
+        -V fontsize=11pt \
+        -V geometry:margin=2.4cm \
+        -V linestretch=1.15 \
+        -V colorlinks=true \
+        -V linkcolor=blue \
+        -V urlcolor=blue \
+        -V toccolor=blue \
+        "${font_args[@]+"${font_args[@]}"}" \
         --output "$final_pdf" \
         "$staged_source"
 }

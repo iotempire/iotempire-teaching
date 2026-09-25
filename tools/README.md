@@ -11,6 +11,15 @@ inside that class's `lms-announcements/` directory (which is gitignored).
 next to each PDF. If LibreOffice is unavailable, the script falls back to
 Pandoc → styled HTML → headless Chromium, then to Pandoc with XeLaTeX/pdfLaTeX.
 
+Engine notes:
+
+- **Chromium** prints with the browser header/footer suppressed (no date/title
+  banner and no `file://…` URL), using the class stylesheet.
+- **Pandoc + LaTeX** uses a tuned serif article layout (11 pt, 2.4 cm margins,
+  1.15 line spacing, colored links) so announcements do not look sparse. When
+  `DejaVu Serif` is installed it is pinned as the main font (XeLaTeX/LuaLaTeX
+  only), which also covers glyphs like `≈` that Latin Modern lacks.
+
 ### From a class folder (recommended)
 
 Each class ships a thin wrapper with the class directory and filename prefix
