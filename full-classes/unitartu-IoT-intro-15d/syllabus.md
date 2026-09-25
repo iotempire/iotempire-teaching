@@ -58,7 +58,7 @@ In this course, **you won’t just watch demos—you’ll lift the hood, break t
 
 Each project is a **live demo**: sensors arriving in your lab kit, Node-RED flows that flip LEDs, and systems that respond to emergencies. Every week, you’ll leave with working hardware in your hands and a new hacking story.
 
-Finally, you’ll **demo your capstone**: a live five-node IoT system, complete with documentation, dashboards, and a public showcase ready for your portfolio.
+Finally, you’ll **demo your final project**: a live five-node IoT system, complete with documentation, dashboards, and a public showcase ready for your portfolio.
 
 ---
 
@@ -155,7 +155,7 @@ All project code, logs, and reflections must be published to your GitHub portfol
 | 13–15| Module 6 | **Scale systems**: IoTempower deployments, monitoring, multi‑node orchestration |
 | 16   | Module 7 | Final **project showcase & presentations**                               |
 
-Each module pairs mini-lecture, lab, guided setup, and reflective writing, building toward your capstone.
+Each module pairs mini-lecture, lab, guided setup, and reflective writing, building toward your final project.
 
 ---
 

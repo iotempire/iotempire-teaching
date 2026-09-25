@@ -1,4 +1,4 @@
-# Module 8 – Capstone Project Studio: Strategy, Integration & Resilience
+# Module 8 – Final Project Studio: Strategy, Integration & Resilience
 
 [← Back to Module 7](./07-fleet-management-and-iotempower.md) | [Quick module index](./00-index.md) | [Next: Module 9 →](./09-demonstrations-and-defense.md)
 
@@ -14,9 +14,9 @@ This module gives you the opportunity to explore **systems integration and resil
 
 By the end of this module, you can:
 1. Turn a **stakeholder story** into a concrete networked IoT system architecture with explicit roles and interfaces.
-2. Synthesize all networking, messaging, and hardware layers into an integrated **Capstone IoT Architecture**.
+2. Synthesize all networking, messaging, and hardware layers into an integrated **Final Project IoT Architecture**.
 3. Perform **fault-injection testing and resilience validation**: verify how the system behaves under network partition, packet loss, or node failure.
-4. Conduct a structured **peer review and rehearsal** of your capstone demonstration.
+4. Conduct a structured **peer review and rehearsal** of your final project demonstration.
 5. Refine your system documentation and live demonstration script for the final defense.
 
 > [!WARNING]
@@ -55,7 +55,7 @@ A toy IoT project works only when every component is connected under ideal condi
 - What happens when an unexpected payload arrives at the Node-RED or Python integration bridge?
 
 ```text
-======================= CAPSTONE ARCHITECTURE STACK =======================
+======================= FINAL PROJECT ARCHITECTURE STACK =======================
 
 [Edge Layer]         M5Stack Nodes (ESP-NOW micro-mesh / Wi-Fi)
                            |
@@ -88,13 +88,13 @@ You do **not** have to use every layer. A strong project uses each layer it incl
 2. **Pitch to a neighboring team (2×5 min):** present the story, take notes on their questions.
 3. **Discuss feasibility (10 min):** what can you build with the kit, what must be mocked, and what integration is needed?
 4. **Form your team of 2–4** and document individual roles and contributions in each personal portfolio.
-5. **Map requirements** onto the capstone must-haves (see the syllabus): which nodes, which network layers, which messaging, which integration, which resilience test will you demonstrate?
+5. **Map requirements** onto the final project must-haves (see the syllabus): which nodes, which network layers, which messaging, which integration, which resilience test will you demonstrate?
 
 ---
 
 ### Task 2: Complete System Integration (45 min)
 
-Verify that your system meets the Capstone Must-Haves:
+Verify that your system meets the Final Project Must-Haves:
 1. **Multi-Node:** At least 4 independent physical nodes active (e.g. 2 M5Stack nodes, 1 OpenWrt router, 1 laptop/edge server).
 2. **Multi-Network:** At least two distinct communication/networking layers working together (e.g. ESP-NOW → Wi-Fi gateway; a Nebula/Yggdrasil overlay; or, optionally, an OpenWrt B.A.T.M.A.N. mesh).
 3. **Structured MQTT Topics:** Clear, documented hierarchy with QoS, Retain for state topics, and LWT for node health.
@@ -133,8 +133,8 @@ Pair with another team for a 15-minute reciprocal dry run:
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 
-In your portfolio under `modules/08-capstone-studio/`:
+In your portfolio under `modules/08-final-project-studio/`:
 1. **Kickoff Story:** Your stakeholder story, target users, team roles, and the requirement-to-must-have mapping.
-2. **Capstone Architecture Diagram:** Detailed schematic of your integrated system showing physical hardware, network interfaces, IP/overlay addressing, and protocol flows.
+2. **Final Project Architecture Diagram:** Detailed schematic of your integrated system showing physical hardware, network interfaces, IP/overlay addressing, and protocol flows.
 3. **Fault-Injection Test Report:** Document the results of your three resilience tests (Link Drop, Node Loss, Broker Restart) with log snippets or screenshots.
 4. **Peer Feedback Log:** Summarize the feedback received from your review team and the concrete adjustments you are making for the final defense.

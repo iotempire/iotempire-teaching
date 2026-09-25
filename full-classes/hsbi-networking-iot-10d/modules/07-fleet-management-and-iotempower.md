@@ -1,6 +1,6 @@
 # Module 7 – Fleet Management & Scaling with IoTempower
 
-[← Back to Module 6](./06-industrial-protocols-and-bridging.md) | [Quick module index](./00-index.md) | [Next: Module 8 →](./08-capstone-project-studio.md)
+[← Back to Module 6](./06-industrial-protocols-and-bridging.md) | [Quick module index](./00-index.md) | [Next: Module 8 →](./08-final-project-studio.md)
 
 ---
 

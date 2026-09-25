@@ -1,6 +1,6 @@
 # Module 10 – Demonstration & Portfolio Defense
 
-[← Back to Module 9](./09-capstone-project-studio.md) | [Quick module index](./00-index.md)
+[← Back to Module 9](./09-final-project-studio.md) | [Quick module index](./00-index.md)
 
 > The final session: you demonstrate a characterized sensor/actuator system and defend the engineering behind it.
 
@@ -48,7 +48,7 @@ By the end of this module, you can:
 
 ---
 
-## 📋 Capstone Assessment Rubric (5 Points)
+## 📋 Final Project Assessment Rubric (5 Points)
 
 | Criteria | Max Points | Expectations |
 |---|:---:|---|
@@ -70,7 +70,7 @@ Ensure your personal GitHub portfolio includes all required evidence before fina
 - [ ] **Module 6:** Animation engine structure, effect videos/photos, sensor/sound interaction, installation-constraints note.
 - [ ] **Module 7:** Servo evidence and currents, H-bridge truth table and stall current, stepper results, sensor→motor logic.
 - [ ] **Module 8:** IoTempower node definition, MQTT topics, filter evidence, Node-RED flow export and dashboard, fault-injection report.
-- [ ] **Modules 9 & 10:** Capstone architecture diagram, characterization and evaluation reports, fault-injection log, presentation slides/script, and final retrospective.
+- [ ] **Modules 9 & 10:** Final Project architecture diagram, characterization and evaluation reports, fault-injection log, presentation slides/script, and final retrospective.
 - [ ] **Working-Day Reflections:** Complete entries for every working day.
 
 ---
@@ -88,5 +88,5 @@ You have developed practical mastery of:
 
 ### Next Steps:
 - Continue with the IoTempire ecosystem: [iotempire.net](https://iotempire.net/) and [github.com/iotempire/iotempower](https://github.com/iotempire/iotempower).
-- Extend your capstone toward the announcement's larger ideas: a **flow sensor with light barriers**, a **Hall-effect power monitor**, an **interactive LED installation**, or a **music-synchronized fountain**.
+- Extend your final project toward the announcement's larger ideas: a **flow sensor with light barriers**, a **Hall-effect power monitor**, an **interactive LED installation**, or a **music-synchronized fountain**.
 - If you continue into a bachelor thesis or project, your characterization and evaluation documentation is exactly the material that turns a prototype into a credible engineering result.

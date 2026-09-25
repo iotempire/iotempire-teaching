@@ -111,7 +111,7 @@ Every lab in this course is one link of this chain. When something does not work
 
 The goal is to experience the complete loop immediately, using the fast path.
 
-1. **Power up your local gateway/broker** (a small OpenWrt router or Linux/Raspberry Pi host running Mosquitto + Node-RED, the same kind of local-first setup you used in *Networking and IoT-Lösungen*; ≥2 A USB supply — not your laptop port). Connect your laptop and open the Node-RED dashboard.
+1. **Power up your local gateway/broker** (a small OpenWrt router or Linux/Raspberry Pi host running Mosquitto + Node-RED; ≥2 A USB supply — not your laptop port). Connect your laptop and open the Node-RED dashboard.
 2. **Deploy an IoTempower node:** in a fresh system, declare a node with a Grove environment or light sensor, for example:
    ```cpp
    // setup.cpp — declarative IoTempower node

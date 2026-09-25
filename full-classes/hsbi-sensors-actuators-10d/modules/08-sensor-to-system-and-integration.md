@@ -1,6 +1,6 @@
 # Module 8 – From Sensor to System: IoTempower & Integration
 
-[← Back to Module 7](./07-motors-and-motion-actuators.md) | [Quick module index](./00-index.md) | [Next: Module 9 →](./09-capstone-project-studio.md)
+[← Back to Module 7](./07-motors-and-motion-actuators.md) | [Quick module index](./00-index.md) | [Next: Module 9 →](./09-final-project-studio.md)
 
 > **A characterized sensor and a working actuator are still not a product.** Today they become a deployed system: declared in IoTempower, published over MQTT, shown and controlled in Node-RED, and closed into a control loop.
 
@@ -46,7 +46,7 @@ This is where the measurement theory of Module 3 becomes an operational, declara
 
 ## 📖 Part C — Integration and Control
 
-- **MQTT topics** publish data and receive commands; the broker decouples sensor nodes, dashboard, and actuators (same local-first stack as *Networking and IoT Solutions*).
+- **MQTT topics** publish data and receive commands; the broker decouples sensor nodes, dashboard, and actuators in a local-first stack.
 - **Node-RED** turns a stream into a dashboard gauge/chart, a rule, or a control command.
 - **Closed-loop control** makes the system *act on what it measures*. Start simple:
   - **On/off control** with **hysteresis** (a dead band) — the robust default (e.g. fan on above 30 °C, off below 28 °C).
@@ -55,7 +55,7 @@ This is where the measurement theory of Module 3 becomes an operational, declara
 
 ## 📖 Part D — Failure Modes to Expect
 
-Design for these — you will test some of them today and during the capstone:
+Design for these — you will test some of them today and during the final project:
 
 - An **I²C sensor** stops answering (NACK) → does the node keep running, retry, and report "sensor fault"?
 - An **actuator** is blocked or disconnected → does current/behavior reveal it, and does the logic fail safe?
@@ -110,7 +110,7 @@ Design for these — you will test some of them today and during the capstone:
    - **Sensor fault:** unplug the I²C sensor; does the node keep running and report a fault?
    - **Actuator stall:** block a motor/servo; observe current/behavior and any timeout.
    - **Broker restart:** restart Mosquitto; do the node and the dashboard reconnect and resubscribe?
-3. Document each recovery (or missing recovery) — these are the seeds of the capstone's resilience test.
+3. Document each recovery (or missing recovery) — these are the seeds of the final project's resilience test.
 
 ---
 

@@ -51,9 +51,9 @@ Instead of memorizing a catalogue of principles, you will:
 - **Understand the bus before the device.** Most modern sensors hang on **I²C**, and the first real skill is understanding *addresses*, register maps, pull-ups, and how several devices share one pair of wires. We go to the bus early — a scanner is more educational than a library.
 - **Characterize what you measure.** You will determine real **transfer functions**, **linearity**, **hysteresis**, **resolution**, and **uncertainty** for sensors you can hold, and you will calibrate and filter them.
 - **Build real sensor and actuator systems.** Distance and motion sensing (ToF, ultrasonic, IMU), current and flow sensing (Hall, light barriers), and modern actuators: **servo and other motors**, relays, and above all **LEDs and LED animation** — from a single PWM fade to an interactive, sound-reactive installation.
-- **Connect it to a system.** Building on the local-first stack from *Networking and IoT Solutions*, your sensor/actuator node becomes part of an **IoTempower**-managed, MQTT-connected system with a Node-RED dashboard and a closed control loop.
+- **Connect it to a system.** Your sensor/actuator node becomes part of a local-first **IoTempower**-managed, MQTT-connected system with a Node-RED dashboard and a closed control loop.
 
-This gives you both: the measurement competence that a sensor engineer needs, and the practical, documented system-building habits of the other IoTempire courses. You will measure with a multimeter and a data sheet *and* flash, deploy, and animate.
+This gives you both: the measurement competence that a sensor engineer needs, and the practical, documented system-building habits of modern IoT work. You will measure with a multimeter and a data sheet *and* flash, deploy, and animate.
 
 > [!IMPORTANT]
 > **Local-first, buildable, documented.** The course is designed around hardware you actually have: M5Stack nodes with Grove modules for the fast path, and raw ESP32/ESP8266 plus breadboard parts when physics matters. Cloud services are optional; everything core runs on the local network.
@@ -95,20 +95,20 @@ By the end of this course, you will be able to:
 - **Total Workload:** 150 hours (5 ECTS credits).
   - In-person lab and seminar contact: 48 hours.
   - Independent preparation and pre-study (Module 0): approx. 30 hours allocated (3–6 hours for the compulsory core).
-  - Guided self-study, portfolio documentation, and capstone project: approx. 72 hours.
+  - Guided self-study, portfolio documentation, and final project: approx. 72 hours.
 
 ### Prerequisites & Relationship to Other Modules
 
 - **Formal:** none beyond course registration.
 - **Content:** mathematical and technical fundamentals (basic algebra, physical units, basic electronics help); ability to work with Git, a terminal, and a markup language is expected, as in the other IoT courses.
-- **Recommended prior course:** *Vernetzung und IoT-Lösungen* (Networking and IoT Solutions, 4th semester). This elective is taken later (6th semester) and **adds the physical layer** to that foundation: the node, the local network, the MQTT broker, Node-RED, and IoTempower are already familiar, so this course can concentrate on sensors, characterization, and actuators. Students who have not taken it can still participate; the course reintroduces the small amount of infrastructure it needs.
-- **Shared project (optional, by agreement):** The two modules are no longer taught in parallel, so a shared capstone with *Vernetzung und IoT-Lösungen* is **not the default**. If a team would like to continue the project they built there — or another earlier IoT project — they are very welcome to: **just talk to the instructor**, and we will agree on the scope and on how the Sensorik-und-Aktorik part is deepened (separate grades are given for each module). Otherwise, the capstone is a self-contained sensor/actuator project.
+- **Standalone elective:** *Sensorik und Aktorik* is a **6th-semester elective (Wahlmodul)** that stands on its own — it neither requires nor continues a specific earlier module. It concentrates on the *physical* side of IoT — what a sensor really measures and how an actuator really moves — and introduces the small amount of local-first infrastructure it uses (a node, a local MQTT broker, Node-RED) within the course itself.
+- **Building on an earlier project (optional, by agreement):** the final project is **self-contained by default**. If you would like to continue an earlier project of your own, that is very welcome — **just talk to the instructor**, and we will agree on the scope and on how the sensors/actuators part is deepened (each module is graded separately).
 
 ---
 
 ## Assessment: Kombinationsprüfung (20 Base Points + Bonus)
 
-Assessment is conducted as a **Kombinationsprüfung** combining continuous portfolio documentation, laboratory and measurement work, working-day reflections, and a final capstone project.
+Assessment is conducted as a **Kombinationsprüfung** combining continuous portfolio documentation, laboratory and measurement work, working-day reflections, and a final project.
 
 > [!IMPORTANT]
 > **Module 0 is required and worth 1 module point.** Before the first session, set up your personal GitHub portfolio using the course template and complete the pre-study tasks outlined in [pre-study.md](./pre-study.md), including the Wokwi mini-exercise. Module 0 is assessed during the second session.
@@ -120,7 +120,7 @@ Assessment is conducted as a **Kombinationsprüfung** combining continuous portf
 | **Module 0 (Pre-Study)** | **1 point** | Portfolio setup, Wokwi simulation, datasheet reading, and answers to guiding questions. |
 | **Modules 1–8 (Learning goals)** | **10 points** | Earned through **checkpoint presentations** (~10 min each, covering 2–3 modules) that prove the module learning goals from your portfolio and reflections — not by completing every task. Lab evidence: measurement, I²C scan and register reads, sensor characterization, distance/motion labs, LED and animation labs, motor control, IoTempower integration. |
 | **Working-Day Reflections** | **4 points** | Individual reflections submitted for each working day/session documenting measurements, failed attempts, and conceptual takeaways. |
-| **Final Capstone Project** | **5 points** | 25% of the base score. A documented sensor/actuator system with real characterization, an actuator demonstration, and an integration layer. |
+| **Final Project** | **5 points** | 25% of the base score. A documented sensor/actuator system with real characterization, an actuator demonstration, and an integration layer. |
 | **Base Total** | **20 points** | **100% base score.** |
 | **Extra / Bonus Points** | **Up to 3 points** | Awarded for outstanding contributions, peer mentoring, advanced stretcher tasks, or accepted upstream pull requests to IoTempower or this curriculum repository. |
 
@@ -169,7 +169,7 @@ The kit is deliberately **two-layered**, so you can move fast and still meet rea
 - **Instruments:**
   - Digital multimeter, USB power meter, thermometer for reference measurements.
   - Optional: USB logic analyzer (for I²C/PWM/WS2812 traces), oscilloscope if available.
-- **Gateway & infrastructure (local-first, as in Networking and IoT Solutions):**
+- **Gateway & infrastructure (local-first):**
   - A local OpenWrt travel router or a small Linux/Raspberry Pi host running Mosquitto and Node-RED; laptops; USB power supplies and hubs.
 - **Software:** Arduino IDE v2 or PlatformIO, IoTempower, Node-RED, Mosquitto, `i2c-tools`, FastLED, Wokwi (browser).
 
@@ -180,9 +180,9 @@ The kit is deliberately **two-layered**, so you can move fast and still meet rea
 
 ## 10-Day Course Schedule
 
-The 10 days correspond to the 12 4-hour sessions across the semester. Modules 1–8 deliver the technical foundations; the capstone arc (Modules 9–10) spans the remaining studio sessions so there is genuine build, characterization, and rehearsal time.
+The 10 days correspond to the 12 4-hour sessions across the semester. Modules 1–8 deliver the technical foundations; the final project arc (Modules 9–10) spans the remaining studio sessions so there is genuine build, characterization, and rehearsal time.
 
-> **Indicative plan.** The day-by-day mapping below is a planning draft and may shift — including during the semester — as we refine this class together. The learning objectives and the capstone matter more than the exact day a topic lands on.
+> **Indicative plan.** The day-by-day mapping below is a planning draft and may shift — including during the semester — as we refine this class together. The learning objectives and the final project matter more than the exact day a topic lands on.
 
 | Day | Session(s) | Module / Topic | Core Hands-on Focus |
 |:---:|:---:|---|---|
@@ -195,8 +195,8 @@ The 10 days correspond to the 12 4-hour sessions across the semester. Modules 1�
 | **6** | 6 | **[Module 6 — LED Animation, Sound & Interactive Installations](./modules/06-led-animation-sound-and-installations.md)** | Non-blocking animation patterns, palettes, sensor-triggered and sound-reactive installations. |
 | **7** | 7 | **[Module 7 — Motors & Motion Actuators](./modules/07-motors-and-motion-actuators.md)** | Servo control, DC motor speed/direction with an H-bridge, stepper stepping, current measurement. |
 | **8** | 8 | **[Module 8 — From Sensor to System: IoTempower & Integration](./modules/08-sensor-to-system-and-integration.md)** | Declarative drivers and filters, MQTT topics, Node-RED dashboard, a closed control loop. |
-| **9** | 9–10 | **[Module 9 — Capstone Project Studio](./modules/09-capstone-project-studio.md)** | Project kickoff and story, requirement mapping, building and integrating the sensor/actuator system. |
-| **10** | 11 | **[Module 9 — Capstone Project Studio (continued)](./modules/09-capstone-project-studio.md)** | Characterization and evaluation, fault injection, documentation, peer review dry run. |
+| **9** | 9–10 | **[Module 9 — Final Project Studio](./modules/09-final-project-studio.md)** | Project kickoff and story, requirement mapping, building and integrating the sensor/actuator system. |
+| **10** | 11 | **[Module 9 — Final Project Studio (continued)](./modules/09-final-project-studio.md)** | Characterization and evaluation, fault injection, documentation, peer review dry run. |
 | **10** | 12 | **[Module 10 — Demonstration & Portfolio Defense](./modules/10-demonstration-and-defense.md)** | Live sensor/actuator demonstration, technical defense, portfolio presentation, retrospective. |
 
 > [!TIP]
@@ -204,9 +204,9 @@ The 10 days correspond to the 12 4-hour sessions across the semester. Modules 1�
 
 ---
 
-## Capstone Project Requirements (5 Points)
+## Final Project Requirements (5 Points)
 
-The capstone is a **sensor/actuator system** built by teams of 2–4 students. Teams form and pitch a stakeholder **story** during the project kickoff (Module 9), then map their requirements onto the criteria below. A team may, **by agreement with the instructor**, extend an existing project from *Vernetzung und IoT-Lösungen* instead of starting fresh — this is a possibility, not a requirement; the default is a self-contained sensor/actuator project.
+The final project is a **sensor/actuator system** built by teams of 2–4 students. Teams form and pitch a stakeholder **story** during the project kickoff (Module 9), then map their requirements onto the criteria below. A team may, **by agreement with the instructor**, continue an earlier project of their own instead of starting fresh — this is a possibility, not a requirement; the default is a self-contained sensor/actuator project.
 
 ### Must-Have System Criteria:
 1. **Sensing with real characterization:** At least **two sensors**, including **at least one I²C device**, with the **transfer function or calibration** of at least one sensor determined from your own measurements, plus a stated uncertainty and resolution.

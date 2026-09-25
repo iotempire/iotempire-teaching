@@ -1,4 +1,4 @@
-# Module 9 – Capstone Project Studio: From Story to Characterized System
+# Module 9 – Final Project Studio: From Story to Characterized System
 
 [← Back to Module 8](./08-sensor-to-system-and-integration.md) | [Quick module index](./00-index.md) | [Next: Module 10 →](./10-demonstration-and-defense.md)
 
@@ -48,10 +48,10 @@ Sessions are **open-ended by design**. If you finish a milestone early, harden t
 
 ---
 
-## 📖 The Capstone Architecture Stack
+## 📖 The Final Project Architecture Stack
 
 ```text
-==================== SENSOR / ACTUATOR CAPSTONE STACK ====================
+==================== SENSOR / ACTUATOR FINAL PROJECT STACK ====================
 
 [Physical process]   the quantity you measure and the thing you move
                            |
@@ -83,8 +83,8 @@ A strong project uses each layer it includes **deliberately** and can defend the
 
 1. **Craft a story** around a real stakeholder (a person with a name and a problem). Start from your pre-study abstract and refine it. It must be **playable and pitchable**.
 2. **Pitch to a neighboring team (2×5 min)** and note their questions.
-3. **Form your team of 2–4** and document individual roles and contributions in each portfolio. If a team wants to extend an existing project from *Networking and IoT-Lösungen* instead of starting fresh, agree on this with the instructor — it is a possibility, not the default.
-4. **Map requirements** onto the capstone must-haves (see the syllabus): which sensors (with which bus/addresses), which actuator, which characterization you will perform, which integration, which resilience test.
+3. **Form your team of 2–4** and document individual roles and contributions in each portfolio. If a team wants to continue an earlier project of their own instead of starting fresh, agree on this with the instructor — it is a possibility, not the default.
+4. **Map requirements** onto the final-project must-haves (see the syllabus): which sensors (with which bus/addresses), which actuator, which characterization you will perform, which integration, which resilience test.
 
 ---
 
@@ -140,7 +140,7 @@ Pair with another team for a reciprocal dry run:
 
 ## 📝 Working-Day Reflection & Portfolio Tasks
 
-In your portfolio under `modules/09-capstone-studio/`:
+In your portfolio under `modules/09-final-project-studio/`:
 1. **Kickoff story** and the requirement-to-must-have mapping.
 2. **System architecture diagram:** sensors (with bus/addresses), conditioning, actuator + driver, node, data path.
 3. **Characterization report:** transfer function/calibration, resolution, uncertainty.

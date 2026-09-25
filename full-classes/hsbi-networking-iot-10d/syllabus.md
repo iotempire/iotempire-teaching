@@ -94,13 +94,13 @@ By the end of this course, you will be able to:
 - **Total Workload:** 150 hours (5 ECTS credits).
   - In-person lab and seminar contact: 48 hours.
   - Independent preparation and pre-study (Module 0): approx. 40 hours allocated (3–6 hours for the compulsory core).
-  - Guided self-study, portfolio documentation, and capstone project: approx. 62 hours.
+  - Guided self-study, portfolio documentation, and final project: approx. 62 hours.
 
 ---
 
 ## Assessment: Kombinationsprüfung (20 Base Points + Bonus)
 
-Assessment is conducted as a **Kombinationsprüfung** combining continuous portfolio documentation, laboratory work, working-day reflections, and a final capstone project.
+Assessment is conducted as a **Kombinationsprüfung** combining continuous portfolio documentation, laboratory work, working-day reflections, and a final project.
 
 > [!IMPORTANT]
 > **Module 0 is required and worth 1 module point.** Before the first session, set up your personal GitHub portfolio using the course template and complete the pre-study tasks outlined in [pre-study.md](./pre-study.md). Module 0 is assessed during the second session.
@@ -112,7 +112,7 @@ Assessment is conducted as a **Kombinationsprüfung** combining continuous portf
 | **Module 0 (Pre-Study)** | **1 point** | Portfolio repository setup, inspiration notes, network exploration, and answers to guiding questions. |
 | **Modules 2–7 (Learning goals)** | **10 points** | Earned through **checkpoint presentations** (~10 min each, covering 2–3 modules) that prove the module learning goals from your portfolio and reflections — not by completing every task. Lab evidence: OpenWrt config, Wireshark captures, Nebula/Yggdrasil overlays, MQTT flows, ESP-NOW, IoTempower fleet; optional stretchers include the B.A.T.M.A.N. mesh and a simulated industrial (Modbus/OPC-UA) bridge. |
 | **Working-Day Reflections** | **4 points** | Individual reflections submitted for each working day/session documenting technical discoveries, failed attempts, and conceptual takeaways. |
-| **Final Capstone Project** | **5 points** | 25% of the base score. Multi-node, multi-protocol IoT network build, live demo, failover test, and documentation. |
+| **Final Project** | **5 points** | 25% of the base score. Multi-node, multi-protocol IoT network build, live demo, failover test, and documentation. |
 | **Base Total** | **20 points** | **100% base score.** |
 | **Extra / Bonus Points** | **Up to 3 points** | Awarded for outstanding contributions, peer mentoring, advanced stretcher tasks, or accepted upstream pull requests to IoTempower or this curriculum repository. |
 
@@ -170,7 +170,7 @@ Unlike pure microcontroller classes, our hardware focuses on **modular, ready-to
 
 The 10 days correspond to the 12 4-hour sessions across the semester. Modules 1–7 deliver the technical foundations; the final project arc (Module 8) spans the remaining studio sessions so that there is genuine build, hardening, and rehearsal time — not just a single rushed studio.
 
-> **Indicative plan.** The day-by-day mapping below is a planning draft and may shift — including during the semester — as we refine this class together. The learning objectives and the capstone matter more than the exact day a topic lands on.
+> **Indicative plan.** The day-by-day mapping below is a planning draft and may shift — including during the semester — as we refine this class together. The learning objectives and the final project matter more than the exact day a topic lands on.
 
 | Day | Session(s) | Module / Topic | Core Hands-on Focus |
 |:---:|:---:|---|---|
@@ -182,18 +182,18 @@ The 10 days correspond to the 12 4-hour sessions across the semester. Modules 1�
 | **5** | 5 | **[Module 5 — Wireless Technologies & ESP-NOW](./modules/05-wireless-technologies-and-espnow.md)** | Radio spectrum, ISM bands, Wi-Fi vs BLE vs LoRaWAN trade-offs, ESP-NOW connectionless peer-to-peer micro-mesh and gateway bridge. |
 | **6** | 6 | **[Module 6 — Industrial Protocols & Edge Bridging](./modules/06-industrial-protocols-and-bridging.md)** | Conceptual tour: Modbus RTU/TCP, OPC-UA, RS-485, TSN context; optional simulated Python/Node-RED bridge to MQTT. |
 | **7** | 7 | **[Module 7 — Fleet Management & Scaling with IoTempower](./modules/07-fleet-management-and-iotempower.md)** | Declarative IoT architecture, multi-node configuration, Over-The-Air (OTA) deployment across M5Stack fleet, topic standardisation. |
-| **8** | 8–9 | **[Module 8 — Capstone Project Studio](./modules/08-capstone-project-studio.md)** | Project kickoff & story, team and requirement mapping, system integration across nodes and network layers. |
-| **9** | 10–11 | **[Module 8 — Capstone Project Studio (continued)](./modules/08-capstone-project-studio.md)** | Integration hardening, fault-injection & resilience testing, architecture documentation, peer review dry run. |
-| **10** | 12 | **[Module 9 — Capstone Demonstrations & Portfolio Defense](./modules/09-demonstrations-and-defense.md)** | Live multi-node demonstration, network fault-injection test, portfolio presentation, retrospective. |
+| **8** | 8–9 | **[Module 8 — Final Project Studio](./modules/08-final-project-studio.md)** | Project kickoff & story, team and requirement mapping, system integration across nodes and network layers. |
+| **9** | 10–11 | **[Module 8 — Final Project Studio (continued)](./modules/08-final-project-studio.md)** | Integration hardening, fault-injection & resilience testing, architecture documentation, peer review dry run. |
+| **10** | 12 | **[Module 9 — Final Project Demonstrations & Portfolio Defense](./modules/09-demonstrations-and-defense.md)** | Live multi-node demonstration, network fault-injection test, portfolio presentation, retrospective. |
 
 > [!TIP]
 > **Buffer and pacing:** Days 8–9 provide four studio sessions. At least one of them is deliberately loose and can absorb spill-over from earlier labs, be released as flexible/wiggle time, or be used for stretcher tasks and peer mentoring. Announce the concrete use of each studio session in the LMS as the course progresses.
 
 ---
 
-## Capstone Project Requirements (5 Points)
+## Final Project Requirements (5 Points)
 
-The capstone project is an end-to-end networked system built by teams of 2–4 students. Teams form and pitch a stakeholder **story** during the project kickoff (Module 8), then map their requirements onto the criteria below.
+The final project is an end-to-end networked system built by teams of 2–4 students. Teams form and pitch a stakeholder **story** during the project kickoff (Module 8), then map their requirements onto the criteria below.
 
 ### Must-Have System Criteria:
 1. **Multi-Node Networked Architecture:** At least **4 independent physical nodes** (e.g., 2 M5Stack nodes, 1 OpenWrt router, 1 edge gateway/laptop server).

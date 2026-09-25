@@ -13,8 +13,8 @@
 | [Module 5 — Wireless Technologies & ESP-NOW](./modules/05-wireless-technologies-and-espnow.md) | Spectrum, ISM bands, Wi-Fi vs BLE vs LoRa, ESP-NOW action frames & gateway bridge |
 | [Module 6 — Industrial Protocols & Edge Bridging](./modules/06-industrial-protocols-and-bridging.md) | Modbus/OPC-UA/RS-485 overview, TSN context; optional simulated edge bridge |
 | [Module 7 — Fleet Management & IoTempower](./modules/07-fleet-management-and-iotempower.md) | Declarative node configuration, Over-The-Air (OTA) flashing, M5Stack fleet scaling |
-| [Module 8 — Capstone Project Studio](./modules/08-capstone-project-studio.md) | Project kickoff & story, multi-node integration, resilience testing, peer review rehearsal |
-| [Module 9 — Capstone Demonstrations & Defense](./modules/09-demonstrations-and-defense.md) | Live multi-node demonstration, network fault-injection test, portfolio defense |
+| [Module 8 — Final Project Studio](./modules/08-final-project-studio.md) | Project kickoff & story, multi-node integration, resilience testing, peer review rehearsal |
+| [Module 9 — Final Project Demonstrations & Defense](./modules/09-demonstrations-and-defense.md) | Live multi-node demonstration, network fault-injection test, portfolio defense |
 | [Resource Prompts](./modules/Y-resources-prompt-bank.md) | Portfolio prompts and quick references |
 | [Resource Bank](./modules/Z-resources-bank.md) | Extra resources, cheat sheets, and troubleshooting |
 
@@ -49,12 +49,12 @@ For the complete language arrangement, teaching team, learning objectives, asses
 
 ## Assessment: Kombinationsprüfung (20 Points Base + Bonus)
 
-Your final grade is assessed continuously through your personal **GitHub Portfolio** and the final capstone project:
+Your final grade is assessed continuously through your personal **GitHub Portfolio** and the final project:
 
 - **Module 0 (Pre-Study):** 1 point (compulsory preparation before the first session; see [pre-study guide](./pre-study.md)).
 - **Modules 2–7 (Learning goals):** 10 points, earned through **checkpoint presentations** (~10 min each, covering 2–3 modules) that prove the module learning goals from your portfolio and reflections — not by completing every task. You may skip tasks, fail at some, or add your own. See the [syllabus](./syllabus.md#how-module-points-are-earned-checkpoint-presentations).
 - **Working-Day Reflections:** 4 points (one reflection for each working day documenting discoveries, struggles, and solutions).
-- **Final Capstone Project:** 5 points (25% of base score; multi-node, multi-protocol networked system with live failover demo).
+- **Final Project:** 5 points (25% of base score; multi-node, multi-protocol networked system with live failover demo).
 - **Bonus / Extra Points:** Up to 3 points for outstanding work, peer mentoring, advanced stretcher tasks, or accepted upstream pull requests to IoTempower or this curriculum repository.
 - **Passing Mark:** 14 / 20 points (~70%).
 

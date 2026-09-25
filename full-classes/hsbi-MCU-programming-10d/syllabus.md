@@ -156,7 +156,7 @@ All labs and reflections are captured in your personal portfolio.
 
 Your logbook should mirror an engineering notebook — continuous, scannable, and explicit.
 
-### Final Capstone Project (5 pts; 25% of base score)
+### Final Project (5 pts; 25% of base score)
 - **Goal**: implement a **complete embedded microcontroller system** with sensors and MQTT/REST integration. Example stories:
   – Patient-monitoring device mock-up (temperature, BME280 data via MQTT)
   – Smart access-control turnstile with RFID badge reader and Node-RED dashboard
@@ -207,7 +207,7 @@ Your portfolio must provide the instructor with the evidence needed for assessme
 ## Expectations & Classroom Policies
 
 - **In-class presence:** Active participation in hands-on hardware work is expected and strongly recommended. Students may complete work outside class by agreement with their teammate(s), provided their portfolio convincingly demonstrates skillful completion of the tasks, independent exploration—including failures—and understanding beyond blindly following AI-generated instructions. Students who cannot demonstrate this proficiency and evidence may not receive the relevant module points.
-- **Teamwork:** Form teams of 1–2 students for early labs and 4–6 for the capstone project. Document individual roles, tasks, and contributions in your personal portfolio for transparent assessment.
+- **Teamwork:** Form teams of 1–2 students for early labs and 4–6 for the final project. Document individual roles, tasks, and contributions in your personal portfolio for transparent assessment.
 - **Ethics & respect:** Handle kit, peers, and data respectfully. Build **safe prototypes**, document **failure modes**, and consider **stakeholders** in your scenarios.
 - **Open by default:** Public sharing is welcome but optional; see the licensing and portfolio guidance above.
 

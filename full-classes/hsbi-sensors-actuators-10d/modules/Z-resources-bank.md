@@ -113,7 +113,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Addressable LEDs | FastLED (or Adafruit NeoPixel) | Patterns, palettes, HSV |
 | I²C convenience | `Wire` (Arduino core) | Scan, read/write registers |
 | I²C tools (Linux) | `i2c-tools` (`i2cdetect`) | Standard bus scan on a Pi/gateway |
-| Integration & dashboards | Node-RED, Mosquitto | Same stack as *Networking and IoT Solutions* |
+| Integration & dashboards | Node-RED, Mosquitto | Local-first IoT stack |
 | Simulation | [Wokwi](https://wokwi.com/) | Pre-study and quick prototyping |
 
 ---
@@ -132,7 +132,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 
 - Add your tricks and measurements to this page via a pull request into this class folder.
 - Contribute corrected wiring, extra datasheet notes, or better calibration recipes — good candidates for bonus points.
-- Reuse this bank during the capstone and keep it as a reference for later projects.
+- Reuse this bank during the final project and keep it as a reference for later projects.
 
 ---
 

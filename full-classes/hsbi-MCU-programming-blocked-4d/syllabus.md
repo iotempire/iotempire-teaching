@@ -120,7 +120,7 @@ All items are detailed in **Module 2 – Hardware & Electronics** of your workbo
 
 ### Weekly Module Labs (11 pts + 4 pts)
 
-Your semester is structured in problem-based learning cycles: weekly labs and mini-projects build toward your capstone. Teams of 1–2 contribute to shared hardware logbooks captured in your GitHub portfolio.
+Your semester is structured in problem-based learning cycles: weekly labs and mini-projects build toward your final project. Teams of 1–2 contribute to shared hardware logbooks captured in your GitHub portfolio.
 
 - **Week 1–3:** Tooling, git, first blink, timing loops, reset behavior (≈4–5 module points)
 - **Week 4–6:** Peripheral buses (I²C or SPI), UART sessions, interrupts, watchdog, low-power tricks (≈3–4 module points)
@@ -138,7 +138,7 @@ Your semester is structured in problem-based learning cycles: weekly labs and mi
 
 Your logbook should mirror an engineering notebook — continuous, scannable, and explicit.
 
-### Final Capstone Project (5 pts; ≥30 % grade weight)
+### Final Project (5 pts; ≥30 % grade weight)
 - **Goal**: implement a **complete embedded microcontroller system** with sensors and MQTT/REST integration. Example stories:
   – Patient-monitoring device mock-up (temperature, BME280 data via MQTT)
   – Smart access-control turnstile with RFID badge reader and Node-RED dashboard
@@ -205,9 +205,9 @@ All artifacts (code, logs, schematics) must be published under permissive or ope
 |11    | Module 5 – Integration: HVAC Styles         | environmental sensing, threshold logic, Node-RED dashboards|
 |12    | Module 5 – Access Control Systems            | RFID readers, motion sensors, secure UI flows in Node-RED  |
 |13    | Module 6 – System Architecture & Efficiency| performance modelling, low-power deep sleep measurements  |
-|14    | Capstone – Project Planning                  | user stories, block diagrams, risk register, schematics   |
-|15    | Capstone – Build & Test                     | HW bring-up, logging, error margin tuning                  |
-|16    | Capstone – Live Demo & Submission           | 10 min showcase, portfolio archiving                      |
+|14    | Final Project – Project Planning                  | user stories, block diagrams, risk register, schematics   |
+|15    | Final Project – Build & Test                     | HW bring-up, logging, error margin tuning                  |
+|16    | Final Project – Live Demo & Submission           | 10 min showcase, portfolio archiving                      |
 
 > Small shifts possible; keep track of git commits and weekly module releases.
 
@@ -217,7 +217,7 @@ All artifacts (code, logs, schematics) must be published under permissive or ope
 
 - **In-class Presence:** Active participation in hands-on lab work is mandatory. Unexcused absences may affect module points.
 
-- **Teamwork:** Form teams of 1–2 students in the beginning and 4-6 for the capstone project. Document roles and tasks in your portfolio to ensure transparent contribution tracking.
+- **Teamwork:** Form teams of 1–2 students in the beginning and 4-6 for the final project. Document roles and tasks in your portfolio to ensure transparent contribution tracking.
 
 - **Ethics & Respect:** Handle kit, peers, and data respectfully. Build **safe prototypes**, document **failure modes**, and consider **stakeholders** in your scenarios.
 
@@ -232,7 +232,7 @@ All artifacts (code, logs, schematics) must be published under permissive or ope
 3. **Fail early, fail often.** Hardware burnout is part of the journey; fall back to serial logs, schematic inspection, and power-pin sanity checks. Report to us if things break, if you are unsure, talk to us.
 4. **Portfolio is your lifeline.** Weekly reflections account for 20 % of grade; treat hardware builds and documentation equally important.
 5. **Collaborate generously.** Review teammate PRs, attend pair-debug sessions, and share exploration artifacts openly.
-6. **Capstone timebox.** Start architecture documentation early; leave two full weeks for stabilization, polish, and video recording for assessment evidence.
+6. **Final Project timebox.** Start architecture documentation early; leave two full weeks for stabilization, polish, and video recording for assessment evidence.
 
 ---
 

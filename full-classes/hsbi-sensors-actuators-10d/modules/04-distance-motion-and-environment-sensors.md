@@ -106,7 +106,7 @@ Build the first half of an example project from the announcement:
 3. Test it with a hand/object passing in each direction and log the count.
 4. Note the false detections you get and the timing window that reduces them.
 
-*This is the seed of a capstone: "**person counter with several distance sensors**" is a listed example project.*
+*This is the seed of a final project: "**person counter with several distance sensors**" is a listed example project.*
 
 ---
 

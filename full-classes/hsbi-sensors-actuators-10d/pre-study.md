@@ -1,13 +1,13 @@
 # Pre-Study Guide: Sensors and Actuators (Sensorik und Aktorik)
 
-Welcome to **Sensors and Actuators (Sensorik und Aktorik)!
+Welcome to **Sensors and Actuators (Sensorik und Aktorik)**!
 
 This course is about the physical side of IoT: how a real quantity in the world becomes a trustworthy number, and how that number becomes motion, light, or heat. We keep the classical foundations — **measurement technique, error, the digital signal chain, sensor characterization, and actuator principles** — and we build them:
 
 - **I²C and addressing:** you will scan a bus and understand where your sensors live before you trust a library.
 - **Sensor principles and characterization:** distance and motion (ToF, ultrasonic, IMU), magnetic field and current (Hall), environment (T, RH, P) — with real transfer functions and calibration.
 - **Actuators:** **servos and other motors**, relays, buzzers, and especially **LEDs and LED animation**.
-- **Systems:** your node becomes part of a local-first **IoTempower** + MQTT + Node-RED system, extending the stack you already met in *Networking and IoT Solutions*.
+- **Systems:** your node becomes part of a local-first **IoTempower** + MQTT + Node-RED system, so the measured value reaches a dashboard and can trigger an action.
 
 See the [syllabus](./syllabus.md) for the complete course schedule and policies.
 
@@ -62,7 +62,7 @@ Key ideas to internalize early:
 
 - **A sensor never measures what you think directly.** It measures a physical effect (resistance, voltage, charge, light, time) that *correlates* with the quantity you want. Good work means knowing that relationship — the **transfer function**.
 - **Every number carries uncertainty.** Resolution, accuracy, noise, and calibration all limit what you may claim. "23.4 °C" is a statement with conditions and an uncertainty attached.
-- **Actuators are also physical.** A motor needs current and a driver; an LED needs a current-limiting resistor; a strip needs a power budget. Logic pins command; they do not power.
+- **Actuators are also physical.** A motor needs current and a driver; a single LED needs a current-limiting resistor; an **addressable LED strip** (WS2812/NeoPixel) needs a **power budget** — dozens of LEDs at full white draw far more current than any logic pin can supply. Logic pins command; they do not power.
 
 ---
 
@@ -119,7 +119,7 @@ Look up short answers for:
 
 - **PWM (pulse-width modulation):** what is a duty cycle, and why can it dim an LED or set a servo angle?
 - **LED basics:** why does every plain LED need a current-limiting resistor, and what happens without one (or with too much current)?
-- **Addressable LEDs (WS2812 / NeoPixel):** what is the difference from a plain RGB LED, and why does a strip need a serious **power budget**?
+- **Addressable LEDs (WS2812 / NeoPixel):** what is the difference from a plain RGB LED, and why does an addressable LED strip need a serious **power budget**?
 - **Motors:** what is the difference between a **servo**, a **brushed DC motor**, and a **stepper** — in terms of what they are good at, and what electronics they need?
 - **Isolation and drivers:** why do motors and relays need a driver (transistor/H-bridge/driver IC) rather than a direct GPIO connection?
 
@@ -127,7 +127,7 @@ Look up short answers for:
 
 ## 6. Prepare Your Project Idea (30 min)
 
-The capstone is a documented sensor/actuator system. You do not have to fix it now, but start thinking. As in the legacy offering, write a short **abstract (5–10 lines)** in your portfolio describing:
+Your **final project** is a documented sensor/actuator system. You do not have to fix it now, but start thinking. Write a short **abstract (5–10 lines)** in your portfolio describing:
 
 - an **application scenario** (who uses it, and why),
 - the **sensors** you think it needs, and

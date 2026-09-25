@@ -207,7 +207,7 @@ Work in pairs. The classroom becomes a single multi-hop mesh — coordinate mesh
 
 ### ◇ Task 3 (Stretcher): The Live Failover Test (15 min)
 
-Because this session runs *before* the MQTT module, we test resilience at the network level — which is exactly where routing decisions are made anyway. We will re-run the same experiment *with* MQTT traffic in the capstone studio (Module 8).
+Because this session runs *before* the MQTT module, we test resilience at the network level — which is exactly where routing decisions are made anyway. We will re-run the same experiment *with* MQTT traffic in the final project studio (Module 8).
 
 1. Start a continuous stream across the mesh: `ping <remote-node>` or `iperf3 -c <remote-node>` to a router on the other side of the room.
 2. **Simulate a link failure:** have the intermediate relay router (Team B) abruptly unplug from power.
@@ -246,4 +246,4 @@ In your portfolio under `modules/03-mesh-overlay/`:
 2. **Remote-Access Proof:** Terminal screenshot showing your laptop on an external network (e.g. mobile hotspot) with a successful `ping` and `ssh` session to your OpenWrt router via its Nebula IP (`10.100.0.x`).
 3. *(Optional)* **Mesh Routing Artifacts:** Capture `batctl n` and `batctl o` output showing your router's multi-hop neighbors, plus a `batctl traceroute` across the room.
 4. *(Optional)* **Failover Experiment Report:** Describe what happened during the link drop: how many pings/packets were lost before B.A.T.M.A.N. converged on the alternate route?
-5. **Reflection:** Why can `batman-adv` give you a flat subnet across the room, while Nebula/Yggdrasil are needed to reach a device across the Internet? Which one would your capstone project use — and why?
+5. **Reflection:** Why can `batman-adv` give you a flat subnet across the room, while Nebula/Yggdrasil are needed to reach a device across the Internet? Which one would your final project use — and why?

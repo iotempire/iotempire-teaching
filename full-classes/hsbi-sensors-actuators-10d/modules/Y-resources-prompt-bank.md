@@ -86,7 +86,7 @@
 
 ---
 
-## 📌 Module 9 – Capstone Project Studio
+## 📌 Module 9 – Final Project Studio
 *Focus: requirements, integration, characterization, evaluation, resilience.*
 
 1. **Technical:** *Characterization defense:* Defend your transfer function/calibration and the uncertainty you report.

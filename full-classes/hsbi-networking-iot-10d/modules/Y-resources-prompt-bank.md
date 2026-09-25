@@ -11,7 +11,7 @@
 
 1. **Technical:** *How did the packet trace challenge your view of the OSI 7-layer model?* Where did real-world protocols (like Wi-Fi, TLS, or MQTT) clash with rigid textbook boundaries? Share a Wireshark screenshot illustrating the overlap.
 2. **Technical:** *Calculate the overhead tax:* What was the ratio of headers and protocol metadata to actual sensor payload in your capture? What does this mean for battery-powered nodes?
-3. **Project Context:** *Grandma-Level System Story:* Explain your capstone project idea in one jargon-free paragraph. Who uses it, what problem does it solve, and why does it need a network?
+3. **Project Context:** *Grandma-Level System Story:* Explain your final project idea in one jargon-free paragraph. Who uses it, what problem does it solve, and why does it need a network?
 4. **Process:** *Master Class First Impressions:* What was the smoothest part of getting the M5Stack node talking to Node-RED on Day 1? Where did you or your peer get stuck?
 
 ---
@@ -80,7 +80,7 @@
 
 ---
 
-## 📌 Module 8 – Capstone Project Studio
+## 📌 Module 8 – Final Project Studio
 *Focus: Multi-node architecture, fault injection, stress testing, peer review rehearsal.*
 
 1. **Technical:** *Failure Mode Analysis:* Document your three fault-injection tests (Link Drop, Node Power Loss, Broker Restart). Did the system fail gracefully, and what did you refactor?
@@ -89,9 +89,9 @@
 
 ---
 
-## 📌 Module 9 – Capstone Demonstrations & Portfolio Defense
+## 📌 Module 9 – Final Project Demonstrations & Portfolio Defense
 *Focus: Live demonstration, technical defense, retrospective.*
 
 1. **Technical:** *The Live Demo:* Summarize how your system performed during the live demonstration and fault-injection challenge before the class.
 2. **Personal Retrospective:** *The Biggest "Aha!" Moment:* Across the entire 10-day journey from OSI critique to overlay mesh and IoTempower fleet management, what was your single most valuable technical realization?
-3. **Looking Ahead:** How will you apply the networking and integration principles learned here in future projects or the companion course *Sensorik und Aktorik*?
+3. **Looking Ahead:** How will you apply the networking and integration principles learned here in future projects or in the elective *Sensorik und Aktorik*?

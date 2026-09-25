@@ -1,6 +1,6 @@
-# Module 9 – Capstone Demonstrations & Portfolio Defense
+# Module 9 – Final Project Demonstrations & Portfolio Defense
 
-[← Back to Module 8](./08-capstone-project-studio.md) | [Quick module index](./00-index.md)
+[← Back to Module 8](./08-final-project-studio.md) | [Quick module index](./00-index.md)
 
 ---
 
@@ -11,7 +11,7 @@
 This module gives you the opportunity to explore **engineering communication and defense** and achieve competency in **delivering a live demonstration, defending technical choices, and presenting your portfolio**.
 
 By the end of this module, you can:
-1. Deliver a compelling **5-minute live demonstration** of your end-to-end networked IoT capstone system.
+1. Deliver a compelling **5-minute live demonstration** of your end-to-end networked IoT final project system.
 2. Defend your architectural choices, protocol trade-offs, and resilience mechanisms before instructors and peers.
 3. Complete the **portfolio evaluation and assessment defense**.
 4. Reflect on your learning journey from abstract textbook layering to real-world edge networking and fleet management.
@@ -45,7 +45,7 @@ By the end of this module, you can:
 
 ---
 
-## 📋 Capstone Assessment Rubric (5 Points)
+## 📋 Final Project Assessment Rubric (5 Points)
 
 | Criteria | Max Points | Expectations |
 |---|:---:|---|
@@ -66,7 +66,7 @@ Ensure your personal GitHub portfolio includes all required evidence before fina
 - [ ] **Module 5:** Wireless comparison table, ESP-NOW peer-to-peer code, and ESP-NOW to MQTT gateway bridge proof.
 - [ ] **Module 6:** Industrial protocol analysis (recommended); optional simulated Modbus/OPC-UA server and bridge.
 - [ ] **Module 7:** IoTempower declarative node configuration (`setup.cpp`), OTA deployment logs, and fleet integration.
-- [ ] **Modules 8 & 9:** Capstone architecture diagrams, fault-injection test logs, presentation slides/script, and final course retrospective.
+- [ ] **Modules 8 & 9:** Final Project architecture diagrams, fault-injection test logs, presentation slides/script, and final course retrospective.
 - [ ] **Working-Day Reflections:** Complete entries for every working day.
 
 ---
@@ -83,4 +83,4 @@ You have developed a deep, practical mastery of:
 
 ### Next Steps:
 - Continue exploring the IoTempire ecosystem: [iotempire.net](https://iotempire.net/) and [github.com/iotempire/iotempower](https://github.com/iotempire/iotempower).
-- In the companion course **Sensorik und Aktorik**, you will dive deeper into analog and digital sensor physics, signal conditioning, error calculations, and building custom sensing hardware.
+- If you are interested in the physical side, the elective **Sensorik und Aktorik** goes deeper into analog and digital sensor physics, signal conditioning, error calculations, and building custom sensing hardware.
