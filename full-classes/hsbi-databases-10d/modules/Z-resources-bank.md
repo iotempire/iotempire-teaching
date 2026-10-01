@@ -1,0 +1,110 @@
+# Resource Bank — Databases (DBS)
+
+[← Back to front page](../README.md) | [Quick module index](./00-index.md)
+
+Cheat sheets, troubleshooting, datasets, and extended reading. Everything here runs **locally and offline** unless noted.
+
+## Command cheat sheet
+
+### Python — SQLite (standard library)
+
+```python
+import sqlite3
+
+conn = sqlite3.connect("app.db")
+conn.row_factory = sqlite3.Row                 # access columns by name
+conn.execute("PRAGMA foreign_keys = ON")       # OFF by default — turn it on every connection!
+conn.execute("PRAGMA journal_mode = WAL")      # better read/write concurrency for local apps
+
+# ALWAYS use bound parameters — never f-strings or %
+conn.execute("INSERT INTO reading(sensor_id, ts, value) VALUES (?, ?, ?)", (1, "2026-03-01", 41.5))
+rows = conn.execute("SELECT * FROM reading WHERE sensor_id = ?", (1,)).fetchall()
+conn.commit()
+```
+
+### Python — DuckDB
+
+```python
+import duckdb
+
+con = duckdb.connect()                          # in-process, no server
+# Read a Parquet file directly (no import step):
+con.execute("SELECT machine_id, SUM(cost) FROM 'jobpart.parquet' GROUP BY 1").fetchall()
+# Attach a SQLite file as if it were native (and export it to Parquet):
+con.execute("INSTALL sqlite")
+con.execute("LOAD sqlite")
+con.execute("ATTACH 'edge.db' AS edge (TYPE sqlite)")
+con.execute("SELECT COUNT(*) FROM edge.reading").fetchall()
+con.execute("COPY (SELECT * FROM edge.reading) TO 'readings.parquet' (FORMAT parquet)")
+```
+
+### CLI — SQLite & Datasette
+
+```sh
+sqlite3 app.db ".tables"                 # list tables
+sqlite3 app.db ".schema reading"         # show DDL
+sqlite3 app.db ".mode csv" ".import file.csv tbl"   # bulk import
+sqlite3 app.db ".timer on"               # time each statement
+sqlite3 app.db "EXPLAIN QUERY PLAN SELECT ..."
+datasette app.db -o                      # browse in the browser; add ?_size=100 to page
+sqlite-utils insert app.db tbl data.csv --csv
+sqlite-utils memory data.csv "SELECT count(*) FROM data"   # query a CSV in one command
+```
+
+## Troubleshooting
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| `FOREIGN KEY constraint failed` never happens / orphans allowed | `PRAGMA foreign_keys` is **off** (default) | Run `PRAGMA foreign_keys = ON` on every connection. |
+| `IntegrityError: NOT NULL` on a column you think is optional | Schema declares `NOT NULL` you forgot | Check `PRAGMA table_info(table)`. |
+| Index exists but plan still says `SCAN` | Function wraps the column, or low cardinality, or the index expression does not match the query | Compare index expression to `WHERE`; remove the function (`done_on > '...'`, not `date(done_on) > '...'`). |
+| `json_extract` returns the whole text | Path typo, or a single path returning a scalar in older builds | Check the path; use `meta ->> '$.key'` for a scalar. |
+| A query with `NOT IN (subquery)` returns nothing | The subquery contains a `NULL` | Filter the `NULL`s or use `NOT EXISTS`. |
+| Very slow ingest of many rows | One `INSERT` per row, commit per row | Wrap in a transaction; use `executemany`. |
+| `database is locked` | Another writer holds the file; SQLite allows one writer | Enable WAL, shorten transactions, or serialize writers. |
+| Wrong numbers after a join | Fan-out: a 1:n join multiplied rows before aggregation | Aggregate in a subquery first, then join. |
+
+## Suggested practice datasets
+
+- **The course's own generators** (Modules 0, 2, 4) — self-contained, no network needed.
+- **NYC Taxi trips (Parquet)** — a standard analytical dataset for DuckDB Parquet demos (network required to download).
+- **Sakila** — a classic sample relational schema (film rental), useful for join/aggregation practice.
+- **The plant telemetry** you generate in Module 0 — extend it for the final project.
+- **Your own data** — a study log, a budget, sensor readings from another course. The most meaningful datasets are the ones that matter to you.
+
+## Extended reading
+
+**Embedded & local-first**
+- SQLite — *Appropriate Uses For SQLite* — [sqlite.org/whentouse.html](https://www.sqlite.org/whentouse.html)
+- Simon Willison — *Datasette: an ecosystem of tools for working with small data* — [simonwillison.net](https://simonwillison.net/2021/Jul/22/small-data/)
+- Ink & Switch — *Local-first software* — [inkandswitch.com/local-first](https://www.inkandswitch.com/local-first/)
+
+**Modeling, normalization, integrity**
+- SQLite — foreign keys · `STRICT` tables · generated columns — [sqlite.org/foreignkeys.html](https://www.sqlite.org/foreignkeys.html) · [stricttables.html](https://www.sqlite.org/stricttables.html) · [gencol.html](https://sqlite.org/gencol.html)
+- Pydantic data validation — [docs.pydantic.dev](https://docs.pydantic.dev/) · SQLAlchemy — [docs.sqlalchemy.org](https://docs.sqlalchemy.org/)
+
+**Querying & performance**
+- SQLite — `EXPLAIN QUERY PLAN` — [sqlite.org/eqp.html](https://www.sqlite.org/eqp.html)
+- Markus Winand — *Use The Index, Luke* — [use-the-index-luke.com](https://use-the-index-luke.com/)
+- DuckDB — *Why DuckDB* — [duckdb.org/why_duckdb.html](https://duckdb.org/why_duckdb.html)
+
+**Security & theory**
+- OWASP — *SQL Injection Prevention Cheat Sheet* — [cheatsheetseries.owasp.org](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
+- Martin Kleppmann — *Designing Data-Intensive Applications* (ACID, BASE, CAP)
+
+## Software install (offline-friendly)
+
+```sh
+# Python packages
+pip install duckdb datasette sqlite-utils pydantic sqlalchemy
+
+# Check what you have
+python3 --version && sqlite3 --version && python3 -c "import duckdb; print(duckdb.__version__)"
+```
+
+> [!TIP]
+> Datasette Lite runs entirely in the browser (WASM) — useful if you cannot install anything: [lite.datasette.io](https://lite.datasette.io/).
+
+---
+
+[← Back to front page](../README.md) | [← Resource Prompts](./Y-resources-prompt-bank.md)

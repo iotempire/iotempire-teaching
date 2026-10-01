@@ -30,6 +30,8 @@ We provide several comprehensive workbooks that serve as the foundation for our 
 
 - [HSBI/GT Sensors and Actuators (10 days)](full-classes/hsbi-sensors-actuators-10d/README.md): A hands-on sensors and actuators course: measurement technique and uncertainty, I²C and sensor addressing, sensor characterization and calibration, distance/motion/environment sensors, LEDs and LED animation, servos and other motors, and IoTempower-based sensor/actuator systems with a characterized final project.
 
+- [HSBI/GT Databases (DBS) — Local-First Edition (12 sessions)](full-classes/hsbi-databases-10d/README.md): A local-first redesign of the Databases module (3386): legacy schema audits and code-first data contracts, LLM-assisted SQL with query profiling (`EXPLAIN QUERY PLAN`) and injection-safe parameterization, integrity constraints and edge triggers, normalization-vs-denormalization benchmarking, and polyglot embedded persistence (SQLite, DuckDB, JSON, key-value) toward a meaningful challenge project with an oral defense.
+
 - [Mastering IoT Solutions – Hands-On Workshop (2–3 h)](workshops/mastering-iot-solutions/README.md): The hands-on Day 1 master class (M5StickC, Node-RED, and the local IoTempower stack) exploring IoT solutions from a business and implementation perspective.
 
 - [Magic Wands – Edge & Voice Computing Workshop (4–16 h, draft)](workshops/magic-wands-edge-computing/README.md): Voice- and gesture-driven IoT using an M5StickC, a local Whisper speech-to-text server, and Node-RED. Note: This is currently in **draft stage** - content may be incomplete.

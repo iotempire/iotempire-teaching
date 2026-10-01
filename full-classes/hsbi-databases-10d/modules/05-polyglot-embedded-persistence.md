@@ -1,0 +1,217 @@
+# Module 5 — Polyglot & Embedded Persistence
+
+[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 6 →](./06-final-project-hackathon.md)
+
+> **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
+
+**Course placement:** Session 9. This module covers the legacy *Databases within Applications*, *NoSQL*, *ACID vs. BASE*, and *CAP theorem* chapters — reframed as a deliberate choice between several embedded engines.
+
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation in Session 11 (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing each task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+
+This module gives you the opportunity to explore polyglot persistence and achieve competency in matching a workload to a storage engine.
+
+By the end of this module, you can:
+1. Store **semi-structured data (JSON)** inside SQLite and query it with `json_extract`/`json_each` and an expression index.
+2. Use **DuckDB** for analytical queries directly over **Parquet and CSV**, and explain why a columnar engine wins.
+3. Implement and evaluate a **key-value store** for a simple access pattern.
+4. Explain **ACID vs. BASE** and the **CAP theorem** in terms of the systems you actually ran.
+5. Choose an engine for a workload and *defend the choice with a measurement*.
+
+> [!NOTE]
+> Task tiers. Tasks marked ★ Core must be completed by everyone. Tasks marked ◇ Stretcher are optional and are the natural trim point if time runs short — they are excellent bonus-task material.
+
+> [!WARNING]
+> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
+
+## 📖 Story — Three Questions, Three Engines
+
+The machine-shop data now has three different shapes of problem, and the team keeps trying to solve all three with the same tool. The plant manager pushes back:
+
+1. *"Each sensor has different metadata — some have a calibration date, some have a firmware version, some have nothing. I don't want a schema migration every time a vendor adds a field."* → **flexible documents**
+2. *"I have two years of stored readings in files. I want a weekly report and a histogram across all of them, fast."* → **analytical scan**
+3. *"The dashboard needs to remember who logged in and what their last filter was. It is a simple lookup by one key."* → **key-value access**
+
+Trying to force all three into one relational schema is the same mistake as the cloud-server impulse in Module 0 — the wrong tool for the workload. In this studio you reach for three engines that all run **embedded, locally**, and you measure why each fits.
+
+## 📖 Part A — Mini-Lecture: Pick the Engine for the Workload (15 min)
+
+**ACID vs. BASE.** A transactional engine guarantees **Atomicity, Consistency, Isolation, Durability** — your writes either fully happen or fully do not. BASE ("**B**asically **A**vailable, **S**oft state, **E**ventually consistent") relaxes consistency for availability and scale, which is a trade you only need when you distribute across machines. **All of Module 0–4 was ACID, and that was correct** because the data lived on one machine.
+
+**The CAP theorem.** A distributed system can guarantee at most two of **C**onsistency, **A**vailability, and **P**artition tolerance. Since partitions *will* happen on a network, real systems choose **CP** (refuse to answer rather than answer wrong) or **AP** (answer, possibly stale). An embedded database sidesteps CAP by not distributing — and that is a legitimate engineering choice, not a limitation to apologize for.
+
+**The polyglot palette (all embedded):**
+
+| Engine | Model | Best at | Cost |
+|---|---|---|---|
+| **SQLite** | Relational rows (+ JSON1) | Transactions, integrity, point queries, small-to-medium data | One writer at a time |
+| **DuckDB** | Columnar relational | Aggregations, scans, joins over large files (Parquet/CSV) | Not for many small writes |
+| **Key-value (dict/`shelve`/LMDB)** | One key → one value | Trivial lookups by key, caches, sessions | No queries, no relationships |
+| **Document (JSON in SQLite)** | JSON blobs + paths | Evolving metadata, vendor-specific fields | Weaker typing, needs expression indexes |
+
+> [!TIP]
+> "NoSQL" does not mean "no schema". A JSON column with a `CHECK(json_valid(...))` and an index on the paths you actually query is a *designed* schema — just a flexible one.
+
+## 🛠️ Studio Lab: Three Engines, One Workload Each (60 min)
+
+*Software:* `sqlite3` CLI, Python 3.11+ with `duckdb` (`pip install duckdb`).
+
+### ★ Task 1: JSON metadata inside SQLite (20 min)
+
+Vendors keep adding fields. Store the metadata as JSON and query it without migrating the table.
+
+```sh
+mkdir -p module-05
+sqlite3 module-05/polyglot.db <<'SQL'
+DROP TABLE IF EXISTS device;
+CREATE TABLE device(
+    device_id INTEGER PRIMARY KEY,
+    name      TEXT NOT NULL,
+    meta      TEXT NOT NULL CHECK (json_valid(meta))   -- enforce that it *is* JSON
+) STRICT;
+
+INSERT INTO device(name, meta) VALUES
+  ('cnc-01', '{"vendor":"Siemens","firmware":"4.2","calibrated":"2026-01-10"}'),
+  ('cnc-02', '{"vendor":"Fanuc","firmware":"3.9"}'),
+  ('molder-07', '{"vendor":"Arburg","firmware":"8.1","calibrated":"2025-11-02","nozzle_mm":2.5}');
+
+-- Query a path like a column:
+SELECT name, json_extract(meta, '$.vendor') AS vendor FROM device;
+
+-- The -> and ->> operators are shorthand:
+SELECT name, meta ->> '$.firmware' AS fw FROM device;
+
+-- Expand an object into rows:
+SELECT d.name, j.key, j.value FROM device d, json_each(d.meta) j WHERE d.name = 'cnc-01';
+
+-- Index the path you filter on (an expression index), then prove it with a plan:
+CREATE INDEX ix_device_vendor ON device(json_extract(meta, '$.vendor'));
+EXPLAIN QUERY PLAN SELECT name FROM device WHERE json_extract(meta, '$.vendor') = 'Fanuc';
+SQL
+```
+
+Note the plan: if the expression in the index matches the expression in the `WHERE`, you get `SEARCH ... USING INDEX`. If they differ (a classic LLM mistake), you get `SCAN`.
+
+*Portfolio evidence:* the DDL, the `json_extract`/`json_each` results, and the `EXPLAIN QUERY PLAN` output proving the expression index is used.
+
+### ★ Task 2: DuckDB analytics over files (20 min)
+
+Move the readings into a Parquet file and analyze them with DuckDB — the analytical workload from the story. This reuses the `telemetry.db` you built in Module 0.
+
+```python
+# module-05/analytics.py
+import time
+import duckdb
+
+con = duckdb.connect()                       # in-process, embedded, no server
+
+# 1. Attach the SQLite file from Module 0 (the sqlite extension reads it in place):
+con.execute("INSTALL sqlite")
+con.execute("LOAD sqlite")
+con.execute("ATTACH 'module-00/telemetry.db' AS edge (TYPE sqlite)")
+
+# 2. Materialize an analytical copy to Parquet at the edge — one file, no server:
+con.execute("COPY (SELECT * FROM edge.readings) TO 'module-05/readings.parquet' (FORMAT parquet)")
+
+# 3. Query the Parquet file directly — no import step, no server:
+t0 = time.perf_counter()
+parquet = con.execute("""
+    SELECT machine, AVG(temp_c) AS avg_temp, MAX(vib_rms) AS peak_vib, COUNT(*) AS n
+    FROM 'module-05/readings.parquet'
+    GROUP BY machine
+    ORDER BY peak_vib DESC
+""").fetchall()
+t_parquet = time.perf_counter() - t0
+
+# 4. The same aggregation straight from the SQLite file, for comparison:
+t0 = time.perf_counter()
+sqlite = con.execute("""
+    SELECT machine, AVG(temp_c) AS avg_temp, MAX(vib_rms) AS peak_vib, COUNT(*) AS n
+    FROM edge.readings
+    GROUP BY machine
+    ORDER BY peak_vib DESC
+""").fetchall()
+t_sqlite = time.perf_counter() - t0
+
+print("parquet:", parquet, f"{t_parquet:.3f}s")
+print("sqlite :", sqlite,  f"{t_sqlite:.3f}s")
+```
+
+Run it. Record the two timings and the Parquet file size. Then answer: **why is the columnar Parquet path the right one for the weekly report, and the wrong one for recording a single new reading?**
+
+*Portfolio evidence:* `analytics.py`, the Parquet file size, the two timings, and your one-paragraph engine-fit explanation.
+
+### ★ Task 3: A key-value store for the dashboard (15 min)
+
+The dashboard only ever does "get by key" and "set key". Model that directly and measure it against SQLite.
+
+```python
+# module-05/kv_compare.py
+import sqlite3, shelve, time
+
+N = 50_000
+
+# --- key-value store (stdlib shelve: a persistent dict) ---
+with shelve.open("module-05/sessions") as db:
+    t0 = time.perf_counter()
+    for i in range(N):
+        db[f"session-{i}"] = f"user-{i%100}:filter=city:{i%4}"
+    t_set = time.perf_counter() - t0
+    t0 = time.perf_counter()
+    for i in range(N):
+        _ = db[f"session-{i}"]
+    t_get = time.perf_counter() - t0
+
+# --- the same access pattern in SQLite ---
+conn = sqlite3.connect("module-05/kv.db")
+conn.execute("CREATE TABLE IF NOT EXISTS session(k TEXT PRIMARY KEY, v TEXT)")
+t0 = time.perf_counter()
+conn.executemany("INSERT OR REPLACE INTO session(k, v) VALUES (?, ?)",
+                 ((f"session-{i}", f"user-{i%100}:filter=city:{i%4}") for i in range(N)))
+conn.commit()
+sq_set = time.perf_counter() - t0
+t0 = time.perf_counter()
+for i in range(N):
+    conn.execute("SELECT v FROM session WHERE k = ?", (f"session-{i}",)).fetchone()
+sq_get = time.perf_counter() - t0
+
+print(f"shelve  set={t_set:.3f}s get={t_get:.3f}s")
+print(f"sqlite  set={sq_set:.3f}s get={sq_get:.3f}s")
+```
+
+Run it and record the four numbers. Then state which you would ship for dashboard sessions and why — and **one thing SQLite can do that the key-value store cannot** (hint: a query across sessions).
+
+*Portfolio evidence:* `kv_compare.py`, the four timings, your choice, and the SQLite-only capability you named.
+
+### ★ Task 4: Name the paradigm (5 min)
+
+In 4–6 sentences, map what you just ran onto the theory: where was this **ACID**, where did you accept eventual consistency (if anywhere), and why is the **CAP theorem barely relevant** to a single-machine, embedded setup? This is your checkpoint-ready argument for choosing embedded persistence.
+
+### ◇ Task 5 (Stretcher): Full-text search
+
+Use SQLite's FTS5 to build a searchable index over machine maintenance notes (`CREATE VIRTUAL TABLE notes USING fts5(body)`). This is another "NoSQL-flavored" capability living *inside* the relational engine — a good counter-example to "SQLite is only for tables".
+
+## ✅ What must be committed to your portfolio
+
+Commit under `module-05/`:
+
+- [ ] The JSON device DDL, `json_extract`/`json_each` queries, and the expression-index plan.
+- [ ] `analytics.py`, the Parquet artifact (or its size), the two timings, and the engine-fit paragraph.
+- [ ] `kv_compare.py`, the four timings, your engine choice, and the SQLite-only capability.
+- [ ] The ACID/BASE/CAP paragraph.
+- [ ] `reflection.md` — the logbook entry for this block.
+- [ ] (Stretcher) the FTS5 notes search.
+
+## 📚 If you want to go deeper
+
+- SQLite — JSON functions and the `->`/`->>` operators — [sqlite.org/json1.html](https://sqlite.org/json1.html)
+- DuckDB — reading Parquet and CSV directly; the SQLite extension — [duckdb.org/docs/data/parquet](https://duckdb.org/docs/data/parquet/overview) · [duckdb.org/docs/extensions/sqlite](https://duckdb.org/docs/core_extensions/sqlite.html)
+- DuckDB — *Why DuckDB* (columnar, vectorized OLAP) — [duckdb.org/why_duckdb.html](https://duckdb.org/why_duckdb.html)
+- Martin Kleppmann — *Designing Data-Intensive Applications* (ACID, BASE, CAP) — the standard reference for this module's theory
+
+---
+
+[← Previous: Module 4](./04-normalization-vs-denormalization.md) | [Back to front page](../README.md) | [Next: Module 6 →](./06-final-project-hackathon.md)
