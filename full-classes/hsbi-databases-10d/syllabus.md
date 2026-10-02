@@ -78,11 +78,11 @@ By the end of this course, you will be able to (mapped to the module-handbook co
 
 ## Course Load & Credits
 
-- Format: 11 four-hour sessions (44 contact hours) across the semester, plus optional tutorial sessions on selected Sundays run by the teaching assistant. The course begins with Module 1 in Session 1.
+- Format: 11 four-hour sessions (44 contact hours) across the semester, plus optional tutorial sessions run by the teaching assistant (times announced via the LMS). The course begins with Module 1 in Session 1.
 - Target Audience: Bachelor students in *Mechatronics and Automation* and *Industrial Engineering* (3rd semester, Campus Gütersloh).
 - Module Number: 3386 (*Databases*), 5 ECTS.
 - Total Workload: 150 hours.
-  - Core studio contact time: 44 hours (11 sessions × 4 h), plus optional Sunday tutorial sessions.
+  - Core studio contact time: 44 hours (11 sessions × 4 h), plus optional tutorial sessions.
   - Self-study, portfolio documentation, benchmarking, and final project: the remaining ≈106 hours.
 
 > [!NOTE]
@@ -167,7 +167,7 @@ For each teaching block, write one logbook entry answering these four questions:
 
 ## 11-Session Course Schedule
 
-The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6), and the final-project arc (Modules 7–8). Sessions 1–6 are taught studios; Sessions 7–10 are project studios; Session 11 is demo and defense. Optional **Sunday tutorial sessions** (TA-led) add catch-up, deeper practice, and project support.
+The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6), and the final-project arc (Modules 7–8). Sessions 1–6 are taught studios; Sessions 7–10 are project studios; Session 11 is demo and defense. Optional **TA-led tutorial sessions** (times announced via the LMS) add catch-up, deeper practice, and project support.
 
 > Indicative plan. The session-by-session mapping below is a planning draft and may shift — including during the semester — as we refine this class together. The learning objectives and the final project matter more than the exact session a topic lands on.
 
@@ -186,7 +186,7 @@ The 11 sessions deliver Module 1 (introduction), the technical foundations (Modu
 | 11 | [Module 8 — Live Demos & Oral Defenses](./modules/08-final-project.md) | 15-minute team demo + individual oral defense; retrospective. |
 
 > [!TIP]
-> **Buffer, pacing, and Sundays:** Sessions 7–10 are project studios, and at least one of them is deliberately loose — it can absorb spill-over from earlier labs, be released as flexible time, or be used for stretcher tasks and peer mentoring. The optional Sunday tutorial sessions are the natural home for catch-up and deeper deep dives. Announce the concrete use of each date in the LMS as the course progresses.
+> **Buffer, pacing, and tutorials:** Sessions 7–10 are project studios, and at least one of them is deliberately loose — it can absorb spill-over from earlier labs, be released as flexible time, or be used for stretcher tasks and peer mentoring. The optional tutorial sessions (times announced via the LMS) are the natural home for catch-up and deeper deep dives. Announce the concrete use of each date in the LMS as the course progresses.
 
 ## Final Project Requirements (5 Points)
 

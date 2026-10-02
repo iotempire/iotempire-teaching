@@ -16,7 +16,7 @@
 | [Resource Prompts](./modules/Y-resources-prompt-bank.md) | Reflection prompts, LLM-verification drills, and quick references |
 | [Resource Bank](./modules/Z-resources-bank.md) | Cheat sheets, troubleshooting, datasets, and extended reading |
 
-This README is the course workbook and front page for **Databases (DBS)** taught at Hochschule Bielefeld University of Applied Sciences and Arts (HSBI), Campus Gütersloh. Module number 3386, 5 ECTS, 3rd semester. It is delivered as a semester-long active studio: **11 four-hour sessions (44 contact hours)**, plus **optional tutorial sessions on selected Sundays** run by a teaching assistant (to be announced via the LMS). The official timetable, room, and announcements are published through the course LMS.
+This README is the course workbook and front page for **Databases (DBS)** taught at Hochschule Bielefeld University of Applied Sciences and Arts (HSBI), Campus Gütersloh. Module number 3386, 5 ECTS, 3rd semester. It is delivered as a semester-long active studio: **11 four-hour sessions (44 contact hours)**, plus **optional tutorial sessions** run by a teaching assistant (dates and times announced via the LMS). The official timetable, room, and announcements are published through the course LMS.
 
 > [!NOTE]
 > **Every module begins with its learning goals.** Those goals are the agreement between you and me: you earn a module's points by *demonstrating the goals* — in a short checkpoint conversation and through your portfolio — not by ticking off every task. That is the whole contract. It is also why the tasks are negotiable and the goals are not: reach the goals your own way, and you have met the module.
@@ -26,7 +26,7 @@ This README is the course workbook and front page for **Databases (DBS)** taught
 
 ## Course Overview
 
-- Duration: 11 four-hour sessions (44 contact hours), plus optional Sunday tutorial sessions with the teaching assistant.
+- Duration: 11 four-hour sessions (44 contact hours), plus optional tutorial sessions with the teaching assistant (times announced via the LMS).
 - Target Group: Bachelor students in *Mechatronics and Automation* and *Industrial Engineering* (3rd semester, 40–70 students). Module number 3386.
 - Workload: 150 hours (5 ECTS) — 44 h core studio contact (plus tutorial sessions), and the remainder in self-study, portfolio documentation, and the final project.
 - Format: Practical, studio-style, peer-driven course. A short introduction to the class in Session 1, then one technical module per session (Modules 2–6), then the final-project studio (Modules 7–8). We keep the classical foundations the module handbook requires — database architecture, ERM, the relational model, normalization, SQL (DDL/DML/DQL/DCL), triggers and procedures, NoSQL — but we teach them the way data systems are actually built today: locally, hands-on, measured, and AI-assisted.

@@ -38,7 +38,7 @@ Before any SQL, we agree on how we learn here. Three things:
 
 > **The reward structure in one line:** documented, honest engineering — including failure — beats a neat but unexamined "it works".
 
-Finally, a practical note: the class has **11 four-hour sessions**, plus **optional tutorial sessions on selected Sundays** run by a teaching assistant (to be announced). Use the Sundays for catch-up, deeper practice, and project support.
+Finally, a practical note: the class has **11 four-hour sessions**, plus **optional tutorial sessions** run by a teaching assistant (times announced via the LMS). Use them for catch-up, deeper practice, and project support.
 
 ## 📖 Story — The Server Nobody Needed
 

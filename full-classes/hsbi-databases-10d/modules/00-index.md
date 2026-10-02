@@ -4,14 +4,14 @@
 
 > **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
 
-This page maps the legacy 7-chapter Databases lecture onto the **11 four-hour sessions** of this redesign, plus the optional **Sunday tutorial sessions** with the teaching assistant.
+This page maps the legacy 7-chapter Databases lecture onto the **11 four-hour sessions** of this redesign, plus optional **tutorial sessions** with the teaching assistant (times announced via the LMS).
 
 > [!NOTE]
 > **How to read a module.** Every module opens with its **learning goals** — the contract between you and the instructor. You earn a module's points by demonstrating those goals (in a checkpoint conversation and through your portfolio), not by completing every task, so you may **modify, replace, or extend the tasks as long as you still reach the goals**: different datasets, different engines, deeper deep dives, and stretchers are all fair game.
 >
 > Each module also carries a ***DRAFT BOUNDARY*** — a moving line that marks the content still under construction. This class is taught for the first time, by an instructor who is also new to teaching databases, so the boundary moves down as we refine things together and your input genuinely shapes it.
 
-## Session roadmap (11 sessions + Sunday tutorials)
+## Session roadmap (11 sessions + tutorials)
 
 | Module | Session | Modern studio | Legacy topics it reframes | Hands-on focus |
 |:---:|:---:|---|---|---|
@@ -25,7 +25,7 @@ This page maps the legacy 7-chapter Databases lecture onto the **11 four-hour se
 | [Module 8](./08-final-project.md) | 11 | Final Project Specification, Demos & Oral Defenses | *Assessment* | 15-minute live demo + individual oral defense; retrospective. |
 | [Resource Prompts](./Y-resources-prompt-bank.md) | — | Supplementary | — | Reflection prompts, LLM-verification drills, quick references. |
 | [Resource Bank](./Z-resources-bank.md) | — | Supplementary | — | Cheat sheets, troubleshooting, datasets, extended reading. |
-| *Sunday tutorials* | selected Sundays | Tutorial support (TA) | — | Catch-up, deeper practice, stretcher deep dives, project support. Announced via the LMS. |
+| *Tutorial sessions* | dates TBA | Tutorial support (TA) | — | Catch-up, deeper practice, stretcher deep dives, project support. Times announced via the LMS. |
 
 ## What changed, and why
 
