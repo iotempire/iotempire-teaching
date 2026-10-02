@@ -1,13 +1,30 @@
-# Module 7 — Final Project Specification (Local-First Meaningful Challenge)
+# Module 8 — Final Project Specification (Local-First Meaningful Challenge)
 
-[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Previous: Module 6 →](./06-final-project-hackathon.md)
+[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Previous: Module 7 →](./07-final-project-studio.md)
 
-**Course placement:** Session 12 (demo + defense), built during Sessions 10–11. Worth **5 points (25 % of the base score)**.
+**Course placement:** Session 11 (demo + defense), built during Sessions 7–10. Worth **5 points (25 % of the base score)**.
 
 > **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
 
 > [!IMPORTANT]
 > **The syllabus is the single source of truth for assessment.** This page is the detailed specification and rubric. If this page and the [syllabus](../syllabus.md#final-project-requirements-5-points) ever disagree, the syllabus wins; this page is the working detail behind those requirements.
+
+## 🎯 Learning Goals
+
+> **How these are assessed:** You earn the 5 project points through the team repository, a 5-page report, and a 15-minute live demo with an **individual oral defense** in Session 11. **The learning goals, must-have criteria, and rubric are the contract: meet them, and you earn the points.** The studio guidance around them is a draft you may adapt with your team, as long as the must-haves and evidence remain covered.
+
+By the end of the final project, you can:
+1. Turn a stakeholder story into a data model, a schema, and named queries that answer a real question.
+2. Build a reproducible ingestion pipeline that loads real data into an embedded database idempotently.
+3. Prove a performance decision with `EXPLAIN QUERY PLAN` and a before/after measurement.
+4. Secure every external input with bound parameters and demonstrate why the naive alternative is injectable.
+5. Enforce domain rules in the database (constraints, triggers, or generated columns), not just in application code.
+6. Document and **defend** the design decisions and trade-offs you own as an individual.
+
+> [!WARNING]
+> DRAFT — first taught in WS 2026/27. The studio guidance and logistics around the fixed criteria may still change as we refine the class together; the must-have criteria and rubric are settled. Different project scopes and deep dives are welcome — talk to the instructor early.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft (the must-have criteria and rubric are settled) ===== ⬇︎**
 
 ## 🎯 The Challenge
 
@@ -23,16 +40,16 @@ These are the requirements every project must meet. They are deliberately mapped
 
 | # | Requirement | Why it exists | Where it comes from |
 |---|---|---|---|
-| 1 | **Embedded database with a documented schema** — SQLite by default (DuckDB/JSON only with a stated workload reason); at least one enforced relationship (`FOREIGN KEY`) | The core local-first choice; and modeling is not optional | Modules 0–1 |
-| 2 | **Reproducible real-world data ingestion** — a script loads actual data (sensor/telemetry logs, an export, or a public dataset) and can be re-run without duplicating rows | Hand-typed rows are not data engineering | Modules 0, 3 |
-| 3 | **Measured indexing proof** — at least one index whose effect is shown with `EXPLAIN QUERY PLAN` and a before/after timing on a non-trivial dataset | A performance claim needs evidence | Module 2 |
-| 4 | **Parameterization & security** — every query touching external input uses bound parameters; you demonstrate that a string-built equivalent would be injectable | Shipping injection is a professional failure | Module 2 |
-| 5 | **Integrity & automation at the edge** — at least one constraint and one trigger or generated column that enforce a domain rule | Integrity must live in the database, not the app's good intentions | Module 3 |
-| 6 | **Evaluation evidence** — query timings, plan output, storage size, and/or load throughput | Decisions are made with numbers | Module 4 |
-| 7 | **Reachable interface** — the data is shown through something a human uses (Datasette, a CLI, a small app, or a dashboard), and the app recovers gracefully from a missing/corrupt row | The story has to reach the person it is for | Modules 5–6 |
+| 1 | **Embedded database with a documented schema** — SQLite by default (DuckDB/JSON only with a stated workload reason); at least one enforced relationship (`FOREIGN KEY`) | The core local-first choice; and modeling is not optional | Modules 1–2 |
+| 2 | **Reproducible real-world data ingestion** — a script loads actual data (sensor/telemetry logs, an export, or a public dataset) and can be re-run without duplicating rows | Hand-typed rows are not data engineering | Modules 1, 4 |
+| 3 | **Measured indexing proof** — at least one index whose effect is shown with `EXPLAIN QUERY PLAN` and a before/after timing on a non-trivial dataset | A performance claim needs evidence | Module 3 |
+| 4 | **Parameterization & security** — every query touching external input uses bound parameters; you demonstrate that a string-built equivalent would be injectable | Shipping injection is a professional failure | Module 3 |
+| 5 | **Integrity & automation at the edge** — at least one constraint and one trigger or generated column that enforce a domain rule | Integrity must live in the database, not the app's good intentions | Module 4 |
+| 6 | **Evaluation evidence** — query timings, plan output, storage size, and/or load throughput | Decisions are made with numbers | Module 5 |
+| 7 | **Reachable interface** — the data is shown through something a human uses (Datasette, a CLI, a small app, or a dashboard), and the app recovers gracefully from a missing/corrupt row | The story has to reach the person it is for | Modules 6–7 |
 
 > [!NOTE]
-> **Stretchers (optional, bonus-worthy).** A normalized-read vs. denormalized-read comparison (Module 4); a DuckDB analytics view over a Parquet export (Module 5); a key-value or JSON component with a measured justification (Module 5); an accepted upstream pull request (any module).
+> **Stretchers (optional, bonus-worthy).** A normalized-read vs. denormalized-read comparison (Module 5); a DuckDB analytics view over a Parquet export (Module 6); a key-value or JSON component with a measured justification (Module 6); an accepted upstream pull request (any module).
 
 ## 📄 Documentation — 5 Pages, Concise
 
@@ -58,7 +75,7 @@ The assessment combines a **team demo** with an **individual oral defense**. Bud
 | 12–15 | **Defense.** Individual questions to specific members on the design decisions they own; one "what would you change and why?" | All |
 
 **Preparation rules:**
-- Rehearse to the clock (see the Module 6 rehearsal). Slides may support, never replace, the live run.
+- Rehearse to the clock (see the Module 7 rehearsal). Slides may support, never replace, the live run.
 - Have a **fallback**: a recorded 2-minute capture of the live flow in case the machine misbehaves. A crash you handle calmly and explain is fine; a crash you cannot explain is a lost point.
 - Every member answers at least one question. "That was my teammate's part" is not an answer.
 
@@ -80,7 +97,7 @@ The assessment combines a **team demo** with an **individual oral defense**. Bud
 
 ## ✅ Submission Checklist
 
-Before Session 12, the team repository must contain:
+Before Session 11, the team repository must contain:
 
 - [ ] `README.md` with "rebuild in three commands" and a `requirements.txt`.
 - [ ] `schema.sql` with the enforced relationship(s), at least one constraint, and a trigger/generated column.
@@ -96,10 +113,10 @@ Before Session 12, the team repository must contain:
 
 ## 🗓️ Where this fits in the course
 
-- Build time: [Module 6 — Final Project Hackathon](./06-final-project-hackathon.md) (Sessions 10–11).
-- Demo & defense: Session 12.
+- Build time: [Module 7 — Final Project Studio](./07-final-project-studio.md) (Sessions 7–10).
+- Demo & defense: Session 11.
 - Points: 5 of the 20 base points (25 %). See the [assessment map](./00-index.md#assessment-map) and the [grade scale](../syllabus.md#grade-scale).
 
 ---
 
-[← Previous: Module 6](./06-final-project-hackathon.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md)
+[← Previous: Module 7](./07-final-project-studio.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md)

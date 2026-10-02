@@ -1,14 +1,14 @@
-# Module 3 — Data Integrity, Constraints & Edge Triggers
+# Module 4 — Data Integrity, Constraints & Edge Triggers
 
-[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 4 →](./04-normalization-vs-denormalization.md)
+[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-normalization-vs-denormalization.md)
 
 > **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
 
-**Course placement:** Sessions 6–7. This module covers the legacy *Standard SQL (DDL/DML/DCL)*, *data integrity*, and *triggers and procedures* chapters — reframed as integrity that runs **at the edge**, next to the data, without a server.
+**Course placement:** Session 4. This module covers the legacy *Standard SQL (DDL/DML/DCL)*, *data integrity*, and *triggers and procedures* chapters — reframed as integrity that runs **at the edge**, next to the data, without a server.
 
 ## 🎯 Learning Goals
 
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation in Session 7 (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation in Session 6 (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. **These learning goals are the contract between you and the instructor: demonstrate them, and you earn the points.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 This module gives you the opportunity to explore data-definition, manipulation, and integrity and achieve competency in enforcing rules where the data lives.
 
@@ -23,7 +23,7 @@ By the end of this module, you can:
 > Task tiers. Tasks marked ★ Core must be completed by everyone. Tasks marked ◇ Stretcher are optional and are the natural trim point if time runs short — they are excellent bonus-task material.
 
 > [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+> DRAFT — first taught in WS 2026/27 by an instructor who is **also teaching databases for the first time** and is learning this material alongside you. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Different deep dives and stretchers are welcome — your input can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
@@ -61,8 +61,8 @@ The module handbook lists integrity as a first-class topic. In relational terms 
 ### Setup (5 min)
 
 ```sh
-mkdir -p module-03
-sqlite3 module-03/edge.db <<'SQL'
+mkdir -p module-04
+sqlite3 module-04/edge.db <<'SQL'
 PRAGMA foreign_keys = ON;        -- per-connection, and OFF by default: remember this.
 DROP TABLE IF EXISTS reading, sensor, alarm, audit;
 
@@ -124,7 +124,7 @@ ON CONFLICT(sensor_id, ts) DO UPDATE SET value = excluded.value;
 SELECT sensor_id, ts, value FROM reading WHERE sensor_id = 1;
 ```
 
-Then write the ingestion loop in Python (`module-03/ingest.py`) that takes a CSV of readings and uses `executemany` with the same `UPSERT`, and run it **twice** on the same file.
+Then write the ingestion loop in Python (`module-04/ingest.py`) that takes a CSV of readings and uses `executemany` with the same `UPSERT`, and run it **twice** on the same file.
 
 *Portfolio evidence:* the `UPSERT` SQL, the Python ingest script, and the row count proving a double run did not duplicate data.
 
@@ -186,19 +186,19 @@ There is no `GRANT` in SQLite, so demonstrate the embedded substitute. **Create 
 
 ```sh
 # 1. Expose a safe subset with a view, and hand *that* to report readers:
-sqlite3 module-03/edge.db "CREATE VIEW machine_health AS
+sqlite3 module-04/edge.db "CREATE VIEW machine_health AS
   SELECT s.machine_id, s.metric, MAX(r.value) AS peak, COUNT(*) AS n
   FROM sensor s JOIN reading r USING(sensor_id) GROUP BY s.machine_id, s.metric;"
 
 # 2. Read-only at the file level (the strongest, simplest control):
-chmod 444 module-03/edge.db
+chmod 444 module-04/edge.db
 
 # 3. Read-only at the connection level:
-sqlite3 "file:module-03/edge.db?mode=ro" "SELECT COUNT(*) FROM reading;"
-sqlite3 "file:module-03/edge.db?mode=ro" "DELETE FROM reading;"   # must fail
+sqlite3 "file:module-04/edge.db?mode=ro" "SELECT COUNT(*) FROM reading;"
+sqlite3 "file:module-04/edge.db?mode=ro" "DELETE FROM reading;"   # must fail
 
 # 4. Restore write access for your own further work:
-chmod 644 module-03/edge.db
+chmod 644 module-04/edge.db
 ```
 
 Write 3–4 sentences: **how would this differ with a PostgreSQL server, and why is file-permission-based control acceptable here but not for a multi-tenant web app?**
@@ -211,7 +211,7 @@ Switch the alarm trigger to `BEFORE INSERT` and observe the difference; or add a
 
 ## ✅ What must be committed to your portfolio
 
-Commit under `module-03/`:
+Commit under `module-04/`:
 
 - [ ] The setup script (`STRICT` tables, generated column, constraints).
 - [ ] The rejected-statement evidence for each constraint with its exact error message.
@@ -230,4 +230,4 @@ Commit under `module-03/`:
 
 ---
 
-[← Previous: Module 2](./02-llm-assisted-sql-and-query-profiling.md) | [Back to front page](../README.md) | [Next: Module 4 →](./04-normalization-vs-denormalization.md)
+[← Previous: Module 3](./03-llm-assisted-sql-and-query-profiling.md) | [Back to front page](../README.md) | [Next: Module 5 →](./05-normalization-vs-denormalization.md)

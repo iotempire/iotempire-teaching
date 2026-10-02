@@ -66,10 +66,10 @@ sqlite-utils memory data.csv "SELECT count(*) FROM data"   # query a CSV in one 
 
 ## Suggested practice datasets
 
-- **The course's own generators** (Modules 0, 2, 4) — self-contained, no network needed.
+- **The course's own generators** (Modules 1, 3, 5) — self-contained, no network needed.
 - **NYC Taxi trips (Parquet)** — a standard analytical dataset for DuckDB Parquet demos (network required to download).
 - **Sakila** — a classic sample relational schema (film rental), useful for join/aggregation practice.
-- **The plant telemetry** you generate in Module 0 — extend it for the final project.
+- **The plant telemetry** you generate in Module 1 — extend it for the final project.
 - **Your own data** — a study log, a budget, sensor readings from another course. The most meaningful datasets are the ones that matter to you.
 
 ## Extended reading

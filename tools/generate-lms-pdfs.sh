@@ -12,13 +12,16 @@
 #   tools/generate-lms-pdfs.sh --class-dir <dir> [options] [release-label]
 #
 # Required:
-#   --class-dir <dir>   Class directory containing syllabus.md and pre-study.md
+#   --class-dir <dir>   Class directory containing the Markdown sources
 #
 # Options:
 #   --prefix <prefix>   Output filename prefix (default: "<class-dir-name>-", with any
 #                       trailing duration suffix such as "-10d" removed)
 #   --style <file>      CSS used by the Chromium engine
 #                       (default: <class-dir>/lms-pdf.css, else tools/lms-pdf.css)
+#   --document <file>:<name>
+#                       Render the given source file; repeatable. Replaces the
+#                       default list (syllabus.md:syllabus, pre-study.md:pre-study-guide).
 #   --engine <name>     Force an engine: soffice | chromium | pandoc-latex
 #   -h, --help          Show this help
 #
@@ -36,10 +39,15 @@ TOOLS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "$TOOLS_DIR/.." && pwd)"
 
 # Documents rendered by default, as "<source-file>:<document-name>".
-DOCUMENTS=(
+# A class can override this list with one or more --document options. Missing
+# default documents are skipped with a warning, so a class without a pre-study
+# (for example) still exports its other handouts.
+DOCUMENTS_DEFAULT=(
     "syllabus.md:syllabus"
     "pre-study.md:pre-study-guide"
 )
+DOCUMENTS=()
+DOCUMENTS_EXPLICIT=false
 
 CLASS_DIR=""
 PREFIX=""
@@ -53,7 +61,7 @@ usage() {
     cat <<'EOF'
 Usage: tools/generate-lms-pdfs.sh --class-dir <dir> [options] [release-label]
 
-Render a class's syllabus.md and pre-study.md into dated PDFs.
+Render a class's Markdown sources into dated PDFs.
 
 Required:
   --class-dir <dir>   Class directory containing the Markdown sources
@@ -62,6 +70,10 @@ Options:
   --prefix <prefix>   Output filename prefix (default: "<class-dir-name>-", with any
                       trailing duration suffix such as "-10d" removed)
   --style <file>      CSS used by the Chromium engine
+  --document <file>:<name>
+                      Render the given source file; repeatable. Replaces the default
+                      list (syllabus.md:syllabus, pre-study.md:pre-study-guide). Missing
+                      default documents are skipped with a warning.
   --engine <name>     Force an engine: soffice, chromium, or pandoc-latex
   -h, --help          Show this help message
 
@@ -122,6 +134,16 @@ while [[ $# -gt 0 ]]; do
             STYLE_FILE="${1#--style=}"
             shift
             ;;
+        --document)
+            DOCUMENTS+=("${2:-}")
+            DOCUMENTS_EXPLICIT=true
+            shift 2
+            ;;
+        --document=*)
+            DOCUMENTS+=("${1#--document=}")
+            DOCUMENTS_EXPLICIT=true
+            shift
+            ;;
         --engine)
             ENGINE="${2:-}"
             shift 2
@@ -173,6 +195,10 @@ fi
 RELEASE_LABEL="${RELEASE_LABEL:-$(date +%Y)}"
 ENGINE="${ENGINE:-auto}"
 
+if [[ ${#DOCUMENTS[@]} -eq 0 ]]; then
+    DOCUMENTS=("${DOCUMENTS_DEFAULT[@]}")
+fi
+
 case "$ENGINE" in
     auto|soffice|chromium|pandoc-latex) ;;
     *)
@@ -206,13 +232,24 @@ if ! command -v pandoc >/dev/null 2>&1 && ! command -v soffice >/dev/null 2>&1; 
     exit 127
 fi
 
+RESOLVED_DOCUMENTS=()
 for document in "${DOCUMENTS[@]}"; do
     source_file="$CLASS_DIR/${document%%:*}"
     if [[ ! -f "$source_file" ]]; then
-        echo "Error: expected source file is missing: $source_file" >&2
-        exit 1
+        if [[ "$DOCUMENTS_EXPLICIT" == true ]]; then
+            echo "Error: requested source file is missing: $source_file" >&2
+            exit 1
+        fi
+        echo "Warning: skipping missing default source file: $source_file" >&2
+        continue
     fi
+    RESOLVED_DOCUMENTS+=("$document")
 done
+
+if [[ ${#RESOLVED_DOCUMENTS[@]} -eq 0 ]]; then
+    echo "Error: no documents to render." >&2
+    exit 1
+fi
 
 if [[ -n "$BROWSER_BIN" && ! -f "$STYLE_FILE" ]]; then
     echo "Error: expected stylesheet is missing: $STYLE_FILE" >&2
@@ -475,7 +512,7 @@ render_pdf() {
     esac
 }
 
-for document in "${DOCUMENTS[@]}"; do
+for document in "${RESOLVED_DOCUMENTS[@]}"; do
     render_pdf "$CLASS_DIR/${document%%:*}" "${document##*:}"
 done
 

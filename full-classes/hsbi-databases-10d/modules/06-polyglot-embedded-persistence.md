@@ -1,14 +1,14 @@
-# Module 5 — Polyglot & Embedded Persistence
+# Module 6 — Polyglot & Embedded Persistence
 
-[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 6 →](./06-final-project-hackathon.md)
+[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 7 →](./07-final-project-studio.md)
 
 > **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
 
-**Course placement:** Session 9. This module covers the legacy *Databases within Applications*, *NoSQL*, *ACID vs. BASE*, and *CAP theorem* chapters — reframed as a deliberate choice between several embedded engines.
+**Course placement:** Session 6. This module covers the legacy *Databases within Applications*, *NoSQL*, *ACID vs. BASE*, and *CAP theorem* chapters — reframed as a deliberate choice between several embedded engines.
 
 ## 🎯 Learning Goals
 
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation in Session 11 (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing each task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation in Session 8 (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing each task. **These learning goals are the contract between you and the instructor: demonstrate them, and you earn the points.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 This module gives you the opportunity to explore polyglot persistence and achieve competency in matching a workload to a storage engine.
 
@@ -23,7 +23,7 @@ By the end of this module, you can:
 > Task tiers. Tasks marked ★ Core must be completed by everyone. Tasks marked ◇ Stretcher are optional and are the natural trim point if time runs short — they are excellent bonus-task material.
 
 > [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+> DRAFT — first taught in WS 2026/27 by an instructor who is **also teaching databases for the first time** and is learning this material alongside you. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Different deep dives and stretchers are welcome — your input can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
@@ -35,11 +35,11 @@ The machine-shop data now has three different shapes of problem, and the team ke
 2. *"I have two years of stored readings in files. I want a weekly report and a histogram across all of them, fast."* → **analytical scan**
 3. *"The dashboard needs to remember who logged in and what their last filter was. It is a simple lookup by one key."* → **key-value access**
 
-Trying to force all three into one relational schema is the same mistake as the cloud-server impulse in Module 0 — the wrong tool for the workload. In this studio you reach for three engines that all run **embedded, locally**, and you measure why each fits.
+Trying to force all three into one relational schema is the same mistake as the cloud-server impulse in Module 1 — the wrong tool for the workload. In this studio you reach for three engines that all run **embedded, locally**, and you measure why each fits.
 
 ## 📖 Part A — Mini-Lecture: Pick the Engine for the Workload (15 min)
 
-**ACID vs. BASE.** A transactional engine guarantees **Atomicity, Consistency, Isolation, Durability** — your writes either fully happen or fully do not. BASE ("**B**asically **A**vailable, **S**oft state, **E**ventually consistent") relaxes consistency for availability and scale, which is a trade you only need when you distribute across machines. **All of Module 0–4 was ACID, and that was correct** because the data lived on one machine.
+**ACID vs. BASE.** A transactional engine guarantees **Atomicity, Consistency, Isolation, Durability** — your writes either fully happen or fully do not. BASE ("**B**asically **A**vailable, **S**oft state, **E**ventually consistent") relaxes consistency for availability and scale, which is a trade you only need when you distribute across machines. **All of Module 1–4 was ACID, and that was correct** because the data lived on one machine.
 
 **The CAP theorem.** A distributed system can guarantee at most two of **C**onsistency, **A**vailability, and **P**artition tolerance. Since partitions *will* happen on a network, real systems choose **CP** (refuse to answer rather than answer wrong) or **AP** (answer, possibly stale). An embedded database sidesteps CAP by not distributing — and that is a legitimate engineering choice, not a limitation to apologize for.
 
@@ -64,8 +64,8 @@ Trying to force all three into one relational schema is the same mistake as the 
 Vendors keep adding fields. Store the metadata as JSON and query it without migrating the table.
 
 ```sh
-mkdir -p module-05
-sqlite3 module-05/polyglot.db <<'SQL'
+mkdir -p module-06
+sqlite3 module-06/polyglot.db <<'SQL'
 DROP TABLE IF EXISTS device;
 CREATE TABLE device(
     device_id INTEGER PRIMARY KEY,
@@ -99,28 +99,28 @@ Note the plan: if the expression in the index matches the expression in the `WHE
 
 ### ★ Task 2: DuckDB analytics over files (20 min)
 
-Move the readings into a Parquet file and analyze them with DuckDB — the analytical workload from the story. This reuses the `telemetry.db` you built in Module 0.
+Move the readings into a Parquet file and analyze them with DuckDB — the analytical workload from the story. This reuses the `telemetry.db` you built in Module 1.
 
 ```python
-# module-05/analytics.py
+# module-06/analytics.py
 import time
 import duckdb
 
 con = duckdb.connect()                       # in-process, embedded, no server
 
-# 1. Attach the SQLite file from Module 0 (the sqlite extension reads it in place):
+# 1. Attach the SQLite file from Module 1 (the sqlite extension reads it in place):
 con.execute("INSTALL sqlite")
 con.execute("LOAD sqlite")
-con.execute("ATTACH 'module-00/telemetry.db' AS edge (TYPE sqlite)")
+con.execute("ATTACH 'module-01/telemetry.db' AS edge (TYPE sqlite)")
 
 # 2. Materialize an analytical copy to Parquet at the edge — one file, no server:
-con.execute("COPY (SELECT * FROM edge.readings) TO 'module-05/readings.parquet' (FORMAT parquet)")
+con.execute("COPY (SELECT * FROM edge.readings) TO 'module-06/readings.parquet' (FORMAT parquet)")
 
 # 3. Query the Parquet file directly — no import step, no server:
 t0 = time.perf_counter()
 parquet = con.execute("""
     SELECT machine, AVG(temp_c) AS avg_temp, MAX(vib_rms) AS peak_vib, COUNT(*) AS n
-    FROM 'module-05/readings.parquet'
+    FROM 'module-06/readings.parquet'
     GROUP BY machine
     ORDER BY peak_vib DESC
 """).fetchall()
@@ -149,13 +149,13 @@ Run it. Record the two timings and the Parquet file size. Then answer: **why is 
 The dashboard only ever does "get by key" and "set key". Model that directly and measure it against SQLite.
 
 ```python
-# module-05/kv_compare.py
+# module-06/kv_compare.py
 import sqlite3, shelve, time
 
 N = 50_000
 
 # --- key-value store (stdlib shelve: a persistent dict) ---
-with shelve.open("module-05/sessions") as db:
+with shelve.open("module-06/sessions") as db:
     t0 = time.perf_counter()
     for i in range(N):
         db[f"session-{i}"] = f"user-{i%100}:filter=city:{i%4}"
@@ -166,7 +166,7 @@ with shelve.open("module-05/sessions") as db:
     t_get = time.perf_counter() - t0
 
 # --- the same access pattern in SQLite ---
-conn = sqlite3.connect("module-05/kv.db")
+conn = sqlite3.connect("module-06/kv.db")
 conn.execute("CREATE TABLE IF NOT EXISTS session(k TEXT PRIMARY KEY, v TEXT)")
 t0 = time.perf_counter()
 conn.executemany("INSERT OR REPLACE INTO session(k, v) VALUES (?, ?)",
@@ -196,7 +196,7 @@ Use SQLite's FTS5 to build a searchable index over machine maintenance notes (`C
 
 ## ✅ What must be committed to your portfolio
 
-Commit under `module-05/`:
+Commit under `module-06/`:
 
 - [ ] The JSON device DDL, `json_extract`/`json_each` queries, and the expression-index plan.
 - [ ] `analytics.py`, the Parquet artifact (or its size), the two timings, and the engine-fit paragraph.
@@ -214,4 +214,4 @@ Commit under `module-05/`:
 
 ---
 
-[← Previous: Module 4](./04-normalization-vs-denormalization.md) | [Back to front page](../README.md) | [Next: Module 6 →](./06-final-project-hackathon.md)
+[← Previous: Module 5](./05-normalization-vs-denormalization.md) | [Back to front page](../README.md) | [Next: Module 7 →](./07-final-project-studio.md)

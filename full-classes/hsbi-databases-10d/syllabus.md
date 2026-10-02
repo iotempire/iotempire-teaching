@@ -5,13 +5,16 @@
 > **Canonical source:** [IoTempire Teaching repository — HSBI/GT Databases](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-databases-10d)
 
 > [!NOTE]
-> Work in progress — this is a full redesign of the legacy Databases course, first taught in WS 2026/27. Expect this syllabus to keep changing before and during the semester. Each module marks unsettled content with a *DRAFT BOUNDARY* that moves down as we approve sections together. Your input is valued: if something does not fit your program, say so early and we will adapt.
+> **Every module begins with its learning goals.** Those goals are the agreement between you and the instructor: you earn a module's points by *demonstrating the goals* — in a short checkpoint conversation and through your portfolio — not by ticking off every task. The goals are fixed; the way you reach them is yours.
+
+> [!NOTE]
+> **This class is a draft in motion.** It is a full redesign of the legacy Databases course, taught for the first time in WS 2026/27 by an instructor who is *also* new to teaching databases and is learning the material alongside you. In every module a ***DRAFT BOUNDARY*** marks the part that is not settled yet; it moves down as we approve content together. Expect this syllabus to keep changing, and bring your own deep dives and stretchers — your input can shape the class.
 
 ## Class Times and Locations
 
 - Schedule, location, and room: Published in the official HSBI timetable and course LMS before teaching begins.
 - Official announcements and course contact: Course LMS (ILIAS).
-- Languages of Instruction: English and German.
+- Language of Instruction: English.
 - Course Materials: English.
 
 ## Instructors & Teaching Team (HSBI Gütersloh)
@@ -27,11 +30,9 @@
 
 ## Language, Communication & Course Material
 
-This class is taught in English and German. The shared workbook, schemas, code, documentation, and technical exercises are in English to ensure reusability and align with modern engineering practice.
+This class is taught in **English**, for our international students. The shared workbook, schemas, code, documentation, and technical exercises are all in English.
 
-Ulno is fully bilingual. You are welcome to speak with the teaching team and collaborate with your peers in German, English, or a mixture of both. Notes, portfolio documentation, reports, and presentations may likewise be submitted in German, English, or mixed language. Ask whenever technical vocabulary or a task formulation needs clarification in either language.
-
-**Für deutschsprachige Studierende:** Diese Lehrveranstaltung findet auf Englisch und Deutsch statt. Das gemeinsame Workbook, der Code, die Dokumentation und die Übungen bleiben auf Englisch, damit sie einheitlich genutzt werden können. Ulno ist zweisprachig; Sie können mit dem Lehrteam und untereinander auf Deutsch, Englisch oder in einer Mischung aus beiden Sprachen sprechen und arbeiten. Notizen, Portfolio-Dokumentation und Präsentationen dürfen ebenfalls auf Deutsch, Englisch oder gemischt verfasst werden. Fragen Sie jederzeit nach, wenn Fachbegriffe oder Aufgabenstellungen geklärt werden sollen.
+Ask questions at any time — in class or through the LMS — whenever a term or a task formulation needs clarification. Notes, portfolio documentation, reports, and presentations are written in English. Write plainly and precisely rather than perfectly: clear technical communication matters far more than flawless grammar.
 
 ## Course Description & Philosophy
 
@@ -77,18 +78,20 @@ By the end of this course, you will be able to (mapped to the module-handbook co
 
 ## Course Load & Credits
 
-- Format: 12 sessions across the semester; each session combines the officially allotted 2 SWS lecture and 2 SWS seminar/lab into one ~4–5 h active studio block.
+- Format: 11 four-hour sessions (44 contact hours) across the semester, plus optional tutorial sessions on selected Sundays run by the teaching assistant. The course begins with Module 1 in Session 1.
 - Target Audience: Bachelor students in *Mechatronics and Automation* and *Industrial Engineering* (3rd semester, Campus Gütersloh).
 - Module Number: 3386 (*Databases*), 5 ECTS.
 - Total Workload: 150 hours.
-  - Contact time: 60 hours (30 h lecture component + 30 h seminar/lab component).
-  - Independent preparation and pre-study (Module 0): approx. 20 hours allocated (3–6 hours for the compulsory core).
-  - Guided self-study, portfolio documentation, benchmarking, and final project: approx. 70 hours.
+  - Core studio contact time: 44 hours (11 sessions × 4 h), plus optional Sunday tutorial sessions.
+  - Self-study, portfolio documentation, benchmarking, and final project: the remaining ≈106 hours.
+
+> [!NOTE]
+> **Where the 150 hours come from.** The module handbook specifies 150 h (5 ECTS). The delivered format is 11 four-hour studios plus tutorial sessions; the balance is self-study, portfolio work, and the final project. Treat the session count as fixed (11) and the *hours per session* as ~4.
 
 ### Prerequisites & Relationship to Other Modules
 
 - **Formal:** none (module handbook Section 5).
-- **Content:** none required (module handbook Section 5). Basic Python, a terminal, and Git help and are scaffolded in Module 0.
+- **Content:** none required (module handbook Section 5). Basic Python, a terminal, and Git help and are scaffolded in Session 1 (Module 1).
 - **Relationship to other modules:** *Databases* is a standalone 3rd-semester module. It pairs naturally with the IoT course family (MCU programming, networking, sensors/actuators): the data those courses produce on the edge is exactly the data you will store, query, and analyze here — but there is no required prior course.
 
 ## Assessment: Kombinationsprüfung (20 Base Points + Bonus)
@@ -96,14 +99,13 @@ By the end of this course, you will be able to (mapped to the module-handbook co
 Assessment is conducted as a *Kombinationsprüfung* combining continuous portfolio documentation, studio lab work, reflection logbook entries, and a final project with an individual oral defense. Section 6 of the module handbook permits exactly this combination of project work and oral examination; the legacy 75 % written examination is not used.
 
 > [!IMPORTANT]
-> Module 0 is required and worth 1 module point. Before the first session, set up your personal GitHub portfolio from the course template and complete the pre-study tasks in [pre-study.md](./pre-study.md), including the local-first environment check and the first LLM-assisted SQL profiling task. Module 0 is assessed during the second session.
+> **Modules 1–6 are worth 11 of the 20 base points.** You earn them by demonstrating these modules' learning goals in short checkpoints — not by completing every task. (Module 1, the in-class Session 1, is checked in Session 2; Modules 2–6 follow at the two checkpoints.)
 
 ### Points Breakdown
 
 | Component | Points | Details |
 |---|---|---|
-| Module 0 (Pre-Study) | 1 point | Portfolio repository from the Git template, environment check (Python, SQLite, Datasette), initial LLM-assisted SQL profiling task. |
-| Modules 1–5 (Studio lab reports) | 10 points | 2 points each, earned through checkpoint presentations proving the module learning goals from your portfolio: schema trade-off benchmarks, trigger and constraint implementations, and query-optimization evidence. |
+| Modules 1–6 (Learning goals) | 11 points | Earned through short checkpoint presentations that prove the module learning goals from your portfolio: portfolio setup and the first profiling task (Module 1, 1 point), then schema trade-off benchmarks, trigger and constraint implementations, and query-optimization evidence (Modules 2–6, 2 points each). |
 | Reflection Points | 4 points | One reflection for each teaching block, captured in your personal logbook. |
 | Final Personal Meaningful Challenge Project | 5 points | 25 % of the base score. Story-driven local-first embedded database application in teams of 3–4, evaluated via a working GitHub repository, 5-page documentation, and a 15-minute live demo + individual oral defense. |
 | **Base Total** | **20 points** | 100 % base score. |
@@ -114,14 +116,14 @@ Assessment is conducted as a *Kombinationsprüfung* combining continuous portfol
 
 ### How module points are earned: checkpoint presentations
 
-You do not submit and grade every task. Instead, you earn a module's points in a short, personal checkpoint presentation (about 10 minutes) with the instructor, based on your portfolio and reflection logbook. Checkpoints happen in class and cover 2–3 modules at a time (Module 1–3 in Session 7, Modules 4–5 in Session 11); the schedule is announced through the LMS.
+You do not submit and grade every task. Instead, you earn a module's points in a short, personal checkpoint presentation (about 10 minutes) with the instructor, based on your portfolio and reflection logbook. Checkpoints happen in class and cover a few modules at a time (Module 1 in Session 2, Modules 2–4 in Session 6, Modules 5–6 in Session 8); the schedule is announced through the LMS.
 
 In a checkpoint, you:
 
 1. **Show your evidence** — portfolio entries, benchmark tables, SQL, `EXPLAIN QUERY PLAN` screenshots, and reflections for the modules being checked.
 2. **Prove the learning goals** — the goals listed at the top of each module. Walk the instructor through how your work shows you reached them, and answer questions about them (expect to run a query or read a plan live).
 
-Because assessment targets the learning goals, not task completion, you are free to skip tasks, fail at tasks, or add your own. An honest, documented failure counts as exploration, not as a loss, and a convincing demonstration of deep understanding or analysis is rewarded generously.
+Because assessment targets the learning goals, not task completion, you are free to skip tasks, fail at tasks, or add your own — and, for tasks that are still below a module's draft boundary, to **modify or replace them entirely, as long as you reach the same learning goals**. An honest, documented failure counts as exploration, not as a loss, and a convincing demonstration of deep understanding or analysis is rewarded generously.
 
 Practical notes:
 
@@ -163,34 +165,32 @@ For each teaching block, write one logbook entry answering these four questions:
 > [!WARNING]
 > **No server required, and no secrets in Git.** SQLite and DuckDB are embedded — there is no MySQL server to install and no root password to manage. Never commit API keys, credentials, or personal data; a `.gitignore` for `*.db`, `*.duckdb`, and `.env` is provided in the template.
 
-## 12-Session Course Schedule
+## 11-Session Course Schedule
 
-The 12 sessions deliver the technical foundations (Modules 1–5), the final project arc (Modules 6–7), and two checkpoint sessions. Sessions 1–9 are active studios; Sessions 10–12 are dedicated project time.
+The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6), and the final-project arc (Modules 7–8). Sessions 1–6 are taught studios; Sessions 7–10 are project studios; Session 11 is demo and defense. Optional **Sunday tutorial sessions** (TA-led) add catch-up, deeper practice, and project support.
 
 > Indicative plan. The session-by-session mapping below is a planning draft and may shift — including during the semester — as we refine this class together. The learning objectives and the final project matter more than the exact session a topic lands on.
 
 | Session | Module / Topic | Core Hands-on Focus |
 |:---:|---|---|
-| — | [Pre-Study](./pre-study.md) (Module 0) | Portfolio setup, environment check, first LLM-assisted SQL profiling task. |
-| 1 | [Module 0 — Portfolio Setup & Local-First Paradigm](./pre-study.md) | SQLite vs. server overkill: stand up an embedded DB in-process, load edge telemetry, and audit an LLM's first query. |
-| 2 | [Module 1 — Data Contracts & Reading Legacy Schemas](./modules/01-data-contracts-and-legacy-schemas.md) | Reconstruct an ER model from a legacy schema, find integrity bugs, draft a code-first data contract. |
-| 3 | [Module 1 — continued](./modules/01-data-contracts-and-legacy-schemas.md) | ERD audit workshop: cardinalities, surrogate keys, and writing the requirements the schema forgot. |
-| 4 | [Module 2 — LLM-Assisted SQL & Query Profiling](./modules/02-llm-assisted-sql-and-query-profiling.md) | Generate complex SQL with an LLM, then read `EXPLAIN QUERY PLAN` and test parameterization. |
-| 5 | [Module 2 — continued](./modules/02-llm-assisted-sql-and-query-profiling.md) | Index benchmarking studio: prove or disprove the index the AI recommended; injection drill. |
-| 6 | [Module 3 — Data Integrity, Constraints & Edge Triggers](./modules/03-integrity-constraints-and-triggers.md) | `CHECK`/`UNIQUE`/`FK`, `STRICT` tables, generated columns, and a trigger that enforces edge telemetry rules. |
-| 7 | [Module 3 + Checkpoint 1](./modules/03-integrity-constraints-and-triggers.md) | Finish the trigger lab, then checkpoint presentations for Modules 1–3. |
-| 8 | [Module 4 — Normalization vs. Denormalization Benchmarking Studio](./modules/04-normalization-vs-denormalization.md) | Normalize to 3NF, denormalize on purpose, and measure read/write/storage trade-offs in SQLite. |
-| 9 | [Module 5 — Polyglot & Embedded Persistence](./modules/05-polyglot-embedded-persistence.md) | JSON documents in SQLite, DuckDB analytics over Parquet/CSV, and a key-value comparison. |
-| 10 | [Module 6 — Final Project Hackathon](./modules/06-final-project-hackathon.md) | Project kickoff and story, requirement mapping, schema and ingestion build. |
-| 11 | [Module 6 + Checkpoint 2](./modules/06-final-project-hackathon.md) | Build and integrate, peer review, then checkpoint presentations for Modules 4–5. |
-| 12 | [Module 7 — Live Demos & Oral Defenses](./modules/07-final-project.md) | 15-minute team demo + individual oral defense; retrospective. |
+| 1 | [Module 1 — Introduction & Local-First Foundations](./modules/01-introduction-and-local-first.md) | How the class works, then SQLite vs. server overkill: stand up an embedded DB in-process, load edge telemetry, and audit an LLM's first query. |
+| 2 | [Module 2 — Data Contracts & Reading Legacy Schemas](./modules/02-data-contracts-and-legacy-schemas.md) | Reconstruct an ER model from a legacy schema, find integrity bugs, draft a code-first data contract. |
+| 3 | [Module 3 — LLM-Assisted SQL & Query Profiling](./modules/03-llm-assisted-sql-and-query-profiling.md) | Generate complex SQL with an LLM, then read `EXPLAIN QUERY PLAN`, test parameterization, benchmark an index, and drill injection. |
+| 4 | [Module 4 — Data Integrity, Constraints & Edge Triggers](./modules/04-integrity-constraints-and-triggers.md) | `CHECK`/`UNIQUE`/`FK`, `STRICT` tables, generated columns, and a trigger that enforces edge telemetry rules. |
+| 5 | [Module 5 — Normalization vs. Denormalization Benchmarking Studio](./modules/05-normalization-vs-denormalization.md) | Normalize to 3NF, denormalize on purpose, and measure read/write/storage trade-offs in SQLite. |
+| 6 | [Module 6 — Polyglot & Embedded Persistence](./modules/06-polyglot-embedded-persistence.md) **+ Checkpoint 1** | JSON documents in SQLite, DuckDB analytics over Parquet/CSV, a key-value comparison; then checkpoint presentations for Modules 2–4. |
+| 7 | [Module 7 — Final Project Studio — kickoff & build](./modules/07-final-project-studio.md) | Story and teams, requirement mapping, schema and ingestion build. |
+| 8 | [Module 7 — Final Project Studio — build & integrate](./modules/07-final-project-studio.md) **+ Checkpoint 2** | Build the vertical slice and integrate the interface; then checkpoint presentations for Modules 5–6. |
+| 9 | [Module 7 — Final Project Studio — integrity, security & evaluation](./modules/07-final-project-studio.md) | Constraints/triggers, a full parameterization pass, indexing proof, and benchmark evidence. |
+| 10 | [Module 7 — Final Project Studio — peer review & rehearsal](./modules/07-final-project-studio.md) | Peer review, fixes, and a timed 15-minute demo dry run. |
+| 11 | [Module 8 — Live Demos & Oral Defenses](./modules/08-final-project.md) | 15-minute team demo + individual oral defense; retrospective. |
 
 > [!TIP]
-> **Buffer and pacing:** Sessions 10–12 provide the studio tail. At least one block is deliberately loose and can absorb spill-over from earlier labs, be released as flexible time, or be used for stretcher tasks and peer mentoring. Announce the concrete use of each studio session in the LMS as the course progresses.
+> **Buffer, pacing, and Sundays:** Sessions 7–10 are project studios, and at least one of them is deliberately loose — it can absorb spill-over from earlier labs, be released as flexible time, or be used for stretcher tasks and peer mentoring. The optional Sunday tutorial sessions are the natural home for catch-up and deeper deep dives. Announce the concrete use of each date in the LMS as the course progresses.
 
 ## Final Project Requirements (5 Points)
 
-The final project is a local-first, embedded database application built by teams of **3–4 students**. Teams form and pitch a stakeholder story during the project kickoff (Module 6), then map their requirements onto the criteria below. A team may, by agreement with the instructor, continue a project from another course — this is a possibility, not a requirement; the default is a self-contained database application.
+The final project is a local-first, embedded database application built by teams of **3–4 students**. Teams form and pitch a stakeholder story during the project kickoff (Module 7), then map their requirements onto the criteria below. A team may, by agreement with the instructor, continue a project from another course — this is a possibility, not a requirement; the default is a self-contained database application.
 
 ### Must-Have System Criteria:
 
@@ -208,7 +208,7 @@ The final project is a local-first, embedded database application built by teams
 - **Architecture, documentation & evaluation (1.5 points):** Clear schema/data-flow diagram, schema and index documentation, benchmark evidence, and the 5-page report.
 - **Live demonstration & oral defense (1.5 points):** A clear 15-minute team demo showing the data flowing end-to-end, plus individual answers on the underlying design decisions and trade-offs.
 
-See the full [final project specification](./modules/07-final-project.md) for the demo script, documentation template, and the detailed rubric.
+See the full [final project specification](./modules/08-final-project.md) for the demo script, documentation template, and the detailed rubric.
 
 ## Portfolio & Documentation Standards
 

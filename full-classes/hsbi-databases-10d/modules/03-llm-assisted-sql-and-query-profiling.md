@@ -1,14 +1,14 @@
-# Module 2 — LLM-Assisted SQL & Query Profiling
+# Module 3 — LLM-Assisted SQL & Query Profiling
 
-[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 3 →](./03-integrity-constraints-and-triggers.md)
+[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 4 →](./04-integrity-constraints-and-triggers.md)
 
 > **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
 
-**Course placement:** Sessions 4–5. This module covers the legacy *Standard SQL (DQL)*, *Relational Algebra*, and *Query Optimization* chapters — reframed around the modern reality: you generate SQL with AI and then prove it correct, fast, and safe.
+**Course placement:** Session 3. This module covers the legacy *Standard SQL (DQL)*, *Relational Algebra*, and *Query Optimization* chapters — reframed around the modern reality: you generate SQL with AI and then prove it correct, fast, and safe.
 
 ## 🎯 Learning Goals
 
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation in Session 7 (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation in Session 6 (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. **These learning goals are the contract between you and the instructor: demonstrate them, and you earn the points.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 This module gives you the opportunity to explore complex querying and query optimization and achieve competency in writing, profiling, and securing SQL.
 
@@ -23,7 +23,7 @@ By the end of this module, you can:
 > Task tiers. Tasks marked ★ Core must be completed by everyone. Tasks marked ◇ Stretcher are optional and are the natural trim point if time runs short — they are excellent bonus-task material.
 
 > [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+> DRAFT — first taught in WS 2026/27 by an instructor who is **also teaching databases for the first time** and is learning this material alongside you. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Different deep dives and stretchers are welcome — your input can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
@@ -71,8 +71,8 @@ Both failures have the same root: **nobody profiled or parameterized the generat
 Build a small warehouse/order dataset with enough rows to make plans meaningful.
 
 ```sh
-mkdir -p module-02
-sqlite3 module-02/warehouse.db <<'SQL'
+mkdir -p module-03
+sqlite3 module-03/warehouse.db <<'SQL'
 DROP TABLE IF EXISTS orders, customer, order_line, product;
 
 CREATE TABLE customer(customer_id INTEGER PRIMARY KEY, name TEXT NOT NULL, city TEXT NOT NULL);
@@ -100,7 +100,7 @@ WITH RECURSIVE n(x) AS (SELECT 1 UNION ALL SELECT x+1 FROM n WHERE x < 240000)
 INSERT INTO order_line(order_id, product_id, qty)
   SELECT (x % 60000) + 1, (x % 500) + 1, 1 + (x % 4) FROM n;
 SQL
-sqlite3 module-02/warehouse.db "SELECT 'orders', COUNT(*) FROM orders UNION ALL
+sqlite3 module-03/warehouse.db "SELECT 'orders', COUNT(*) FROM orders UNION ALL
                                 SELECT 'lines', COUNT(*) FROM order_line;"
 ```
 
@@ -159,13 +159,13 @@ Use the prompt below with your LLM. **Before running the answer**, predict the p
 
 ### ★ Task 3: The injection drill (15 min)
 
-Reproduce the support agent's apostrophe crash and then fix it. Save as `module-02/injection_demo.py`.
+Reproduce the support agent's apostrophe crash and then fix it. Save as `module-03/injection_demo.py`.
 
 ```python
 """Demonstrate SQL injection and its one correct fix: bound parameters."""
 import sqlite3
 
-conn = sqlite3.connect("module-02/warehouse.db")
+conn = sqlite3.connect("module-03/warehouse.db")
 
 def vulnerable(name: str):
     """DON'T DO THIS. String-building the query is the bug."""
@@ -201,7 +201,7 @@ Rewrite the "late orders per customer" report once with a correlated subquery an
 
 ## ✅ What must be committed to your portfolio
 
-Commit under `module-02/`:
+Commit under `module-03/`:
 
 - [ ] The setup script that builds `warehouse.db` (~240k order lines).
 - [ ] The LLM prompt(s), the generated SQL, your predicted plan, and the actual `EXPLAIN QUERY PLAN` output.
@@ -220,4 +220,4 @@ Commit under `module-02/`:
 
 ---
 
-[← Previous: Module 1](./01-data-contracts-and-legacy-schemas.md) | [Back to front page](../README.md) | [Next: Module 3 →](./03-integrity-constraints-and-triggers.md)
+[← Previous: Module 2](./02-data-contracts-and-legacy-schemas.md) | [Back to front page](../README.md) | [Next: Module 4 →](./04-integrity-constraints-and-triggers.md)

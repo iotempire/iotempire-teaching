@@ -1,27 +1,29 @@
-# Module 6 — Final Project Hackathon
+# Module 7 — Final Project Studio
 
-[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 7 →](./07-final-project.md)
+[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 8 →](./08-final-project.md)
 
-**Course placement:** Sessions 10–11. Two studio sessions dedicated to the final project: kickoff and story, requirement mapping, build, integration, and peer review. The *specification* — teams, must-haves, documentation, and the demo rubric — lives in [Module 7](./07-final-project.md); this module is the **studio guide** for how you spend the time.
+**Course placement:** Sessions 7–10. Four project-studio sessions: kickoff and story, requirement mapping, build, integration, hardening, peer review, and rehearsal. The *specification* — teams, must-haves, documentation, and the demo rubric — lives in [Module 8](./08-final-project.md); this module is the **studio guide** for how you spend the time.
 
 > [!IMPORTANT]
-> This is where the 5 final-project points are built. Read [Module 7](./07-final-project.md) **before** Session 10 — you are expected to arrive with a team and a one-paragraph story.
+> This is where the 5 final-project points are built. Read [Module 8](./08-final-project.md) **before** Session 7 — you are expected to arrive with a team and a one-paragraph story.
 
-## 🎯 Goals of the Hackathon
+## 🎯 Learning Goals
 
-By the end of these two sessions, your team has:
+> **How these are assessed:** This studio builds the artifact for the **5 final-project points**, assessed in Session 11 through the team repository, the 5-page report, and the live demo with an **individual oral defense**. **The goals are the contract: demonstrate them and you earn the points.** The studio steps that follow are a draft you may adapt as a team.
+
+By the end of these four sessions, your team has:
 
 1. A **stakeholder story** that names a real person, a real problem, and the data that solves it.
-2. A **mapped requirement set**: which must-have from Module 7 is covered by which deliverable.
+2. A **mapped requirement set**: which must-have from Module 8 is covered by which deliverable.
 3. A **schema and an ingestion pipeline** checked into the team repository, reproducible from scratch.
 4. A **working vertical slice**: data goes in, one query comes out, one interface shows it.
-5. A **peer-reviewed draft** and a rehearsal plan for the Session 12 demo.
+5. A **peer-reviewed draft** and a rehearsal plan for the Session 11 demo.
 
 > [!NOTE]
 > Task tiers. Tasks marked ★ Core are required. Tasks marked ◇ Stretcher are optional and are excellent bonus material.
 
 > [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class.
+> DRAFT — first taught in WS 2026/27 by an instructor who is **also teaching databases for the first time** and is learning this material alongside you. Everything below this line is a working draft and will likely change as we refine it together in class. Different deep dives and stretchers are welcome.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
@@ -39,11 +41,11 @@ That paragraph already implies entities (line, stop event, cause), a cardinality
 - Names the data that fixes it (stop events with causes and timestamps).
 - Is **pitchable in 60 seconds**.
 
-## 🛠️ Session 10 — Kickoff & Build (the "make it real" session)
+## 🛠️ Session 7 — Kickoff & Build (the "make it real" session)
 
 ### ★ Step 1: Story and team charter (30 min)
 
-1. Form teams of **3–4**. Record, in `docs/team.md`: each member's name, the story, and **who owns what** (schema, ingestion, queries, interface, docs). Every member must own a piece that can be defended individually in Session 12.
+1. Form teams of **3–4**. Record, in `docs/team.md`: each member's name, the story, and **who owns what** (schema, ingestion, queries, interface, docs). Every member must own a piece that can be defended individually in Session 11.
 2. Write the one-paragraph story. Get it reviewed by a neighboring team (5 minutes each way): they ask *"what is the first query this database must answer?"*
 3. Choose the engine. **SQLite is the default.** Switch to DuckDB, JSON-in-SQLite, or a key-value store only if you can name the workload reason — and write that reason down.
 
@@ -53,7 +55,7 @@ That paragraph already implies entities (line, stop event, cause), a cardinality
 
 Fill in this table in `docs/requirements.md` — it is your checklist and your demo script in one:
 
-| Module 7 must-have | Your deliverable | Status |
+| Module 8 must-have | Your deliverable | Status |
 |---|---|---|
 | Embedded DB with documented schema + one enforced relationship | `schema.sql` + `docs/schema.md` + an ER diagram | |
 | Reproducible real-world ingestion | `ingest.py` (CSV/JSON/API export → DB) | |
@@ -65,7 +67,7 @@ Fill in this table in `docs/requirements.md` — it is your checklist and your d
 
 *Evidence:* `docs/requirements.md` with the table filled in.
 
-### ★ Step 3: Build the vertical slice (rest of Session 10)
+### ★ Step 3: Build the vertical slice (rest of Session 7)
 
 Do not build breadth first — build **one path end-to-end**:
 
@@ -85,13 +87,13 @@ myproject/
 ```
 
 1. Write `schema.sql` with at least one foreign key and one `CHECK`.
-2. Write `ingest.py` so that `python ingest.py` builds the database from raw input **twice without duplicating rows** (reuse the `UPSERT` pattern from Module 3).
+2. Write `ingest.py` so that `python ingest.py` builds the database from raw input **twice without duplicating rows** (reuse the `UPSERT` pattern from Module 4).
 3. Write the story's headline query in `queries.sql` and confirm it returns sensible rows.
 4. Wire the smallest possible interface: even `datasette yourdb.db -o` counts.
 
 *Evidence:* commits for `schema.sql`, `ingest.py`, `queries.sql`, and a first interface.
 
-## 🛠️ Session 11 — Build, Review, and Rehearse
+## 🛠️ Sessions 8–10 — Build, Review, and Rehearse
 
 ### ★ Step 4: Benchmark and harden (first half)
 
@@ -114,9 +116,9 @@ Give your notes to the other team; they commit the fixes.
 
 *Evidence:* `docs/peer-review.md` (both as reviewer and as reviewee, with fixes linked).
 
-### ★ Step 6: Rehearse the demo (rest of Session 11)
+### ★ Step 6: Rehearse the demo (rest of Session 10)
 
-Run a timed **15-minute dry run** of the Session 12 demo (format in [Module 7](./07-final-project.md#the-15-minute-demo--oral-defense)). Time it. The most common failure is running long on slides and short on the live demo — fix that now. Assign who answers which categories of questions.
+Run a timed **15-minute dry run** of the Session 11 demo (format in [Module 8](./08-final-project.md#the-15-minute-demo--oral-defense)). Time it. The most common failure is running long on slides and short on the live demo — fix that now. Assign who answers which categories of questions.
 
 *Evidence:* `docs/demo-plan.md` with timings and speaker assignments.
 
@@ -130,7 +132,7 @@ Each team member commits their **own** portfolio entry that:
 - Links to the shared team repository.
 - States **their** contribution and the design decision **they** own.
 - Includes the evidence for that piece (their query, their benchmark, their ingestion module).
-- Contains a `reflection.md` for the hackathon blocks in the standard format: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
+- Contains a `reflection.md` for the project-studio blocks in the standard format: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 
 A team repository alone is not enough: the 5 project points include an **individual oral defense**, and your personal portfolio is what you defend from.
 
@@ -143,4 +145,4 @@ A team repository alone is not enough: the 5 project points include an **individ
 
 ---
 
-[← Previous: Module 5](./05-polyglot-embedded-persistence.md) | [Back to front page](../README.md) | [Next: Module 7 — Final Project Specification →](./07-final-project.md)
+[← Previous: Module 6](./06-polyglot-embedded-persistence.md) | [Back to front page](../README.md) | [Next: Module 8 — Final Project Specification →](./08-final-project.md)

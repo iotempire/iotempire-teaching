@@ -1,14 +1,14 @@
-# Module 4 — Normalization vs. Denormalization Benchmarking Studio
+# Module 5 — Normalization vs. Denormalization Benchmarking Studio
 
-[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-polyglot-embedded-persistence.md)
+[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 6 →](./06-polyglot-embedded-persistence.md)
 
 > **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
 
-**Course placement:** Session 8. This module covers the legacy *Relational Model* and *Normalization (1NF–3NF)* chapters — reframed as an empirical performance-and-storage trade-off you measure yourself.
+**Course placement:** Session 5. This module covers the legacy *Relational Model* and *Normalization (1NF–3NF)* chapters — reframed as an empirical performance-and-storage trade-off you measure yourself.
 
 ## 🎯 Learning Goals
 
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation in Session 11 (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation in Session 8 (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. **These learning goals are the contract between you and the instructor: demonstrate them, and you earn the points.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 This module gives you the opportunity to explore functional dependencies and normalization and achieve competency in trading schema design against real, measured performance.
 
@@ -23,13 +23,13 @@ By the end of this module, you can:
 > Task tiers. Tasks marked ★ Core must be completed by everyone. Tasks marked ◇ Stretcher are optional and are the natural trim point if time runs short — they are excellent bonus-task material.
 
 > [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
+> DRAFT — first taught in WS 2026/27 by an instructor who is **also teaching databases for the first time** and is learning this material alongside you. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Different deep dives and stretchers are welcome — your input can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ## 📖 Story — The Dashboard That Took 40 Seconds
 
-Your plastic-plant now has a machine-health dashboard. Every 30 seconds it asks a hard question: *"for each machine, show its site, its technician's name, and the total cost of parts used in the last 90 days."* Against the normalized schema you repaired in Module 1, that query joins four tables and scans the whole `job_part` history. On the production dataset it takes **40 seconds** — and it blocks the single writer while it runs.
+Your plastic-plant now has a machine-health dashboard. Every 30 seconds it asks a hard question: *"for each machine, show its site, its technician's name, and the total cost of parts used in the last 90 days."* Against the normalized schema you repaired in Module 2, that query joins four tables and scans the whole `job_part` history. On the production dataset it takes **40 seconds** — and it blocks the single writer while it runs.
 
 The operations lead offers the classic shortcut: *"just copy the site and the technician name onto every job row and add a total-cost column. Then the dashboard reads one table."* She is right about the read. She is also about to introduce update anomalies. Your job in this studio is to **do both**: keep the schema correct, add the denormalized reporting path *on purpose*, and **measure** what it buys and what it costs, so the team makes the decision with numbers.
 
@@ -43,7 +43,7 @@ The operations lead offers the classic shortcut: *"just copy the site and the te
 
 | Form | Rule | Anomaly it removes |
 |---|---|---|
-| **1NF** | Atomic values only; no repeating groups or comma-lists | The `parts_used = 'P-1001,P-1002'` mess from Module 1 |
+| **1NF** | Atomic values only; no repeating groups or comma-lists | The `parts_used = 'P-1001,P-1002'` mess from Module 2 |
 | **2NF** | 1NF **and** no partial dependency on part of a composite key | `part_no → unit_price` stored on a `(job_id, part_no)` row — price duplicates and drifts |
 | **3NF** | 2NF **and** no transitive dependency (non-key → non-key) | `machine_id → site` stored on job rows — change a site once, update a thousand rows |
 
@@ -55,7 +55,7 @@ The operations lead offers the classic shortcut: *"just copy the site and the te
 **The spectrum.** Normalization minimizes redundancy and anomalies; denormalization trades redundancy back for read speed. There is no "correct" level — there is a **workload**, and a level that fits it. That is what you will prove.
 
 > [!TIP]
-> 3NF is the default, not the law. Analytically heavy read paths (dashboards, reports) are exactly where deliberate denormalization — or a separate columnar engine like DuckDB (Module 5) — earns its keep.
+> 3NF is the default, not the law. Analytically heavy read paths (dashboards, reports) are exactly where deliberate denormalization — or a separate columnar engine like DuckDB (Module 6) — earns its keep.
 
 ## 🛠️ Studio Lab: Normalize, Denormalize, and Measure (60 min)
 
@@ -66,8 +66,8 @@ The operations lead offers the classic shortcut: *"just copy the site and the te
 Build a deliberately unnormalized table with real volume so the benchmark means something.
 
 ```sh
-mkdir -p module-04
-sqlite3 module-04/normalize.db <<'SQL'
+mkdir -p module-05
+sqlite3 module-05/normalize.db <<'SQL'
 DROP TABLE IF EXISTS flat_jobpart;
 CREATE TABLE flat_jobpart (
     job_id      INTEGER,
@@ -94,13 +94,13 @@ FROM j CROSS JOIN p;
 
 CREATE INDEX ix_flat_machine ON flat_jobpart(machine_id);
 SQL
-sqlite3 module-04/normalize.db "SELECT COUNT(*) AS rows FROM flat_jobpart;"
+sqlite3 module-05/normalize.db "SELECT COUNT(*) AS rows FROM flat_jobpart;"
 ```
 
 ### ★ Task 1: Name the dependencies and the anomalies (10 min)
 
 1. Write down the functional dependencies you can see: `machine_id → site`, `part_no → part_price`, `job_id → machine_id`, `job_id → technician`, `job_id → done_on`.
-2. For each of the three anomalies (update, insert, delete), write **one concrete example** that this flat table makes possible. Save to `module-04/normalization-notes.md`.
+2. For each of the three anomalies (update, insert, delete), write **one concrete example** that this flat table makes possible. Save to `module-05/normalization-notes.md`.
 
 *Portfolio evidence:* the dependency list and the three anomaly examples.
 
@@ -194,17 +194,17 @@ Record, in a table like the one below, every number you measured:
 
 ### ★ Task 4: Decide and defend (10 min)
 
-Write a short recommendation (5–8 sentences) to the operations lead: which design should serve the dashboard, what the normalization of the transactional tables must stay at, and — crucially — **how you would keep the denormalized table from going stale** (a trigger from Module 3, a scheduled rebuild, or a materialized view). Cite your own numbers.
+Write a short recommendation (5–8 sentences) to the operations lead: which design should serve the dashboard, what the normalization of the transactional tables must stay at, and — crucially — **how you would keep the denormalized table from going stale** (a trigger from Module 4, a scheduled rebuild, or a materialized view). Cite your own numbers.
 
 *Portfolio evidence:* the recommendation memo, referencing your benchmark table.
 
 ### ◇ Task 5 (Stretcher): Push the frontier
 
-Load the same data into DuckDB and run the dashboard query there. Capture wall-clock time and note whether DuckDB's columnar engine removes the need for the denormalized table entirely. This is a natural bridge into Module 5.
+Load the same data into DuckDB and run the dashboard query there. Capture wall-clock time and note whether DuckDB's columnar engine removes the need for the denormalized table entirely. This is a natural bridge into Module 6.
 
 ## ✅ What must be committed to your portfolio
 
-Commit under `module-04/`:
+Commit under `module-05/`:
 
 - [ ] The setup script that builds `flat_jobpart` with ~200k rows (so the benchmark is reproducible).
 - [ ] `normalization-notes.md` — functional dependencies and one example of each anomaly.
@@ -224,4 +224,4 @@ Commit under `module-04/`:
 
 ---
 
-[← Previous: Module 3](./03-integrity-constraints-and-triggers.md) | [Back to front page](../README.md) | [Next: Module 5 →](./05-polyglot-embedded-persistence.md)
+[← Previous: Module 4](./04-integrity-constraints-and-triggers.md) | [Back to front page](../README.md) | [Next: Module 6 →](./06-polyglot-embedded-persistence.md)

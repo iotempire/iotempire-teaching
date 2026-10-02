@@ -12,4 +12,5 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 exec "$SCRIPT_DIR/../../tools/generate-lms-pdfs.sh" \
     --class-dir "$SCRIPT_DIR" \
     --prefix "hsbi-databases-" \
+    --document "syllabus.md:syllabus" \
     "$@"
