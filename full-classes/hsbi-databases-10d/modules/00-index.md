@@ -4,8 +4,6 @@
 
 > **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
 
-This page maps the legacy 7-chapter Databases lecture onto the **11 four-hour sessions** of this redesign, plus optional **tutorial sessions** with the teaching assistant (times announced via the LMS).
-
 > [!NOTE]
 > **How to read a module.** Every module opens with its **learning goals** — the contract between you and the instructor. You earn a module's points by demonstrating those goals (in a checkpoint conversation and through your portfolio), not by completing every task, so you may **modify, replace, or extend the tasks as long as you still reach the goals**: different datasets, different engines, deeper deep dives, and stretchers are all fair game.
 >

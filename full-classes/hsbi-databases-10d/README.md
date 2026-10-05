@@ -31,7 +31,7 @@ This README is the course workbook and front page for **Databases (DBS)** taught
 - Workload: 150 hours (5 ECTS) — 44 h core studio contact (plus tutorial sessions), and the remainder in self-study, portfolio documentation, and the final project.
 - Format: Practical, studio-style, peer-driven course. A short introduction to the class in Session 1, then one technical module per session (Modules 2–6), then the final-project studio (Modules 7–8). We keep the classical foundations the module handbook requires — database architecture, ERM, the relational model, normalization, SQL (DDL/DML/DQL/DCL), triggers and procedures, NoSQL — but we teach them the way data systems are actually built today: locally, hands-on, measured, and AI-assisted.
 - Language of Instruction: English. This class is taught in English for our international students.
-- Assessment: *Kombinationsprüfung* — continuous portfolio + project work combined with a final oral examination, exactly as permitted by Section 6 of the module handbook. The legacy 75 % written exam is dropped.
+- Assessment: *Kombinationsprüfung/combination exam* => continuous portfolio + project work combined with a final oral examination (as permitted by Section 6 of the module handbook).
 
 ### The version of databases we actually build today
 
