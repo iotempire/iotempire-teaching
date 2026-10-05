@@ -6,6 +6,28 @@ Cheat sheets, troubleshooting, datasets, and extended reading. Everything here r
 
 ## Command cheat sheet
 
+### Toolchain setup with `uv` (Windows / macOS / Linux)
+
+```sh
+# install uv (once): macOS/Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# Windows (PowerShell):
+#   powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+uv python install 3.12           # download + manage a fixed Python
+uv python pin 3.12               # pin it for this project (.python-version)
+uv init --name databases-portfolio    # create the project (skip if pyproject.toml exists)
+uv add duckdb datasette sqlite-utils pydantic sqlalchemy
+uv tool install litecli          # global CLI tools (isolated)
+uv tool install datasette
+uv tool install sqlite-utils
+uv sync                          # rebuild the environment from uv.lock (after a fresh clone)
+uv run python script.py          # run anything inside the pinned environment
+uvx datasette app.db             # run a tool without installing it
+```
+
+> Commit `pyproject.toml` and `uv.lock`; never commit `.venv/`. On Windows, get the `sqlite3` shell with `winget install SQLite.SQLite`, or just use the `litecli` / `sqlite-utils` tools.
+
 ### Python — SQLite (standard library)
 
 ```python
@@ -109,12 +131,20 @@ The claim that a full three-tier frontend/backend/cloud stack is overkill for a 
 
 ## Software install (offline-friendly)
 
-```sh
-# Python packages
-pip install duckdb datasette sqlite-utils pydantic sqlalchemy
+The course sets everything up with **`uv`** — see [Module 1](./01-introduction-and-local-first.md) for the step-by-step version:
 
-# Check what you have
-python3 --version && sqlite3 --version && python3 -c "import duckdb; print(duckdb.__version__)"
+```sh
+uv python install 3.12
+uv python pin 3.12
+uv add duckdb datasette sqlite-utils pydantic sqlalchemy
+uv tool install litecli datasette sqlite-utils
+uv run python -c "import sys, sqlite3, duckdb; print(sys.version.split()[0], sqlite3.sqlite_version, duckdb.__version__)"
+```
+
+If you prefer plain pip, the same libraries install with:
+
+```sh
+pip install duckdb datasette sqlite-utils pydantic sqlalchemy
 ```
 
 > [!TIP]

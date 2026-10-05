@@ -13,7 +13,7 @@
 By the end of this module, you can:
 1. Explain how this class works — the CBL/PBL philosophy, the portfolio-based *Kombinationsprüfung*, and the "moving bar" of a first-time course.
 2. Set up your personal GitHub portfolio from the course template, with a clean first commit and a `.gitignore` that keeps databases and secrets out of Git.
-3. Verify a working local-first data environment: Python 3.11+, the `sqlite3` CLI, DuckDB, and Datasette.
+3. Set up the entire toolchain reproducibly with **`uv`** — one fixed Python plus SQLite, DuckDB, Datasette, and more — on Windows, macOS, or Linux, and verify it.
 4. Explain — with a measurement, not a slide — the difference between an **embedded** database and a **client/server** database, and why most local apps should not run a server.
 5. Load real rows into SQLite and query them from Python using **bound parameters**.
 6. Take a first LLM-generated query, run it, and begin the habit that defines this course: **verify before you trust**.
@@ -81,6 +81,7 @@ What that plant actually needs is a database that runs **inside the monitoring s
 2. Confirm the `.gitignore` keeps data and secrets out of Git. If it does not, add (or verify) these lines:
    ```gitignore
    # local data and secrets stay out of the repository
+   .venv/
    *.db
    *.db-journal
    *.duckdb
@@ -92,28 +93,71 @@ What that plant actually needs is a database that runs **inside the monitoring s
 
 *Portfolio evidence:* the link to your forked repository and a screenshot of `git log --oneline` showing your first commit.
 
-### ★ Task 2: Environment check (15 min)
+### ★ Task 2: Install your whole toolchain with `uv` (15 min)
 
-Run each of the following and save the output. If a tool is missing, install it (`pip install duckdb datasette`) and note what you did.
+One tool, three platforms. **`uv`** (from Astral) installs a **fixed Python version**, creates an isolated environment, and installs every library and command-line tool this course uses — SQLite tooling, DuckDB, Datasette, and more — with the *same commands* on Windows, macOS, and Linux. Do this inside your forked portfolio, so your environment is part of your reproducible evidence.
+
+**1. Install `uv` (once per machine).**
+
+- **macOS / Linux:**
+  ```sh
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  ```
+- **Windows (PowerShell):**
+  ```powershell
+  powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+  ```
+- Or via a package manager: `brew install uv` (macOS), `winget install --id=astral-sh.uv -e` (Windows), `scoop install uv` (Windows).
+
+Open a **new** terminal and confirm: `uv --version`.
+
+**2. Pin the Python we use and add every library at once.** Run this at the root of your forked portfolio:
 
 ```sh
-python3 --version          # expect 3.11 or newer
-sqlite3 --version          # expect 3.38 or newer (JSON1 built in)
-python3 -c "import sqlite3; print('sqlite3 module', sqlite3.sqlite_version)"
-python3 -c "import duckdb; print('duckdb', duckdb.__version__)"
-datasette --version
-git --version
+uv init --name databases-portfolio     # skip if a pyproject.toml already exists
+uv python install 3.12                 # uv downloads and manages the fixed Python
+uv python pin 3.12                     # writes .python-version
+uv add duckdb datasette sqlite-utils pydantic sqlalchemy
 ```
 
-Then prove the embedded engine needs no server by creating and reading a database **with no server running**:
+`uv` resolves everything, writes `pyproject.toml`, creates an isolated `.venv/`, and locks exact versions in `uv.lock`.
+
+**3. Install the command-line tools globally** (isolated, available from any folder):
 
 ```sh
-sqlite3 edge.db "CREATE TABLE ping(t TEXT); INSERT INTO ping VALUES (datetime('now'));"
-sqlite3 edge.db "SELECT 'hello from ' || sqlite_version() || ' at ' || t FROM ping;"
-rm -f edge.db   # clean up
+uv tool install litecli       # a friendly interactive SQLite shell
+uv tool install datasette     # explore/publish SQLite databases
+uv tool install sqlite-utils  # SQLite from the command line
 ```
 
-*Portfolio evidence:* a `module-01/environment-check.txt` with the command outputs, plus one sentence stating which engines you have working.
+**4. Verify everything with one script.** Save this as `uv-check.py` in your portfolio and run it *inside the project*:
+
+```python
+import sys, platform, sqlite3
+from importlib.metadata import version, PackageNotFoundError
+
+print("uv-managed Python:", sys.executable)
+print("python            ", platform.python_version())
+print("sqlite (stdlib)   ", sqlite3.sqlite_version)
+for pkg in ("duckdb", "datasette", "sqlite-utils", "pydantic", "sqlalchemy"):
+    try:
+        print(f"{pkg:18s}", version(pkg))
+    except PackageNotFoundError:
+        print(f"{pkg:18s}", "NOT INSTALLED")
+```
+
+```sh
+uv run uv-check.py
+```
+
+> [!NOTE]
+> **Run Python through `uv run`.** From here on, run Python as `uv run python yourscript.py` (or `uv run uv-check.py`) instead of `python3`. That guarantees everyone uses the same fixed Python and the pinned libraries — no “works on my machine”.
+>
+> **The `sqlite3` command-line shell.** macOS and most Linux distributions ship a `sqlite3` shell; Windows does not. Install it (`winget install SQLite.SQLite` or `scoop install sqlite` on Windows), or use the `litecli` / `sqlite-utils` tools `uv` just installed — they cover the same ground. Everything also works through Python's built-in `sqlite3` module with no shell at all.
+>
+> **`uvx` (run without installing).** `uvx datasette module-01/telemetry.db` runs a tool on the fly — handy for a quick look without a permanent install.
+
+*Portfolio evidence:* the `uv run uv-check.py` output, plus committed `pyproject.toml` and `uv.lock` files (do **not** commit `.venv/`).
 
 ### ★ Task 3: Load real telemetry and query it from Python (20 min)
 
@@ -146,7 +190,7 @@ rm -f edge.db   # clean up
 2. Load it into SQLite. This is your first taste of an **ingestion pipeline** — the same pattern your final project will use:
 
    ```sh
-   python3 module-01/generate_telemetry.py
+   uv run python module-01/generate_telemetry.py
    sqlite3 module-01/telemetry.db <<'SQL'
    DROP TABLE IF EXISTS readings;
    CREATE TABLE readings(
@@ -214,10 +258,11 @@ Explore the table, filter by machine, and export one filtered view as CSV. Note 
 
 ## ✅ What must be committed to your portfolio
 
-Commit all of the following under `module-01/` after Session 1:
+Commit all of the following to your portfolio after Session 1 (the `uv` project files live at the repository root; the rest under `module-01/`):
 
 - [ ] Forked portfolio repository, with a clean `.gitignore` and a first descriptive commit.
-- [ ] `environment-check.txt` — versions of Python, SQLite, DuckDB, Datasette, Git.
+- [ ] `pyproject.toml` and `uv.lock` committed (reproducible uv environment; **`.venv/` stays out of Git**).
+- [ ] `uv-check.py` and its `uv run uv-check.py` output — the versions of Python, SQLite, DuckDB, Datasette, and the rest of the toolchain.
 - [ ] `generate_telemetry.py` — the telemetry generator.
 - [ ] `telemetry.db` size + row count (a screenshot or a text file; **do not commit the `.db` file itself**).
 - [ ] Query outputs for Tasks 3 and 4, with timings.

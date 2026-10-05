@@ -154,7 +154,8 @@ For each teaching block, write one logbook entry answering these four questions:
 
 | Layer | Tool | Notes |
 |---|---|---|
-| Language | **Python 3.11+** | Labs and the final project are Python-based; `sqlite3` is in the standard library. |
+| Environment manager | **`uv`** (Astral) | Installs a fixed Python plus all libraries and CLI tools in one step — the same commands on Windows, macOS, and Linux. Set up in Module 1. |
+| Language | **Python 3.12** | The glue for every lab; `sqlite3` is in the standard library. Install and pin it with `uv python install 3.12`. |
 | Transactional DB | **SQLite 3.38+** | JSON1 built in; use `STRICT` tables and generated columns. Ships as the `sqlite3` CLI and the Python `sqlite3` module. |
 | Analytical DB | **DuckDB** | In-process columnar engine; reads Parquet/CSV directly and can attach a SQLite file. |
 | Exploration & publishing | **Datasette** + **sqlite-utils** | One command turns a `.db` into an explorable site and JSON API. Datasette Lite runs in the browser. |
