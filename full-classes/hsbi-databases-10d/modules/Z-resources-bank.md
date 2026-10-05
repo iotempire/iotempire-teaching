@@ -74,10 +74,25 @@ sqlite-utils memory data.csv "SELECT count(*) FROM data"   # query a CSV in one 
 
 ## Extended reading
 
-**Embedded & local-first**
+### Why local-first (and why the heavy three-tier default is questioned)
+
+The claim that a full three-tier frontend/backend/cloud stack is overkill for a local app is not fringe — it is a documented industry shift. Key reading:
+
+- Martin Kleppmann, Adam Wiggins, Peter van Hardenberg, Mark McGranaghan — *Local-First Software: You Own Your Data, in spite of the Cloud* (Ink & Switch, 2019) — [inkandswitch.com/essay/local-first](https://www.inkandswitch.com/essay/local-first/). The essay that named the movement and critiqued server-as-source-of-truth apps.
+- SQLite — *Appropriate Uses For SQLite* — [sqlite.org/whentouse.html](https://www.sqlite.org/whentouse.html). The official framing: *“SQLite does not compete with client/server databases. SQLite competes with `fopen()`. ”*
+- Ruby on Rails — *Rails 8.0: No PaaS Required* (2024) — [rubyonrails.org](https://rubyonrails.org/2024/11/7/rails-8-no-paas-required). A mainstream framework making SQLite the production default and removing the Redis / Postgres / PaaS dependencies for typical apps.
+- htmx — *Locality of Behaviour* (Carson Gross) — [htmx.org/essays/locality-of-behaviour](https://htmx.org/essays/locality-of-behaviour/). The hypermedia revival that narrows the front-end/back-end split.
+- Simon Willison — *Datasette: an ecosystem of tools for working with small data* (2021) — [simonwillison.net](https://simonwillison.net/2021/Jul/22/small-data/). *“Almost every data problem you have should be solved using SQLite.”*
+- Martin Fowler — *MonolithFirst* (2015) — [martinfowler.com](https://martinfowler.com/bliki/MonolithFirst.html). Start simple; distribute only when a real need forces it.
+- Anton Zhiyanov — *SQLite is not a toy database* (2021) — [antonz.org](https://antonz.org/sqlite-is-not-a-toy-database/).
+
+> **For balance — when a server *is* the right tool.** The same SQLite guide lists the cases where [a client/server database is a better fit](https://www.sqlite.org/whentouse.html) (data on a separate device, high write concurrency, shared multi-user access), and [DuckDB's *Why DuckDB*](https://duckdb.org/why_duckdb.html) covers embedded analytics. Rule of thumb: choose the server when a *measured* requirement demands it — not by default.
+
+### Embedded & local-first tooling
 - SQLite — *Appropriate Uses For SQLite* — [sqlite.org/whentouse.html](https://www.sqlite.org/whentouse.html)
-- Simon Willison — *Datasette: an ecosystem of tools for working with small data* — [simonwillison.net](https://simonwillison.net/2021/Jul/22/small-data/)
-- Ink & Switch — *Local-first software* — [inkandswitch.com/local-first](https://www.inkandswitch.com/local-first/)
+- DuckDB — *Why DuckDB* — [duckdb.org/why_duckdb.html](https://duckdb.org/why_duckdb.html)
+- Simon Willison — *Datasette* — [simonwillison.net](https://simonwillison.net/2021/Jul/22/small-data/) · [datasette.io](https://datasette.io/)
+- Local-first community — [localfirst.fm](https://localfirst.fm/)
 
 **Modeling, normalization, integrity**
 - SQLite — foreign keys · `STRICT` tables · generated columns — [sqlite.org/foreignkeys.html](https://www.sqlite.org/foreignkeys.html) · [stricttables.html](https://www.sqlite.org/stricttables.html) · [gencol.html](https://sqlite.org/gencol.html)

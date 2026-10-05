@@ -11,7 +11,7 @@
 
 ## 🎯 Learning Goals
 
-> **How these are assessed:** You earn the 5 project points through the team repository, a 5-page report, and a 15-minute live demo with an **individual oral defense** in Session 11. **The learning goals, must-have criteria, and rubric are the contract: meet them, and you earn the points.** The studio guidance around them is a draft you may adapt with your team, as long as the must-haves and evidence remain covered.
+> **How these are assessed:** You earn credit through the team repository, a 5-page report, and a 15-minute live demo with an **individual oral defense** in Session 11 (see the [syllabus](../syllabus.md#final-project-requirements-5-points) for the assessment rules). **The learning goals, must-have criteria, and rubric are the contract: meet them, and you have met the module.** The studio guidance around them is a draft you may adapt with your team, as long as the must-haves and evidence remain covered.
 
 By the end of the final project, you can:
 1. Turn a stakeholder story into a data model, a schema, and named queries that answer a real question.
@@ -115,7 +115,7 @@ Before Session 11, the team repository must contain:
 
 - Build time: [Module 7 — Final Project Studio](./07-final-project-studio.md) (Sessions 7–10).
 - Demo & defense: Session 11.
-- Points: 5 of the 20 base points (25 %). See the [assessment map](./00-index.md#assessment-map) and the [grade scale](../syllabus.md#grade-scale).
+- Points: 5 of the 20 base points (25 %). See the [syllabus assessment rules](../syllabus.md#assessment-kombinationsprüfung-20-base-points--bonus) and the [grade scale](../syllabus.md#grade-scale).
 
 ---
 

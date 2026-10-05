@@ -8,7 +8,7 @@
 
 ## 🎯 Learning Goals
 
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation in Session 8 (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. **These learning goals are the contract between you and the instructor: demonstrate them, and you earn the points.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+> **How these are assessed:** You show that you have reached these goals in a short (~10-minute) checkpoint presentation in Session 8 — based on your portfolio and reflections, not on completing every task. See the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations) for the assessment rules. **These learning goals are the contract between you and the instructor: demonstrate them, and you have met the module.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 This module gives you the opportunity to explore functional dependencies and normalization and achieve competency in trading schema design against real, measured performance.
 

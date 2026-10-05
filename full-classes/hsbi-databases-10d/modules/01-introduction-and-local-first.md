@@ -8,7 +8,7 @@
 
 ## 🎯 Learning Goals
 
-> **How these are assessed:** You earn this module's **1 point** by proving these goals in a short (~10-minute) checkpoint conversation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio, not on completing every task. **These learning goals are the contract between you and the instructor: demonstrate them, and you earn the points.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+> **How these are assessed:** You show that you have reached these goals in a short (~10-minute) checkpoint conversation with the instructor — based on your portfolio, not on completing every task. See the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations) for the assessment rules. **These learning goals are the contract between you and the instructor: demonstrate them, and you have met the module.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 By the end of this module, you can:
 1. Explain how this class works — the CBL/PBL philosophy, the portfolio-based *Kombinationsprüfung*, and the "moving bar" of a first-time course.
@@ -44,7 +44,7 @@ Finally, a practical note: the class has **11 four-hour sessions**, plus **optio
 
 A small Gütersloh machine shop wants to monitor its CNC milling machines. A vendor proposes the classic setup: a cloud server, a PostgreSQL instance, a REST backend, a React frontend, and a monthly invoice. The plant manager — an HSBI Industrial Engineering alum — asks one question the vendor cannot answer cheaply: *"How many rows per day, and who else is reading this?"*
 
-The answer: about **90,000 readings a day** (a temperature, a vibration RMS, and a spindle-load value every few seconds across three machines), read by **one** dashboard on the shop floor and **one** weekly shift report. That is a few hundred megabytes a year, touched by two readers, on a network that already exists. A three-tier cloud stack here is a **programming antipattern**: more moving parts, more failure modes, more cost, and no benefit.
+The answer: about **90,000 readings a day** (a temperature, a vibration RMS, and a spindle-load value every few seconds across three machines), read by **one** dashboard on the shop floor and **one** weekly shift report. That is a few hundred megabytes a year, touched by two readers, on a network that already exists. A three-tier cloud stack here is a **programming antipattern**: more moving parts, more failure modes, more cost, and no benefit. (For the industry consensus forming around this, see the [local-first manifesto](https://www.inkandswitch.com/essay/local-first/) and SQLite's own ["SQLite competes with `fopen()`"](https://www.sqlite.org/whentouse.html).)
 
 What that plant actually needs is a database that runs **inside the monitoring script** — an embedded engine that speaks SQL, needs no administrator, cannot go "down", and travels with the data file. That engine is **SQLite**. In this first studio you will meet it the same way: load a couple of days of machine telemetry, query it, and profile the AI's first suggestion.
 
@@ -62,6 +62,9 @@ What that plant actually needs is a database that runs **inside the monitoring s
 | Cost | Zero infrastructure | A server, an operator, a bill |
 
 **The local-first principle.** Keep the data on the machine that produces and consumes it. Ship a file, not a deployment. Go to a server only when a *measured* requirement — concurrent writers, geographic distribution, or a shared multi-tenant service — forces you to.
+
+> [!TIP]
+> **This is a documented industry shift, not a hobby opinion.** The [local-first manifesto](https://www.inkandswitch.com/essay/local-first/) named the movement; [Rails 8 made SQLite the production default and dropped the Redis/PaaS dependencies](https://rubyonrails.org/2024/11/7/rails-8-no-paas-required); and the hypermedia revival ([htmx's *Locality of Behaviour*](https://htmx.org/essays/locality-of-behaviour/)) is collapsing the front-end/back-end split for typical apps. The [resource bank](./Z-resources-bank.md#why-local-first-and-why-the-heavy-three-tier-default-is-questioned) has the full reading list — including when a server *is* the right tool.
 
 **Why we still learn the "server" vocabulary.** The ANSI three-level architecture, transactions, ACID, and Codd's relational rules (the legacy introduction chapter) describe *all* relational systems. SQLite implements transactions and ACID perfectly well; understanding them here transfers directly to any server you meet later. And when a workload genuinely needs a server (Module 6), you will recognize it because you will have the measurement that proves it.
 
@@ -227,10 +230,14 @@ Commit all of the following under `module-01/` after Session 1:
 
 ## 📚 If you want to go deeper
 
-- SQLite — *When to use SQLite* — [sqlite.org/whentouse.html](https://www.sqlite.org/whentouse.html)
+- Martin Kleppmann, Adam Wiggins, Peter van Hardenberg, Mark McGranaghan — *Local-First Software: You Own Your Data, in spite of the Cloud* (Ink & Switch, 2019) — [inkandswitch.com/essay/local-first](https://www.inkandswitch.com/essay/local-first/)
+- SQLite — *Appropriate Uses For SQLite* — [sqlite.org/whentouse.html](https://www.sqlite.org/whentouse.html)
+- Ruby on Rails — *Rails 8.0: No PaaS Required* (2024) — [rubyonrails.org](https://rubyonrails.org/2024/11/7/rails-8-no-paas-required)
+- htmx — *Locality of Behaviour* — [htmx.org/essays/locality-of-behaviour](https://htmx.org/essays/locality-of-behaviour/)
 - Simon Willison — *Datasette: an ecosystem of tools for working with small data* — [simonwillison.net/2021/Jul/22/small-data](https://simonwillison.net/2021/Jul/22/small-data)
-- Local-first software — [inkandswitch.com/local-first](https://www.inkandswitch.com/local-first/)
+- Anton Zhiyanov — *SQLite is not a toy database* (2021) — [antonz.org](https://antonz.org/sqlite-is-not-a-toy-database/)
+- More (and the counter-arguments) in the [resource bank](./Z-resources-bank.md#why-local-first-and-why-the-heavy-three-tier-default-is-questioned)
 
 ---
 
-[← Course workbook](../README.md) | [Next: Module 2 — Data Contracts & Reading Legacy Schemas →](./02-data-contracts-and-legacy-schemas.md)
+[← Course workbook](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 — Data Contracts & Reading Legacy Schemas →](./02-data-contracts-and-legacy-schemas.md)

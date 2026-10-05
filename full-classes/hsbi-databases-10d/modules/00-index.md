@@ -5,7 +5,7 @@
 > **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
 
 > [!NOTE]
-> **How to read a module.** Every module opens with its **learning goals** — the contract between you and the instructor. You earn a module's points by demonstrating those goals (in a checkpoint conversation and through your portfolio), not by completing every task, so you may **modify, replace, or extend the tasks as long as you still reach the goals**: different datasets, different engines, deeper deep dives, and stretchers are all fair game.
+> **How to read a module.** Every module opens with its **learning goals** — the contract between you and the instructor. You demonstrate those goals (in a conversation with the instructor and through your portfolio) rather than ticking off every task, so you may **modify, replace, or extend the tasks as long as you still reach the goals**: different datasets, different engines, deeper deep dives, and stretchers are all fair game.
 >
 > Each module also carries a ***DRAFT BOUNDARY*** — a moving line that marks the content still under construction. This class is taught for the first time, by an instructor who is also new to teaching databases, so the boundary moves down as we refine things together and your input genuinely shapes it.
 
@@ -34,17 +34,10 @@
 | ER diagrams as an end product | Schema audits and code-first data contracts | Real work is reading someone else's schema and expressing its meaning in code. |
 | Normalization as a rule to obey | Normalization as a measured trade-off | Read/write/storage costs are empirical facts you can benchmark. |
 | Relational = the only option | Polyglot persistence, chosen deliberately | Edge and analytical workloads sometimes want JSON, columns, or key-value. |
-| 75 % written exam | Portfolio + project + oral defense | Section 6 of the module handbook permits the Kombinationsprüfung; active work proves competence better. |
 | A fixed, lecture-scripted syllabus | A moving bar with fixed learning goals | The class is brand new and taught by someone learning databases with you; goals stay stable, tasks can move. |
 
-## Assessment map
+> **Sources for these shifts.** The move away from server-heavy defaults is documented — not opinion: the [local-first manifesto](https://www.inkandswitch.com/essay/local-first/), SQLite's ["Appropriate Uses For SQLite"](https://www.sqlite.org/whentouse.html) (*"SQLite competes with `fopen()`"*), and [Rails 8 shipping SQLite in production](https://rubyonrails.org/2024/11/7/rails-8-no-paas-required). Full list in the [resource bank](./Z-resources-bank.md#why-local-first-and-why-the-heavy-three-tier-default-is-questioned).
 
-| Component | Points | Earned in |
-|---|---|---|
-| Modules 1–6 | 11 (Module 1: 1; Modules 2–6: 2 each) | Module 1 checked in Session 2; Checkpoint 1 (Modules 2–4) in Session 6; Checkpoint 2 (Modules 5–6) in Session 8 |
-| Reflections | 4 | One per teaching block, throughout |
-| Final Project | 5 | Session 11 demo + defense |
-| **Base total** | **20** | Passing mark: **14 / 20** |
-| Bonus | up to +3 | Benchmarks, upstream PRs, peer help |
+## Assessment
 
-See the [syllabus](../syllabus.md#assessment-kombinationsprüfung-20-base-points--bonus) for the full rules and the [grade scale](../syllabus.md#grade-scale).
+Assessment — how the points are earned, the checkpoints, the reflection format, and the grade scale — is defined in the [syllabus](../syllabus.md#assessment-kombinationsprüfung-20-base-points--bonus).

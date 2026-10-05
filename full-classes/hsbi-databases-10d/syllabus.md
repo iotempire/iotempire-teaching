@@ -169,6 +169,8 @@ For each teaching block, write one logbook entry answering these four questions:
 
 The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6), and the final-project arc (Modules 7–8). Sessions 1–6 are taught studios; Sessions 7–10 are project studios; Session 11 is demo and defense. Optional **TA-led tutorial sessions** (times announced via the LMS) add catch-up, deeper practice, and project support.
 
+The full roadmap — with a one-line summary and learning goals for every studio — is in the [module index](./modules/00-index.md).
+
 > Indicative plan. The session-by-session mapping below is a planning draft and may shift — including during the semester — as we refine this class together. The learning objectives and the final project matter more than the exact session a topic lands on.
 
 | Session | Module / Topic | Core Hands-on Focus |

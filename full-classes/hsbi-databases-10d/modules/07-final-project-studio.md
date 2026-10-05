@@ -5,11 +5,11 @@
 **Course placement:** Sessions 7–10. Four project-studio sessions: kickoff and story, requirement mapping, build, integration, hardening, peer review, and rehearsal. The *specification* — teams, must-haves, documentation, and the demo rubric — lives in [Module 8](./08-final-project.md); this module is the **studio guide** for how you spend the time.
 
 > [!IMPORTANT]
-> This is where the 5 final-project points are built. Read [Module 8](./08-final-project.md) **before** Session 7 — you are expected to arrive with a team and a one-paragraph story.
+> This is where the final project is built. Read [Module 8](./08-final-project.md) **before** Session 7 — you are expected to arrive with a team and a one-paragraph story.
 
 ## 🎯 Learning Goals
 
-> **How these are assessed:** This studio builds the artifact for the **5 final-project points**, assessed in Session 11 through the team repository, the 5-page report, and the live demo with an **individual oral defense**. **The goals are the contract: demonstrate them and you earn the points.** The studio steps that follow are a draft you may adapt as a team.
+> **How these are assessed:** This studio builds the artifact for the final project, assessed in Session 11 through the team repository, the 5-page report, and the live demo with an **individual oral defense** (see the [syllabus](../syllabus.md#final-project-requirements-5-points) for the assessment rules). **The goals are the contract: demonstrate them and you have met the module.** The studio steps that follow are a draft you may adapt as a team.
 
 By the end of these four sessions, your team has:
 
@@ -134,7 +134,7 @@ Each team member commits their **own** portfolio entry that:
 - Includes the evidence for that piece (their query, their benchmark, their ingestion module).
 - Contains a `reflection.md` for the project-studio blocks in the standard format: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 
-A team repository alone is not enough: the 5 project points include an **individual oral defense**, and your personal portfolio is what you defend from.
+A team repository alone is not enough: the project assessment includes an **individual oral defense**, and your personal portfolio is what you defend from.
 
 ## 📚 Team hygiene that saves the demo
 

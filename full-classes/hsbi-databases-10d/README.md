@@ -1,41 +1,19 @@
-# HSBI/GT Databases (DBS) — Local-First Edition
+# Databases (DBS) — Local-First Edition
 
-## Contents
+> **Databases for people who build things.** Model real data, query it with an AI copilot at your side, and prove every performance claim with a benchmark — on a machine you actually own.
 
-| Start here | What it contains |
-|---|---|
-| [Module 1 — Introduction & Local-First Foundations](./modules/01-introduction-and-local-first.md) | Session 1 — how this class works, portfolio setup, the local-first paradigm, and your first LLM-assisted SQL profiling task |
-| [Syllabus](./syllabus.md) | Course schedule, learning objectives, assessment rules, tools, and policies |
-| [Module 2 — Data Contracts & Reading Legacy Schemas](./modules/02-data-contracts-and-legacy-schemas.md) | ERD audits, code-first contracts (Pydantic/SQLAlchemy), requirements from messy reality |
-| [Module 3 — LLM-Assisted SQL & Query Profiling](./modules/03-llm-assisted-sql-and-query-profiling.md) | Generating queries with AI, then proving them with `EXPLAIN QUERY PLAN`, indexes, and injection tests |
-| [Module 4 — Data Integrity, Constraints & Edge Triggers](./modules/04-integrity-constraints-and-triggers.md) | `CHECK`, `UNIQUE`, foreign keys, `STRICT` tables, generated columns, and triggers for edge telemetry |
-| [Module 5 — Normalization vs. Denormalization Benchmarking Studio](./modules/05-normalization-vs-denormalization.md) | Functional dependencies and read/write trade-offs measured with real SQLite benchmarks |
-| [Module 6 — Polyglot & Embedded Persistence](./modules/06-polyglot-embedded-persistence.md) | JSON in SQLite, DuckDB analytics over Parquet/CSV, key-value stores, when to leave the RDBMS |
-| [Module 7 — Final Project Studio](./modules/07-final-project-studio.md) | Kickoff, build, peer review, and dry-run studios for the meaningful challenge project |
-| [Module 8 — Final Project Specification](./modules/08-final-project.md) | Teams, technical must-haves, documentation, and the 15-minute demo + oral-defense rubric |
-| [Resource Prompts](./modules/Y-resources-prompt-bank.md) | Reflection prompts, LLM-verification drills, and quick references |
-| [Resource Bank](./modules/Z-resources-bank.md) | Cheat sheets, troubleshooting, datasets, and extended reading |
+This is the course workbook for **Databases (DBS)**, a hands-on, studio-style database course for engineering students. It was originally designed for the Databases module (3386, 5 ECTS) in the Bachelor programmes *Mechatronics and Automation* and *Industrial Engineering* at Hochschule Bielefeld (HSBI), Campus Gütersloh — but it is written to be reused. The labs run offline on a laptop with open-source tools, and the material works as a standalone database course or as the data layer of an IoT / engineering curriculum.
 
-This README is the course workbook and front page for **Databases (DBS)** taught at Hochschule Bielefeld University of Applied Sciences and Arts (HSBI), Campus Gütersloh. Module number 3386, 5 ECTS, 3rd semester. It is delivered as a semester-long active studio: **11 four-hour sessions (44 contact hours)**, plus **optional tutorial sessions** run by a teaching assistant (dates and times announced via the LMS). The official timetable, room, and announcements are published through the course LMS.
+- **[Module index & roadmap](./modules/00-index.md)** — the course at a glance: every module and the session-by-session plan.
+- **[Syllabus](./syllabus.md)** — the official rules: schedule, learning objectives, assessment, tools, and policies.
+- **Resource pages** — [reflection prompts & LLM-verification drills](./modules/Y-resources-prompt-bank.md) and a [cheat-sheet & troubleshooting bank](./modules/Z-resources-bank.md).
 
-> [!NOTE]
-> **Every module begins with its learning goals.** Those goals are the agreement between you and me: you earn a module's points by *demonstrating the goals* — in a short checkpoint conversation and through your portfolio — not by ticking off every task. That is the whole contract. It is also why the tasks are negotiable and the goals are not: reach the goals your own way, and you have met the module.
-
-> [!NOTE]
-> **This class is a draft in motion.** It is taught for the first time in WS 2026/27, by an instructor who is *also* new to teaching databases and is learning the material alongside you. In every module, a ***DRAFT BOUNDARY*** marks the part that is not settled yet. The boundary moves down as we approve content together. Expect the plan, the tasks, and even this syllabus to change — and bring your own deep dives and stretchers; your input genuinely shapes the class.
-
-## Course Overview
-
-- Duration: 11 four-hour sessions (44 contact hours), plus optional tutorial sessions with the teaching assistant (times announced via the LMS).
-- Target Group: Bachelor students in *Mechatronics and Automation* and *Industrial Engineering* (3rd semester, 40–70 students). Module number 3386.
-- Workload: 150 hours (5 ECTS) — 44 h core studio contact (plus tutorial sessions), and the remainder in self-study, portfolio documentation, and the final project.
-- Format: Practical, studio-style, peer-driven course. A short introduction to the class in Session 1, then one technical module per session (Modules 2–6), then the final-project studio (Modules 7–8). We keep the classical foundations the module handbook requires — database architecture, ERM, the relational model, normalization, SQL (DDL/DML/DQL/DCL), triggers and procedures, NoSQL — but we teach them the way data systems are actually built today: locally, hands-on, measured, and AI-assisted.
-- Language of Instruction: English. This class is taught in English for our international students.
-- Assessment: *Kombinationsprüfung/combination exam* => continuous portfolio + project work combined with a final oral examination (as permitted by Section 6 of the module handbook).
-
-### The version of databases we actually build today
+## Why this course looks different
 
 Most "database applications" taught in introductory courses follow a pattern we now consider a **programming antipattern**: a full three-tier frontend/backend/cloud stack for something that needs to store a few thousand rows on a machine that already runs the code. This course flips that.
+
+> [!TIP]
+> **Is the heavy stack really overkill?** For local, single-user, and edge applications, a growing body of industry practice says yes. The movement was named by Kleppmann & Ink & Switch's [*Local-First Software*](https://www.inkandswitch.com/essay/local-first/) (2019); SQLite's own guide puts it bluntly — ["SQLite does not compete with client/server databases. SQLite competes with `fopen()`"](https://www.sqlite.org/whentouse.html); and mainstream frameworks have followed, with [Rails 8 shipping SQLite in production and dropping the Redis/PaaS dependencies](https://rubyonrails.org/2024/11/7/rails-8-no-paas-required). It is not wrong *everywhere* — but as a default for a local app, it is increasingly questioned. The [resource bank](./modules/Z-resources-bank.md#why-local-first-and-why-the-heavy-three-tier-default-is-questioned) collects the full reading list.
 
 > [!IMPORTANT]
 > **Local-first, embedded, and measured.** We treat the database as an embedded library inside the process, not a server you must host. Our default engines are **SQLite** (transactional, row-oriented, embedded relational) and **DuckDB** (analytical, columnar OLAP). We connect them to real **edge telemetry** — sensor readings, machine states, industrial logs — and we *prove* every performance claim with a benchmark instead of a slide.
@@ -46,58 +24,55 @@ You will:
 - **Let AI write the SQL, but keep the responsibility.** Syntactic SQL memory is no longer a job skill. You will use LLM co-pilots to generate queries, then **profile them (`EXPLAIN QUERY PLAN`), benchmark the index impact, and prove they are injection-safe** — because shipping unreviewed generated SQL is how you get a data breach.
 - **Trade normalization against speed with numbers.** Instead of memorizing 1NF–3NF, you will normalize, denormalize, and *measure* the read/write/storage consequences in SQLite.
 - **Go polyglot on purpose.** You will store JSON in SQLite, run DuckDB analytics straight over Parquet and CSV, try a key-value store, and reason about when a relational engine is the wrong tool.
+- **Build something meaningful.** In a team, you turn a real stakeholder story into a working local-first database application — and you defend the design decisions you own.
 
-Read the [syllabus](./syllabus.md) for the complete language arrangement, learning objectives, assessment rules, toolchain, and policies.
+## How we teach — challenge- and project-based, in person, and always in flux
 
-## Assessment: Kombinationsprüfung (20 Points Base + Bonus)
+This course is taught as Challenge-Based and Project-Based Learning (CBL/PBL): you learn by investigating an authentic challenge and building a real solution, not by reproducing a lecture. We begin from stories — a real problem that matters to a person — because you learn best what connects to something meaningful for your own life, studies, or community.
 
-Your grade comes from continuous portfolio evidence, checkpoint presentations, reflections, and a final project — there is no written exam.
+It also matters that we do this in person, together. A university class is at its best where we actually meet, and you will learn a great deal from direct interaction with your peers: explaining, questioning, debugging, and demoing to one another, while the instructor learns alongside you.
 
-| Component | Points | How it is earned |
-|---|---|---|
-| Modules 1–6 (Learning goals) | 11 points | Proven in short checkpoint presentations: portfolio setup and the first profiling task (Module 1, 1 point), then schema trade-off benchmarks, trigger/constraint implementations, and query-optimization evidence from your portfolio (Modules 2–6, 2 points each). |
-| Reflection Points | 4 points | One continuous reflection per teaching block in your personal logbook. |
-| Final Personal Meaningful Challenge Project | 5 points (25 %) | A story-driven, local-first embedded database application (teams of 3–4), evaluated via a working GitHub repository, 5-page documentation, and a 15-minute live demo + individual oral defense. |
-| Extra / Bonus Points | up to +3 | Exceptional benchmarking, accepted open-source pull requests to IoTempower or class repositories, or peer debugging assistance. |
-| **Base Total** | **20 points** | Passing mark: **minimum 14 / 20** (~70 %). |
+And this class is always in flux — that is a feature, not a bug. No course is ever finished: every offering is adjusted while it runs, and each class teaches us as much as it teaches you.
 
-- **Score cap:** The final score is capped at 20, even if bonus points are earned. Bonus points can compensate for minor weaknesses, but all compulsory components must still be attempted.
-- **Reflection format (each block):** *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
-- **The module points (Modules 1–6) are earned by checkpoint presentations, not by task completion.** Every module begins with its learning goals, and those goals are your contract with the instructor: demonstrate them and you earn the points. The tasks are negotiable — modify, replace, or extend them as long as you still reach the goals — so you may skip tasks, fail at some, or add your own. A documented, honest failure is exploration, not a loss.
+> [!NOTE]
+> **Every module begins with its learning goals.** Those goals are the agreement between you and the instructor — the things you should be able to do by the end. Because the goals are what matter, the tasks are negotiable: you may modify, replace, or extend them as long as you still reach the goals.
 
-The full points breakdown, checkpoint rules, and grade scale live in the [syllabus](./syllabus.md#assessment-kombinationsprüfung-20-base-points--bonus).
+> [!NOTE]
+> **This course is a draft in motion.** It is taught for the first time, by an instructor who is also new to teaching databases — so a ***DRAFT BOUNDARY*** in each module marks the content still under construction. The boundary moves down as we refine things together; bring your own deep dives and stretchers, because your input shapes the class.
 
-## Tools & Environment
+## How the course is organized
 
-| Layer | Tool | Why |
-|---|---|---|
-| Language | **Python 3.11+** | The glue for every lab; `sqlite3` and `duckdb` ship as libraries. |
-| Transactional DB | **SQLite 3.38+** (CLI + Python stdlib `sqlite3`) | Embedded, zero-admin, JSON1 built in, `STRICT` tables, generated columns. |
-| Analytical DB | **DuckDB** | In-process columnar OLAP; queries Parquet/CSV directly, can attach SQLite files. |
-| Exploration & publishing | **Datasette** (+ `sqlite-utils`, Datasette Lite) | Turn any SQLite file into an explorable site and JSON API in one command. |
-| Editor | **VSCode** or **Zed** (SQLite/DuckDB extensions) | SQL editing, DB browsing, Git integration. |
-| Version control | **Git + GitHub** | Your portfolio *is* the deliverable. |
-| AI co-pilots | ChatGPT / Claude / DeepSeek / local models | Query generation, schema review, and — critically — the object of your verification. |
+- **11 four-hour studio sessions (44 contact hours)**, plus optional tutorial sessions (times announced via the LMS).
+- **Modules 1–6:** one technical module per session — the local-first paradigm, legacy schema audits and data contracts, LLM-assisted SQL and query profiling, integrity and edge triggers, normalization benchmarking, and polyglot embedded persistence.
+- **Modules 7–8:** the final-project arc — a story-driven, local-first database application, built, documented, and defended in a team.
 
-> [!TIP]
-> Everything core runs offline on your laptop. Cloud services are optional and never required for a passing grade. If an AI tool is unavailable, the tasks still work with a search engine and the SQLite/DuckDB documentation.
+The full module list, one-line summaries, and the session roadmap live in the **[module index](./modules/00-index.md)**.
 
-## Portfolio & Getting Started
+## Get started
 
-Maintain a personal GitHub portfolio, forked from the [portfolio template](https://github.com/iotempire/iot-portfolio-template), containing schemas, SQL, scripts, benchmark tables, `EXPLAIN QUERY PLAN` screenshots, reflection logbook entries, and your final project.
+1. Fork your personal portfolio from the [IoTempire portfolio template](https://github.com/iotempire/iot-portfolio-template).
+2. Read the **[module index](./modules/00-index.md)**, then start with **[Module 1 — Introduction & Local-First Foundations](./modules/01-introduction-and-local-first.md)**.
+3. Keep the **[syllabus](./syllabus.md)** handy for the schedule, assessment, and policies.
 
-**Module 1 happens in class (Session 1).** We introduce how the class works, then fork your personal GitHub portfolio from the template and complete the [Module 1 studio](./modules/01-introduction-and-local-first.md) together. In database work, a documented benchmark and an honest "the index didn't help, here is why" beat a single lucky query — showing how you caught an LLM hallucinating a column is exactly the engineering skill this course builds.
+## What you will work with
 
-## Navigation & Resources
+Everything is open-source and runs offline on your laptop: **Python 3.11+**, **SQLite**, **DuckDB**, **Datasette**, **Git/GitHub**, and an editor such as **VSCode** or **Zed**. You will use AI copilots (ChatGPT, Claude, DeepSeek, or a local model) to *draft* SQL — and then verify it, which is exactly the skill this course builds. The [syllabus](./syllabus.md#tools--environment) lists the exact toolchain.
 
-- [Module index](./modules/00-index.md) — compact navigation and the 11-session roadmap
-- [Module 1 — Introduction & Local-First Foundations](./modules/01-introduction-and-local-first.md) — start here; done together in Session 1
-- [Syllabus](./syllabus.md) — official course rules, assessment, and policies
+## For instructors
+
+The workbook is meant to be reused and adapted. It relies only on open-source, permissively licensed tools; the labs are self-contained and run offline; and each module keeps its learning goals separate from the (draft) tasks, so you can swap exercises without breaking the course. Fork it, translate it, and change the stories to your own context — and please keep the attribution to IoTempower and Ulrich Norbisrath. Feedback and pull requests are welcome.
+
+## Navigation & resources
+
+- [Module index & roadmap](./modules/00-index.md)
+- [Syllabus](./syllabus.md)
+- [Reflection prompts & LLM-verification drills](./modules/Y-resources-prompt-bank.md)
+- [Cheat sheets, troubleshooting & datasets](./modules/Z-resources-bank.md)
 - [SQLite documentation](https://www.sqlite.org/docs.html) · [`EXPLAIN QUERY PLAN`](https://www.sqlite.org/eqp.html) · [JSON functions](https://sqlite.org/json1.html) · [STRICT tables](https://www.sqlite.org/stricttables.html)
 - [DuckDB documentation](https://duckdb.org/docs/) · [Datasette](https://datasette.io/) · [sqlite-utils](https://datasette.io/tools/sqlite-utils)
 - [IoTempire](https://iotempire.net/) — organization, teaching tools, and community
 
-### LMS PDF Exports
+### LMS PDF exports
 
 Generate a dated, upload-ready PDF of the syllabus using LibreOffice (default), Chromium, or LaTeX:
 
@@ -105,9 +80,10 @@ Generate a dated, upload-ready PDF of the syllabus using LibreOffice (default), 
 ./generate-lms-pdfs.sh 2026-27
 ```
 
-## Contacts & Support
+## Contacts & support
 
-- Questions, schedule, and technical support: Use the course LMS (ILIAS), the authoritative communication channel.
-- Main Instructor: Prof. Dr. Ulrich Norbisrath (Ulno) — [ulno.net](https://ulno.net/)
-- Legacy course material: Prof. Dr. Alexander Maier (module coordinator, module 3386) · modernized in German by Prof. Dr. Dominic Becking
+- Questions, schedule, and technical support: use the course LMS (ILIAS), the authoritative communication channel.
+- Main instructor: Prof. Dr. Ulrich Norbisrath (Ulno) — [ulno.net](https://ulno.net/)
 - Community: [IoTempire](https://iotempire.net/)
+
+> Origin: originally based on the legacy Databases module by Prof. Dr. Alexander Maier; a modern German-language variant exists by Prof. Dr. Dominic Becking. Redesigned here for local-first, AI-era teaching.
