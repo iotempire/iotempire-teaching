@@ -254,6 +254,27 @@ Then answer in 3–5 sentences: *Did switching tools change how you think about 
 
 Use SQLite's FTS5 to build a searchable index over machine maintenance notes (`CREATE VIRTUAL TABLE notes USING fts5(body)`). This is another "NoSQL-flavored" capability living *inside* the relational engine — a good counter-example to "SQLite is only for tables".
 
+### ◇ Task 7 (Stretcher / side reading): Case studies — systems that broke the classic stack
+
+For ~15 years the “serious” way to build a networked app was the familiar three-tier stack: a frontend, a backend/API, a client/server database (PostgreSQL/MySQL), and usually a cache and a message broker beside it. A growing set of real systems deliberately throw that away. Read about two of them and take notes.
+
+- **GoToSocial** — [gotosocial.org](https://gotosocial.org) · [docs.gotosocial.org](https://docs.gotosocial.org). An ActivityPub (“Fediverse”) server written in Go, API-compatible with Mastodon. Where Mastodon runs a stack of PostgreSQL + Redis + Sidekiq + a web frontend, GoToSocial ships as a **single binary** and uses **SQLite by default** (Postgres optional). It runs in roughly 250–350 MiB of RAM — on a single-board computer, an old laptop, or a $5/month VPS — with no separate database server to run. Its [database docs](https://docs.gotosocial.org/en/latest/configuration/database) call SQLite “great for small instances and single-board computers, where a dedicated database would be overkill,” and keep Postgres as the heavier option.
+- **Chatto** — [hmans.dev/blog/chatto](https://www.hmans.dev/blog/chatto) · [docs.chatto.run](https://docs.chatto.run). An open-source Slack/Teams alternative that is a **single executable serving its own web frontend** — in its words, “no reverse proxy, no external database — just one process.” One `./data/` directory, an **embedded NATS/JetStream** store, no separate broker or cache, and it even terminates TLS itself.
+
+> [!NOTE]
+> **A small correction worth noticing.** Chatto's embedded store is **NATS JetStream, not SQLite** — the *architecture* is the same “one binary replaces the whole stack” bet, just with a different embedded engine. That is a good discussion point in itself: why might an app choose a log-structured message store (JetStream) versus a relational file (SQLite) as its embedded heart? Compare that to Module 6's own engine-fit reasoning.
+
+**Write up (≈1 page), for each system:**
+
+1. **What it removed** — which parts of the classic stack are gone (database server, cache, broker, reverse proxy, a separately deployed frontend).
+2. **The trade-offs it accepted** — e.g. SQLite's single-writer model and horizontal-scale limits, or bespoke tooling; and when the authors recommend the heavier option (GoToSocial + Postgres).
+3. **The advantages claimed** — deployment simplicity, resource use, privacy/data ownership, and lower maintenance/upgrade cost.
+4. **The link to this course** — how these choices map onto Module 1's embedded-vs-client/server argument and this module's polyglot-persistence reasoning.
+
+*Portfolio evidence:* the comparison notes, plus one sentence: *which of your own projects would benefit from a single-binary design — and which would not?*
+
+> **Instructor demo/teaching hint.** Open GoToSocial's database page that states SQLite is the *default* with Postgres as the optional heavier path — it is this module's thesis running in production: an embedded database as the sensible default, a server only when a measured need forces it. Contrast the deployment shapes: Mastodon's multi-service diagram vs. GoToSocial's one binary + one `./data/`. If you want a third, SQLite-native example for the slide, **PocketBase** and **TrailBase** are single-binary backends built directly on SQLite.
+
 ## ✅ What must be committed to your portfolio
 
 Commit under `module-06/`:
@@ -263,7 +284,7 @@ Commit under `module-06/`:
 - [ ] `kv_compare.py`, the four timings, your engine choice, and the SQLite-only capability.
 - [ ] The ACID/BASE/CAP paragraph.
 - [ ] `reflection.md` — the logbook entry for this block.
-- [ ] (Stretcher) the FTS5 notes search **or** the Nushell-vs-SQL comparison (Task 5).
+- [ ] (Stretcher) the FTS5 notes search **or** the Nushell-vs-SQL comparison (Task 5) **or** the case-study notes (Task 7).
 
 ## 📚 If you want to go deeper
 
@@ -271,6 +292,7 @@ Commit under `module-06/`:
 - DuckDB — reading Parquet and CSV directly; the SQLite extension — [duckdb.org/docs/data/parquet](https://duckdb.org/docs/data/parquet/overview) · [duckdb.org/docs/extensions/sqlite](https://duckdb.org/docs/core_extensions/sqlite.html)
 - DuckDB — *Why DuckDB* (columnar, vectorized OLAP) — [duckdb.org/why_duckdb.html](https://duckdb.org/why_duckdb.html)
 - **Nushell** — a table-native shell: pipelines over structured data that read SQLite/CSV/JSON directly — [nushell.sh](https://www.nushell.sh/) · [Loading Data](https://www.nushell.sh/book/loading_data.html) · [Working with Tables](https://www.nushell.sh/book/working_with_tables.html)
+- **Real-world single-binary systems** — [GoToSocial](https://gotosocial.org) (ActivityPub server, SQLite by default) · [Chatto](https://www.hmans.dev/blog/chatto) (chat platform as one binary) · [PocketBase](https://pocketbase.io/) (backend-in-a-file on SQLite) · Wafris, *Rearchitecting: Redis to SQLite* — [wafris.org/blog/rearchitecting-for-sqlite](https://wafris.org/blog/rearchitecting-for-sqlite)
 - **Why embedded, local-first persistence is surging** — the [local-first manifesto](https://www.inkandswitch.com/essay/local-first/) (Ink & Switch) and [Rails 8 making SQLite the production default](https://rubyonrails.org/2024/11/7/rails-8-no-paas-required); more in the [resource bank](./Z-resources-bank.md#why-local-first-and-why-the-heavy-three-tier-default-is-questioned)
 - Martin Kleppmann — *Designing Data-Intensive Applications* (ACID, BASE, CAP) — the standard reference for this module's theory
 

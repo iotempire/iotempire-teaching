@@ -146,6 +146,13 @@ The claim that a full three-tier frontend/backend/cloud stack is overkill for a 
 - **Nushell** — a table-native shell: pipelines over structured data that read SQLite/CSV/JSON directly (see Module 6, Task 5) — [nushell.sh](https://www.nushell.sh/)
 - Local-first community — [localfirst.fm](https://localfirst.fm/)
 
+### Real-world case studies (single-binary, embedded)
+
+- **GoToSocial** — [gotosocial.org](https://gotosocial.org) · [docs.gotosocial.org](https://docs.gotosocial.org). A full ActivityPub (“Fediverse”) server in a single Go binary, with **SQLite as the default** (Postgres optional), running in ~250–350 MiB of RAM on low-power hardware. The clearest production example of “embedded database by default.”
+- **Chatto** — [hmans.dev/blog/chatto](https://www.hmans.dev/blog/chatto) · [docs.chatto.run](https://docs.chatto.run). A team-chat platform shipped as one executable that serves its own frontend, with an **embedded NATS/JetStream** store — no external database, broker, or cache. *(Same architectural bet as GoToSocial; a different embedded engine.)*
+- **PocketBase** — [pocketbase.io](https://pocketbase.io/). A backend-in-a-single-file built directly on SQLite.
+- **Wafris** — *Rearchitecting: Redis to SQLite* — [wafris.org/blog/rearchitecting-for-sqlite](https://wafris.org/blog/rearchitecting-for-sqlite). A production story of **replacing Redis with SQLite** (≈3× faster locally, and no network round-trips).
+
 **Modeling, normalization, integrity**
 - SQLite — foreign keys · `STRICT` tables · generated columns — [sqlite.org/foreignkeys.html](https://www.sqlite.org/foreignkeys.html) · [stricttables.html](https://www.sqlite.org/stricttables.html) · [gencol.html](https://sqlite.org/gencol.html)
 - Pydantic data validation — [docs.pydantic.dev](https://docs.pydantic.dev/) · SQLAlchemy — [docs.sqlalchemy.org](https://docs.sqlalchemy.org/)
