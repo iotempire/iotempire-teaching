@@ -215,7 +215,7 @@ See the full [final project specification](./modules/08-final-project.md) for th
 
 ## Portfolio & Documentation Standards
 
-All assessments are based on your personal GitHub Portfolio (forked from [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template)):
+All assessments are based on your personal GitHub Portfolio (forked from [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template)); the [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-fork-template-markdown-conflicts) covers forking, Markdown, and resolving conflicts.
 
 - Maintain a clean Git log with descriptive commit messages.
 - For each module, include:
@@ -229,7 +229,7 @@ All assessments are based on your personal GitHub Portfolio (forked from [iot-po
 
 ## Classroom Policies & Success Strategies
 
-1. **Active participation:** Bring your laptop with Python 3.11+, SQLite, DuckDB, and Datasette installed. The checkpoints and demos happen live on your machine.
+1. **Active participation:** Bring your laptop with the [uv-managed toolchain](./modules/01-introduction-and-local-first.md) set up (Python 3.12, SQLite, DuckDB, Datasette). The checkpoints and demos happen live on your machine.
 2. **Data hygiene:** Never commit databases, credentials, or personal data. Use the provided `.gitignore`. Generate ingestion reproducibly from a script so a reviewer can rebuild your database.
 3. **Pair and collaborate:** Two sets of eyes on a silent `NULL` or a broken join save the afternoon. Pair-debug, review each other's query plans, and share discoveries.
 4. **Measurement mindset:** A performance claim without a number, a dataset size, and a plan is an opinion. Write down *what* you measured, *with what*, and *under what conditions*.

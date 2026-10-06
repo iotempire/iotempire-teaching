@@ -73,6 +73,35 @@ sqlite-utils insert app.db tbl data.csv --csv
 sqlite-utils memory data.csv "SELECT count(*) FROM data"   # query a CSV in one command
 ```
 
+## Git & GitHub primer (fork, template, Markdown, conflicts)
+
+You only need a slice of Git for this course: **fork** the portfolio template, clone it, edit Markdown, commit, and resolve the occasional conflict. Branching workflows and rebasing are **not** required here — the workflow is deliberately linear.
+
+**The whole workflow in six commands:**
+
+```sh
+# 1. Fork the template on GitHub (click "Fork"), then:
+git clone https://github.com/<you>/iot-portfolio-template.git
+cd iot-portfolio-template
+git status                      # what changed?
+git add .                       # stage everything
+git commit -m "Add module-01 evidence"
+git push                        # publish to your GitHub fork
+```
+
+**Learning the pieces (all free and official):**
+
+- **Get started / “Hello World”** — create a repo and make a commit: [docs.github.com/…/hello-world](https://docs.github.com/en/get-started/start-your-journey/hello-world)
+- **Fork a repository** — the button, ownership, and keeping a fork in sync: [docs.github.com/…/fork-a-repo](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)
+- **Create a repo from a template** — how templates differ from forks (one fresh commit vs. full history): [docs.github.com/…/creating-a-repository-from-a-template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+- **Markdown** — headings, lists, code fences, tables, links (you will write your whole portfolio in it): [basic syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) · [quickstart](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/quickstart-for-writing-on-github)
+- **Resolve a merge conflict** — the `<<<<<<<` / `=======` / `>>>>>>>` markers, and how to keep one or both sides: [command line](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/resolving-a-merge-conflict-using-the-command-line) · [GitHub editor](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/resolving-a-merge-conflict-on-github)
+- **Interactive practice** — GitHub Skills (short, hands-on courses): [skills.github.com](https://skills.github.com/)
+- **The reference book** — *Pro Git* (free; chapter 2 covers “Recording changes”): [git-scm.com/book/en/v2](https://git-scm.com/book/en/v2)
+
+> [!TIP]
+> Keep your portfolio **public** (or at least readable by the instructor) and build it up with **many small commits**, each with a message that says what changed — a clean `git log` is itself part of the evidence.
+
 ## Troubleshooting
 
 | Symptom | Likely cause | Fix |
@@ -114,6 +143,7 @@ The claim that a full three-tier frontend/backend/cloud stack is overkill for a 
 - SQLite — *Appropriate Uses For SQLite* — [sqlite.org/whentouse.html](https://www.sqlite.org/whentouse.html)
 - DuckDB — *Why DuckDB* — [duckdb.org/why_duckdb.html](https://duckdb.org/why_duckdb.html)
 - Simon Willison — *Datasette* — [simonwillison.net](https://simonwillison.net/2021/Jul/22/small-data/) · [datasette.io](https://datasette.io/)
+- **Nushell** — a table-native shell: pipelines over structured data that read SQLite/CSV/JSON directly (see Module 6, Task 5) — [nushell.sh](https://www.nushell.sh/)
 - Local-first community — [localfirst.fm](https://localfirst.fm/)
 
 **Modeling, normalization, integrity**
@@ -138,6 +168,27 @@ A little fun on the side — no install, no account, purely in the browser. Perf
 - **Lost at SQL** — [lost-at-sql.therobinlord.com](https://lost-at-sql.therobinlord.com/). A more modern, progressively harder learning game (beginner lessons plus “expert” challenges).
 
 > **Suggested moment to play:** during or just after the SQL module. Spending an hour on SQL Island before wrestling with generated queries makes you much better at spotting a query that “runs but is wrong”.
+
+## Side reading: Fossil vs Git — the architectural irony
+
+A delightful footnote to this course's whole philosophy. **SQLite's own author, D. Richard Hipp, does not use Git** — he wrote a different version control system, **Fossil**, specifically to develop SQLite.
+
+| | Git | Fossil |
+|---|---|---|
+| **Shape** | A set of tools; the repository is a `.git/` folder of loose files + pack-files | **One self-contained binary**; the repository is **a single SQLite database file** |
+| **Collaboration** | Needs a hosting service (GitHub/GitLab) for issues, wiki, PRs | **Batteries included** — wiki, bug tracker, forum, chat, and a web UI, all served by the same binary |
+| **Designed for** | Linus Torvalds, for the **Linux kernel** (distributed; “dictator and lieutenants”) | Hipp, for **SQLite** (a small trusted team; “sync everything up”) |
+| **Durability** | Content-addressed objects (SHA-1 historically) | Content committed in an **ACID SQLite transaction** (SHA3-256) |
+
+**The irony ties straight back to this course: Git is to Fossil as PostgreSQL/MySQL is to SQLite.** Git, like a client/server database, is a collection of parts that expects a server (GitHub) around it; Fossil, like SQLite, is a *single file* and a *single binary* — embedded, local-first, batteries-included, no infrastructure to stand up. The very philosophy you are applying to your data (embed it, keep it local, ship a file rather than a deployment) is the philosophy Hipp applied to version control. The tool that manages the most widely deployed database on Earth is built the way that database tells you to build things — and SQLite itself is developed using Fossil, whose repository format *is* SQLite.
+
+**Read more:**
+
+- Fossil — *Fossil Versus Git* — [fossil-scm.org/home/doc/trunk/www/fossil-v-git.wiki](https://fossil-scm.org/home/doc/trunk/www/fossil-v-git.wiki) — the definitive comparison, from the author. (“Fossil stores its objects in a SQLite database file which provides ACID transactions and a high-level query language.”)
+- SQLite — *Why SQLite Does Not Use Git* — [sqlite.org/whynotgit.html](https://www.sqlite.org/whynotgit.html) — essays exactly the irony above.
+- Fossil home page — [fossil-scm.org](https://fossil-scm.org/) — single-binary, self-hostable, “stores content using an enduring file format in an SQLite database”.
+- InfoWorld — *3 great Git alternatives: Fossil, Mercurial, and Subversion* — [infoworld.com](https://www.infoworld.com/article/2338598/3-great-git-alternatives-fossil-mercurial-and-subversion.html)
+- Hacker News discussion — *Git vs. Fossil* — [news.ycombinator.com/item?id=27736980](https://news.ycombinator.com/item?id=27736980)
 
 ## Software install (offline-friendly)
 

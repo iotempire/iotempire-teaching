@@ -190,7 +190,67 @@ Run it and record the four numbers. Then state which you would ship for dashboar
 
 In 4–6 sentences, map what you just ran onto the theory: where was this **ACID**, where did you accept eventual consistency (if anywhere), and why is the **CAP theorem barely relevant** to a single-machine, embedded setup? This is your checkpoint-ready argument for choosing embedded persistence.
 
-### ◇ Task 5 (Stretcher): Full-text search
+### ◇ Task 5 (Stretcher / replacement): The same questions in Nushell — a table-native shell
+
+*A different lens on “alternatives to SQL”.* When people hear “NoSQL”, they picture exotic stores (documents, key-value, graphs). But the closest practical alternative to SQL is often a tool that treats **tables as first-class data** — like [**Nushell**](https://www.nushell.sh/), a cross-platform shell where every pipeline carries structured tables and lists instead of text. It is a beautiful way to *see* that the relational view is the natural shape of data, and it can even query SQLite directly.
+
+If you take this stretcher, you may use it **in place of** Task 3's key-value comparison — the point is to work with a non-SQL tool whose data model is *still tabular*.
+
+**1. Install Nushell** (one command; it is a single binary):
+
+```sh
+brew install nushell          # macOS / Linux
+# winget install nushell      # Windows
+# scoop install nu            # Windows (Scoop)
+# cargo install nu --locked   # via Rust
+```
+
+**2. Answer the Module 1 plant questions in Nu pipelines.** Nushell reads the SQLite file directly:
+
+```nu
+# the whole table, then a Nu pipeline: selection (where) + count
+open module-01/telemetry.db | get readings | where vib_rms > 1.5 | length
+
+# grouping, the Nu way
+open module-01/telemetry.db | get readings
+  | where vib_rms > 1.5
+  | group-by machine --to-table
+  | each {|g| {machine: $g.group, alarms: ($g.items | length)}}
+```
+
+> Command names are stable, but the exact `group-by` output columns differ slightly across Nu versions — run `help group-by` (or `help group-by --to-table`) if the shape surprises you.
+
+**3. Now the same question in SQL, from inside Nu:**
+
+```nu
+open module-01/telemetry.db | query db "
+  SELECT machine, COUNT(*) AS alarms
+  FROM readings WHERE vib_rms > 1.5 GROUP BY machine"
+```
+
+**4. Compare, clause by clause.** Write a short table mapping the two:
+
+| Nushell pipeline | SQL clause |
+|---|---|
+| `get readings` | `FROM readings` |
+| `where vib_rms > 1.5` | `WHERE vib_rms > 1.5` |
+| `group-by machine` | `GROUP BY machine` |
+| `select name, price` | `SELECT name, price` |
+| `sort-by ts` | `ORDER BY ts` |
+| `join $parts machine` | `JOIN parts ON …` |
+
+Then answer in 3–5 sentences: *Did switching tools change how you think about the data — or only the syntax? What does that say about framing the alternatives to SQL as “NoSQL”?*
+
+*Portfolio evidence:* your Nu pipeline, the equivalent SQL, the identical results, the clause-mapping table, and your reflection.
+
+> **Instructor demo hint (2–3 min).** Open a fresh CSV of the plant telemetry and run, live:
+> ```nu
+> open telemetry.csv | where vib_rms > 1.5 | length
+> open telemetry.csv | where vib_rms > 1.5 | group-by machine --to-table | each {|g| {machine: $g.group, n: ($g.items | length)}}
+> ```
+> next to the same query in the `sqlite3` shell. The “aha” is that the pipeline *is* a relational query — projection, selection, grouping — with no schema, no import, and no server — and then `open telemetry.db | query db "…"` shows the very same shell reaching the embedded database. Use it to make the module's point that the alternatives to SQL here are about *engines*, not about abandoning the tabular view. (If Nu is not installed on the lab machines, a short screen recording or the [Nushell book](https://www.nushell.sh/book/) works too.)
+
+### ◇ Task 6 (Stretcher): Full-text search
 
 Use SQLite's FTS5 to build a searchable index over machine maintenance notes (`CREATE VIRTUAL TABLE notes USING fts5(body)`). This is another "NoSQL-flavored" capability living *inside* the relational engine — a good counter-example to "SQLite is only for tables".
 
@@ -203,13 +263,14 @@ Commit under `module-06/`:
 - [ ] `kv_compare.py`, the four timings, your engine choice, and the SQLite-only capability.
 - [ ] The ACID/BASE/CAP paragraph.
 - [ ] `reflection.md` — the logbook entry for this block.
-- [ ] (Stretcher) the FTS5 notes search.
+- [ ] (Stretcher) the FTS5 notes search **or** the Nushell-vs-SQL comparison (Task 5).
 
 ## 📚 If you want to go deeper
 
 - SQLite — JSON functions and the `->`/`->>` operators — [sqlite.org/json1.html](https://sqlite.org/json1.html)
 - DuckDB — reading Parquet and CSV directly; the SQLite extension — [duckdb.org/docs/data/parquet](https://duckdb.org/docs/data/parquet/overview) · [duckdb.org/docs/extensions/sqlite](https://duckdb.org/docs/core_extensions/sqlite.html)
 - DuckDB — *Why DuckDB* (columnar, vectorized OLAP) — [duckdb.org/why_duckdb.html](https://duckdb.org/why_duckdb.html)
+- **Nushell** — a table-native shell: pipelines over structured data that read SQLite/CSV/JSON directly — [nushell.sh](https://www.nushell.sh/) · [Loading Data](https://www.nushell.sh/book/loading_data.html) · [Working with Tables](https://www.nushell.sh/book/working_with_tables.html)
 - **Why embedded, local-first persistence is surging** — the [local-first manifesto](https://www.inkandswitch.com/essay/local-first/) (Ink & Switch) and [Rails 8 making SQLite the production default](https://rubyonrails.org/2024/11/7/rails-8-no-paas-required); more in the [resource bank](./Z-resources-bank.md#why-local-first-and-why-the-heavy-three-tier-default-is-questioned)
 - Martin Kleppmann — *Designing Data-Intensive Applications* (ACID, BASE, CAP) — the standard reference for this module's theory
 

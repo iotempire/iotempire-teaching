@@ -77,7 +77,7 @@ What that plant actually needs is a database that runs **inside the monitoring s
 
 ### ★ Task 1: Fork your portfolio (15 min)
 
-1. Fork the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) into your own GitHub account and clone it locally.
+1. Fork the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) into your own GitHub account and clone it locally. *(New to Git/GitHub? The [Git & GitHub primer](./Z-resources-bank.md#git--github-primer-fork-template-markdown-conflicts) in the resource bank walks through forking, cloning, Markdown, and resolving conflicts — nothing fancy.)*
 2. Confirm the `.gitignore` keeps data and secrets out of Git. If it does not, add (or verify) these lines:
    ```gitignore
    # local data and secrets stay out of the repository
@@ -281,6 +281,7 @@ Commit all of the following to your portfolio after Session 1 (the `uv` project 
 - htmx — *Locality of Behaviour* — [htmx.org/essays/locality-of-behaviour](https://htmx.org/essays/locality-of-behaviour/)
 - Simon Willison — *Datasette: an ecosystem of tools for working with small data* — [simonwillison.net/2021/Jul/22/small-data](https://simonwillison.net/2021/Jul/22/small-data)
 - Anton Zhiyanov — *SQLite is not a toy database* (2021) — [antonz.org](https://antonz.org/sqlite-is-not-a-toy-database/)
+- **A fun side read:** [Fossil vs Git — the architectural irony](./Z-resources-bank.md#side-reading-fossil-vs-git--the-architectural-irony) — why SQLite's author doesn't use Git, and why that mirrors SQLite-vs-PostgreSQL.
 - More (and the counter-arguments) in the [resource bank](./Z-resources-bank.md#why-local-first-and-why-the-heavy-three-tier-default-is-questioned)
 
 ---
