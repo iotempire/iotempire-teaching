@@ -6,6 +6,9 @@
 
 **Course placement:** Session 3. This module covers the legacy *Standard SQL (DQL)*, *Relational Algebra*, and *Query Optimization* chapters — reframed around the modern reality: you generate SQL with AI and then prove it correct, fast, and safe.
 
+> [!TIP]
+> **Optional warm-up:** if you would like SQL to *feel* familiar before we start generating it with AI, play [SQL Island](https://sql-island.informatik.uni-kl.de/) — a free, browser-based text-adventure from the University of Kaiserslautern that teaches `SELECT`, `WHERE`, `ORDER BY`, aggregates, and joins in about an hour (no install, no account). More in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).
+
 ## 🎯 Learning Goals
 
 > **How these are assessed:** You show that you have reached these goals in a short (~10-minute) checkpoint presentation in Session 6 — based on your portfolio and reflections, not on completing every task. See the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations) for the assessment rules. **These learning goals are the contract between you and the instructor: demonstrate them, and you have met the module.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
@@ -213,6 +216,7 @@ Commit under `module-03/`:
 
 ## 📚 If you want to go deeper
 
+- **Goody — build SQL intuition:** [SQL Island](https://sql-island.informatik.uni-kl.de/) is a free browser text-adventure that teaches the basics in ~1–2 hours; a good warm-up before you start judging generated queries. Siblings in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).
 - SQLite — `EXPLAIN QUERY PLAN` reference — [sqlite.org/eqp.html](https://www.sqlite.org/eqp.html)
 - Markus Winand — *Use The Index, Luke* — [use-the-index-luke.com](https://use-the-index-luke.com/)
 - OWASP — *SQL Injection Prevention Cheat Sheet* — [cheatsheetseries.owasp.org](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)

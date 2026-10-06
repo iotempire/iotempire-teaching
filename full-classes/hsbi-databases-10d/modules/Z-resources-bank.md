@@ -129,6 +129,16 @@ The claim that a full three-tier frontend/backend/cloud stack is overkill for a 
 - OWASP — *SQL Injection Prevention Cheat Sheet* — [cheatsheetseries.owasp.org](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
 - Martin Kleppmann — *Designing Data-Intensive Applications* (ACID, BASE, CAP)
 
+### Goody: SQL practice games
+
+A little fun on the side — no install, no account, purely in the browser. Perfect for building the **intuition** you need to sanity-check the SQL an LLM writes for you.
+
+- **SQL Island** — [sql-island.informatik.uni-kl.de](https://sql-island.informatik.uni-kl.de/). A free, browser-based **text-adventure game** from the University of Kaiserslautern: you crash-land on an island and use SQL to survive — find food, get a job, make friends, and eventually escape. Along the way you practice `SELECT`, `WHERE`, `ORDER BY`, aggregates, and joins in about 1–2 hours. It is deliberately simplistic and its interface looks dated, but it is a genuinely effective, low-pressure way to get the SQL basics. Available in **English, German, Portuguese, and Spanish** (it defaults to German — switch the language in the settings or via the English link on the course page).
+- **SQL Murder Mystery** — [mystery.knightlab.com](https://mystery.knightlab.com/). Solve a crime with SQL; a great follow-up once the island is behind you.
+- **Lost at SQL** — [lost-at-sql.therobinlord.com](https://lost-at-sql.therobinlord.com/). A more modern, progressively harder learning game (beginner lessons plus “expert” challenges).
+
+> **Suggested moment to play:** during or just after the SQL module. Spending an hour on SQL Island before wrestling with generated queries makes you much better at spotting a query that “runs but is wrong”.
+
 ## Software install (offline-friendly)
 
 The course sets everything up with **`uv`** — see [Module 1](./01-introduction-and-local-first.md) for the step-by-step version:
