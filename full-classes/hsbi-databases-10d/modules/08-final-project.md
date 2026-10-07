@@ -62,6 +62,7 @@ Submit a **5-page** report (Markdown or PDF) in the team repository under `docs/
 5. **Security, integrity & evaluation (≈1 page).** Your parameterization proof, your constraint/trigger, the measured evaluation numbers, and one honest limitation.
 6. **Team & contributions (≈½ page).** One line per member: what they owned.
 
+<a id="the-15-minute-demo--oral-defense"></a>
 ## 🎤 The 15-Minute Demo & Oral Defense
 
 The assessment combines a **team demo** with an **individual oral defense**. Budget your time like this:

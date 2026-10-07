@@ -102,6 +102,32 @@ git push                        # publish to your GitHub fork
 > [!TIP]
 > Keep your portfolio **public** (or at least readable by the instructor) and build it up with **many small commits**, each with a message that says what changed — a clean `git log` is itself part of the evidence.
 
+## Instructor hints: presenting the Markdown slide deck
+
+The Session 1 slides are **plain Markdown** — no notebook runtime, no build step, no hidden JSON. The deck is [`slides/01-introduction.md`](../slides/01-introduction.md): slides are separated by a lone `---` line, so it opens and reads correctly in *any* Markdown viewer.
+
+**Two ways to present it**
+
+- **Zed (or any editor with a Markdown preview).** Open the file and use the Markdown preview — ideal for a quick read or a second screen.
+- **A terminal slideshow — [presenterm](https://github.com/mfontanini/presenterm).** The deck is written to presenterm's conventions, so:
+  ```sh
+  presenterm slides/01-introduction.md
+  ```
+  Advancing a slide reveals the next part; the discovery answer sits on the slide *after* the prompt. For speaker notes on a second screen, run `presenterm slides/01-introduction.md --publish-speaker-notes` in the main terminal and `presenterm slides/01-introduction.md --listen-speaker-notes` in another window. Notes come from `<!-- speaker_note: … -->` comments and show only in that view.
+
+**Run the Python on demand.** The deck is *only* slides. The live coding and the labs live in the workbook modules (start with [Module 1](./01-introduction-and-local-first.md)); run them whenever you like, from the same `uv` environment the Module 1 studio sets up:
+
+- from Zed — a scratch `.py`, the built-in terminal, or your portfolio scripts;
+- from the terminal — `uv run python …` (all `uv` commands are in [Module 1](./01-introduction-and-local-first.md)).
+
+**Tips for the room**
+
+- One idea per slide; the deck is already split that way.
+- Reveal answers by *advancing* a slide — students answer first, the next slide confirms.
+- Anything long lives in the workbook; the deck links to it.
+
+Docs: [presenterm documentation](https://mfontanini.github.io/presenterm/) · [presenterm on GitHub](https://github.com/mfontanini/presenterm) · [Zed Markdown support](https://zed.dev/docs/languages/markdown)
+
 ## Troubleshooting
 
 | Symptom | Likely cause | Fix |
@@ -170,7 +196,7 @@ The claim that a full three-tier frontend/backend/cloud stack is overkill for a 
 
 A little fun on the side — no install, no account, purely in the browser. Perfect for building the **intuition** you need to sanity-check the SQL an LLM writes for you.
 
-- **SQL Island** — [sql-island.informatik.uni-kl.de](https://sql-island.informatik.uni-kl.de/). A free, browser-based **text-adventure game** from the University of Kaiserslautern: you crash-land on an island and use SQL to survive — find food, get a job, make friends, and eventually escape. Along the way you practice `SELECT`, `WHERE`, `ORDER BY`, aggregates, and joins in about 1–2 hours. It is deliberately simplistic and its interface looks dated, but it is a genuinely effective, low-pressure way to get the SQL basics. Available in **English, German, Portuguese, and Spanish** (it defaults to German — switch the language in the settings or via the English link on the course page).
+- **SQL Island** — [sql-island.informatik.uni-kl.de](https://sql-island.informatik.uni-kl.de/). A free, browser-based **text-adventure game** created by Johannes Schildgen at the **RPTU Kaiserslautern-Landau** (formerly TU Kaiserslautern): you crash-land on an island and use SQL to survive — find food, get a job, make friends, and eventually escape. Along the way you practice `SELECT`, `WHERE`, `ORDER BY`, aggregates, and joins in about 1–2 hours. It is deliberately simplistic and its interface looks dated, but it is a genuinely effective, low-pressure way to get the SQL basics. Available in **German, English, and Portuguese** (it defaults to German — switch the language via the menu at the top left).
 - **SQL Murder Mystery** — [mystery.knightlab.com](https://mystery.knightlab.com/). Solve a crime with SQL; a great follow-up once the island is behind you.
 - **Lost at SQL** — [lost-at-sql.therobinlord.com](https://lost-at-sql.therobinlord.com/). A more modern, progressively harder learning game (beginner lessons plus “expert” challenges).
 

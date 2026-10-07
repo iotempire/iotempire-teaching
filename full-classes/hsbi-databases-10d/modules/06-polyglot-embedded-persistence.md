@@ -37,7 +37,7 @@ The machine-shop data now has three different shapes of problem, and the team ke
 
 Trying to force all three into one relational schema is the same mistake as the cloud-server impulse in Module 1 — the wrong tool for the workload. In this studio you reach for three engines that all run **embedded, locally**, and you measure why each fits.
 
-## 📖 Part A — Mini-Lecture: Pick the Engine for the Workload (15 min)
+## 📖 Part A — Mini-Lecture: Pick the Engine for the Workload
 
 **ACID vs. BASE.** A transactional engine guarantees **Atomicity, Consistency, Isolation, Durability** — your writes either fully happen or fully do not. BASE ("**B**asically **A**vailable, **S**oft state, **E**ventually consistent") relaxes consistency for availability and scale, which is a trade you only need when you distribute across machines. **All of Module 1–4 was ACID, and that was correct** because the data lived on one machine.
 
@@ -55,11 +55,11 @@ Trying to force all three into one relational schema is the same mistake as the 
 > [!TIP]
 > "NoSQL" does not mean "no schema". A JSON column with a `CHECK(json_valid(...))` and an index on the paths you actually query is a *designed* schema — just a flexible one.
 
-## 🛠️ Studio Lab: Three Engines, One Workload Each (60 min)
+## 🛠️ Studio Lab: Three Engines, One Workload Each — **Challenging**
 
 *Software:* `sqlite3` CLI, Python 3.11+ with `duckdb` (`pip install duckdb`).
 
-### ★ Task 1: JSON metadata inside SQLite (20 min)
+### ★ Task 1: JSON metadata inside SQLite
 
 Vendors keep adding fields. Store the metadata as JSON and query it without migrating the table.
 
@@ -97,7 +97,7 @@ Note the plan: if the expression in the index matches the expression in the `WHE
 
 *Portfolio evidence:* the DDL, the `json_extract`/`json_each` results, and the `EXPLAIN QUERY PLAN` output proving the expression index is used.
 
-### ★ Task 2: DuckDB analytics over files (20 min)
+### ★ Task 2: DuckDB analytics over files
 
 Move the readings into a Parquet file and analyze them with DuckDB — the analytical workload from the story. This reuses the `telemetry.db` you built in Module 1.
 
@@ -144,7 +144,7 @@ Run it. Record the two timings and the Parquet file size. Then answer: **why is 
 
 *Portfolio evidence:* `analytics.py`, the Parquet file size, the two timings, and your one-paragraph engine-fit explanation.
 
-### ★ Task 3: A key-value store for the dashboard (15 min)
+### ★ Task 3: A key-value store for the dashboard
 
 The dashboard only ever does "get by key" and "set key". Model that directly and measure it against SQLite.
 
@@ -186,7 +186,7 @@ Run it and record the four numbers. Then state which you would ship for dashboar
 
 *Portfolio evidence:* `kv_compare.py`, the four timings, your choice, and the SQLite-only capability you named.
 
-### ★ Task 4: Name the paradigm (5 min)
+### ★ Task 4: Name the paradigm
 
 In 4–6 sentences, map what you just ran onto the theory: where was this **ACID**, where did you accept eventual consistency (if anywhere), and why is the **CAP theorem barely relevant** to a single-machine, embedded setup? This is your checkpoint-ready argument for choosing embedded persistence.
 
@@ -243,7 +243,7 @@ Then answer in 3–5 sentences: *Did switching tools change how you think about 
 
 *Portfolio evidence:* your Nu pipeline, the equivalent SQL, the identical results, the clause-mapping table, and your reflection.
 
-> **Instructor demo hint (2–3 min).** Open a fresh CSV of the plant telemetry and run, live:
+> **Instructor demo hint.** Open a fresh CSV of the plant telemetry and run, live:
 > ```nu
 > open telemetry.csv | where vib_rms > 1.5 | length
 > open telemetry.csv | where vib_rms > 1.5 | group-by machine --to-table | each {|g| {machine: $g.group, n: ($g.items | length)}}

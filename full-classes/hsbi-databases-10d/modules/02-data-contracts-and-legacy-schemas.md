@@ -33,7 +33,7 @@ You join a mechatronics team at a plastics injection-molding plant. A tool from 
 
 You are the database engineer now. Your job is to **audit the schema**, reconstruct the ER model it should have had, find the integrity bugs, and write a data contract the next application can rely on. You will meet this exact task in real industry: most professional database work is not greenfield design — it is *reading and repairing somebody else's data model.*
 
-## 📖 Part A — Mini-Lecture: From Rows to Meaning (15 min)
+## 📖 Part A — Mini-Lecture: From Rows to Meaning
 
 **Entities, attributes, relationships.** An **entity** is a thing of independent existence (a *Machine*, a *Part*, a *Technician*). An **attribute** describes an entity (a machine's *serial number* or *install date*). A **relationship** links entities (*a Technician performs a MaintenanceJob on a Machine*).
 
@@ -52,11 +52,11 @@ You are the database engineer now. Your job is to **audit the schema**, reconstr
 > [!TIP]
 > The fastest way to find the *real* cardinality is to count distinct values. `SELECT COUNT(*), COUNT(DISTINCT machine) FROM ...` tells you more about a legacy schema than any documentation.
 
-## 🛠️ Studio Lab: Audit a Legacy Schema (60 min)
+## 🛠️ Studio Lab: Audit a Legacy Schema — **Challenging**
 
 *Software:* the `sqlite3` CLI and Python 3.11+. Everything runs locally on a file you create.
 
-### Setup (5 min)
+### Setup
 
 Create `module-02/legacy.db` and load this deliberately flawed schema. It is a realistic *mess*: text where foreign keys should be, a comma-separated list in a "column", and no constraints.
 
@@ -108,7 +108,7 @@ INSERT INTO maint_job VALUES
 SQL
 ```
 
-### ★ Task 1: Reconstruct the ER model (20 min)
+### ★ Task 1: Reconstruct the ER model
 
 1. **List the entities you can see** and, for each, the attributes and the *intended* primary key. Write these down in `module-02/er-audit.md`.
 2. **Draw the ER diagram** (hand-drawn and photographed, or in a tool such as [diagrams.net](https://www.diagrams.net/)) showing the entities you believe the designer *meant* to model: `Machine`, `Part`, `MaintenanceJob`, `Technician`, and the relationships between them.
@@ -125,7 +125,7 @@ SQL
 
 *Portfolio evidence:* `er-audit.md` with the entity list, the reconstructed ER diagram, and the cardinality findings.
 
-### ★ Task 2: Find the integrity defects with queries (20 min)
+### ★ Task 2: Find the integrity defects with queries
 
 Do not describe defects — **prove** them. Save each query and its result.
 
@@ -159,7 +159,7 @@ For each defect, write one line: **what breaks in production because of it** (e.
 
 *Portfolio evidence:* the five queries, their results, and your one-line production-impact note for each.
 
-### ★ Task 3: Write the data contract in code (15 min)
+### ★ Task 3: Write the data contract in code
 
 An ER diagram is documentation; a **contract** is executable. Express the *corrected* schema as a Pydantic model and a SQLAlchemy table so an application can enforce it. Save as `module-02/contract.py`.
 

@@ -33,7 +33,7 @@ Your plastic-plant now has a machine-health dashboard. Every 30 seconds it asks 
 
 The operations lead offers the classic shortcut: *"just copy the site and the technician name onto every job row and add a total-cost column. Then the dashboard reads one table."* She is right about the read. She is also about to introduce update anomalies. Your job in this studio is to **do both**: keep the schema correct, add the denormalized reporting path *on purpose*, and **measure** what it buys and what it costs, so the team makes the decision with numbers.
 
-## 📖 Part A — Mini-Lecture: Dependencies, Anomalies, and the Spectrum (15 min)
+## 📖 Part A — Mini-Lecture: Dependencies, Anomalies, and the Spectrum
 
 **Functional dependency.** `X → Y` means: for any two rows, if they agree on `X`, they must agree on `Y`. In a maintenance table, `job_id → technician`, `machine_id → site`, `part_no → unit_price`. Dependencies are the *reason* normalization is possible — they are the redundancy you can remove.
 
@@ -57,11 +57,11 @@ The operations lead offers the classic shortcut: *"just copy the site and the te
 > [!TIP]
 > 3NF is the default, not the law. Analytically heavy read paths (dashboards, reports) are exactly where deliberate denormalization — or a separate columnar engine like DuckDB (Module 6) — earns its keep.
 
-## 🛠️ Studio Lab: Normalize, Denormalize, and Measure (60 min)
+## 🛠️ Studio Lab: Normalize, Denormalize, and Measure — **Challenging**
 
 *Software:* the `sqlite3` CLI and Python 3.11+. Use `.timer on` in SQLite or Python's `time.perf_counter()`.
 
-### Setup (5 min)
+### Setup
 
 Build a deliberately unnormalized table with real volume so the benchmark means something.
 
@@ -97,14 +97,14 @@ SQL
 sqlite3 module-05/normalize.db "SELECT COUNT(*) AS rows FROM flat_jobpart;"
 ```
 
-### ★ Task 1: Name the dependencies and the anomalies (10 min)
+### ★ Task 1: Name the dependencies and the anomalies
 
 1. Write down the functional dependencies you can see: `machine_id → site`, `part_no → part_price`, `job_id → machine_id`, `job_id → technician`, `job_id → done_on`.
 2. For each of the three anomalies (update, insert, delete), write **one concrete example** that this flat table makes possible. Save to `module-05/normalization-notes.md`.
 
 *Portfolio evidence:* the dependency list and the three anomaly examples.
 
-### ★ Task 2: Normalize to 3NF (15 min)
+### ★ Task 2: Normalize to 3NF
 
 Decompose `flat_jobpart` into `machine`, `part`, `job`, and `job_part`. Keep the derived tables, then verify that a join reproduces the original facts.
 
@@ -131,7 +131,7 @@ SELECT (SELECT COUNT(*) FROM flat_jobpart)  AS flat_rows,
 
 *Portfolio evidence:* the DDL, the insert statements, and the row-count integrity check (the two numbers must match).
 
-### ★ Task 3: The benchmark — the anomaly the operations lead likes (20 min)
+### ★ Task 3: The benchmark — the anomaly the operations lead likes
 
 Now build the **denormalized reporting table** the operations lead asked for — site and technician copied onto every row, plus a pre-computed `total_cost` — and race the two designs on the dashboard query.
 
@@ -192,7 +192,7 @@ Record, in a table like the one below, every number you measured:
 
 *Portfolio evidence:* the `report_jobpart` DDL, both query plans (`EXPLAIN QUERY PLAN`), both timings, the write/storage numbers, and your filled table.
 
-### ★ Task 4: Decide and defend (10 min)
+### ★ Task 4: Decide and defend
 
 Write a short recommendation (5–8 sentences) to the operations lead: which design should serve the dashboard, what the normalization of the transactional tables must stay at, and — crucially — **how you would keep the denormalized table from going stale** (a trigger from Module 4, a scheduled rebuild, or a materialized view). Cite your own numbers.
 

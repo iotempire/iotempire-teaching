@@ -43,15 +43,15 @@ That paragraph already implies entities (line, stop event, cause), a cardinality
 
 ## 🛠️ Session 7 — Kickoff & Build (the "make it real" session)
 
-### ★ Step 1: Story and team charter (30 min)
+### ★ Step 1: Story and team charter
 
 1. Form teams of **3–4**. Record, in `docs/team.md`: each member's name, the story, and **who owns what** (schema, ingestion, queries, interface, docs). Every member must own a piece that can be defended individually in Session 11.
-2. Write the one-paragraph story. Get it reviewed by a neighboring team (5 minutes each way): they ask *"what is the first query this database must answer?"*
+2. Write the one-paragraph story. Get it reviewed by a neighboring team — each side gets a turn: they ask *"what is the first query this database must answer?"*
 3. Choose the engine. **SQLite is the default.** Switch to DuckDB, JSON-in-SQLite, or a key-value store only if you can name the workload reason — and write that reason down.
 
 *Evidence:* `docs/team.md` committed.
 
-### ★ Step 2: Map requirements to deliverables (30 min)
+### ★ Step 2: Map requirements to deliverables
 
 Fill in this table in `docs/requirements.md` — it is your checklist and your demo script in one:
 
@@ -103,7 +103,7 @@ myproject/
 
 *Evidence:* benchmark files, the injection self-test note, and the trigger demonstration output.
 
-### ★ Step 5: Peer review (30 min)
+### ★ Step 5: Peer review
 
 Trade repositories with another team. Reviewers fill in `docs/peer-review.md`:
 

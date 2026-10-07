@@ -23,6 +23,7 @@
 | [Module 8](./08-final-project.md) | 11 | Final Project Specification, Demos & Oral Defenses | *Assessment* | 15-minute live demo + individual oral defense; retrospective. |
 | [Resource Prompts](./Y-resources-prompt-bank.md) | — | Supplementary | — | Reflection prompts, LLM-verification drills, quick references. |
 | [Resource Bank](./Z-resources-bank.md) | — | Supplementary | — | Cheat sheets, troubleshooting, datasets, extended reading. |
+| [Session 1 slides](../slides/01-introduction.md) | 1 | Supplementary | — | Plain-Markdown slide deck Session 1 is presented from (any Markdown viewer, or [presenterm](https://github.com/mfontanini/presenterm)). See the [instructor hints](./Z-resources-bank.md#instructor-hints-presenting-the-markdown-slide-deck). |
 | *Tutorial sessions* | dates TBA | Tutorial support (TA) | — | Catch-up, deeper practice, stretcher deep dives, project support. Times announced via the LMS. |
 
 ## What changed, and why

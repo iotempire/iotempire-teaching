@@ -33,7 +33,7 @@ Your machine-shop telemetry used to run through the cloud, until the plant lost 
 
 But "at the edge, without a server" raises the stakes on integrity: there is no DBA to fix a bad row, and no backend to re-validate. The **database itself** must refuse garbage. A temperature of 9,000 °C from a disconnected sensor must be rejected by a `CHECK`. A spindle that overheats must raise an alarm **the moment the row is written**, by a trigger. Replayed readings after a network hiccup must not create duplicates, which is what `UPSERT` is for. In this studio, you make SQLite enforce the rules so the application cannot forget them.
 
-## 📖 Part A — Mini-Lecture: Integrity Has Layers (15 min)
+## 📖 Part A — Mini-Lecture: Integrity Has Layers
 
 The module handbook lists integrity as a first-class topic. In relational terms there are three layers, and each maps to a concrete SQL feature:
 
@@ -54,11 +54,11 @@ The module handbook lists integrity as a first-class topic. In relational terms 
 > [!TIP]
 > Trigger bodies must be *declared* in the DDL but *run* on every write. Test their cost: a trigger on a hot ingest path is a design decision, not a free lunch.
 
-## 🛠️ Studio Lab: Make the Database Refuse to Lie (60 min)
+## 🛠️ Studio Lab: Make the Database Refuse to Lie — **Challenging**
 
 *Software:* `sqlite3` CLI and Python 3.11+.
 
-### Setup (5 min)
+### Setup
 
 ```sh
 mkdir -p module-04
@@ -86,7 +86,7 @@ CREATE TABLE reading(
 SQL
 ```
 
-### ★ Task 1: Prove the constraints work (15 min)
+### ★ Task 1: Prove the constraints work
 
 Constraints are only real if you have *seen them reject* something. Run each of these and record the exact error.
 
@@ -107,7 +107,7 @@ INSERT INTO sensor VALUES (3,'cnc-01','temp_c','degC');
 
 *Portfolio evidence:* each rejected statement and its error message, plus the generated `energy_j` value for the valid row — proof the virtual column computes.
 
-### ★ Task 2: Idempotent edge ingestion with UPSERT (15 min)
+### ★ Task 2: Idempotent edge ingestion with UPSERT
 
 After a network outage, the gateway replays readings. Replayed rows must not duplicate.
 
@@ -128,7 +128,7 @@ Then write the ingestion loop in Python (`module-04/ingest.py`) that takes a CSV
 
 *Portfolio evidence:* the `UPSERT` SQL, the Python ingest script, and the row count proving a double run did not duplicate data.
 
-### ★ Task 3: Triggers for alarms and audit (20 min)
+### ★ Task 3: Triggers for alarms and audit
 
 Two triggers: one raises an alarm when a threshold is crossed, one writes an immutable audit trail of every value change.
 
@@ -180,7 +180,7 @@ SELECT * FROM audit;
 
 *Portfolio evidence:* the trigger DDL, the alarm row and audit row they produced, and a measured note on trigger cost (time an ingest of 10,000 rows with and without the alarm trigger).
 
-### ★ Task 4: Access control without a server (10 min)
+### ★ Task 4: Access control without a server
 
 There is no `GRANT` in SQLite, so demonstrate the embedded substitute. **Create the view first** (while the file is still writable), then lock the file down.
 

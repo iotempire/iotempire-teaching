@@ -26,19 +26,34 @@ By the end of this module, you can:
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
-## 📖 Part A — How This Class Works (20 min, in the room)
+## 📖 Part A — Opening the Class (plain-Markdown slides)
 
-Before any SQL, we agree on how we learn here. Three things:
+**This session is presented from a plain-Markdown slide deck** — [`slides/01-introduction.md`](../slides/01-introduction.md) — which opens in any Markdown viewer (Zed's Markdown preview, GitHub, VS Code) and presents from the terminal with [presenterm](https://github.com/mfontanini/presenterm). The slides are separated by a `---` line, so the deck is just Markdown: easy to read, diff, and adapt. The opening runs in five beats:
 
-**1. This is Challenge- and Project-Based Learning, not a lecture series.** We start from stories — a real problem that matters to a person — and build the data layer that solves it. You learn by doing, debugging, and demoing to one another. There is **no written exam**; your grade comes from a portfolio, short checkpoint conversations, reflections, and one meaningful team project (the *Kombinationsprüfung* from the module handbook).
+1. **whoami — meet your lecturer.** Ulno: educator / consultant / mentor, researcher / inventor / maker / artist, YouTuber ([youtube.ulno.net](https://youtube.ulno.net/)); a globalist who has lived, taught, and researched in Estonia, the USA, Germany, Austria, Kazakhstan, Singapore, Indonesia, and Brazil; research in VR/AR, IoT, digital twins, software craftsmanship, and education; PhD on **home automation** (RWTH Aachen).
+2. **Who are U? — a quick hand-count.** I ask, you raise a hand (and **note your answers — this is your first portfolio entry**): programming experience and languages; prior **SQL**; which **databases** you have used; **Python**; the **command line**; **Git/GitHub**; whether you have built a **web app** or run a **server**; and — the important one — **your expectations** from this class.
+3. **"This is an experiment" — the deal.** We teach with modern, challenge- and project-based methods: you are here to learn and explore, you are front and center, and you bring a meaningful challenge. Logistics: usually **no dedicated homework** (but you finish lab work, module tasks, portfolio, and reflections); **you work in pairs** (rarely three); in-class exercises start individually; feedback is continuous in the lab; the final grade comes from **module points, the final project, and reflections**, all recorded in your **portfolio**.
+4. **Everything lives in the online workbook.** We open the repository together: the **[module index & roadmap](./00-index.md)** (every module and session) and the **[syllabus](../syllabus.md)** (schedule, objectives, assessment, policies). This is where "how the class works" becomes concrete — see the contract below.
+5. **Pairing up.** Last, we match partners (see the pairing note).
 
-**2. The "moving bar" — and why this course is in flux.** This is the first time I teach Databases, and it is being taught in the age of AI. So we do it honestly: the **learning goals at the top of each module are fixed** (they are what you are assessed on), but the **tasks below the draft boundary are a draft**. The boundary moves down as we approve content together. If you have a better way to reach a goal — a different dataset, a different engine, a deeper stretch — propose it. "I did it differently and here is the evidence" is a first-class answer in this class.
+### How the class works — the contract
 
-**3. AI is a tool you must verify, not an oracle.** You will use ChatGPT/Claude/DeepSeek (or a local model) throughout — to draft SQL, review schemas, and explain errors. What is graded is your *judgment*: does it run, is it correct, is it fast, is it safe? Every module has a "how did I verify AI suggestions?" step in its reflection.
+Every module **begins with its learning goals**. Those goals are the *contract* between you and the instructor: you meet a module by **demonstrating the goals**, not by ticking off tasks. That is why the **tasks are a draft** — you may modify, replace, or extend them as long as you still reach the goals — and why a module may carry a moving **DRAFT BOUNDARY** over the parts we are still designing together. Documented, honest engineering — including failure — beats a neat but unexamined "it works". And one more thing:
 
-> **The reward structure in one line:** documented, honest engineering — including failure — beats a neat but unexamined "it works".
+**AI is a tool you must verify, not an oracle.** You will use Copilot/ChatGPT/Claude/DeepSeek (or a local model) throughout — to draft SQL, review schemas, and explain errors. What matters is your *judgment*: does it run, is it correct, is it fast, is it safe? Every module has a "how did I verify AI suggestions?" step in its reflection.
 
-Finally, a practical note: the class has **11 four-hour sessions**, plus **optional tutorial sessions** run by a teaching assistant (times announced via the LMS). Use them for catch-up, deeper practice, and project support.
+Practical note: the class has **11 four-hour sessions**, plus **optional tutorial sessions** run by a teaching assistant (times announced via the LMS).
+
+### Pairing up — who do you build with?
+
+You will do the labs and the final project **in pairs** (occasionally three). We do a short match-making round:
+
+1. On a note, write down **your skills** (languages, tools, hardware, design, …) and **your expectations / what you want to build**.
+2. If you have no partner yet, find **two other unpaired people**, compare notes, and check whether you **complement** each other — not merely whether you are alike. A pair with complementary strengths is worth more than a pair of clones.
+3. Exchange contacts and a first idea today. If you already have a partner, still share your notes so the room knows who can help with what.
+
+> [!NOTE]
+> **Instructor hint — presenting the deck.** The slides are plain Markdown ([`slides/01-introduction.md`](../slides/01-introduction.md)): open them in Zed's Markdown preview for a quick read, or present from the terminal with [presenterm](https://github.com/mfontanini/presenterm) — `presenterm slides/01-introduction.md`. Slides are separated by `---`, and `<!-- speaker_note: … -->` comments show only in presenterm's speaker-notes view. The discovery answer sits on the slide *after* the prompt, so reveal it by advancing. There is no notebook runtime and no build step — run the Python on demand from your `uv` environment in Zed or the terminal. Full hints in the [resource bank](./Z-resources-bank.md#instructor-hints-presenting-the-markdown-slide-deck).
 
 ## 📖 Story — The Server Nobody Needed
 
@@ -48,7 +63,18 @@ The answer: about **90,000 readings a day** (a temperature, a vibration RMS, and
 
 What that plant actually needs is a database that runs **inside the monitoring script** — an embedded engine that speaks SQL, needs no administrator, cannot go "down", and travels with the data file. That engine is **SQLite**. In this first studio you will meet it the same way: load a couple of days of machine telemetry, query it, and profile the AI's first suggestion.
 
-## 📖 Part B — Mini-Lecture: Embedded vs. Client/Server (15 min)
+## 📖 Part B — Discovery: Embedded vs. Client/Server
+
+Instead of a slide that tells you the answer, we **figure it out together** — you may already know more than you think.
+
+**In pairs, a few minutes:**
+
+1. **Brainstorm.** When does a database live *inside* your program, and when does it live on a *separate server*? Give each shape a name.
+2. **List trade-offs.** Write **one advantage and one cost** for each shape — think about installation, reliability, concurrency, cost, and who owns the data.
+3. **Search (optional).** Look up two concrete engines for each shape — e.g. an embedded one and a client/server one — and one sentence on when to use each.
+4. **Jigsaw.** One of you joins a neighbouring pair, one stays. **Merge your two lists**, drop duplicates, and mark whatever you disagree on.
+
+Then the instructor reveals the table (open the accordion on the slide) and we compare:
 
 **Two shapes of a database:**
 
@@ -61,6 +87,8 @@ What that plant actually needs is a database that runs **inside the monitoring s
 | Sweet spot | Local apps, edge devices, single-node analytics, tests | Many concurrent clients, networked multi-user apps |
 | Cost | Zero infrastructure | A server, an operator, a bill |
 
+**Did your version beat ours?** If your jigsaw found something the table misses — backup strategy, latency, offline work, or total cost of ownership — **add it**. The table is a draft, exactly like the tasks.
+
 **The local-first principle.** Keep the data on the machine that produces and consumes it. Ship a file, not a deployment. Go to a server only when a *measured* requirement — concurrent writers, geographic distribution, or a shared multi-tenant service — forces you to. Real systems now bet on exactly this: an entire Fediverse server ([GoToSocial](https://gotosocial.org), SQLite by default) and a whole team-chat platform ([Chatto](https://www.hmans.dev/blog/chatto)) each ship as a **single binary**, no separate database service — see the [case-study side task in Module 6](./06-polyglot-embedded-persistence.md).
 
 > [!TIP]
@@ -71,11 +99,11 @@ What that plant actually needs is a database that runs **inside the monitoring s
 > [!TIP]
 > SQLite is the most widely deployed database engine in the world — it is inside every phone, browser, and aircraft you use. "Embedded" is not "toy".
 
-## 🛠️ In-Class Studio: Your First Local-First Database (60 min)
+## 🛠️ In-Class Studio: Your First Local-First Database — **Challenging**
 
 *Software:* a laptop with Python 3.11+, Git, and a terminal. No server, no admin rights required.
 
-### ★ Task 1: Fork your portfolio (15 min)
+### ★ Task 1: Fork your portfolio
 
 1. Fork the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) into your own GitHub account and clone it locally. *(New to Git/GitHub? The [Git & GitHub primer](./Z-resources-bank.md#git--github-primer-fork-template-markdown-conflicts) in the resource bank walks through forking, cloning, Markdown, and resolving conflicts — nothing fancy.)*
 2. Confirm the `.gitignore` keeps data and secrets out of Git. If it does not, add (or verify) these lines:
@@ -93,7 +121,7 @@ What that plant actually needs is a database that runs **inside the monitoring s
 
 *Portfolio evidence:* the link to your forked repository and a screenshot of `git log --oneline` showing your first commit.
 
-### ★ Task 2: Install your whole toolchain with `uv` (15 min)
+### ★ Task 2: Install your whole toolchain with `uv`
 
 One tool, three platforms. **`uv`** (from Astral) installs a **fixed Python version**, creates an isolated environment, and installs every library and command-line tool this course uses — SQLite tooling, DuckDB, Datasette, and more — with the *same commands* on Windows, macOS, and Linux. Do this inside your forked portfolio, so your environment is part of your reproducible evidence.
 
@@ -159,7 +187,7 @@ uv run uv-check.py
 
 *Portfolio evidence:* the `uv run uv-check.py` output, plus committed `pyproject.toml` and `uv.lock` files (do **not** commit `.venv/`).
 
-### ★ Task 3: Load real telemetry and query it from Python (20 min)
+### ★ Task 3: Load real telemetry and query it from Python
 
 1. Save the following as `module-01/generate_telemetry.py`. It manufactures a few days of the machine-shop readings from the story — one reading every few seconds, three machines.
 
@@ -228,7 +256,7 @@ uv run uv-check.py
 
 *Portfolio evidence:* the generator script, the `.db` file size and row count, and the three query results. One sentence: *what would this dataset cost to run in the cloud, and who would pay for it?*
 
-### ★ Task 4: The first LLM-assisted SQL profiling task (10 min)
+### ★ Task 4: The first LLM-assisted SQL profiling task
 
 This is the habit the whole course is built on.
 

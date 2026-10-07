@@ -7,7 +7,7 @@
 **Course placement:** Session 3. This module covers the legacy *Standard SQL (DQL)*, *Relational Algebra*, and *Query Optimization* chapters — reframed around the modern reality: you generate SQL with AI and then prove it correct, fast, and safe.
 
 > [!TIP]
-> **Optional warm-up:** if you would like SQL to *feel* familiar before we start generating it with AI, play [SQL Island](https://sql-island.informatik.uni-kl.de/) — a free, browser-based text-adventure from the University of Kaiserslautern that teaches `SELECT`, `WHERE`, `ORDER BY`, aggregates, and joins in about an hour (no install, no account). More in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).
+> **Optional warm-up:** if you would like SQL to *feel* familiar before we start generating it with AI, play [SQL Island](https://sql-island.informatik.uni-kl.de/) — a free, browser-based text-adventure from the RPTU Kaiserslautern-Landau (formerly TU Kaiserslautern) that teaches `SELECT`, `WHERE`, `ORDER BY`, aggregates, and joins in about an hour (no install, no account). More in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).
 
 ## 🎯 Learning Goals
 
@@ -36,7 +36,7 @@ A logistics startup runs its order-tracking on a local SQLite file synced from t
 
 Both failures have the same root: **nobody profiled or parameterized the generated SQL**. In this studio you become the person who does. You will write real analytics against a warehouse dataset, let an LLM draft the hard parts, and then put every query through three gates: does it **run**, is it **right**, is it **fast and safe**.
 
-## 📖 Part A — Mini-Lecture: The Six Clauses and the Plan (15 min)
+## 📖 Part A — Mini-Lecture: The Six Clauses and the Plan
 
 **From relational algebra to SQL.** Relational algebra is the *meaning*; SQL is the *syntax*. The mapping is mechanical, and knowing it is what lets you check an LLM's work:
 
@@ -65,11 +65,11 @@ Both failures have the same root: **nobody profiled or parameterized the generat
 > [!TIP]
 > When an LLM gives you SQL, ask it for the *relational algebra* too, then check the two against each other. Models are much worse at being consistent across two representations than at producing one plausible answer.
 
-## 🛠️ Studio Lab: Generate, Profile, and Secure (60 min)
+## 🛠️ Studio Lab: Generate, Profile, and Secure — **Challenging**
 
 *Software:* `sqlite3` CLI and Python 3.11+. Keep `.timer on` in the shell.
 
-### Setup (5 min)
+### Setup
 
 Build a small warehouse/order dataset with enough rows to make plans meaningful.
 
@@ -107,7 +107,7 @@ sqlite3 module-03/warehouse.db "SELECT 'orders', COUNT(*) FROM orders UNION ALL
                                 SELECT 'lines', COUNT(*) FROM order_line;"
 ```
 
-### ★ Task 1: Ask the LLM, then check the plan (20 min)
+### ★ Task 1: Ask the LLM, then check the plan
 
 Use the prompt below with your LLM. **Before running the answer**, predict the plan you expect (which tables will be `SCAN`, which will `SEARCH`).
 
@@ -131,7 +131,7 @@ Use the prompt below with your LLM. **Before running the answer**, predict the p
 
 *Portfolio evidence:* the exact prompt, the LLM's SQL, your predicted plan, the actual `EXPLAIN QUERY PLAN` output, and a sentence on correctness.
 
-### ★ Task 2: Index benchmark — prove it or disprove it (20 min)
+### ★ Task 2: Index benchmark — prove it or disprove it
 
 1. Ask the LLM to *optimize* the query and tell you which indexes to add. Do not accept the list — test each index independently. Time the dashboard query **once before adding any index**, then add **one index at a time** and re-time it after each step:
    ```sql
@@ -160,7 +160,7 @@ Use the prompt below with your LLM. **Before running the answer**, predict the p
 
 *Portfolio evidence:* the before/after table, the plan output that proves the index is used (`SEARCH ... USING INDEX`), and your explanation of the index that did not help.
 
-### ★ Task 3: The injection drill (15 min)
+### ★ Task 3: The injection drill
 
 Reproduce the support agent's apostrophe crash and then fix it. Save as `module-03/injection_demo.py`.
 
@@ -194,7 +194,7 @@ Run it, then answer in your notes: **why is escaping or filtering `'` characters
 
 *Portfolio evidence:* `injection_demo.py` output, the payload you used, and your answer about escaping-vs-parameterizing.
 
-### ★ Task 4: One query, from algebra to plan (5 min)
+### ★ Task 4: One query, from algebra to plan
 
 Take any query you wrote above and write its **relational algebra** expression (σ, π, ⋈, γ). Confirm the SQL matches the algebra. This is the checkpoint-ready skill: explaining a query in two representations.
 
@@ -216,7 +216,7 @@ Commit under `module-03/`:
 
 ## 📚 If you want to go deeper
 
-- **Goody — build SQL intuition:** [SQL Island](https://sql-island.informatik.uni-kl.de/) is a free browser text-adventure that teaches the basics in ~1–2 hours; a good warm-up before you start judging generated queries. Siblings in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).
+- **Goody — build SQL intuition:** the [SQL Island](https://sql-island.informatik.uni-kl.de/) browser game from the warm-up note above — an hour there makes you far better at spotting generated queries that “run but are wrong”. Siblings in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).
 - SQLite — `EXPLAIN QUERY PLAN` reference — [sqlite.org/eqp.html](https://www.sqlite.org/eqp.html)
 - Markus Winand — *Use The Index, Luke* — [use-the-index-luke.com](https://use-the-index-luke.com/)
 - OWASP — *SQL Injection Prevention Cheat Sheet* — [cheatsheetseries.owasp.org](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
