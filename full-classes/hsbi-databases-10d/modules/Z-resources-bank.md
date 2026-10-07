@@ -104,16 +104,20 @@ git push                        # publish to your GitHub fork
 
 ## Instructor hints: presenting the Markdown slide deck
 
-The Session 1 slides are **plain Markdown** — no notebook runtime, no build step, no hidden JSON. The deck is [`slides/01-introduction.md`](../slides/01-introduction.md): slides are separated by a lone `---` line, so it opens and reads correctly in *any* Markdown viewer.
+The Session 1 slides are **plain Markdown** — no notebook runtime. The deck is [`slides/01-introduction.md`](../slides/01-introduction.md); slides are separated by a lone `---` line, so it reads correctly in *any* Markdown viewer (Zed, GitHub, VS Code — where `---` shows as a horizontal rule between slides).
 
-**Two ways to present it**
+**Render it to a PDF with pandoc + Typst, then present in Okular.** From the class directory:
 
-- **Zed (or any editor with a Markdown preview).** Open the file and use the Markdown preview — ideal for a quick read or a second screen.
-- **A terminal slideshow — [presenterm](https://github.com/mfontanini/presenterm).** The deck is written to presenterm's conventions, so:
-  ```sh
-  presenterm slides/01-introduction.md
-  ```
-  Advancing a slide reveals the next part; the discovery answer sits on the slide *after* the prompt. For speaker notes on a second screen, run `presenterm slides/01-introduction.md --publish-speaker-notes` in the main terminal and `presenterm slides/01-introduction.md --listen-speaker-notes` in another window. Notes come from `<!-- speaker_note: … -->` comments and show only in that view.
+```sh
+./slides/render-slides.sh slides/01-introduction.md
+```
+
+This runs **pandoc** (Markdown → Typst: [`slides/slides.typ`](../slides/slides.typ) sets a 16:9 presentation page and slide-sized type, and [`slides/pagebreak.lua`](../slides/pagebreak.lua) turns every `---` into a Typst page break) and then **Typst**, producing `slides/01-introduction.pdf`. The PDF opens in **Okular's presentation mode** — fullscreen, one slide per page; arrow keys navigate, `Esc` exits. Add `--no-open` to render without launching the viewer.
+
+**Presenting from Zed.** A ready-made task renders the *current* Markdown file and opens it in Okular: command palette → **`task: spawn`** → *“Slides → PDF (pandoc + Typst) + Okular”*. It lives in the repository's `.zed/tasks.json` and passes the current file (`$ZED_FILE`) to the script.
+
+> [!NOTE]
+> **Requirements and edit-time gotchas.** You need `pandoc` (≥ 3.1, for the Typst writer), `typst`, and `okular` — check with `pandoc --version`, `typst --version`, `okular --version`. Keep `---` as the only slide separator (a `---` inside a table, i.e. the `|---|` row, is fine), and remember that HTML comments like `<!-- Note: … -->` are dropped from the PDF — a safe place for instructor notes. If a slide overflows onto a second page, lower the base size in [`slides/slides.typ`](../slides/slides.typ).
 
 **Run the Python on demand.** The deck is *only* slides. The live coding and the labs live in the workbook modules (start with [Module 1](./01-introduction-and-local-first.md)); run them whenever you like, from the same `uv` environment the Module 1 studio sets up:
 
@@ -126,7 +130,7 @@ The Session 1 slides are **plain Markdown** — no notebook runtime, no build st
 - Reveal answers by *advancing* a slide — students answer first, the next slide confirms.
 - Anything long lives in the workbook; the deck links to it.
 
-Docs: [presenterm documentation](https://mfontanini.github.io/presenterm/) · [presenterm on GitHub](https://github.com/mfontanini/presenterm) · [Zed Markdown support](https://zed.dev/docs/languages/markdown)
+Docs: [pandoc manual](https://pandoc.org/MANUAL.html) · [Typst documentation](https://typst.app/docs/) · [pandoc `pagebreak` filter](https://github.com/pandoc/lua-filters/tree/master/pagebreak) · [Zed tasks](https://zed.dev/docs/tasks)
 
 ## Peer verification: the neighbour-checkpoint checklist
 

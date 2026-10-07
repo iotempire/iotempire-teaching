@@ -1,0 +1,14 @@
+[
+  {
+    "label": "Slides → PDF (pandoc + Typst) + Okular",
+    "command": "full-classes/hsbi-databases-10d/slides/render-slides.sh \"$ZED_FILE\"",
+    "reveal": "always",
+    "use_new_terminal": false
+  },
+  {
+    "label": "Slides → PDF only (pandoc + Typst, no viewer)",
+    "command": "full-classes/hsbi-databases-10d/slides/render-slides.sh \"$ZED_FILE\" --no-open",
+    "reveal": "always",
+    "use_new_terminal": false
+  }
+]

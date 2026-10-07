@@ -1,16 +1,3 @@
-<!--
-Session 1 slide deck for Databases (DBS) — Local-First Edition, HSBI Campus Gütersloh.
-
-Plain Markdown: open it in any Markdown viewer (Zed Markdown preview, GitHub, VS Code),
-or present it from the terminal with presenterm (https://github.com/mfontanini/presenterm):
-
-    presenterm slides/01-introduction.md
-
-Slides are separated by a lone `---` line. Speaker notes use `<!-- speaker_note: ... -->`
-and appear only in presenterm's speaker-notes view. No build step, no runtime — the live
-Python is run on demand from the workbook modules in Zed or the terminal.
--->
-
 # Databases (DBS) — Local-First Edition
 
 ### Session 1 · Introduction & Local-First Foundations
@@ -26,17 +13,12 @@ Python is run on demand from the workbook modules in Zed or the terminal.
 - Educator · Consultant · Mentor
 - Researcher · Inventor · Maker · Artist
 - YouTuber ([youtube.ulno.net](https://youtube.ulno.net/)) → Geek
-
-<!-- speaker_note: Introduce yourself and point them at ulno.net. Keep it to a minute. -->
-
----
-
-# whoami (cont.)
-
 - **Globalist** — lived, taught, and researched in
   Estonia · USA · Germany · Austria · Kazakhstan · Singapore · Indonesia · Brazil
 - **Research:** VR/AR · Internet of Things · Digital Twin · Software Craftsmanship · Education & Creativity
 - **PhD: Home Automation** (RWTH Aachen)
+
+<!-- Note: introduce yourself and point them at ulno.net — keep it to a minute. -->
 
 ---
 
@@ -48,20 +30,13 @@ Python is run on demand from the workbook modules in Zed or the terminal.
 - Who has written **SQL** before? (`SELECT`, `WHERE`, `JOIN`, `GROUP BY`, …)
 - Who has used a **database**? Which one — MySQL, PostgreSQL, SQLite, Oracle, MongoDB, …?
 - Who has used **Python**? Who has used the **command line** / a terminal?
-
-<!-- speaker_note: Hands up, count out loud. Their notes here become their first portfolio entry. -->
-
----
-
-# Who are U? (cont.)
-
 - Who has used **Git / GitHub**?
 - Who has built a **web app** (a frontend and/or a backend)?
 - Who has run their own **server** or a Docker container?
 - Who has an idea what **“local-first”** or an **embedded database** might mean?
 - **What are your expectations from this class?** What would you like to build?
 
-<!-- speaker_note: The expectations answers drive the podding and the project ideas. -->
+<!-- Note: hands up, count out loud — their answers are their first portfolio entry and drive the podding. -->
 
 ---
 
@@ -83,7 +58,7 @@ Python is run on demand from the workbook modules in Zed or the terminal.
 - Final assessment: **module points + final project + reflections** (+ bonuses), with your **portfolio** as the record
 - The details live in the **syllabus** — next slide
 
-<!-- speaker_note: Emphasise the pod work and the continuous in-lab feedback. -->
+<!-- Note: emphasise the pod work and the continuous in-lab feedback. -->
 
 ---
 
@@ -95,7 +70,7 @@ Central entry point: **the course repository**.
 - **[Syllabus](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-databases-10d/syllabus.md)** — schedule, learning objectives, assessment, tools, policies
 - **Modules 1–8** — the actual studios
 
-<!-- speaker_note: Open the repository on screen so they see the real thing, not a picture of it. -->
+<!-- Note: open the repository on screen so they see the real thing. -->
 
 ---
 
@@ -107,7 +82,7 @@ Central entry point: **the course repository**.
 
 *(Let’s open the workbook together now.)*
 
-<!-- speaker_note: This is the deal. The goals are fixed, the tasks are negotiable. -->
+<!-- Note: the goals are fixed; the tasks are negotiable. -->
 
 ---
 
@@ -119,7 +94,7 @@ Central entry point: **the course repository**.
 4. Optional: pair your pod with a **neighbouring pod** — each pre-verifies the other, and the instructor assesses one half of each in a single checkpoint slot.
 5. For the **final project, two pods merge into a Project Team of 4–6** — your neighbouring pod is the natural partner.
 
-<!-- speaker_note: Ask one pod to say out loud what they expect from the module. It anchors the session. -->
+<!-- Note: ask one pod to say aloud what they expect from the module. -->
 
 ---
 
@@ -131,7 +106,7 @@ Central entry point: **the course repository**.
 2. List **one advantage** and **one cost** of each shape.
 3. **Jigsaw:** one of you joins a neighbouring pod, the rest stay; **merge** your lists.
 
-<!-- speaker_note: Do not advance yet. Collect their answers on the board first. -->
+<!-- Note: do not advance yet — collect their answers on the board first. -->
 
 ---
 
@@ -148,4 +123,4 @@ Central entry point: **the course repository**.
 
 **Keep the data where it is produced.** Ship a file, not a deployment. Go to a server only when a *measured* requirement forces you to — **GoToSocial** (a whole Fediverse server on SQLite) and **Chatto** (a chat platform as one binary) each ship as a **single binary**.
 
-<!-- speaker_note: Advance only after they have shared their own table. Compare, then add what they found. -->
+<!-- Note: advance only after they shared their own table — compare, then add what they found. -->

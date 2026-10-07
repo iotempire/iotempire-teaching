@@ -14,6 +14,9 @@ __pycache__/
 *.duckdb
 *.parquet
 
+# Generated slide PDFs (rebuild with slides/render-slides.sh)
+/slides/*.pdf
+
 # Secrets
 .env
 
