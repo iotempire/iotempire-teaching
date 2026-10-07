@@ -107,7 +107,7 @@ Assessment is conducted as a *Kombinationsprüfung* combining continuous portfol
 |---|---|---|
 | Modules 1–6 (Learning goals) | 11 points | Earned through short checkpoint presentations that prove the module learning goals from your portfolio: portfolio setup and the first profiling task (Module 1, 1 point), then schema trade-off benchmarks, trigger and constraint implementations, and query-optimization evidence (Modules 2–6, 2 points each). |
 | Reflection Points | 4 points | One reflection for each teaching block, captured in your personal logbook. |
-| Final Personal Meaningful Challenge Project | 5 points | 25 % of the base score. Story-driven local-first embedded database application in teams of 3–4, evaluated via a working GitHub repository, 5-page documentation, and a 15-minute live demo + individual oral defense. |
+| Final Personal Meaningful Challenge Project | 5 points | 25 % of the base score. Story-driven local-first embedded database application in merged **Project Teams** of 4–6, evaluated via a working GitHub repository, 5-page documentation, and a 15-minute live demo + individual oral defense. |
 | **Base Total** | **20 points** | 100 % base score. |
 | Extra / Bonus Points | up to +3 | Exceptional benchmarking, accepted open-source pull requests to IoTempower or class repositories, or peer debugging assistance. |
 
@@ -117,6 +117,17 @@ Assessment is conducted as a *Kombinationsprüfung* combining continuous portfol
 ### How module points are earned: checkpoint presentations
 
 You do not submit and grade every task. Instead, you earn a module's points in a short, personal checkpoint presentation (about 10 minutes) with the instructor, based on your portfolio and reflection logbook. Checkpoints happen in class and cover a few modules at a time (Module 1 in Session 2, Modules 2–4 in Session 6, Modules 5–6 in Session 8); the schedule is announced through the LMS.
+
+**Task Pods, and how checkpoints scale.** We work in **Task Pods** — small crews of **two or three** (three by default for this cohort). Our usual default is pairs, but with **more than ~40 students we default to three-person pods** to keep the number of checkpoints workable; a few **two-person pods** are welcome precisely because they reduce the instructor's checkpoint load, and a **fourth** podmate is allowed only by arrangement. The point is *small*, not rigid.
+
+> **Why “Task Pod”?** In container orchestration (Kubernetes), a **pod** is the *smallest deployable unit* — one or a few tightly-coupled containers that are scheduled, run, and retired together. A **Task Pod** is the same idea for people: your tight little crew of two or three that owns one task end-to-end. Your **Project Team** is the larger unit — the alliance of two pods that ships the whole application.
+
+**These Task Pods are for the labs and checkpoints; the final project merges two pods into a Project Team of 4–6** (see [Final Project Requirements](#final-project-requirements-5-points)).
+
+**Two checkpoint formats — the “neighbour” option buys time at scale.** A **Task Pod** may choose either format for a given checkpoint:
+
+- **Single-pod checkpoint (default).** Your pod books a slot (~10 minutes) and walks the instructor through the module's learning goals from your portfolios.
+- **Neighbour checkpoint (optional; recommended when the cohort is large).** Two neighbouring pods share **one slot**. *Before* the slot, each pod **pre-verifies the neighbour's work** against the module's learning goals using the [peer-verification checklist](./modules/Z-resources-bank.md#peer-verification-the-neighbour-checkpoint-checklist), and commits the findings as `peer-verify-<module>.md` to **both** portfolios (reviewer's and reviewed's). *In* the slot, the instructor **deep-assesses one half of each pod** — the half that presents live — and takes the committed peer-verification as the evidence for the other half. So two pods are seen per slot while the instructor's live assessment covers roughly **one pod's worth of people**. The presenting halves **swap at the next checkpoint**, so across the semester every student is assessed live by the instructor at least once and peer-verified at least once.
 
 In a checkpoint, you:
 
@@ -129,6 +140,7 @@ Practical notes:
 
 - Bring your portfolio (and your laptop with the SQLite/DuckDB databases open) to the checkpoint.
 - Expect to explain a design choice, justify an index, or debug a broken constraint live.
+- For a **neighbour checkpoint**, bring your `peer-verify-<module>.md` — both the one you wrote and the one you received.
 - If you cannot attend a checkpoint, talk to the instructor early; a missed checkpoint is handled like a missed deadline.
 
 ### Reflection format
@@ -182,18 +194,18 @@ The full roadmap — with a one-line summary and learning goals for every studio
 | 4 | [Module 4 — Data Integrity, Constraints & Edge Triggers](./modules/04-integrity-constraints-and-triggers.md) | `CHECK`/`UNIQUE`/`FK`, `STRICT` tables, generated columns, and a trigger that enforces edge telemetry rules. |
 | 5 | [Module 5 — Normalization vs. Denormalization Benchmarking Studio](./modules/05-normalization-vs-denormalization.md) | Normalize to 3NF, denormalize on purpose, and measure read/write/storage trade-offs in SQLite. |
 | 6 | [Module 6 — Polyglot & Embedded Persistence](./modules/06-polyglot-embedded-persistence.md) **+ Checkpoint 1** | JSON documents in SQLite, DuckDB analytics over Parquet/CSV, a key-value comparison; then checkpoint presentations for Modules 2–4. |
-| 7 | [Module 7 — Final Project Studio — kickoff & build](./modules/07-final-project-studio.md) | Story and teams, requirement mapping, schema and ingestion build. |
+| 7 | [Module 7 — Final Project Studio — kickoff & build](./modules/07-final-project-studio.md) | Story and Project Teams, requirement mapping, schema and ingestion build. |
 | 8 | [Module 7 — Final Project Studio — build & integrate](./modules/07-final-project-studio.md) **+ Checkpoint 2** | Build the vertical slice and integrate the interface; then checkpoint presentations for Modules 5–6. |
 | 9 | [Module 7 — Final Project Studio — integrity, security & evaluation](./modules/07-final-project-studio.md) | Constraints/triggers, a full parameterization pass, indexing proof, and benchmark evidence. |
 | 10 | [Module 7 — Final Project Studio — peer review & rehearsal](./modules/07-final-project-studio.md) | Peer review, fixes, and a timed 15-minute demo dry run. |
-| 11 | [Module 8 — Live Demos & Oral Defenses](./modules/08-final-project.md) | 15-minute team demo + individual oral defense; retrospective. |
+| 11 | [Module 8 — Live Demos & Oral Defenses](./modules/08-final-project.md) | 15-minute Project Team demo + individual oral defense; retrospective. |
 
 > [!TIP]
 > **Buffer, pacing, and tutorials:** Sessions 7–10 are project studios, and at least one of them is deliberately loose — it can absorb spill-over from earlier labs, be released as flexible time, or be used for stretcher tasks and peer mentoring. The optional tutorial sessions (times announced via the LMS) are the natural home for catch-up and deeper deep dives. Announce the concrete use of each date in the LMS as the course progresses.
 
 ## Final Project Requirements (5 Points)
 
-The final project is a local-first, embedded database application built by teams of **3–4 students**. Teams form and pitch a stakeholder story during the project kickoff (Module 7), then map their requirements onto the criteria below. A team may, by agreement with the instructor, continue a project from another course — this is a possibility, not a requirement; the default is a self-contained database application.
+The final project is a local-first, embedded database application built by **Project Teams of 4–6 students** — the project merges two of the Task Pods from Modules 1–6, so you keep your pod and gain one or two more. Project Teams form and pitch a stakeholder story during the project kickoff (Module 7), then map their requirements onto the criteria below. A Project Team may, by agreement with the instructor, continue a project from another course — this is a possibility, not a requirement; the default is a self-contained database application.
 
 ### Must-Have System Criteria:
 
@@ -209,7 +221,7 @@ The final project is a local-first, embedded database application built by teams
 
 - **System functionality & measurement quality (2 points):** Meets specifications; ingestion, query, and integrity behavior are credible and reproducible.
 - **Architecture, documentation & evaluation (1.5 points):** Clear schema/data-flow diagram, schema and index documentation, benchmark evidence, and the 5-page report.
-- **Live demonstration & oral defense (1.5 points):** A clear 15-minute team demo showing the data flowing end-to-end, plus individual answers on the underlying design decisions and trade-offs.
+- **Live demonstration & oral defense (1.5 points):** A clear 15-minute Project Team demo showing the data flowing end-to-end, plus individual answers on the underlying design decisions and trade-offs.
 
 See the full [final project specification](./modules/08-final-project.md) for the demo script, documentation template, and the detailed rubric.
 
@@ -231,10 +243,10 @@ All assessments are based on your personal GitHub Portfolio (forked from [iot-po
 
 1. **Active participation:** Bring your laptop with the [uv-managed toolchain](./modules/01-introduction-and-local-first.md) set up (Python 3.12, SQLite, DuckDB, Datasette). The checkpoints and demos happen live on your machine.
 2. **Data hygiene:** Never commit databases, credentials, or personal data. Use the provided `.gitignore`. Generate ingestion reproducibly from a script so a reviewer can rebuild your database.
-3. **Pair and collaborate:** Two sets of eyes on a silent `NULL` or a broken join save the afternoon. Pair-debug, review each other's query plans, and share discoveries.
+3. **Collaborate within your pod:** Two sets of eyes on a silent `NULL` or a broken join save the afternoon. Debug together, review each other's query plans, and share discoveries.
 4. **Measurement mindset:** A performance claim without a number, a dataset size, and a plan is an opinion. Write down *what* you measured, *with what*, and *under what conditions*.
 5. **AI with responsibility:** Use AI co-pilots enthusiastically — and verify relentlessly. You are accountable for every query you ship, whether you or a model wrote it.
-6. **Open-source mindset:** Share discoveries and help peer teams. Accepted pull requests to IoTempower, this course repository, or open-source tools qualify for bonus points.
+6. **Open-source mindset:** Share discoveries and help other pods (and, later, other Project Teams). Accepted pull requests to IoTempower, this course repository, or open-source tools qualify for bonus points.
 
 ## Contacts & Support
 

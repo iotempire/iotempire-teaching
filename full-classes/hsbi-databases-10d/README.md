@@ -24,7 +24,7 @@ You will:
 - **Let AI write the SQL, but keep the responsibility.** Syntactic SQL memory is no longer a job skill. You will use LLM co-pilots to generate queries, then **profile them (`EXPLAIN QUERY PLAN`), benchmark the index impact, and prove they are injection-safe** — because shipping unreviewed generated SQL is how you get a data breach.
 - **Trade normalization against speed with numbers.** Instead of memorizing 1NF–3NF, you will normalize, denormalize, and *measure* the read/write/storage consequences in SQLite.
 - **Go polyglot on purpose.** You will store JSON in SQLite, run DuckDB analytics straight over Parquet and CSV, try a key-value store, and reason about when a relational engine is the wrong tool.
-- **Build something meaningful.** In a team, you turn a real stakeholder story into a working local-first database application — and you defend the design decisions you own.
+- **Build something meaningful.** In a **Project Team** of 4–6, you turn a real stakeholder story into a working local-first database application — and you defend the design decisions you own.
 
 ## How we teach — challenge- and project-based, in person, and always in flux
 
@@ -44,7 +44,7 @@ And this class is always in flux — that is a feature, not a bug. No course is 
 
 - **11 four-hour studio sessions (44 contact hours)**, plus optional tutorial sessions (times announced via the LMS).
 - **Modules 1–6:** one technical module per session — the local-first paradigm, legacy schema audits and data contracts, LLM-assisted SQL and query profiling, integrity and edge triggers, normalization benchmarking, and polyglot embedded persistence.
-- **Modules 7–8:** the final-project arc — a story-driven, local-first database application, built, documented, and defended in a team.
+- **Modules 7–8:** the final-project arc — a story-driven, local-first database application, built, documented, and defended in a merged **Project Team** of 4–6 (two Task Pods).
 
 The full module list, one-line summaries, and the session roadmap live in the **[module index](./modules/00-index.md)**.
 

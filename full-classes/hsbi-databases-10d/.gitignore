@@ -1,0 +1,21 @@
+# Local run artifacts — never commit these.
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.python-version
+
+# Databases and data files (a reviewer must be able to rebuild them from scripts)
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+*.duckdb
+*.parquet
+
+# Secrets
+.env
+
+# Editors / OS
+.DS_Store

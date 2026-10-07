@@ -32,9 +32,9 @@ By the end of this module, you can:
 
 1. **whoami — meet your lecturer.** Ulno: educator / consultant / mentor, researcher / inventor / maker / artist, YouTuber ([youtube.ulno.net](https://youtube.ulno.net/)); a globalist who has lived, taught, and researched in Estonia, the USA, Germany, Austria, Kazakhstan, Singapore, Indonesia, and Brazil; research in VR/AR, IoT, digital twins, software craftsmanship, and education; PhD on **home automation** (RWTH Aachen).
 2. **Who are U? — a quick hand-count.** I ask, you raise a hand (and **note your answers — this is your first portfolio entry**): programming experience and languages; prior **SQL**; which **databases** you have used; **Python**; the **command line**; **Git/GitHub**; whether you have built a **web app** or run a **server**; and — the important one — **your expectations** from this class.
-3. **"This is an experiment" — the deal.** We teach with modern, challenge- and project-based methods: you are here to learn and explore, you are front and center, and you bring a meaningful challenge. Logistics: usually **no dedicated homework** (but you finish lab work, module tasks, portfolio, and reflections); **you work in pairs** (rarely three); in-class exercises start individually; feedback is continuous in the lab; the final grade comes from **module points, the final project, and reflections**, all recorded in your **portfolio**.
+3. **"This is an experiment" — the deal.** We teach with modern, challenge- and project-based methods: you are here to learn and explore, you are front and center, and you bring a meaningful challenge. Logistics: usually **no dedicated homework** (but you finish lab work, module tasks, portfolio, and reflections); **you work in small Task Pods — two or three (three by default)** (a few pairs), and **two pods merge into a Project Team for the final project**; in-class exercises start individually; feedback is continuous in the lab; the final grade comes from **module points, the final project, and reflections**, all recorded in your **portfolio**.
 4. **Everything lives in the online workbook.** We open the repository together: the **[module index & roadmap](./00-index.md)** (every module and session) and the **[syllabus](../syllabus.md)** (schedule, objectives, assessment, policies). This is where "how the class works" becomes concrete — see the contract below.
-5. **Pairing up.** Last, we match partners (see the pairing note).
+5. **Pod formation.** Last, we form **Task Pods** (see the pod note — three is the default for this cohort).
 
 ### How the class works — the contract
 
@@ -44,13 +44,18 @@ Every module **begins with its learning goals**. Those goals are the *contract* 
 
 Practical note: the class has **11 four-hour sessions**, plus **optional tutorial sessions** run by a teaching assistant (times announced via the LMS).
 
-### Pairing up — who do you build with?
+### Form your Task Pod — who do you build with?
 
-You will do the labs and the final project **in pairs** (occasionally three). We do a short match-making round:
+You will do the labs and the checkpoints in a **Task Pod** — two or three people (three by default for this cohort; a few **two-person pods** are welcome, since they cut the number of checkpoints the instructor must run; a fourth member only by arrangement). For the **final project, two pods merge into a Project Team of 4–6**. We do a short match-making round:
+
+> **Why “Task Pod”?** In container orchestration (Kubernetes) a *pod* is the **smallest deployable unit** — a couple of tightly-coupled containers that are scheduled, run, and retired together. Your Task Pod is the same, for people: a tight little crew that owns one task end-to-end. Two pods later merge into a **Project Team**, the larger unit that ships the whole application.
 
 1. On a note, write down **your skills** (languages, tools, hardware, design, …) and **your expectations / what you want to build**.
-2. If you have no partner yet, find **two other unpaired people**, compare notes, and check whether you **complement** each other — not merely whether you are alike. A pair with complementary strengths is worth more than a pair of clones.
-3. Exchange contacts and a first idea today. If you already have a partner, still share your notes so the room knows who can help with what.
+2. No pod yet? Find **two other unpaired people**, compare notes, and check whether you **complement** each other — not merely whether you are alike. A pod with complementary strengths beats a pod of clones.
+3. Exchange contacts and a first idea today. If you already have a pod, still share your notes so the room knows who can help with what.
+
+> [!TIP]
+> **Checkpoints scale better in pairs of pods.** You may pair your pod with a **neighbouring pod** for checkpoints: each pod pre-verifies the other's work, and the instructor assesses one half of each pod in a single shared slot. See the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations) for the optional neighbour-checkpoint format. That neighbouring pod is also the natural **Project Team partner** — the project merges two pods into a Project Team of 4–6.
 
 > [!NOTE]
 > **Instructor hint — presenting the deck.** The slides are plain Markdown ([`slides/01-introduction.md`](../slides/01-introduction.md)): open them in Zed's Markdown preview for a quick read, or present from the terminal with [presenterm](https://github.com/mfontanini/presenterm) — `presenterm slides/01-introduction.md`. Slides are separated by `---`, and `<!-- speaker_note: … -->` comments show only in presenterm's speaker-notes view. The discovery answer sits on the slide *after* the prompt, so reveal it by advancing. There is no notebook runtime and no build step — run the Python on demand from your `uv` environment in Zed or the terminal. Full hints in the [resource bank](./Z-resources-bank.md#instructor-hints-presenting-the-markdown-slide-deck).
@@ -67,12 +72,12 @@ What that plant actually needs is a database that runs **inside the monitoring s
 
 Instead of a slide that tells you the answer, we **figure it out together** — you may already know more than you think.
 
-**In pairs, a few minutes:**
+**In your pod, a few minutes:**
 
 1. **Brainstorm.** When does a database live *inside* your program, and when does it live on a *separate server*? Give each shape a name.
 2. **List trade-offs.** Write **one advantage and one cost** for each shape — think about installation, reliability, concurrency, cost, and who owns the data.
 3. **Search (optional).** Look up two concrete engines for each shape — e.g. an embedded one and a client/server one — and one sentence on when to use each.
-4. **Jigsaw.** One of you joins a neighbouring pair, one stays. **Merge your two lists**, drop duplicates, and mark whatever you disagree on.
+4. **Jigsaw.** One of you joins a neighbouring pod, the rest stay. **Merge your two lists**, drop duplicates, and mark whatever you disagree on.
 
 Then the instructor reveals the table (open the accordion on the slide) and we compare:
 

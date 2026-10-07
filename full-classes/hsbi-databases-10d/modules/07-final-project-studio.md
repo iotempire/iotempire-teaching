@@ -2,20 +2,20 @@
 
 [← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 8 →](./08-final-project.md)
 
-**Course placement:** Sessions 7–10. Four project-studio sessions: kickoff and story, requirement mapping, build, integration, hardening, peer review, and rehearsal. The *specification* — teams, must-haves, documentation, and the demo rubric — lives in [Module 8](./08-final-project.md); this module is the **studio guide** for how you spend the time.
+**Course placement:** Sessions 7–10. Four project-studio sessions: kickoff and story, requirement mapping, build, integration, hardening, peer review, and rehearsal. The *specification* — Project Teams, must-haves, documentation, and the demo rubric — lives in [Module 8](./08-final-project.md); this module is the **studio guide** for how you spend the time.
 
 > [!IMPORTANT]
-> This is where the final project is built. Read [Module 8](./08-final-project.md) **before** Session 7 — you are expected to arrive with a team and a one-paragraph story.
+> This is where the final project is built. Read [Module 8](./08-final-project.md) **before** Session 7 — you are expected to arrive with your **Project Team** and a one-paragraph story.
 
 ## 🎯 Learning Goals
 
-> **How these are assessed:** This studio builds the artifact for the final project, assessed in Session 11 through the team repository, the 5-page report, and the live demo with an **individual oral defense** (see the [syllabus](../syllabus.md#final-project-requirements-5-points) for the assessment rules). **The goals are the contract: demonstrate them and you have met the module.** The studio steps that follow are a draft you may adapt as a team.
+> **How these are assessed:** This studio builds the artifact for the final project, assessed in Session 11 through the project repository, the 5-page report, and the live demo with an **individual oral defense** (see the [syllabus](../syllabus.md#final-project-requirements-5-points) for the assessment rules). **The goals are the contract: demonstrate them and you have met the module.** The studio steps that follow are a draft you may adapt as a Project Team.
 
-By the end of these four sessions, your team has:
+By the end of these four sessions, your **Project Team** has:
 
 1. A **stakeholder story** that names a real person, a real problem, and the data that solves it.
 2. A **mapped requirement set**: which must-have from Module 8 is covered by which deliverable.
-3. A **schema and an ingestion pipeline** checked into the team repository, reproducible from scratch.
+3. A **schema and an ingestion pipeline** checked into the project repository, reproducible from scratch.
 4. A **working vertical slice**: data goes in, one query comes out, one interface shows it.
 5. A **peer-reviewed draft** and a rehearsal plan for the Session 11 demo.
 
@@ -43,10 +43,10 @@ That paragraph already implies entities (line, stop event, cause), a cardinality
 
 ## 🛠️ Session 7 — Kickoff & Build (the "make it real" session)
 
-### ★ Step 1: Story and team charter
+### ★ Step 1: Story and Project Team charter
 
-1. Form teams of **3–4**. Record, in `docs/team.md`: each member's name, the story, and **who owns what** (schema, ingestion, queries, interface, docs). Every member must own a piece that can be defended individually in Session 11.
-2. Write the one-paragraph story. Get it reviewed by a neighboring team — each side gets a turn: they ask *"what is the first query this database must answer?"*
+1. Form a **Project Team** of 4–6 by merging two **Task Pods** (the pods you worked in for Modules 1–6). Record, in `docs/team.md`: each member's name, the story, and **who owns what** (schema, ingestion, queries, interface, docs). Every member must own a piece that can be defended individually in Session 11.
+2. Write the one-paragraph story. Get it reviewed by a neighbouring **Project Team** — each side gets a turn: they ask *"what is the first query this database must answer?"*
 3. Choose the engine. **SQLite is the default.** Switch to DuckDB, JSON-in-SQLite, or a key-value store only if you can name the workload reason — and write that reason down.
 
 *Evidence:* `docs/team.md` committed.
@@ -105,14 +105,14 @@ myproject/
 
 ### ★ Step 5: Peer review
 
-Trade repositories with another team. Reviewers fill in `docs/peer-review.md`:
+Trade repositories with another **Project Team**. Reviewers fill in `docs/peer-review.md`:
 
 - Can you rebuild their database from their README **in three commands**? Try it on a clean checkout.
 - Find one query that is **not** parameterized, or confirm none are.
 - Find one place where the schema could record **wrong data** (a missing constraint) and propose the fix.
 - Is the story still visible in the interface?
 
-Give your notes to the other team; they commit the fixes.
+Give your notes to the other **Project Team**; they commit the fixes.
 
 *Evidence:* `docs/peer-review.md` (both as reviewer and as reviewee, with fixes linked).
 
@@ -128,15 +128,15 @@ Open a pull request to IoTempower, this course repository, or an open-source too
 
 ## ✅ What must be committed to your portfolio (per member)
 
-Each team member commits their **own** portfolio entry that:
-- Links to the shared team repository.
+Each **Project Team** member commits their **own** portfolio entry that:
+- Links to the shared project repository.
 - States **their** contribution and the design decision **they** own.
 - Includes the evidence for that piece (their query, their benchmark, their ingestion module).
 - Contains a `reflection.md` for the project-studio blocks in the standard format: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 
-A team repository alone is not enough: the project assessment includes an **individual oral defense**, and your personal portfolio is what you defend from.
+A project repository alone is not enough: the project assessment includes an **individual oral defense**, and your personal portfolio is what you defend from.
 
-## 📚 Team hygiene that saves the demo
+## 📚 Project Team hygiene that saves the demo
 
 - Commit early and often with descriptive messages; a clean Git log is itself evidence of collaboration.
 - Keep raw data out of Git; commit the **script** that fetches or generates it.
