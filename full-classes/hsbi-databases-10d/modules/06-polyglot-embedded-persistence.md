@@ -29,13 +29,13 @@ By the end of this module, you can:
 
 ## 📖 Story — Three Questions, Three Engines
 
-The machine-shop data now has three different shapes of problem, and the team keeps trying to solve all three with the same tool. The plant manager pushes back:
+Wittkamp's machine-shop data now has three different shapes of problem, and the team keeps trying to solve all three with the same tool. The plant manager, **Kai Lehmann**, pushes back:
 
 1. *"Each sensor has different metadata — some have a calibration date, some have a firmware version, some have nothing. I don't want a schema migration every time a vendor adds a field."* → **flexible documents**
 2. *"I have two years of stored readings in files. I want a weekly report and a histogram across all of them, fast."* → **analytical scan**
 3. *"The dashboard needs to remember who logged in and what their last filter was. It is a simple lookup by one key."* → **key-value access**
 
-Trying to force all three into one relational schema is the same mistake as the cloud-server impulse in Module 1 — the wrong tool for the workload. In this studio you reach for three engines that all run **embedded, locally**, and you measure why each fits.
+Trying to force all three into one relational schema is the same mistake as Cirrus's cloud-server impulse in Module 1 — the wrong tool for the workload. In this studio you reach for three engines that all run **embedded, locally**, and you measure why each fits.
 
 ## 📖 Part A — Mini-Lecture: Pick the Engine for the Workload
 

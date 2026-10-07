@@ -31,15 +31,20 @@ By the end of these four sessions, your **Project Team** has:
 
 The legacy course assigned topics ("a library", "a restaurant"). We keep the *free choice* but change the starting point: **begin from a story, not a category.** A story forces the requirements to be real:
 
-> *"Marta runs the night shift at a bottling line in Gütersloh. When a filler jams, she loses 20 minutes walking to a terminal to find out which sensor tripped and when it happened last. She needs a screen on the line that shows the last 10 stops, grouped by cause."*
+> *"Marta runs the night shift on the bottling line at **Füllwerk Gütersloh**. When a filler jams, she loses 20 minutes walking to a terminal to find out which sensor tripped and when it happened last. She needs a screen on the line that shows the last 10 stops, grouped by cause."*
 
 That paragraph already implies entities (line, stop event, cause), a cardinality (a line has many stop events), a query (last 10 stops grouped by cause), and an interface (a line-side screen). You cannot get that from "make a database for a warehouse."
 
 **Story checklist:**
-- Names a person and a place (Marta, the bottling line).
+- Names a person and a place (Marta, Füllwerk Gütersloh).
 - Names the pain (20 minutes lost, no immediate answer).
 - Names the data that fixes it (stop events with causes and timestamps).
-- Is **pitchable in 60 seconds**.
+- Is **pitchable in 60 seconds** and, ideally, ***playable*** — it could carry a short film or a stage scene.
+
+> [!NOTE]
+> **The hard part is the level of abstraction.** Writing a story that is *concrete enough to build from* but *not already a specification* is genuinely difficult — that balance **is** the skill, and it is normal to overshoot into a spec or undershoot into a category on the first tries. The test I use: a story is concrete enough when it is **pitchable** *and/or* **playable** — could you pitch it in a minute? could it carry a short film or a stage scene? One named person, one place, one moment of pain, and something at stake are enough to stand on. If it is still "a database for a warehouse", you have a *topic*, not a story.
+
+**Where this comes from.** Starting from concrete scenarios instead of class diagrams is *[Story Driven Modeling](https://en.wikipedia.org/wiki/Story-driven_modeling)* — Norbisrath, Zündorf & Jubeh, **Story Driven Modeling** (CreateSpace, 2013, ISBN 978-1483949253). It is why we begin with a named person and a moment of pain rather than an entity list.
 
 ## 🛠️ Session 7 — Kickoff & Build (the "make it real" session)
 

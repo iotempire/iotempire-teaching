@@ -32,7 +32,7 @@ By the end of this module, you can:
 
 ## 📖 Story — "The LLM Wrote It, It Ran, Ship It?"
 
-A logistics startup runs its order-tracking on a local SQLite file synced from the warehouse. The lead developer confesses the team's workflow: *"when we need a new report, we describe it to Claude, paste the SQL into the code, and if the number looks about right, we ship it."* It worked — until a report for customer service quietly returned the **wrong** list of late orders for a month, and a support agent typed a customer name containing an apostrophe that took the whole order page down.
+**Frachtflow**, a logistics startup, runs its order-tracking on a local SQLite file synced from the warehouse. The lead developer, **Nils Bergmann**, confesses the team's workflow: *"when we need a new report, we describe it to Claude, paste the SQL into the code, and if the number looks about right, we ship it."* It worked — until a report for customer service quietly returned the **wrong** list of late orders for a month, and a support agent typed a customer name containing an apostrophe that took the whole order page down.
 
 Both failures have the same root: **nobody profiled or parameterized the generated SQL**. In this studio you become the person who does. You will write real analytics against a warehouse dataset, let an LLM draft the hard parts, and then put every query through three gates: does it **run**, is it **right**, is it **fast and safe**.
 

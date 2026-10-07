@@ -132,6 +132,22 @@ This runs **pandoc** (Markdown → Typst: [`slides/slides.typ`](../slides/slides
 
 Docs: [pandoc manual](https://pandoc.org/MANUAL.html) · [Typst documentation](https://typst.app/docs/) · [pandoc `pagebreak` filter](https://github.com/pandoc/lua-filters/tree/master/pagebreak) · [Zed tasks](https://zed.dev/docs/tasks)
 
+## Story craft: is it concrete enough?
+
+Hitting the right level of abstraction in a story is genuinely difficult. The balance between *too abstract* ("a database for a warehouse") and *too precise* (an already-finished specification) **is** the skill, and it is normal to overshoot or undershoot on the first tries. The test to teach: a story is concrete enough when it is **pitchable** (you can pitch it in a minute) and/or **playable** (it could carry a short film or a stage scene) — one named person, one place, one moment of pain, and something at stake. See [Module 7](./07-final-project-studio.md) for the student-facing checklist. The underlying method is *Story Driven Modeling* — Norbisrath, Zündorf & Jubeh, **Story Driven Modeling** (CreateSpace, 2013, ISBN 978-1483949253), [en.wikipedia.org/wiki/Story-driven_modeling](https://en.wikipedia.org/wiki/Story-driven_modeling).
+
+## Story canon: the recurring cast
+
+The module stories share a small cast of named (fictional) organizations and people. New material should stay consistent with them — the stories are deliberately kept as separate case studies for now.
+
+| Module(s) | Organization | People | Place |
+|---|---|---|---|
+| 1, 4, 6 | **Wittkamp Zerspanung GmbH** — a small machine shop (CNC milling) | **Kai Lehmann** (plant manager) | Gütersloh |
+| 1, 6 | **Cirrus Cloud Systems** — the vendor pitching the three-tier cloud stack | — | — |
+| 2, 5 | **Kortmann Kunststofftechnik GmbH** — a plastics injection-molding plant | **Anke Reuter** (maintenance planner), **Yasmin Kaya** (operations lead) | — |
+| 3 | **Frachtflow** — a logistics startup | **Nils Bergmann** (lead developer) | — |
+| 7 (worked example) | **Füllwerk Gütersloh** — a bottling plant | **Marta** (night shift) | Gütersloh |
+
 ## Peer verification: the neighbour-checkpoint checklist
 
 *Optional — see the [checkpoint formats in the syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations).* When two neighbouring **Task Pods** pair up for a checkpoint, each pod **pre-verifies the other's work** against the module's learning goals and commits the result as `peer-verify-<module>.md` to **both** portfolios. Review it the way an engineer would — run it, do not just read it:
@@ -166,6 +182,10 @@ Write findings as: **what you checked, what you found, what you would change.** 
 - **Your own data** — a study log, a budget, sensor readings from another course. The most meaningful datasets are the ones that matter to you.
 
 ## Extended reading
+
+### Story-driven modeling (the method behind this course)
+
+- Ulrich Norbisrath, Albert Zündorf, Ruben Jubeh — *Story Driven Modeling* (CreateSpace, 2013; ISBN 978-1483949253). The textbook behind this course's story-first approach: model a system by walking concrete object scenarios instead of starting from class diagrams. See also [Story-driven modeling — Wikipedia](https://en.wikipedia.org/wiki/Story-driven_modeling).
 
 ### Why local-first (and why the heavy three-tier default is questioned)
 

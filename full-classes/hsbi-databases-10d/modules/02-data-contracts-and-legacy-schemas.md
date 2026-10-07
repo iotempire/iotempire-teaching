@@ -29,7 +29,7 @@ By the end of this module, you can:
 
 ## 📖 Story — The Maintenance Database With No Diagram
 
-You join a mechatronics team at a plastics injection-molding plant. A tool from 2011 tracks maintenance. It works, so nobody touches it. Then a machine fails and the maintenance planner asks a simple question — *"which parts did we replace on this machine in the last year, and how often?"* — and it takes a specialist a whole afternoon, because the schema is a pile of TEXT columns with no relationships.
+You join a mechatronics team at **Kortmann Kunststofftechnik GmbH**, a plastics injection-molding plant. A tool from 2011 tracks maintenance. It works, so nobody touches it. Then a machine fails and the maintenance planner, **Anke Reuter**, asks a simple question — *"which parts did we replace on this machine in the last year, and how often?"* — and it takes a specialist a whole afternoon, because the schema is a pile of TEXT columns with no relationships.
 
 You are the database engineer now. Your job is to **audit the schema**, reconstruct the ER model it should have had, find the integrity bugs, and write a data contract the next application can rely on. You will meet this exact task in real industry: most professional database work is not greenfield design — it is *reading and repairing somebody else's data model.*
 

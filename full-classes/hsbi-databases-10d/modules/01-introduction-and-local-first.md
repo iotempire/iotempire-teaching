@@ -62,11 +62,11 @@ You will do the labs and the checkpoints in a **Task Pod** — two or three peop
 
 ## 📖 Story — The Server Nobody Needed
 
-A small Gütersloh machine shop wants to monitor its CNC milling machines. A vendor proposes the classic setup: a cloud server, a PostgreSQL instance, a REST backend, a React frontend, and a monthly invoice. The plant manager — an HSBI Industrial Engineering alum — asks one question the vendor cannot answer cheaply: *"How many rows per day, and who else is reading this?"*
+**Wittkamp Zerspanung GmbH** is a small machine shop in Gütersloh that wants to monitor its CNC milling machines. The vendor **Cirrus Cloud Systems** proposes the classic setup: a cloud server, a PostgreSQL instance, a REST backend, a React frontend, and a monthly invoice. The plant manager, **Kai Lehmann** — an HSBI Industrial Engineering alum — asks one question the vendor cannot answer cheaply: *"How many rows per day, and who else is reading this?"*
 
 The answer: about **90,000 readings a day** (a temperature, a vibration RMS, and a spindle-load value every few seconds across three machines), read by **one** dashboard on the shop floor and **one** weekly shift report. That is a few hundred megabytes a year, touched by two readers, on a network that already exists. A three-tier cloud stack here is a **programming antipattern**: more moving parts, more failure modes, more cost, and no benefit. (For the industry consensus forming around this, see the [local-first manifesto](https://www.inkandswitch.com/essay/local-first/) and SQLite's own ["SQLite competes with `fopen()`"](https://www.sqlite.org/whentouse.html).)
 
-What that plant actually needs is a database that runs **inside the monitoring script** — an embedded engine that speaks SQL, needs no administrator, cannot go "down", and travels with the data file. That engine is **SQLite**. In this first studio you will meet it the same way: load a couple of days of machine telemetry, query it, and profile the AI's first suggestion.
+What Wittkamp actually needs is a database that runs **inside the monitoring script** — an embedded engine that speaks SQL, needs no administrator, cannot go "down", and travels with the data file. That engine is **SQLite**. In this first studio you will meet it the same way: load a couple of days of machine telemetry, query it, and profile the AI's first suggestion.
 
 ## 📖 Part B — Discovery: Embedded vs. Client/Server
 
@@ -194,7 +194,7 @@ uv run uv-check.py
 
 ### ★ Task 3: Load real telemetry and query it from Python
 
-1. Save the following as `module-01/generate_telemetry.py`. It manufactures a few days of the machine-shop readings from the story — one reading every few seconds, three machines.
+1. Save the following as `module-01/generate_telemetry.py`. It manufactures a few days of machine-shop readings from the Wittkamp story — one reading every few seconds, three machines.
 
    ```python
    import csv, math, random

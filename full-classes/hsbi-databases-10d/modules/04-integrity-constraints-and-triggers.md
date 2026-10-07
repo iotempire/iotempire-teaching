@@ -29,7 +29,7 @@ By the end of this module, you can:
 
 ## 📖 Story — Trusting the Edge
 
-Your machine-shop telemetry used to run through the cloud, until the plant lost its internet connection for two days and lost two days of data with it. The fix is local-first: an **edge gateway** (a small Linux box or an OpenWrt router) writes readings straight into a SQLite file next to the machines. The data never leaves the plant unless someone decides it should.
+Wittkamp's machine-shop telemetry used to run through the cloud, until the plant lost its internet connection for two days and lost two days of data with it. The fix is local-first: an **edge gateway** (a small Linux box or an OpenWrt router) writes readings straight into a SQLite file next to the machines. The data never leaves the plant unless someone decides it should.
 
 But "at the edge, without a server" raises the stakes on integrity: there is no DBA to fix a bad row, and no backend to re-validate. The **database itself** must refuse garbage. A temperature of 9,000 °C from a disconnected sensor must be rejected by a `CHECK`. A spindle that overheats must raise an alarm **the moment the row is written**, by a trigger. Replayed readings after a network hiccup must not create duplicates, which is what `UPSERT` is for. In this studio, you make SQLite enforce the rules so the application cannot forget them.
 
