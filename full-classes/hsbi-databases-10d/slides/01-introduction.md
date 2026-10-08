@@ -91,7 +91,7 @@ Central entry point: **the course repository**.
 1. On a note, write **your skills** (languages, tools, hardware, design, …) and **your expectations / what you want to build**.
 2. No pod yet? Find **two other unpaired people**, compare notes, and check whether you **complement** each other — not just “same as me”.
 3. **You will work in a Task Pod — two or three (three by default)** (a few pairs). Exchange contacts and a first idea today.
-4. Optional: pair your pod with a **neighbouring pod** for a **2-pod practice round** — present your learning-goal proof and give each other free-style feedback.
+4. Very optional (more chances later - even to change your initial pod): pair your pod with a **neighbouring pod** for a **2-pod practice round** — present your learning-goal proof and give each other free-style feedback.
 5. For the **final project, two pods merge into a Project Team of 4–6** — your neighbouring pod is the natural partner.
 
 <!-- Note: ask one pod to say aloud what they expect from the module. -->
