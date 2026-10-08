@@ -2,12 +2,7 @@
 
 [← Course workbook](../README.md) | [Module 1](./01-introduction-and-local-first.md) | [Syllabus](../syllabus.md)
 
-> **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
-
-> [!NOTE]
-> **How to read a module.** Every module opens with its **learning goals** — the contract between you and the instructor. You demonstrate those goals (in a conversation with the instructor and through your portfolio) rather than ticking off every task, so you may **modify, replace, or extend the tasks as long as you still reach the goals**: different datasets, different engines, deeper deep dives, and stretchers are all fair game.
->
-> Each module also carries a ***DRAFT BOUNDARY*** — a moving line that marks the content still under construction. This class is taught for the first time, by an instructor who is also new to teaching databases, so the boundary moves down as we refine things together and your input genuinely shapes it.
+> Each module opens with its **learning goals** and a ***DRAFT BOUNDARY*** marking the content still under construction. How learning goals are assessed, and why the tasks are negotiable, is explained once in the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations).
 
 ## Session roadmap (11 sessions + tutorials)
 

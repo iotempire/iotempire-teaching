@@ -4,14 +4,10 @@
 
 **Course placement:** Session 11 (demo + defense), built during Sessions 7–10. Worth **5 points (25 % of the base score)**.
 
-> **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
-
 > [!IMPORTANT]
 > **The syllabus is the single source of truth for assessment.** This page is the detailed specification and rubric. If this page and the [syllabus](../syllabus.md#final-project-requirements-5-points) ever disagree, the syllabus wins; this page is the working detail behind those requirements.
 
 ## 🎯 Learning Goals
-
-> **How these are assessed:** You earn credit through the project repository, a 5-page report, and a 15-minute live demo with an **individual oral defense** in Session 11 (see the [syllabus](../syllabus.md#final-project-requirements-5-points) for the assessment rules). **The learning goals, must-have criteria, and rubric are the contract: meet them, and you have met the module.** The studio guidance around them is a draft you may adapt with your team, as long as the must-haves and evidence remain covered.
 
 By the end of the final project, you can:
 1. Turn a stakeholder story into a data model, a schema, and named queries that answer a real question.
@@ -20,9 +16,6 @@ By the end of the final project, you can:
 4. Secure every external input with bound parameters and demonstrate why the naive alternative is injectable.
 5. Enforce domain rules in the database (constraints, triggers, or generated columns), not just in application code.
 6. Document and **defend** the design decisions and trade-offs you own as an individual.
-
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27. The studio guidance and logistics around the fixed criteria may still change as we refine the class together; the must-have criteria and rubric are settled. Different project scopes and deep dives are welcome — talk to the instructor early.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft (the must-have criteria and rubric are settled) ===== ⬇︎**
 

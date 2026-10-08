@@ -2,13 +2,9 @@
 
 [← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 7 →](./07-final-project-studio.md)
 
-> **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
-
 **Course placement:** Session 6. This module covers the legacy *Databases within Applications*, *NoSQL*, *ACID vs. BASE*, and *CAP theorem* chapters — reframed as a deliberate choice between several embedded engines.
 
 ## 🎯 Learning Goals
-
-> **How these are assessed:** You show that you have reached these goals in a short (~10-minute) checkpoint presentation in Session 8 — based on your portfolio and reflections, not on completing each task. See the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations) for the assessment rules. **These learning goals are the contract between you and the instructor: demonstrate them, and you have met the module.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 This module gives you the opportunity to explore polyglot persistence and achieve competency in matching a workload to a storage engine.
 
@@ -18,12 +14,6 @@ By the end of this module, you can:
 3. Implement and evaluate a **key-value store** for a simple access pattern.
 4. Explain **ACID vs. BASE** and the **CAP theorem** in terms of the systems you actually ran.
 5. Choose an engine for a workload and *defend the choice with a measurement*.
-
-> [!NOTE]
-> Task tiers. Tasks marked ★ Core must be completed by everyone. Tasks marked ◇ Stretcher are optional and are the natural trim point if time runs short — they are excellent bonus-task material.
-
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27 by an instructor who is **also teaching databases for the first time** and is learning this material alongside you. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Different deep dives and stretchers are welcome — your input can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 

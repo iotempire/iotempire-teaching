@@ -2,13 +2,9 @@
 
 [← Course workbook](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-data-contracts-and-legacy-schemas.md)
 
-> **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
-
 **Course placement:** Session 1 — the first class. We open with a short introduction to **how this class works** (Part A), then run this module's studio in the same session, together and in person.
 
 ## 🎯 Learning Goals
-
-> **How these are assessed:** You show that you have reached these goals in a short (~10-minute) checkpoint conversation with the instructor — based on your portfolio, not on completing every task. See the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations) for the assessment rules. **These learning goals are the contract between you and the instructor: demonstrate them, and you have met the module.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 By the end of this module, you can:
 1. Explain how this class works — the CBL/PBL philosophy, the portfolio-based *Kombinationsprüfung*, and the "moving bar" of a first-time course.
@@ -17,12 +13,6 @@ By the end of this module, you can:
 4. Explain — with a measurement, not a slide — the difference between an **embedded** database and a **client/server** database, and why most local apps should not run a server.
 5. Load real rows into SQLite and query them from Python using **bound parameters**.
 6. Take a first LLM-generated query, run it, and begin the habit that defines this course: **verify before you trust**.
-
-> [!NOTE]
-> Task tiers. Tasks marked ★ Core must be completed by everyone. Tasks marked ◇ Stretcher are optional and are the natural trim point if time runs short — they are excellent bonus-task material.
-
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27 by an instructor who is **also teaching databases for the first time** and is learning this material alongside you. This class is deliberately in flux: it will change as we go, and different deep dives, alternative tasks, and stretchers are genuinely welcome — your input can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 

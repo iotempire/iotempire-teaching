@@ -38,6 +38,8 @@ Ask questions at any time — in class or through the LMS — whenever a term or
 
 ### Databases — From Schema Audits to Measured, Embedded Persistence
 
+> **One question runs through the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
+
 A database is not a server you inherit and maintain until it dies. This course keeps the classical foundations that module 3386 requires — architecture of database systems, entity-relationship modeling, the relational model and relational algebra, normalization, standard SQL (DDL, DML, DQL, DCL), procedures and triggers, and NoSQL — but teaches them the way they are actually used: by modeling, querying, measuring, and shipping something local.
 
 Instead of memorizing syntax and proving it on an exam sheet, you will:
@@ -134,7 +136,7 @@ In a checkpoint, you:
 1. **Show your evidence** — portfolio entries, benchmark tables, SQL, `EXPLAIN QUERY PLAN` screenshots, and reflections for the modules being checked.
 2. **Prove the learning goals** — the goals listed at the top of each module. Walk the instructor through how your work shows you reached them, and answer questions about them (expect to run a query or read a plan live).
 
-Because assessment targets the learning goals, not task completion, you are free to skip tasks, fail at tasks, or add your own — and, for tasks that are still below a module's draft boundary, to **modify or replace them entirely, as long as you reach the same learning goals**. An honest, documented failure counts as exploration, not as a loss, and a convincing demonstration of deep understanding or analysis is rewarded generously.
+**Because assessment targets the learning goals — not task completion — the tasks are negotiable.** You are free to skip tasks, fail at tasks, or add your own, and for tasks below a module's draft boundary to **modify or replace them entirely, as long as you reach the same learning goals**. An honest, documented failure counts as exploration, not as a loss, and a convincing demonstration of deep understanding or analysis is rewarded generously.
 
 Practical notes:
 
@@ -142,6 +144,10 @@ Practical notes:
 - Expect to explain a design choice, justify an index, or debug a broken constraint live.
 - For a **neighbour checkpoint**, bring your `peer-verify-<module>.md` — both the one you wrote and the one you received.
 - If you cannot attend a checkpoint, talk to the instructor early; a missed checkpoint is handled like a missed deadline.
+
+### Task tiers: ★ Core and ◇ Stretcher
+
+Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one we consider *core* to the module — the straightforward way to reach its learning goals. It is not a hard requirement, but note the asymmetry: for an ordinary task you can argue “this was not needed to reach the goals” and we will usually accept it; for a **★ Core** task that argument is harder, so skipping one means convincing us you reached the same goals another way. A **◇ Stretcher** is optional — an extension, a deeper dive, or bonus material, and the natural trim point when time is short.
 
 ### Reflection format
 

@@ -2,13 +2,9 @@
 
 [← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-normalization-vs-denormalization.md)
 
-> **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
-
 **Course placement:** Session 4. This module covers the legacy *Standard SQL (DDL/DML/DCL)*, *data integrity*, and *triggers and procedures* chapters — reframed as integrity that runs **at the edge**, next to the data, without a server.
 
 ## 🎯 Learning Goals
-
-> **How these are assessed:** You show that you have reached these goals in a short (~10-minute) checkpoint presentation in Session 6 — based on your portfolio and reflections, not on completing every task. See the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations) for the assessment rules. **These learning goals are the contract between you and the instructor: demonstrate them, and you have met the module.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 This module gives you the opportunity to explore data-definition, manipulation, and integrity and achieve competency in enforcing rules where the data lives.
 
@@ -18,12 +14,6 @@ By the end of this module, you can:
 3. Write **triggers** that enforce domain rules and maintain audit/rollup tables automatically.
 4. Use **DML** correctly — including `UPSERT` (`ON CONFLICT`) for idempotent edge ingestion.
 5. Reason about **access control (DCL)**: who may read or write, and how that maps from server `GRANT`s to an embedded, local-first world.
-
-> [!NOTE]
-> Task tiers. Tasks marked ★ Core must be completed by everyone. Tasks marked ◇ Stretcher are optional and are the natural trim point if time runs short — they are excellent bonus-task material.
-
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27 by an instructor who is **also teaching databases for the first time** and is learning this material alongside you. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Different deep dives and stretchers are welcome — your input can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 

@@ -2,13 +2,9 @@
 
 [← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 3 →](./03-llm-assisted-sql-and-query-profiling.md)
 
-> **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
-
 **Course placement:** Session 2. This module covers the legacy *Conceptual Database Design* and *requirements analysis* chapters — but from the direction real engineers meet them: you inherit a schema that already exists and must reconstruct what it *means*.
 
 ## 🎯 Learning Goals
-
-> **How these are assessed:** You show that you have reached these goals in a short (~10-minute) checkpoint presentation in Session 6 — based on your portfolio and reflections, not on completing every task. See the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations) for the assessment rules. **These learning goals are the contract between you and the instructor: demonstrate them, and you have met the module.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 This module gives you the opportunity to explore conceptual data modeling and requirements analysis and achieve competency in reading, critiquing, and formalizing a data model.
 
@@ -18,12 +14,6 @@ By the end of this module, you can:
 3. Distinguish an **entity relationship** from an attribute, and a **surrogate key** from a natural key, and justify the choice.
 4. Express a schema as a **code-first data contract** (Pydantic / SQLAlchemy) that an application can enforce.
 5. Write the **requirements the schema forgot**: the business rules nobody encoded.
-
-> [!NOTE]
-> Task tiers. Tasks marked ★ Core must be completed by everyone. Tasks marked ◇ Stretcher are optional and are the natural trim point if time runs short — they are excellent bonus-task material.
-
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27 by an instructor who is **also teaching databases for the first time** and is learning this material alongside you. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Different deep dives and stretchers are welcome — your input can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 

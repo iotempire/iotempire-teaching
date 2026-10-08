@@ -2,13 +2,9 @@
 
 [← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 6 →](./06-polyglot-embedded-persistence.md)
 
-> **One question for the whole course:** *How does raw data become a trustworthy, fast, and safe answer — on a machine you actually own?*
-
 **Course placement:** Session 5. This module covers the legacy *Relational Model* and *Normalization (1NF–3NF)* chapters — reframed as an empirical performance-and-storage trade-off you measure yourself.
 
 ## 🎯 Learning Goals
-
-> **How these are assessed:** You show that you have reached these goals in a short (~10-minute) checkpoint presentation in Session 8 — based on your portfolio and reflections, not on completing every task. See the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations) for the assessment rules. **These learning goals are the contract between you and the instructor: demonstrate them, and you have met the module.** The tasks in this module are a draft — you are encouraged to modify, replace, or extend them as long as your alternative reaches the same goals. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 This module gives you the opportunity to explore functional dependencies and normalization and achieve competency in trading schema design against real, measured performance.
 
@@ -18,12 +14,6 @@ By the end of this module, you can:
 3. **Denormalize deliberately** to speed up a hot read path, and predict what it costs on writes and storage.
 4. **Measure** the trade-off: query latency, insert throughput, and database size — before and after.
 5. Decide, and *defend*, where a schema should sit on the normalization spectrum for a given workload.
-
-> [!NOTE]
-> Task tiers. Tasks marked ★ Core must be completed by everyone. Tasks marked ◇ Stretcher are optional and are the natural trim point if time runs short — they are excellent bonus-task material.
-
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27 by an instructor who is **also teaching databases for the first time** and is learning this material alongside you. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Different deep dives and stretchers are welcome — your input can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 

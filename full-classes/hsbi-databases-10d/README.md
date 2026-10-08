@@ -35,10 +35,7 @@ It also matters that we do this in person, together. A university class is at it
 And this class is always in flux — that is a feature, not a bug. No course is ever finished: every offering is adjusted while it runs, and each class teaches us as much as it teaches you.
 
 > [!NOTE]
-> **Every module begins with its learning goals.** Those goals are the agreement between you and the instructor — the things you should be able to do by the end. Because the goals are what matter, the tasks are negotiable: you may modify, replace, or extend them as long as you still reach the goals.
-
-> [!NOTE]
-> **This course is a draft in motion.** It is taught for the first time, by an instructor who is also new to teaching databases — so a ***DRAFT BOUNDARY*** in each module marks the content still under construction. The boundary moves down as we refine things together; bring your own deep dives and stretchers, because your input shapes the class.
+> **How the modules work.** Each module opens with its **learning goals** and a ***DRAFT BOUNDARY***; the tasks are negotiable as long as the goals are met. The [syllabus](./syllabus.md) is the single source of truth for the learning-goals contract, assessment, and the “draft in motion” model.
 
 ## How the course is organized
 

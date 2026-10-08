@@ -9,8 +9,6 @@
 
 ## 🎯 Learning Goals
 
-> **How these are assessed:** This studio builds the artifact for the final project, assessed in Session 11 through the project repository, the 5-page report, and the live demo with an **individual oral defense** (see the [syllabus](../syllabus.md#final-project-requirements-5-points) for the assessment rules). **The goals are the contract: demonstrate them and you have met the module.** The studio steps that follow are a draft you may adapt as a Project Team.
-
 By the end of these four sessions, your **Project Team** has:
 
 1. A **stakeholder story** that names a real person, a real problem, and the data that solves it.
@@ -18,12 +16,6 @@ By the end of these four sessions, your **Project Team** has:
 3. A **schema and an ingestion pipeline** checked into the project repository, reproducible from scratch.
 4. A **working vertical slice**: data goes in, one query comes out, one interface shows it.
 5. A **peer-reviewed draft** and a rehearsal plan for the Session 11 demo.
-
-> [!NOTE]
-> Task tiers. Tasks marked ★ Core are required. Tasks marked ◇ Stretcher are optional and are excellent bonus material.
-
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27 by an instructor who is **also teaching databases for the first time** and is learning this material alongside you. Everything below this line is a working draft and will likely change as we refine it together in class. Different deep dives and stretchers are welcome.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
