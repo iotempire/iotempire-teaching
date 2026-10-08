@@ -236,7 +236,7 @@ Play for about **30 minutes**, then answer these **tutorial questions** in `modu
 
 Then continue with the next tasks — but **leave the SQL Island tab open and finish the game at home**; you do not have to reach the end in class.
 
-*Portfolio evidence:* `module-01/sql-island.md` with your answers. (More practice games are in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).)
+*Portfolio evidence:* `module-01/sql-island.md` with your answers. Also add screenshots while playing the gaem (at adavanced later state). Also, when interested: More practice games are in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).
 
 ### ★ Task 5: Load real telemetry and query it from Python
 
