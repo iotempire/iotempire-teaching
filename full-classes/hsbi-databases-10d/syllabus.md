@@ -101,7 +101,7 @@ By the end of this course, you will be able to (mapped to the module-handbook co
 Assessment is conducted as a *Kombinationsprüfung* combining continuous portfolio documentation, studio lab work, reflection logbook entries, and a final project with an individual oral defense. Section 6 of the module handbook permits exactly this combination of project work and oral examination; the legacy 75 % written examination is not used.
 
 > [!IMPORTANT]
-> **Modules 1–6 are worth 11 of the 20 base points.** You earn them by demonstrating these modules' learning goals in short checkpoints — not by completing every task. (Module 1, the in-class Session 1, is checked in Session 2; Modules 2–6 follow at the two checkpoints.)
+> **Modules 1–6 are worth 11 of the 20 base points.** You earn them by demonstrating these modules' learning goals in short checkpoints — not by completing every task. Checkpoints are **tentatively at the start of day 4** (Modules 1–3) and **day 8** (Modules 4–6); see [How module points are earned](#how-module-points-are-earned-checkpoint-presentations).
 
 ### Points Breakdown
 
@@ -118,7 +118,7 @@ Assessment is conducted as a *Kombinationsprüfung* combining continuous portfol
 
 ### How module points are earned: checkpoint presentations
 
-You do not submit and grade every task. Instead, you earn a module's points in a short, personal checkpoint presentation (about 10 minutes) with the instructor, based on your portfolio and reflection logbook. Checkpoints happen in class and cover a few modules at a time (Module 1 in Session 2, Modules 2–4 in Session 6, Modules 5–6 in Session 8); the schedule is announced through the LMS.
+You do not submit and grade every task. Instead, you earn a module's points in a short checkpoint presentation — **10–12 minutes, including questions and feedback** — with the instructor, based on your portfolio and reflection logbook. Checkpoints are done **with your Task Pod, in person**, and cover a few modules at a time: **tentatively the start of day 4** (Modules 1–3) and **day 8** (Modules 4–6). Dates and slots are confirmed through the LMS.
 
 **Task Pods, and how checkpoints scale.** We work in **Task Pods** — small crews of **two or three** (three by default for this cohort). Our usual default is pairs, but with **more than ~40 students we default to three-person pods** to keep the number of checkpoints workable; a few **two-person pods** are welcome precisely because they reduce the instructor's checkpoint load, and a **fourth** podmate is allowed only by arrangement. The point is *small*, not rigid.
 
@@ -126,10 +126,12 @@ You do not submit and grade every task. Instead, you earn a module's points in a
 
 **These Task Pods are for the labs and checkpoints; the final project merges two pods into a Project Team of 4–6** (see [Final Project Requirements](#final-project-requirements-5-points)).
 
-**Two checkpoint formats — the “neighbour” option buys time at scale.** A **Task Pod** may choose either format for a given checkpoint:
+**Checkpoint formats.** A **Task Pod** may use either format:
 
-- **Single-pod checkpoint (default).** Your pod books a slot (~10 minutes) and walks the instructor through the module's learning goals from your portfolios.
-- **Neighbour checkpoint (optional; recommended when the cohort is large).** Two neighbouring pods share **one slot**. *Before* the slot, each pod **pre-verifies the neighbour's work** against the module's learning goals using the [peer-verification checklist](./modules/Z-resources-bank.md#peer-verification-the-neighbour-checkpoint-checklist), and commits the findings as `peer-verify-<module>.md` to **both** portfolios (reviewer's and reviewed's). *In* the slot, the instructor **deep-assesses one half of each pod** — the half that presents live — and takes the committed peer-verification as the evidence for the other half. So two pods are seen per slot while the instructor's live assessment covers roughly **one pod's worth of people**. The presenting halves **swap at the next checkpoint**, so across the semester every student is assessed live by the instructor at least once and peer-verified at least once.
+- **Pod checkpoint (default).** Your pod books a **10–12 minute** slot and walks the instructor through the module's learning goals from your portfolios.
+- **2-pod practice round (for larger cohorts).** Two pods pair up: each pod presents its learning-goal proof from its portfolios to the other pod, and the other pod gives **free-style feedback and questions** — still checking each other on how well the goals were proven. The instructor assesses from the presentations and the portfolios.
+
+**Day 4 — a 2-pod practice round (30 minutes).** The first checkpoint runs as a **30-minute practice round** at the start of day 4. Two pods pair up; each pod presents from its **existing portfolios** for **10–15 minutes**, and the other pod gives **free-style feedback and questions**, checking how well the goals were proven. The instructor assesses from the presentations and the portfolios; pairings can rotate at the next round.
 
 In a checkpoint, you:
 
@@ -142,8 +144,8 @@ Practical notes:
 
 - Bring your portfolio (and your laptop with the SQLite/DuckDB databases open) to the checkpoint.
 - Expect to explain a design choice, justify an index, or debug a broken constraint live.
-- For a **neighbour checkpoint**, bring your `peer-verify-<module>.md` — both the one you wrote and the one you received.
-- If you cannot attend a checkpoint, talk to the instructor early; a missed checkpoint is handled like a missed deadline.
+- For a **2-pod practice round**, bring your portfolio ready to present, and expect to give — and take — free-style feedback.
+- If you **cannot attend in person**, talk to the instructor early and submit a **7–10 minute video** plus a **3–5 page explained excerpt** from your portfolio for review. You get **less feedback** than in an in-person checkpoint; a missed in-person checkpoint without such a submission is handled like a missed deadline.
 
 ### Task tiers: ★ Core and ◇ Stretcher
 
@@ -197,11 +199,11 @@ The full roadmap — with a one-line summary and learning goals for every studio
 | 1 | [Module 1 — Introduction & Local-First Foundations](./modules/01-introduction-and-local-first.md) | How the class works, then SQLite vs. server overkill: stand up an embedded DB in-process, load edge telemetry, and audit an LLM's first query. |
 | 2 | [Module 2 — Data Contracts & Reading Legacy Schemas](./modules/02-data-contracts-and-legacy-schemas.md) | Reconstruct an ER model from a legacy schema, find integrity bugs, draft a code-first data contract. |
 | 3 | [Module 3 — LLM-Assisted SQL & Query Profiling](./modules/03-llm-assisted-sql-and-query-profiling.md) | Generate complex SQL with an LLM, then read `EXPLAIN QUERY PLAN`, test parameterization, benchmark an index, and drill injection. |
-| 4 | [Module 4 — Data Integrity, Constraints & Edge Triggers](./modules/04-integrity-constraints-and-triggers.md) | `CHECK`/`UNIQUE`/`FK`, `STRICT` tables, generated columns, and a trigger that enforces edge telemetry rules. |
+| 4 | [Module 4 — Data Integrity, Constraints & Edge Triggers](./modules/04-integrity-constraints-and-triggers.md) **+ Checkpoint 1** | *30 min peer checkpoint first (two pods, Modules 1–3), then:* `CHECK`/`UNIQUE`/`FK`, `STRICT` tables, generated columns, and a trigger that enforces edge telemetry rules. |
 | 5 | [Module 5 — Normalization vs. Denormalization Benchmarking Studio](./modules/05-normalization-vs-denormalization.md) | Normalize to 3NF, denormalize on purpose, and measure read/write/storage trade-offs in SQLite. |
-| 6 | [Module 6 — Polyglot & Embedded Persistence](./modules/06-polyglot-embedded-persistence.md) **+ Checkpoint 1** | JSON documents in SQLite, DuckDB analytics over Parquet/CSV, a key-value comparison; then checkpoint presentations for Modules 2–4. |
+| 6 | [Module 6 — Polyglot & Embedded Persistence](./modules/06-polyglot-embedded-persistence.md) | JSON documents in SQLite, DuckDB analytics over Parquet/CSV, a key-value comparison. |
 | 7 | [Module 7 — Final Project Studio — kickoff & build](./modules/07-final-project-studio.md) | Story and Project Teams, requirement mapping, schema and ingestion build. |
-| 8 | [Module 7 — Final Project Studio — build & integrate](./modules/07-final-project-studio.md) **+ Checkpoint 2** | Build the vertical slice and integrate the interface; then checkpoint presentations for Modules 5–6. |
+| 8 | [Module 7 — Final Project Studio — build & integrate](./modules/07-final-project-studio.md) **+ Checkpoint 2** | Checkpoint 2 first (Modules 4–6), then build the vertical slice and integrate the interface. |
 | 9 | [Module 7 — Final Project Studio — integrity, security & evaluation](./modules/07-final-project-studio.md) | Constraints/triggers, a full parameterization pass, indexing proof, and benchmark evidence. |
 | 10 | [Module 7 — Final Project Studio — peer review & rehearsal](./modules/07-final-project-studio.md) | Peer review, fixes, and a timed 15-minute demo dry run. |
 | 11 | [Module 8 — Live Demos & Oral Defenses](./modules/08-final-project.md) | 15-minute Project Team demo + individual oral defense; retrospective. |

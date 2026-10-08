@@ -154,18 +154,6 @@ The module stories share a small cast of named (fictional) organizations and peo
 | 3 | **Frachtflow** — a logistics startup | **Nils Bergmann** (lead developer) | — |
 | 7 (worked example) | **Füllwerk Gütersloh** — a bottling plant | **Marta** (night shift) | Gütersloh |
 
-## Peer verification: the neighbour-checkpoint checklist
-
-*Optional — see the [checkpoint formats in the syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations).* When two neighbouring **Task Pods** pair up for a checkpoint, each pod **pre-verifies the other's work** against the module's learning goals and commits the result as `peer-verify-<module>.md` to **both** portfolios. Review it the way an engineer would — run it, do not just read it:
-
-- **Does it rebuild?** Clone/fetch their repository and follow the README; note the first command that fails.
-- **Is every claim evidenced?** Pick one performance or correctness claim and find the benchmark, timing, or query plan behind it.
-- **Is anything unsafe?** Look for string-built SQL (f-strings, `%`, concatenation) instead of bound parameters.
-- **Can the schema record wrong data?** Find one missing constraint and propose the fix.
-- **Does it reach the goals?** List the module's learning goals and mark each *shown*, *partly shown*, or *not shown*.
-
-Write findings as: **what you checked, what you found, what you would change.** Be specific and kind — you will be peer-reviewed the same way. At the next checkpoint the presenting halves swap, so everyone is reviewed and reviews.
-
 ## Troubleshooting
 
 | Symptom | Likely cause | Fix |
