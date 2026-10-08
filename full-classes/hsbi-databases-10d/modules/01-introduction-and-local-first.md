@@ -99,7 +99,7 @@ Then the instructor reveals the table and we compare:
 
 ## 🛠️ In-Class Studio: Your First Local-First Database — **Challenging**
 
-*Software:* a laptop with Python 3.11+ and Git. You will use a terminal for the SQL labs, but you can do the Git work from your editor or the browser. No server, no admin rights required.
+*Software:* a laptop with Python 3.14 and Git. You will use a terminal for the SQL labs, but you can do the Git work from your editor or the browser. No server, no admin rights required.
 
 ### ★ Task 1: Form your pod and create your portfolio
 
@@ -180,13 +180,24 @@ uv add duckdb datasette sqlite-utils pydantic sqlalchemy
 >
 > **If `uv add` fails to resolve or build a package,** confirm the interpreter is really installed with `uv python list` and re-run. A brand-new Python release can run ahead of prebuilt wheels, so `uv` falls back to building from source and may fail; pinning a widely-supported version avoids that. We standardize on **Python 3.14** because the whole stack installs cleanly there (verified for this course). If you change the Python, change it in `.python-version` **and** re-run `uv lock` so the lockfile matches.
 
-**3. Install the command-line tools globally** (isolated, available from any folder):
+**3. Install the command-line tools — and the `sqlite3` shell.** Install the Python-based helpers globally (isolated, available from any folder):
 
 ```sh
 uv tool install litecli       # a friendly interactive SQLite shell
 uv tool install datasette     # explore/publish SQLite databases
 uv tool install sqlite-utils  # SQLite from the command line
 ```
+
+Then make sure the **`sqlite3` command-line shell** itself is present — we lean on it all term (dot-commands, `.import`, `.timer`, `.dump`). Check it:
+
+```sh
+sqlite3 --version
+```
+
+- **macOS:** already installed (the system ships one); for a current build, `brew install sqlite`.
+- **Linux:** Debian/Ubuntu `sudo apt install sqlite3` · Fedora/RHEL `sudo dnf install sqlite`.
+- **Windows:** **not** installed by default — `winget install SQLite.SQLite`, `scoop install sqlite`, or use **WSL** / **Git Bash** (which usually ships it).
+- **Can't install it?** Python's built-in `sqlite3` and the `sqlite-utils` / `litecli` tools cover all the *SQL*; only the shell's *dot-commands* are shell-specific. You will meet those in the next task.
 
 **4. Verify everything with one script (your first Python test).** Save this as `uv-check.py` in your portfolio and run it *inside the project*:
 
@@ -211,8 +222,6 @@ uv run uv-check.py
 > [!NOTE]
 > **Run Python through `uv run`.** From here on, run Python as `uv run python yourscript.py` (or `uv run uv-check.py`) instead of `python3`. That guarantees everyone uses the same fixed Python and the pinned libraries — no “works on my machine”.
 >
-> **The `sqlite3` command-line shell.** macOS and most Linux distributions ship a `sqlite3` shell; Windows does not. Install it (`winget install SQLite.SQLite` or `scoop install sqlite` on Windows), or use the `litecli` / `sqlite-utils` tools `uv` just installed — they cover the same ground. Everything also works through Python's built-in `sqlite3` module with no shell at all.
->
 > **`uvx` (run without installing).** `uvx datasette module-01/telemetry.db` runs a tool on the fly — handy for a quick look without a permanent install.
 
 *Portfolio evidence:* the `uv run uv-check.py` output, plus committed `pyproject.toml` and `uv.lock` files (do **not** commit `.venv/`).
@@ -230,7 +239,60 @@ uv run uv-check.py
 >
 > Read every `uv run python …` below as “run Python inside your course environment” — in Anaconda, activate the environment and run `python …` instead.
 
-### ★ Task 4: Play SQL Island (~30 minutes)
+### ★ Task 4: Meet the `sqlite3` shell
+
+The `sqlite3` shell is a tool with its own commands — **dot-commands**, starting with `.` — that are *not* SQL. You will use them all term, so learn the handful of essentials now. This tour is self-contained: it uses a throwaway database.
+
+Start an interactive session:
+
+```sh
+sqlite3 module-01/tour.db
+```
+
+At the `sqlite>` prompt, type these (dot-commands need no semicolon; SQL does):
+
+```sql
+.help                     -- list every dot-command
+.tables                   -- (empty so far)
+CREATE TABLE reading(machine TEXT, vib REAL);
+INSERT INTO reading VALUES ('cnc-01', 1.2), ('cnc-02', 2.4), ('cnc-01', 0.9);
+.tables                   -- now shows: reading
+.schema reading           -- the CREATE statement that made it
+.mode column              -- readable, aligned columns
+.headers on
+SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;
+.timer on
+SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;   -- now with timing
+.quit
+```
+
+> [!IMPORTANT]
+> **About `.timer on` — and why you might "see nothing".** `.timer` is a **shell dot-command**, not SQL: it does **not exist in Datasette** (or in a Python string), and it is not something you `SELECT`. When it is on, the shell prints a `Run Time: real … user … sys …` line *after* each statement. The usual reasons it looks like it does nothing:
+> - you issued a **one-shot** query, `sqlite3 db "SELECT …"` — a dot-command is a *setting*, so enable it in the same run: `sqlite3 -cmd ".timer on" db "SELECT …"`; or
+> - you were in a different tool (**Datasette**, `litecli`, Python), where `.timer` is simply not a command; or
+> - the query is so fast that `real` rounds to `0.000…` — that is a real measurement, not a failure (repeat the query in a loop to make it visible).
+> `.timer` reports **CPU** time (`user`/`sys`), not wall-clock. For trustworthy **wall-clock** numbers — and a method that also works in Datasette and Python — see [Measuring query time](./Z-resources-bank.md#measuring-query-time).
+
+**Capture a session to a file** (excellent portfolio evidence). The shell can redirect its output:
+
+```sql
+.output module-01/shell-tour.txt   -- everything after this is written to the file
+.tables
+.schema reading
+SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;
+.dump                              -- the whole schema + data as SQL
+.output stdout                     -- back to the screen
+.quit
+```
+
+**Your drill:** using only the shell, produce in `module-01/`:
+1. `shell-tour.txt` — a captured session showing `.tables`, `.schema`, and one query run under `.timer on`;
+2. `tour.sql` — a `.dump` of `tour.db` (use `.output module-01/tour.sql` before `.dump`);
+3. one sentence: which dot-command you found most useful, and why.
+
+*Portfolio evidence:* `module-01/shell-tour.txt` and `module-01/tour.sql`.
+
+### ★ Task 5: Play SQL Island (~30 minutes)
 
 Before you write any generated SQL, build some *intuition* by playing a game. [SQL Island](https://sql-island.informatik.uni-kl.de/) is a free, browser-based text adventure that teaches the basics of SQL — no install, no account. (It defaults to German; switch the language in the menu.)
 
@@ -245,7 +307,7 @@ Then continue with the next tasks — but **leave the SQL Island tab open and fi
 
 *Portfolio evidence:* `module-01/sql-island.md` with your answers, plus a screenshot of your progress while playing the game (one at a later, advanced stage). More practice games are in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games) if you want more.
 
-### ★ Task 5: Load real telemetry and query it from Python
+### ★ Task 6: Load real telemetry and query it from Python
 
 **Step 1 — create the folder and the generator.** Save the following as `module-01/generate_telemetry.py`. It manufactures a few days of machine-shop readings from the Wittkamp story — one reading every few seconds, three machines. `cnc-02` develops a slow **bearing wear**, so its vibration creeps toward the alarm threshold. The random seed is fixed, so everyone gets the same numbers.
 
@@ -335,7 +397,7 @@ uv run python module-01/load_telemetry.py
 >
 > **Windows:** the `sqlite3` shell is not installed by default, and the `<<'SQL' … SQL` heredoc form used in later modules is a bash/zsh feature. On Windows, run such blocks in **Git Bash** or **WSL**, or save the block as a `.sql` file and load it with the shell's `.read file.sql`. The pure-Python loader above sidesteps all of this.
 
-**Step 3 — answer the shop manager's real questions.** Run each query in your SQLite client and save the output. Note how long each takes by wrapping it with `.timer on`:
+**Step 3 — answer the shop manager's real questions.** Run each query in your SQLite client and save the output. Note how long each takes — in the `sqlite3` shell, put `.timer on` on its own line first (it prints a `Run Time:` line of CPU time after each statement). For wall-clock numbers, or when working in Datasette, use [Measuring query time](./Z-resources-bank.md#measuring-query-time):
 
 ```sql
 .timer on
@@ -372,7 +434,7 @@ sqlite3 module-01/telemetry.db "SELECT COUNT(*) FROM readings;"
 
 *Portfolio evidence:* the generator script, the `.db` file size and row count, and the three query results. One sentence: *what would this dataset cost to run in the cloud, and who would pay for it?*
 
-### ★ Task 6: The first LLM-assisted SQL profiling task
+### ★ Task 7: The first LLM-assisted SQL profiling task
 
 This is the habit the whole course is built on.
 
@@ -389,7 +451,7 @@ This is the habit the whole course is built on.
 
 *Portfolio evidence:* the exact prompt you used, the generated SQL, the `EXPLAIN QUERY PLAN` output, and your verification paragraph.
 
-### ◇ Task 7 (Stretcher): Publish your data with Datasette
+### ◇ Task 8 (Stretcher): Publish your data with Datasette
 
 Turn the database into something a colleague can browse in a browser:
 
@@ -399,6 +461,45 @@ uvx datasette module-01/telemetry.db -o
 
 Explore the table, filter by machine, and export one filtered view as CSV. Note the URL of a single row.
 *Portfolio evidence:* a screenshot of the Datasette table view and the exported CSV.
+
+### ◇ Task 9 (Optional): `sqlite3` shell power moves
+
+Push the shell well past the basics — every one of these is something you will reach for again.
+
+- **Import a CSV without any Python:** create `readings`, then `.mode csv` and `.import --skip 1 module-01/telemetry.csv readings`.
+- **Keep your SQL in a file and replay it:** put your queries in `module-01/queries.sql` and run `sqlite3 module-01/telemetry.db < module-01/queries.sql` (or `.read module-01/queries.sql` at the prompt).
+- **Try the output modes:** `.mode box` (default), `.mode json`, `.mode markdown`, `.mode insert`, and save one result with `.once module-01/result.json`.
+- **Own the file:** make a copy with `.backup module-01/backup.db`; compact with `VACUUM INTO 'module-01/compact.db'`; compare the file sizes; ask *why* they differ (or don't).
+- **Work across files:** `ATTACH 'module-01/tour.db' AS t;` and join a table from each database.
+
+*Portfolio evidence:* `module-01/shell-power.md` — the commands you ran and one surprising finding (e.g. how the `.mode json` output differs from `.mode markdown`, or what `VACUUM` changed).
+
+### ◇ Task 10 (Optional): Datasette — facets, filters, and the JSON API
+
+Run `uvx datasette module-01/telemetry.db -o` and explore the web side properly:
+
+- **Filter** by a column and study the URL it produces (e.g. `?machine=cnc-02`) — the UI is just building query strings.
+- **Facet**: click *Facet by* on a column (or append `?_facet=vib_rms`) and read the counts.
+- **Query**: run the Task 6 dashboard on the `/-/query` page, then use the **Download** links to export the result as CSV and JSON.
+- **The API is the same pages**: fetch `/telemetry/readings.json?_size=5` (a table) and `/-/query.json?sql=SELECT+…` (a query) — anything you can read in the browser, you can `curl` as JSON.
+- Read `datasette --help` and try `--metadata`, and `-h 0.0.0.0 -p 8001` (only if you want to reach it from another machine).
+
+*Portfolio evidence:* `module-01/datasette.md` with the three URLs you used (table, facet, query-as-JSON) and a screenshot.
+
+### ◇ Task 11 (Optional): Datasette Lite & `sqlite-utils` — the same job, other tools
+
+- **No install at all?** Open **Datasette Lite** ([lite.datasette.io](https://lite.datasette.io/)) — Datasette compiled to WebAssembly — and load a SQLite file (or a CSV/JSON URL) entirely in the browser. Run one of your queries there.
+- **Do the whole pipeline from the terminal with `sqlite-utils`:**
+  ```sh
+  sqlite-utils insert module-01/tour.db readings module-01/telemetry.csv --csv --detect-types
+  sqlite-utils schema module-01/tour.db
+  sqlite-utils rows module-01/tour.db readings --csv | head
+  sqlite-utils enable-fts module-01/tour.db readings machine
+  sqlite-utils search module-01/tour.db readings cnc
+  ```
+- **Compare the three ways** to build and query the same table — `sqlite3`, `sqlite-utils`, and Python's `sqlite3` module. Write 3–4 sentences: which had the fewest keystrokes, which was the clearest, and when you would pick each.
+
+*Portfolio evidence:* `module-01/toolbox.md` with your notes and (for Datasette Lite) a screenshot.
 
 ## ✅ What must be committed to your portfolio
 
@@ -411,13 +512,15 @@ Commit the following after Session 1 (the `uv` project files sit at the reposito
 - [ ] `module-01/sql-island.md` — your answers to the tutorial questions.
 - [ ] `pyproject.toml` and `uv.lock` (reproducible `uv` environment; **`.venv/` stays out of Git**).
 - [ ] `uv-check.py` and its `uv run uv-check.py` output.
+- [ ] `shell-tour.txt` and `tour.sql` — your captured `sqlite3` shell session and a `.dump`.
 - [ ] `generate_telemetry.py` — the telemetry generator.
 - [ ] `load_telemetry.py` — the CSV→SQLite ingestion loader.
 - [ ] `telemetry.db` size + row count (a screenshot or text file; **do not commit the `.db` file itself**).
-- [ ] Query outputs for Tasks 5 and 6, with timings.
+- [ ] Query outputs for Tasks 6 and 7, with timings.
 - [ ] Your one-paragraph **AI verification** note (what the model got right/wrong and how you checked).
 - [ ] `reflection.md` — your first logbook entry in the course format: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 - [ ] (Stretcher) Datasette screenshot and exported CSV.
+- [ ] (Optional) evidence for whichever of Tasks 9–11 you did (`shell-power.md`, `datasette.md`, `toolbox.md`).
 
 > [!IMPORTANT]
 > Never commit `*.db`, `*.duckdb`, or `.env` files. A reviewer must be able to rebuild your database from your scripts — that reproducibility is part of the assessment.

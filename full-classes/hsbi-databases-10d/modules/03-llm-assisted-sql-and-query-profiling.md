@@ -57,7 +57,7 @@ Both failures have the same root: **nobody profiled or parameterized the generat
 
 ## 🛠️ Studio Lab: Generate, Profile, and Secure — **Challenging**
 
-*Software:* `sqlite3` CLI and Python 3.11+. Keep `.timer on` in the shell.
+*Software:* `sqlite3` CLI and Python 3.14. Keep `.timer on` in the shell (see [Measuring query time](./Z-resources-bank.md#measuring-query-time)).
 
 ### Setup
 

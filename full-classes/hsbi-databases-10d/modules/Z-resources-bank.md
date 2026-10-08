@@ -14,8 +14,8 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # Windows (PowerShell):
 #   powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
-uv python install 3.12           # download + manage a fixed Python
-uv python pin 3.12               # pin it for this project (.python-version)
+uv python install 3.14           # download + manage a fixed Python (3.14 = tested with this stack)
+uv python pin 3.14               # pin it for this project (.python-version)
 uv init --name databases-portfolio    # create the project (skip if pyproject.toml exists)
 uv add duckdb datasette sqlite-utils pydantic sqlalchemy
 uv tool install litecli          # global CLI tools (isolated)
@@ -26,7 +26,7 @@ uv run python script.py          # run anything inside the pinned environment
 uvx datasette app.db             # run a tool without installing it
 ```
 
-> Commit `pyproject.toml` and `uv.lock`; never commit `.venv/`. On Windows, get the `sqlite3` shell with `winget install SQLite.SQLite`, or just use the `litecli` / `sqlite-utils` tools.
+> Commit `pyproject.toml` and `uv.lock`; never commit `.venv/`. The **`sqlite3` shell** is built into macOS and most Linux distros; on Windows install it (`winget install SQLite.SQLite`, `scoop install sqlite`, or use WSL/Git Bash). Pin the Python by hand (`uv python pin 3.14`); let `uv.lock` pin the libraries.
 
 ### Python — SQLite (standard library)
 
@@ -65,13 +65,41 @@ con.execute("COPY (SELECT * FROM edge.reading) TO 'readings.parquet' (FORMAT par
 ```sh
 sqlite3 app.db ".tables"                 # list tables
 sqlite3 app.db ".schema reading"         # show DDL
-sqlite3 app.db ".mode csv" ".import file.csv tbl"   # bulk import
-sqlite3 app.db ".timer on"               # time each statement
+sqlite3 -cmd ".mode csv" -cmd ".import file.csv tbl" app.db   # bulk import (dot-commands need -cmd for one-shot runs)
+sqlite3 -cmd ".timer on" app.db "SELECT ..."   # time one statement (dot-commands are settings, not SQL)
 sqlite3 app.db "EXPLAIN QUERY PLAN SELECT ..."
 datasette app.db -o                      # browse in the browser; add ?_size=100 to page
 sqlite-utils insert app.db tbl data.csv --csv
 sqlite-utils memory data.csv "SELECT count(*) FROM data"   # query a CSV in one command
 ```
+
+### Measuring query time
+
+`EXPLAIN QUERY PLAN` shows *what* the planner will do; timing shows *how long* it took. You want both. There is no single command that works everywhere — use the one that fits where you are:
+
+| Where you are | How to time it |
+|---|---|
+| **`sqlite3` shell** | `.timer on` on its own line. Prints a `Run Time: real … user … sys …` line after each statement (it goes to the normal output, so `.output` and redirects capture it). It is **CPU** time, not wall-clock. |
+| **One-shot `sqlite3`** | Dot-commands are *settings*, not SQL — pass them with `-cmd`: `sqlite3 -cmd ".timer on" app.db "SELECT …"`. |
+| **macOS / Linux CLI** | `time sqlite3 app.db "SELECT …"` (wall-clock; includes a few ms of process start-up). |
+| **Windows PowerShell** | `Measure-Command { sqlite3 app.db "SELECT …" }`. |
+| **Python (portable, recommended)** | `time.perf_counter()` around the query — wall-clock, works on every OS and everywhere. |
+| **Datasette** | No built-in timer. Use the `/-/query` page plus your own stopwatch, or time the same query from Python. |
+
+The portable timer (use this for the Module 3 index benchmarks):
+
+```python
+import sqlite3, time
+
+conn = sqlite3.connect("module-03/warehouse.db")
+sql = "SELECT city, COUNT(*) FROM customer GROUP BY city"
+
+t0 = time.perf_counter()
+rows = conn.execute(sql).fetchall()
+print(f"{time.perf_counter() - t0:.4f}s  ({len(rows)} rows)")
+```
+
+> **Tips for numbers you can trust.** Run each query several times and report the **median** — the first run pays for disk cache and plan warm-up. A very fast query can be *faster* than the timer's resolution, so `.timer on`'s CPU figure or a repeat-in-a-loop makes the signal visible. And time it in the client you actually ship.
 
 ## Git & GitHub primer (template, editor, Markdown, conflicts)
 

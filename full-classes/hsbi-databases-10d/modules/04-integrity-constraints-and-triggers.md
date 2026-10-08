@@ -46,7 +46,7 @@ The module handbook lists integrity as a first-class topic. In relational terms 
 
 ## 🛠️ Studio Lab: Make the Database Refuse to Lie — **Challenging**
 
-*Software:* `sqlite3` CLI and Python 3.11+.
+*Software:* `sqlite3` CLI and Python 3.14.
 
 ### Setup
 

@@ -44,7 +44,7 @@ You are the database engineer now. Your job is to **audit the schema**, reconstr
 
 ## 🛠️ Studio Lab: Audit a Legacy Schema — **Challenging**
 
-*Software:* the `sqlite3` CLI and Python 3.11+. Everything runs locally on a file you create.
+*Software:* the `sqlite3` CLI and Python 3.14. Everything runs locally on a file you create.
 
 ### Setup
 

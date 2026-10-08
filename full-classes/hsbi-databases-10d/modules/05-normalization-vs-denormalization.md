@@ -49,7 +49,7 @@ The operations lead, **Yasmin Kaya**, offers the classic shortcut: *"just copy t
 
 ## 🛠️ Studio Lab: Normalize, Denormalize, and Measure — **Challenging**
 
-*Software:* the `sqlite3` CLI and Python 3.11+. Use `.timer on` in SQLite or Python's `time.perf_counter()`.
+*Software:* the `sqlite3` CLI and Python 3.14. Use `.timer on` in SQLite, or Python's `time.perf_counter()` — see [Measuring query time](./Z-resources-bank.md#measuring-query-time).
 
 ### Setup
 

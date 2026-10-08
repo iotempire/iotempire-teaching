@@ -175,7 +175,7 @@ For each teaching block, write one logbook entry answering these four questions:
 | Layer | Tool | Notes |
 |---|---|---|
 | Environment manager | **`uv`** (Astral) | Installs a fixed Python plus all libraries and CLI tools in one step — the same commands on Windows, macOS, and Linux. Set up in Module 1. |
-| Language | **Python 3.12** | The glue for every lab; `sqlite3` is in the standard library. Install and pin it with `uv python install 3.12`. |
+| Language | **Python 3.14** | The glue for every lab; `sqlite3` is in the standard library. Install and pin it with `uv python install 3.14`. |
 | Transactional DB | **SQLite 3.38+** | JSON1 built in; use `STRICT` tables and generated columns. Ships as the `sqlite3` CLI and the Python `sqlite3` module. |
 | Analytical DB | **DuckDB** | In-process columnar engine; reads Parquet/CSV directly and can attach a SQLite file. |
 | Exploration & publishing | **Datasette** + **sqlite-utils** | One command turns a `.db` into an explorable site and JSON API. Datasette Lite runs in the browser. |
@@ -249,7 +249,7 @@ All assessments are based on your personal GitHub Portfolio (created from the [i
 
 ## Classroom Policies & Success Strategies
 
-1. **Active participation:** Bring your laptop with the [uv-managed toolchain](./modules/01-introduction-and-local-first.md) set up (Python 3.12, SQLite, DuckDB, Datasette). The checkpoints and demos happen live on your machine.
+1. **Active participation:** Bring your laptop with the [uv-managed toolchain](./modules/01-introduction-and-local-first.md) set up (Python 3.14, SQLite, DuckDB, Datasette). The checkpoints and demos happen live on your machine.
 2. **Data hygiene:** Never commit databases, credentials, or personal data. Use the provided `.gitignore`. Generate ingestion reproducibly from a script so a reviewer can rebuild your database.
 3. **Collaborate within your pod:** Two sets of eyes on a silent `NULL` or a broken join save the afternoon. Debug together, review each other's query plans, and share discoveries.
 4. **Measurement mindset:** A performance claim without a number, a dataset size, and a plan is an opinion. Write down *what* you measured, *with what*, and *under what conditions*.

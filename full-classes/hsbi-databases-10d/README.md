@@ -53,7 +53,7 @@ The full module list, one-line summaries, and the session roadmap live in the **
 
 ## What you will work with
 
-You set the whole toolchain up with one command using **[`uv`](https://docs.astral.sh/uv/)** — a fixed Python plus SQLite, DuckDB, Datasette, and more, with the same commands on Windows, macOS, and Linux. Everything is open-source and runs offline on your laptop: **Python 3.12** (uv-managed), **SQLite**, **DuckDB**, **Datasette**, **Git/GitHub**, and an editor such as **VSCode** or **Zed**. You will use AI copilots (ChatGPT, Claude, DeepSeek, or a local model) to *draft* SQL — and then verify it, which is exactly the skill this course builds. The [syllabus](./syllabus.md#tools--environment) lists the exact toolchain, and [Module 1](./modules/01-introduction-and-local-first.md) sets it up step by step.
+You set the whole toolchain up with one command using **[`uv`](https://docs.astral.sh/uv/)** — a fixed Python plus SQLite, DuckDB, Datasette, and more, with the same commands on Windows, macOS, and Linux. Everything is open-source and runs offline on your laptop: **Python 3.14** (uv-managed), **SQLite**, **DuckDB**, **Datasette**, **Git/GitHub**, and an editor such as **VSCode** or **Zed**. You will use AI copilots (ChatGPT, Claude, DeepSeek, or a local model) to *draft* SQL — and then verify it, which is exactly the skill this course builds. The [syllabus](./syllabus.md#tools--environment) lists the exact toolchain, and [Module 1](./modules/01-introduction-and-local-first.md) sets it up step by step.
 
 ## For instructors
 

@@ -47,7 +47,7 @@ Trying to force all three into one relational schema is the same mistake as Cirr
 
 ## 🛠️ Studio Lab: Three Engines, One Workload Each — **Challenging**
 
-*Software:* `sqlite3` CLI, Python 3.11+ with `duckdb` (`pip install duckdb`).
+*Software:* `sqlite3` CLI, Python 3.14 with `duckdb` (installed via `uv`).
 
 ### ★ Task 1: JSON metadata inside SQLite
 
