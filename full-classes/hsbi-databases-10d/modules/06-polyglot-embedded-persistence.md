@@ -92,25 +92,30 @@ Note the plan: if the expression in the index matches the expression in the `WHE
 Move the readings into a Parquet file and analyze them with DuckDB — the analytical workload from the story. This reuses the `telemetry.db` you built in Module 1.
 
 ```python
-# module-06/analytics.py
+# module-06/analytics.py — run from anywhere:  uv run python module-06/analytics.py
 import time
+from pathlib import Path
 import duckdb
+
+root = Path(__file__).resolve().parent.parent          # the portfolio repo root
+sqlite_db = root / "module-01" / "telemetry.db"        # built in Module 1
+parquet = root / "module-06" / "readings.parquet"
 
 con = duckdb.connect()                       # in-process, embedded, no server
 
 # 1. Attach the SQLite file from Module 1 (the sqlite extension reads it in place):
-con.execute("INSTALL sqlite")
+con.execute("INSTALL sqlite")                # first run downloads + caches this extension
 con.execute("LOAD sqlite")
-con.execute("ATTACH 'module-01/telemetry.db' AS edge (TYPE sqlite)")
+con.execute(f"ATTACH '{sqlite_db}' AS edge (TYPE sqlite)")
 
 # 2. Materialize an analytical copy to Parquet at the edge — one file, no server:
-con.execute("COPY (SELECT * FROM edge.readings) TO 'module-06/readings.parquet' (FORMAT parquet)")
+con.execute(f"COPY (SELECT * FROM edge.readings) TO '{parquet}' (FORMAT parquet)")
 
 # 3. Query the Parquet file directly — no import step, no server:
 t0 = time.perf_counter()
-parquet = con.execute("""
+from_parquet = con.execute(f"""
     SELECT machine, AVG(temp_c) AS avg_temp, MAX(vib_rms) AS peak_vib, COUNT(*) AS n
-    FROM 'module-06/readings.parquet'
+    FROM '{parquet}'
     GROUP BY machine
     ORDER BY peak_vib DESC
 """).fetchall()
@@ -118,7 +123,7 @@ t_parquet = time.perf_counter() - t0
 
 # 4. The same aggregation straight from the SQLite file, for comparison:
 t0 = time.perf_counter()
-sqlite = con.execute("""
+from_sqlite = con.execute("""
     SELECT machine, AVG(temp_c) AS avg_temp, MAX(vib_rms) AS peak_vib, COUNT(*) AS n
     FROM edge.readings
     GROUP BY machine
@@ -126,8 +131,8 @@ sqlite = con.execute("""
 """).fetchall()
 t_sqlite = time.perf_counter() - t0
 
-print("parquet:", parquet, f"{t_parquet:.3f}s")
-print("sqlite :", sqlite,  f"{t_sqlite:.3f}s")
+print("parquet:", from_parquet, f"{t_parquet:.3f}s")
+print("sqlite :", from_sqlite,  f"{t_sqlite:.3f}s")
 ```
 
 Run it. Record the two timings and the Parquet file size. Then answer: **why is the columnar Parquet path the right one for the weekly report, and the wrong one for recording a single new reading?**
@@ -139,13 +144,15 @@ Run it. Record the two timings and the Parquet file size. Then answer: **why is 
 The dashboard only ever does "get by key" and "set key". Model that directly and measure it against SQLite.
 
 ```python
-# module-06/kv_compare.py
+# module-06/kv_compare.py — run from anywhere:  uv run python module-06/kv_compare.py
 import sqlite3, shelve, time
+from pathlib import Path
 
+here = Path(__file__).parent
 N = 50_000
 
 # --- key-value store (stdlib shelve: a persistent dict) ---
-with shelve.open("module-06/sessions") as db:
+with shelve.open(str(here / "sessions")) as db:
     t0 = time.perf_counter()
     for i in range(N):
         db[f"session-{i}"] = f"user-{i%100}:filter=city:{i%4}"
@@ -156,7 +163,7 @@ with shelve.open("module-06/sessions") as db:
     t_get = time.perf_counter() - t0
 
 # --- the same access pattern in SQLite ---
-conn = sqlite3.connect("module-06/kv.db")
+conn = sqlite3.connect(here / "kv.db")
 conn.execute("CREATE TABLE IF NOT EXISTS session(k TEXT PRIMARY KEY, v TEXT)")
 t0 = time.perf_counter()
 conn.executemany("INSERT OR REPLACE INTO session(k, v) VALUES (?, ?)",

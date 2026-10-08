@@ -156,11 +156,22 @@ Open a **new** terminal and confirm: `uv --version`.
 ```sh
 uv init --name databases-portfolio     # skip if a pyproject.toml already exists
 uv python install 3.14                 # uv downloads and manages the fixed Python
-uv python pin 3.14                     # writes .python-version
+uv python pin 3.14                     # writes .python-version — the one version you pin by hand
 uv add duckdb datasette sqlite-utils pydantic sqlalchemy
 ```
 
-`uv` resolves everything, writes `pyproject.toml`, creates an isolated `.venv/`, and locks exact versions in `uv.lock`.
+`uv` resolves everything, writes `pyproject.toml`, creates an isolated `.venv/`, and **locks exact versions in `uv.lock`**.
+
+> [!NOTE]
+> **Pin the Python; lock the libraries.** The only version you pin by hand is Python (`uv python pin 3.14`). Everything else is pinned by the committed `uv.lock`, which records the exact version of every package *and every transitive dependency*. Committing `.python-version` and `uv.lock` is what reproduces your environment on the reviewer's machine.
+>
+> **What this course was tested with (Python 3.14.7):** `duckdb 1.5.6`, `datasette 0.65.5`, `sqlite-utils 4.2.1`, `pydantic 2.14.0`, `sqlalchemy 2.1.4`. If you want those versions written into `pyproject.toml` explicitly, add them pinned:
+>
+> ```sh
+> uv add "duckdb==1.5.6" "datasette==0.65.5" "sqlite-utils==4.2.1" "pydantic==2.14.0" "sqlalchemy==2.1.4"
+> ```
+>
+> **If `uv add` fails to resolve or build a package,** confirm the interpreter is really installed with `uv python list` and re-run. A brand-new Python release can run ahead of prebuilt wheels, so `uv` falls back to building from source and may fail; pinning a widely-supported version avoids that. We standardize on **Python 3.14** because the whole stack installs cleanly there (verified for this course). If you change the Python, change it in `.python-version` **and** re-run `uv lock` so the lockfile matches.
 
 **3. Install the command-line tools globally** (isolated, available from any folder):
 
@@ -229,10 +240,20 @@ Then continue with the next tasks — but **leave the SQL Island tab open and fi
 
 ### ★ Task 5: Load real telemetry and query it from Python
 
-1. Save the following as `module-01/generate_telemetry.py`. It manufactures a few days of machine-shop readings from the Wittkamp story — one reading every few seconds, three machines.
+1. Create the folder, then save the generator as `module-01/generate_telemetry.py`. It manufactures a few days of machine-shop readings from the Wittkamp story — one reading every few seconds, three machines. `cnc-02` develops a slow **bearing wear**, so its vibration creeps toward the alarm threshold. The random seed is fixed, so everyone gets the same numbers.
+
+   ```sh
+   mkdir -p module-01
+   ```
 
    ```python
+   """Manufacture a few days of machine-shop telemetry as CSV.
+
+   Run with:  uv run python module-01/generate_telemetry.py
+   Writes telemetry.csv next to this script, so it works from any working directory.
+   """
    import csv, math, random
+   from pathlib import Path
    from datetime import datetime, timedelta
 
    random.seed(42)
@@ -240,9 +261,10 @@ Then continue with the next tasks — but **leave the SQL Island tab open and fi
    start = datetime(2026, 1, 5, 6, 0, 0)          # Monday 06:00, shift start
    days = 2
    step = 3                                        # one reading every 3 s per machine
-   points = days * 24 * 60 * 60 // step            # ~57,600 points x 3 machines
+   points = days * 24 * 60 * 60 // step            # 57,600 points x 3 machines
 
-   with open("module-01/telemetry.csv", "w", newline="") as f:
+   out = Path(__file__).with_name("telemetry.csv")
+   with out.open("w", newline="") as f:
        w = csv.writer(f)
        w.writerow(["ts", "machine", "temp_c", "vib_rms", "spindle_load"])
        for i in range(points):
@@ -251,27 +273,60 @@ Then continue with the next tasks — but **leave the SQL Island tab open and fi
                temp = 42 + 3 * math.sin(i / 500.0) + random.gauss(0, 0.6)
                vib = 1.2 + 0.4 * math.sin(i / 90.0) + random.gauss(0, 0.08)
                load = 60 + 15 * math.sin(i / 300.0) + random.gauss(0, 3)
+               if mach == "cnc-02":                 # bearing wear: vibration creeps up over the 2 days
+                   vib += 0.9 * (i / points)
+               if random.random() < 0.0008:         # rare tool-chatter spike
+                   vib += random.uniform(0.4, 0.9)
                w.writerow([ts, mach, f"{temp:.2f}", f"{vib:.3f}", f"{load:.1f}"])
-   print("wrote module-01/telemetry.csv")
+   print(f"wrote {out} ({out.stat().st_size/1e6:.1f} MB, {points * len(machines)} rows)")
    ```
-
-2. Load it into SQLite. This is your first taste of an **ingestion pipeline** — the same pattern your final project will use:
 
    ```sh
    uv run python module-01/generate_telemetry.py
-   sqlite3 module-01/telemetry.db <<'SQL'
-   DROP TABLE IF EXISTS readings;
-   CREATE TABLE readings(
-       ts           TEXT    NOT NULL,
-       machine      TEXT    NOT NULL,
-       temp_c       REAL    NOT NULL,
-       vib_rms      REAL    NOT NULL,
-       spindle_load REAL    NOT NULL
-   );
-   .mode csv
-   .import --skip 1 module-01/telemetry.csv readings
-   SQL
    ```
+
+   The script writes the CSV **next to itself** (via `Path(__file__)`), so it does not matter which folder you run it from.
+
+2. Load it into SQLite. This is your first taste of an **ingestion pipeline** — the same pattern your final project will use. Save this as `module-01/load_telemetry.py` and run it: it uses only Python's built-in `sqlite3`, so it works on every platform, with no `sqlite3` command-line shell required.
+
+   ```python
+   """Load module-01/telemetry.csv into module-01/telemetry.db (no sqlite3 shell needed)."""
+   import csv, sqlite3
+   from pathlib import Path
+
+   here = Path(__file__).parent
+   csv_path = here / "telemetry.csv"
+   db_path = here / "telemetry.db"
+
+   conn = sqlite3.connect(db_path)
+   conn.executescript("""
+       DROP TABLE IF EXISTS readings;
+       CREATE TABLE readings(
+           ts           TEXT    NOT NULL,
+           machine      TEXT    NOT NULL,
+           temp_c       REAL    NOT NULL,
+           vib_rms      REAL    NOT NULL,
+           spindle_load REAL    NOT NULL
+       );
+   """)
+   with csv_path.open(newline="") as f:
+       rows = csv.reader(f)
+       next(rows)                                   # skip the header
+       conn.executemany("INSERT INTO readings VALUES (?, ?, ?, ?, ?)", rows)
+   conn.commit()
+   n = conn.execute("SELECT COUNT(*) FROM readings").fetchone()[0]
+   print(f"loaded {n} rows into {db_path}")
+   conn.close()
+   ```
+
+   ```sh
+   uv run python module-01/load_telemetry.py
+   ```
+
+   > [!NOTE]
+   > **Prefer the `sqlite3` command-line shell?** If it is installed, you can load the same file by hand. Inside the shell run `.mode csv`, then `.import --skip 1 module-01/telemetry.csv readings` (`.` commands are not SQL — they are shell directives, so they go in the interactive shell, not in a Python string). `.import --skip` needs SQLite ≥ 3.32; the Python loader above has no such requirement, which is why it is the default here.
+   >
+   > **Windows:** the `sqlite3` shell is not installed by default, and the `<<'SQL' … SQL` heredoc form used in later modules is a bash/zsh feature. On Windows, run such blocks in **Git Bash** or **WSL**, or save the block as a `.sql` file and load it with the shell's `.read file.sql`. The pure-Python loader above sidesteps all of this.
 
 3. Answer the shop manager's real questions. Run each query in the `sqlite3` shell and save the output. Note how long each takes by wrapping it with `.timer on`:
 
@@ -336,6 +391,7 @@ Commit the following after Session 1 (the `uv` project files sit at the reposito
 - [ ] `pyproject.toml` and `uv.lock` (reproducible `uv` environment; **`.venv/` stays out of Git**).
 - [ ] `uv-check.py` and its `uv run uv-check.py` output.
 - [ ] `generate_telemetry.py` — the telemetry generator.
+- [ ] `load_telemetry.py` — the CSV→SQLite ingestion loader.
 - [ ] `telemetry.db` size + row count (a screenshot or text file; **do not commit the `.db` file itself**).
 - [ ] Query outputs for Tasks 5 and 6, with timings.
 - [ ] Your one-paragraph **AI verification** note (what the model got right/wrong and how you checked).

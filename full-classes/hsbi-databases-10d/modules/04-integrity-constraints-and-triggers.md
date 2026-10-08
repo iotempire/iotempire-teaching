@@ -54,7 +54,10 @@ The module handbook lists integrity as a first-class topic. In relational terms 
 mkdir -p module-04
 sqlite3 module-04/edge.db <<'SQL'
 PRAGMA foreign_keys = ON;        -- per-connection, and OFF by default: remember this.
-DROP TABLE IF EXISTS reading, sensor, alarm, audit;
+DROP TABLE IF EXISTS audit;
+DROP TABLE IF EXISTS alarm;
+DROP TABLE IF EXISTS reading;
+DROP TABLE IF EXISTS sensor;
 
 CREATE TABLE sensor(
     sensor_id   INTEGER PRIMARY KEY,

@@ -99,7 +99,10 @@ sqlite3 module-05/normalize.db "SELECT COUNT(*) AS rows FROM flat_jobpart;"
 Decompose `flat_jobpart` into `machine`, `part`, `job`, and `job_part`. Keep the derived tables, then verify that a join reproduces the original facts.
 
 ```sql
-DROP TABLE IF EXISTS machine, part, job, job_part;
+DROP TABLE IF EXISTS job_part;
+DROP TABLE IF EXISTS job;
+DROP TABLE IF EXISTS part;
+DROP TABLE IF EXISTS machine;
 
 CREATE TABLE machine(machine_id TEXT PRIMARY KEY, site TEXT NOT NULL);
 CREATE TABLE part(part_no TEXT PRIMARY KEY, part_price REAL NOT NULL);

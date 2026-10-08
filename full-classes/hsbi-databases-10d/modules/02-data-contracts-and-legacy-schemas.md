@@ -139,10 +139,13 @@ SELECT part_no, unit_price FROM part WHERE unit_price < '15';   -- 'text orderin
 SELECT machine_name, installed FROM machine
 WHERE installed NOT GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]';
 
--- Defect 5: the m:n list cannot be joined — show why
+-- Defect 5: the m:n list only "joins" when it holds exactly one part
 SELECT j.job_id, p.description
 FROM maint_job j
-JOIN part p ON p.part_no = j.parts_used;   -- matches nothing; the list is not a key
+JOIN part p ON p.part_no = j.parts_used;   -- the list is not a key
+-- Watch what happens: job 2 ('P-1003') and job 3 ('P-1001') match, but job 1
+-- ('P-1001,P-1002') silently disappears. A naive join on the list loses every
+-- multi-part job — and reports success while doing it. That silence is the defect.
 ```
 
 For each defect, write one line: **what breaks in production because of it** (e.g. "an orphan job cannot be attributed to a site; a text price comparison produces wrong invoices").

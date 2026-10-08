@@ -66,7 +66,10 @@ Build a small warehouse/order dataset with enough rows to make plans meaningful.
 ```sh
 mkdir -p module-03
 sqlite3 module-03/warehouse.db <<'SQL'
-DROP TABLE IF EXISTS orders, customer, order_line, product;
+DROP TABLE IF EXISTS order_line;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS customer;
 
 CREATE TABLE customer(customer_id INTEGER PRIMARY KEY, name TEXT NOT NULL, city TEXT NOT NULL);
 CREATE TABLE product (product_id INTEGER PRIMARY KEY, sku TEXT NOT NULL, price REAL NOT NULL);
