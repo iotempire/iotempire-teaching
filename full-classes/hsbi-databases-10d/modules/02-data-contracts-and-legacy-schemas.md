@@ -100,18 +100,21 @@ SQL
 
 ### ★ Task 1: Reconstruct the ER model
 
-1. **List the entities you can see** and, for each, the attributes and the *intended* primary key. Write these down in `module-02/er-audit.md`.
-2. **Draw the ER diagram** (hand-drawn and photographed, or in a tool such as [diagrams.net](https://www.diagrams.net/)) showing the entities you believe the designer *meant* to model: `Machine`, `Part`, `MaintenanceJob`, `Technician`, and the relationships between them.
-3. **Determine the cardinalities** with counts, not guesses. For example, to prove that `parts_used` is really a many-to-many list hidden in a column:
+**1. List the entities you can see** and, for each, the attributes and the *intended* primary key. Write these down in `module-02/er-audit.md`.
 
-   ```sql
-   .timer on
-   -- How many jobs reference more than one part? (the m:n hiding in a text column)
-   SELECT job_id, parts_used,
-          LENGTH(parts_used) - LENGTH(REPLACE(parts_used, ',', '')) + 1 AS n_parts
-   FROM maint_job;
-   ```
-4. State, in one sentence each, which of these the legacy schema models and which it hides: 1:1, 1:n, m:n.
+**2. Draw the ER diagram** (hand-drawn and photographed, or in a tool such as [diagrams.net](https://www.diagrams.net/)) showing the entities you believe the designer *meant* to model: `Machine`, `Part`, `MaintenanceJob`, `Technician`, and the relationships between them.
+
+**3. Determine the cardinalities** with counts, not guesses. For example, to prove that `parts_used` is really a many-to-many list hidden in a column:
+
+```sql
+.timer on
+-- How many jobs reference more than one part? (the m:n hiding in a text column)
+SELECT job_id, parts_used,
+       LENGTH(parts_used) - LENGTH(REPLACE(parts_used, ',', '')) + 1 AS n_parts
+FROM maint_job;
+```
+
+**4. State**, in one sentence each, which of these the legacy schema models and which it hides: 1:1, 1:n, m:n.
 
 *Portfolio evidence:* `er-audit.md` with the entity list, the reconstructed ER diagram, and the cardinality findings.
 

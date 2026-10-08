@@ -243,7 +243,7 @@ Play for about **30 minutes**, then answer these **tutorial questions** in `modu
 
 Then continue with the next tasks — but **leave the SQL Island tab open and finish the game at home**; you do not have to reach the end in class.
 
-*Portfolio evidence:* `module-01/sql-island.md` with your answers. Also add screenshots while playing the gaem (at adavanced later state). Also, when interested: More practice games are in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).
+*Portfolio evidence:* `module-01/sql-island.md` with your answers, plus a screenshot of your progress while playing the game (one at a later, advanced stage). More practice games are in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games) if you want more.
 
 ### ★ Task 5: Load real telemetry and query it from Python
 
@@ -335,7 +335,7 @@ uv run python module-01/load_telemetry.py
 >
 > **Windows:** the `sqlite3` shell is not installed by default, and the `<<'SQL' … SQL` heredoc form used in later modules is a bash/zsh feature. On Windows, run such blocks in **Git Bash** or **WSL**, or save the block as a `.sql` file and load it with the shell's `.read file.sql`. The pure-Python loader above sidesteps all of this.
 
-**Step 3 — answer the shop manager's real questions.** Run each query in your SQLite client (the `sqlite3` shell, `litecli`, or Datasette) and save the output. Note how long each takes by wrapping it with `.timer on`:
+**Step 3 — answer the shop manager's real questions.** Run each query in your SQLite client and save the output. Note how long each takes by wrapping it with `.timer on`:
 
 ```sql
 .timer on
@@ -348,6 +348,20 @@ SELECT machine, MAX(vib_rms) AS peak_vib FROM readings GROUP BY machine;
 -- 3. How many readings exceeded a 2.0 mm/s vibration alarm?
 SELECT COUNT(*) FROM readings WHERE vib_rms > 2.0;
 ```
+
+> [!TIP]
+> **No `sqlite3` shell, or prefer a browser?** Start **Datasette** — it turns the database file into both a browsable website and a SQL prompt. From your repo root:
+>
+> ```sh
+> uvx datasette module-01/telemetry.db
+> ```
+>
+> It prints the URL to open (default port **8001**):
+>
+> - `http://127.0.0.1:8001/telemetry` — browse and filter the `readings` table.
+> - `http://127.0.0.1:8001/telemetry/-/query` — the **Execute SQL** page: paste the three queries above and run them interactively; each result exports as CSV or JSON.
+>
+> `datasette module-01/telemetry.db -o` opens the browser for you. `uvx …` runs the tool without a permanent install; since you installed it in Task 3, plain `datasette …` works too.
 
 **Step 4 — prove the "embedded, no server" claim numerically.** Report how big `telemetry.db` is and how many rows it holds.
 
@@ -380,7 +394,7 @@ This is the habit the whole course is built on.
 Turn the database into something a colleague can browse in a browser:
 
 ```sh
-datasette module-01/telemetry.db -o
+uvx datasette module-01/telemetry.db -o
 ```
 
 Explore the table, filter by machine, and export one filtered view as CSV. Note the URL of a single row.

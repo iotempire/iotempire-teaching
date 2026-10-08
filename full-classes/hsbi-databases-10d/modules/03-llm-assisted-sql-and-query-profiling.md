@@ -106,50 +106,55 @@ Use the prompt below with your LLM. **Before running the answer**, predict the p
 
 > "SQLite schema: `customer(customer_id, name, city)`, `product(product_id, sku, price)`, `orders(order_id, customer_id, ordered_on, status)`, `order_line(order_id, product_id, qty)`. Write a query that returns, for each city, the number of distinct customers and the total revenue (sum of `qty*price`) of orders placed in 2025, ordered by revenue descending."
 
-1. Run the LLM's query. Record whether it matched your prediction and whether it is even correct (does it count *distinct* customers? does it include the year filter in the right place?).
-2. Profile it:
-   ```sql
-   EXPLAIN QUERY PLAN
-   SELECT c.city, COUNT(DISTINCT c.customer_id) AS customers,
-          SUM(ol.qty * p.price) AS revenue
-   FROM customer c
-   JOIN orders o     ON o.customer_id = c.customer_id
-   JOIN order_line ol ON ol.order_id = o.order_id
-   JOIN product p    ON p.product_id = ol.product_id
-   WHERE o.ordered_on >= '2025-01-01' AND o.ordered_on < '2026-01-01'
-   GROUP BY c.city
-   ORDER BY revenue DESC;
-   ```
-3. Note every `SCAN` and every `USE TEMP B-TREE`. Save the raw plan output.
+**1. Run the LLM's query.** Record whether it matched your prediction and whether it is even correct (does it count *distinct* customers? does it include the year filter in the right place?).
+
+**2. Profile it:**
+
+```sql
+EXPLAIN QUERY PLAN
+SELECT c.city, COUNT(DISTINCT c.customer_id) AS customers,
+       SUM(ol.qty * p.price) AS revenue
+FROM customer c
+JOIN orders o     ON o.customer_id = c.customer_id
+JOIN order_line ol ON ol.order_id = o.order_id
+JOIN product p    ON p.product_id = ol.product_id
+WHERE o.ordered_on >= '2025-01-01' AND o.ordered_on < '2026-01-01'
+GROUP BY c.city
+ORDER BY revenue DESC;
+```
+
+**3. Note every `SCAN` and every `USE TEMP B-TREE`.** Save the raw plan output.
 
 *Portfolio evidence:* the exact prompt, the LLM's SQL, your predicted plan, the actual `EXPLAIN QUERY PLAN` output, and a sentence on correctness.
 
 ### ★ Task 2: Index benchmark — prove it or disprove it
 
-1. Ask the LLM to *optimize* the query and tell you which indexes to add. Do not accept the list — test each index independently. Time the dashboard query **once before adding any index**, then add **one index at a time** and re-time it after each step:
-   ```sql
-   .timer on
-   -- 0. baseline: time the dashboard query with no new indexes
+**1. Ask the LLM to *optimize* the query** and tell you which indexes to add. Do not accept the list — test each index independently. Time the dashboard query **once before adding any index**, then add **one index at a time** and re-time it after each step:
 
-   CREATE INDEX ix_orders_ordered_on ON orders(ordered_on);
-   -- 1. re-run and time the dashboard query
+```sql
+.timer on
+-- 0. baseline: time the dashboard query with no new indexes
 
-   CREATE INDEX ix_orderline_order ON order_line(order_id);
-   -- 2. re-run and time the dashboard query
+CREATE INDEX ix_orders_ordered_on ON orders(ordered_on);
+-- 1. re-run and time the dashboard query
 
-   CREATE INDEX ix_orderline_product ON order_line(product_id);
-   -- 3. re-run and time the dashboard query
-   ```
-2. Build a small before/after table. To make the effect visible even on a fast machine, time repeated runs and/or use a filtered query that the planner can actually improve:
+CREATE INDEX ix_orderline_order ON order_line(order_id);
+-- 2. re-run and time the dashboard query
 
-   ```sql
-   .timer on
-   SELECT o.order_id, o.ordered_on, c.name
-   FROM orders o JOIN customer c ON c.customer_id = o.customer_id
-   WHERE o.ordered_on = '2026-02-14';      -- a single day: an index helps a lot here
-   ```
+CREATE INDEX ix_orderline_product ON order_line(product_id);
+-- 3. re-run and time the dashboard query
+```
 
-3. **Find one index that does *not* help** (or one the planner ignores) and explain *why* — a low-cardinality column like `status`, a function wrapping the column, or a table small enough that a scan is cheaper. This negative result is worth as much as a positive one.
+**2. Build a small before/after table.** To make the effect visible even on a fast machine, time repeated runs and/or use a filtered query that the planner can actually improve:
+
+```sql
+.timer on
+SELECT o.order_id, o.ordered_on, c.name
+FROM orders o JOIN customer c ON c.customer_id = o.customer_id
+WHERE o.ordered_on = '2026-02-14';      -- a single day: an index helps a lot here
+```
+
+**3. Find one index that does *not* help** (or one the planner ignores) and explain *why* — a low-cardinality column like `status`, a function wrapping the column, or a table small enough that a scan is cheaper. This negative result is worth as much as a positive one.
 
 *Portfolio evidence:* the before/after table, the plan output that proves the index is used (`SEARCH ... USING INDEX`), and your explanation of the index that did not help.
 
