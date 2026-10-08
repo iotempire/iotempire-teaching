@@ -98,9 +98,31 @@ Central entry point: **the course repository**.
 
 ---
 
+# Warm-up: what is a database — and why SQL?
+
+*(You are in your pods now — do this together, then jigsaw with a neighbouring pod.)*
+
+1. **What is a database?** Say it in your own words — no textbook definition.
+2. **Why SQL?** Why query with a language instead of clicking around a spreadsheet?
+3. **A bit of “local-first”:** what would it mean to keep the data *with* the app, on the machine that produces it?
+
+<!-- Note: pods answer, then jigsaw one member across; open a short discussion. Collect their answers — do not reveal anything yet. -->
+
+---
+
+# Warm-up: a few angles to compare against
+
+- **A database** is data *plus* a structure, rules, and a way to ask questions — and it keeps working as the data grows and changes.
+- **SQL** is the common language of relational data: *declarative* (say what you want, not how), readable, portable, and it outlives any single tool — BI, analytics, and ML all read it.
+- **Why local-first (in one line):** most data is created *and* read on the same machine. Keep it there; add a server only when a *measured* need forces you to.
+
+<!-- Note: a discussion seed, not a definition to memorize — the Discovery exercise below digs into the last point. -->
+
+---
+
 # Discovery: what are the two shapes a database can take?
 
-*(In your pod — a few minutes.)*
+*(Now the exercise — in your fresh pods, a few minutes.)*
 
 1. **Brainstorm:** when does a database live **inside** your program, and when does it live on a **separate server**?
 2. List **one advantage** and **one cost** of each shape.
