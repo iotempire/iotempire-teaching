@@ -1,4 +1,4 @@
-# Module 1 — Introduction & Local-First Foundations
+<!--# Module 1 — Introduction & Local-First Foundations-->
 
 [← Course workbook](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-data-contracts-and-legacy-schemas.md)
 
@@ -70,7 +70,9 @@ Instead of a slide that tells you the answer, we **figure it out together** — 
 3. **Search (optional).** Look up two concrete engines for each shape — e.g. an embedded one and a client/server one — and one sentence on when to use each.
 4. **Jigsaw.** One of you joins a neighbouring pod, the rest stay. **Merge your two lists**, drop duplicates, and mark whatever you disagree on.
 
-Then the instructor reveals the table (open the accordion on the slide) and we compare:
+Wait before you scroll on and do first soem thinking at your own.
+
+Then the instructor reveals the table and we compare:
 
 **Two shapes of a database:**
 
@@ -153,8 +155,8 @@ Open a **new** terminal and confirm: `uv --version`.
 
 ```sh
 uv init --name databases-portfolio     # skip if a pyproject.toml already exists
-uv python install 3.12                 # uv downloads and manages the fixed Python
-uv python pin 3.12                     # writes .python-version
+uv python install 3.14                 # uv downloads and manages the fixed Python
+uv python pin 3.14                     # writes .python-version
 uv add duckdb datasette sqlite-utils pydantic sqlalchemy
 ```
 
