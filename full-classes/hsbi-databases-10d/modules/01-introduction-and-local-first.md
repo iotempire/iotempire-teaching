@@ -204,8 +204,8 @@ uv run uv-check.py
 >
 > | `uv` (this class) | Anaconda equivalent |
 > |---|---|
-> | `uv python install 3.12` | `conda create -n databases python=3.12` |
-> | `uv python pin 3.12` | (the environment pins the version for you) |
+> | `uv python install 3.14` | `conda create -n databases python=3.14` |
+> | `uv python pin 3.14` | (the environment pins the version for you) |
 > | `uv add duckdb datasette sqlite-utils pydantic sqlalchemy` | `conda activate databases` then `pip install duckdb datasette sqlite-utils pydantic sqlalchemy` |
 > | `uv tool install litecli` | `pip install litecli` (or `pipx install litecli`) |
 > | `uv run python script.py` | `python script.py` (with the environment activated) |
