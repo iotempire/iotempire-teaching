@@ -73,34 +73,40 @@ sqlite-utils insert app.db tbl data.csv --csv
 sqlite-utils memory data.csv "SELECT count(*) FROM data"   # query a CSV in one command
 ```
 
-## Git & GitHub primer (fork, template, Markdown, conflicts)
+## Git & GitHub primer (template, editor, Markdown, conflicts)
 
-You only need a slice of Git for this course: **fork** the portfolio template, clone it, edit Markdown, commit, and resolve the occasional conflict. Branching workflows and rebasing are **not** required here — the workflow is deliberately linear.
+You only need a slice of Git for this course: **create a repo from the portfolio template**, edit and commit Markdown, and resolve the occasional conflict. Branching, rebasing, and the **command line are optional** — the workflow is deliberately simple.
 
-**The whole workflow in six commands:**
+**Prefer a tool over the terminal.** You do *not* need the command line to pass; pick whichever of these fits you:
+
+- **Your editor (recommended).** Zed and VS Code have Git built in — see the diff, stage, commit, push/pull, and resolve conflicts without a shell. In Zed, use the Git panel and the *Git: commit* action; in VS Code, the **Source Control** view.
+- **GitHub in the browser.** Edit any file, add files or folders, and commit straight on github.com — ideal for a quick fix or to paste a query result. GitHub's web editor writes the commit for you.
+- **A GitHub-native GUI app** (GitHub Desktop, etc.) if you prefer one place for everything.
+- **The command line (optional).** Handy to know, not required. The six commands below cover almost everything here.
+
+**The command line, if you want it:**
 
 ```sh
-# 1. Fork the template on GitHub (click "Fork"), then:
-git clone https://github.com/<you>/iot-portfolio-template.git
-cd iot-portfolio-template
-git status                      # what changed?
-git add .                       # stage everything
+git clone https://github.com/<you>/<your-repo>.git
+cd <your-repo>
+git status
+git add .
 git commit -m "Add module-01 evidence"
-git push                        # publish to your GitHub fork
+git push
 ```
 
-**Learning the pieces (all free and official):**
+**Use a template, not a fork.** For the course portfolio, click **“Use this template”** on [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) — you get a fresh repo with one clean commit and no upstream link. A **fork** keeps a link to the original and the full history, which a personal portfolio does not want. ([How to create a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).)
 
-- **Get started / “Hello World”** — create a repo and make a commit: [docs.github.com/…/hello-world](https://docs.github.com/en/get-started/start-your-journey/hello-world)
-- **Fork a repository** — the button, ownership, and keeping a fork in sync: [docs.github.com/…/fork-a-repo](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)
-- **Create a repo from a template** — how templates differ from forks (one fresh commit vs. full history): [docs.github.com/…/creating-a-repository-from-a-template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
-- **Markdown** — headings, lists, code fences, tables, links (you will write your whole portfolio in it): [basic syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) · [quickstart](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/quickstart-for-writing-on-github)
-- **Resolve a merge conflict** — the `<<<<<<<` / `=======` / `>>>>>>>` markers, and how to keep one or both sides: [command line](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/resolving-a-merge-conflict-using-the-command-line) · [GitHub editor](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/resolving-a-merge-conflict-on-github)
-- **Interactive practice** — GitHub Skills (short, hands-on courses): [skills.github.com](https://skills.github.com/)
-- **The reference book** — *Pro Git* (free; chapter 2 covers “Recording changes”): [git-scm.com/book/en/v2](https://git-scm.com/book/en/v2)
+**What “Git proficiency” means here.** You prove it by **edits and check-ins**, not by memorizing commands:
+
+- **Several commits** with messages that say what changed — a clean history is itself evidence.
+- **Markdown proficiency** — headings, lists, tables, code fences, and above all **links**, including **interlinks across portfolios**: link your pod mates' evidence, and any task or source you did not produce entirely on your own.
+- **Working in your pod** — split the work, **audit each other**, and **change roles often**, so nobody is the only “Git person”.
+
+**Learning the pieces (all free and official):** [Hello World / your first commit](https://docs.github.com/en/get-started/start-your-journey/hello-world) · [create from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) · [Markdown: basic syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) · [Markdown quickstart](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/quickstart-for-writing-on-github) · [resolve a merge conflict (GitHub editor)](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/resolving-a-merge-conflict-on-github) · [command line](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/resolving-a-merge-conflict-using-the-command-line) · [GitHub Skills (hands-on)](https://skills.github.com/) · [Pro Git book](https://git-scm.com/book/en/v2)
 
 > [!TIP]
-> Keep your portfolio **public** (or at least readable by the instructor) and build it up with **many small commits**, each with a message that says what changed — a clean `git log` is itself part of the evidence.
+> Keep your portfolio **public** (or at least readable by the instructor) and build it up with **many small commits**, each message saying what changed — a clean `git log` is itself part of the evidence.
 
 ## Instructor hints: presenting the Markdown slide deck
 

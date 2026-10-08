@@ -124,3 +124,18 @@ Central entry point: **the course repository**.
 **Keep the data where it is produced.** Ship a file, not a deployment. Go to a server only when a *measured* requirement forces you to — **GoToSocial** (a whole Fediverse server on SQLite) and **Chatto** (a chat platform as one binary) each ship as a **single binary**.
 
 <!-- Note: advance only after they shared their own table — compare, then add what they found. -->
+
+---
+
+# Play time: SQL Island (30 minutes)
+
+[SQL Island](https://sql-island.informatik.uni-kl.de/) — a free browser text adventure that teaches the basics of SQL. **Play for ~30 minutes**, then answer the tutorial questions in `module-01/sql-island.md`.
+
+- What have you learned about databases and SQL so far, *just by playing*?
+- Which SQL commands did you actually use?
+- What is a table, a row, a column, a query — in your own words?
+- What surprised you? What is still confusing?
+
+*(Leave the tab open — finish the game at home.)*
+
+<!-- Note: hand out ~30 minutes of play; the questions are the tutorial deliverable. -->

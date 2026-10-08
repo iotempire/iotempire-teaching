@@ -28,7 +28,7 @@ By the end of this module, you can:
 
 ### How the class works — the contract
 
-Every module **begins with its learning goals**. Those goals are the *contract* between you and the instructor: you meet a module by **demonstrating the goals**, not by ticking off tasks. That is why the **tasks are a draft** — you may modify, replace, or extend them as long as you still reach the goals — and why a module may carry a moving **DRAFT BOUNDARY** over the parts we are still designing together. Documented, honest engineering — including failure — beats a neat but unexamined "it works". And one more thing:
+**Here we open the [syllabus](../syllabus.md) together.** The full model lives there — the learning-goals contract, the *Kombinationsprüfung*, the ★/◇ task tiers, and the “draft in motion” boundary. The one-line version: each module **begins with its learning goals**, those goals are the *contract*, and the tasks are negotiable as long as you reach the goals.
 
 **AI is a tool you must verify, not an oracle.** You will use Copilot/ChatGPT/Claude/DeepSeek (or a local model) throughout — to draft SQL, review schemas, and explain errors. What matters is your *judgment*: does it run, is it correct, is it fast, is it safe? Every module has a "how did I verify AI suggestions?" step in its reflection.
 
@@ -96,12 +96,16 @@ Then the instructor reveals the table (open the accordion on the slide) and we c
 
 ## 🛠️ In-Class Studio: Your First Local-First Database — **Challenging**
 
-*Software:* a laptop with Python 3.11+, Git, and a terminal. No server, no admin rights required.
+*Software:* a laptop with Python 3.11+ and Git. You will use a terminal for the SQL labs, but you can do the Git work from your editor or the browser. No server, no admin rights required.
 
-### ★ Task 1: Fork your portfolio
+### ★ Task 1: Form your pod and create your portfolio
 
-1. Fork the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) into your own GitHub account and clone it locally. *(New to Git/GitHub? The [Git & GitHub primer](./Z-resources-bank.md#git--github-primer-fork-template-markdown-conflicts) in the resource bank walks through forking, cloning, Markdown, and resolving conflicts — nothing fancy.)*
-2. Confirm the `.gitignore` keeps data and secrets out of Git. If it does not, add (or verify) these lines:
+1. **Team up first.** Form your **Task Pod** (two or three people — see *Form your Task Pod* above). Exchange contacts and agree how you will keep in touch.
+2. **Create your own repo from the template — “Use this template”, not “Fork”.** On GitHub, open the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) and click **Use this template → Create a new repository**. Name it e.g. `databases-portfolio`, and make it **public** (or at least readable by the instructor). *(A template gives you a fresh repo with one clean commit and no upstream link; a fork keeps a link and the full history — not what a personal portfolio wants. See the [Git & GitHub primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts).)*
+3. **Make it yours — turn the generic template into your own HSBI Databases portfolio.** Change everything directly visible: the README title and description, your name, the links, and any template placeholders. It should read as *your* HSBI Databases portfolio, not the stock `iot-portfolio-template` copy.
+4. **Add your instructor as a collaborator** (repo → *Settings → Collaborators → Add people*). Use the address your instructor posts in the LMS.
+5. **Add this module's learning goals.** Create `module-01/README.md` and copy the *Learning Goals* from the top of this page into it, with a one-line note of what you plan to explore.
+6. **Verify the `.gitignore`** keeps data and secrets out of Git. If needed, add:
    ```gitignore
    # local data and secrets stay out of the repository
    .venv/
@@ -112,13 +116,23 @@ Then the instructor reveals the table (open the accordion on the slide) and we c
    .env
    __pycache__/
    ```
-3. Create a folder `module-01/` in your portfolio. This is where all Module 1 evidence goes.
+7. **Commit and check in** with a message like `Add module 01 learning goals`.
 
-*Portfolio evidence:* the link to your forked repository and a screenshot of `git log --oneline` showing your first commit.
+*Portfolio evidence:* the link to **your** repository, the instructor listed as a collaborator, and your first commit.
 
-### ★ Task 2: Install your whole toolchain with `uv`
+### ★ Task 2: Git & Markdown proficiency in the pod
 
-One tool, three platforms. **`uv`** (from Astral) installs a **fixed Python version**, creates an isolated environment, and installs every library and command-line tool this course uses — SQLite tooling, DuckDB, Datasette, and more — with the *same commands* on Windows, macOS, and Linux. Do this inside your forked portfolio, so your environment is part of your reproducible evidence.
+Git here is a *habit*, not a command list — and you can do all of it from your editor or the browser (see the [Git & GitHub primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts)).
+
+1. **Several small commits** across the session, each message saying *what* changed (e.g. `Add uv-check output`, `Fix telemetry query`).
+2. **Write Markdown with interlinks.** In `module-01/README.md`, link to your pod mates' portfolios, the [syllabus](../syllabus.md), the module you are working on, and any shared artifact. Markdown — headings, lists, tables, links — *is* the deliverable.
+3. **Work as a pod, and say who did what.** Split tasks; if you did **not** do something entirely on your own, **link** the pod mate or source you worked with. **Audit each other** (run their query, read their plan) and **change roles often** — take turns being the one who commits, checks, and explains.
+
+*Portfolio evidence:* a short commit history, and a Markdown page with at least three working interlinks (including one to a pod mate's portfolio).
+
+### ★ Task 3: Install your whole toolchain with `uv`
+
+One tool, three platforms. **`uv`** (from Astral) installs a **fixed Python version**, creates an isolated environment, and installs every library and command-line tool this course uses — SQLite tooling, DuckDB, Datasette, and more — with the *same commands* on Windows, macOS, and Linux. Do this inside your portfolio repo, so your environment is part of your reproducible evidence.
 
 **1. Install `uv` (once per machine).**
 
@@ -134,7 +148,7 @@ One tool, three platforms. **`uv`** (from Astral) installs a **fixed Python vers
 
 Open a **new** terminal and confirm: `uv --version`.
 
-**2. Pin the Python we use and add every library at once.** Run this at the root of your forked portfolio:
+**2. Pin the Python we use and add every library at once.** Run this at the root of your portfolio repo:
 
 ```sh
 uv init --name databases-portfolio     # skip if a pyproject.toml already exists
@@ -153,7 +167,7 @@ uv tool install datasette     # explore/publish SQLite databases
 uv tool install sqlite-utils  # SQLite from the command line
 ```
 
-**4. Verify everything with one script.** Save this as `uv-check.py` in your portfolio and run it *inside the project*:
+**4. Verify everything with one script (your first Python test).** Save this as `uv-check.py` in your portfolio and run it *inside the project*:
 
 ```python
 import sys, platform, sqlite3
@@ -182,7 +196,35 @@ uv run uv-check.py
 
 *Portfolio evidence:* the `uv run uv-check.py` output, plus committed `pyproject.toml` and `uv.lock` files (do **not** commit `.venv/`).
 
-### ★ Task 3: Load real telemetry and query it from Python
+> [!NOTE]
+> **Prefer Anaconda? (we mention this once.)** We use [**`uv`**](https://docs.astral.sh/uv/) in this class because it is modern, fast, and a single tool for the whole job — the Python version, the isolated environment, and the packages. If you already live in **Anaconda**, you can translate every `uv` step in this course to `conda`/`pip`; nothing later depends on `uv` specifically.
+>
+> | `uv` (this class) | Anaconda equivalent |
+> |---|---|
+> | `uv python install 3.12` | `conda create -n databases python=3.12` |
+> | `uv python pin 3.12` | (the environment pins the version for you) |
+> | `uv add duckdb datasette sqlite-utils pydantic sqlalchemy` | `conda activate databases` then `pip install duckdb datasette sqlite-utils pydantic sqlalchemy` |
+> | `uv tool install litecli` | `pip install litecli` (or `pipx install litecli`) |
+> | `uv run python script.py` | `python script.py` (with the environment activated) |
+>
+> Read every `uv run python …` below as “run Python inside your course environment” — in Anaconda, activate the environment and run `python …` instead.
+
+### ★ Task 4: Play SQL Island (~30 minutes)
+
+Before you write any generated SQL, build some *intuition* by playing a game. [SQL Island](https://sql-island.informatik.uni-kl.de/) is a free, browser-based text adventure that teaches the basics of SQL — no install, no account. (It defaults to German; switch the language in the menu.)
+
+Play for about **30 minutes**, then answer these **tutorial questions** in `module-01/sql-island.md` — your first “what have I learned?” reflection:
+
+1. **What have you learned about databases and SQL so far, just by playing?** (Answer from the game alone — no looking things up.)
+2. Which SQL commands and patterns did you actually use (`SELECT`, `WHERE`, `ORDER BY`, joins, aggregate functions, …)?
+3. In your own words — after playing — what is a table, a row, a column, and a query?
+4. What surprised you? What is still confusing?
+
+Then continue with the next tasks — but **leave the SQL Island tab open and finish the game at home**; you do not have to reach the end in class.
+
+*Portfolio evidence:* `module-01/sql-island.md` with your answers. (More practice games are in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).)
+
+### ★ Task 5: Load real telemetry and query it from Python
 
 1. Save the following as `module-01/generate_telemetry.py`. It manufactures a few days of machine-shop readings from the Wittkamp story — one reading every few seconds, three machines.
 
@@ -251,7 +293,7 @@ uv run uv-check.py
 
 *Portfolio evidence:* the generator script, the `.db` file size and row count, and the three query results. One sentence: *what would this dataset cost to run in the cloud, and who would pay for it?*
 
-### ★ Task 4: The first LLM-assisted SQL profiling task
+### ★ Task 6: The first LLM-assisted SQL profiling task
 
 This is the habit the whole course is built on.
 
@@ -268,7 +310,7 @@ This is the habit the whole course is built on.
 
 *Portfolio evidence:* the exact prompt you used, the generated SQL, the `EXPLAIN QUERY PLAN` output, and your verification paragraph.
 
-### ◇ Task 5 (Stretcher): Publish your data with Datasette
+### ◇ Task 7 (Stretcher): Publish your data with Datasette
 
 Turn the database into something a colleague can browse in a browser:
 
@@ -281,14 +323,18 @@ Explore the table, filter by machine, and export one filtered view as CSV. Note 
 
 ## ✅ What must be committed to your portfolio
 
-Commit all of the following to your portfolio after Session 1 (the `uv` project files live at the repository root; the rest under `module-01/`):
+Commit the following after Session 1 (the `uv` project files sit at the repository root; the rest under `module-01/`):
 
-- [ ] Forked portfolio repository, with a clean `.gitignore` and a first descriptive commit.
-- [ ] `pyproject.toml` and `uv.lock` committed (reproducible uv environment; **`.venv/` stays out of Git**).
-- [ ] `uv-check.py` and its `uv run uv-check.py` output — the versions of Python, SQLite, DuckDB, Datasette, and the rest of the toolchain.
+- [ ] Your own repo **created from the template** (public / instructor-readable) with the **instructor added as a collaborator**.
+- [ ] A clean `.gitignore` (database and secret files stay out of Git).
+- [ ] A short **commit history** with descriptive messages, and a Markdown page with working **interlinks** (including one to a pod mate's portfolio).
+- [ ] `module-01/README.md` with this module's **learning goals**.
+- [ ] `module-01/sql-island.md` — your answers to the tutorial questions.
+- [ ] `pyproject.toml` and `uv.lock` (reproducible `uv` environment; **`.venv/` stays out of Git**).
+- [ ] `uv-check.py` and its `uv run uv-check.py` output.
 - [ ] `generate_telemetry.py` — the telemetry generator.
-- [ ] `telemetry.db` size + row count (a screenshot or a text file; **do not commit the `.db` file itself**).
-- [ ] Query outputs for Tasks 3 and 4, with timings.
+- [ ] `telemetry.db` size + row count (a screenshot or text file; **do not commit the `.db` file itself**).
+- [ ] Query outputs for Tasks 5 and 6, with timings.
 - [ ] Your one-paragraph **AI verification** note (what the model got right/wrong and how you checked).
 - [ ] `reflection.md` — your first logbook entry in the course format: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 - [ ] (Stretcher) Datasette screenshot and exported CSV.

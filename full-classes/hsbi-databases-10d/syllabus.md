@@ -233,7 +233,7 @@ See the full [final project specification](./modules/08-final-project.md) for th
 
 ## Portfolio & Documentation Standards
 
-All assessments are based on your personal GitHub Portfolio (forked from [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template)); the [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-fork-template-markdown-conflicts) covers forking, Markdown, and resolving conflicts.
+All assessments are based on your personal GitHub Portfolio (created from the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”**, then made your own); the [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) covers the template workflow, your editor, Markdown, and resolving conflicts.
 
 - Maintain a clean Git log with descriptive commit messages.
 - For each module, include:
