@@ -108,18 +108,21 @@ Then the instructor reveals the table and we compare:
 3. **Make it yours — turn the generic template into your own HSBI Databases portfolio.** Change everything directly visible: the README title and description, your name, the links, and any template placeholders. It should read as *your* HSBI Databases portfolio, not the stock `iot-portfolio-template` copy.
 4. **Add your instructor as a collaborator** (repo → *Settings → Collaborators → Add people*). Use the address your instructor posts in the LMS.
 5. **Add this module's learning goals.** Create `module-01/README.md` and copy the *Learning Goals* from the top of this page into it, with a one-line note of what you plan to explore.
-6. **Verify the `.gitignore`** keeps data and secrets out of Git. If needed, add:
-   ```gitignore
-   # local data and secrets stay out of the repository
-   .venv/
-   *.db
-   *.db-journal
-   *.duckdb
-   *.parquet
-   .env
-   __pycache__/
-   ```
+6. **Verify the `.gitignore`** keeps local data and secrets out of Git.
 7. **Commit and check in** with a message like `Add module 01 learning goals`.
+
+At minimum, your `.gitignore` should contain:
+
+```gitignore
+# local data and secrets stay out of the repository
+.venv/
+*.db
+*.db-journal
+*.duckdb
+*.parquet
+.env
+__pycache__/
+```
 
 *Portfolio evidence:* the link to **your** repository, the instructor listed as a collaborator, and your first commit.
 
@@ -139,15 +142,19 @@ One tool, three platforms. **`uv`** (from Astral) installs a **fixed Python vers
 
 **1. Install `uv` (once per machine).**
 
-- **macOS / Linux:**
-  ```sh
-  curl -LsSf https://astral.sh/uv/install.sh | sh
-  ```
-- **Windows (PowerShell):**
-  ```powershell
-  powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-  ```
-- Or via a package manager: `brew install uv` (macOS), `winget install --id=astral-sh.uv -e` (Windows), `scoop install uv` (Windows).
+macOS / Linux:
+
+```sh
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Windows (PowerShell):
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Or via a package manager: `brew install uv` (macOS), `winget install --id=astral-sh.uv -e` (Windows), `scoop install uv` (Windows).
 
 Open a **new** terminal and confirm: `uv --version`.
 
@@ -240,114 +247,114 @@ Then continue with the next tasks — but **leave the SQL Island tab open and fi
 
 ### ★ Task 5: Load real telemetry and query it from Python
 
-1. Create the folder, then save the generator as `module-01/generate_telemetry.py`. It manufactures a few days of machine-shop readings from the Wittkamp story — one reading every few seconds, three machines. `cnc-02` develops a slow **bearing wear**, so its vibration creeps toward the alarm threshold. The random seed is fixed, so everyone gets the same numbers.
+**Step 1 — create the folder and the generator.** Save the following as `module-01/generate_telemetry.py`. It manufactures a few days of machine-shop readings from the Wittkamp story — one reading every few seconds, three machines. `cnc-02` develops a slow **bearing wear**, so its vibration creeps toward the alarm threshold. The random seed is fixed, so everyone gets the same numbers.
 
-   ```sh
-   mkdir -p module-01
-   ```
+```sh
+mkdir -p module-01
+```
 
-   ```python
-   """Manufacture a few days of machine-shop telemetry as CSV.
+```python
+"""Manufacture a few days of machine-shop telemetry as CSV.
 
-   Run with:  uv run python module-01/generate_telemetry.py
-   Writes telemetry.csv next to this script, so it works from any working directory.
-   """
-   import csv, math, random
-   from pathlib import Path
-   from datetime import datetime, timedelta
+Run with:  uv run python module-01/generate_telemetry.py
+Writes telemetry.csv next to this script, so it works from any working directory.
+"""
+import csv, math, random
+from pathlib import Path
+from datetime import datetime, timedelta
 
-   random.seed(42)
-   machines = ["cnc-01", "cnc-02", "cnc-03"]
-   start = datetime(2026, 1, 5, 6, 0, 0)          # Monday 06:00, shift start
-   days = 2
-   step = 3                                        # one reading every 3 s per machine
-   points = days * 24 * 60 * 60 // step            # 57,600 points x 3 machines
+random.seed(42)
+machines = ["cnc-01", "cnc-02", "cnc-03"]
+start = datetime(2026, 1, 5, 6, 0, 0)          # Monday 06:00, shift start
+days = 2
+step = 3                                        # one reading every 3 s per machine
+points = days * 24 * 60 * 60 // step            # 57,600 points x 3 machines
 
-   out = Path(__file__).with_name("telemetry.csv")
-   with out.open("w", newline="") as f:
-       w = csv.writer(f)
-       w.writerow(["ts", "machine", "temp_c", "vib_rms", "spindle_load"])
-       for i in range(points):
-           ts = (start + timedelta(seconds=i * step)).isoformat(sep=" ")
-           for mach in machines:
-               temp = 42 + 3 * math.sin(i / 500.0) + random.gauss(0, 0.6)
-               vib = 1.2 + 0.4 * math.sin(i / 90.0) + random.gauss(0, 0.08)
-               load = 60 + 15 * math.sin(i / 300.0) + random.gauss(0, 3)
-               if mach == "cnc-02":                 # bearing wear: vibration creeps up over the 2 days
-                   vib += 0.9 * (i / points)
-               if random.random() < 0.0008:         # rare tool-chatter spike
-                   vib += random.uniform(0.4, 0.9)
-               w.writerow([ts, mach, f"{temp:.2f}", f"{vib:.3f}", f"{load:.1f}"])
-   print(f"wrote {out} ({out.stat().st_size/1e6:.1f} MB, {points * len(machines)} rows)")
-   ```
+out = Path(__file__).with_name("telemetry.csv")
+with out.open("w", newline="") as f:
+    w = csv.writer(f)
+    w.writerow(["ts", "machine", "temp_c", "vib_rms", "spindle_load"])
+    for i in range(points):
+        ts = (start + timedelta(seconds=i * step)).isoformat(sep=" ")
+        for mach in machines:
+            temp = 42 + 3 * math.sin(i / 500.0) + random.gauss(0, 0.6)
+            vib = 1.2 + 0.4 * math.sin(i / 90.0) + random.gauss(0, 0.08)
+            load = 60 + 15 * math.sin(i / 300.0) + random.gauss(0, 3)
+            if mach == "cnc-02":                 # bearing wear: vibration creeps up over the 2 days
+                vib += 0.9 * (i / points)
+            if random.random() < 0.0008:         # rare tool-chatter spike
+                vib += random.uniform(0.4, 0.9)
+            w.writerow([ts, mach, f"{temp:.2f}", f"{vib:.3f}", f"{load:.1f}"])
+print(f"wrote {out} ({out.stat().st_size/1e6:.1f} MB, {points * len(machines)} rows)")
+```
 
-   ```sh
-   uv run python module-01/generate_telemetry.py
-   ```
+```sh
+uv run python module-01/generate_telemetry.py
+```
 
-   The script writes the CSV **next to itself** (via `Path(__file__)`), so it does not matter which folder you run it from.
+The script writes the CSV **next to itself** (via `Path(__file__)`), so it does not matter which folder you run it from.
 
-2. Load it into SQLite. This is your first taste of an **ingestion pipeline** — the same pattern your final project will use. Save this as `module-01/load_telemetry.py` and run it: it uses only Python's built-in `sqlite3`, so it works on every platform, with no `sqlite3` command-line shell required.
+**Step 2 — load it into SQLite.** This is your first taste of an **ingestion pipeline** — the same pattern your final project will use. Save this as `module-01/load_telemetry.py` and run it: it uses only Python's built-in `sqlite3`, so it works on every platform, with no `sqlite3` command-line shell required.
 
-   ```python
-   """Load module-01/telemetry.csv into module-01/telemetry.db (no sqlite3 shell needed)."""
-   import csv, sqlite3
-   from pathlib import Path
+```python
+"""Load module-01/telemetry.csv into module-01/telemetry.db (no sqlite3 shell needed)."""
+import csv, sqlite3
+from pathlib import Path
 
-   here = Path(__file__).parent
-   csv_path = here / "telemetry.csv"
-   db_path = here / "telemetry.db"
+here = Path(__file__).parent
+csv_path = here / "telemetry.csv"
+db_path = here / "telemetry.db"
 
-   conn = sqlite3.connect(db_path)
-   conn.executescript("""
-       DROP TABLE IF EXISTS readings;
-       CREATE TABLE readings(
-           ts           TEXT    NOT NULL,
-           machine      TEXT    NOT NULL,
-           temp_c       REAL    NOT NULL,
-           vib_rms      REAL    NOT NULL,
-           spindle_load REAL    NOT NULL
-       );
-   """)
-   with csv_path.open(newline="") as f:
-       rows = csv.reader(f)
-       next(rows)                                   # skip the header
-       conn.executemany("INSERT INTO readings VALUES (?, ?, ?, ?, ?)", rows)
-   conn.commit()
-   n = conn.execute("SELECT COUNT(*) FROM readings").fetchone()[0]
-   print(f"loaded {n} rows into {db_path}")
-   conn.close()
-   ```
+conn = sqlite3.connect(db_path)
+conn.executescript("""
+    DROP TABLE IF EXISTS readings;
+    CREATE TABLE readings(
+        ts           TEXT    NOT NULL,
+        machine      TEXT    NOT NULL,
+        temp_c       REAL    NOT NULL,
+        vib_rms      REAL    NOT NULL,
+        spindle_load REAL    NOT NULL
+    );
+""")
+with csv_path.open(newline="") as f:
+    rows = csv.reader(f)
+    next(rows)                                   # skip the header
+    conn.executemany("INSERT INTO readings VALUES (?, ?, ?, ?, ?)", rows)
+conn.commit()
+n = conn.execute("SELECT COUNT(*) FROM readings").fetchone()[0]
+print(f"loaded {n} rows into {db_path}")
+conn.close()
+```
 
-   ```sh
-   uv run python module-01/load_telemetry.py
-   ```
+```sh
+uv run python module-01/load_telemetry.py
+```
 
-   > [!NOTE]
-   > **Prefer the `sqlite3` command-line shell?** If it is installed, you can load the same file by hand. Inside the shell run `.mode csv`, then `.import --skip 1 module-01/telemetry.csv readings` (`.` commands are not SQL — they are shell directives, so they go in the interactive shell, not in a Python string). `.import --skip` needs SQLite ≥ 3.32; the Python loader above has no such requirement, which is why it is the default here.
-   >
-   > **Windows:** the `sqlite3` shell is not installed by default, and the `<<'SQL' … SQL` heredoc form used in later modules is a bash/zsh feature. On Windows, run such blocks in **Git Bash** or **WSL**, or save the block as a `.sql` file and load it with the shell's `.read file.sql`. The pure-Python loader above sidesteps all of this.
+> [!NOTE]
+> **Prefer the `sqlite3` command-line shell?** If it is installed, you can load the same file by hand. Inside the shell run `.mode csv`, then `.import --skip 1 module-01/telemetry.csv readings` (`.` commands are not SQL — they are shell directives, so they go in the interactive shell, not in a Python string). `.import --skip` needs SQLite ≥ 3.32; the Python loader above has no such requirement, which is why it is the default here.
+>
+> **Windows:** the `sqlite3` shell is not installed by default, and the `<<'SQL' … SQL` heredoc form used in later modules is a bash/zsh feature. On Windows, run such blocks in **Git Bash** or **WSL**, or save the block as a `.sql` file and load it with the shell's `.read file.sql`. The pure-Python loader above sidesteps all of this.
 
-3. Answer the shop manager's real questions. Run each query in the `sqlite3` shell and save the output. Note how long each takes by wrapping it with `.timer on`:
+**Step 3 — answer the shop manager's real questions.** Run each query in your SQLite client (the `sqlite3` shell, `litecli`, or Datasette) and save the output. Note how long each takes by wrapping it with `.timer on`:
 
-   ```sql
-   .timer on
-   -- 1. How many readings per machine?
-   SELECT machine, COUNT(*) AS n FROM readings GROUP BY machine;
+```sql
+.timer on
+-- 1. How many readings per machine?
+SELECT machine, COUNT(*) AS n FROM readings GROUP BY machine;
 
-   -- 2. What was the peak vibration per machine in these two days?
-   SELECT machine, MAX(vib_rms) AS peak_vib FROM readings GROUP BY machine;
+-- 2. What was the peak vibration per machine in these two days?
+SELECT machine, MAX(vib_rms) AS peak_vib FROM readings GROUP BY machine;
 
-   -- 3. How many readings exceeded a 2.0 mm/s vibration alarm?
-   SELECT COUNT(*) FROM readings WHERE vib_rms > 2.0;
-   ```
+-- 3. How many readings exceeded a 2.0 mm/s vibration alarm?
+SELECT COUNT(*) FROM readings WHERE vib_rms > 2.0;
+```
 
-4. Now prove the "embedded, no server" claim numerically: report how big `telemetry.db` is and how many rows it holds.
+**Step 4 — prove the "embedded, no server" claim numerically.** Report how big `telemetry.db` is and how many rows it holds.
 
-   ```sh
-   ls -lh module-01/telemetry.db
-   sqlite3 module-01/telemetry.db "SELECT COUNT(*) FROM readings;"
-   ```
+```sh
+ls -lh module-01/telemetry.db
+sqlite3 module-01/telemetry.db "SELECT COUNT(*) FROM readings;"
+```
 
 *Portfolio evidence:* the generator script, the `.db` file size and row count, and the three query results. One sentence: *what would this dataset cost to run in the cloud, and who would pay for it?*
 
