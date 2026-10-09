@@ -103,27 +103,66 @@ print(f"{time.perf_counter() - t0:.4f}s  ({len(rows)} rows)")
 
 ## Git & GitHub primer (template, editor, Markdown, conflicts)
 
-You only need a slice of Git for this course: **create a repo from the portfolio template**, edit and commit Markdown, and resolve the occasional conflict. Branching, rebasing, and the **command line are optional** — the workflow is deliberately simple.
+In class we work with **GitHub on the web** and the **Git UI inside your editor** (VS Code or Zed) — commit, fetch, pull, and push from the buttons, not the terminal. **`gh` is used exactly once: to clone your new repository.** Command-line `git`/`gh` and SSH keys are *optional* — links at the end.
 
-**Prefer a tool over the terminal.** You do *not* need the command line to pass; pick whichever of these fits you:
+### Install Git and GitHub tools (Windows, macOS, Linux)
 
-- **Your editor (recommended).** Zed and VS Code have Git built in — see the diff, stage, commit, push/pull, and resolve conflicts without a shell. In Zed, use the Git panel and the *Git: commit* action; in VS Code, the **Source Control** view.
-- **GitHub in the browser.** Edit any file, add files or folders, and commit straight on github.com — ideal for a quick fix or to paste a query result. GitHub's web editor writes the commit for you.
-- **A GitHub-native GUI app** (GitHub Desktop, etc.) if you prefer one place for everything.
-- **The command line (optional).** Handy to know, not required. The six commands below cover almost everything here.
+**The in-class flow:**
 
-**The command line, if you want it:**
+**1. Create the repo on GitHub (web).** Open [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) → **Use this template → Create a new repository**. Name it `databases-portfolio` and make it **public** (or at least readable by the instructor). (A **template** gives you a fresh repo with one clean commit and no upstream link; a **fork** keeps a link to the original and the full history — not what a personal portfolio wants.) [Docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+
+**2. Clone it once with `gh` — the only `gh` command you need.**
 
 ```sh
-git clone https://github.com/<you>/<your-repo>.git
-cd <your-repo>
-git status
-git add .
-git commit -m "Add module-01 evidence"
-git push
+gh auth login                              # GitHub.com → HTTPS → "Login with a web browser"
+gh repo clone <you>/databases-portfolio    # clone the repo you just created on the web
 ```
 
-**Use a template, not a fork.** For the course portfolio, click **“Use this template”** on [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) — you get a fresh repo with one clean commit and no upstream link. A **fork** keeps a link to the original and the full history, which a personal portfolio does not want. ([How to create a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).)
+**3. Open the folder in VS Code or Zed** and do everything else in the editor's Git UI.
+
+`gh` drives `git` underneath, so install **both**. Install `gh`:
+
+| OS | Install `gh` |
+|---|---|
+| **Windows** | `winget install --id GitHub.cli`, or `scoop install gh` |
+| **macOS** | `brew install gh` |
+| **Linux (Debian/Ubuntu)** | `sudo apt install gh` — older releases: [cli.github.com](https://cli.github.com/) |
+| **Linux (Fedora/RHEL)** | `sudo dnf install gh` |
+
+Install **Git**:
+
+| OS | Install Git |
+|---|---|
+| **Windows** | **Git for Windows** from [git-scm.com/download/win](https://git-scm.com/download/win), or `winget install --id Git.Git -e` (also installs **Git Bash**) |
+| **macOS** | `xcode-select --install` (Apple's Git), or `brew install git` |
+| **Linux** | `sudo apt install git` · `sudo dnf install git` |
+
+Check both: `gh --version` and `git --version`.
+
+**Set your identity once** (so commits are attributed to you):
+
+```sh
+git config --global user.name  "Your Name"
+git config --global user.email "you@example.com"
+```
+
+### Day-to-day commits — in your IDE (recommended)
+
+- **VS Code** — the **Source Control** view: stage, write a message, **Commit**, then **Sync/Push**; **Pull** when you sit down. ([docs](https://code.visualstudio.com/docs/sourcecontrol/overview))
+- **Zed** — the **Git panel**: stage, commit, push/pull. ([docs](https://zed.dev/docs/git))
+- **GitHub on the web** — edit any file and commit right in the browser; ideal for a quick fix or pasting a query result.
+
+> **The only `gh` used in class is the one-time clone.** Everything after that is IDE buttons or the GitHub website.
+
+### Optional: command line, SSH, and other tools (external reading)
+
+None of this is required — the IDE and the web cover the whole course:
+
+- **`git` CLI** — [Pro Git book](https://git-scm.com/book/en/v2) · [git reference](https://git-scm.com/docs)
+- **`gh` CLI** — [cli.github.com/manual](https://cli.github.com/manual/)
+- **SSH keys / key exchange** — [GitHub: Connecting with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) — *not used here; we stay on HTTPS, so there is no key exchange to set up.*
+- **Plain `git` over HTTPS** — `git clone https://github.com/<you>/<repo>.git`, and paste a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) when asked for a password.
+- **GitHub Desktop** — [desktop.github.com](https://desktop.github.com/) (Windows & macOS); a point-and-click alternative.
 
 **What “Git proficiency” means here.** You prove it by **edits and check-ins**, not by memorizing commands:
 

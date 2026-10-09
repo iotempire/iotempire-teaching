@@ -104,12 +104,42 @@ Then the instructor reveals the table and we compare:
 ### ★ Task 1: Form your pod and create your portfolio
 
 1. **Team up first.** Form your **Task Pod** (two or three people — see *Form your Task Pod* above). Exchange contacts and agree how you will keep in touch.
-2. **Create your own repo from the template — “Use this template”, not “Fork”.** On GitHub, open the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) and click **Use this template → Create a new repository**. Name it e.g. `databases-portfolio`, and make it **public** (or at least readable by the instructor). *(A template gives you a fresh repo with one clean commit and no upstream link; a fork keeps a link and the full history — not what a personal portfolio wants. See the [Git & GitHub primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts).)*
-3. **Make it yours — turn the generic template into your own HSBI Databases portfolio.** Change everything directly visible: the README title and description, your name, the links, and any template placeholders. It should read as *your* HSBI Databases portfolio, not the stock `iot-portfolio-template` copy.
-4. **Add your instructor as a collaborator** (repo → *Settings → Collaborators → Add people*). Use the address your instructor posts in the LMS.
-5. **Add this module's learning goals.** Create `module-01/README.md` and copy the *Learning Goals* from the top of this page into it, with a one-line note of what you plan to explore.
-6. **Verify the `.gitignore`** keeps local data and secrets out of Git.
-7. **Commit and check in** with a message like `Add module 01 learning goals`.
+2. **Create your own repo from the template — on the web, “Use this template”, not “Fork”.** Open the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) and click **Use this template → Create a new repository**; name it `databases-portfolio` and make it **public** (or at least readable by the instructor). *(A template gives you a fresh repo with one clean commit and no upstream link; a fork keeps a link and the full history — not what a personal portfolio wants. See the [Git & GitHub primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts).)*
+3. **Check out (clone) YOUR new repo — recommended with `gh` (Cheat sheet A), then open the folder in your editor.** All options use **HTTPS with a browser sign-in** — **no SSH keys**. Not installed yet? See [install Git and GitHub tools](./Z-resources-bank.md#install-git-and-github-tools-windows-macos-linux).
+4. **Make it yours — turn the generic template into your own HSBI Databases portfolio.** Change everything directly visible: the README title and description, your name, the links, and any template placeholders. It should read as *your* HSBI Databases portfolio, not the stock `iot-portfolio-template` copy.
+5. **Add your instructor as a collaborator** (repo → *Settings → Collaborators → Add people*). Use the address your instructor posts in the LMS.
+6. **Add this module's learning goals.** Create `module-01/README.md` and copy the *Learning Goals* from the top of this page into it, with a one-line note of what you plan to explore.
+7. **Verify the `.gitignore`** keeps local data and secrets out of Git.
+8. **Commit and push** from your editor's Git UI (VS Code **Source Control** / Zed **Git panel**) with a message like `Add module 01 learning goals`.
+
+**Cheat sheet A — GitHub CLI `gh` (recommended).** Use it **once**, just to clone.
+
+```sh
+gh auth login                              # once: GitHub.com → HTTPS → "Login with a web browser"
+gh repo clone <you>/databases-portfolio    # the ONLY gh command you need
+```
+
+Then **open the `databases-portfolio` folder in VS Code or Zed** and do the rest there — commit, push, and pull from the editor's Git UI (see the [Git & GitHub primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts)).
+
+**Cheat sheet B — GitHub Desktop (point-and-click option).**
+
+1. Install **GitHub Desktop** ([desktop.github.com](https://desktop.github.com/)) and sign in via the browser.
+2. **File → Clone repository → GitHub.com**, pick **your** `databases-portfolio`, choose a folder, click **Clone**.
+3. Commit and **Push origin** from the same window.
+
+**Cheat sheet C — plain `git` over HTTPS (option).**
+
+```sh
+git clone https://github.com/<you>/databases-portfolio.git
+cd databases-portfolio
+git status
+```
+
+When Git asks for a password, paste a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) — **not** your account password.
+
+> **In VS Code or Zed?** Command palette → **Git: Clone**, paste the HTTPS URL, and sign in to GitHub when asked. (This is the route that tripped people up in class: the plain **Clone** dialog needs the **HTTPS** URL, and *your* repo — not the template.)
+>
+> **"Repository not found"?** You must clone **your** new repository, not the template. Check the owner/name in the URL, and make sure you are signed in to the right GitHub account.
 
 At minimum, your `.gitignore` should contain:
 
@@ -124,11 +154,11 @@ At minimum, your `.gitignore` should contain:
 __pycache__/
 ```
 
-*Portfolio evidence:* the link to **your** repository, the instructor listed as a collaborator, and your first commit.
+*Portfolio evidence:* the link to **your** repository (and your local clone), the instructor listed as a collaborator, and your first commit.
 
 ### ★ Task 2: Git & Markdown proficiency in the pod
 
-Git here is a *habit*, not a command list — and you can do all of it from your editor or the browser (see the [Git & GitHub primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts)).
+Git here is a *habit*, not a command list — do it with the **buttons in your editor's Git UI** (VS Code *Source Control* / Zed *Git panel*) or right on the **GitHub website** (see the [Git & GitHub primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts)).
 
 1. **Several small commits** across the session, each message saying *what* changed (e.g. `Add uv-check output`, `Fix telemetry query`).
 2. **Write Markdown with interlinks.** In `module-01/README.md`, link to your pod mates' portfolios, the [syllabus](../syllabus.md), the module you are working on, and any shared artifact. Markdown — headings, lists, tables, links — *is* the deliverable.
