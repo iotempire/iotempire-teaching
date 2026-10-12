@@ -58,7 +58,7 @@ Submit a **5-page** report (Markdown or PDF) in the project repository under `do
 <a id="the-15-minute-demo--oral-defense"></a>
 ## 🎤 The 15-Minute Demo & Oral Defense
 
-The assessment combines a **Project Team demo** with an **individual oral defense**. Budget your time like this:
+Your final presentation has two parts: a **Project Team demo** and an **individual defense**. Budget your time like this:
 
 | Minutes | Segment | Who |
 |---|---|---|
@@ -109,7 +109,7 @@ Before Session 11, the project repository must contain:
 
 - Build time: [Module 7 — Final Project Studio](./07-final-project-studio.md) (Sessions 7–10).
 - Demo & defense: Session 11.
-- Points: 5 of the 20 base points (25 %). See the [syllabus assessment rules](../syllabus.md#assessment-kombinationsprüfung-20-base-points--bonus) and the [grade scale](../syllabus.md#grade-scale).
+- Points: 5 of the 20 base points (25 %). See the [syllabus assessment rules](../syllabus.md#assessment-project-work-20-base-points--bonus) and the [grade scale](../syllabus.md#grade-scale).
 
 ---
 

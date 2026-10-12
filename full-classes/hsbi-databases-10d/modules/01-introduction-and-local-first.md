@@ -7,7 +7,7 @@
 ## 🎯 Learning Goals
 
 By the end of this module, you can:
-1. Explain how this class works — the CBL/PBL philosophy, the portfolio-based *Kombinationsprüfung*, and the "moving bar" of a first-time course.
+1. Explain how this class works — the CBL/PBL philosophy, the portfolio-based **project work** assessment, and the "moving bar" of a first-time course.
 2. Set up your personal GitHub portfolio from the course template, with a clean first commit and a `.gitignore` that keeps databases and secrets out of Git.
 3. Set up the entire toolchain reproducibly with **`uv`** — one fixed Python plus SQLite, DuckDB, Datasette, and more — on Windows, macOS, or Linux, and verify it.
 4. Explain — with a measurement, not a slide — the difference between an **embedded** database and a **client/server** database, and why most local apps should not run a server.
@@ -29,7 +29,7 @@ By the end of this module, you can:
 
 ### How the class works — the contract
 
-**Here we open the [syllabus](../syllabus.md) together.** The full model lives there — the learning-goals contract, the *Kombinationsprüfung*, the ★/◇ task tiers, and the “draft in motion” boundary. The one-line version: each module **begins with its learning goals**, those goals are the *contract*, and the tasks are negotiable as long as you reach the goals.
+**Here we open the [syllabus](../syllabus.md) together.** The full model lives there — the learning-goals contract, the **project work** assessment, the ★/◇ task tiers, and the “draft in motion” boundary. The one-line version: each module **begins with its learning goals**, those goals are the *contract*, and the tasks are negotiable as long as you reach the goals.
 
 **AI is a tool you must verify, not an oracle.** You will use Copilot/ChatGPT/Claude/DeepSeek (or a local model) throughout — to draft SQL, review schemas, and explain errors. What matters is your *judgment*: does it run, is it correct, is it fast, is it safe? Every module has a "how did I verify AI suggestions?" step in its reflection.
 

@@ -96,9 +96,9 @@ By the end of this course, you will be able to (mapped to the module-handbook co
 - **Content:** none required (module handbook Section 5). Basic Python, a terminal, and Git help and are scaffolded in Session 1 (Module 1).
 - **Relationship to other modules:** *Databases* is a standalone 3rd-semester module. It pairs naturally with the IoT course family (MCU programming, networking, sensors/actuators): the data those courses produce on the edge is exactly the data you will store, query, and analyze here — but there is no required prior course.
 
-## Assessment: Kombinationsprüfung (20 Base Points + Bonus)
+## Assessment: Project Work (20 Base Points + Bonus)
 
-Assessment is conducted as a *Kombinationsprüfung* combining continuous portfolio documentation, studio lab work, reflection logbook entries, and a final project with an individual oral defense. Section 6 of the module handbook permits exactly this combination of project work and oral examination; the legacy 75 % written examination is not used.
+Assessment is **project work** — one of the forms the module handbook allows (*written examination, project work, or oral examination, or a combination*); there is **no written examination**. You build and maintain one big **GitHub repository**: the small tasks in each module are how you **prove that module's learning goals**, personalized through your **reflections**, and short **checkpoints** give you **feedback on whether those goals have been achieved** — while also giving the instructor a sense of your performance. In the **last session you present your final project to the instructor and to each other**.
 
 > [!IMPORTANT]
 > **Modules 1–6 are worth 11 of the 20 base points.** You earn them by demonstrating these modules' learning goals in short checkpoints — not by completing every task. Checkpoints are **tentatively at the start of day 4** (Modules 1–3) and **day 8** (Modules 4–6); see [How module points are earned](#how-module-points-are-earned-checkpoint-presentations).
@@ -109,7 +109,7 @@ Assessment is conducted as a *Kombinationsprüfung* combining continuous portfol
 |---|---|---|
 | Modules 1–6 (Learning goals) | 11 points | Earned through short checkpoint presentations that prove the module learning goals from your portfolio: portfolio setup and the first profiling task (Module 1, 1 point), then schema trade-off benchmarks, trigger and constraint implementations, and query-optimization evidence (Modules 2–6, 2 points each). |
 | Reflection Points | 4 points | One reflection for each teaching block, captured in your personal logbook. |
-| Final Personal Meaningful Challenge Project | 5 points | 25 % of the base score. Story-driven local-first embedded database application in merged **Project Teams** of 4–6, evaluated via a working GitHub repository, 5-page documentation, and a 15-minute live demo + individual oral defense. |
+| Final Personal Meaningful Challenge Project | 5 points | 25 % of the base score. Story-driven local-first embedded database application in merged **Project Teams** of 4–6, evaluated via a working GitHub repository, 5-page documentation, and a 15-minute live demo + individual defense, **presented to the instructor and your peers on the last session**. |
 | **Base Total** | **20 points** | 100 % base score. |
 | Extra / Bonus Points | up to +3 | Exceptional benchmarking, accepted open-source pull requests to IoTempower or class repositories, or peer debugging assistance. |
 

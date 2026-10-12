@@ -36,4 +36,4 @@
 
 ## Assessment
 
-Assessment — how the points are earned, the checkpoints, the reflection format, and the grade scale — is defined in the [syllabus](../syllabus.md#assessment-kombinationsprüfung-20-base-points--bonus).
+Assessment — how the points are earned, the checkpoints, the reflection format, and the grade scale — is defined in the [syllabus](../syllabus.md#assessment-project-work-20-base-points--bonus).
