@@ -135,6 +135,20 @@ print(f"{time.perf_counter() - t0:.4f}s  ({len(rows)} rows)")
 
 > **Tips for numbers you can trust.** Run each query several times and report the **median** — the first run pays for disk cache and plan warm-up. A very fast query can be *faster* than the timer's resolution, so `.timer on`'s CPU figure or a repeat-in-a-loop makes the signal visible. And time it in the client you actually ship.
 
+## Visualizing an ER model (Mermaid, diagrams.net)
+
+LLMs usually hand you a diagram as **Mermaid** text — a code fence tagged `mermaid` that contains an `erDiagram`. Mermaid is text-to-diagram; paste it where Mermaid renders:
+
+- **Fastest — [mermaid.live](https://mermaid.live/):** paste the code, see the diagram, then *Actions → PNG/SVG* to download it for your portfolio.
+- **On GitHub:** put the code in a code fence tagged `mermaid` inside a `.md` file — GitHub renders it on the page (handy for your portfolio).
+- **VS Code:** the *Markdown Preview Mermaid Support* extension renders `mermaid` fences in the preview.
+- **From the CLI:** `npx -y @mermaid-js/mermaid-cli -i diagram.mmd -o diagram.svg`.
+- **Design or repair it yourself:** [diagrams.net](https://www.diagrams.net/) (draw.io) is the course's ER tool.
+
+Mermaid's `erDiagram` uses **crow's-foot** cardinality — `||--o{` is one-to-many, `}o--o{` is many-to-many — a fast way to *see* the intended model.
+
+> **Sanity-check any LLM diagram.** A model will happily *draw* relationships the schema never declared — that is exactly Module 2's point. The diagram shows what the tables are *meant* to mean; verify each relationship against the data with a `COUNT`.
+
 ## Git & GitHub primer (template, editor, Markdown, conflicts)
 
 In class we work with **GitHub on the web** and the **Git UI inside your editor** (VS Code or Zed) — commit, fetch, pull, and push from the buttons, not the terminal. **`gh` is used exactly once: to clone your new repository.** Command-line `git`/`gh` and SSH keys are *optional* — links at the end.

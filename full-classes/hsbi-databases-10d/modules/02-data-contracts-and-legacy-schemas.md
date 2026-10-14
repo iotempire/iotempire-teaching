@@ -69,28 +69,42 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 > Ask each prompt **against your own `legacy.db`**, and record where the model is wrong, vague, or over-confident.
 
-### ★ Task A: Keep a study log (~20 minutes)
+### ★ Task A: Study in your pod (~30 minutes)
 
-Spend about **20 minutes** studying and filling in `module-02/study-log.md` with these sections. Treat the sketch hunt as a small **sport** — the clearest examples win the Discord share in Task B.
+Spend about **30 minutes** exploring the concepts above with your Task Pod and filling in `module-02/study-log.md`:
 
 1. **The references you used** — the source (book, site, video, doc) and, for each, **the one concept you understood best from it**. (This comes first: credit where your understanding came from.)
 2. **Things you googled** — the term/question, what you found, and the source (URL). One line each.
 3. **Remarkable things** — surprises, "aha"s, and counterexamples (e.g. "a *name* looked like a key but had duplicates").
 4. **LLM Q&A** — for each prompt you tried: the prompt, a 2–3 line summary of the answer, and **how you verified it** (and where it was wrong).
-5. **Your two best ER sketches** — hunt down ER/EER **example sketches** that teach you the most, then **compile down to the best two**. For each: the source (link or credit), a screenshot or your own redraw, and **what exactly you learned from it** that the others did not show.
+5. **Your two best found ER sketches** — hunt down ER/EER **example sketches** that teach you the most, then **compile down to the best two** (this is a small **sport** — the clearest examples win the Discord share in Task C). For each: the source (link or credit), a screenshot or your own redraw, and **what exactly you learned from it** that the others did not show.
 
 *Portfolio evidence:* `module-02/study-log.md`.
 
-### ★ Task B: Discuss with another pod (~10 minutes)
+### ★ Task B: From words to sketch (part of your study)
 
-Pair with a **neighbouring pod** for about **10 minutes**:
+Working from a plain-text description to a diagram is the core skill. For **each** description below, decide the **entities**, their **attributes**, and the **relationships with cardinality**, then **sketch it** — hand-drawn, or in [Mermaid or diagrams.net](./Z-resources-bank.md#visualizing-an-er-model-mermaid-diagramsnet).
 
-1. Compare your study logs — references, remarkable findings, and especially your **two best sketches** (this is the sport: whose examples are clearest?).
+1. **1:1** — *A workshop keeps **machines**. Each machine has exactly one **nameplate** (serial number, manufacturer), and each nameplate belongs to exactly one machine.* → Where does the key go? Is the nameplate a separate entity or an attribute of the machine?
+2. **1:n** — *Each machine carries many **sensors**; every sensor is installed on exactly one machine.* → Which side holds the foreign key?
+3. **m:n** — ***Work orders** use many **parts**, and a part is used by many work orders; an order can list a given part only once.* → What extra table do you need, and what is its key?
+4. **Entity vs. attribute vs. relationship** — *A maintenance **job** happens on one **machine**, is done by one **technician** on one **date**; a technician performs many jobs.* → Is the job a *relationship* or an *entity*? Is the technician an entity or just a name?
+
+Then prove one: write the `CREATE TABLE` for your favourite sketch, insert two rows, and show the `COUNT` query that demonstrates its cardinality.
+
+*Portfolio evidence:* your **four sketches** in `module-02/study-log.md` (or `er-examples.md`) plus the one `CREATE TABLE` + `COUNT` proof.
+
+### ★ Task C: Explain & share with another pod (~15 minutes)
+
+Pair with a **neighbouring pod** for about **15 minutes**:
+
+1. **Explain to each other** — each pod walks the other through its study log and its four sketches; ask questions and fill each other's gaps.
 2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"a natural key without `UNIQUE` is not a key"*).
-3. Agree on **one sketch** — the best example from either pod, or a **new drawing the two pods make together** — and **share that one in our Discord channel**, with a one-sentence note on why you chose it.
-4. Each member adds a short **“Agreed learning (pod discussion)”** section — the shared points, plus any disagreement you left open — to *their own* `module-02/study-log.md`.
+3. **Clean up your documentation** — update your `study-log.md` with what you learned from the other pod.
+4. Agree on **one image** — the best example from either pod, or a **new drawing the two pods make together** — and **post that one in our Discord channel**, with a one-sentence note on why you chose it.
+5. Each member adds a short **“Agreed learning (pod discussion)”** section — the shared points, plus any disagreement you left open — to *their own* `module-02/study-log.md`.
 
-*Portfolio evidence:* the “Agreed learning (pod discussion)” section in `study-log.md`, and your pod-pair's single shared sketch posted in Discord.
+*Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section), and your pod-pair's single shared image posted in Discord.
 
 ## 🛠️ Studio Lab: Audit a Legacy Schema — **Challenging**
 
@@ -152,7 +166,7 @@ SQL
 
 **1. List the entities you can see** and, for each, the attributes and the *intended* primary key. Write these down in `module-02/er-audit.md`.
 
-**2. Draw the ER diagram** (hand-drawn and photographed, or in a tool such as [diagrams.net](https://www.diagrams.net/)) showing the entities you believe the designer *meant* to model: `Machine`, `Part`, `MaintenanceJob`, `Technician`, and the relationships between them.
+**2. Draw the ER diagram** (hand-drawn and photographed, or in a tool such as [diagrams.net](https://www.diagrams.net/)) showing the entities you believe the designer *meant* to model: `Machine`, `Part`, `MaintenanceJob`, `Technician`, and the relationships between them. *(If you ask an LLM to sketch this, it usually answers in **Mermaid** `erDiagram` syntax — see [Visualizing an ER model](./Z-resources-bank.md#visualizing-an-er-model-mermaid-diagramsnet) for how to render it.)*
 
 **3. Determine the cardinalities** with counts, not guesses. For example, to prove that `parts_used` is really a many-to-many list hidden in a column:
 
@@ -171,6 +185,8 @@ FROM maint_job;
 ### ★ Task 2: Find the integrity defects with queries
 
 Do not describe defects — **prove** them. Save each query and its result.
+
+> An LLM can *list* these defects for you in seconds — and the expected ones are no secret. That listing is **not** the skill; **proving** each defect with a query, and repairing the model, is.
 
 ```sql
 .timer on
@@ -288,17 +304,41 @@ The plant also has *machines* that are *CNC mills* and *injection molders*, each
 
 *Portfolio evidence:* both schema alternatives plus your decision and rationale.
 
+### ◇ Task 5 (Stretcher): Mermaid ER diagrams — collect, convert, and critique
+
+Turn Mermaid into your ER notebook: hunt good and strange diagrams, move between diagrams and schemas with AI, and pick fights with the classics.
+
+**1. Collect curiosities.** Find ER diagrams that are *good*, *strange*, or *famous*, and **redraw each in Mermaid** `erDiagram`. Search terms to start from:
+- `entity relationship diagram examples` · `interesting ER diagram` · `ER diagram best practices` / `worst practices`
+- `ternary relationship ER` · `weak entity ER` · `recursive relationship ER` · `associative entity`
+- `ER diagram notation comparison` (Chen vs Crow's-foot vs UML) · `dbdiagram.io examples` · `mermaid erDiagram examples`
+
+Pick **three** — one *good*, one *strange*, one *wrong or confusing* — and say what makes each so.
+
+**2. Move schema ↔ diagram (with AI).**
+- **Schema → diagram:** paste a `CREATE TABLE` set to an LLM, ask for the Mermaid `erDiagram`, then render it ([mermaid.live](https://mermaid.live/) or GitHub). **Verify every cardinality against the data** with `COUNT`s — a model will happily *draw* a relationship the schema never declared.
+- **Diagram → schema:** paste a Mermaid `erDiagram` back and ask for the equivalent `CREATE TABLE`s with foreign keys; run them in SQLite and re-derive the diagram from `.schema`. **What survived the round-trip, and what did the model invent?**
+
+**3. Argue about cardinality overuse.** Real ER diagrams are almost always **1:1, 1:n, or m:n**. Numbers like **1:4** (*“a car has exactly four wheels”*) are *business rules*, not cardinalities — they belong in a `CHECK`/validation, not the model. That textbook example is overused and misleading. **Try to break it** (a spare wheel? a trailer? a six-wheel truck?) and write when “exactly N” is a genuine cardinality and when it is just a constraint.
+
+**4. Inheritance — wrong or overused.** Mermaid `erDiagram` **cannot** express EER inheritance — use a `classDiagram` or plain notes for that. Sketch a *Vehicle → Car/Truck* hierarchy, then argue *against* it: when is a `type` column enough? When does inheritance explode (the `Customer`/`Employee`/`Student` tangle)? Ask an LLM: *“Give me a schema where inheritance is classic over-engineering, and a simpler alternative.”* Compare with the inheritance stretcher above.
+
+**5. Share your best find.** Post the most interesting good/strange diagram (with its Mermaid source) in Discord, with one line on what it teaches.
+
+*Portfolio evidence:* `module-02/mermaid-lab.md` (or a section in `study-log.md`) with your **three curated diagrams + Mermaid source**, the schema↔diagram round-trip findings, and one paragraph each on **cardinality** and **inheritance** overuse.
+
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
 Your portfolio only needs to **prove this module's learning goals**. These are **suggested proofs** (under `module-02/`) — use them, or show the same goals another way:
 
-- [ ] `study-log.md` — the references you used (and the concept each taught you), what you googled, remarkable findings, LLM Q&A (with how you verified each), your **two best ER sketches**, and your **“Agreed learning (pod discussion)”** — plus the single sketch your pod pair shared in Discord.
+- [ ] `study-log.md` — the references you used (and the concept each taught you), what you googled, remarkable findings, LLM Q&A (with how you verified each), your **two best found ER sketches** and your **four drawn examples** (with the one `CREATE TABLE` + `COUNT` proof), and your **“Agreed learning (pod discussion)”** — plus the single image your pod pair shared in Discord.
 - [ ] `legacy.db` setup script (the `CREATE`/`INSERT` block) — so a reviewer can rebuild it.
 - [ ] `er-audit.md` with the entity/attribute list, the reconstructed ER diagram, and cardinalities.
 - [ ] The five integrity-defect queries **with results** and one-line production-impact notes.
 - [ ] `contract.py` (Pydantic + SQLAlchemy) and the emitted corrected DDL.
 - [ ] `reflection.md` — the logbook entry for this block: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 - [ ] (Stretcher) the two inheritance models and your decision.
+- [ ] (Stretcher) `mermaid-lab.md` — three curated ER diagrams + Mermaid source, the schema↔diagram round-trip, and your notes on cardinality and inheritance overuse.
 
 ## 📚 If you want to go deeper
 
@@ -306,6 +346,8 @@ Your portfolio only needs to **prove this module's learning goals**. These are *
 - Pydantic — data validation — [docs.pydantic.dev](https://docs.pydantic.dev/)
 - SQLAlchemy — declarative ORM and Core — [docs.sqlalchemy.org](https://docs.sqlalchemy.org/)
 - diagrams.net (draw.io) — free ER diagramming — [diagrams.net](https://www.diagrams.net/)
+- Mermaid — `erDiagram` syntax — [mermaid.js.org/syntax/entityRelationshipDiagram.html](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
+- dbdiagram.io — a text-to-ER playground — [dbdiagram.io](https://dbdiagram.io/)
 
 ---
 
