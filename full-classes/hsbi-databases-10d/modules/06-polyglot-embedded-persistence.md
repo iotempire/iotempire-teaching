@@ -272,9 +272,9 @@ For ~15 years the “serious” way to build a networked app was the familiar th
 
 > **Instructor demo/teaching hint.** Open GoToSocial's database page that states SQLite is the *default* with Postgres as the optional heavier path — it is this module's thesis running in production: an embedded database as the sensible default, a server only when a measured need forces it. Contrast the deployment shapes: Mastodon's multi-service diagram vs. GoToSocial's one binary + one `./data/`. If you want a third, SQLite-native example for the slide, **PocketBase** and **TrailBase** are single-binary backends built directly on SQLite.
 
-## ✅ What must be committed to your portfolio
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Commit under `module-06/`:
+Your portfolio only needs to **prove this module's learning goals**. These are **suggested proofs** (under `module-06/`) — use them, or show the same goals another way:
 
 - [ ] The JSON device DDL, `json_extract`/`json_each` queries, and the expression-index plan.
 - [ ] `analytics.py`, the Parquet artifact (or its size), the two timings, and the engine-fit paragraph.

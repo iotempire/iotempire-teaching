@@ -228,7 +228,7 @@ if __name__ == "__main__":
         print(str(CreateTable(t).compile(engine)).strip(), ";\n")
 ```
 
-Run it (`pip install pydantic sqlalchemy` if needed) and save the emitted DDL. This is the schema you would migrate to.
+Run it with `uv run python module-02/contract.py` (your Module 1 environment already has `pydantic` and `sqlalchemy`) and save the emitted DDL. This is the schema you would migrate to.
 
 *Portfolio evidence:* `contract.py`, a note on which constraint you chose to enforce **in the model** versus **in the database** (and why), and the emitted DDL.
 
@@ -238,9 +238,9 @@ The plant also has *machines* that are *CNC mills* and *injection molders*, each
 
 *Portfolio evidence:* both schema alternatives plus your decision and rationale.
 
-## ✅ What must be committed to your portfolio
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Commit under `module-02/`:
+Your portfolio only needs to **prove this module's learning goals**. These are **suggested proofs** (under `module-02/`) — use them, or show the same goals another way:
 
 - [ ] `legacy.db` setup script (the `CREATE`/`INSERT` block) — so a reviewer can rebuild it.
 - [ ] `er-audit.md` with the entity/attribute list, the reconstructed ER diagram, and cardinalities.

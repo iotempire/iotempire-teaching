@@ -337,11 +337,7 @@ uv tool install sqlite-utils
 uv run python -c "import sys, sqlite3, duckdb; print(sys.version.split()[0], sqlite3.sqlite_version, duckdb.__version__)"
 ```
 
-If you prefer plain pip, the same libraries install with:
-
-```sh
-pip install duckdb datasette sqlite-utils pydantic sqlalchemy
-```
+If you cannot use **`uv`**, install the same libraries with your platform's own tooling (for example `conda`), and manage the Python version and environment yourself — that is exactly the work `uv` does for you in one step, which is why this course uses it.
 
 > [!TIP]
 > Datasette Lite runs entirely in the browser (WASM) — useful if you cannot install anything: [lite.datasette.io](https://lite.datasette.io/).

@@ -257,14 +257,14 @@ uv run uv-check.py
 *Portfolio evidence:* the `uv run uv-check.py` output, plus committed `pyproject.toml` and `uv.lock` files (do **not** commit `.venv/`).
 
 > [!NOTE]
-> **Prefer Anaconda? (we mention this once.)** We use [**`uv`**](https://docs.astral.sh/uv/) in this class because it is modern, fast, and a single tool for the whole job — the Python version, the isolated environment, and the packages. If you already live in **Anaconda**, you can translate every `uv` step in this course to `conda`/`pip`; nothing later depends on `uv` specifically.
+> **Prefer Anaconda? (we mention this once.)** We use [**`uv`**](https://docs.astral.sh/uv/) in this class because it is modern, fast, and a single tool for the whole job — the Python version, the isolated environment, and the packages. If you already live in **Anaconda**, you can translate every `uv` step in this course to `conda`; nothing later depends on `uv` specifically.
 >
 > | `uv` (this class) | Anaconda equivalent |
 > |---|---|
 > | `uv python install 3.14` | `conda create -n databases python=3.14` |
 > | `uv python pin 3.14` | (the environment pins the version for you) |
-> | `uv add duckdb datasette sqlite-utils pydantic sqlalchemy` | `conda activate databases` then `pip install duckdb datasette sqlite-utils pydantic sqlalchemy` |
-> | `uv tool install litecli` | `pip install litecli` (or `pipx install litecli`) |
+> | `uv add duckdb datasette sqlite-utils pydantic sqlalchemy` | `conda activate databases` then `conda install -c conda-forge duckdb datasette sqlite-utils pydantic sqlalchemy` |
+> | `uv tool install litecli` | `pipx install litecli` (a dedicated tool installer, like `uv tool`) |
 > | `uv run python script.py` | `python script.py` (with the environment activated) |
 >
 > Read every `uv run python …` below as “run Python inside your course environment” — in Anaconda, activate the environment and run `python …` instead.
@@ -564,9 +564,9 @@ Run `uvx datasette module-01/telemetry.db -o` and explore the web side properly:
 
 *Portfolio evidence:* `module-01/toolbox.md` with your notes and (for Datasette Lite) a screenshot.
 
-## ✅ What must be committed to your portfolio
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Commit the following after Session 1 (the `uv` project files sit at the repository root; the rest under `module-01/`):
+Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way if you have something better. (After Session 1; the `uv` project files sit at the repository root, the rest under `module-01/`.)
 
 - [ ] Your own repo **created from the template** (public / instructor-readable) with the **instructor added as a collaborator**.
 - [ ] A clean `.gitignore` (database and secret files stay out of Git).

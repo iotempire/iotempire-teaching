@@ -195,9 +195,9 @@ Write a short recommendation (5–8 sentences) to the operations lead: which des
 
 Load the same data into DuckDB and run the dashboard query there. Capture wall-clock time and note whether DuckDB's columnar engine removes the need for the denormalized table entirely. This is a natural bridge into Module 6.
 
-## ✅ What must be committed to your portfolio
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Commit under `module-05/`:
+Your portfolio only needs to **prove this module's learning goals**. These are **suggested proofs** (under `module-05/`) — use them, or show the same goals another way:
 
 - [ ] The setup script that builds `flat_jobpart` with ~200k rows (so the benchmark is reproducible).
 - [ ] `normalization-notes.md` — functional dependencies and one example of each anomaly.

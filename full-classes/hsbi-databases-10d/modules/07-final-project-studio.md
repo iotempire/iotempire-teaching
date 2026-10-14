@@ -123,9 +123,9 @@ Run a timed **15-minute dry run** of the Session 11 demo (format in [Module 8](.
 
 Open a pull request to IoTempower, this course repository, or an open-source tool that helped you — a fixed typo in a doc, a sample script, a driver tweak. Accepted contributions qualify for bonus points.
 
-## ✅ What must be committed to your portfolio (per member)
+## ✅ Suggested portfolio evidence (proofs of the learning goals, per member)
 
-Each **Project Team** member commits their **own** portfolio entry that:
+It is enough that each member's portfolio entry **proves their part of the project's learning goals**. A suggested shape — adapt it to what you actually did:
 - Links to the shared project repository.
 - States **their** contribution and the design decision **they** own.
 - Includes the evidence for that piece (their query, their benchmark, their ingestion module).

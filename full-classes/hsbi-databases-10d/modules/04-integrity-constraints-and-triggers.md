@@ -202,9 +202,9 @@ Write 3–4 sentences: **how would this differ with a PostgreSQL server, and why
 
 Switch the alarm trigger to `BEFORE INSERT` and observe the difference; or add an `INSTEAD OF` trigger on a view. Document what changes and why `AFTER` was the right default here.
 
-## ✅ What must be committed to your portfolio
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Commit under `module-04/`:
+Your portfolio only needs to **prove this module's learning goals**. These are **suggested proofs** (under `module-04/`) — use them, or show the same goals another way:
 
 - [ ] The setup script (`STRICT` tables, generated column, constraints).
 - [ ] The rejected-statement evidence for each constraint with its exact error message.

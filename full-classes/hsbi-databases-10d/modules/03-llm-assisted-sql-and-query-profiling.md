@@ -200,9 +200,9 @@ Take any query you wrote above and write its **relational algebra** expression (
 
 Rewrite the "late orders per customer" report once with a correlated subquery and once with a window function (`COUNT(*) OVER (PARTITION BY ...)`). Compare the plans and the readability. Note which the LLM produced by default.
 
-## ✅ What must be committed to your portfolio
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Commit under `module-03/`:
+Your portfolio only needs to **prove this module's learning goals**. These are **suggested proofs** (under `module-03/`) — use them, or show the same goals another way:
 
 - [ ] The setup script that builds `warehouse.db` (~240k order lines).
 - [ ] The LLM prompt(s), the generated SQL, your predicted plan, and the actual `EXPLAIN QUERY PLAN` output.
