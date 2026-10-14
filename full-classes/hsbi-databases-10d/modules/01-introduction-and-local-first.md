@@ -286,18 +286,33 @@ sqlite3 module-01/tour.db
 
 At the `sqlite>` prompt, type these (dot-commands need no semicolon; SQL does):
 
+> [!WARNING]
+> **Dot-commands are not SQL — never append a `-- comment` to one.** The shell reads *everything after a dot-command* as its arguments: `.mode column -- readable` fails with `Unknown option: "--"`, and `.dump -- …` would filter the dump instead of dumping everything. Put `--` comments on their **own line** (as below), or use them **only on SQL lines**.
+
 ```sql
-.help                     -- list every dot-command
-.tables                   -- (empty so far)
+-- list every dot-command (this prints a long help — that is expected)
+.help
+
+-- SQL: create a table and add rows (SQL ends with ; — dot-commands do not)
 CREATE TABLE reading(machine TEXT, vib REAL);
 INSERT INTO reading VALUES ('cnc-01', 1.2), ('cnc-02', 2.4), ('cnc-01', 0.9);
-.tables                   -- now shows: reading
-.schema reading           -- the CREATE statement that made it
-.mode column              -- readable, aligned columns
+
+-- what tables exist now?
+.tables
+
+-- the CREATE statement that made it
+.schema reading
+
+-- readable, aligned columns with a header
+.mode column
 .headers on
 SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;
+
+-- the same query, now timed (CPU time)
 .timer on
-SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;   -- now with timing
+SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;
+
+-- leave the shell
 .quit
 ```
 
@@ -311,12 +326,17 @@ SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;   -- now with ti
 **Capture a session to a file** (excellent portfolio evidence). The shell can redirect its output:
 
 ```sql
-.output module-01/shell-tour.txt   -- everything after this is written to the file
+-- send everything from here into a file
+.output module-01/shell-tour.txt
 .tables
 .schema reading
 SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;
-.dump                              -- the whole schema + data as SQL
-.output stdout                     -- back to the screen
+
+-- the whole schema + data as SQL
+.dump
+
+-- back to the screen
+.output stdout
 .quit
 ```
 
