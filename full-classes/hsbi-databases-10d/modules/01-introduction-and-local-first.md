@@ -284,13 +284,14 @@ sqlite3 module-01/tour.db
 
 > **"unable to open database file"?** The shell could not create the file — almost always the `module-01/` folder is missing or you are not at the repo root. Run `mkdir -p module-01`, make sure you are at the **root of your portfolio repo**, and try again. After you `.quit`, confirm it with `ls -l module-01/tour.db`.
 
-At the `sqlite>` prompt, type these (dot-commands need no semicolon; SQL does). **Enter them one line at a time — do not paste the whole block.**
+At the `sqlite>` prompt, type these (dot-commands need no semicolon; SQL does). You can enter them one line at a time, or enable pasting (below) and paste the whole block.
 
 > [!IMPORTANT]
-> **Pasting a multi-line block into the `sqlite>` prompt fails — and it is not your fault.** Modern terminals use **bracketed paste**, which hands your whole paste to the shell as a *single line*, so `.mode column .headers on SELECT …` arrives as one command and `.mode` reports `bad argument`. Three ways to run a block:
-> 1. **Recommended — from a file.** Save the lines as `module-01/tour-commands.sql`, then run `sqlite3 module-01/tour.db < module-01/tour-commands.sql`, or inside the prompt `.read module-01/tour-commands.sql`.
-> 2. **Paste or type one line at a time** (press Enter after each line).
-> 3. **Turn bracketed paste off** so a multi-line paste does run line by line: add `set enable-bracketed-paste off` to `~/.inputrc`, then open a new terminal/session.
+> **Can't paste a block into the `sqlite>` prompt? That is *bracketed paste* — not you, and not a broken SQLite.** Modern terminals wrap a paste in “bracketed paste” markers because **readline** (which `sqlite3` uses — it is built with `libreadline`) asks for it; readline then inserts the whole paste as a **single line**, so `.mode column` receives `.headers on SELECT …` as arguments (`bad argument`). If the block starts with `--`, the shell instead treats the whole block as **one SQL statement** and waits at `...>` for a `;`. Copying through a text editor does **not** help — the terminal re-adds the markers when you paste.
+>
+> **Fix it once (best):** append `set enable-bracketed-paste off` to `~/.inputrc` — i.e. `echo 'set enable-bracketed-paste off' >> ~/.inputrc` — then open a new terminal. A multi-line paste now runs line by line.
+>
+> **Or skip pasting:** save the lines as `module-01/tour-commands.sql` and run `sqlite3 module-01/tour.db < module-01/tour-commands.sql`, or type `.read module-01/tour-commands.sql` in the prompt. **Or just enter one line at a time.**
 
 > [!WARNING]
 > **Dot-commands are not SQL — never append a `-- comment` to one.** The shell reads *everything after a dot-command* as its arguments: `.mode column -- readable` fails with `Unknown option: "--"`, and `.dump -- …` would filter the dump instead of dumping everything. Put `--` comments on their **own line** (as below), or use them **only on SQL lines**.

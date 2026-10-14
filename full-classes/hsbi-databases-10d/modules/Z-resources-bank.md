@@ -74,7 +74,7 @@ sqlite-utils memory data.csv "SELECT count(*) FROM data"   # query a CSV in one 
 ```
 
 > [!TIP]
-> **Pasting a block into the `sqlite3` prompt fails — use a file, or one line at a time.** Modern terminals use **bracketed paste**, so a multi-line paste is handed to the shell as a *single line* and `.mode` reports `bad argument`. Fix it by (a) running a file — `sqlite3 db < commands.sql` or `.read commands.sql`; (b) pasting one line at a time; or (c) adding `set enable-bracketed-paste off` to `~/.inputrc` so a multi-line paste runs line by line.
+> **Pasting a block into the `sqlite3` prompt fails because of *bracketed paste*.** The terminal wraps a paste in markers (readline asks for this), and readline inserts the whole paste as a *single line*, so `.mode` sees extra arguments (`bad argument`). Fix it by running a file (`sqlite3 db < commands.sql`, or `.read commands.sql`), pasting one line at a time, or turning bracketed paste off for readline: append `set enable-bracketed-paste off` to `~/.inputrc` and open a new terminal.
 
 ### Measuring query time
 
