@@ -224,7 +224,7 @@ sqlite3 --version
 
 - **macOS:** already installed (the system ships one); for a current build, `brew install sqlite`.
 - **Linux:** Debian/Ubuntu `sudo apt install sqlite3` · Fedora/RHEL `sudo dnf install sqlite`.
-- **Windows:** **not** installed by default — `winget install SQLite.SQLite`, `scoop install sqlite`, or use **WSL** / **Git Bash** (which usually ships it).
+- **Windows:** **not** installed by default — install it (`winget install SQLite.SQLite`, or `scoop install sqlite`); it also ships inside **Git Bash** — and run the labs in your editor's terminal, pointed at Git Bash ([see how](./Z-resources-bank.md#where-to-run-the-labs-your-editors-terminal)).
 - **Can't install it?** Python's built-in `sqlite3` and the `sqlite-utils` / `litecli` tools cover all the *SQL*; only the shell's *dot-commands* are shell-specific. You will meet those in the next task.
 
 **4. Verify everything with one script (your first Python test).** Save this as `uv-check.py` in your portfolio and run it *inside the project*:
@@ -457,7 +457,7 @@ uv run python module-01/load_telemetry.py
 > [!NOTE]
 > **Prefer the `sqlite3` command-line shell?** If it is installed, you can load the same file by hand. Inside the shell run `.mode csv`, then `.import --skip 1 module-01/telemetry.csv readings` (`.` commands are not SQL — they are shell directives, so they go in the interactive shell, not in a Python string). `.import --skip` needs SQLite ≥ 3.32; the Python loader above has no such requirement, which is why it is the default here.
 >
-> **Windows:** the `sqlite3` shell is not installed by default, and the `<<'SQL' … SQL` heredoc form used in later modules is a bash/zsh feature. On Windows, run such blocks in **Git Bash** or **WSL**, or save the block as a `.sql` file and load it with the shell's `.read file.sql`. The pure-Python loader above sidesteps all of this.
+> **Windows:** the `sqlite3` shell is not installed by default, and the `<<'SQL' … SQL` heredoc and `<` redirection used in later modules are **Unix-shell** features. The simplest fix is to run the labs in your **editor's terminal, pointed at Git Bash** (Git Bash ships with Git for Windows) — see [where to run the labs](./Z-resources-bank.md#where-to-run-the-labs-your-editors-terminal). (The pure-Python loader above sidesteps all of this.)
 
 **Step 3 — answer the shop manager's real questions.** Run each query in your SQLite client and save the output. Note how long each takes — in the `sqlite3` shell, put `.timer on` on its own line first (it prints a `Run Time:` line of CPU time after each statement). For wall-clock numbers, or when working in Datasette, use [Measuring query time](./Z-resources-bank.md#measuring-query-time):
 

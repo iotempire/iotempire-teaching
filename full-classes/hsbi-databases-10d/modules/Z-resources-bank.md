@@ -28,6 +28,27 @@ uvx datasette app.db             # run a tool without installing it
 
 > Commit `pyproject.toml` and `uv.lock`; never commit `.venv/`. The **`sqlite3` shell** is built into macOS and most Linux distros; on Windows install it (`winget install SQLite.SQLite`, `scoop install sqlite`, or use WSL/Git Bash). Pin the Python by hand (`uv python pin 3.14`); let `uv.lock` pin the libraries.
 
+### Where to run the labs: your editor's terminal
+
+Run the module commands in your **editor's integrated terminal** (VS Code or Zed) — you are already inside your portfolio repo, and you can run Python on demand from there.
+
+- **macOS / Linux:** the built-in terminal is already a Unix shell (bash/zsh). Nothing to set up.
+- **Windows:** it defaults to **PowerShell**, which cannot run the heredoc (`<<'SQL'`) or `<` redirection commands used in these labs. Point it at **Git Bash** once — **no extra install**, because Git Bash ships with Git for Windows (installed in Module 1):
+  - **VS Code:** in the terminal, click the **⌄** beside **+** → *Select Default Profile* → **Git Bash** (auto-detected). New terminals then use bash.
+  - **Zed (Windows):** the terminal follows your default system shell — set **Git Bash** (e.g. via Windows Terminal) as the default, or open the standalone **Git Bash** app.
+  - **Also fine:** run the labs in **WSL** (`wsl`) for a full Linux shell.
+
+- **If you must stay in PowerShell**, translate only these forms:
+
+| The modules use (bash) | PowerShell equivalent |
+|---|---|
+| `mkdir -p module-02` | `New-Item -ItemType Directory -Force module-02` |
+| `sqlite3 module-02/legacy.db < setup.sql` | `Get-Content setup.sql \| sqlite3 module-02/legacy.db` |
+| `sqlite3 db <<'SQL' … SQL` | save the block to `setup.sql`, then `Get-Content setup.sql \| sqlite3 db` (or, in the shell: `sqlite3 db ".read setup.sql"`) |
+| `time sqlite3 db "SELECT …"` | `Measure-Command { sqlite3 db "SELECT …" }` |
+
+> PowerShell is fine for `uv`, `git`, and one-liners like `sqlite3 db "SELECT …"` — but the heredoc/`<` labs want **Git Bash** or **WSL**.
+
 ### Python — SQLite (standard library)
 
 ```python

@@ -59,6 +59,7 @@ This is **self/pod study, not a lecture.** Work through the concepts below with 
 
 Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
 
+- "I am a student in a 3rd-semester database class. Explain **very briefly** what entity–relationship models are, with **simple examples** — highlight the main concepts — and tell me **how I can best explain this to one of my peers**."
 - "Here is a legacy schema: `<paste the CREATE TABLEs>`. What entities, attributes, and relationships does it *intend*? What cardinalities are hidden in it, and how would I prove each with a `COUNT` query?"
 - "Explain the difference between a natural key and a surrogate key, and give one real scenario where choosing the wrong one causes a data bug."
 - "A column holds a comma-separated list: `parts_used = 'P-1001,P-1002'`. Why does that violate 1NF, and what would the corrected schema look like?"
