@@ -273,11 +273,16 @@ uv run uv-check.py
 
 The `sqlite3` shell is a tool with its own commands — **dot-commands**, starting with `.` — that are *not* SQL. You will use them all term, so learn the handful of essentials now. This tour is self-contained: it uses a throwaway database.
 
-Start an interactive session:
+**Where this happens.** Run everything from the **root of your portfolio repo** (the folder that contains `module-01/`). The throwaway database is created **inside your repo**, at **`module-01/tour.db`** — and it is deliberately **not committed**: your `.gitignore` ignores `*.db`, so it will **not** appear in `git status` or on GitHub. That is expected; only `shell-tour.txt` and `tour.sql` are committed.
+
+Create the folder if needed, then start an interactive session:
 
 ```sh
+mkdir -p module-01
 sqlite3 module-01/tour.db
 ```
+
+> **"unable to open database file"?** The shell could not create the file — almost always the `module-01/` folder is missing or you are not at the repo root. Run `mkdir -p module-01`, make sure you are at the **root of your portfolio repo**, and try again. After you `.quit`, confirm it with `ls -l module-01/tour.db`.
 
 At the `sqlite>` prompt, type these (dot-commands need no semicolon; SQL does):
 
@@ -319,6 +324,8 @@ SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;
 1. `shell-tour.txt` — a captured session showing `.tables`, `.schema`, and one query run under `.timer on`;
 2. `tour.sql` — a `.dump` of `tour.db` (use `.output module-01/tour.sql` before `.dump`);
 3. one sentence: which dot-command you found most useful, and why.
+
+(`tour.db` itself is throwaway and stays out of Git — your two text files are the deliverable, and `tour.db` can always be rebuilt by repeating the tour.)
 
 *Portfolio evidence:* `module-01/shell-tour.txt` and `module-01/tour.sql`.
 
