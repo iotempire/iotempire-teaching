@@ -14,8 +14,6 @@ By the end of this module, you can:
 5. Load real rows into SQLite and query them from Python using **bound parameters**.
 6. Take a first LLM-generated query, run it, and begin the habit that defines this course: **verify before you trust**.
 
-**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
 ## 📖 Part A — Opening the Class (plain-Markdown slides)
 
 **This session is presented from a plain-Markdown slide deck** — [`slides/01-introduction.md`](../slides/01-introduction.md). It opens in any Markdown viewer (Zed, GitHub, VS Code), and renders to a **16:9 PDF with `pandoc` + `typst`** — [`slides/render-slides.sh`](../slides/render-slides.sh) — which is presented fullscreen in **Okular**. Slides are separated by a `---` line, so the deck is just Markdown: easy to read, diff, and adapt. The opening runs in six beats:
@@ -514,6 +512,8 @@ This is the habit the whole course is built on.
 3. Write down, in one short paragraph: **what the model got right, what it got wrong, and how you verified it.** This paragraph is a miniature of your reflection logbook and is your Module 1 AI-verification evidence.
 
 *Portfolio evidence:* the exact prompt you used, the generated SQL, the `EXPLAIN QUERY PLAN` output, and your verification paragraph.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ### ◇ Task 8 (Stretcher): Publish your data with Datasette
 
