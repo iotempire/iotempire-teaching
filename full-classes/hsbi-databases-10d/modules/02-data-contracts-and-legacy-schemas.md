@@ -23,7 +23,9 @@ You join a mechatronics team at **Kortmann Kunststofftechnik GmbH**, a plastics 
 
 You are the database engineer now. Your job is to **audit the schema**, reconstruct the ER model it should have had, find the integrity bugs, and write a data contract the next application can rely on. You will meet this exact task in real industry: most professional database work is not greenfield design — it is *reading and repairing somebody else's data model.*
 
-## 📖 Part A — Mini-Lecture: From Rows to Meaning
+## 📖 Pod Study: From Rows to Meaning
+
+This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
 
 **Entities, attributes, relationships.** An **entity** is a thing of independent existence (a *Machine*, a *Part*, a *Technician*). An **attribute** describes an entity (a machine's *serial number* or *install date*). A **relationship** links entities (*a Technician performs a MaintenanceJob on a Machine*).
 
@@ -41,6 +43,53 @@ You are the database engineer now. Your job is to **audit the schema**, reconstr
 
 > [!TIP]
 > The fastest way to find the *real* cardinality is to count distinct values. `SELECT COUNT(*), COUNT(DISTINCT machine) FROM ...` tells you more about a legacy schema than any documentation.
+
+### Pointers (start here, then keep looking)
+
+- ER model — entities, attributes, relationships, cardinality — [Wikipedia: Entity–relationship model](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model)
+- Crow's-foot / IE notation — how each cardinality is drawn — see the *Cardinality* and *Notation* sections of the article above
+- EER — inheritance and generalization — [Wikipedia: Enhanced entity–relationship model](https://en.wikipedia.org/wiki/Enhanced_entity%E2%80%93relationship_model)
+- Keys — [Natural key](https://en.wikipedia.org/wiki/Natural_key) vs [Surrogate key](https://en.wikipedia.org/wiki/Surrogate_key)
+- Why a comma-separated list breaks 1NF — [Wikipedia: First normal form](https://en.wikipedia.org/wiki/First_normal_form)
+- Why SQLite foreign keys are off by default — [sqlite.org/foreignkeys.html](https://sqlite.org/foreignkeys.html)
+- The code side — [Pydantic](https://docs.pydantic.dev/) and [SQLAlchemy](https://docs.sqlalchemy.org/)
+- Draw the diagram — [diagrams.net](https://www.diagrams.net/)
+
+### Questions to ask an LLM (then verify against your data)
+
+Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
+
+- "Here is a legacy schema: `<paste the CREATE TABLEs>`. What entities, attributes, and relationships does it *intend*? What cardinalities are hidden in it, and how would I prove each with a `COUNT` query?"
+- "Explain the difference between a natural key and a surrogate key, and give one real scenario where choosing the wrong one causes a data bug."
+- "A column holds a comma-separated list: `parts_used = 'P-1001,P-1002'`. Why does that violate 1NF, and what would the corrected schema look like?"
+- "Where exactly is the line between an *entity* and an *attribute*? Give a case where it is ambiguous, and say who decides."
+- "Draw the Crow's-foot notation for 1:1, 1:n, and m:n in text, and explain what the 'crow's foot' end means."
+- "Give three real-world incidents caused by missing foreign keys or orphan rows."
+
+> Ask each prompt **against your own `legacy.db`**, and record where the model is wrong, vague, or over-confident.
+
+### ★ Task A: Keep a study log (~20 minutes)
+
+Spend about **20 minutes** studying and filling in `module-02/study-log.md` with these sections. Treat the sketch hunt as a small **sport** — the clearest examples win the Discord share in Task B.
+
+1. **The references you used** — the source (book, site, video, doc) and, for each, **the one concept you understood best from it**. (This comes first: credit where your understanding came from.)
+2. **Things you googled** — the term/question, what you found, and the source (URL). One line each.
+3. **Remarkable things** — surprises, "aha"s, and counterexamples (e.g. "a *name* looked like a key but had duplicates").
+4. **LLM Q&A** — for each prompt you tried: the prompt, a 2–3 line summary of the answer, and **how you verified it** (and where it was wrong).
+5. **Your two best ER sketches** — hunt down ER/EER **example sketches** that teach you the most, then **compile down to the best two**. For each: the source (link or credit), a screenshot or your own redraw, and **what exactly you learned from it** that the others did not show.
+
+*Portfolio evidence:* `module-02/study-log.md`.
+
+### ★ Task B: Discuss with another pod (~10 minutes)
+
+Pair with a **neighbouring pod** for about **10 minutes**:
+
+1. Compare your study logs — references, remarkable findings, and especially your **two best sketches** (this is the sport: whose examples are clearest?).
+2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"a natural key without `UNIQUE` is not a key"*).
+3. Agree on **one sketch** — the best example from either pod, or a **new drawing the two pods make together** — and **share that one in our Discord channel**, with a one-sentence note on why you chose it.
+4. Each member adds a short **“Agreed learning (pod discussion)”** section — the shared points, plus any disagreement you left open — to *their own* `module-02/study-log.md`.
+
+*Portfolio evidence:* the “Agreed learning (pod discussion)” section in `study-log.md`, and your pod-pair's single shared sketch posted in Discord.
 
 ## 🛠️ Studio Lab: Audit a Legacy Schema — **Challenging**
 
@@ -242,6 +291,7 @@ The plant also has *machines* that are *CNC mills* and *injection molders*, each
 
 Your portfolio only needs to **prove this module's learning goals**. These are **suggested proofs** (under `module-02/`) — use them, or show the same goals another way:
 
+- [ ] `study-log.md` — the references you used (and the concept each taught you), what you googled, remarkable findings, LLM Q&A (with how you verified each), your **two best ER sketches**, and your **“Agreed learning (pod discussion)”** — plus the single sketch your pod pair shared in Discord.
 - [ ] `legacy.db` setup script (the `CREATE`/`INSERT` block) — so a reviewer can rebuild it.
 - [ ] `er-audit.md` with the entity/attribute list, the reconstructed ER diagram, and cardinalities.
 - [ ] The five integrity-defect queries **with results** and one-line production-impact notes.
