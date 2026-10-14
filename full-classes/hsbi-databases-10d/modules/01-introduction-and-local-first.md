@@ -284,7 +284,13 @@ sqlite3 module-01/tour.db
 
 > **"unable to open database file"?** The shell could not create the file — almost always the `module-01/` folder is missing or you are not at the repo root. Run `mkdir -p module-01`, make sure you are at the **root of your portfolio repo**, and try again. After you `.quit`, confirm it with `ls -l module-01/tour.db`.
 
-At the `sqlite>` prompt, type these (dot-commands need no semicolon; SQL does):
+At the `sqlite>` prompt, type these (dot-commands need no semicolon; SQL does). **Enter them one line at a time — do not paste the whole block.**
+
+> [!IMPORTANT]
+> **Pasting a multi-line block into the `sqlite>` prompt fails — and it is not your fault.** Modern terminals use **bracketed paste**, which hands your whole paste to the shell as a *single line*, so `.mode column .headers on SELECT …` arrives as one command and `.mode` reports `bad argument`. Three ways to run a block:
+> 1. **Recommended — from a file.** Save the lines as `module-01/tour-commands.sql`, then run `sqlite3 module-01/tour.db < module-01/tour-commands.sql`, or inside the prompt `.read module-01/tour-commands.sql`.
+> 2. **Paste or type one line at a time** (press Enter after each line).
+> 3. **Turn bracketed paste off** so a multi-line paste does run line by line: add `set enable-bracketed-paste off` to `~/.inputrc`, then open a new terminal/session.
 
 > [!WARNING]
 > **Dot-commands are not SQL — never append a `-- comment` to one.** The shell reads *everything after a dot-command* as its arguments: `.mode column -- readable` fails with `Unknown option: "--"`, and `.dump -- …` would filter the dump instead of dumping everything. Put `--` comments on their **own line** (as below), or use them **only on SQL lines**.
@@ -340,7 +346,7 @@ SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;
 .quit
 ```
 
-**Your drill:** using only the shell, produce in `module-01/`:
+**Your drill:** using only the shell (type it, or save it as `module-01/tour-commands.sql` and `.read` it), produce in `module-01/`:
 1. `shell-tour.txt` — a captured session showing `.tables`, `.schema`, and one query run under `.timer on`;
 2. `tour.sql` — a `.dump` of `tour.db` (use `.output module-01/tour.sql` before `.dump`);
 3. one sentence: which dot-command you found most useful, and why.

@@ -65,13 +65,16 @@ con.execute("COPY (SELECT * FROM edge.reading) TO 'readings.parquet' (FORMAT par
 ```sh
 sqlite3 app.db ".tables"                 # list tables
 sqlite3 app.db ".schema reading"         # show DDL
-sqlite3 -cmd ".mode csv" -cmd ".import file.csv tbl" app.db   # bulk import (dot-commands need -cmd for one-shot runs)
+sqlite3 -cmd ".mode csv" -cmd ".import --skip 1 file.csv tbl" app.db   # bulk import, skipping a header row (-cmd runs a dot-command for one-shot calls)
 sqlite3 -cmd ".timer on" app.db "SELECT ..."   # time one statement (dot-commands are settings, not SQL)
 sqlite3 app.db "EXPLAIN QUERY PLAN SELECT ..."
 datasette app.db -o                      # browse in the browser; add ?_size=100 to page
 sqlite-utils insert app.db tbl data.csv --csv
 sqlite-utils memory data.csv "SELECT count(*) FROM data"   # query a CSV in one command
 ```
+
+> [!TIP]
+> **Pasting a block into the `sqlite3` prompt fails — use a file, or one line at a time.** Modern terminals use **bracketed paste**, so a multi-line paste is handed to the shell as a *single line* and `.mode` reports `bad argument`. Fix it by (a) running a file — `sqlite3 db < commands.sql` or `.read commands.sql`; (b) pasting one line at a time; or (c) adding `set enable-bracketed-paste off` to `~/.inputrc` so a multi-line paste runs line by line.
 
 ### Measuring query time
 
@@ -325,10 +328,12 @@ A delightful footnote to this course's whole philosophy. **SQLite's own author, 
 The course sets everything up with **`uv`** — see [Module 1](./01-introduction-and-local-first.md) for the step-by-step version:
 
 ```sh
-uv python install 3.12
-uv python pin 3.12
+uv python install 3.14
+uv python pin 3.14
 uv add duckdb datasette sqlite-utils pydantic sqlalchemy
-uv tool install litecli datasette sqlite-utils
+uv tool install litecli          # install ONE tool per command (repeat for the others)
+uv tool install datasette
+uv tool install sqlite-utils
 uv run python -c "import sys, sqlite3, duckdb; print(sys.version.split()[0], sqlite3.sqlite_version, duckdb.__version__)"
 ```
 

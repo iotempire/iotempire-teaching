@@ -68,7 +68,7 @@ Fill in this table in `docs/requirements.md` — it is your checklist and your d
 
 Do not build breadth first — build **one path end-to-end**:
 
-```sh
+```text
 # A reproducible project skeleton (adjust to your story)
 myproject/
 ├── data/            # raw input (gitignored if large) or a download script
