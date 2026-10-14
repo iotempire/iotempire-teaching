@@ -68,13 +68,23 @@ sqlite3 app.db ".schema reading"         # show DDL
 sqlite3 -cmd ".mode csv" -cmd ".import --skip 1 file.csv tbl" app.db   # bulk import, skipping a header row (-cmd runs a dot-command for one-shot calls)
 sqlite3 -cmd ".timer on" app.db "SELECT ..."   # time one statement (dot-commands are settings, not SQL)
 sqlite3 app.db "EXPLAIN QUERY PLAN SELECT ..."
+sqlite3 app.db < script.sql              # run a whole script (SQL + dot-commands) at once
 datasette app.db -o                      # browse in the browser; add ?_size=100 to page
 sqlite-utils insert app.db tbl data.csv --csv
 sqlite-utils memory data.csv "SELECT count(*) FROM data"   # query a CSV in one command
 ```
 
-> [!TIP]
-> **Pasting a block into the `sqlite3` prompt fails because of *bracketed paste*.** The terminal wraps a paste in markers (readline asks for this), and readline inserts the whole paste as a *single line*, so `.mode` sees extra arguments (`bad argument`). Fix it by running a file (`sqlite3 db < commands.sql`, or `.read commands.sql`), pasting one line at a time, or turning bracketed paste off for readline: append `set enable-bracketed-paste off` to `~/.inputrc` and open a new terminal.
+### Pasting a block into the `sqlite3` prompt
+
+The `sqlite>` prompt reads **one line at a time**; a multi-line **paste** fails (`.mode … bad argument`, or the whole block is parsed as one SQL statement) because readline uses **bracketed paste** — the terminal hands the whole paste over as a single line.
+
+```sh
+sqlite3 app.db < script.sql                          # run a whole file of SQL + dot-commands
+# or, inside the prompt:   .read script.sql
+echo 'set enable-bracketed-paste off' >> ~/.inputrc  # fix pasting once, then open a new terminal
+```
+
+Prefer the file; otherwise enter commands **one line at a time**.
 
 ### Measuring query time
 
