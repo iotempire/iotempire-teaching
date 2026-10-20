@@ -50,6 +50,8 @@ y = gain · x + offset        (idealized)
 | Dead band | A range of inputs with no output change. |
 | Drift | Slow change of output over time or with temperature. |
 
+> **TODO: consider studying** the distinction between a sensor's **dead band** and a software **dead-zone filter** here.
+
 ### Dynamic Characteristics
 
 Sensors and their conditioning do not respond instantly:
@@ -87,6 +89,12 @@ Noise comes from the sensor, the wiring, the ADC, and the environment. Practical
 - Median filter: excellent against single spikes/outliers.
 - Exponential moving average (EMA): light, tunable smoothing for streaming data (a simple recursive low-pass filter).
 - Oversampling + decimation: average many samples for extra effective bits, at the cost of speed.
+
+> **TODO: consider studying** the wider filter toolbox here:
+> - **Analog RC low-pass and high-pass** — `fc = 1/(2πRC)`, source/load impedance, and buffering.
+> - **Software low-pass and high-pass** — first-order IIR; EMA as low-pass, `x − lowpass(x)` as high-pass.
+> - **Software hysteresis and dead-zone** — two thresholds / a no-change band, and how they differ from a sensor's hysteresis and dead band.
+> - **Choosing a filter** — noise, spikes, drift, step changes, chatter suppression, and the latency cost.
 
 > [!TIP]
 > Implement these filters in your sketch. If you explore IoTempower (optional), it also has built-in `average`, `median`, smoothing, and mapping filters — comparing the two is a good stretcher task.
@@ -168,6 +176,8 @@ Pair with a **neighbouring pod**:
 2. Apply a 5-sample moving average and a 5-sample median to the same data. Recompute the standard deviation.
 3. Introduce a deliberate spike (tap/light change) and compare how the two filters react.
 4. Measure the latency each filter adds on a step change. State the trade-off in one sentence.
+
+> **TODO: consider studying** a hardware RC low-pass/high-pass and a software hysteresis/dead-zone here, comparing each on the same step and spike data.
 
 ### ◇ Task 5 (Stretcher): Uncertainty and Declarative Filtering
 

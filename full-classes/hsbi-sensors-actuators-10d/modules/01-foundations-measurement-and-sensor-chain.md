@@ -185,6 +185,8 @@ Pair with a **neighbouring pod**:
 6. **Experience bouncing.** Count button transitions in your loop (or with an interrupt) and print the count. Press the button once and watch: a mechanical contact often produces several edges within a few milliseconds. Make it more obvious with a worn button or longer wires; after Module 2 you can also capture the raw edge with the class scope/analyzer.
 7. **Mitigate bouncing.** First add a software debounce (ignore new edges for 20–50 ms after a change). Then try a hardware variant: a **100 nF capacitor from the input node to GND** together with the 10 kΩ pull-up gives an RC time constant of about 1 ms; a Schmitt-trigger buffer (for example 74HC14) produces even cleaner edges. Compare the raw and debounced counts.
 
+> **TODO: consider studying** analog RC low-pass and high-pass filters here — the debounce capacitor is already an RC low-pass; calculate `fc = 1/(2πRC)` and compare it with an RC high-pass.
+
 > [!TIP]
 > **Optional electronic-prototyping refresher.** If breadboards, LEDs, resistors, or buttons are new to you, work through the matching tasks in the MCU programming class: [Breadboards and electronic prototyping](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md#task-1--breadboards-and-electronic-prototyping-intro), [Hello World prototyping](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md#task-3--hello-world-electronic-prototyping), [Blink](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md#task-5--blink-on-the-wemos-d1-mini), and [toggle an LED with a button](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md#task-6--toggle-led-with-button). The short breadboard video there is [youtu.be/yXirMBP3x4U](https://youtu.be/yXirMBP3x4U) and the blink video is [youtu.be/2nN_ZVyWLzg](https://youtu.be/2nN_ZVyWLzg).
 
@@ -249,6 +251,8 @@ Raw ADC values are noisy. Try three simple ideas on the same LDR data (or on the
    - **Low-pass cutoff:** the window length sets how fast the filter follows changes. A longer window gives a lower cutoff frequency: more noise rejection, more lag. State the trade-off for your signal.
 4. Compare raw, average, median, and cutoff/gated output on the same plot or serial log. For each, state what it fixes and what it costs.
 5. Optional: implement an exponential moving average (EMA) with `y += alpha * (x - y)`, and explain how `alpha` plays the role of a cutoff.
+
+> **TODO: consider studying** software hysteresis and dead-zone filters here, as well as a software low-pass/high-pass pair (EMA as low-pass, `x − lowpass(x)` as high-pass) and their analog RC equivalents.
 
 *Portfolio:* a short table or figure comparing raw, average, median, and cutoff, with the window sizes and the observed latency.
 

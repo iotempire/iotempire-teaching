@@ -62,6 +62,8 @@ Sensor data usually needs conditioning before it is useful. Implement the basic 
 
 This is where the measurement theory of Module 3 becomes an operational choice — and where you should document *why* you chose a given filter and window.
 
+> **TODO: consider studying** software hysteresis and dead-zone filters here as explicit stream-to-decision filters (not only as control-loop behavior), and link back to the RC/software low- and high-pass work in Modules 1 and 3.
+
 > [!TIP]
 > If you use IoTempower (optional), it also provides built-in `average`, `median`, smoothing, and mapping filters. Comparing your firmware filter with a declared filter is a good stretcher exercise.
 
