@@ -70,7 +70,7 @@ The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-templ
 
 The workbook is meant to be reused and adapted. It relies on open hardware and open-source software; the labs are self-contained and run on a local network; and each module keeps its learning goals separate from the (draft) tasks, so you can swap exercises without breaking the course. Fork it, translate it, and change the stories to your own context — and please keep the attribution to IoTempower and Ulrich Norbisrath. Feedback and pull requests are welcome.
 
-Instructor hints — running the checkpoints, presenting from the workbook, hardware-kit tips, and the story canon — live in the [resource bank](./modules/Z-resources-bank.md#instructor-hints). If you present from slides, keep them plain Markdown (slides separated by `---`) and render a 16:9 PDF with **pandoc + Typst**; there is no notebook runtime and no build step.
+Instructor hints — running the checkpoints, presenting from the workbook, hardware-kit tips, and the story canon — live in the [resource bank](./modules/Z-resources-bank.md#instructor-hints). Session 1 has a plain-Markdown slide deck — [`slides/01-introduction.md`](./slides/01-introduction.md) — that opens in any Markdown viewer and renders to a 16:9 PDF with **pandoc + Typst** ([`slides/render-slides.sh`](./slides/render-slides.sh)), presented fullscreen in **Okular**. Slides are separated by a `---` line; there is no notebook runtime and no build step.
 
 ## Navigation & resources
 

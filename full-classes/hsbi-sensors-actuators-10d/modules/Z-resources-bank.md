@@ -219,7 +219,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 
 **Demo day.** Ask every Project Team for a fallback recording of the live flow. Run the fault injection yourself (disconnect the sensor, block the actuator, restart the broker) and let the team explain the recovery. The rubric lives only in the syllabus.
 
-**Slides (optional).** The workbook is the source. If you want slides, write plain Markdown separated by `---` and render a 16:9 PDF with **pandoc + Typst**; do not introduce a notebook runtime or a browser-only presentation tool. HTML comments (`<!-- note -->`) are a good place for speaker hints.
+**Slides (optional but provided).** Session 1 has a plain-Markdown deck — [`slides/01-introduction.md`](../slides/01-introduction.md). It opens in any Markdown viewer (Zed, GitHub, VS Code) and renders to a 16:9 PDF with **pandoc + Typst** — [`slides/render-slides.sh`](../slides/render-slides.sh) — presented fullscreen in **Okular**. Slides are separated by `---`, so the deck is easy to read, diff, and adapt. HTML comments (`<!-- note -->`) are dropped from the PDF, so keep speaker hints there. There is no notebook runtime and no build step.
 
 <a id="story-craft-is-it-concrete-enough"></a>
 ## ✍️ Story craft: is it concrete enough?

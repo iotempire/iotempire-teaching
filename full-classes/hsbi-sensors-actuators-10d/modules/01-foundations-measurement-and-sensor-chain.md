@@ -4,6 +4,8 @@
 
 **Course placement:** Day 1 — the opening studio. We start with basic electronics, then move quickly to the Arduino IDE, the serial console, and measurement.
 
+> **Session 1 opening:** the first part of Day 1 is presented from the plain-Markdown deck [`slides/01-introduction.md`](../slides/01-introduction.md). It covers who we are, your first in-class portfolio notes, how the course and the online workbook work, a rehash of the pre-study, and the hand-over to the tasks below. Read it in any Markdown viewer, or render a 16:9 PDF with [`slides/render-slides.sh`](../slides/render-slides.sh) (pandoc + Typst) and present it fullscreen.
+
 ## 🎯 Learning Goals
 
 This module gives you the opportunity to explore basic electronics, Arduino input/output, and the digital signal chain, and achieve competency in metrology and uncertainty, signal conditioning, and ADC sampling and quantization.
