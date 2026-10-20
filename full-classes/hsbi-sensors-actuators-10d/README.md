@@ -19,7 +19,7 @@ A sensor is not a number, and an actuator is not a pin that goes high. Most cour
 - **You go to the bus before the device.** You wire and scan I²C, read registers, and resolve address conflicts before you trust a library.
 - **You characterize what you measure.** You determine real transfer functions, linearity, hysteresis, resolution, and uncertainty, then calibrate and filter.
 - **You build real systems.** Distance, motion, environment, Hall/current, LEDs and animation, servos, DC motors, and steppers — each with its driver, current draw, and safety rules.
-- **You connect the node to a system.** Your sensor/actuator node becomes part of a local-first IoTempower + MQTT + Node-RED system with a closed control loop.
+- **You connect the node to a system.** Your sensor/actuator node publishes directly over MQTT to a Mosquitto broker running anywhere on the local network, with an optional Node-RED dashboard and a closed control loop. [IoTempower](https://github.com/iotempire/iotempower) is available as an optional declarative shortcut if you want to explore it.
 - **You prove claims with evidence.** A number without units, conditions, and uncertainty is not a measurement. A demonstration without a characterization is not engineering.
 
 > [!IMPORTANT]
@@ -40,7 +40,7 @@ And this class is always in flux — that is a feature, not a bug. No course is 
 
 - **10 working days / 12 four-hour sessions (48 contact hours)**, plus optional tutorial support announced via the LMS.
 - **Module 0 (pre-study):** portfolio setup, measurement basics, datasheet reading, and a Wokwi mini-exercise — completed before Day 1 (or run as the first in-class module when the cohort needs more setup time).
-- **Modules 1–8:** one technical studio per day — measurement and the signal chain, I²C and addressing, characterization and calibration, distance/motion/environment sensors, LEDs and light, animation and installations, motors, and system integration.
+- **Modules 1–8:** one technical studio per day — basic electronics and Arduino/serial basics, measurement and the signal chain, I²C and addressing, characterization and calibration, distance/motion/environment sensors, LEDs and light, animation and installations, motors, and system integration.
 - **Modules 9–10:** the final-project arc — a story-driven sensor/actuator system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then demonstrated and defended in the last session.
 
 The full module list, one-line summaries, and the session roadmap live in the **[module index](./modules/00-index.md)**.
@@ -60,7 +60,8 @@ The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-templ
 
 - **Hardware:** M5Stack nodes and Grove modules (fast path); ESP32/ESP8266 boards, breadboards, and discrete sensors/actuators (physics path); multimeter, USB power meter, optional logic analyzer.
 - **Firmware:** Arduino IDE v2 or PlatformIO with the ESP32/ESP8266 cores; FastLED for addressable LEDs.
-- **System layer:** [IoTempower](https://github.com/iotempire/iotempower) for declarative drivers, filters, and OTA deployment; Mosquitto MQTT; Node-RED dashboards.
+- **System layer:** a Mosquitto MQTT broker on any host in the network (travel router, Raspberry Pi, or laptop), direct MQTT from the node (for example `PubSubClient`), and optional Node-RED dashboards.
+- **Optional exploration:** [IoTempower](https://github.com/iotempire/iotempower) for declarative drivers, filters, and OTA deployment — not required for the core labs.
 - **Optional Python glue:** a pinned `uv` environment for `paho-mqtt` and integration scripts where useful.
 - **Editor and terminal:** VS Code or Zed with the **integrated terminal**; on Windows, set the terminal profile to **Git Bash** (ships with Git for Windows) because the labs use bash.
 - **AI co-pilots:** use them to draft and explain — then verify against the datasheet, the multimeter, and your own measurements. Verification is the graded skill. The hands-on experiment comes first: touch the hardware, form a hypothesis, then ask AI — and respect voltage, current, and polarity limits.
@@ -78,7 +79,8 @@ Instructor hints — running the checkpoints, presenting from the workbook, hard
 - [Pre-study guide](./pre-study.md)
 - [Reflection prompts & LLM-verification drills](./modules/Y-resources-prompt-bank.md)
 - [Cheat sheets, datasheets, Git primer, story canon & troubleshooting](./modules/Z-resources-bank.md)
-- [IoTempower](https://github.com/iotempire/iotempower) — declarative sensor/actuator framework ([iotempower.us](https://iotempower.us))
+- [MQTT essentials](https://www.hivemq.com/mqtt-essentials/) and [Mosquitto](https://mosquitto.org/) — the broker-based baseline used in the labs
+- [IoTempower](https://github.com/iotempire/iotempower) — optional declarative sensor/actuator framework ([iotempower.us](https://iotempower.us))
 - [IoTempire](https://iotempire.net/) — organization, teaching tools, and community
 
 ### LMS PDF exports

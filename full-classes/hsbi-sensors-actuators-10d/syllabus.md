@@ -49,7 +49,7 @@ Instead of memorizing a catalogue of principles, you will:
 - **Understand the bus before the device.** Most modern sensors hang on I²C, and the first real skill is understanding *addresses*, register maps, pull-ups, and how several devices share one pair of wires. We go to the bus early — a scanner is more educational than a library.
 - **Characterize what you measure.** You will determine real transfer functions, linearity, hysteresis, resolution, and uncertainty for sensors you can hold, and you will calibrate and filter them.
 - **Build real sensor and actuator systems.** Distance and motion sensing (ToF, ultrasonic, IMU), current sensing (Hall), environment sensing, and modern actuators: servo and other motors, relays, and above all LEDs and LED animation — from a single PWM fade to an interactive, sound-reactive installation.
-- **Connect it to a system.** Your sensor/actuator node becomes part of a local-first IoTempower-managed, MQTT-connected system with a Node-RED dashboard and a closed control loop.
+- **Connect it to a system.** Your sensor/actuator node publishes directly over MQTT to a Mosquitto broker running anywhere on the local network, with an optional Node-RED dashboard and a closed control loop. IoTempower is available as an optional declarative path to explore.
 - **Prove every claim.** A number without units, conditions, and uncertainty is not a measurement. A demonstration without a characterization is not engineering.
 
 This gives you both: the measurement competence that a sensor engineer needs, and the practical, documented system-building habits of modern IoT work. You will measure with a multimeter and a data sheet *and* flash, deploy, and animate.
@@ -78,7 +78,7 @@ By the end of this course, you will be able to (mapped to the module-handbook co
 5. **Characterize and calibrate sensors**: determine the transfer function, assess linearity, hysteresis, repeatability, and resolution, apply calibration and filtering, and state the measurement uncertainty.
 6. **Use buses competently**: wire, scan, and debug an I²C bus, handle device addresses and register maps, and distinguish I²C from SPI, UART, OneWire, and direct GPIO/PWM.
 7. **Drive actuators safely**: implement PWM brightness and LED animation (RGB, addressable WS2812), control servos, DC motors, and steppers with suitable drivers, respecting voltage, current, and thermal limits.
-8. **Build and evaluate sensor/actuator systems**: design an embedded node that senses and acts, integrate it via IoTempower, MQTT, and Node-RED, and document performance (resolution, latency, power, robustness).
+8. **Build and evaluate sensor/actuator systems**: design an embedded node that senses and acts, integrate it via MQTT and optionally Node-RED (with IoTempower as an optional declarative alternative), and document performance (resolution, latency, power, robustness).
 
 ## Course Load & Credits
 
@@ -115,7 +115,7 @@ You build and maintain one personal **GitHub portfolio**. The small tasks in eac
 | Component | Points | Details |
 |---|---|---|
 | Module 0 (Pre-Study) | 1 point | Portfolio setup from the template, Wokwi simulation, datasheet reading, and answers to the guiding questions. |
-| Modules 1–8 (Learning goals) | 10 points | Earned through short checkpoint presentations that prove the module learning goals from your portfolio: measurement and signal chain, I²C scan and register reads, sensor characterization, distance/motion/environment labs, LED and animation labs, motor control, and IoTempower integration. |
+| Modules 1–8 (Learning goals) | 10 points | Earned through short checkpoint presentations that prove the module learning goals from your portfolio: measurement and signal chain, I²C scan and register reads, sensor characterization, distance/motion/environment labs, LED and animation labs, motor control, and MQTT system integration. |
 | Reflection points | 4 points | One logbook entry for each teaching block (four blocks: Days 1–3, 4–6, 7–8, and 9–10), captured in your personal logbook. |
 | Final meaningful project | 5 points | 25% of the base score. A documented sensor/actuator system with real characterization, an actuator demonstration, and an integration layer, built in a **Project Team** of 4–6. |
 | **Base total** | **20 points** | 100% base score. |
@@ -181,8 +181,8 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 | Terminal | **bash** (Git Bash on Windows) | The labs use heredocs, `<` redirects, and `mkdir -p`; Git Bash ships with Git for Windows. |
 | Version control | **Git + GitHub** | Your portfolio is the evidence artifact. Create it from the template with **“Use this template”**, not a fork. |
 | Firmware | **Arduino IDE v2** or **PlatformIO** | ESP32/ESP8266 cores; pick one and stay consistent. |
-| Declarative deployment | **IoTempower** | Drivers, filters, and OTA deployment. |
-| System layer | **Mosquitto + Node-RED** | Local broker and dashboards; optional Python glue with `paho-mqtt`. |
+| Declarative deployment (optional) | **IoTempower** | Optional exploration of drivers, filters, and OTA deployment. |
+| System layer | **Mosquitto + optional Node-RED** | Mosquitto broker on any host in the network; direct MQTT from the node (`PubSubClient` / `paho-mqtt`); optional Python glue. |
 | Python (optional) | **`uv`** | If you write integration scripts, pin Python and libraries with `uv`; commit `pyproject.toml` and `uv.lock`, never `.venv/`. |
 | AI co-pilots | **ChatGPT / Claude / DeepSeek / local models** | Used to *draft* and explain, never to decide. Verification is the graded skill. |
 
@@ -205,7 +205,7 @@ The kit is deliberately two-layered, so you can move fast and still meet real ph
   - Discrete sensors: NTC 10 kΩ, LDR, Hall-effect (analog + digital latch), DS18B20 (OneWire), MPU6050 (I²C), ultrasonic, light barrier (photo-interrupter).
   - Actuators: SG90 servo, small DC motor, 28BYJ-48 stepper with ULN2003, H-bridge driver (TB6612 / L298N), 5 V relay, piezo buzzer, high-brightness RGB LEDs, WS2812 / NeoPixel strip.
 - **Instruments:** digital multimeter, USB power meter, thermometer for reference measurements; optional USB logic analyzer (I²C/PWM/WS2812 traces), oscilloscope if available.
-- **Gateway & infrastructure:** a local OpenWrt travel router or a small Linux/Raspberry Pi host running Mosquitto and Node-RED; laptops; USB power supplies and hubs.
+- **Broker & infrastructure:** a Mosquitto MQTT broker running on any host in the network — a local OpenWrt travel router, a small Linux/Raspberry Pi host, or a laptop — plus laptops, USB power supplies, and hubs. Node-RED is optional; IoTempower is an optional declarative tool.
 
 > [!WARNING]
 > **Electrical safety.** All microcontrollers here are 3.3 V logic. Never power motors, relays, strips, or locks directly from a GPIO pin. Always share a common ground between logic and load supplies, and never connect 5 V or 12 V to a 3.3 V pin. Disconnect power before rewiring.
@@ -219,14 +219,14 @@ The 10 days correspond to the 12 four-hour sessions across the semester. Modules
 | Day | Session(s) | Module / Topic | Core Hands-on Focus |
 |:---:|:---:|---|---|
 | 0 | — | [Pre-Study](./pre-study.md) | Measurement basics, datasheet reading, Wokwi mini-exercise, project scenario abstract. |
-| 1 | 1 | [Module 1 — Foundations: Measurement, Signals & the Sensor–Actuator Chain](./modules/01-foundations-measurement-and-sensor-chain.md) | Metrology and error, the digital signal chain, ADC precision dance, Master Class sensor node. |
+| 1 | 1 | [Module 1 — Foundations: Electronics, Arduino & Measurement](./modules/01-foundations-measurement-and-sensor-chain.md) | Basic electronics (LED actor, button with pull-up/pull-down, debouncing), Arduino serial console and plotting, metrology and error, digital signal chain, ADC precision dance, LDR and first filtering. |
 | 2 | 2 | [Module 2 — I²C & Sensor Addressing](./modules/02-i2c-and-sensor-addressing.md) | Wiring and scanning an I²C bus, 7-bit addresses, register maps, two devices on one bus, address conflicts. |
 | 3 | 3 | [Module 3 — Sensor Characterization, Calibration & Data Quality](./modules/03-sensor-characterization-and-calibration.md) | Transfer function, linearity, hysteresis, calibration, filtering, uncertainty of an NTC/LDR. |
 | 4 | 4 | [Module 4 — Distance, Motion & Environment Sensors](./modules/04-distance-motion-and-environment-sensors.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* ToF and ultrasonic distance, person counting, IMU tilt/rotation, Hall-effect current sensing. |
 | 5 | 5 | [Module 5 — LEDs & Light as Output](./modules/05-leds-and-light-output.md) | LED current limiting, PWM and gamma, RGB mixing, first addressable strip and power budget. |
 | 6 | 6 | [Module 6 — LED Animation, Sound & Interactive Installations](./modules/06-led-animation-sound-and-installations.md) | Non-blocking animation patterns, palettes, sensor-triggered and sound-reactive installations. |
 | 7 | 7 | [Module 7 — Motors & Motion Actuators](./modules/07-motors-and-motion-actuators.md) | Servo control, DC motor speed/direction with an H-bridge, stepper stepping, current measurement. |
-| 8 | 8 | [Module 8 — From Sensor to System: IoTempower & Integration](./modules/08-sensor-to-system-and-integration.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–6), then:* Declarative drivers and filters, MQTT topics, Node-RED dashboard, a closed control loop. |
+| 8 | 8 | [Module 8 — From Sensor to System: MQTT & Integration](./modules/08-sensor-to-system-and-integration.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–6), then:* MQTT publishing and commands, filtering in firmware, Node-RED dashboard, a closed control loop, fault injection; optional IoTempower comparison. |
 | 9 | 9–10 | [Module 9 — Final Project Studio](./modules/09-final-project-studio.md) | Project kickoff and story, requirement mapping, building and integrating the sensor/actuator system; checkpoint 3 (Modules 7–8). |
 | 10 | 11 | [Module 9 — Final Project Studio (continued)](./modules/09-final-project-studio.md) | Characterization and evaluation, fault injection, documentation, peer review dry run. |
 | 10 | 12 | [Module 10 — Demonstration & Portfolio Defense](./modules/10-demonstration-and-defense.md) | Live sensor/actuator demonstration, technical defense, portfolio presentation, retrospective. |
@@ -244,8 +244,8 @@ The final project is a sensor/actuator system built by **Project Teams of 4–6 
 1. **Sensing with real characterization:** At least two sensors, including at least one I²C device, with the transfer function or calibration of at least one sensor determined from your own measurements, plus a stated uncertainty and resolution.
 2. **Actuation:** At least one actuator that physically acts — a motor/servo/stepper, or an addressable LED installation — demonstrated under program control.
 3. **The bus is understood, not hidden:** Evidence that you scanned/identified your I²C device(s), can name the address(es), and read or reasoned about at least one register/raw value.
-4. **Embedded integration:** The node is deployed via IoTempower (declarative device definition, at least one filter for processing) with documented MQTT topics.
-5. **System layer:** A Node-RED dashboard (or Python service) that displays the measured data and can control at least one actuator, including one closed-loop or rule-based behavior (e.g. threshold control, on/off control, animation tied to a sensor).
+4. **Embedded integration:** The node publishes sensor values and subscribes to actuator commands over MQTT, with documented topics and at least one filter for processing. Deploying via IoTempower is welcome as an optional alternative but is not required.
+5. **System layer:** A Node-RED dashboard, plain MQTT subscriber/CLI, or Python service that displays the measured data and can control at least one actuator, including one closed-loop or rule-based behavior (e.g. threshold control, on/off control, animation tied to a sensor).
 6. **Evaluation:** Documented measurement and performance evidence — e.g. resolution, latency, sampling rate, current consumption, or robustness to noise/interference.
 7. **Reliability:** The system recovers gracefully from a sensor disconnect, an I²C device that fails to answer, an actuator stall, or a broker restart (tested during the demo).
 
@@ -260,7 +260,7 @@ The final project is a sensor/actuator system built by **Project Teams of 4–6 
 | Criterion | Points | Excellent (full) | Sufficient (partial) | Weak / missing |
 |---|---:|---|---|---|
 | **System functionality & measurement quality** | 2.0 | Meets all must-haves; two sensors (≥1 I²C, addresses documented), one actuator demonstrated under control, credible transfer function/calibration with resolution and uncertainty, and correct addressing/register handling. | Meets most must-haves; one gap (e.g. weak characterization or an undocumented address). | Server/hand-loaded data, no measured characterization, missing integrity, or non-reproducible build. |
-| **Architecture, documentation & evaluation** | 1.5 | Clear wiring/system diagram; bus and address documentation; IoTempower node + filter; MQTT topics; actuator performance and at least one system metric; concise report with real evidence; clean Git history. | Documentation present and mostly complete; evidence thin in one section. | Missing diagram, report over/under length, or no evidence. |
+| **Architecture, documentation & evaluation** | 1.5 | Clear wiring/system diagram; bus and address documentation; firmware implementation plus at least one filter (or an optional IoTempower node + filter); MQTT topics; actuator performance and at least one system metric; concise report with real evidence; clean Git history. | Documentation present and mostly complete; evidence thin in one section. | Missing diagram, report over/under length, or no evidence. |
 | **Live demonstration & individual defense** | 1.5 | End-to-end live demo runs; each member defends their decisions and trade-offs fluently; handles an injected fault. | Demo runs but is partly slide-based, or defense is uneven across members. | Demo fails without explanation, or members cannot defend their parts. |
 
 See the full [final project specification](./modules/10-demonstration-and-defense.md) for the demo script and portfolio evidence checklist.
@@ -274,7 +274,7 @@ Each module lists **suggested portfolio evidence** — suggestions, not a checkl
 - Maintain a clean Git log with descriptive commit messages.
 - For each module, include:
   - Circuit diagrams and photos of your wiring (hand-drawn or EDA-tool schematics are both fine).
-  - Firmware/configuration (Arduino sketches, PlatformIO projects, IoTempower `setup.cpp` and node definitions).
+  - Firmware/configuration (Arduino sketches, PlatformIO projects; optional IoTempower `setup.cpp` and node definitions).
   - Measurement tables, plots (transfer function, hysteresis, animation/power traces), and calibration notes.
   - Screenshots of serial plots, I²C scans, Node-RED dashboards, and terminal output.
   - Reflection logbook entries in `Reflections/`, using the template.
@@ -295,4 +295,5 @@ Each module lists **suggested portfolio evidence** — suggestions, not a checkl
 - Primary Communication Channel: Course LMS. Check regularly for updates and announcements.
 - Main Instructor: Prof. Dr. Ulrich Norbisrath (Ulno) — [ulno.net](https://ulno.net/)
 - IoTempire Community: [iotempire.net](https://iotempire.net/)
-- IoTempower Framework: [https://iotempower.us](https://iotempower.us) / [GitHub](https://github.com/iotempire/iotempower)
+- IoTempower Framework (optional): [https://iotempower.us](https://iotempower.us) / [GitHub](https://github.com/iotempire/iotempower)
+- MQTT baseline: [mqtt.org](https://mqtt.org/) / [Mosquitto documentation](https://mosquitto.org/documentation/)

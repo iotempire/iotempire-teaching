@@ -1,19 +1,22 @@
-# Module 1 – Foundations: Measurement, Signals & the Sensor–Actuator Chain
+# Module 1 – Foundations: Electronics, Arduino & Measurement
 
 [← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-i2c-and-sensor-addressing.md)
 
-**Course placement:** Day 1 — the opening studio. We start with the signal chain, then build the first sensor node in the same session, together and in person.
+**Course placement:** Day 1 — the opening studio. We start with basic electronics, then move quickly to the Arduino IDE, the serial console, and measurement.
 
 ## 🎯 Learning Goals
 
-This module gives you the opportunity to explore measurement and the digital signal chain and achieve competency in metrology and uncertainty, signal conditioning, and ADC sampling and quantization.
+This module gives you the opportunity to explore basic electronics, Arduino input/output, and the digital signal chain, and achieve competency in metrology and uncertainty, signal conditioning, and ADC sampling and quantization.
 
 By the end of this module, you can:
 1. Describe what a sensor is (a transducer) and how it fits into the full signal chain.
 2. Use the vocabulary of measurement correctly: true value, error, uncertainty, accuracy, precision, resolution, range, sensitivity.
 3. Explain the digital signal chain: conditioning, ADC, sampling theorem, quantization, coding.
-4. Have a first working sensor node deployed with IoTempower and visible on MQTT/Node-RED.
-5. Have measured a real ADC and calculated its quantization step.
+4. Wire and drive a simple actuator safely (an LED with a current-limiting resistor, or a relay module) and read a digital sensor (a button with a pull-up or pull-down).
+5. Explain contact bounce, observe it, and mitigate it in software and/or hardware.
+6. Use the Arduino IDE and serial console (Serial Monitor/Plotter) to inspect, log, and visualize data.
+7. Have measured a real ADC and calculated its quantization step.
+8. Have read an LDR and applied a first filter (moving average, median, and cutoff) to a noisy signal.
 
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
@@ -79,7 +82,8 @@ physical quantity
         |
         v
   system
-  (MQTT, Node-RED, dashboard)
+  (logging, visualization,
+   control logic)
         |
         |  command
         |  (PWM / driver)
@@ -119,6 +123,8 @@ Every lab in this course is one link of this chain. When something does not work
 - The signal chain and ADCs — [Wikipedia: Analog-to-digital converter](https://en.wikipedia.org/wiki/Analog-to-digital_converter), [Sampling (signal processing)](https://en.wikipedia.org/wiki/Sampling_(signal_processing)), [Nyquist–Shannon sampling theorem](https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem)
 - The ESP32 ADC in practice — [Espressif ADC documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html) (note the non-linearity and attenuation)
 - Simulate before you wire — [Wokwi](https://wokwi.com/) (the pre-study tool)
+- Arduino input/output and serial — [Arduino: Digital Read Serial](https://docs.arduino.cc/built-in-examples/basics/DigitalReadSerial/), [Arduino: Analog Read Serial](https://docs.arduino.cc/built-in-examples/basics/AnalogReadSerial/), [Arduino IDE Serial Monitor/Plotter](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/)
+- Debouncing — [Wikipedia: Switch](https://en.wikipedia.org/wiki/Switch#Contact_bounce) (contact bounce)
 - Your kit's datasheets — linked from the [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once)
 
 ### Questions to ask an LLM (then verify against your hardware)
@@ -159,32 +165,50 @@ Pair with a **neighbouring pod**:
 
 ## 🛠️ In-Class Lab: From Blink to Measurement — **Challenging**
 
-*Hardware:* 1× M5Stack node (or ESP32 DevKit / ESP32 Ethernet mini kit / Wemos D1 Mini + breadboard), 1× potentiometer, a local broker/gateway with Mosquitto + Node-RED, multimeter.
+*Hardware:* 1× M5Stack node and/or a raw ESP board (ESP32 DevKit / ESP32 Ethernet mini kit / Wemos D1 Mini), breadboard and jumper wires, 1× LED + 220–330 Ω resistor, 1× push button, 1× 10 kΩ resistor (or the internal pull-up), 1× 100 nF capacitor (optional, for hardware debounce), 1× potentiometer, 1× LDR, optional relay module for a low-voltage load, multimeter.
 
-### ★ Task 1: Master Class — A First Sensor Node
+### ★ Task 1: Basic Electronics — LED, Button, Pull-up/Pull-down
 
-The goal is to experience the complete loop immediately, using the fast path.
+> [!NOTE]
+> **Know this already?** You may skip this task. Add a short note to your portfolio explaining where you learned it (a previous course, project, or job) and demonstrate the two key skills in a quick instructor check: light an LED through a current-limiting resistor, and read a button with a defined pull-up or pull-down. If you cannot show both, do the task.
 
-1. Power up your local gateway/broker (a small OpenWrt router or Linux/Raspberry Pi host running Mosquitto + Node-RED; ≥2 A USB supply — not your laptop port). Connect your laptop and open the Node-RED dashboard.
-2. Deploy an IoTempower node: in a fresh system, declare a node with a Grove environment or light sensor, for example:
-   ```cpp
-   // setup.cpp — declarative IoTempower node
-   i2c(0, "Grove");
-   temperature(temp, "ENV");
-   humidity(hum, "ENV");
+1. **Breadboard and GPIO basics.** Learn which breadboard rows are connected, where the power rails are, and that every circuit needs a common ground. All boards here use 3.3 V logic: never connect 3.3 V directly to GND, and never put 5 V on a 3.3 V input.
+2. **An LED is an actuator.** Wire a GPIO pin → **220–330 Ω resistor** → LED anode → LED cathode → GND. Calculate the resistor with `R = (Vs − Vf) / I` for `Vs = 3.3 V`, a typical `Vf` for your LED, and `I ≈ 5–10 mA`. Test it from the 3.3 V pin, or by driving a GPIO high with the `Blink` example. Never connect an LED directly across the supply without a resistor: the GPIO commands the LED, it does not safely limit its current.
+3. **Relay alternative (optional).** If you want to switch a load instead of lighting an LED, use a **relay module** with its own driver/opto-isolation — never a bare relay coil from a GPIO. Connect `VCC`, `GND`, and `IN` as labeled, check whether the module needs 5 V and whether it triggers reliably from 3.3 V logic, and switch only a **low-voltage load** in this lab. Never switch mains voltage.
+4. **A button is a digital sensor — with two valid wirings.**
+   - **Pull-up:** resistor (or the MCU's internal `INPUT_PULLUP`) from the GPIO to 3.3 V; button from the GPIO to GND. Released = `HIGH`, pressed = `LOW`.
+   - **Pull-down:** resistor from the GPIO to GND; button from the GPIO to 3.3 V. Released = `LOW`, pressed = `HIGH`.
+   Draw both. Explain why an input must never float, and why an external 10 kΩ resistor can be more robust than the internal pull-up in a noisy or long-wire setup.
+5. Read the button with `digitalRead()` and use it to toggle the LED. Print both states to the serial console.
+6. **Experience bouncing.** Count button transitions in your loop (or with an interrupt) and print the count. Press the button once and watch: a mechanical contact often produces several edges within a few milliseconds. Make it more obvious with a worn button or longer wires; if you have a logic analyzer or oscilloscope, capture the raw edge and see the bounce.
+7. **Mitigate bouncing.** First add a software debounce (ignore new edges for 20–50 ms after a change). Then try a hardware variant: a **100 nF capacitor from the input node to GND** together with the 10 kΩ pull-up gives an RC time constant of about 1 ms; a Schmitt-trigger buffer (for example 74HC14) produces even cleaner edges. Compare the raw and debounced counts.
+
+> [!TIP]
+> **Optional electronic-prototyping refresher.** If breadboards, LEDs, resistors, or buttons are new to you, work through the matching tasks in the MCU programming class: [Breadboards and electronic prototyping](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md#task-1--breadboards-and-electronic-prototyping-intro), [Hello World prototyping](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md#task-3--hello-world-electronic-prototyping), [Blink](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md#task-5--blink-on-the-wemos-d1-mini), and [toggle an LED with a button](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md#task-6--toggle-led-with-button). The short breadboard video there is [youtu.be/yXirMBP3x4U](https://youtu.be/yXirMBP3x4U) and the blink video is [youtu.be/2nN_ZVyWLzg](https://youtu.be/2nN_ZVyWLzg).
+
+*Portfolio:* a wiring photo or schematic, your resistor calculation, the pull-up/pull-down explanation, and the button counts before and after debouncing.
+
+### ★ Task 2: Arduino IDE, Serial Console, and Visualization
+
+1. Install or open **Arduino IDE 2**, install the board core for your ESP32/ESP8266, and select the correct board and serial port. If you already use PlatformIO, the same steps apply there.
+2. Load `Blink`, change the pin to your external LED, and flash it. Confirm that your toolchain and upload path work before adding sensors.
+3. Open the **Serial Monitor** at `115200` baud. Print short, structured lines that are easy to read and parse, for example:
+   ```text
+   t=1234 button=1 led=0
    ```
-   Flash it once over USB (`iot flash`), then verify it connects and appears in MQTT.
-3. Watch the value on the Node-RED dashboard and in MQTT Explorer under the node's topic.
-4. Breathe on the sensor, shade it, or warm it, and observe the value move. Note how long it takes to react — that is a dynamic characteristic you will quantify later.
+4. Open the **Serial Plotter** and plot the button state and, later, analog values. Print numeric fields (or `label:value` pairs) so the plotter can separate the traces.
+   > **Tool choice:** the baseline is the Arduino IDE 2 Serial Plotter. If you already have a better local plotting setup — for example PlatformIO with Teleplot, or Python with `pyserial` and `matplotlib` — use that instead and document which tool you used.
+5. Measure your loop interval (`millis()` before and after, or print every N ms) and note how the sampling rate changes when you add `Serial.print()` calls or a `delay()`.
+6. Compare `delay()` with a `millis()`-based loop: a blocking delay stops you from reading the button and refreshing the display while it waits. Keep the console responsive with non-blocking timing.
 
-*Portfolio:* screenshot of the node's MQTT topics plus the dashboard receiving live values.
+*Portfolio:* a serial log or screenshot, a plot of at least one signal, the tool you used, and a note on your loop timing.
 
-### ★ Task 2: The ADC Precision Dance
+### ★ Task 3: The ADC Precision Dance
 
 *Work in pairs; one person measures, the other records.*
 
 1. Wire a potentiometer as a voltage divider into an analog input of an ESP32 (ESP32 has 12-bit ADCs; ESP8266 has 10-bit).
-2. Print the raw code, and also the scaled voltage using your assumed `Vref`, in `setup()`/`loop()` and watch it in the Serial Plotter.
+2. Print the raw code, and also the scaled voltage using your assumed `Vref`, in `setup()`/`loop()` and watch it with the plotting tool you chose in Task 2 (Arduino IDE Serial Plotter by default).
 3. Slowly turn the potentiometer across its full range and record:
    - the minimum and maximum raw codes you observe,
    - the number of distinct steps in the full sweep,
@@ -195,11 +219,42 @@ The goal is to experience the complete loop immediately, using the fast path.
 
 > **Document the failure worth having:** the flat/erratic regions near 0 V and 3.3 V. This is where the ESP32 ADC is least trustworthy — remember it in Module 3.
 
-### ★ Task 3: Draw Your Own Chain
+### ★ Task 4: An Analog Light Sensor — the LDR
+
+Now repeat the ADC exercise with a sensor whose resistance depends on light: a light-dependent resistor (LDR).
+
+1. Build a voltage divider: 3.3 V → LDR → measurement node → 10 kΩ → GND (or swap the LDR and the fixed resistor — decide which gives the larger voltage change in the light range you care about). Connect the measurement node to an analog input.
+2. Read the raw code and the voltage. Cover the LDR, shade it, and expose it to room light and a phone flashlight. Record the raw-code range, the voltage range, and how repeatable the same condition is.
+3. Convert voltage back to an approximate LDR resistance. For the orientation above:
+   ```text
+   Vout = Vref · R_fixed / (R_LDR + R_fixed)
+   R_LDR = R_fixed · (Vref − Vout) / Vout
+   ```
+   Show one worked example and state the assumptions.
+4. Note the LDR's limitations: it is slow (response time matters when light changes quickly), nonlinear, and temperature-dependent. This is exactly the kind of sensor you will characterize and calibrate in Module 3.
+5. Record at least three conditions (dark, shade, bright) with several repeated readings each — you will use this data in the next task.
+
+*Portfolio:* LDR divider schematic/photo, raw and voltage table, one resistance calculation, and a note on repeatability.
+
+### ★ Task 5: First Filtering — Average, Median, and Cutoff
+
+Raw ADC values are noisy. Try three simple ideas on the same LDR data (or on the potentiometer if you prefer a stable signal):
+
+1. **Moving average:** keep the last `N` samples (start with 5, then 10 and 20) and print or plot their mean. Observe that noise falls but the signal lags: added latency ≈ `N × sample interval`.
+2. **Median:** keep the last `N` samples and output the middle value. Introduce a deliberate single spike (cover/uncover the LDR, or tap the potentiometer) and compare the median with the average. The median should reject the spike; the average smears it across the window.
+3. **Cutoff:** use two complementary ideas:
+   - **Outlier cutoff / validity gate:** discard samples outside a plausible band (for example below 5 % or above 95 % of the expected range, or more than a chosen deviation from the running median) before filtering. This prevents one broken reading from poisoning the average.
+   - **Low-pass cutoff:** the window length sets how fast the filter follows changes. A longer window gives a lower cutoff frequency: more noise rejection, more lag. State the trade-off for your signal.
+4. Compare raw, average, median, and cutoff/gated output on the same plot or serial log. For each, state what it fixes and what it costs.
+5. Optional: implement an exponential moving average (EMA) with `y += alpha * (x - y)`, and explain how `alpha` plays the role of a cutoff.
+
+*Portfolio:* a short table or figure comparing raw, average, median, and cutoff, with the window sizes and the observed latency.
+
+### ★ Task 6: Draw Your Own Chain
 
 Pick one sensor from the kit (NTC, LDR, VL53L0X, MPU6050, DS18B20). Draw the full chain for it: physical quantity → transducer principle → conditioning (if any) → interface (analog? I²C?) → MCU processing → system use. Label where error and noise enter.
 
-### ◇ Task 4 (Stretcher): Resolution vs. Reality
+### ◇ Task 7 (Stretcher): Resolution vs. Reality
 
 Reduce the ADC to the smallest signal change you can measure at the top of the range and at the bottom. Where is the effective resolution worst, and why? Propose one conditioning change (e.g. an op-amp, a better reference, or a different divider ratio) that would improve it.
 
@@ -207,10 +262,13 @@ Reduce the ADC to the smallest signal change you can measure at the top of the r
 
 - A pod-formation note: names, skills, and one line on what you want to build.
 1. Chain diagram for your own sensor, with error/noise sources marked.
-2. ADC table: observed raw range, number of steps, step size in volts, and comparison with the theoretical value for at least two resolutions.
-3. Master Class proof: Node-RED/MQTT screenshot of your first sensor node.
-4. Vocabulary: define, in your own words, accuracy, precision, resolution, sensitivity, and uncertainty, each with one example.
-5. Deeper question: Why can a sensor with high resolution still give an inaccurate measurement? Which link of the chain is responsible in your example?
+2. Basic-electronics evidence: wiring photo or schematic, LED resistor calculation (or relay wiring/safety note), the pull-up/pull-down explanation, and the button-count comparison before and after debouncing. (If you skipped Task 1, include your justification and the quick-check evidence instead.)
+3. Serial-visualization evidence: a structured serial log and a plot from the Arduino IDE Serial Plotter or your chosen local tool, plus a note on loop timing.
+4. ADC table: observed raw range, number of steps, step size in volts, and comparison with the theoretical value for at least two resolutions.
+5. LDR table: raw, voltage, and approximate resistance for dark/shade/bright conditions, with a repeatability note.
+6. Filter comparison: raw vs. moving average vs. median vs. cutoff, including window sizes and observed latency.
+7. Vocabulary: define, in your own words, accuracy, precision, resolution, sensitivity, and uncertainty, each with one example.
+8. Deeper question: Why can a sensor with high resolution still give an inaccurate measurement? Which link of the chain is responsible in your example?
 
 
 > [!IMPORTANT]
@@ -223,6 +281,10 @@ Reduce the ADC to the smallest signal change you can measure at the top of the r
 - [Nyquist–Shannon sampling theorem](https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem) — why sampling too slowly invents frequencies.
 - [Espressif ADC documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html) — the real limits of the ESP32 ADC.
 - [Wokwi](https://wokwi.com/) — simulate the chain before you wire it.
+- [Arduino IDE 2: Serial Monitor and Serial Plotter](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/) — the baseline tools for inspecting and plotting data.
+- [Arduino: Digital Read Serial](https://docs.arduino.cc/built-in-examples/basics/DigitalReadSerial/), [Analog Read Serial](https://docs.arduino.cc/built-in-examples/basics/AnalogReadSerial/), and [Debounce](https://docs.arduino.cc/built-in-examples/digital/Debounce/) — reading a button and taming bounce.
+- [Moving average](https://en.wikipedia.org/wiki/Moving_average), [Median filter](https://en.wikipedia.org/wiki/Median_filter), and [Low-pass filter](https://en.wikipedia.org/wiki/Low-pass_filter) — the first filters you built.
+- **Optional electronic-prototyping refresher:** [Module 2 — Hardware and Basic Electronics](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md) in the MCU programming class, including the [breadboard intro](https://youtu.be/yXirMBP3x4U) and [Blink](https://youtu.be/2nN_ZVyWLzg) videos.
 
 ---
 

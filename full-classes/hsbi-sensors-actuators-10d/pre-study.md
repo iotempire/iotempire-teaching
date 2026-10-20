@@ -7,7 +7,7 @@ This course is about the physical side of IoT: how a real quantity in the world 
 - I²C and addressing: you will scan a bus and understand where your sensors live before you trust a library.
 - Sensor principles and characterization: distance and motion (ToF, ultrasonic, IMU), magnetic field and current (Hall), environment (T, RH, P) — with real transfer functions and calibration.
 - Actuators: servos and other motors, relays, buzzers, and especially LEDs and LED animation.
-- Systems: your node becomes part of a local-first IoTempower + MQTT + Node-RED system, so the measured value reaches a dashboard and can trigger an action.
+- Systems: your node publishes directly over MQTT to a Mosquitto broker running anywhere in the local network, so the measured value reaches a subscriber, dashboard, or actuator command. IoTempower is an optional declarative shortcut, not a requirement.
 
 See the [syllabus](./syllabus.md) for the complete course schedule and policies.
 
@@ -142,6 +142,6 @@ Before walking into the first lab session:
 - [ ] You have created your personal GitHub portfolio from [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”**, and added the instructor as a collaborator. See the [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) for the step-by-step.
 - [ ] You have committed your pre-study notes, answers to the 8 guiding questions, your Wokwi screenshot(s), and your project abstract.
 - [ ] You have your laptop ready with Arduino IDE v2 or PlatformIO installed (and, optionally, Wokwi and `i2c-tools`).
-- [ ] You are ready to receive your sensor/actuator kit and to work with the course's local broker/gateway setup (Mosquitto + Node-RED).
+- [ ] You are ready to receive your sensor/actuator kit and to start with the Arduino IDE, breadboard, and basic electronics on Day 1 (the Mosquitto broker and MQTT come later in the integration module).
 
 See you in the Sensors and Actuators Lab!

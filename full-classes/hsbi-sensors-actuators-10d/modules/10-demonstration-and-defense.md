@@ -49,14 +49,14 @@ The final project is assessed according to the [syllabus](../syllabus.md#final-p
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
 - [ ] Module 0: Pre-study notes, Wokwi simulation screenshot(s), datasheet notes, project abstract, and answers to the guiding questions.
-- [ ] Module 1: Chain diagram, ADC table (raw range, steps, step size), Master Class node evidence, vocabulary definitions.
+- [ ] Module 1: Chain diagram, basic-electronics/button/debounce evidence, serial log and plot, ADC table (raw range, steps, step size), LDR/filter comparison, vocabulary definitions.
 - [ ] Module 2: I²C scan output, addresses mapped to modules, raw-register reconstruction, address-conflict report.
 - [ ] Module 3: Transfer-function plot, calibration table, hysteresis/repeatability numbers, noise/filtering table, uncertainty statement.
 - [ ] Module 4: ToF characterization table, distance-sensor comparison, people-counter state machine, IMU tilt/drift/fusion results.
 - [ ] Module 5: Resistor calculation vs. measurement, PWM/gamma notes, RGB evidence, strip artifacts, power-budget table.
 - [ ] Module 6: Animation engine structure, effect videos/photos, sensor/sound interaction, installation-constraints note.
 - [ ] Module 7: Servo evidence and currents, H-bridge truth table and stall current, stepper results, sensor→motor logic.
-- [ ] Module 8: IoTempower node definition, MQTT topics, filter evidence, Node-RED flow export and dashboard, fault-injection report.
+- [ ] Module 8: MQTT publishing/command sketch or optional IoTempower node definition, topic map, filter evidence, Node-RED flow export and dashboard, fault-injection report.
 - [ ] Modules 9 & 10: Final Project architecture diagram, characterization and evaluation reports, fault-injection log, presentation slides/script, and final retrospective.
 - [ ] Reflection logbook entries for the teaching blocks, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md) in `Reflections/`.
 - [ ] Where you did not work entirely alone: links to pod mates, sources, and borrowed code.
@@ -73,10 +73,10 @@ You have developed practical mastery of:
 - The bus, understood: I²C wiring, addressing, register maps — the skill that makes every modern sensor approachable.
 - Characterized sensing: transfer functions, calibration, hysteresis, and filtering you can defend.
 - Actuation: LEDs and LED animation, servos, DC motors, and steppers, driven safely and correctly.
-- Systems: sensors and actuators deployed declaratively with IoTempower and integrated through MQTT and Node-RED.
+- Systems: sensors and actuators integrated through direct MQTT and Node-RED (and, optionally, deployed declaratively with IoTempower).
 
 ### Next Steps:
-- Continue with the IoTempire ecosystem: [iotempire.net](https://iotempire.net/) and [github.com/iotempire/iotempower](https://github.com/iotempire/iotempower).
+- Optionally continue with the IoTempire ecosystem: [iotempire.net](https://iotempire.net/) and [github.com/iotempire/iotempower](https://github.com/iotempire/iotempower).
 - Extend your final project toward the announcement's larger ideas: a flow sensor with light barriers, a Hall-effect power monitor, an interactive LED installation, or a music-synchronized fountain.
 - If you continue into a bachelor thesis or project, your characterization and evaluation documentation is exactly the material that turns a prototype into a credible engineering result.
 

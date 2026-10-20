@@ -57,7 +57,7 @@ The project is a short engineering sprint, not a single lab:
 ```text
 [Kickoff]        Story, team, requirements, first architecture sketch
     |
-[Build]          Sensors on the bus, actuator, firmware, IoTempower node
+[Build]          Sensors on the bus, actuator, firmware, MQTT integration
     |
 [Characterize]   Transfer function / calibration, actuator performance, metrics
     |
@@ -79,11 +79,11 @@ Sessions are open-ended by design. If you finish a milestone early, harden the s
                            |
 [Sensors]            I²C (>=1) + a second sensor, characterized & calibrated
                            |
-[Conditioning]       divider / reference / filtering (hardware or IoTempower)
+[Conditioning]       divider / reference / filtering (hardware or firmware; optional IoTempower)
                            |
 [Actuator]           motor/servo/LED installation with its own driver & supply
                            |
-[Node]               ESP32/ESP8266 or M5Stack, declared in IoTempower
+[Node]               ESP32/ESP8266 or M5Stack, publishing directly over MQTT
                            |
 [Integration]        MQTT topics + Node-RED dashboard + one control rule
                            |
@@ -110,8 +110,8 @@ Verify your system against the must-haves:
 
 1. Two sensors, at least one I²C, both identified by address in your documentation.
 2. One actuator that physically acts — motor/servo/stepper or an addressable LED installation.
-3. One IoTempower filter for processing.
-4. Node-RED dashboard with display and control, plus one closed-loop/rule-based behavior.
+3. One filter implemented in firmware (average, median, or cutoff); optional: compare it with an IoTempower filter.
+4. Node-RED dashboard (or an equivalent MQTT subscriber/control UI) with display and control, plus one closed-loop/rule-based behavior.
 5. Safety and interlocks: a defined safe state and at least one limit (max duty, timeout, or limit switch).
 
 ### ★ Task 3: Characterize and Evaluate

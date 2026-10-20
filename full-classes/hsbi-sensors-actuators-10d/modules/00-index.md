@@ -9,14 +9,14 @@
 | Module | Day / Session | Modern studio | Hands-on focus |
 |:---:|:---:|---|---|
 | [Module 0 — Pre-study](../pre-study.md) | Before Day 1 | Portfolio, measurement basics, Wokwi | Measurement chain, datasheet reading, ADC resolution in simulation, first project abstract. |
-| [Module 1](./01-foundations-measurement-and-sensor-chain.md) | Day 1 / Session 1 | Foundations: Measurement, Signals & the Sensor–Actuator Chain | Metrology and uncertainty, the signal chain, ADC precision dance, first IoTempower sensor node. |
+| [Module 1](./01-foundations-measurement-and-sensor-chain.md) | Day 1 / Session 1 | Foundations: Electronics, Arduino & Measurement | Basic electronics (LED actor, button with pull-up/pull-down, debouncing), Arduino serial console and plotting, metrology and the signal chain, ADC precision dance, LDR and first filtering. |
 | [Module 2](./02-i2c-and-sensor-addressing.md) | Day 2 / Session 2 | I²C & Sensor Addressing | Bus wiring and scan, 7-bit addresses, register maps, two devices on one bus, address conflicts. |
 | [Module 3](./03-sensor-characterization-and-calibration.md) | Day 3 / Session 3 | Sensor Characterization, Calibration & Data Quality | Transfer function, linearity, hysteresis, calibration, filtering, uncertainty of an NTC/LDR. |
 | [Module 4](./04-distance-motion-and-environment-sensors.md) | Day 4 / Session 4 | Distance, Motion & Environment Sensors **+ Checkpoint 1** | ToF and ultrasonic distance, people counting, IMU tilt/drift/fusion, Hall current sensing. |
 | [Module 5](./05-leds-and-light-output.md) | Day 5 / Session 5 | LEDs & Light as Output | Current limiting, PWM and gamma, RGB mixing, addressable WS2812, power budget. |
 | [Module 6](./06-led-animation-sound-and-installations.md) | Day 6 / Session 6 | LED Animation, Sound & Interactive Installations | Non-blocking animation, palettes and blending, sensor- and sound-reactive installations. |
 | [Module 7](./07-motors-and-motion-actuators.md) | Day 7 / Session 7 | Motors & Motion Actuators | Servo position, DC motor with H-bridge, stepper steps, current and stall, sensor→motor logic. |
-| [Module 8](./08-sensor-to-system-and-integration.md) | Day 8 / Session 8 | From Sensor to System: IoTempower & Integration **+ Checkpoint 2** | Declarative node, filters, MQTT, Node-RED dashboard, closed-loop control, fault injection. |
+| [Module 8](./08-sensor-to-system-and-integration.md) | Day 8 / Session 8 | From Sensor to System: MQTT & Integration **+ Checkpoint 2** | Direct MQTT publishing and commands, filters in firmware, Node-RED dashboard, closed-loop control, fault injection; optional IoTempower comparison. |
 | [Module 9](./09-final-project-studio.md) | Days 9–10 / Sessions 9–11 | Final Project Studio | Kickoff and story, build and integrate, characterization and evaluation, peer review; **checkpoint 3** (Modules 7–8). |
 | [Module 10](./10-demonstration-and-defense.md) | Day 10 / Session 12 | Demonstration & Portfolio Defense | Live sensor/actuator demonstration, fault injection, individual defense. |
 | [Prompt bank](./Y-resources-prompt-bank.md) | — | Supplementary | Reflection prompts, LLM-verification drills, quick references. |

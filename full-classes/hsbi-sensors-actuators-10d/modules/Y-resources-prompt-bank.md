@@ -27,13 +27,15 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 - "Where did the LLM mislead us, and how did we catch it?"
 - "What is the smallest demonstration that would convince a skeptic that we understand this?"
 
-## 📌 Module 1 – Foundations: Measurement, Signals & the Chain
-*Focus: transducer, error/uncertainty, accuracy vs. precision, ADC, sampling, quantization.*
+## 📌 Module 1 – Foundations: Electronics, Arduino & Measurement
+*Focus: transducer, error/uncertainty, accuracy vs. precision, basic electronics, button pull-up/pull-down and debouncing, Arduino serial console and plotting, ADC, LDR, filtering.*
 
 1. Technical: *The chain:* Draw the full chain for one sensor and mark where each kind of error enters.
 2. Technical: *ADC precision dance:* Report your observed code range, step count, and step size, and compare with the theoretical `Vref/2^n`.
 3. Technical: *Accuracy vs. precision:* Give one example from your own measurements of a precise-but-inaccurate and an accurate-but-imprecise result.
-4. Process: *Master Class first impressions:* What was smooth about getting a sensor onto the dashboard, and where did you get stuck?
+4. Technical: *Actuator and button basics:* Explain the LED/relay as an actuator and the button as a digital sensor, including the resistor calculation, pull-up/pull-down choice, and debounce.
+5. Technical: *LDR and filtering:* Show the LDR transfer behavior and compare raw, average, median, and cutoff output — what did each fix and what did it cost?
+6. Process: *Serial console and visualization:* Which tool did you use to inspect and plot your data, what did the plot reveal, and how did `delay()` versus `millis()` affect your sampling?
 
 ## 📌 Module 2 – I²C & Sensor Addressing
 *Focus: bus physics, addresses, register maps, conflicts, bus comparison.*
@@ -83,10 +85,10 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 3. Hybrid: *Sensor→motor logic:* Present your control rule, hysteresis, and safety interlock.
 4. Process: *Safety near-miss or lesson:* Document one wiring/current/ground lesson you will not forget.
 
-## 📌 Module 8 – From Sensor to System: IoTempower & Integration
-*Focus: declarative nodes, filters, MQTT, Node-RED, control loops, failures.*
+## 📌 Module 8 – From Sensor to System: MQTT & Integration
+*Focus: MQTT publishing/commands, filters, Node-RED, control loops, failures; optional IoTempower comparison.*
 
-1. Technical: *Declarative vs. imperative:* What boilerplate disappeared when you moved to an IoTempower node?
+1. Technical: *Direct vs. declarative:* What did you have to implement yourself for MQTT (connect, reconnect, topics, payloads), and what would an optional IoTempower node remove?
 2. Technical: *Filter choice:* Which filter and window did you choose for your sensor, and what did it cost in latency?
 3. Hybrid: *Closed loop:* Describe your control rule and how you arbitrated manual vs. automatic control.
 4. Process: *Fault injection:* Which of the four faults did your system survive, and what did you fix afterward?

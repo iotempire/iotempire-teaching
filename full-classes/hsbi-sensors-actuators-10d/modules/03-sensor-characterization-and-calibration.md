@@ -85,18 +85,18 @@ Noise comes from the sensor, the wiring, the ADC, and the environment. Practical
 - Hardware: shorter/cleaner wiring, a good ground, decoupling capacitors, a stable reference, averaging inside the sensor.
 - Moving average: smooth, but adds latency ~ window size × sample interval.
 - Median filter: excellent against single spikes/outliers.
-- Exponential moving average (EMA): light, tunable smoothing for streaming data (and what many IoTempower filters use).
+- Exponential moving average (EMA): light, tunable smoothing for streaming data (a simple recursive low-pass filter).
 - Oversampling + decimation: average many samples for extra effective bits, at the cost of speed.
 
 > [!TIP]
-> IoTempower has built-in filters (`average`, `median`, smoothing, mapping). You can move processing out of your sketch and declare it instead — try this as a stretcher task.
+> Implement these filters in your sketch. If you explore IoTempower (optional), it also has built-in `average`, `median`, smoothing, and mapping filters — comparing the two is a good stretcher task.
 
 ### Pointers (start here, then keep looking)
 
 - NTC thermistors — [Wikipedia: Thermistor](https://en.wikipedia.org/wiki/Thermistor), the Beta equation and Steinhart–Hart model
 - Calibration and uncertainty — [Wikipedia: Calibration](https://en.wikipedia.org/wiki/Calibration), [Measurement uncertainty](https://en.wikipedia.org/wiki/Measurement_uncertainty), and the [GUM](https://www.bipm.org/en/publications/guides/gum.html)
 - Filtering — [Moving average](https://en.wikipedia.org/wiki/Moving_average), [Median filter](https://en.wikipedia.org/wiki/Median_filter), [Exponential smoothing](https://en.wikipedia.org/wiki/Exponential_smoothing)
-- Declarative filters — [IoTempower documentation](https://github.com/iotempire/iotempower)
+- Optional declarative filters — [IoTempower documentation](https://github.com/iotempire/iotempower)
 - Your sensor datasheets — linked from the [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once)
 
 ### Questions to ask an LLM (then verify against your measurements)
@@ -172,7 +172,7 @@ Pair with a **neighbouring pod**:
 ### ◇ Task 5 (Stretcher): Uncertainty and Declarative Filtering
 
 1. Write a small uncertainty budget for your measurement (reference, resolution, repeatability, noise, drift). Report `y ± U` with a reasonable `k`.
-2. Move your smoothing into IoTempower: declare an average/median filter on the device and compare its behavior with your software filter.
+2. Compare your firmware filter with a declarative one: if you explore IoTempower (optional), declare an average/median filter on the device and compare its behavior with your software filter. If you are not using IoTempower, compare a moving average with an EMA or a median filter instead.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
@@ -193,7 +193,7 @@ Pair with a **neighbouring pod**:
 - [Wikipedia: Calibration](https://en.wikipedia.org/wiki/Calibration) — one-point, two-point, and multi-point calibration.
 - [Measurement uncertainty](https://en.wikipedia.org/wiki/Measurement_uncertainty) and the [GUM](https://www.bipm.org/en/publications/guides/gum.html) — how to state `y ± U` honestly.
 - [Moving average](https://en.wikipedia.org/wiki/Moving_average), [Median filter](https://en.wikipedia.org/wiki/Median_filter), [Exponential smoothing](https://en.wikipedia.org/wiki/Exponential_smoothing) — the filters you will compare.
-- [IoTempower](https://github.com/iotempire/iotempower) — declarative filters and node definitions.
+- [IoTempower](https://github.com/iotempire/iotempower) — optional declarative filters and node definitions.
 
 ---
 

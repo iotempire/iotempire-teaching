@@ -66,7 +66,7 @@ Set your identity once: `git config --global user.name "Your Name"` and `git con
 <a id="python-environment-with-uv-optional"></a>
 ## 🐍 Python environment with `uv` (optional)
 
-You do **not** need Python for the core Arduino/IoTempower labs. If you write an integration script (for example a `paho-mqtt` logger or a measurement plotter), use a pinned `uv` environment instead of bare `pip install`:
+You do **not** need Python for the core Arduino/MQTT labs. If you write an integration script (for example a `paho-mqtt` logger or a measurement plotter), use a pinned `uv` environment instead of bare `pip install`:
 
 ```sh
 # install uv once (macOS/Linux)
@@ -100,7 +100,8 @@ uv run python plot_measurements.py
 | 6 | LED animation | A FastLED patterns/palettes demo | How do palettes and HSV simplify effects? |
 | 6 | Sound-reactive LEDs | A "music-reactive LED" build | How do you extract an envelope and avoid flicker? |
 | 7 | Servo / motor / stepper | A "servo vs DC motor vs stepper" comparison | Which needs feedback, and which needs a driver? |
-| 8 | IoTempower | See the course's [IoTempower docs and videos](https://github.com/iotempire/iotempower) | What does "declarative" remove from your code? |
+| 8 | MQTT integration | A short "MQTT publish/subscribe with an ESP32 and Mosquitto" explainer | How do topics, QoS, and retain change what your dashboard sees? |
+| 8 | Optional: IoTempower | See the course's [IoTempower docs and videos](https://github.com/iotempire/iotempower) | What does "declarative" remove from your code? |
 
 <a id="datasheets--standards-to-read-once"></a>
 ## 📄 Datasheets & Standards to Read Once
@@ -194,18 +195,21 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Use case | Tool / library | Notes |
 |---|---|---|
 | ESP32/ESP8266 development | Arduino IDE v2, PlatformIO | Pick one and stay consistent |
-| Declarative deployment | [IoTempower](https://github.com/iotempire/iotempower) | Drivers, filters, OTA deploy |
-| MQTT client (ESP) | PubSubClient | Topic + payload handling |
+| Serial plotting | Arduino IDE 2 Serial Plotter; Teleplot (PlatformIO); `pyserial` + matplotlib | Start with the built-in Serial Plotter unless you already use a local tool |
+| MQTT broker | [Mosquitto](https://mosquitto.org/) | Run on any host in the network (router, Pi, laptop) |
+| MQTT client (ESP) | PubSubClient | Topic + payload handling, reconnect |
+| MQTT client (Python, optional) | `paho-mqtt` | Logging and integration scripts |
+| Declarative deployment (optional) | [IoTempower](https://github.com/iotempire/iotempower) | Drivers, filters, OTA deploy |
 | Addressable LEDs | FastLED (or Adafruit NeoPixel) | Patterns, palettes, HSV |
 | I²C convenience | `Wire` (Arduino core) | Scan, read/write registers |
 | I²C tools (Linux) | `i2c-tools` (`i2cdetect`) | Standard bus scan on a Pi/gateway |
-| Integration & dashboards | Node-RED, Mosquitto | Local-first IoT stack |
+| Integration & dashboards | Node-RED, Mosquitto | Local-first MQTT stack |
 | Simulation | [Wokwi](https://wokwi.com/) | Pre-study and quick prototyping |
 
 <a id="instructor-hints"></a>
 ## 🧑‍🏫 Instructor hints
 
-**Before the first studio.** Check the kit: label every Grove module with its I²C address, keep one known-good jumper wire and one known-good sensor as a reference, and test the local broker + Node-RED on the gateway before students arrive. A USB power meter saves many “why does it reset?” conversations.
+**Before the first studio.** Check the kit: label every Grove module with its I²C address, keep one known-good jumper wire and one known-good sensor as a reference, and test the Mosquitto broker (and optional Node-RED) on its host before students arrive. A USB power meter saves many “why does it reset?” conversations.
 
 **Pods and checkpoints.** Form Task Pods of two or three on Day 1 (three is the default for a large cohort). The checkpoint schedule, the 2-pod practice round, and the video alternative are defined in the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations); run the slots from there. Assess from the portfolio, not from task completion, and keep the checkpoint a short conversation rather than a presentation rehearsal.
 
@@ -244,7 +248,7 @@ The module stories share a small cast of named (fictional) organizations and peo
 - **Signals and conversion:** [Analog-to-digital converter](https://en.wikipedia.org/wiki/Analog-to-digital_converter) · [Nyquist–Shannon sampling theorem](https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem) · [Espressif ADC documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html)
 - **Sensors:** [Thermistor](https://en.wikipedia.org/wiki/Thermistor) · [Hall effect sensor](https://en.wikipedia.org/wiki/Hall_effect_sensor) · [Inertial measurement unit](https://en.wikipedia.org/wiki/Inertial_measurement_unit) · [VL53L0X](https://www.st.com/en/imaging-and-photonics-solutions/vl53l0x.html)
 - **Actuators:** [Light-emitting diode](https://en.wikipedia.org/wiki/Light-emitting_diode) · [Pulse-width modulation](https://en.wikipedia.org/wiki/Pulse-width_modulation) · [Servomotor](https://en.wikipedia.org/wiki/Servomotor) · [Stepper motor](https://en.wikipedia.org/wiki/Stepper_motor)
-- **Systems:** [IoTempower](https://github.com/iotempire/iotempower) · [MQTT essentials](https://www.hivemq.com/mqtt-essentials/) · [Node-RED](https://nodered.org/docs/) · [Control theory](https://en.wikipedia.org/wiki/Control_theory)
+- **Systems:** [MQTT essentials](https://www.hivemq.com/mqtt-essentials/) · [Mosquitto](https://mosquitto.org/) · [Node-RED](https://nodered.org/docs/) · [Control theory](https://en.wikipedia.org/wiki/Control_theory) · optional [IoTempower](https://github.com/iotempire/iotempower)
 - **Method:** [Story-driven modeling](https://en.wikipedia.org/wiki/Story-driven_modeling) · [Challenge-based learning](https://en.wikipedia.org/wiki/Challenge-based_learning) · [Project-based learning](https://www.pblworks.org/what-is-pbl)
 
 ## 🧑‍🏫 Discussion Starters
