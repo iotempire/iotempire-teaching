@@ -92,12 +92,13 @@ uv run python plot_measurements.py
 | 1 | The signal chain / ADC | A short "how an ADC works" explainer | What limits resolution? What limits accuracy? |
 | 2 | I²C explained | A concise "I²C bus / addressing / clock stretching" explainer | How does a device know a message is meant for it? |
 | 2 | I²C debugging | A short "logic analyzer reads I²C" demonstration | Where do you see the ACK? What does a NACK tell you? |
+| 2 | Build your own scope/analyzer | A browser-based ESP32 oscilloscope or PulseView logic-analyzer demo | What can it capture, and where is its sampling limit? |
 | 3 | Calibration & transfer function | A short sensor-calibration walkthrough | What is the difference between calibration and verification? |
 | 4 | Time-of-flight vs ultrasonic | A comparison of ToF and ultrasonic distance sensing | Which fails on a black or a soft target, and why? |
 | 4 | IMU / sensor fusion | A short complementary/Kalman filter intuition video | Why does the gyro drift while the accelerometer does not? |
 | 5 | PWM & LED dimming | A "PWM and gamma correction" explainer | Why does a linear ramp look like it "jumps"? |
 | 5 | Addressable LEDs | A WS2812 / NeoPixel overview | Why does each pixel need a driver chip? |
-| 6 | LED animation | A FastLED patterns/palettes demo | How do palettes and HSV simplify effects? |
+| 6 | LED animation | An addressable LED animation demo (Adafruit NeoPixel / NeoPixelBus) | How do palettes and HSV simplify effects? |
 | 6 | Sound-reactive LEDs | A "music-reactive LED" build | How do you extract an envelope and avoid flicker? |
 | 7 | Servo / motor / stepper | A "servo vs DC motor vs stepper" comparison | Which needs feedback, and which needs a driver? |
 | 8 | MQTT integration | A short "MQTT publish/subscribe with an ESP32 and Mosquitto" explainer | How do topics, QoS, and retain change what your dashboard sees? |
@@ -155,8 +156,8 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Tool | Use |
 |---|---|
 | USB power meter | Log current for strips, servos, motors; verify the power budget |
-| Multimeter | Forward voltage, divider output, current draw, continuity |
-| Logic analyzer (optional) | I²C transactions, PWM duty, WS2812 timing |
+| Multimeter | One shared unit — use it for reference checks; the ESP32 scope/analyzer is the primary bus instrument |
+| ESP32 scope/logic analyzer | I²C/OneWire transactions, PWM duty, slow analog signals; built/selected in Module 2 |
 | Reference thermometer / lux meter | A reference for your characterization labs |
 
 ## 🧰 Tool gotchas
@@ -200,7 +201,9 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | MQTT client (ESP) | PubSubClient | Topic + payload handling, reconnect |
 | MQTT client (Python, optional) | `paho-mqtt` | Logging and integration scripts |
 | Declarative deployment (optional) | [IoTempower](https://github.com/iotempire/iotempower) | Drivers, filters, OTA deploy |
-| Addressable LEDs | FastLED (or Adafruit NeoPixel) | Patterns, palettes, HSV |
+| Logic analyzer software | PulseView / sigrok | I²C, 1-Wire, SPI, UART protocol decoders |
+| ESP32 scope/analyzer | ESP32 logic analyzer / web scope | Built/selected in Module 2; see the [Module 2 candidate shortlist](./02-i2c-and-sensor-addressing.md) |
+| Addressable LEDs | Adafruit NeoPixel; NeoPixelBus | Simple bring-up vs. robust/multi-strip; FastLED as a reference only |
 | I²C convenience | `Wire` (Arduino core) | Scan, read/write registers |
 | I²C tools (Linux) | `i2c-tools` (`i2cdetect`) | Standard bus scan on a Pi/gateway |
 | Integration & dashboards | Node-RED, Mosquitto | Local-first MQTT stack |
@@ -209,7 +212,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 <a id="instructor-hints"></a>
 ## 🧑‍🏫 Instructor hints
 
-**Before the first studio.** Check the kit: label every Grove module with its I²C address, keep one known-good jumper wire and one known-good sensor as a reference, and test the Mosquitto broker (and optional Node-RED) on its host before students arrive. A USB power meter saves many “why does it reset?” conversations.
+**Before the first studio.** Check the kit: label every Grove module with its I²C address, keep one known-good jumper wire and one known-good sensor as a reference, and test the Mosquitto broker (and optional Node-RED) on its host before students arrive. A USB power meter saves many “why does it reset?” conversations. For Module 2, have one known-good ESP32 scope/analyzer build and a PulseView install ready as a fallback for the instrument sprint.
 
 **Pods and checkpoints.** Form Task Pods of two on Day 1 (pairs by default; a third only by arrangement). The checkpoint schedule, the 2-pod practice round, and the video alternative are defined in the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations); run the slots from there. Assess from the portfolio, not from task completion, and keep the checkpoint a short conversation rather than a presentation rehearsal.
 

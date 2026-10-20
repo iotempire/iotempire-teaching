@@ -38,12 +38,13 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 6. Process: *Serial console and visualization:* Which tool did you use to inspect and plot your data, what did the plot reveal, and how did `delay()` versus `millis()` affect your sampling?
 
 ## 📌 Module 2 – I²C & Sensor Addressing
-*Focus: bus physics, addresses, register maps, conflicts, bus comparison.*
+*Focus: scope/analyzer choice, bus physics, addresses, register maps, conflicts, bus comparison.*
 
-1. Technical: *Scan map:* Show your scan output and map each address to its module and datasheet.
-2. Technical: *Raw vs. library:* Present the raw register value, your datasheet-based reconstruction, and the library value — and explain any mismatch.
-3. Hybrid: *Conflict resolution:* Describe the address conflict you created and exactly how you resolved (or would resolve) it.
-4. Project Context: *Why not just add pins?* Explain why one data pair for many devices is elegant, and name its limits.
+1. Technical: *Instrument choice:* Which scope/analyzer did the class adopt, what sample rate and input range does it have, and which signals can it not capture?
+2. Technical: *Scan map:* Show your scan output and map each address to its module and datasheet.
+3. Technical: *Raw vs. library:* Present the raw register value, your datasheet-based reconstruction, and the library value — and explain any mismatch.
+4. Hybrid: *Conflict resolution:* Describe the address conflict you created and exactly how you resolved (or would resolve) it.
+5. Project Context: *Why not just add pins?* Explain why one data pair for many devices is elegant, and name its limits.
 
 ## 📌 Module 3 – Sensor Characterization, Calibration & Data Quality
 *Focus: transfer function, linearity, hysteresis, calibration, uncertainty, filtering.*

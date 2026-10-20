@@ -182,7 +182,7 @@ Pair with a **neighbouring pod**:
    - **Pull-down:** resistor from the GPIO to GND; button from the GPIO to 3.3 V. Released = `LOW`, pressed = `HIGH`.
    Draw both. Explain why an input must never float, and why an external 10 kΩ resistor can be more robust than the internal pull-up in a noisy or long-wire setup.
 5. Read the button with `digitalRead()` and use it to toggle the LED. Print both states to the serial console.
-6. **Experience bouncing.** Count button transitions in your loop (or with an interrupt) and print the count. Press the button once and watch: a mechanical contact often produces several edges within a few milliseconds. Make it more obvious with a worn button or longer wires; if you have a logic analyzer or oscilloscope, capture the raw edge and see the bounce.
+6. **Experience bouncing.** Count button transitions in your loop (or with an interrupt) and print the count. Press the button once and watch: a mechanical contact often produces several edges within a few milliseconds. Make it more obvious with a worn button or longer wires; after Module 2 you can also capture the raw edge with the class scope/analyzer.
 7. **Mitigate bouncing.** First add a software debounce (ignore new edges for 20–50 ms after a change). Then try a hardware variant: a **100 nF capacitor from the input node to GND** together with the 10 kΩ pull-up gives an RC time constant of about 1 ms; a Schmitt-trigger buffer (for example 74HC14) produces even cleaner edges. Compare the raw and debounced counts.
 
 > [!TIP]

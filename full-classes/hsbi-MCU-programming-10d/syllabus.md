@@ -172,7 +172,7 @@ Your working environment is the local microcontroller workbook provided for this
 - Portfolio Starter Templates: [https://github.com/iotempire/iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template)
 - IoTempower Framework: [https://github.com/iotempire/iotempower](https://github.com/iotempire/iotempower) (vanity URL [https://iotempower.us](https://iotempower.us))
 - IoTempire Organization (behind all our IoT teaching, tools, and community efforts): [https://iotempire.net/](https://iotempire.net/)
-- Useful Libraries: ESP8266/ESP32 Arduino Cores, Adafruit (DHT22, BME280), PubSubClient (MQTT), OneWire, MFRC522 (RFID), U8g2 (OLED), FastLED (RGB)
+- Useful Libraries: ESP8266/ESP32 Arduino Cores, Adafruit (DHT22, BME280), PubSubClient (MQTT), OneWire, MFRC522 (RFID), U8g2 (OLED), **Adafruit NeoPixel / NeoPixelBus (addressable RGB; FastLED only as a reference)**
 - Hardware Kit: Supplied at course start; see Module 2 – Hardware & Electronics for details
 
 Your portfolio must provide the instructor with the evidence needed for assessment. Public sharing of code, logs, schematics, and learning materials is encouraged but not required. If you publish, use a suitable licence: for example, MIT for code and CC BY-SA for documentation or media. Accepted pull requests to IoTempower or this teaching repository follow their existing licensing and are an easy route to extra points.

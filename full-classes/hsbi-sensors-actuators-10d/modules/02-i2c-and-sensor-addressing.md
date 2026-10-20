@@ -4,7 +4,9 @@
 
 > This is the module that turns "a sensor in a library example" into "a device on a bus that you understand." We deliberately scan and poke the bus *before* trusting a library.
 
-**Course placement:** Day 2 — the bus studio. We scan and poke the bus before trusting a library.
+**Course placement:** Day 2 — the instrument-and-bus studio. We first build and choose a low-cost ESP32 scope/analyzer, then scan and poke the bus before trusting a library.
+
+> **Session order:** begin the studio with **Task 1 — the 2-hour instrument sprint**. The pod-study concepts can be read before, during, or after; the class decision on 1–2 scope/analyzer solutions is the day's first deliverable.
 
 ## 🎯 Learning Goals
 
@@ -16,6 +18,7 @@ By the end of this module, you can:
 3. Read a sensor through a library and read its raw registers directly.
 4. Run two devices on one bus and resolve an address conflict.
 5. Recognize when a device is I²C, SPI, UART, OneWire, or analog, and why that matters for wiring and debugging.
+6. Build and evaluate a low-cost ESP32 scope/logic analyzer, and agree on 1–2 class solutions for future bus debugging.
 
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
@@ -117,14 +120,60 @@ Pair with a **neighbouring pod**:
 
 *Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section) and your pod-pair's shared artefact.
 
-## 🛠️ In-Class Lab: Talk to the Bus — **Challenging**
+## 🛠️ In-Class Lab: Build the Instrument, Then Talk to the Bus — **Challenging**
 
-*Hardware:* 1× ESP32/ESP8266 (or M5Stack), 2× I²C sensor modules with different addresses (e.g. environment sensor + MPU6050 or VL53L0X), jumper wires, optional logic analyzer, optional Linux host or Raspberry Pi with `i2c-tools`.
+*Hardware:* 1× ESP32 DevKit or ESP32 Ethernet mini kit per pod (for the scope/analyzer and for the bus), 2× I²C sensor modules with different addresses (e.g. environment sensor + MPU6050 or VL53L0X), jumper wires, one shared multimeter, optional 2× 10 kΩ pull-ups, optional voltage divider/clamp for the scope input, optional Linux host or Raspberry Pi with `i2c-tools`.
+
+> [!NOTE]
+> **Lab reality: no benchtop oscilloscope, one shared multimeter.** Task 1 is a **2-hour instrument sprint**: build and compare low-cost ESP32 solutions, then agree as a class on **1–2 solutions** we use for the rest of the course. For I²C and OneWire, a **logic analyzer** with PulseView/sigrok is the right tool; for slow analog signals and PWM, a browser-based ESP32 scope is useful. Use the multimeter for reference/sanity checks and let the scope/analyzer carry the bus debugging.
 
 > [!WARNING]
-> Power off before rewiring. Check that every module's logic voltage matches 3.3 V. I²C modules with their own 5 V pull-ups can over-voltage a 3.3 V device — check before connecting.
+> Power off before rewiring. Check that every module's logic voltage matches 3.3 V. I²C modules with their own 5 V pull-ups can over-voltage a 3.3 V device — check before connecting. The scope/analyzer inputs are **3.3 V only**; use a divider or clamp for higher voltages and never connect to mains-referenced circuits.
 
-### ★ Task 1: Wire the Bus and Scan It
+### ★ Task 1: Build and Choose Our Scope — **2-hour instrument sprint**
+
+**Goal:** by the end of this task, the class agrees on **1–2 open-source solutions** and writes down how to build, flash, and use them. Future modules use those solutions unless a documented reason forces a change.
+
+**Candidate shortlist (all open source):**
+
+| Candidate | What it gives you | Limits / notes |
+|---|---|---|
+| [lmcapacho/ESP32_LogicAnalyzer](https://github.com/lmcapacho/ESP32_LogicAnalyzer) | 16-channel SUMP logic analyzer, up to **20 MHz**, 128k samples, PulseView/sigrok | Digital only, 3.3 V; Arduino IDE; **best fit for I²C/OneWire** |
+| [EUA/ESP32_LogicAnalyzer](https://github.com/EUA/ESP32_LogicAnalyzer) | SUMP/PulseView logic analyzer, I2S DMA, up to **20 MHz** | Digital only; PlatformIO; alternate codebase |
+| [hepter/web-logic-analyzer](https://github.com/hepter/web-logic-analyzer) | Browser-based digital capture, export to PulseView; configurable sample rate (example: 1 MHz) | Digital only; set the correct rate when importing; easiest browser-only option |
+| [BojanJurca/Esp32_oscilloscope](https://github.com/BojanJurca/Esp32_oscilloscope) | Browser scope, analog + digital, optional I2S single-channel mode | ~736 samples/screen; **not a fast-bus decoder**; Arduino IDE; MIT |
+| [MatAtBread/esp-scope](https://github.com/MatAtBread/esp-scope) | Browser scope with trigger and test signal | Low-rate; ESP-IDF toolchain; nice UI, more setup |
+
+**Recommended pairing:** one **bus analyzer** (first three rows) + one **analog web scope** (last two rows). If you adopt only one solution, choose the bus analyzer — it is the tool that actually decodes I²C/OneWire traffic.
+
+> **Sampling rule of thumb:** for 100 kHz I²C, sample at **≥1 MS/s** to see clean edges (the Nyquist minimum is 200 kS/s, but decoding wants margin); for 400 kHz I²C, use **≥4 MS/s**. A ~700-samples/s web scope cannot decode I²C — it is for slow analog signals and PWM only.
+
+> **Board note:** all candidates target a generic ESP32. The ESP32 Ethernet mini kit runs the same firmware; check whether the web UI expects Wi-Fi and adapt the network setup if you want Ethernet. For analog captures, use **ADC1** pins (on a classic ESP32: GPIO32–39) because Wi-Fi uses ADC2.
+
+> **Pin-conflict warning:** the SUMP logic analyzers reserve dedicated I2S/LEDC pins (for `lmcapacho`, GPIO23 and GPIO22 by default). Do not use those pins for I2C or other signals; remap them in the config or use a separate ESP32. Draw the pin map before wiring.
+
+> **Host software:** [PulseView / sigrok](https://sigrok.org/wiki/PulseView) is the open-source host for the logic-analyzer candidates and includes I²C and 1-Wire protocol decoders. Install it before the sprint.
+
+1. **Split the candidates across pods.** Each pod picks one or two from the shortlist, aiming for at least one bus analyzer and one analog scope in the room. Record the repo URL and the commit/version you used. With a small cohort (e.g. 12 students = six pairs), a good split is three bus-analyzer pods, two web-scope pods, and one cross-check pod; adapt to the room.
+2. **Build and flash** on your ESP32 DevKit or Ethernet mini kit. Use the project's Arduino IDE or PlatformIO instructions. Time the install: from unboxing to first capture.
+3. **Test on known signals:**
+   - **PWM / square wave:** generate 1 kHz on a second ESP32 (or use the board's LEDC/DAC/test output) and display it.
+   - **I²C:** run an I²C scanner on SDA/SCL at 100 kHz. A scanner's address probes are enough traffic. Look for **START, address, ACK/NACK, and STOP**; with PulseView, enable the I²C decoder.
+   - **OneWire (optional):** read a DS18B20 and capture the reset/presence/data pulses.
+4. **Measure and record:** sample rate/timebase, whether edges are stable or missed, whether the I²C decode works, browser/OS compatibility, input voltage range and protection, and the total setup effort.
+5. **Class decision:** each pod gives a **2-minute demo** of its candidate. As a class, agree on **1–2 solutions** and write `Module02/scope-decision.md`:
+   - chosen solution(s) and repo/commit,
+   - install steps (Arduino IDE/PlatformIO) and pin mapping,
+   - sample rate/timebase and input limits,
+   - what it can and cannot capture,
+   - test captures (PWM, I²C, optional OneWire),
+   - who owns the setup instructions.
+
+> **Timebox:** Task 1 is the first ~2 hours. Tasks 2–6 are the rest of the studio; if time runs short, finish the bus scan/register proof and carry the conflict/stretcher work into portfolio time.
+
+> **Suggested rhythm (2 h):** 15 min split/pick · 35 min build/flash · 30 min test PWM/I²C · 20 min record · 20 min demos + class decision.
+
+### ★ Task 2: Wire the Bus and Scan It
 
 1. Connect SCL and SDA (plus `3V3` and `GND`) to your board, using the correct pins for your board (ESP32 default is usually GPIO21=SDA, GPIO22=SCL; check your board).
 2. Upload an I²C scanner and record every address:
@@ -150,7 +199,7 @@ Pair with a **neighbouring pod**:
 
 > **Alternative/complement:** if you have a Linux host with an exposed I²C bus, run `i2cdetect -y 1`. It shows the same map and is the standard tool on gateways and Raspberry Pis.
 
-### ★ Task 2: Read Through the Library, Then Read the Register
+### ★ Task 3: Read Through the Library, Then Read the Register
 
 1. Read one sensor using its library (e.g. an environment sensor) and log values.
 2. Now open the datasheet and find the register that returns the raw value (for example a temperature register). Read it directly with `Wire` and reconstruct the value using the datasheet's scaling.
@@ -158,14 +207,14 @@ Pair with a **neighbouring pod**:
 
 > This step is the difference between "it works" and "I understand it." You will need it whenever a library is missing, outdated, or wrong.
 
-### ★ Task 3: Two Devices on One Bus
+### ★ Task 4: Two Devices on One Bus
 
 1. Add a second I²C sensor with a *different* address to the same SCL/SDA pair (no extra pins). Power and ground both.
 2. Scan again: both addresses must appear.
 3. Read both sensors in one sketch. Confirm that adding a device did not require new pins.
 4. Note the two addresses in your portfolio and explain why they can coexist.
 
-### ★ Task 4: Create and Resolve an Address Conflict
+### ★ Task 5: Create and Resolve an Address Conflict
 
 1. If you have two modules with the same fixed address, connect both. Scan: only one address appears, and reads become unreliable or wrong. Explain what the bus is doing electrically.
 2. Resolve it in the way your hardware allows:
@@ -173,9 +222,9 @@ Pair with a **neighbouring pod**:
    - use an I²C multiplexer to give each device its own channel.
 3. Document the conflict and the fix — this is exactly the kind of engineering note the portfolio rewards.
 
-### ◇ Task 5 (Stretcher): See the Bits on the Wire
+### ◇ Task 6 (Stretcher): See the Bits on the Wire
 
-With a USB logic analyzer (or an oscilloscope), capture one transaction:
+With the class scope/analyzer chosen in Task 1, capture one I²C transaction:
 
 - Identify START, the 7-bit address, the R/W bit, the ACK from the device, the data byte(s), and STOP.
 - Measure the actual clock frequency and compare it with the configured speed.
@@ -183,14 +232,15 @@ With a USB logic analyzer (or an oscilloscope), capture one transaction:
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. Scan artifact: serial output of at least two scans (one device, two devices), with each address mapped to its module.
-2. Register proof: the raw register value you read and the reconstruction you computed with the datasheet formula, next to the library's value.
-3. Address table: for each device in the kit: type, interface, address(es), and whether the address is configurable.
-4. Conflict report: how you created and resolved (or would resolve) an address conflict.
-5. Deeper question: Why does adding a second I²C device not need a second data pin, and what are the limits of that elegance (capacitance, address space, speed, one defective device pulling the bus down)?
+1. Scope decision: chosen solution(s), repo/commit, install steps, pin mapping, sample rate, input limits, and the PWM/I²C test captures. Include one sentence on what the chosen tool cannot measure.
+2. Scan artifact: serial output of at least two scans (one device, two devices), with each address mapped to its module.
+3. Register proof: the raw register value you read and the reconstruction you computed with the datasheet formula, next to the library's value.
+4. Address table: for each device in the kit: type, interface, address(es), and whether the address is configurable.
+5. Conflict report: how you created and resolved (or would resolve) an address conflict.
+6. Deeper question: Why does adding a second I²C device not need a second data pin, and what are the limits of that elegance (capacitance, address space, speed, one defective device pulling the bus down)?
 
 
-> [!IMPORTANT]
+> [!IMPORTANT]]
 > Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.
 
 ## 📚 If you want to go deeper
@@ -199,6 +249,8 @@ With a USB logic analyzer (or an oscilloscope), capture one transaction:
 - [Wikipedia: I²C](https://en.wikipedia.org/wiki/I%C2%B2C) — the readable overview and history.
 - [Arduino Wire library](https://www.arduino.cc/reference/en/language/functions/communication/wire/) — the API you will use.
 - [Linux `i2c-tools`](https://i2c.wiki.kernel.org/index.php/I2C_Tools) — the standard gateway/Pi scanner.
+- [PulseView / sigrok](https://sigrok.org/wiki/PulseView) — open-source logic-analyzer software with I²C and 1-Wire protocol decoders.
+- Scope/analyzer candidates from Task 1: [lmcapacho/ESP32_LogicAnalyzer](https://github.com/lmcapacho/ESP32_LogicAnalyzer), [EUA/ESP32_LogicAnalyzer](https://github.com/EUA/ESP32_LogicAnalyzer), [hepter/web-logic-analyzer](https://github.com/hepter/web-logic-analyzer), [BojanJurca/Esp32_oscilloscope](https://github.com/BojanJurca/Esp32_oscilloscope), [MatAtBread/esp-scope](https://github.com/MatAtBread/esp-scope).
 - Your sensor datasheets — linked from the [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once).
 
 ---

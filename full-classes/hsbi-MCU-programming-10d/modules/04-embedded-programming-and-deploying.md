@@ -272,7 +272,7 @@ Tips:
 - use the **SWITCH** node to decide what should happen based on the message received, and **CHANGE** node to transform one command into another
 - the **DEBUG** node is very useful
 
-Attention: use the **NeoPixelBus** library (to avoid interrupt crashes that can happen with FastLED when using WiFi and MQTT at the same time).
+Attention: use **NeoPixelBus** for larger/multiple strips and whenever Wi-Fi/MQTT run concurrently — FastLED can crash from interrupt conflicts in that combination. **Adafruit NeoPixel** is the simple choice for a first small strip.
 
 ## Task 10: Optional: Use one additional I²C sensor from the available hardware with an ESP32 MiniKit or ESP32 NodeMCU
 

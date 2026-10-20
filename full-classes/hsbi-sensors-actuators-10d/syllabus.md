@@ -76,7 +76,7 @@ By the end of this course, you will be able to (mapped to the module-handbook co
 3. **Explain sensor principles** for position, distance (triangulation, ToF, ultrasonic), motion/rotation (gyroscope, accelerometer), force/torque (strain gauge), magnetic field (Hall), and environment (temperature, humidity, pressure).
 4. **Describe actuator principles** — mechanical, thermal, optical, and unconventional — and compare which actuator fits which application scenario.
 5. **Characterize and calibrate sensors**: determine the transfer function, assess linearity, hysteresis, repeatability, and resolution, apply calibration and filtering, and state the measurement uncertainty.
-6. **Use buses competently**: wire, scan, and debug an I²C bus, handle device addresses and register maps, and distinguish I²C from SPI, UART, OneWire, and direct GPIO/PWM.
+6. **Use buses competently**: wire, scan, and debug an I²C bus, handle device addresses and register maps, distinguish I²C from SPI, UART, OneWire, and direct GPIO/PWM, and select/use a low-cost ESP32 scope or logic analyzer to observe those signals.
 7. **Drive actuators safely**: implement PWM brightness and LED animation (RGB, addressable WS2812), control servos, DC motors, and steppers with suitable drivers, respecting voltage, current, and thermal limits.
 8. **Build and evaluate sensor/actuator systems**: design an embedded node that senses and acts, integrate it via MQTT and optionally Node-RED (with IoTempower as an optional declarative alternative), and document performance (resolution, latency, power, robustness).
 
@@ -181,6 +181,8 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 | Terminal | **bash** (Git Bash on Windows) | The labs use heredocs, `<` redirects, and `mkdir -p`; Git Bash ships with Git for Windows. |
 | Version control | **Git + GitHub** | Your portfolio is the evidence artifact. Create it from the template with **“Use this template”**, not a fork. |
 | Firmware | **Arduino IDE v2** or **PlatformIO** | ESP32/ESP8266 cores; pick one and stay consistent. |
+| Addressable LEDs | **Adafruit NeoPixel / NeoPixelBus** | Simple bring-up vs. robust/multi-strip; FastLED only as a reference. |
+| Instrumentation | **ESP32 scope/logic analyzer + PulseView** | Built/selected in Module 2; one shared multimeter; 3.3 V inputs only. |
 | Declarative deployment (optional) | **IoTempower** | Optional exploration of drivers, filters, and OTA deployment. |
 | System layer | **Mosquitto + optional Node-RED** | Mosquitto broker on any host in the network; direct MQTT from the node (`PubSubClient` / `paho-mqtt`); optional Python glue. |
 | Python (optional) | **`uv`** | If you write integration scripts, pin Python and libraries with `uv`; commit `pyproject.toml` and `uv.lock`, never `.venv/`. |
@@ -204,7 +206,7 @@ The kit is deliberately two-layered, so you can move fast and still meet real ph
   - ESP32 DevKits, ESP32 Ethernet mini kits, and ESP8266 / Wemos D1 Mini boards, breadboards, jumper wires, resistors, capacitors, diodes.
   - Discrete sensors: NTC 10 kΩ, LDR, Hall-effect (analog + digital latch), DS18B20 (OneWire), MPU6050 (I²C), ultrasonic, light barrier (photo-interrupter).
   - Actuators: SG90 servo, small DC motor, 28BYJ-48 stepper with ULN2003, H-bridge driver (TB6612 / L298N), 5 V relay, piezo buzzer, high-brightness RGB LEDs, WS2812 / NeoPixel strip.
-- **Instruments:** digital multimeter, USB power meter, thermometer for reference measurements; optional USB logic analyzer (I²C/PWM/WS2812 traces), oscilloscope if available.
+- **Instruments:** **one shared digital multimeter**, USB power meter, thermometer for reference measurements; **no benchtop oscilloscope** — Module 2 builds/selects an ESP32-based scope/logic analyzer (with PulseView/sigrok) that the class uses for the rest of the course.
 - **Broker & infrastructure:** a Mosquitto MQTT broker running on any host in the network — a local OpenWrt travel router, a small Linux/Raspberry Pi host, or a laptop — plus laptops, USB power supplies, and hubs. Node-RED is optional; IoTempower is an optional declarative tool.
 
 > [!WARNING]
@@ -220,7 +222,7 @@ The 10 days correspond to the 12 four-hour sessions across the semester. Modules
 |:---:|:---:|---|---|
 | 0 | — | [Pre-Study](./pre-study.md) | Measurement basics, datasheet reading, Wokwi mini-exercise, project scenario abstract. |
 | 1 | 1 | [Module 1 — Foundations: Electronics, Arduino & Measurement](./modules/01-foundations-measurement-and-sensor-chain.md) | Basic electronics (LED actor, button with pull-up/pull-down, debouncing), Arduino serial console and plotting, metrology and error, digital signal chain, ADC precision dance, LDR and first filtering. |
-| 2 | 2 | [Module 2 — I²C & Sensor Addressing](./modules/02-i2c-and-sensor-addressing.md) | Wiring and scanning an I²C bus, 7-bit addresses, register maps, two devices on one bus, address conflicts. |
+| 2 | 2 | [Module 2 — I²C & Sensor Addressing](./modules/02-i2c-and-sensor-addressing.md) | Build/choose a low-cost ESP32 scope/logic analyzer (2-hour instrument sprint), then bus wiring and scan, 7-bit addresses, register maps, two devices on one bus, address conflicts. |
 | 3 | 3 | [Module 3 — Sensor Characterization, Calibration & Data Quality](./modules/03-sensor-characterization-and-calibration.md) | Transfer function, linearity, hysteresis, calibration, filtering, uncertainty of an NTC/LDR. |
 | 4 | 4 | [Module 4 — Distance, Motion & Environment Sensors](./modules/04-distance-motion-and-environment-sensors.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* ToF and ultrasonic distance, person counting, IMU tilt/rotation, Hall-effect current sensing. |
 | 5 | 5 | [Module 5 — LEDs & Light as Output](./modules/05-leds-and-light-output.md) | LED current limiting, PWM and gamma, RGB mixing, first addressable strip and power budget. |

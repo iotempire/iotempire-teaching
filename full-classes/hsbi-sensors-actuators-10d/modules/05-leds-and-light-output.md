@@ -75,13 +75,17 @@ Requirements and traps:
 - Power injection: long strips drop voltage along the copper; inject 5 V at both ends (and sometimes the middle).
 - Frame timing: WS2812 is timing-sensitive; interrupts or Wi-Fi activity can occasionally glitch a frame.
 
-FastLED is a convenient, well-documented library for driving these strips (and plain RGB/PWM too).
+Use **Adafruit NeoPixel** for the first bring-up: it is simple and well documented. Use **NeoPixelBus** when you need a more robust driver for larger strips, multiple strips, or concurrent Wi-Fi/MQTT. **FastLED** remains a useful reference — especially for palettes and HSV — but it is not our default.
+
+> [!WARNING]
+> **Library choice matters on ESP32.** With Wi-Fi/MQTT running, prefer **NeoPixelBus** for addressable strips; FastLED can suffer interrupt-related instability in that combination. Adafruit NeoPixel is fine for small, simple strips. If you use FastLED, treat it as a reference and test it under your actual network load.
 
 ### Pointers (start here, then keep looking)
 
 - LED basics and resistors — [Wikipedia: Light-emitting diode](https://en.wikipedia.org/wiki/Light-emitting_diode), [LED circuit](https://en.wikipedia.org/wiki/LED_circuit)
 - PWM and gamma — [Wikipedia: Pulse-width modulation](https://en.wikipedia.org/wiki/Pulse-width_modulation), [Gamma correction](https://en.wikipedia.org/wiki/Gamma_correction)
-- Addressable LEDs — the [WS2812B datasheet](https://cdn-shop.adafruit.com/datasheets/WS2812B.pdf) and [FastLED documentation](https://fastled.io/)
+- Addressable LEDs — the [WS2812B datasheet](https://cdn-shop.adafruit.com/datasheets/WS2812B.pdf), [Adafruit NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel), and [NeoPixelBus](https://github.com/Makuna/NeoPixelBus)
+- Patterns and palettes reference — [FastLED](https://fastled.io/)
 - Power budgets — the [Adafruit NeoPixel Überguide](https://learn.adafruit.com/adafruit-neopixel-uberguide/powering-neopixels)
 - The [resource bank](./Z-resources-bank.md#formulas-you-will-use) has the formulas and the common-address table.
 
@@ -149,7 +153,7 @@ Pair with a **neighbouring pod**:
 ### ★ Task 4: Addressable Strip First Light
 
 1. Wire the WS2812 strip: 5 V and GND from the separate supply, data through the ~330 Ω resistor to a GPIO, and a common ground between MCU and supply.
-2. With FastLED, light a single pixel, then a color wipe, then a rainbow.
+2. With **Adafruit NeoPixel** (or **NeoPixelBus** for a more robust driver), light a single pixel, then a color wipe, then a rainbow.
 3. Change the number of LEDs and the brightness and observe the effects. Note the first-pixel (start-of-strip) orientation.
 
 ### ★ Task 5: Power Budget — Compute and Measure
@@ -181,7 +185,9 @@ Deliberately introduce problems and record the symptoms: remove the data-line re
 - [Wikipedia: Light-emitting diode](https://en.wikipedia.org/wiki/Light-emitting_diode) and [LED circuit](https://en.wikipedia.org/wiki/LED_circuit) — forward voltage, current, and resistor sizing.
 - [Pulse-width modulation](https://en.wikipedia.org/wiki/Pulse-width_modulation) and [Gamma correction](https://en.wikipedia.org/wiki/Gamma_correction) — why a linear ramp looks wrong.
 - [WS2812B datasheet](https://cdn-shop.adafruit.com/datasheets/WS2812B.pdf) — timing, current, and data levels.
-- [FastLED](https://fastled.io/) — patterns, palettes, and HSV.
+- [Adafruit NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel) — simple API for the first strip bring-up.
+- [NeoPixelBus](https://github.com/Makuna/NeoPixelBus) — robust ESP32 driver, multiple strips, and color helpers.
+- [FastLED](https://fastled.io/) — reference for patterns, palettes, and HSV; compare if curious.
 - [Adafruit NeoPixel Überguide](https://learn.adafruit.com/adafruit-neopixel-uberguide/powering-neopixels) — power injection and protection.
 
 ---

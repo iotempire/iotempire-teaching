@@ -152,7 +152,7 @@ Your working environment is the local microcontroller workbook provided for this
 - Portfolio Starter Templates: [https://github.com/iotempire/iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template)
 - IoTempower Framework: [https://github.com/iotempire/iotempower](https://github.com/iotempire/iotempower) (vanity URL [https://iotempower.us](https://iotempower.us))
 - IoTempire Organization (behind all our IoT teaching, tools, and community efforts): [https://iotempire.net/](https://iotempire.net/)
-- Useful Libraries: ESP8266/ESP32 Arduino Cores, Adafruit (DHT22, BME280), PubSubClient (MQTT), OneWire, MFRC522 (RFID), U8g2 (OLED), FastLED (RGB)
+- Useful Libraries: ESP8266/ESP32 Arduino Cores, Adafruit (DHT22, BME280), PubSubClient (MQTT), OneWire, MFRC522 (RFID), U8g2 (OLED), **Adafruit NeoPixel / NeoPixelBus (addressable RGB; FastLED only as a reference)**
 - Hardware Kit: Supplied at course start; see [Module 2 – Hardware and Basic Electronics](./modules/02-hardware-and-basic-electronics.md) for details
 
 > **Naming note:** *IoTempire* is the organization behind all our IoT activities (courses, tools, community). *IoTempower* is the specific open-source framework we use for device management, flashing, and integration — we still talk about "IoTempower" in the teaching context, but its GitHub repositories live under the `iotempire` organization.

@@ -40,7 +40,7 @@ And this class is always in flux — that is a feature, not a bug. No course is 
 
 - **10 working days / 12 four-hour sessions (48 contact hours)**, plus optional tutorial support announced via the LMS.
 - **Module 0 (pre-study):** portfolio setup, measurement basics, datasheet reading, and a Wokwi mini-exercise — completed before Day 1 (or run as the first in-class module when the cohort needs more setup time).
-- **Modules 1–8:** one technical studio per day — basic electronics and Arduino/serial basics, measurement and the signal chain, I²C and addressing, characterization and calibration, distance/motion/environment sensors, LEDs and light, animation and installations, motors, and system integration.
+- **Modules 1–8:** one technical studio per day — basic electronics and Arduino/serial basics, measurement and the signal chain, building a low-cost ESP32 scope/logic analyzer and I²C addressing, characterization and calibration, distance/motion/environment sensors, LEDs and light, animation and installations, motors, and system integration.
 - **Modules 9–10:** the final-project arc — a story-driven sensor/actuator system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then demonstrated and defended in the last session.
 
 The full module list, one-line summaries, and the session roadmap live in the **[module index](./modules/00-index.md)**.
@@ -58,8 +58,8 @@ The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-templ
 
 ## What you will work with
 
-- **Hardware:** M5Stack nodes and Grove modules (fast path); ESP32/ESP8266 boards, breadboards, and discrete sensors/actuators (physics path); multimeter, USB power meter, optional logic analyzer.
-- **Firmware:** Arduino IDE v2 or PlatformIO with the ESP32/ESP8266 cores; FastLED for addressable LEDs.
+- **Hardware:** M5Stack nodes and Grove modules (fast path); ESP32/ESP8266 boards, breadboards, and discrete sensors/actuators (physics path); **one shared multimeter**, USB power meter; **no benchtop oscilloscope** — in Module 2 you build/select an ESP32-based scope/logic analyzer for I²C, OneWire, PWM, and slow analog signals.
+- **Firmware:** Arduino IDE v2 or PlatformIO with the ESP32/ESP8266 cores; **Adafruit NeoPixel** for a simple strip bring-up and **NeoPixelBus** for robust/multi-strip work. **FastLED** is kept as a reference/alternative, not the default.
 - **System layer:** a Mosquitto MQTT broker on any host in the network (travel router, Raspberry Pi, or laptop), direct MQTT from the node (for example `PubSubClient`), and optional Node-RED dashboards.
 - **Optional exploration:** [IoTempower](https://github.com/iotempire/iotempower) for declarative drivers, filters, and OTA deployment — not required for the core labs.
 - **Optional Python glue:** a pinned `uv` environment for `paho-mqtt` and integration scripts where useful.

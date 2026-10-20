@@ -51,8 +51,11 @@ Key concepts:
 ### Patterns, Palettes, and Color Spaces
 
 - Patterns: solid, breathing, wipe, chase/runner, rainbow, sparkle/confetti, theater-chase. A few well-parameterized patterns compose into many effects.
-- HSB/HSV (hue, saturation, brightness) is more intuitive than RGB for animation — sweep hue for a rainbow, modulate brightness for breathing. FastLED provides HSV conversion and pre-built palettes.
+- HSB/HSV (hue, saturation, brightness) is more intuitive than RGB for animation — sweep hue for a rainbow, modulate brightness for breathing. Adafruit NeoPixel and NeoPixelBus provide HSV/HSB color helpers; FastLED's palettes are a useful reference if you want more.
 - Blending and fading: cross-fade between patterns, or "trail" decays (`pixel = max(pixel*decay, new)`) to create motion blur.
+
+> [!NOTE]
+> For installations that also run Wi-Fi/MQTT, prefer **NeoPixelBus**. **Adafruit NeoPixel** is the simple choice for small strips; **FastLED** is a reference, not the default. See [Module 5](./05-leds-and-light-output.md) for the library guidance.
 - Mapping: decide how abstract time/positions map to the physical strip (left-to-right? around a ring? radial?), then keep the mapping in one place.
 
 ### Reading Sound
@@ -78,7 +81,7 @@ Technical success is not the same as a good installation. Plan for:
 ### Pointers (start here, then keep looking)
 
 - Non-blocking timing — [Arduino: `millis()`](https://docs.arduino.cc/language-reference/en/functions/time/millis/) and the [Blink Without Delay](https://docs.arduino.cc/built-in-examples/digital/BlinkWithoutDelay/) example
-- Patterns and palettes — [FastLED documentation](https://fastled.io/), especially palettes and HSV
+- Patterns and palettes — [Adafruit NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel) and [NeoPixelBus](https://github.com/Makuna/NeoPixelBus); [FastLED](https://fastled.io/) as a palette/HSV reference
 - Color spaces — [Wikipedia: HSL and HSV](https://en.wikipedia.org/wiki/HSL_and_HSV)
 - Sound envelopes — [Wikipedia: Envelope (music)](https://en.wikipedia.org/wiki/Envelope_(music)), [Root mean square](https://en.wikipedia.org/wiki/Root_mean_square)
 - Installation practice — the [Adafruit NeoPixel Überguide](https://learn.adafruit.com/adafruit-neopixel-uberguide) and the [resource bank](./Z-resources-bank.md#troubleshooting-quick-drops)
@@ -88,7 +91,7 @@ Technical success is not the same as a good installation. Plan for:
 Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
 
 - "Refactor a `delay()`-based LED animation into a non-blocking `millis()` loop. Show the state variables and the frame timing."
-- "Explain HSV vs. RGB for animation. Give me a single-parameter hue sweep and a brightness breath in FastLED."
+- "Explain HSV vs. RGB for animation. Give me a single-parameter hue sweep and a brightness breath with Adafruit NeoPixel or NeoPixelBus."
 - "How do I compute a short-term audio envelope (peak or RMS) on an ESP32, and how do I decouple the fast audio sampling from the slower LED frame rate?"
 - "My sensor-triggered animation flickers at the threshold. Explain hysteresis and show a small state machine that fixes it."
 - "List the practical constraints of a two-hour LED installation: power, heat, mounting, strain relief, and failure behavior."
@@ -176,7 +179,8 @@ Combine a "water" actuator with the light show:
 ## 📚 If you want to go deeper
 
 - [Arduino: `millis()`](https://docs.arduino.cc/language-reference/en/functions/time/millis/) and [Blink Without Delay](https://docs.arduino.cc/built-in-examples/digital/BlinkWithoutDelay/) — the non-blocking pattern.
-- [FastLED](https://fastled.io/) — patterns, palettes, HSV, and blending.
+- [Adafruit NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel) and [NeoPixelBus](https://github.com/Makuna/NeoPixelBus) — simple bring-up and robust multi-strip driving.
+- [FastLED](https://fastled.io/) — reference for palettes, HSV, and blending.
 - [Wikipedia: HSL and HSV](https://en.wikipedia.org/wiki/HSL_and_HSV) — why hue is easier than RGB for animation.
 - [Envelope (music)](https://en.wikipedia.org/wiki/Envelope_(music)) and [Root mean square](https://en.wikipedia.org/wiki/Root_mean_square) — the sound features you can compute on a microcontroller.
 - [Adafruit NeoPixel Überguide](https://learn.adafruit.com/adafruit-neopixel-uberguide) — power, heat, and installation practice.

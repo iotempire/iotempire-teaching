@@ -347,7 +347,7 @@ Before you leave, commit to your portfolio:
 
 # Where we go next
 
-- **Module 2:** I²C and sensor addressing — scan the bus, read registers, resolve address conflicts.
+- **Module 2:** build/choose our own ESP32 scope/logic analyzer, then I²C and sensor addressing — scan the bus, read registers, resolve address conflicts.
 - **Before next session:** finish the basic-electronics and serial tasks, commit your evidence, and bring your open questions.
 - **Checkpoint 1:** start of Day 4, covering Modules 1–3.
 

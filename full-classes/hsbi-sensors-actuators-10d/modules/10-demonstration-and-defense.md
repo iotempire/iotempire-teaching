@@ -50,7 +50,7 @@ The final project is assessed according to the [syllabus](../syllabus.md#final-p
 
 - [ ] Module 0: Pre-study notes, Wokwi simulation screenshot(s), datasheet notes, project abstract, and answers to the guiding questions.
 - [ ] Module 1: Chain diagram, basic-electronics/button/debounce evidence, serial log and plot, ADC table (raw range, steps, step size), LDR/filter comparison, vocabulary definitions.
-- [ ] Module 2: I²C scan output, addresses mapped to modules, raw-register reconstruction, address-conflict report.
+- [ ] Module 2: Scope decision and test captures, I²C scan output, addresses mapped to modules, raw-register reconstruction, address-conflict report.
 - [ ] Module 3: Transfer-function plot, calibration table, hysteresis/repeatability numbers, noise/filtering table, uncertainty statement.
 - [ ] Module 4: ToF characterization table, distance-sensor comparison, people-counter state machine, IMU tilt/drift/fusion results.
 - [ ] Module 5: Resistor calculation vs. measurement, PWM/gamma notes, RGB evidence, strip artifacts, power-budget table.
