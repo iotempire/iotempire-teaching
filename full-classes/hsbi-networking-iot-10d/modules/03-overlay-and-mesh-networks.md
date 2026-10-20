@@ -123,7 +123,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 ### ★ Task A: Study in your pod
 
-Work through the concepts above with your Task Pod and fill in `module-03/study-log.md`:
+Work through the concepts above with your Task Pod and fill in `Module03/study-log.md`:
 
 1. **The references you used** — the source and the one concept you understood best from it.
 2. **Things you googled** — the term, what you found, and the source (URL). One line each.
@@ -131,7 +131,7 @@ Work through the concepts above with your Task Pod and fill in `module-03/study-
 4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
 5. **Your two best found overlay/mesh diagrams** — compile down to the best two, with source and what they taught you.
 
-*Portfolio evidence:* `module-03/study-log.md`.
+*Portfolio evidence:* `Module03/study-log.md`.
 
 ### ★ Task B: Explain & share with another pod
 
@@ -267,16 +267,12 @@ Do this task if you finish the core labs early, or as homework/bonus.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-03/`.)
 1. Tool Selection Matrix: Compare Port Forwarding, Nebula, Yggdrasil, and B.A.T.M.A.N. advanced across: central infrastructure required, NAT traversal, encryption model, layer, and suitability for remote vs. local coverage. (Extend the table from Part C with your own observations.)
 2. Remote-Access Proof: Terminal screenshot showing your laptop on an external network (e.g. mobile hotspot) with a successful `ping` and `ssh` session to your OpenWrt router via its Nebula IP (`10.100.0.x`).
 3. *(Optional)* Mesh Routing Artifacts: Capture `batctl n` and `batctl o` output showing your router's multi-hop neighbors, plus a `batctl traceroute` across the room.
 4. *(Optional)* Failover Experiment Report: Describe what happened during the link drop: how many pings/packets were lost before B.A.T.M.A.N. converged on the alternate route?
-5. Reflection: Why can `batman-adv` give you a flat subnet across the room, while Nebula/Yggdrasil are needed to reach a device across the Internet? Which one would your final project use — and why?
+5. Deeper question: Why can `batman-adv` give you a flat subnet across the room, while Nebula/Yggdrasil are needed to reach a device across the Internet? Which one would your final project use — and why?
 
-### Reflection logbook
-
-Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 
 > [!IMPORTANT]
 > Never commit secrets, credentials, private keys, or certificates. Where you did not work entirely alone, link your pod mates and sources.

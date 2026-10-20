@@ -56,8 +56,8 @@ The operations lead, **Yasmin Kaya**, offers the classic shortcut: *"just copy t
 Build a deliberately unnormalized table with real volume so the benchmark means something.
 
 ```sh
-mkdir -p module-05
-sqlite3 module-05/normalize.db <<'SQL'
+mkdir -p Module05
+sqlite3 Module05/normalize.db <<'SQL'
 DROP TABLE IF EXISTS flat_jobpart;
 CREATE TABLE flat_jobpart (
     job_id      INTEGER,
@@ -84,13 +84,13 @@ FROM j CROSS JOIN p;
 
 CREATE INDEX ix_flat_machine ON flat_jobpart(machine_id);
 SQL
-sqlite3 module-05/normalize.db "SELECT COUNT(*) AS rows FROM flat_jobpart;"
+sqlite3 Module05/normalize.db "SELECT COUNT(*) AS rows FROM flat_jobpart;"
 ```
 
 ### ★ Task 1: Name the dependencies and the anomalies
 
 1. Write down the functional dependencies you can see: `machine_id → site`, `part_no → part_price`, `job_id → machine_id`, `job_id → technician`, `job_id → done_on`.
-2. For each of the three anomalies (update, insert, delete), write **one concrete example** that this flat table makes possible. Save to `module-05/normalization-notes.md`.
+2. For each of the three anomalies (update, insert, delete), write **one concrete example** that this flat table makes possible. Save to `Module05/normalization-notes.md`.
 
 *Portfolio evidence:* the dependency list and the three anomaly examples.
 
@@ -197,7 +197,6 @@ Load the same data into DuckDB and run the dashboard query there. Capture wall-c
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. These are **suggested proofs** (under `module-05/`) — use them, or show the same goals another way:
 
 - [ ] The setup script that builds `flat_jobpart` with ~200k rows (so the benchmark is reproducible).
 - [ ] `normalization-notes.md` — functional dependencies and one example of each anomaly.
@@ -205,7 +204,7 @@ Your portfolio only needs to **prove this module's learning goals**. These are *
 - [ ] The denormalized `report_jobpart` DDL and the benchmark table with all measured numbers.
 - [ ] `EXPLAIN QUERY PLAN` output for both designs.
 - [ ] The recommendation memo citing your numbers, including the staleness strategy.
-- [ ] `reflection.md` — the logbook entry for this block.
+- [ ] `Reflections/ref05.md` — the logbook entry for this block, using the reflection template.
 - [ ] (Stretcher) the DuckDB comparison.
 
 ## 📚 If you want to go deeper

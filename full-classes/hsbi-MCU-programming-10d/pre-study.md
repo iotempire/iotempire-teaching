@@ -218,7 +218,7 @@ Q22. What is an integrator in the Module 5 HVAC task, and why is it useful to ke
 
 ## 6. ESP32 Simulation — Extend What You Already Built
 
-The Wokwi task in [Section 1](#1-iot-systems-the-big-picture) is your first simulation. Use the browser-based ESP32/Arduino simulator to try changes quickly before the hardware kit arrives on Day 2: alter the blink rate, add another input or output, or deliberately break and repair a connection. Simulation supports program-flow and wiring practice; it never replaces hardware testing.
+The Wokwi task in [Section 1](#1-iot-systems--the-big-picture) is your first simulation. Use the browser-based ESP32/Arduino simulator to try changes quickly before the hardware kit arrives on Day 2: alter the blink rate, add another input or output, or deliberately break and repair a connection. Simulation supports program-flow and wiring practice; it never replaces hardware testing.
 
 A real Wemos/ESP setup adds the things engineers must learn to handle: board-specific pin labels, voltage limits, loose wires, noisy or inaccurate sensors, Wi-Fi coverage, power supply limits, timing, and library/device differences.
 

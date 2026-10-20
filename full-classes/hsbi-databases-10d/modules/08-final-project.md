@@ -100,7 +100,7 @@ Before Session 11, the project repository must contain:
 - [ ] `docs/schema.md` + ER diagram, `docs/report.md` (≤5 pages), `docs/team.md`, `docs/requirements.md`.
 - [ ] `docs/benchmarks/` with `EXPLAIN QUERY PLAN` output and timings.
 - [ ] A working interface runnable from the README (Datasette, CLI, or app).
-- [ ] Each member's **personal** portfolio links the project repo and contains their own contribution + `reflection.md`.
+- [ ] Each member's **personal** portfolio links the project repo and contains their own contribution + `Reflections/` entries.
 
 > [!WARNING]
 > Do not commit `*.db`, `*.duckdb`, `*.parquet`, `.env`, credentials, or personal data. A reviewer must rebuild your database from your scripts. Committing a database file instead of the script that builds it is an automatic documentation deduction.

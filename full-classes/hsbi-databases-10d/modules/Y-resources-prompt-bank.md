@@ -6,12 +6,7 @@ Supplementary material: reflection prompts, LLM-verification drills, and quick r
 
 ## Reflection logbook prompts
 
-Each teaching block, write one entry answering these four questions in your own words. Keep it short — a paragraph per question is plenty.
-
-1. **What worked?** The thing you built or measured that functioned. Include the evidence (a number, a plan, a screenshot).
-2. **What broke?** The failure, the wrong assumption, the crash. State the *root cause*, not just the symptom.
-3. **How did my mental model shift?** What you believed before, and what you understand now. "I thought an index always helps; I measured a case where it did not" is a strong entry.
-4. **How did I verify AI suggestions?** The query, schema, or claim an LLM gave you, and the step that confirmed or refuted it.
+Use the reflection template in `Reflections/` from the portfolio template — it includes the AI-verification question. Keep each entry short; the template's prompts are enough.
 
 ## LLM-verification drills
 

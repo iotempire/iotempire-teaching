@@ -4,7 +4,7 @@
 
 This is the course workbook and front page for **Networking and IoT Solutions (Vernetzung und IoT-Lösungen)** at Hochschule Bielefeld University of Applied Sciences and Arts (HSBI), Campus Gütersloh. It is a hands-on, laboratory-driven course about the networking and integration layer of modern IoT: edge routers, overlays, messaging, wireless links, industrial bridges, and fleet operations.
 
-The course runs over **10 working days / 12 sessions (4 hours each, 48 contact hours)**. The official timetable, rooms, and announcements are published through the course LMS (ILIAS).
+The course runs over **10 working days / 12 sessions (4 hours each, 48 contact hours)**. The official timetable, rooms, and announcements are published through the course LMS.
 
 - **[Module index & roadmap](./modules/00-index.md)** — the course at a glance: every module and the day-by-day plan.
 - **[Syllabus](./syllabus.md)** — the single source of truth: schedule, learning objectives, the learning-goals contract, tools, and policies.
@@ -51,6 +51,8 @@ The full module list, one-line summaries, and the session roadmap live in the **
 
 ## Get started
 
+> **Module 0 (pre-study) is required.** Create your portfolio from the template, add the instructor as a collaborator, and complete the pre-study tasks before Day 1.
+
 1. Create your personal portfolio from the [IoTempire portfolio template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”** (not “Fork”), then add the instructor as a collaborator.
 2. Complete the **[pre-study guide](./pre-study.md)** (Module 0) before Day 1.
 3. Read the **[module index](./modules/00-index.md)**, then start with **[Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md)**.
@@ -96,7 +98,7 @@ Generate dated, upload-ready PDFs from the syllabus and pre-study guide using Li
 
 ## Contacts & support
 
-- Questions, schedule, and technical support: use the course LMS (ILIAS), the authoritative communication channel.
+- Questions, schedule, and technical support: use the course LMS, the authoritative communication channel.
 - Main instructor: Prof. Dr. Ulrich Norbisrath (Ulno) — [ulno.net](https://ulno.net/)
 - Teaching support: Fabian Tilman Schmid-Michels *(if available)*
 - Community: [IoTempire](https://iotempire.net/)

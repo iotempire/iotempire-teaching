@@ -125,7 +125,7 @@ The announcement lists example directions: liquid measurement in a forest, a peo
 
 ## 7. Guiding Questions for Your Portfolio
 
-Answer these in your portfolio under `pre-study/README.md` (or `00-pre-study.md`). Include your Wokwi screenshot(s) and the connector for the datasheet notes from Section 3.
+Answer these in your portfolio under `Module00/README.md`. Include your Wokwi screenshot(s) and the connector for the datasheet notes from Section 3.
 
 1. The chain: Draw the sensor → conditioning → ADC → MCU → system chain for one device you actually own (a thermometer, a scale, a phone, a car sensor). Name each stage.
 2. Wokwi observation: In your simulation, how many discrete steps did the full analog range have? Change the ADC resolution once and report the new number. What changed — resolution, accuracy, or both?

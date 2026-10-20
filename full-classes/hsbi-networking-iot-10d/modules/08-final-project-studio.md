@@ -139,15 +139,11 @@ Pair with another Project Team for a reciprocal dry run:
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-08/`.)
 1. Kickoff Story: Your stakeholder story, target users, team roles, and the requirement-to-must-have mapping.
 2. Final Project Architecture Diagram: Detailed schematic of your integrated system showing physical hardware, network interfaces, IP/overlay addressing, and protocol flows.
 3. Fault-Injection Test Report: Document the results of your three resilience tests (Link Drop, Node Loss, Broker Restart) with log snippets or screenshots.
 4. Peer Feedback Log: Summarize the feedback received from your review team and the concrete adjustments you are making for the final defense.
 
-### Reflection logbook
-
-Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 
 > [!IMPORTANT]
 > Never commit secrets, credentials, private keys, captures with personal traffic, or `.venv/`. Where you did not work entirely alone, link your pod mates and sources.

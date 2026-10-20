@@ -4,7 +4,7 @@
 
 This is the course workbook and front page for **Sensors and Actuators (Sensorik und Aktorik)** at Hochschule Bielefeld University of Applied Sciences and Arts (HSBI), Campus Gütersloh. It is a hands-on, studio-style elective for engineering students who want to understand the *physical* side of IoT: what a sensor really measures, how a bus really works, how an actuator really moves, and how to prove it with a measurement instead of a slide.
 
-The course runs over **10 working days / 12 sessions (4 hours each, 48 contact hours)**. The official timetable, rooms, and announcements are published through the course LMS (ILIAS).
+The course runs over **10 working days / 12 sessions (4 hours each, 48 contact hours)**. The official timetable, rooms, and announcements are published through the course LMS.
 
 - **[Module index & roadmap](./modules/00-index.md)** — the course at a glance: every module and the day-by-day plan.
 - **[Syllabus](./syllabus.md)** — the single source of truth: schedule, learning objectives, the learning-goals contract, tools, and policies.
@@ -46,6 +46,8 @@ And this class is always in flux — that is a feature, not a bug. No course is 
 The full module list, one-line summaries, and the session roadmap live in the **[module index](./modules/00-index.md)**.
 
 ## Get started
+
+> **Module 0 (pre-study) is required.** Create your portfolio from the template, add the instructor as a collaborator, and complete the pre-study tasks before Day 1.
 
 1. Create your personal portfolio from the [IoTempire portfolio template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”** (not “Fork”), then add the instructor as a collaborator.
 2. Complete the **[pre-study guide](./pre-study.md)** (Module 0) before Day 1.
@@ -89,7 +91,7 @@ Generate dated, upload-ready PDFs from the syllabus and pre-study guide using Li
 
 ## Contacts & support
 
-- Questions, schedule, and technical support: use the course LMS (ILIAS), the authoritative communication channel.
+- Questions, schedule, and technical support: use the course LMS, the authoritative communication channel.
 - Main instructor: Prof. Dr. Ulrich Norbisrath (Ulno) — [ulno.net](https://ulno.net/)
 - Teaching support: Fabian Tilman Schmid-Michels *(if available)*
 - Community: [IoTempire](https://iotempire.net/)

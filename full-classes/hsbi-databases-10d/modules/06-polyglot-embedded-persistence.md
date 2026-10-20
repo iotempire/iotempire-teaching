@@ -54,8 +54,8 @@ Trying to force all three into one relational schema is the same mistake as Cirr
 Vendors keep adding fields. Store the metadata as JSON and query it without migrating the table.
 
 ```sh
-mkdir -p module-06
-sqlite3 module-06/polyglot.db <<'SQL'
+mkdir -p Module06
+sqlite3 Module06/polyglot.db <<'SQL'
 DROP TABLE IF EXISTS device;
 CREATE TABLE device(
     device_id INTEGER PRIMARY KEY,
@@ -92,14 +92,14 @@ Note the plan: if the expression in the index matches the expression in the `WHE
 Move the readings into a Parquet file and analyze them with DuckDB — the analytical workload from the story. This reuses the `telemetry.db` you built in Module 1.
 
 ```python
-# module-06/analytics.py — run from anywhere:  uv run python module-06/analytics.py
+# Module06/analytics.py — run from anywhere:  uv run python Module06/analytics.py
 import time
 from pathlib import Path
 import duckdb
 
 root = Path(__file__).resolve().parent.parent          # the portfolio repo root
-sqlite_db = root / "module-01" / "telemetry.db"        # built in Module 1
-parquet = root / "module-06" / "readings.parquet"
+sqlite_db = root / "Module01" / "telemetry.db"        # built in Module 1
+parquet = root / "Module06" / "readings.parquet"
 
 con = duckdb.connect()                       # in-process, embedded, no server
 
@@ -144,7 +144,7 @@ Run it. Record the two timings and the Parquet file size. Then answer: **why is 
 The dashboard only ever does "get by key" and "set key". Model that directly and measure it against SQLite.
 
 ```python
-# module-06/kv_compare.py — run from anywhere:  uv run python module-06/kv_compare.py
+# Module06/kv_compare.py — run from anywhere:  uv run python Module06/kv_compare.py
 import sqlite3, shelve, time
 from pathlib import Path
 
@@ -206,10 +206,10 @@ brew install nushell          # macOS / Linux
 
 ```nu
 # the whole table, then a Nu pipeline: selection (where) + count
-open module-01/telemetry.db | get readings | where vib_rms > 1.5 | length
+open Module01/telemetry.db | get readings | where vib_rms > 1.5 | length
 
 # grouping, the Nu way
-open module-01/telemetry.db | get readings
+open Module01/telemetry.db | get readings
   | where vib_rms > 1.5
   | group-by machine --to-table
   | each {|g| {machine: $g.group, alarms: ($g.items | length)}}
@@ -220,7 +220,7 @@ open module-01/telemetry.db | get readings
 **3. Now the same question in SQL, from inside Nu:**
 
 ```nu
-open module-01/telemetry.db | query db "
+open Module01/telemetry.db | query db "
   SELECT machine, COUNT(*) AS alarms
   FROM readings WHERE vib_rms > 1.5 GROUP BY machine"
 ```
@@ -274,13 +274,12 @@ For ~15 years the “serious” way to build a networked app was the familiar th
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. These are **suggested proofs** (under `module-06/`) — use them, or show the same goals another way:
 
 - [ ] The JSON device DDL, `json_extract`/`json_each` queries, and the expression-index plan.
 - [ ] `analytics.py`, the Parquet artifact (or its size), the two timings, and the engine-fit paragraph.
 - [ ] `kv_compare.py`, the four timings, your engine choice, and the SQLite-only capability.
 - [ ] The ACID/BASE/CAP paragraph.
-- [ ] `reflection.md` — the logbook entry for this block.
+- [ ] `Reflections/ref06.md` — the logbook entry for this block, using the reflection template.
 - [ ] (Stretcher) the FTS5 notes search **or** the Nushell-vs-SQL comparison (Task 5) **or** the case-study notes (Task 7).
 
 ## 📚 If you want to go deeper

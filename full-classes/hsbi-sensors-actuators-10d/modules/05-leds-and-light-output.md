@@ -99,7 +99,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 ### ★ Task A: Study in your pod
 
-Work through the concepts above with your Task Pod and fill in `module-05/study-log.md`:
+Work through the concepts above with your Task Pod and fill in `Module05/study-log.md`:
 
 1. **The references you used** — the source and the one concept you understood best from it.
 2. **Things you googled** — the term, what you found, and the source (URL). One line each.
@@ -107,7 +107,7 @@ Work through the concepts above with your Task Pod and fill in `module-05/study-
 4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
 5. **Your two best found LED/power diagrams** — compile down to the best two, with source and what they taught you.
 
-*Portfolio evidence:* `module-05/study-log.md`.
+*Portfolio evidence:* `Module05/study-log.md`.
 
 ### ★ Task B: Explain & share with another pod
 
@@ -165,17 +165,13 @@ Deliberately introduce problems and record the symptoms: remove the data-line re
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-05/`.)
 1. Resistor calculation and measurement: predicted vs. measured forward voltage and current.
 2. PWM notes: your frequency, resolution, and a short statement of why gamma correction matters.
 3. RGB evidence: photo/notes of the six colors and how well "white" worked.
 4. Strip artifacts: a short video or photos of the color wipe and rainbow, plus your wiring.
 5. Power budget table: calculated vs. measured current in the three states, and the supply you selected.
-6. Reflection: Why does an addressable strip need a power budget *and* a level-shifter/data consideration, while a single indicator LED needs neither?
+6. Deeper question: Why does an addressable strip need a power budget *and* a level-shifter/data consideration, while a single indicator LED needs neither?
 
-### Reflection logbook
-
-Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 
 > [!IMPORTANT]
 > Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.

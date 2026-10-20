@@ -49,7 +49,7 @@ You can mainly decide yourselves how the final project will be done, but the ori
 
 ## Final Project Presentation
 
-Your final projects should be presented as a video presentation and made available to the instructor and all class members (probably will do public links in Ilias)
+Your final projects should be presented as a video presentation and made available to the instructor and all class members (probably will do public links in LMS)
 
 Presentation expectations include:
 

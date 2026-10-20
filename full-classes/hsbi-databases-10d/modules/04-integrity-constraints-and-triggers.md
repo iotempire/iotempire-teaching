@@ -51,8 +51,8 @@ The module handbook lists integrity as a first-class topic. In relational terms 
 ### Setup
 
 ```sh
-mkdir -p module-04
-sqlite3 module-04/edge.db <<'SQL'
+mkdir -p Module04
+sqlite3 Module04/edge.db <<'SQL'
 PRAGMA foreign_keys = ON;        -- per-connection, and OFF by default: remember this.
 DROP TABLE IF EXISTS audit;
 DROP TABLE IF EXISTS alarm;
@@ -117,7 +117,7 @@ ON CONFLICT(sensor_id, ts) DO UPDATE SET value = excluded.value;
 SELECT sensor_id, ts, value FROM reading WHERE sensor_id = 1;
 ```
 
-Then write the ingestion loop in Python (`module-04/ingest.py`) that takes a CSV of readings and uses `executemany` with the same `UPSERT`, and run it **twice** on the same file.
+Then write the ingestion loop in Python (`Module04/ingest.py`) that takes a CSV of readings and uses `executemany` with the same `UPSERT`, and run it **twice** on the same file.
 
 *Portfolio evidence:* the `UPSERT` SQL, the Python ingest script, and the row count proving a double run did not duplicate data.
 
@@ -179,19 +179,19 @@ There is no `GRANT` in SQLite, so demonstrate the embedded substitute. **Create 
 
 ```sh
 # 1. Expose a safe subset with a view, and hand *that* to report readers:
-sqlite3 module-04/edge.db "CREATE VIEW machine_health AS
+sqlite3 Module04/edge.db "CREATE VIEW machine_health AS
   SELECT s.machine_id, s.metric, MAX(r.value) AS peak, COUNT(*) AS n
   FROM sensor s JOIN reading r USING(sensor_id) GROUP BY s.machine_id, s.metric;"
 
 # 2. Read-only at the file level (the strongest, simplest control):
-chmod 444 module-04/edge.db
+chmod 444 Module04/edge.db
 
 # 3. Read-only at the connection level:
-sqlite3 "file:module-04/edge.db?mode=ro" "SELECT COUNT(*) FROM reading;"
-sqlite3 "file:module-04/edge.db?mode=ro" "DELETE FROM reading;"   # must fail
+sqlite3 "file:Module04/edge.db?mode=ro" "SELECT COUNT(*) FROM reading;"
+sqlite3 "file:Module04/edge.db?mode=ro" "DELETE FROM reading;"   # must fail
 
 # 4. Restore write access for your own further work:
-chmod 644 module-04/edge.db
+chmod 644 Module04/edge.db
 ```
 
 Write 3–4 sentences: **how would this differ with a PostgreSQL server, and why is file-permission-based control acceptable here but not for a multi-tenant web app?**
@@ -204,14 +204,13 @@ Switch the alarm trigger to `BEFORE INSERT` and observe the difference; or add a
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. These are **suggested proofs** (under `module-04/`) — use them, or show the same goals another way:
 
 - [ ] The setup script (`STRICT` tables, generated column, constraints).
 - [ ] The rejected-statement evidence for each constraint with its exact error message.
 - [ ] The `UPSERT` SQL, `ingest.py`, and the double-run row-count proof.
 - [ ] The alarm and audit trigger DDL plus the rows they produced, and the trigger-cost measurement.
 - [ ] The access-control demonstration (`mode=ro`, `chmod`, a view) and your comparison note.
-- [ ] `reflection.md` — the logbook entry for this block.
+- [ ] `Reflections/ref04.md` — the logbook entry for this block, using the reflection template.
 - [ ] (Stretcher) the trigger-timing variant and what it changed.
 
 ## 📚 If you want to go deeper

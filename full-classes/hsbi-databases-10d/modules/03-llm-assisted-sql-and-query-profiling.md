@@ -64,8 +64,8 @@ Both failures have the same root: **nobody profiled or parameterized the generat
 Build a small warehouse/order dataset with enough rows to make plans meaningful.
 
 ```sh
-mkdir -p module-03
-sqlite3 module-03/warehouse.db <<'SQL'
+mkdir -p Module03
+sqlite3 Module03/warehouse.db <<'SQL'
 DROP TABLE IF EXISTS order_line;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS product;
@@ -96,7 +96,7 @@ WITH RECURSIVE n(x) AS (SELECT 1 UNION ALL SELECT x+1 FROM n WHERE x < 240000)
 INSERT INTO order_line(order_id, product_id, qty)
   SELECT (x % 60000) + 1, (x % 500) + 1, 1 + (x % 4) FROM n;
 SQL
-sqlite3 module-03/warehouse.db "SELECT 'orders', COUNT(*) FROM orders UNION ALL
+sqlite3 Module03/warehouse.db "SELECT 'orders', COUNT(*) FROM orders UNION ALL
                                 SELECT 'lines', COUNT(*) FROM order_line;"
 ```
 
@@ -160,13 +160,13 @@ WHERE o.ordered_on = '2026-02-14';      -- a single day: an index helps a lot he
 
 ### ★ Task 3: The injection drill
 
-Reproduce the support agent's apostrophe crash and then fix it. Save as `module-03/injection_demo.py`.
+Reproduce the support agent's apostrophe crash and then fix it. Save as `Module03/injection_demo.py`.
 
 ```python
 """Demonstrate SQL injection and its one correct fix: bound parameters."""
 import sqlite3
 
-conn = sqlite3.connect("module-03/warehouse.db")
+conn = sqlite3.connect("Module03/warehouse.db")
 
 def vulnerable(name: str):
     """DON'T DO THIS. String-building the query is the bug."""
@@ -202,14 +202,13 @@ Rewrite the "late orders per customer" report once with a correlated subquery an
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. These are **suggested proofs** (under `module-03/`) — use them, or show the same goals another way:
 
 - [ ] The setup script that builds `warehouse.db` (~240k order lines).
 - [ ] The LLM prompt(s), the generated SQL, your predicted plan, and the actual `EXPLAIN QUERY PLAN` output.
 - [ ] The index before/after benchmark table and the negative result with your explanation.
 - [ ] `injection_demo.py` and its output, plus your escaping-vs-parameterizing answer.
 - [ ] The relational-algebra expression for one query of your choice.
-- [ ] `reflection.md` — the logbook entry for this block, explicitly addressing *how you verified AI suggestions*.
+- [ ] `Reflections/ref03.md` — the logbook entry for this block, using the reflection template and explicitly addressing AI verification.
 - [ ] (Stretcher) the window-function rewrite and its plan.
 
 ## 📚 If you want to go deeper

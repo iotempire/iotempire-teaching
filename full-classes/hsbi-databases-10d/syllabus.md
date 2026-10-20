@@ -13,7 +13,7 @@
 ## Class Times and Locations
 
 - Schedule, location, and room: Published in the official HSBI timetable and course LMS before teaching begins.
-- Official announcements and course contact: Course LMS (ILIAS).
+- Official announcements and course contact: Course LMS.
 - Language of Instruction: English.
 - Course Materials: English.
 
@@ -153,12 +153,7 @@ Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one w
 
 ### Reflection format
 
-For each teaching block, write one logbook entry answering these four questions:
-
-1. **What worked?** — the thing you built or measured that actually functioned.
-2. **What broke?** — the failure, the wrong assumption, the crash.
-3. **How did my mental model shift?** — what you thought before and understand now.
-4. **How did I verify AI suggestions?** — the query, schema, or claim an LLM gave you, and how you checked it.
+For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the reflection template in the portfolio template. The template includes the **AI-verification** question.
 
 ### Grade Scale
 
@@ -237,6 +232,8 @@ See the full [final project specification](./modules/08-final-project.md) for th
 
 All assessments are based on your personal GitHub Portfolio (created from the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”**, then made your own); the [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) covers the template workflow, your editor, Markdown, and resolving conflicts.
 
+Each module lists **suggested portfolio evidence** — suggestions, not a checklist. You may prove the same learning goals another way; if you do, say so in the module entry.
+
 - Maintain a clean Git log with descriptive commit messages.
 - For each module, include:
   - Schema artifacts: ER diagrams (hand-drawn or tool-generated), `CREATE TABLE` DDL, and migration or contract files (Pydantic/SQLAlchemy).
@@ -244,7 +241,7 @@ All assessments are based on your personal GitHub Portfolio (created from the [i
   - Benchmark tables and plots: query timings, index before/after, storage sizes, load times.
   - `EXPLAIN QUERY PLAN` output (screenshots or saved text) for the queries you optimized.
   - Screenshots of Datasette views, DuckDB results, CLI sessions, and error messages you fixed.
-  - Reflection logbook entries (what worked, what broke, mental-model shift, AI verification).
+  - Reflection logbook entries in `Reflections/`, using the template.
 - In database work, a measured trade-off and an honest "the index did not help, here is why" beat a single lucky query. Showing how you caught an LLM inventing a column, or a missing foreign key, is worth more than a superficial "it worked" report.
 
 ## Classroom Policies & Success Strategies
@@ -258,7 +255,7 @@ All assessments are based on your personal GitHub Portfolio (created from the [i
 
 ## Contacts & Support
 
-- Primary Communication Channel: Course LMS (ILIAS). Check regularly for updates and announcements.
+- Primary Communication Channel: Course LMS. Check regularly for updates and announcements.
 - Main Instructor: Prof. Dr. Ulrich Norbisrath (Ulno) — [ulno.net](https://ulno.net/)
 - Module Coordinator (module 3386): Prof. Dr. rer. nat. Alexander Maier
 - IoTempire Community: [iotempire.net](https://iotempire.net/)

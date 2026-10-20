@@ -12,7 +12,7 @@ Run the module commands in your **editor's integrated terminal** (VS Code or Zed
   - **VS Code:** in the terminal, click the **⌄** beside **+** → *Select Default Profile* → **Git Bash** (auto-detected). New terminals then use bash.
   - **Zed (Windows):** the terminal follows your default system shell — set **Git Bash** (e.g. via Windows Terminal) as the default, or open the standalone **Git Bash** app.
   - **Also fine:** run the labs in **WSL** (`wsl`) for a full Linux shell and a real `ssh`/`tcpdump` experience.
-- **PowerShell translation** (only if you must stay there): `mkdir -p module-02` → `New-Item -ItemType Directory -Force module-02`; `cmd < file` → `Get-Content file | cmd`; `time cmd` → `Measure-Command { cmd }`.
+- **PowerShell translation** (only if you must stay there): `mkdir -p Module02` → `New-Item -ItemType Directory -Force Module02`; `cmd < file` → `Get-Content file | cmd`; `time cmd` → `Measure-Command { cmd }`.
 
 > Keep one terminal for the router SSH session and one for the laptop capture. Do not paste multi-line shell blocks with comments into a PowerShell prompt; save them to a file and run the file.
 

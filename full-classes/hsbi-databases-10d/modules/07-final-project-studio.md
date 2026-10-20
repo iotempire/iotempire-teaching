@@ -129,7 +129,7 @@ It is enough that each member's portfolio entry **proves their part of the proje
 - Links to the shared project repository.
 - States **their** contribution and the design decision **they** own.
 - Includes the evidence for that piece (their query, their benchmark, their ingestion module).
-- Contains a `reflection.md` for the project-studio blocks in the standard format: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
+- Contains `Reflections/ref07.md` (and further entries) for the project-studio blocks, using the reflection template.
 
 A project repository alone is not enough: the project assessment includes an **individual oral defense**, and your personal portfolio is what you defend from.
 

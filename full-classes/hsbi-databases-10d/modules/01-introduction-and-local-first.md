@@ -106,9 +106,9 @@ Then the instructor reveals the table and we compare:
 3. **Check out (clone) YOUR new repo — recommended with `gh` (Cheat sheet A), then open the folder in your editor.** All options use **HTTPS with a browser sign-in** — **no SSH keys**. Not installed yet? See [install Git and GitHub tools](./Z-resources-bank.md#install-git-and-github-tools-windows-macos-linux).
 4. **Make it yours — turn the generic template into your own HSBI Databases portfolio.** Change everything directly visible: the README title and description, your name, the links, and any template placeholders. It should read as *your* HSBI Databases portfolio, not the stock `iot-portfolio-template` copy.
 5. **Add your instructor as a collaborator** (repo → *Settings → Collaborators → Add people*). Use the address your instructor posts in the LMS.
-6. **Add this module's learning goals.** Create `module-01/README.md` and copy the *Learning Goals* from the top of this page into it, with a one-line note of what you plan to explore.
+6. **Add this module's learning goals.** Create `Module01/README.md` and copy the *Learning Goals* from the top of this page into it, with a one-line note of what you plan to explore.
 7. **Verify the `.gitignore`** keeps local data and secrets out of Git.
-8. **Commit and push** from your editor's Git UI (VS Code **Source Control** / Zed **Git panel**) with a message like `Add module 01 learning goals`.
+8. **Commit and push** from your editor's Git UI (VS Code **Source Control** / Zed **Git panel**) with a message like `Add Module01 learning goals`.
 
 **Cheat sheet A — GitHub CLI `gh` (recommended).** Use it **once**, just to clone.
 
@@ -159,7 +159,7 @@ __pycache__/
 Git here is a *habit*, not a command list — do it with the **buttons in your editor's Git UI** (VS Code *Source Control* / Zed *Git panel*) or right on the **GitHub website** (see the [Git & GitHub primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts)).
 
 1. **Several small commits** across the session, each message saying *what* changed (e.g. `Add uv-check output`, `Fix telemetry query`).
-2. **Write Markdown with interlinks.** In `module-01/README.md`, link to your pod mates' portfolios, the [syllabus](../syllabus.md), the module you are working on, and any shared artifact. Markdown — headings, lists, tables, links — *is* the deliverable.
+2. **Write Markdown with interlinks.** In `Module01/README.md`, link to your pod mates' portfolios, the [syllabus](../syllabus.md), the module you are working on, and any shared artifact. Markdown — headings, lists, tables, links — *is* the deliverable.
 3. **Work as a pod, and say who did what.** Split tasks; if you did **not** do something entirely on your own, **link** the pod mate or source you worked with. **Audit each other** (run their query, read their plan) and **change roles often** — take turns being the one who commits, checks, and explains.
 
 *Portfolio evidence:* a short commit history, and a Markdown page with at least three working interlinks (including one to a pod mate's portfolio).
@@ -250,7 +250,7 @@ uv run uv-check.py
 > [!NOTE]
 > **Run Python through `uv run`.** From here on, run Python as `uv run python yourscript.py` (or `uv run uv-check.py`) instead of `python3`. That guarantees everyone uses the same fixed Python and the pinned libraries — no “works on my machine”.
 >
-> **`uvx` (run without installing).** `uvx datasette module-01/telemetry.db` runs a tool on the fly — handy for a quick look without a permanent install.
+> **`uvx` (run without installing).** `uvx datasette Module01/telemetry.db` runs a tool on the fly — handy for a quick look without a permanent install.
 
 *Portfolio evidence:* the `uv run uv-check.py` output, plus committed `pyproject.toml` and `uv.lock` files (do **not** commit `.venv/`).
 
@@ -271,16 +271,16 @@ uv run uv-check.py
 
 The `sqlite3` shell is a tool with its own commands — **dot-commands**, starting with `.` — that are *not* SQL. You will use them all term, so learn the handful of essentials now. This tour is self-contained: it uses a throwaway database.
 
-**Where this happens.** Run everything from the **root of your portfolio repo** (the folder that contains `module-01/`). The throwaway database is created **inside your repo**, at **`module-01/tour.db`** — and it is deliberately **not committed**: your `.gitignore` ignores `*.db`, so it will **not** appear in `git status` or on GitHub. That is expected; only `shell-tour.txt` and `tour.sql` are committed.
+**Where this happens.** Run everything from the **root of your portfolio repo** (the folder that contains `Module01/`). The throwaway database is created **inside your repo**, at **`Module01/tour.db`** — and it is deliberately **not committed**: your `.gitignore` ignores `*.db`, so it will **not** appear in `git status` or on GitHub. That is expected; only `shell-tour.txt` and `tour.sql` are committed.
 
 Create the folder if needed, then start an interactive session:
 
 ```sh
-mkdir -p module-01
-sqlite3 module-01/tour.db
+mkdir -p Module01
+sqlite3 Module01/tour.db
 ```
 
-> **"unable to open database file"?** The shell could not create the file — almost always the `module-01/` folder is missing or you are not at the repo root. Run `mkdir -p module-01`, make sure you are at the **root of your portfolio repo**, and try again. After you `.quit`, confirm it with `ls -l module-01/tour.db`.
+> **"unable to open database file"?** The shell could not create the file — almost always the `Module01/` folder is missing or you are not at the repo root. Run `mkdir -p Module01`, make sure you are at the **root of your portfolio repo**, and try again. After you `.quit`, confirm it with `ls -l Module01/tour.db`.
 
 At the `sqlite>` prompt, type these (dot-commands need no semicolon; SQL does). You can enter them one line at a time, or enable pasting (below) and paste the whole block.
 
@@ -289,7 +289,7 @@ At the `sqlite>` prompt, type these (dot-commands need no semicolon; SQL does). 
 >
 > **Fix it once (best):** append `set enable-bracketed-paste off` to `~/.inputrc` — i.e. `echo 'set enable-bracketed-paste off' >> ~/.inputrc` — then open a new terminal. A multi-line paste now runs line by line.
 >
-> **Or skip pasting:** save the lines as `module-01/tour-commands.sql` and run `sqlite3 module-01/tour.db < module-01/tour-commands.sql`, or type `.read module-01/tour-commands.sql` in the prompt. **Or just enter one line at a time.**
+> **Or skip pasting:** save the lines as `Module01/tour-commands.sql` and run `sqlite3 Module01/tour.db < Module01/tour-commands.sql`, or type `.read Module01/tour-commands.sql` in the prompt. **Or just enter one line at a time.**
 
 > [!WARNING]
 > **Dot-commands are not SQL — never append a `-- comment` to one.** The shell reads *everything after a dot-command* as its arguments: `.mode column -- readable` fails with `Unknown option: "--"`, and `.dump -- …` would filter the dump instead of dumping everything. Put `--` comments on their **own line** (as below), or use them **only on SQL lines**.
@@ -332,7 +332,7 @@ SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;
 
 ```sql
 -- send everything from here into a file
-.output module-01/shell-tour.txt
+.output Module01/shell-tour.txt
 .tables
 .schema reading
 SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;
@@ -345,20 +345,20 @@ SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;
 .quit
 ```
 
-**Your drill:** using only the shell (type it, or save it as `module-01/tour-commands.sql` and `.read` it), produce in `module-01/`:
+**Your drill:** using only the shell (type it, or save it as `Module01/tour-commands.sql` and `.read` it), produce in `Module01/`:
 1. `shell-tour.txt` — a captured session showing `.tables`, `.schema`, and one query run under `.timer on`;
-2. `tour.sql` — a `.dump` of `tour.db` (use `.output module-01/tour.sql` before `.dump`);
+2. `tour.sql` — a `.dump` of `tour.db` (use `.output Module01/tour.sql` before `.dump`);
 3. one sentence: which dot-command you found most useful, and why.
 
 (`tour.db` itself is throwaway and stays out of Git — your two text files are the deliverable, and `tour.db` can always be rebuilt by repeating the tour.)
 
-*Portfolio evidence:* `module-01/shell-tour.txt` and `module-01/tour.sql`.
+*Portfolio evidence:* `Module01/shell-tour.txt` and `Module01/tour.sql`.
 
 ### ★ Task 5: Play SQL Island (~30 minutes)
 
 Before you write any generated SQL, build some *intuition* by playing a game. [SQL Island](https://sql-island.informatik.uni-kl.de/) is a free, browser-based text adventure that teaches the basics of SQL — no install, no account. (It defaults to German; switch the language in the menu.)
 
-Play for about **30 minutes**, then answer these **tutorial questions** in `module-01/sql-island.md` — your first “what have I learned?” reflection:
+Play for about **30 minutes**, then answer these **tutorial questions** in `Module01/sql-island.md` — your first “what have I learned?” reflection:
 
 1. **What have you learned about databases and SQL so far, just by playing?** (Answer from the game alone — no looking things up.)
 2. Which SQL commands and patterns did you actually use (`SELECT`, `WHERE`, `ORDER BY`, joins, aggregate functions, …)?
@@ -367,20 +367,20 @@ Play for about **30 minutes**, then answer these **tutorial questions** in `modu
 
 Then continue with the next tasks — but **leave the SQL Island tab open and finish the game at home**; you do not have to reach the end in class.
 
-*Portfolio evidence:* `module-01/sql-island.md` with your answers, plus a screenshot of your progress while playing the game (one at a later, advanced stage). More practice games are in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games) if you want more.
+*Portfolio evidence:* `Module01/sql-island.md` with your answers, plus a screenshot of your progress while playing the game (one at a later, advanced stage). More practice games are in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games) if you want more.
 
 ### ★ Task 6: Load real telemetry and query it from Python
 
-**Step 1 — create the folder and the generator.** Save the following as `module-01/generate_telemetry.py`. It manufactures a few days of machine-shop readings from the Wittkamp story — one reading every few seconds, three machines. `cnc-02` develops a slow **bearing wear**, so its vibration creeps toward the alarm threshold. The random seed is fixed, so everyone gets the same numbers.
+**Step 1 — create the folder and the generator.** Save the following as `Module01/generate_telemetry.py`. It manufactures a few days of machine-shop readings from the Wittkamp story — one reading every few seconds, three machines. `cnc-02` develops a slow **bearing wear**, so its vibration creeps toward the alarm threshold. The random seed is fixed, so everyone gets the same numbers.
 
 ```sh
-mkdir -p module-01
+mkdir -p Module01
 ```
 
 ```python
 """Manufacture a few days of machine-shop telemetry as CSV.
 
-Run with:  uv run python module-01/generate_telemetry.py
+Run with:  uv run python Module01/generate_telemetry.py
 Writes telemetry.csv next to this script, so it works from any working directory.
 """
 import csv, math, random
@@ -413,15 +413,15 @@ print(f"wrote {out} ({out.stat().st_size/1e6:.1f} MB, {points * len(machines)} r
 ```
 
 ```sh
-uv run python module-01/generate_telemetry.py
+uv run python Module01/generate_telemetry.py
 ```
 
 The script writes the CSV **next to itself** (via `Path(__file__)`), so it does not matter which folder you run it from.
 
-**Step 2 — load it into SQLite.** This is your first taste of an **ingestion pipeline** — the same pattern your final project will use. Save this as `module-01/load_telemetry.py` and run it: it uses only Python's built-in `sqlite3`, so it works on every platform, with no `sqlite3` command-line shell required.
+**Step 2 — load it into SQLite.** This is your first taste of an **ingestion pipeline** — the same pattern your final project will use. Save this as `Module01/load_telemetry.py` and run it: it uses only Python's built-in `sqlite3`, so it works on every platform, with no `sqlite3` command-line shell required.
 
 ```python
-"""Load module-01/telemetry.csv into module-01/telemetry.db (no sqlite3 shell needed)."""
+"""Load Module01/telemetry.csv into Module01/telemetry.db (no sqlite3 shell needed)."""
 import csv, sqlite3
 from pathlib import Path
 
@@ -451,11 +451,11 @@ conn.close()
 ```
 
 ```sh
-uv run python module-01/load_telemetry.py
+uv run python Module01/load_telemetry.py
 ```
 
 > [!NOTE]
-> **Prefer the `sqlite3` command-line shell?** If it is installed, you can load the same file by hand. Inside the shell run `.mode csv`, then `.import --skip 1 module-01/telemetry.csv readings` (`.` commands are not SQL — they are shell directives, so they go in the interactive shell, not in a Python string). `.import --skip` needs SQLite ≥ 3.32; the Python loader above has no such requirement, which is why it is the default here.
+> **Prefer the `sqlite3` command-line shell?** If it is installed, you can load the same file by hand. Inside the shell run `.mode csv`, then `.import --skip 1 Module01/telemetry.csv readings` (`.` commands are not SQL — they are shell directives, so they go in the interactive shell, not in a Python string). `.import --skip` needs SQLite ≥ 3.32; the Python loader above has no such requirement, which is why it is the default here.
 >
 > **Windows:** the `sqlite3` shell is not installed by default, and the `<<'SQL' … SQL` heredoc and `<` redirection used in later modules are **Unix-shell** features. The simplest fix is to run the labs in your **editor's terminal, pointed at Git Bash** (Git Bash ships with Git for Windows) — see [where to run the labs](./Z-resources-bank.md#where-to-run-the-labs-your-editors-terminal). (The pure-Python loader above sidesteps all of this.)
 
@@ -477,7 +477,7 @@ SELECT COUNT(*) FROM readings WHERE vib_rms > 2.0;
 > **No `sqlite3` shell, or prefer a browser?** Start **Datasette** — it turns the database file into both a browsable website and a SQL prompt. From your repo root:
 >
 > ```sh
-> uvx datasette module-01/telemetry.db
+> uvx datasette Module01/telemetry.db
 > ```
 >
 > It prints the URL to open (default port **8001**):
@@ -485,13 +485,13 @@ SELECT COUNT(*) FROM readings WHERE vib_rms > 2.0;
 > - `http://127.0.0.1:8001/telemetry` — browse and filter the `readings` table.
 > - `http://127.0.0.1:8001/telemetry/-/query` — the **Execute SQL** page: paste the three queries above and run them interactively; each result exports as CSV or JSON.
 >
-> `datasette module-01/telemetry.db -o` opens the browser for you. `uvx …` runs the tool without a permanent install; since you installed it in Task 3, plain `datasette …` works too.
+> `datasette Module01/telemetry.db -o` opens the browser for you. `uvx …` runs the tool without a permanent install; since you installed it in Task 3, plain `datasette …` works too.
 
 **Step 4 — prove the "embedded, no server" claim numerically.** Report how big `telemetry.db` is and how many rows it holds.
 
 ```sh
-ls -lh module-01/telemetry.db
-sqlite3 module-01/telemetry.db "SELECT COUNT(*) FROM readings;"
+ls -lh Module01/telemetry.db
+sqlite3 Module01/telemetry.db "SELECT COUNT(*) FROM readings;"
 ```
 
 *Portfolio evidence:* the generator script, the `.db` file size and row count, and the three query results. One sentence: *what would this dataset cost to run in the cloud, and who would pay for it?*
@@ -520,7 +520,7 @@ This is the habit the whole course is built on.
 Turn the database into something a colleague can browse in a browser:
 
 ```sh
-uvx datasette module-01/telemetry.db -o
+uvx datasette Module01/telemetry.db -o
 ```
 
 Explore the table, filter by machine, and export one filtered view as CSV. Note the URL of a single row.
@@ -530,17 +530,17 @@ Explore the table, filter by machine, and export one filtered view as CSV. Note 
 
 Push the shell well past the basics — every one of these is something you will reach for again.
 
-- **Import a CSV without any Python:** create `readings`, then `.mode csv` and `.import --skip 1 module-01/telemetry.csv readings`.
-- **Keep your SQL in a file and replay it:** put your queries in `module-01/queries.sql` and run `sqlite3 module-01/telemetry.db < module-01/queries.sql` (or `.read module-01/queries.sql` at the prompt).
-- **Try the output modes:** `.mode box` (default), `.mode json`, `.mode markdown`, `.mode insert`, and save one result with `.once module-01/result.json`.
-- **Own the file:** make a copy with `.backup module-01/backup.db`; compact with `VACUUM INTO 'module-01/compact.db'`; compare the file sizes; ask *why* they differ (or don't).
-- **Work across files:** `ATTACH 'module-01/tour.db' AS t;` and join a table from each database.
+- **Import a CSV without any Python:** create `readings`, then `.mode csv` and `.import --skip 1 Module01/telemetry.csv readings`.
+- **Keep your SQL in a file and replay it:** put your queries in `Module01/queries.sql` and run `sqlite3 Module01/telemetry.db < Module01/queries.sql` (or `.read Module01/queries.sql` at the prompt).
+- **Try the output modes:** `.mode box` (default), `.mode json`, `.mode markdown`, `.mode insert`, and save one result with `.once Module01/result.json`.
+- **Own the file:** make a copy with `.backup Module01/backup.db`; compact with `VACUUM INTO 'Module01/compact.db'`; compare the file sizes; ask *why* they differ (or don't).
+- **Work across files:** `ATTACH 'Module01/tour.db' AS t;` and join a table from each database.
 
-*Portfolio evidence:* `module-01/shell-power.md` — the commands you ran and one surprising finding (e.g. how the `.mode json` output differs from `.mode markdown`, or what `VACUUM` changed).
+*Portfolio evidence:* `Module01/shell-power.md` — the commands you ran and one surprising finding (e.g. how the `.mode json` output differs from `.mode markdown`, or what `VACUUM` changed).
 
 ### ◇ Task 10 (Optional): Datasette — facets, filters, and the JSON API
 
-Run `uvx datasette module-01/telemetry.db -o` and explore the web side properly:
+Run `uvx datasette Module01/telemetry.db -o` and explore the web side properly:
 
 - **Filter** by a column and study the URL it produces (e.g. `?machine=cnc-02`) — the UI is just building query strings.
 - **Facet**: click *Facet by* on a column (or append `?_facet=vib_rms`) and read the counts.
@@ -548,32 +548,31 @@ Run `uvx datasette module-01/telemetry.db -o` and explore the web side properly:
 - **The API is the same pages**: fetch `/telemetry/readings.json?_size=5` (a table) and `/-/query.json?sql=SELECT+…` (a query) — anything you can read in the browser, you can `curl` as JSON.
 - Read `datasette --help` and try `--metadata`, and `-h 0.0.0.0 -p 8001` (only if you want to reach it from another machine).
 
-*Portfolio evidence:* `module-01/datasette.md` with the three URLs you used (table, facet, query-as-JSON) and a screenshot.
+*Portfolio evidence:* `Module01/datasette.md` with the three URLs you used (table, facet, query-as-JSON) and a screenshot.
 
 ### ◇ Task 11 (Optional): Datasette Lite & `sqlite-utils` — the same job, other tools
 
 - **No install at all?** Open **Datasette Lite** ([lite.datasette.io](https://lite.datasette.io/)) — Datasette compiled to WebAssembly — and load a SQLite file (or a CSV/JSON URL) entirely in the browser. Run one of your queries there.
 - **Do the whole pipeline from the terminal with `sqlite-utils`:**
   ```sh
-  sqlite-utils insert module-01/tour.db readings module-01/telemetry.csv --csv --detect-types
-  sqlite-utils schema module-01/tour.db
-  sqlite-utils rows module-01/tour.db readings --csv | head
-  sqlite-utils enable-fts module-01/tour.db readings machine
-  sqlite-utils search module-01/tour.db readings cnc
+  sqlite-utils insert Module01/tour.db readings Module01/telemetry.csv --csv --detect-types
+  sqlite-utils schema Module01/tour.db
+  sqlite-utils rows Module01/tour.db readings --csv | head
+  sqlite-utils enable-fts Module01/tour.db readings machine
+  sqlite-utils search Module01/tour.db readings cnc
   ```
 - **Compare the three ways** to build and query the same table — `sqlite3`, `sqlite-utils`, and Python's `sqlite3` module. Write 3–4 sentences: which had the fewest keystrokes, which was the clearest, and when you would pick each.
 
-*Portfolio evidence:* `module-01/toolbox.md` with your notes and (for Datasette Lite) a screenshot.
+*Portfolio evidence:* `Module01/toolbox.md` with your notes and (for Datasette Lite) a screenshot.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way if you have something better. (After Session 1; the `uv` project files sit at the repository root, the rest under `module-01/`.)
 
 - [ ] Your own repo **created from the template** (public / instructor-readable) with the **instructor added as a collaborator**.
 - [ ] A clean `.gitignore` (database and secret files stay out of Git).
 - [ ] A short **commit history** with descriptive messages, and a Markdown page with working **interlinks** (including one to a pod mate's portfolio).
-- [ ] `module-01/README.md` with this module's **learning goals**.
-- [ ] `module-01/sql-island.md` — your answers to the tutorial questions.
+- [ ] `Module01/README.md` with this module's **learning goals**.
+- [ ] `Module01/sql-island.md` — your answers to the tutorial questions.
 - [ ] `pyproject.toml` and `uv.lock` (reproducible `uv` environment; **`.venv/` stays out of Git**).
 - [ ] `uv-check.py` and its `uv run uv-check.py` output.
 - [ ] `shell-tour.txt` and `tour.sql` — your captured `sqlite3` shell session and a `.dump`.
@@ -582,7 +581,7 @@ Your portfolio only needs to **prove this module's learning goals**. The items b
 - [ ] `telemetry.db` size + row count (a screenshot or text file; **do not commit the `.db` file itself**).
 - [ ] Query outputs for Tasks 6 and 7, with timings.
 - [ ] Your one-paragraph **AI verification** note (what the model got right/wrong and how you checked).
-- [ ] `reflection.md` — your first logbook entry in the course format: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
+- [ ] `Reflections/ref01.md` — your first logbook entry, using the reflection template.
 - [ ] (Stretcher) Datasette screenshot and exported CSV.
 - [ ] (Optional) evidence for whichever of Tasks 9–11 you did (`shell-power.md`, `datasette.md`, `toolbox.md`).
 

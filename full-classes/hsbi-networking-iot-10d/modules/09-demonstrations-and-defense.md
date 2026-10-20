@@ -47,9 +47,8 @@ The final project is assessed according to the [syllabus](../syllabus.md#final-p
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove the course's learning goals**. The checklist below is a **suggested** set of proofs — commit them if they fit, or demonstrate the same goals your own way.
 - [ ] Module 0: Pre-study notes, initial network exploration, and answers to guiding questions.
-- [ ] Module 1: Node-RED hello-world screenshot, Wireshark packet capture, and OSI critique reflection.
+- [ ] Module 1: Node-RED hello-world screenshot, Wireshark packet capture, and OSI critique note.
 - [ ] Module 2: OpenWrt setup, network topology diagram, DHCP/ARP captures, and NAT/port forwarding test.
 - [ ] Module 3: Nebula overlay setup, cross-NAT ping/SSH proof, and Yggdrasil comparison (optional: B.A.T.M.A.N. `batctl` tables and mesh failover report).
 - [ ] Module 4: MQTT QoS, Retain, LWT analysis, Node-RED flows (`.json`), and Python/IoTknit integration scripts.
@@ -57,7 +56,7 @@ Your portfolio only needs to **prove the course's learning goals**. The checklis
 - [ ] Module 6: Industrial protocol analysis (recommended); optional simulated Modbus/OPC-UA server and bridge.
 - [ ] Module 7: IoTempower declarative node configuration (`setup.cpp`), OTA deployment logs, and fleet integration.
 - [ ] Modules 8 & 9: Final Project architecture diagrams, fault-injection test logs, presentation slides/script, and final course retrospective.
-- [ ] Reflection logbook: four block entries (Days 1–3, 4–6, 7–8, 9–10), each answering *what worked, what broke, how my mental model shifted, and how I verified AI suggestions*.
+- [ ] Reflection logbook entries for the teaching blocks, using the reflection template in `Reflections/`.
 - [ ] Where you did not work entirely alone: links to pod mates, sources, and borrowed configuration.
 
 > [!IMPORTANT]

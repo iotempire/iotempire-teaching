@@ -113,7 +113,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 ### ★ Task A: Study in your pod
 
-Work through the concepts above with your Task Pod and fill in `module-03/study-log.md`:
+Work through the concepts above with your Task Pod and fill in `Module03/study-log.md`:
 
 1. **The references you used** — the source and the one concept you understood best from it.
 2. **Things you googled** — the term, what you found, and the source (URL). One line each.
@@ -121,7 +121,7 @@ Work through the concepts above with your Task Pod and fill in `module-03/study-
 4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
 5. **Your two best found characterization examples** — compile down to the best two, with source and what they taught you.
 
-*Portfolio evidence:* `module-03/study-log.md`.
+*Portfolio evidence:* `Module03/study-log.md`.
 
 ### ★ Task B: Explain & share with another pod
 
@@ -176,17 +176,13 @@ Pair with a **neighbouring pod**:
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-03/`.)
 1. Transfer-function plot with your fitted offset/gain and the residuals (deviation from the reference).
 2. Calibration table: before/after error at the validation point.
 3. Hysteresis/repeatability numbers with the up/down curves.
 4. Noise table: standard deviation raw vs. moving average vs. median, plus the measured latency.
 5. Uncertainty statement for one final value.
-6. Reflection: Which error in your sensor is systematic and could be calibrated, and which is random and must be averaged or accepted?
+6. Deeper question: Which error in your sensor is systematic and could be calibrated, and which is random and must be averaged or accepted?
 
-### Reflection logbook
-
-Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 
 > [!IMPORTANT]
 > Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.

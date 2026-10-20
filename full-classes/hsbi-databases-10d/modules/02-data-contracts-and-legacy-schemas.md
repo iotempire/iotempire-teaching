@@ -71,7 +71,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 ### ★ Task A: Study in your pod (~30 minutes)
 
-Spend about **30 minutes** exploring the concepts above with your Task Pod and filling in `module-02/study-log.md`:
+Spend about **30 minutes** exploring the concepts above with your Task Pod and filling in `Module02/study-log.md`:
 
 1. **The references you used** — the source (book, site, video, doc) and, for each, **the one concept you understood best from it**. (This comes first: credit where your understanding came from.)
 2. **Things you googled** — the term/question, what you found, and the source (URL). One line each.
@@ -79,7 +79,7 @@ Spend about **30 minutes** exploring the concepts above with your Task Pod and f
 4. **LLM Q&A** — for each prompt you tried: the prompt, a 2–3 line summary of the answer, and **how you verified it** (and where it was wrong).
 5. **Your two best found ER sketches** — hunt down ER/EER **example sketches** that teach you the most, then **compile down to the best two** (this is a small **sport** — the clearest examples win the Discord share in Task C). For each: the source (link or credit), a screenshot or your own redraw, and **what exactly you learned from it** that the others did not show.
 
-*Portfolio evidence:* `module-02/study-log.md`.
+*Portfolio evidence:* `Module02/study-log.md`.
 
 ### ★ Task B: From words to sketch (part of your study)
 
@@ -92,7 +92,7 @@ Working from a plain-text description to a diagram is the core skill. For **each
 
 Then prove one: write the `CREATE TABLE` for your favourite sketch, insert two rows, and show the `COUNT` query that demonstrates its cardinality.
 
-*Portfolio evidence:* your **four sketches** in `module-02/study-log.md` (or `er-examples.md`) plus the one `CREATE TABLE` + `COUNT` proof.
+*Portfolio evidence:* your **four sketches** in `Module02/study-log.md` (or `er-examples.md`) plus the one `CREATE TABLE` + `COUNT` proof.
 
 ### ★ Task C: Explain & share with another pod (~15 minutes)
 
@@ -102,7 +102,7 @@ Pair with a **neighbouring pod** for about **15 minutes**:
 2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"a natural key without `UNIQUE` is not a key"*).
 3. **Clean up your documentation** — update your `study-log.md` with what you learned from the other pod.
 4. Agree on **one image** — the best example from either pod, or a **new drawing the two pods make together** — and **post that one in our Discord channel**, with a one-sentence note on why you chose it.
-5. Each member adds a short **“Agreed learning (pod discussion)”** section — the shared points, plus any disagreement you left open — to *their own* `module-02/study-log.md`.
+5. Each member adds a short **“Agreed learning (pod discussion)”** section — the shared points, plus any disagreement you left open — to *their own* `Module02/study-log.md`.
 
 *Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section), and your pod-pair's single shared image posted in Discord.
 
@@ -112,11 +112,11 @@ Pair with a **neighbouring pod** for about **15 minutes**:
 
 ### Setup
 
-Create `module-02/legacy.db` and load this deliberately flawed schema. It is a realistic *mess*: text where foreign keys should be, a comma-separated list in a "column", and no constraints.
+Create `Module02/legacy.db` and load this deliberately flawed schema. It is a realistic *mess*: text where foreign keys should be, a comma-separated list in a "column", and no constraints.
 
 ```sh
-mkdir -p module-02
-sqlite3 module-02/legacy.db <<'SQL'
+mkdir -p Module02
+sqlite3 Module02/legacy.db <<'SQL'
 DROP TABLE IF EXISTS machine;
 DROP TABLE IF EXISTS part;
 DROP TABLE IF EXISTS maint_job;
@@ -164,7 +164,7 @@ SQL
 
 ### ★ Task 1: Reconstruct the ER model
 
-**1. List the entities you can see** and, for each, the attributes and the *intended* primary key. Write these down in `module-02/er-audit.md`.
+**1. List the entities you can see** and, for each, the attributes and the *intended* primary key. Write these down in `Module02/er-audit.md`.
 
 **2. Draw the ER diagram** (hand-drawn and photographed, or in a tool such as [diagrams.net](https://www.diagrams.net/)) showing the entities you believe the designer *meant* to model: `Machine`, `Part`, `MaintenanceJob`, `Technician`, and the relationships between them. *(If you ask an LLM to sketch this, it usually answers in **Mermaid** `erDiagram` syntax — see [Visualizing an ER model](./Z-resources-bank.md#visualizing-an-er-model-mermaid-diagramsnet) for how to render it.)*
 
@@ -223,7 +223,7 @@ For each defect, write one line: **what breaks in production because of it** (e.
 
 ### ★ Task 3: Write the data contract in code
 
-An ER diagram is documentation; a **contract** is executable. Express the *corrected* schema as a Pydantic model and a SQLAlchemy table so an application can enforce it. Save as `module-02/contract.py`.
+An ER diagram is documentation; a **contract** is executable. Express the *corrected* schema as a Pydantic model and a SQLAlchemy table so an application can enforce it. Save as `Module02/contract.py`.
 
 ```python
 """Code-first data contract for the repaired maintenance schema."""
@@ -294,7 +294,7 @@ if __name__ == "__main__":
         print(str(CreateTable(t).compile(engine)).strip(), ";\n")
 ```
 
-Run it with `uv run python module-02/contract.py` (your Module 1 environment already has `pydantic` and `sqlalchemy`) and save the emitted DDL. This is the schema you would migrate to.
+Run it with `uv run python Module02/contract.py` (your Module 1 environment already has `pydantic` and `sqlalchemy`) and save the emitted DDL. This is the schema you would migrate to.
 
 *Portfolio evidence:* `contract.py`, a note on which constraint you chose to enforce **in the model** versus **in the database** (and why), and the emitted DDL.
 
@@ -325,18 +325,17 @@ Pick **three** — one *good*, one *strange*, one *wrong or confusing* — and s
 
 **5. Share your best find.** Post the most interesting good/strange diagram (with its Mermaid source) in Discord, with one line on what it teaches.
 
-*Portfolio evidence:* `module-02/mermaid-lab.md` (or a section in `study-log.md`) with your **three curated diagrams + Mermaid source**, the schema↔diagram round-trip findings, and one paragraph each on **cardinality** and **inheritance** overuse.
+*Portfolio evidence:* `Module02/mermaid-lab.md` (or a section in `study-log.md`) with your **three curated diagrams + Mermaid source**, the schema↔diagram round-trip findings, and one paragraph each on **cardinality** and **inheritance** overuse.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. These are **suggested proofs** (under `module-02/`) — use them, or show the same goals another way:
 
 - [ ] `study-log.md` — the references you used (and the concept each taught you), what you googled, remarkable findings, LLM Q&A (with how you verified each), your **two best found ER sketches** and your **four drawn examples** (with the one `CREATE TABLE` + `COUNT` proof), and your **“Agreed learning (pod discussion)”** — plus the single image your pod pair shared in Discord.
 - [ ] `legacy.db` setup script (the `CREATE`/`INSERT` block) — so a reviewer can rebuild it.
 - [ ] `er-audit.md` with the entity/attribute list, the reconstructed ER diagram, and cardinalities.
 - [ ] The five integrity-defect queries **with results** and one-line production-impact notes.
 - [ ] `contract.py` (Pydantic + SQLAlchemy) and the emitted corrected DDL.
-- [ ] `reflection.md` — the logbook entry for this block: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
+- [ ] `Reflections/ref02.md` — the logbook entry for this block, using the reflection template.
 - [ ] (Stretcher) the two inheritance models and your decision.
 - [ ] (Stretcher) `mermaid-lab.md` — three curated ER diagrams + Mermaid source, the schema↔diagram round-trip, and your notes on cardinality and inheritance overuse.
 

@@ -68,7 +68,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 ### ★ Task A: Study in your pod
 
-Work through the concepts above with your Task Pod and fill in `module-02/study-log.md`:
+Work through the concepts above with your Task Pod and fill in `Module02/study-log.md`:
 
 1. **The references you used** — the source and the one concept you understood best from it.
 2. **Things you googled** — the term, what you found, and the source (URL). One line each.
@@ -76,7 +76,7 @@ Work through the concepts above with your Task Pod and fill in `module-02/study-
 4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
 5. **Your two best found subnet/routing diagrams** — compile down to the best two, with source and what they taught you.
 
-*Portfolio evidence:* `module-02/study-log.md`.
+*Portfolio evidence:* `Module02/study-log.md`.
 
 ### ★ Task B: Explain & share with another pod
 
@@ -145,15 +145,11 @@ Instead of capturing packets only on your laptop, capture packets *at the choke 
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-02/`.)
 1. Network Map: Draw a clean network diagram of your setup showing MAC addresses, assigned IPs, subnets, and the WAN/LAN interfaces of the OpenWrt router.
 2. Packet Trace Proof: Export a Wireshark screenshot showing either a DHCP DORA sequence or an ARP request/reply captured live from the router.
 3. Port Forwarding & NAT Analysis: Explain how NAT masquerading works and why a client on the outside WAN cannot connect to an internal M5Stack node without explicit port forwarding.
-4. Reflection: What surprised you about the volume of background broadcast/multicast traffic (mDNS, SSDP, ARP) on a local network?
+4. Deeper question: What surprised you about the volume of background broadcast/multicast traffic (mDNS, SSDP, ARP) on a local network?
 
-### Reflection logbook
-
-Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 
 > [!IMPORTANT]
 > Never commit secrets, credentials, private keys, or captures containing personal traffic. Where you did not work entirely alone, link your pod mates and sources.

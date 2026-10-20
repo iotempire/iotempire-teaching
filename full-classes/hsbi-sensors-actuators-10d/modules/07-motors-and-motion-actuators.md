@@ -95,7 +95,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 ### ★ Task A: Study in your pod
 
-Work through the concepts above with your Task Pod and fill in `module-07/study-log.md`:
+Work through the concepts above with your Task Pod and fill in `Module07/study-log.md`:
 
 1. **The references you used** — the source and the one concept you understood best from it.
 2. **Things you googled** — the term, what you found, and the source (URL). One line each.
@@ -103,7 +103,7 @@ Work through the concepts above with your Task Pod and fill in `module-07/study-
 4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
 5. **Your two best found actuator-selection tables or driver diagrams** — compile down to the best two, with source and what they taught you.
 
-*Portfolio evidence:* `module-07/study-log.md`.
+*Portfolio evidence:* `Module07/study-log.md`.
 
 ### ★ Task B: Explain & share with another pod
 
@@ -158,17 +158,13 @@ Join a sensor to a motor with real control logic:
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-07/`.)
 1. Servo evidence: wiring, angle sweep, and measured current (idle/sweep/stall).
 2. H-bridge notes: your truth table for direction + PWM, and the measured stall current.
 3. Stepper evidence: full/half-step sequence, commanded vs. measured rotation.
 4. Sensor→motor logic: the control rule, the hysteresis, and the safety interlock.
 5. Actuator choice table: for three tasks (pointer gauge, wheel, precise dial), pick servo/DC/stepper and justify by torque, precision, and control complexity.
-6. Reflection: Why is "the motor turns" not enough information to design a supply or driver?
+6. Deeper question: Why is "the motor turns" not enough information to design a supply or driver?
 
-### Reflection logbook
-
-Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 
 > [!IMPORTANT]
 > Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.

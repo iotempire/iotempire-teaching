@@ -95,7 +95,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 ### ★ Task A: Study in your pod
 
-Work through the concepts above with your Task Pod and fill in `module-02/study-log.md`:
+Work through the concepts above with your Task Pod and fill in `Module02/study-log.md`:
 
 1. **The references you used** — the source and the one concept you understood best from it.
 2. **Things you googled** — the term, what you found, and the source (URL). One line each.
@@ -103,7 +103,7 @@ Work through the concepts above with your Task Pod and fill in `module-02/study-
 4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
 5. **Your two best found bus explanations or diagrams** — compile down to the best two, with source and what they taught you.
 
-*Portfolio evidence:* `module-02/study-log.md`.
+*Portfolio evidence:* `Module02/study-log.md`.
 
 ### ★ Task B: Explain & share with another pod
 
@@ -183,16 +183,12 @@ With a USB logic analyzer (or an oscilloscope), capture one transaction:
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-02/`.)
 1. Scan artifact: serial output of at least two scans (one device, two devices), with each address mapped to its module.
 2. Register proof: the raw register value you read and the reconstruction you computed with the datasheet formula, next to the library's value.
 3. Address table: for each device in the kit: type, interface, address(es), and whether the address is configurable.
 4. Conflict report: how you created and resolved (or would resolve) an address conflict.
-5. Reflection: Why does adding a second I²C device not need a second data pin, and what are the limits of that elegance (capacitance, address space, speed, one defective device pulling the bus down)?
+5. Deeper question: Why does adding a second I²C device not need a second data pin, and what are the limits of that elegance (capacitance, address space, speed, one defective device pulling the bus down)?
 
-### Reflection logbook
-
-Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 
 > [!IMPORTANT]
 > Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.

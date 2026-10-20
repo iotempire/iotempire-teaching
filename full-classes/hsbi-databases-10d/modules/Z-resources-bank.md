@@ -42,8 +42,8 @@ Run the module commands in your **editor's integrated terminal** (VS Code or Zed
 
 | The modules use (bash) | PowerShell equivalent |
 |---|---|
-| `mkdir -p module-02` | `New-Item -ItemType Directory -Force module-02` |
-| `sqlite3 module-02/legacy.db < setup.sql` | `Get-Content setup.sql \| sqlite3 module-02/legacy.db` |
+| `mkdir -p Module02` | `New-Item -ItemType Directory -Force Module02` |
+| `sqlite3 Module02/legacy.db < setup.sql` | `Get-Content setup.sql \| sqlite3 Module02/legacy.db` |
 | `sqlite3 db <<'SQL' … SQL` | save the block to `setup.sql`, then `Get-Content setup.sql \| sqlite3 db` (or, in the shell: `sqlite3 db ".read setup.sql"`) |
 | `time sqlite3 db "SELECT …"` | `Measure-Command { sqlite3 db "SELECT …" }` |
 
@@ -125,7 +125,7 @@ The portable timer (use this for the Module 3 index benchmarks):
 ```python
 import sqlite3, time
 
-conn = sqlite3.connect("module-03/warehouse.db")
+conn = sqlite3.connect("Module03/warehouse.db")
 sql = "SELECT city, COUNT(*) FROM customer GROUP BY city"
 
 t0 = time.perf_counter()

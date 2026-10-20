@@ -47,7 +47,7 @@ The full module list, one-line summaries, and the session roadmap live in the **
 
 ## Get started
 
-1. Fork your personal portfolio from the [IoTempire portfolio template](https://github.com/iotempire/iot-portfolio-template).
+1. Create your personal portfolio from the [IoTempire portfolio template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”** (not “Fork”), then add the instructor as a collaborator.
 2. Read the **[module index](./modules/00-index.md)**, then start with **[Module 1 — Introduction & Local-First Foundations](./modules/01-introduction-and-local-first.md)**.
 3. Keep the **[syllabus](./syllabus.md)** handy for the schedule, assessment, and policies.
 
@@ -81,7 +81,7 @@ Generate a dated, upload-ready PDF of the syllabus using LibreOffice (default), 
 
 ## Contacts & support
 
-- Questions, schedule, and technical support: use the course LMS (ILIAS), the authoritative communication channel.
+- Questions, schedule, and technical support: use the course LMS, the authoritative communication channel.
 - Main instructor: Prof. Dr. Ulrich Norbisrath (Ulno) — [ulno.net](https://ulno.net/)
 - Community: [IoTempire](https://iotempire.net/)
 

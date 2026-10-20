@@ -151,7 +151,7 @@ Central entry point: **the course repository**.
 
 # Play time: SQL Island (30 minutes)
 
-[SQL Island](https://sql-island.informatik.uni-kl.de/) — a free browser text adventure that teaches the basics of SQL. **Play for ~30 minutes**, then answer the tutorial questions in `module-01/sql-island.md`.
+[SQL Island](https://sql-island.informatik.uni-kl.de/) — a free browser text adventure that teaches the basics of SQL. **Play for ~30 minutes**, then answer the tutorial questions in `Module01/sql-island.md`.
 
 - What have you learned about databases and SQL so far, *just by playing*?
 - Which SQL commands did you actually use?

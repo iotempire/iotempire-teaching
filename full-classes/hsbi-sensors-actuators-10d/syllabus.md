@@ -13,7 +13,7 @@
 ## Class Times and Locations
 
 - Schedule, location, and room: Published in the official HSBI timetable and course LMS before teaching begins.
-- Official announcements and course contact: Course LMS (ILIAS).
+- Official announcements and course contact: Course LMS.
 - Languages of Instruction: English and German.
 - Course Materials: English.
 
@@ -161,12 +161,7 @@ Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one w
 
 ### Reflection format
 
-For each teaching block, write one logbook entry answering these four questions:
-
-1. **What worked?** — the thing you built or measured that actually functioned.
-2. **What broke?** — the failure, the wrong assumption, the dead sensor, the hot driver.
-3. **How did my mental model shift?** — what you thought before and understand now.
-4. **How did I verify AI suggestions?** — the wiring, code, or claim an LLM gave you, and how you checked it against the datasheet, the meter, or your own measurement.
+For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the reflection template in the portfolio template. The template includes the **AI-verification** question.
 
 ### Grade Scale
 
@@ -274,13 +269,15 @@ See the full [final project specification](./modules/10-demonstration-and-defens
 
 All assessments are based on your personal GitHub Portfolio, created from the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”**, then made your own; the [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) covers the template workflow, your editor, Markdown, and resolving conflicts.
 
+Each module lists **suggested portfolio evidence** — suggestions, not a checklist. You may prove the same learning goals another way; if you do, say so in the module entry.
+
 - Maintain a clean Git log with descriptive commit messages.
 - For each module, include:
   - Circuit diagrams and photos of your wiring (hand-drawn or EDA-tool schematics are both fine).
   - Firmware/configuration (Arduino sketches, PlatformIO projects, IoTempower `setup.cpp` and node definitions).
   - Measurement tables, plots (transfer function, hysteresis, animation/power traces), and calibration notes.
   - Screenshots of serial plots, I²C scans, Node-RED dashboards, and terminal output.
-  - A reflection logbook entry for each teaching block (what worked, what broke, mental-model shift, AI verification).
+  - Reflection logbook entries in `Reflections/`, using the template.
 - Where you did not work entirely alone, **link your pod mates and your sources**.
 - In sensor work, documented calibration and honest uncertainty beat a single lucky reading. Showing how you discovered a noisy channel, an off-by-one register, or a wrong address is worth more than a superficial "it worked" report.
 
@@ -295,7 +292,7 @@ All assessments are based on your personal GitHub Portfolio, created from the [i
 
 ## Contacts & Support
 
-- Primary Communication Channel: Course LMS (ILIAS). Check regularly for updates and announcements.
+- Primary Communication Channel: Course LMS. Check regularly for updates and announcements.
 - Main Instructor: Prof. Dr. Ulrich Norbisrath (Ulno) — [ulno.net](https://ulno.net/)
 - IoTempire Community: [iotempire.net](https://iotempire.net/)
 - IoTempower Framework: [https://iotempower.us](https://iotempower.us) / [GitHub](https://github.com/iotempire/iotempower)

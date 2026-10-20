@@ -148,7 +148,6 @@ Pair with another Project Team for a reciprocal dry run:
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-09/`.)
 1. Kickoff story and the requirement-to-must-have mapping.
 2. System architecture diagram: sensors (with bus/addresses), conditioning, actuator + driver, node, data path.
 3. Characterization report: transfer function/calibration, resolution, uncertainty.
@@ -156,9 +155,6 @@ Your portfolio only needs to **prove this module's learning goals**. The items b
 5. Fault-injection log for the four tests.
 6. Peer feedback log and the concrete changes you will make before the final defense.
 
-### Reflection logbook
-
-Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
 
 > [!IMPORTANT]
 > Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.
