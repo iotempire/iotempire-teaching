@@ -167,9 +167,13 @@ Pair with a **neighbouring pod**:
 
 ## 🛠️ In-Class Lab: From Blink to Measurement — **Challenging**
 
-*Hardware:* 1× M5Stack node and/or a raw ESP board (ESP32 DevKit / ESP32 Ethernet mini kit / Wemos D1 Mini), breadboard and jumper wires, 1× LED + 220–330 Ω resistor, 1× push button, 1× 10 kΩ resistor (or the internal pull-up), 1× 100 nF capacitor (optional, for hardware debounce), 1× potentiometer, 1× LDR, optional relay module for a low-voltage load, multimeter.
+*Hardware:* 1× M5Stack node and/or a raw ESP board (ESP32 DevKit / ESP32 Ethernet mini kit / Wemos D1 Mini), breadboard and jumper wires, 1× LED + 220–330 Ω resistor, 1× push button, **2× 10 kΩ resistors** (one for the button — or use the internal pull-up — and one fixed resistor for the LDR divider), 1× 100 nF capacitor (optional, for hardware debounce), 1× potentiometer, 1× LDR, optional relay module for a low-voltage load, multimeter.
 
-> **Optional RC-filter parts (for the optional subtasks):** 1× 1 µF and 1× 10 µF film/ceramic capacitors, 1× 100 nF, 1× 100 µF (electrolytic is fine; observe polarity), 1× 100 kΩ, and 2–3× 10 kΩ resistors. A second GPIO or a button can serve as the signal source.
+> **Optional RC-filter parts (for the optional subtasks):** 1× 1 µF and 1× 10 µF film/ceramic capacitors (if electrolytic, observe polarity), 1× 100 nF, 1× 100 µF (electrolytic is fine; observe polarity), 1× 100 kΩ, and **4× 10 kΩ resistors in total for the high-pass experiment** (two more than the core kit); the low-pass can reuse one. A second GPIO (for a clean square wave) or a button (for a manual step) can serve as the signal source.
+
+> **Suggested pacing (4 h):** opening/pods ~45–60 min → Task 1 ~40 min (or a quick skip check) → Task 2 ~25 min → Task 3 ~35 min → Tasks 4–5 ~45 min → chain/evidence ~20 min. If time runs short, carry Task 4–5 into portfolio time; the optional subtasks are stretch.
+
+> **Board note:** the ADC and breadboard tasks are easiest on a raw ESP32/ESP8266 DevKit. On a M5Stack, use the Grove/breakout pins and check which ones are ADC-capable; the logic is the same. Always check your board's pinout before wiring.
 
 ### ★ Task 1: Basic Electronics — LED, Button, Pull-up/Pull-down
 
@@ -177,15 +181,15 @@ Pair with a **neighbouring pod**:
 > **Know this already?** You may skip this task. Add a short note to your portfolio explaining where you learned it (a previous course, project, or job) and demonstrate the two key skills in a quick instructor check: light an LED through a current-limiting resistor, and read a button with a defined pull-up or pull-down. If you cannot show both, do the task.
 
 1. **Breadboard and GPIO basics.** Learn which breadboard rows are connected, where the power rails are, and that every circuit needs a common ground. All boards here use 3.3 V logic: never connect 3.3 V directly to GND, and never put 5 V on a 3.3 V input.
-2. **An LED is an actuator.** Wire a GPIO pin → **220–330 Ω resistor** → LED anode → LED cathode → GND. Calculate the resistor with `R = (Vs − Vf) / I` for `Vs = 3.3 V`, a typical `Vf` for your LED, and `I ≈ 5–10 mA`. Test it from the 3.3 V pin, or by driving a GPIO high with the `Blink` example. Never connect an LED directly across the supply without a resistor: the GPIO commands the LED, it does not safely limit its current.
-3. **Relay alternative (optional).** If you want to switch a load instead of lighting an LED, use a **relay module** with its own driver/opto-isolation — never a bare relay coil from a GPIO. Connect `VCC`, `GND`, and `IN` as labeled, check whether the module needs 5 V and whether it triggers reliably from 3.3 V logic, and switch only a **low-voltage load** in this lab. Never switch mains voltage.
+2. **An LED is an actuator.** Wire a GPIO pin → **220–330 Ω resistor** → LED anode → LED cathode → GND. Calculate the resistor with `R = (Vs − Vf) / I` for `Vs = 3.3 V`, a typical `Vf` for your LED, and `I ≈ 5–10 mA`. For a blue/white LED with a higher `Vf`, recalculate — the same resistor gives a much smaller current. Test it from the 3.3 V pin, or by driving a GPIO high with the `Blink` example. Never connect an LED directly across the supply without a resistor: the GPIO commands the LED, it does not safely limit its current.
+3. **Relay alternative (optional).** If you want to switch a load instead of lighting an LED, use a **relay module** with its own driver (often opto-isolated) — never a bare relay coil from a GPIO. Connect `VCC`, `GND`, and `IN` as labeled, check whether the module needs 5 V and whether it triggers reliably from 3.3 V logic, and switch only a **low-voltage load** in this lab. Never switch mains voltage.
 4. **A button is a digital sensor — with two valid wirings.**
    - **Pull-up:** resistor (or the MCU's internal `INPUT_PULLUP`) from the GPIO to 3.3 V; button from the GPIO to GND. Released = `HIGH`, pressed = `LOW`.
    - **Pull-down:** resistor from the GPIO to GND; button from the GPIO to 3.3 V. Released = `LOW`, pressed = `HIGH`.
    Draw both. Explain why an input must never float, and why an external 10 kΩ resistor can be more robust than the internal pull-up in a noisy or long-wire setup.
 5. Read the button with `digitalRead()` and use it to toggle the LED. Print both states to the serial console.
 6. **Experience bouncing.** Count button transitions in your loop (or with an interrupt) and print the count. Press the button once and watch: a mechanical contact often produces several edges within a few milliseconds. Make it more obvious with a worn button or longer wires; after Module 2 you can also capture the raw edge with the class scope/analyzer.
-7. **Mitigate bouncing.** First add a software debounce (ignore new edges for 20–50 ms after a change). Then try a hardware variant: a **100 nF capacitor from the input node to GND** together with the 10 kΩ pull-up gives an RC time constant of about 1 ms; a Schmitt-trigger buffer (for example 74HC14) produces even cleaner edges. Compare the raw and debounced counts.
+7. **Mitigate bouncing.** First add a software debounce (ignore new edges for 20–50 ms after a change). Then try a hardware variant: a **100 nF capacitor from the input node to GND** together with the 10 kΩ pull-up gives an RC time constant of about 1 ms; a Schmitt-trigger buffer (for example 74HC14 — note that it is **inverting**) produces even cleaner edges. Compare the raw and debounced counts.
 
 #### ◇ Optional sub-task 1a: The RC low-pass hiding in your debounce circuit
 
@@ -198,11 +202,14 @@ fc = 1 / (2πRC) ≈ 159 Hz
 
 It slows the edge and suppresses fast bounce. Too large an RC makes the button feel sluggish; too small lets bounce through.
 
+> **RC asymmetry:** closing the button discharges the capacitor quickly through the switch; opening it charges the capacitor through the pull-up. That is still a useful low-pass, but for a more symmetric filter put a resistor in series before the capacitor.
+
 **Experiment — RC low-pass (if the parts are available):**
 
 - **Parts:** 1× 10 kΩ, 1× 1 µF ceramic/film capacitor, optional 1× 100 nF, breadboard, a GPIO square-wave source.
-- Wire: GPIO square wave (start at 10 Hz) → 10 kΩ → output node → 1 µF → GND. Measure the output node with an ADC input.
+- Wire: GPIO square wave (start at 10 Hz) → 10 kΩ → output node → 1 µF → GND. Measure the output node with an ADC input. Generate the square wave with `tone()`/LEDC or a simple `millis()` toggle on a second GPIO.
 - Here `τ = 10 ms` and `fc ≈ 16 Hz`: the 10 Hz square wave should come out rounded and smoothed, and high-frequency noise is reduced. Swap the capacitor to 100 nF (`fc ≈ 159 Hz`) and compare. If you have the Module 2 scope/analyzer, capture input and output together.
+- **ADC tip:** a 0–3.3 V square wave sits in the ESP32 ADC's least linear regions. For the ADC version, attenuate the input (for example with a 10 kΩ/10 kΩ divider to about 0–1.65 V; the divider adds source resistance, so the cutoff shifts a little) or use the Module 2 scope/analyzer.
 - **Slow version with a multimeter (no scope):** 100 kΩ + 100 µF gives `τ = 10 s`. Charge from 3.3 V, measure the capacitor voltage every second, plot `V(t)`, and estimate `τ`. Use a film/ceramic capacitor if possible; with an electrolytic, observe polarity.
 
 **AI prompts to deepen it:**
@@ -226,7 +233,7 @@ It slows the edge and suppresses fast bounce. Too large an RC makes the button f
    ```text
    t=1234 button=1 led=0
    ```
-4. Open the **Serial Plotter** and plot the button state and, later, analog values. Print numeric fields (or `label:value` pairs) so the plotter can separate the traces.
+4. Open the **Serial Plotter** and plot the button state and, later, analog values. Separate multiple traces with spaces, tabs, or commas; for named traces use `name:value` with **no space after the colon**.
    > **Tool choice:** the baseline is the Arduino IDE 2 Serial Plotter. If you already have a better local plotting setup — for example PlatformIO with Teleplot, or Python with `pyserial` and `matplotlib` — use that instead and document which tool you used.
 5. Measure your loop interval (`millis()` before and after, or print every N ms) and note how the sampling rate changes when you add `Serial.print()` calls or a `delay()`.
 6. Compare `delay()` with a `millis()`-based loop: a blocking delay stops you from reading the button and refreshing the display while it waits. Keep the console responsive with non-blocking timing.
@@ -244,14 +251,14 @@ It slows the edge and suppresses fast bounce. Too large an RC makes the button f
    - the number of distinct steps in the full sweep,
    - the code-to-code step size in volts.
 4. Compare the observed step size with your calculated `Vref / 2^n`. Explain any difference between the two ends of the range.
-5. Change the resolution (for example to 10 bits) and repeat. What changed — resolution, accuracy, or both?
+5. Change the resolution and repeat. On classic ESP32, `analogReadResolution()` can change the SAR hardware resolution between 9 and 12 bits; the ESP8266 is fixed at 10 bits, so use an ESP32 for this comparison. What changed — resolution, accuracy, or both?
 6. Cross-check with a multimeter: measure the potentiometer's output with the multimeter at several positions and compare it with the MCU's reading. Note any offset or gain error.
 
-> **Document the failure worth having:** the flat/erratic regions near 0 V and 3.3 V. This is where the ESP32 ADC is least trustworthy — remember it in Module 3.
+> **Document the failure worth having:** the flat/erratic regions near 0 V and above roughly 3.1 V. Keep signals away from the extremes — many classic ESP32 boards are most linear roughly between 0.15 V and 2.9 V. This is where the ESP32 ADC is least trustworthy — remember it in Module 3.
 
 ### ★ Task 4: An Analog Light Sensor — the LDR
 
-Now repeat the ADC exercise with a sensor whose resistance depends on light: a light-dependent resistor (LDR).
+Now repeat the ADC exercise with a sensor whose resistance depends on light: a light-dependent resistor (LDR). An LDR's resistance typically **decreases** as light increases.
 
 1. Build a voltage divider: 3.3 V → LDR → measurement node → 10 kΩ → GND (or swap the LDR and the fixed resistor — decide which gives the larger voltage change in the light range you care about). Connect the measurement node to an analog input.
 2. Read the raw code and the voltage. Cover the LDR, shade it, and expose it to room light and a phone flashlight. Record the raw-code range, the voltage range, and how repeatable the same condition is.
@@ -270,7 +277,7 @@ Now repeat the ADC exercise with a sensor whose resistance depends on light: a l
 
 Raw ADC values are noisy. Try three simple ideas on the same LDR data (or on the potentiometer if you prefer a stable signal):
 
-1. **Moving average:** keep the last `N` samples (start with 5, then 10 and 20) and print or plot their mean. Observe that noise falls but the signal lags: added latency ≈ `N × sample interval`.
+1. **Moving average:** keep the last `N` samples (start with 5, then 10 and 20) and print or plot their mean. Observe that noise falls but the signal lags: the output settles in about `N` samples, and the group delay is about `(N−1)/2` samples.
 2. **Median:** keep the last `N` samples and output the middle value. Introduce a deliberate single spike (cover/uncover the LDR, or tap the potentiometer) and compare the median with the average. The median should reject the spike; the average smears it across the window.
 3. **Cutoff:** use two complementary ideas:
    - **Outlier cutoff / validity gate:** discard samples outside a plausible band (for example below 5 % or above 95 % of the expected range, or more than a chosen deviation from the running median) before filtering. This prevents one broken reading from poisoning the average.
@@ -303,7 +310,7 @@ A first-order low-pass is just `y += alpha * (x - y)` (the EMA). Smaller `alpha`
 
 1. Low-pass the LDR or potentiometer; tune `alpha` and observe noise versus lag.
 2. High-pass it with `hp = x - lp` and wave your hand over the LDR or tap the potentiometer: slow lighting changes disappear; fast changes remain.
-3. Estimate the relationship between `alpha`, sample interval `dt`, and cutoff. For small `alpha`, `fc ≈ alpha / (2π·dt)`; state the assumptions.
+3. Estimate the relationship between `alpha`, sample interval `dt`, and cutoff. For small `alpha`, `fc ≈ alpha / (2π·dt)`; more exactly, `fc = −ln(1−alpha) / (2π·dt)`. State the assumptions.
 
 **AI prompts to deepen it:**
 
@@ -335,7 +342,7 @@ At each edge the output jumps; between edges it decays back to about 1.65 V. The
 
 ### ★ Task 6: Draw Your Own Chain
 
-Pick one sensor from the kit (NTC, LDR, VL53L0X, MPU6050, DS18B20). Draw the full chain for it: physical quantity → transducer principle → conditioning (if any) → interface (analog? I²C?) → MCU processing → system use. Label where error and noise enter.
+Pick one more sensor from the available material (NTC, LDR, VL53L0X, MPU6050, DS18B20). Draw the full chain for it: physical quantity → transducer principle → conditioning (if any) → interface (analog? I²C?) → MCU processing → system use. Label where error and noise enter.
 
 ### ◇ Task 7 (Stretcher): Resolution vs. Reality
 
