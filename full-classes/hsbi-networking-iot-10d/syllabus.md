@@ -160,6 +160,8 @@ Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one w
 
 For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). The template includes the **AI-verification** question.
 
+**When to write it:** reserve about **10 minutes after the meeting** — right after class, in the evening, or first thing next morning. It does **not** need to happen inside the 4-hour session. Writing a little later, in a different associative state, often helps the learning settle.
+
 ### Grade Scale
 
 | Points (0–20) | German Grade | Status |

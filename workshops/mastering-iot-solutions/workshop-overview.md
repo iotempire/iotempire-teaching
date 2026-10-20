@@ -64,4 +64,4 @@ Students document the hands-on outcomes in their individual GitHub portfolio und
 - Photo of their wired M5StickC on the desk.
 - Screenshot of their working Node-RED flows (Button/LED, Domino, and Dashboard).
 - Screenshot of their live temperature dashboard.
-- A concise reflection addressing what went smoothly, what caused friction, and lessons learned about distributed systems.
+- A concise reflection addressing what went smoothly, what caused friction, and lessons learned about distributed systems. **Write it about 10 minutes after the workshop** — right after the session, in the evening, or first thing next morning. It does **not** need to happen inside the 2–3 h workshop; writing a little later, in a different associative state, often helps the learning settle.
