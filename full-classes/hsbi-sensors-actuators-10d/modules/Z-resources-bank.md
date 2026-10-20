@@ -145,6 +145,9 @@ LED resistor:        R = (Vs − Vf) / I
 Voltage divider:     Vout = Vs · R_lower / (R_upper + R_lower)
 ADC step:            ΔV = Vref / 2^n
 Code → voltage:      V = code · Vref / 2^n
+RC time constant:    τ = R · C
+RC cutoff:           fc = 1 / (2πRC)
+EMA low-pass:        y += alpha · (x − y)
 NTC (Beta equation):1/T = 1/T0 + (1/B) · ln(R/R0)      [T in Kelvin]
 Servo:               1.0 ms ≈ 0°, 1.5 ms ≈ 90°, 2.0 ms ≈ 180° at 50 Hz
 WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)

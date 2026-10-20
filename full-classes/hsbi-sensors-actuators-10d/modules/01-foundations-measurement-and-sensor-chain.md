@@ -169,6 +169,8 @@ Pair with a **neighbouring pod**:
 
 *Hardware:* 1× M5Stack node and/or a raw ESP board (ESP32 DevKit / ESP32 Ethernet mini kit / Wemos D1 Mini), breadboard and jumper wires, 1× LED + 220–330 Ω resistor, 1× push button, 1× 10 kΩ resistor (or the internal pull-up), 1× 100 nF capacitor (optional, for hardware debounce), 1× potentiometer, 1× LDR, optional relay module for a low-voltage load, multimeter.
 
+> **Optional RC-filter parts (for the optional subtasks):** 1× 1 µF and 1× 10 µF film/ceramic capacitors, 1× 100 nF, 1× 100 µF (electrolytic is fine; observe polarity), 1× 100 kΩ, and 2–3× 10 kΩ resistors. A second GPIO or a button can serve as the signal source.
+
 ### ★ Task 1: Basic Electronics — LED, Button, Pull-up/Pull-down
 
 > [!NOTE]
@@ -185,7 +187,31 @@ Pair with a **neighbouring pod**:
 6. **Experience bouncing.** Count button transitions in your loop (or with an interrupt) and print the count. Press the button once and watch: a mechanical contact often produces several edges within a few milliseconds. Make it more obvious with a worn button or longer wires; after Module 2 you can also capture the raw edge with the class scope/analyzer.
 7. **Mitigate bouncing.** First add a software debounce (ignore new edges for 20–50 ms after a change). Then try a hardware variant: a **100 nF capacitor from the input node to GND** together with the 10 kΩ pull-up gives an RC time constant of about 1 ms; a Schmitt-trigger buffer (for example 74HC14) produces even cleaner edges. Compare the raw and debounced counts.
 
-> **TODO: consider studying** analog RC low-pass and high-pass filters here — the debounce capacitor is already an RC low-pass; calculate `fc = 1/(2πRC)` and compare it with an RC high-pass.
+#### ◇ Optional sub-task 1a: The RC low-pass hiding in your debounce circuit
+
+The button's 10 kΩ pull-up plus 100 nF capacitor is already an analog low-pass filter:
+
+```text
+τ = R · C = 10 kΩ · 100 nF = 1 ms
+fc = 1 / (2πRC) ≈ 159 Hz
+```
+
+It slows the edge and suppresses fast bounce. Too large an RC makes the button feel sluggish; too small lets bounce through.
+
+**Experiment — RC low-pass (if the parts are available):**
+
+- **Parts:** 1× 10 kΩ, 1× 1 µF ceramic/film capacitor, optional 1× 100 nF, breadboard, a GPIO square-wave source.
+- Wire: GPIO square wave (start at 10 Hz) → 10 kΩ → output node → 1 µF → GND. Measure the output node with an ADC input.
+- Here `τ = 10 ms` and `fc ≈ 16 Hz`: the 10 Hz square wave should come out rounded and smoothed, and high-frequency noise is reduced. Swap the capacitor to 100 nF (`fc ≈ 159 Hz`) and compare. If you have the Module 2 scope/analyzer, capture input and output together.
+- **Slow version with a multimeter (no scope):** 100 kΩ + 100 µF gives `τ = 10 s`. Charge from 3.3 V, measure the capacitor voltage every second, plot `V(t)`, and estimate `τ`. Use a film/ceramic capacitor if possible; with an electrolytic, observe polarity.
+
+**AI prompts to deepen it:**
+
+- “Explain an RC low-pass filter for a student: what `τ = RC` and `fc = 1/(2πRC)` mean, and why a button debounce capacitor is a low-pass.”
+- “I have a 10 kΩ resistor and a 1 µF capacitor. What is the cutoff frequency, and what will a 10 Hz square wave look like at the output?”
+- “How do I choose R and C so a button debounce is fast enough for a human but slow enough to suppress contact bounce?”
+
+**Pointers:** [RC circuit](https://en.wikipedia.org/wiki/RC_circuit), [Low-pass filter](https://en.wikipedia.org/wiki/Low-pass_filter), [RC time constant](https://en.wikipedia.org/wiki/RC_time_constant), [Falstad circuit simulator](https://www.falstad.com/circuit/).
 
 > [!TIP]
 > **Optional electronic-prototyping refresher.** If breadboards, LEDs, resistors, or buttons are new to you, work through the matching tasks in the MCU programming class: [Breadboards and electronic prototyping](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md#task-1--breadboards-and-electronic-prototyping-intro), [Hello World prototyping](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md#task-3--hello-world-electronic-prototyping), [Blink](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md#task-5--blink-on-the-wemos-d1-mini), and [toggle an LED with a button](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md#task-6--toggle-led-with-button). The short breadboard video there is [youtu.be/yXirMBP3x4U](https://youtu.be/yXirMBP3x4U) and the blink video is [youtu.be/2nN_ZVyWLzg](https://youtu.be/2nN_ZVyWLzg).
@@ -252,9 +278,60 @@ Raw ADC values are noisy. Try three simple ideas on the same LDR data (or on the
 4. Compare raw, average, median, and cutoff/gated output on the same plot or serial log. For each, state what it fixes and what it costs.
 5. Optional: implement an exponential moving average (EMA) with `y += alpha * (x - y)`, and explain how `alpha` plays the role of a cutoff.
 
-> **TODO: consider studying** software hysteresis and dead-zone filters here, as well as a software low-pass/high-pass pair (EMA as low-pass, `x − lowpass(x)` as high-pass) and their analog RC equivalents.
+> **Optional filter toolbox.** These subtasks go beyond the core task. Do them if you have time and the parts; document what you tried. The analog experiments are easier after Module 2, when the class scope/analyzer exists, but a slow RC step response can be measured with a multimeter.
 
-*Portfolio:* a short table or figure comparing raw, average, median, and cutoff, with the window sizes and the observed latency.
+#### ◇ Optional sub-task 5a: Software hysteresis and dead-zone
+
+A single threshold chatters when the signal sits near it. **Hysteresis** uses two thresholds; a **dead-zone** ignores changes inside a band. Both are tiny state machines.
+
+1. Use the LDR or potentiometer. Switch an LED at one threshold and watch it chatter near the boundary.
+2. **Hysteresis:** turn on above e.g. 2200, turn off below 1800, and keep the previous state in a variable.
+3. **Dead-zone:** update the output only when `abs(x - last_output) > band`.
+4. Compare chatter, response lag, and how the band size trades noise immunity for sensitivity.
+
+**AI prompts to deepen it:**
+
+- “Show a minimal Arduino state machine for hysteresis with two thresholds and explain how to choose them.”
+- “What is the difference between hysteresis, a dead band, and a dead-zone filter? Give one sensor example each.”
+- “My LDR reading flickers around the threshold. Propose a hysteresis rule and a dead-zone rule and explain the trade-offs.”
+
+**Pointers:** [Hysteresis](https://en.wikipedia.org/wiki/Hysteresis), [Deadband](https://en.wikipedia.org/wiki/Deadband).
+
+#### ◇ Optional sub-task 5b: Software low-pass and high-pass
+
+A first-order low-pass is just `y += alpha * (x - y)` (the EMA). Smaller `alpha` gives a lower cutoff, more smoothing, and more lag. A high-pass can be made by subtracting the low-pass: `hp = x - lp` — it removes slow drift/DC and keeps changes and edges.
+
+1. Low-pass the LDR or potentiometer; tune `alpha` and observe noise versus lag.
+2. High-pass it with `hp = x - lp` and wave your hand over the LDR or tap the potentiometer: slow lighting changes disappear; fast changes remain.
+3. Estimate the relationship between `alpha`, sample interval `dt`, and cutoff. For small `alpha`, `fc ≈ alpha / (2π·dt)`; state the assumptions.
+
+**AI prompts to deepen it:**
+
+- “Derive the first-order IIR low-pass `y += alpha*(x-y)` and relate `alpha` to an RC cutoff frequency and the sample interval.”
+- “How do I make a high-pass from a low-pass in software? Show the equation and a sensor example.”
+- “Compare moving average, median, EMA low-pass, and high-pass for a noisy LDR signal.”
+
+**Pointers:** [Low-pass filter](https://en.wikipedia.org/wiki/Low-pass_filter), [High-pass filter](https://en.wikipedia.org/wiki/High-pass_filter), [Exponential smoothing](https://en.wikipedia.org/wiki/Exponential_smoothing), [RC time constant](https://en.wikipedia.org/wiki/RC_time_constant).
+
+#### ◇ Optional sub-task 5c: Analog RC high-pass experiment (if the parts are available)
+
+A high-pass passes edges and blocks DC. On a single 3.3 V supply, bias the output at mid-rail so negative excursions do not clip at 0 V.
+
+- **Parts:** 1× 1 µF film/ceramic capacitor, 4× 10 kΩ, 1× 10 µF (bias AC ground; observe polarity if electrolytic), breadboard.
+- **Input divider:** GPIO square wave (~10 Hz) → 10 kΩ → input node → 10 kΩ → GND (about 0–1.65 V).
+- **Bias:** 3.3 V → 10 kΩ → bias node → 10 kΩ → GND; add 10 µF from the bias node to GND.
+- **Signal path:** input node → 1 µF → output node → 10 kΩ → bias node. Measure the output node versus GND with an ADC input.
+
+At each edge the output jumps; between edges it decays back to about 1.65 V. The input divider keeps the output within the ADC's 0–3.3 V range. This is the complement of the RC low-pass in Task 1. Without the mid-rail bias, the ADC clips the negative part.
+
+**AI prompts to deepen it:**
+
+- “Explain an RC high-pass filter on a single 3.3 V supply. Why do I need a mid-rail bias, and how do I choose R and C?”
+- “I have a 1 µF capacitor and a 10 kΩ resistor. What is the cutoff, and what will a 10 Hz square wave look like after the high-pass?”
+
+**Pointers:** [High-pass filter](https://en.wikipedia.org/wiki/High-pass_filter), [RC circuit](https://en.wikipedia.org/wiki/RC_circuit), [Falstad circuit simulator](https://www.falstad.com/circuit/).
+
+*Portfolio:* a short table or figure comparing raw, average, median, and cutoff, with the window sizes and the observed latency. If you tried the optional subtasks, add the hysteresis/dead-zone behavior and one low-pass/high-pass result.
 
 ### ★ Task 6: Draw Your Own Chain
 
@@ -272,7 +349,7 @@ Reduce the ADC to the smallest signal change you can measure at the top of the r
 3. Serial-visualization evidence: a structured serial log and a plot from the Arduino IDE Serial Plotter or your chosen local tool, plus a note on loop timing.
 4. ADC table: observed raw range, number of steps, step size in volts, and comparison with the theoretical value for at least two resolutions.
 5. LDR table: raw, voltage, and approximate resistance for dark/shade/bright conditions, with a repeatability note.
-6. Filter comparison: raw vs. moving average vs. median vs. cutoff, including window sizes and observed latency.
+6. Filter comparison: raw vs. moving average vs. median vs. cutoff, including window sizes and observed latency. Optional: hysteresis/dead-zone behavior and one low-pass/high-pass result.
 7. Vocabulary: define, in your own words, accuracy, precision, resolution, sensitivity, and uncertainty, each with one example.
 8. Deeper question: Why can a sensor with high resolution still give an inaccurate measurement? Which link of the chain is responsible in your example?
 
@@ -289,7 +366,9 @@ Reduce the ADC to the smallest signal change you can measure at the top of the r
 - [Wokwi](https://wokwi.com/) — simulate the chain before you wire it.
 - [Arduino IDE 2: Serial Monitor and Serial Plotter](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/) — the baseline tools for inspecting and plotting data.
 - [Arduino: Digital Read Serial](https://docs.arduino.cc/built-in-examples/basics/DigitalReadSerial/), [Analog Read Serial](https://docs.arduino.cc/built-in-examples/basics/AnalogReadSerial/), and [Debounce](https://docs.arduino.cc/built-in-examples/digital/Debounce/) — reading a button and taming bounce.
-- [Moving average](https://en.wikipedia.org/wiki/Moving_average), [Median filter](https://en.wikipedia.org/wiki/Median_filter), and [Low-pass filter](https://en.wikipedia.org/wiki/Low-pass_filter) — the first filters you built.
+- Filters: [Moving average](https://en.wikipedia.org/wiki/Moving_average), [Median filter](https://en.wikipedia.org/wiki/Median_filter), [Low-pass filter](https://en.wikipedia.org/wiki/Low-pass_filter), [High-pass filter](https://en.wikipedia.org/wiki/High-pass_filter), [RC circuit](https://en.wikipedia.org/wiki/RC_circuit), [RC time constant](https://en.wikipedia.org/wiki/RC_time_constant).
+- Decisions: [Hysteresis](https://en.wikipedia.org/wiki/Hysteresis), [Deadband](https://en.wikipedia.org/wiki/Deadband).
+- [Falstad circuit simulator](https://www.falstad.com/circuit/) — try the RC low-pass and high-pass circuits before wiring them.
 - **Optional electronic-prototyping refresher:** [Module 2 — Hardware and Basic Electronics](../../hsbi-MCU-programming-10d/modules/02-hardware-and-basic-electronics.md) in the MCU programming class, including the [breadboard intro](https://youtu.be/yXirMBP3x4U) and [Blink](https://youtu.be/2nN_ZVyWLzg) videos.
 
 ---
