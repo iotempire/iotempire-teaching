@@ -42,6 +42,7 @@ And this class is always in flux — that is a feature, not a bug. No course is 
 - **Module 0 (pre-study):** portfolio setup, measurement basics, datasheet reading, and a Wokwi mini-exercise — completed before Day 1 (or run as the first in-class module when the cohort needs more setup time).
 - **Modules 1–8:** one technical studio per day — basic electronics and Arduino/serial basics, measurement and the signal chain, building a low-cost ESP32 scope/logic analyzer and I²C addressing, characterization and calibration, distance/motion/environment sensors, LEDs and light, animation and installations, motors, and system integration.
 - **Modules 9–10:** the final-project arc — a story-driven sensor/actuator system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then demonstrated and defended in the last session.
+- **Workload:** 150 hours total (5 ECTS) — 48 contact hours, about 10 hours of Module 0 preparation, and the remaining 60–90 hours as self-study, portfolio, reflection, and final project. Plan for **at least 6 hours per week** outside class.
 
 The full module list, one-line summaries, and the session roadmap live in the **[module index](./modules/00-index.md)**.
 

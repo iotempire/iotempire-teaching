@@ -21,7 +21,7 @@ See the [syllabus](./syllabus.md) for the complete course schedule and policies.
 >
 > **For instructors: If your cohort needs more setup time**, Module 0 can be run as the first in-class module instead — same evidence, same 1 point.
 >
-> **Access:** Plan a focused preparation session. You need no special hardware and no paid account — a laptop with a browser is enough. Wokwi may require a free account to save or share a simulation; if you cannot use it, contact the instructor through the LMS before your first checkpoint so an agreed alternative evidence (for example a hand-drawn circuit plus explanation) can be used.
+> **Access:** Plan for roughly **10 hours** of preparation. You need no special hardware and no paid account — a laptop with a browser is enough. Wokwi may require a free account to save or share a simulation; if you cannot use it, contact the instructor through the LMS before your first checkpoint so an agreed alternative evidence (for example a hand-drawn circuit plus explanation) can be used.
 
 > [!NOTE]
 > This is the first time we run this, so please keep your eyes open. The main class is still in flux and may even change based on what you experience here. Take notes as you go: anything that felt strange, tasks that seem unnecessary for the main class, or anything you found missing. Please share those notes with me — they directly shape the class.

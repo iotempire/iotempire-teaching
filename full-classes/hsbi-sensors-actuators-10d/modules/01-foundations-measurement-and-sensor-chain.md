@@ -171,7 +171,7 @@ Pair with a **neighbouring pod**:
 
 > **Optional RC-filter parts (for the optional subtasks):** 1× 1 µF and 1× 10 µF film/ceramic capacitors (if electrolytic, observe polarity), 1× 100 nF, 1× 100 µF (electrolytic is fine; observe polarity), 1× 100 kΩ, and **4× 10 kΩ resistors in total for the high-pass experiment** (two more than the core kit); the low-pass can reuse one. A second GPIO (for a clean square wave) or a button (for a manual step) can serve as the signal source.
 
-> **Suggested pacing (4 h):** opening/pods ~45–60 min → Task 1 ~40 min (or a quick skip check) → Task 2 ~25 min → Task 3 ~35 min → Tasks 4–5 ~45 min → chain/evidence ~20 min. If time runs short, carry Task 4–5 into portfolio time; the optional subtasks are stretch.
+> **Suggested pacing (4 h):** opening/pods ~45–60 min → Task 1 ~40 min (or a quick skip check) → Task 2 ~25 min → Task 3 ~35 min → Tasks 4–5 ~45 min → chain/evidence ~20 min. If time runs short, carry Task 4–5 into self-study/portfolio time — that is expected, not a failure; the optional subtasks are stretch.
 
 > **Board note:** the ADC and breadboard tasks are easiest on a raw ESP32/ESP8266 DevKit. On a M5Stack, use the Grove/breakout pins and check which ones are ADC-capable; the logic is the same. Always check your board's pinout before wiring.
 

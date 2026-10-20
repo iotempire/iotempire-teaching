@@ -82,16 +82,38 @@ By the end of this course, you will be able to (mapped to the module-handbook co
 
 ## Course Load & Credits
 
-- Format: 10 working days / 12 sessions (4 hours each) across the semester; 48 contact hours.
+- Format: 10 working days / 12 sessions (4 hours each) across the semester; **48 contact hours**.
 - Target Audience: Bachelor students in *Digitale Technologien* (6th semester, Campus Gütersloh).
-- Module Number: 3350 (*Sensorik und Aktorik*), 5 ECTS.
-- Total Workload: 150 hours.
-  - In-person lab and seminar contact: 48 hours.
-  - Independent preparation and pre-study (Module 0): the compulsory core is a few hours; the syllabus allocates room for deeper preparation.
-  - Guided self-study, portfolio documentation, and final project: the remaining balance.
+- Module Number: 3350 (*Sensorik und Aktorik*), **5 ECTS**.
+- Total Workload: **150 hours**.
+  - In-person lab and seminar contact: **48 hours**.
+  - Module 0 preparation: plan for about **10 hours** (the compulsory core is a few hours; a deep dive can grow toward 40 hours).
+  - Self-study, portfolio documentation, reflection, and final project: the remaining **~60–90 hours**, depending on how much preparation you bring.
+- **Weekly rhythm:** outside the studio, plan for **at least 6 hours per week** — roughly 2–3 hours right after each session to finish and document the lab, 2 hours of reading/datasheet/AI verification, and 2–3 hours of portfolio, reflection, or project work.
 
 > [!NOTE]
-> **Where the 150 hours come from.** The module handbook specifies 150 h (5 ECTS). The delivered format is 12 four-hour sessions plus portfolio work, characterization, and the final project. Treat the session count as fixed (12) and the *hours per session* as ~4.
+> **Where the 150 hours come from.** 5 ECTS means a 150-hour workload. The 48 in-person hours are the studio — the place where we start, discuss, debug, and demo. The rest is deliberate self-study: finishing labs, reading datasheets, verifying AI suggestions, writing portfolio evidence and reflections, and building the final project. That is roughly **6–9 hours per week** across the semester. It is normal for a 5-ECTS course, not a sign that you are behind.
+
+### Self-study, homework, and when tasks run longer
+
+**The tasks are studio starters, not a race.** Some tasks will take longer than the session — especially the first time you wire a new sensor, read a register map, or calibrate a measurement. That is expected. Finish the work in self-study, and bring the specific blocker to the next session or to the LMS/community channel. The learning goals are the contract; the task list is a guide.
+
+A practical weekly rhythm:
+
+| When | What to do | Time |
+|---|---|---|
+| Right after the studio | Finish the wiring/code, take photos, save logs, and commit the first evidence | 2–3 h |
+| Before the next session | Read the next datasheet/section, answer the study-log prompts, and verify one AI answer against the hardware | ~2 h |
+| Once per week | One deeper piece: an optional subtask, a stretcher, a better characterization, or project work | 2–3 h |
+
+> [!NOTE]
+> **Reflection ritual — outside the 4-hour studio.** Reserve about **10 minutes after the meeting** — right after class, in the evening, or first thing next morning — for your reflection log. It does **not** need to happen inside the 4-hour session. Writing a little later, in a different associative state, often helps the learning settle. These entries are what earn the reflection points.
+
+- **If you finish early:** deepen the work — choose a stretcher, repeat a measurement with better conditions, or try an optional filter experiment. Share what you learned.
+- **If you run out of time:** carry the task into self-study, document where you stopped, and ask a precise question next time. An honest, documented partial result is much better than a rushed “done”.
+- **Keep a parking lot:** note questions, surprising observations, and ideas for a deeper dive. These become excellent portfolio and reflection material — and often the best project ideas.
+
+Self-study is also where the course becomes yours: follow a datasheet further than the task asks, test a different filter, improve a calibration, or start shaping your final-project story.
 
 ### Prerequisites & Relationship to Other Modules
 

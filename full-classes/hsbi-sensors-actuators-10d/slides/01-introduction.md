@@ -52,12 +52,13 @@
 
 # Class logistics & assessment (short version)
 
-- Usually **no dedicated homework** — but finish lab work, module tasks, portfolio, and reflections
+- **No separate exercise sheets — but expect at least ~6 hours/week of self-study** to finish labs, portfolio, reflections, and project work
 - **10 working days / 12 four-hour sessions (48 contact hours)**, plus optional tutorial support announced via the LMS
 - **You work in small Task Pods — pairs by default** (a third podmate only by arrangement). For the **final project, two pods merge into a Project Team (4–6)**.
 - In-class exercises are initially **individual**
 - **Ongoing feedback** in the lab — talk to us!
 - Final assessment: **module points + final project + reflections** (+ bonuses), with your **portfolio** as the record
+- **~10 minutes of reflection after each meeting — evening or next morning, not during the 4-hour studio**
 - **Checkpoints** are short portfolio conversations (10–12 minutes), not task-completion audits
 - The details live in the **syllabus** — next slide
 
