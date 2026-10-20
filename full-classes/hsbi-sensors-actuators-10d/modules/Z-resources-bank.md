@@ -211,7 +211,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 
 **Before the first studio.** Check the kit: label every Grove module with its I²C address, keep one known-good jumper wire and one known-good sensor as a reference, and test the Mosquitto broker (and optional Node-RED) on its host before students arrive. A USB power meter saves many “why does it reset?” conversations.
 
-**Pods and checkpoints.** Form Task Pods of two or three on Day 1 (three is the default for a large cohort). The checkpoint schedule, the 2-pod practice round, and the video alternative are defined in the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations); run the slots from there. Assess from the portfolio, not from task completion, and keep the checkpoint a short conversation rather than a presentation rehearsal.
+**Pods and checkpoints.** Form Task Pods of two on Day 1 (pairs by default; a third only by arrangement). The checkpoint schedule, the 2-pod practice round, and the video alternative are defined in the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations); run the slots from there. Assess from the portfolio, not from task completion, and keep the checkpoint a short conversation rather than a presentation rehearsal.
 
 **Studio rhythm.** A good 4-hour session is roughly: 15 min opening/warm-up, 45–60 min pod study (concepts, pointers, LLM Q&A, study log), 10–15 min share with a neighbouring pod, a short whole-room clarification, then the lab with the remaining time for debugging and evidence. Resist the urge to lecture the concept a second time; let the pod study surface the gaps.
 

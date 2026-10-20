@@ -54,7 +54,7 @@
 
 - Usually **no dedicated homework** — but finish lab work, module tasks, portfolio, and reflections
 - **10 working days / 12 four-hour sessions (48 contact hours)**, plus optional tutorial support announced via the LMS
-- **You work in small Task Pods** — two or three (three by default; a few pairs; four only by arrangement). For the **final project, two pods merge into a Project Team (4–6)**.
+- **You work in small Task Pods — pairs by default** (a third podmate only by arrangement). For the **final project, two pods merge into a Project Team (4–6)**.
 - In-class exercises are initially **individual**
 - **Ongoing feedback** in the lab — talk to us!
 - Final assessment: **module points + final project + reflections** (+ bonuses), with your **portfolio** as the record
@@ -112,8 +112,8 @@ Central entry point: **the course repository**.
 # Form your Task Pod — who do you build with?
 
 1. On a note, write **your skills** (languages, tools, hardware, design, …) and **your expectations / what you want to build**.
-2. No pod yet? Find **two other unpaired people**, compare notes, and check whether you **complement** each other — not just “same as me”.
-3. **You will work in a Task Pod — two or three (three by default)** (a few pairs). Exchange contacts and a first idea today.
+2. No pod yet? Find **one other unpaired person**; a third podmate is only by arrangement. Compare notes and check whether you **complement** each other — not just “same as me”.
+3. **You will work in a Task Pod — pair by default** (a third podmate only by arrangement). Exchange contacts and a first idea today.
 4. Very optional (more chances later — even to change your initial pod): pair your pod with a **neighbouring pod** for a **2-pod practice round** — present your learning-goal proof and give each other free-style feedback.
 5. For the **final project, two pods merge into a Project Team of 4–6** — your neighbouring pod is the natural partner.
 
@@ -285,7 +285,7 @@ Examples from the pre-study: liquid measurement in a forest · people counter ·
 - Relays and motors need a **driver/module** and often their **own supply**.
 - In this lab: **low-voltage loads only — never switch mains.**
 
-**Kit for today:** board, USB cable, breadboard, jumper wires, LED + 220–330 Ω resistor, button, 10 kΩ resistor (or internal pull-up), 100 nF capacitor (optional), potentiometer, LDR, multimeter.
+**Kit for today:** board, USB cable, breadboard, jumper wires, LED + 220–330 Ω resistor, button, 10 kΩ resistor (or internal pull-up), 100 nF capacitor (optional), potentiometer, LDR.
 
 ---
 

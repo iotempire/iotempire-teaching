@@ -43,10 +43,10 @@ Before reading on, answer these in one sentence each:
 
 ### ★ Task 0: Form your Task Pod — who do you build with?
 
-You will do the labs and checkpoints in a **Task Pod** of two or three (three by default for a large cohort; pairs are welcome). For the final project, two pods merge into a **Project Team** of 4–6.
+You will do the labs and checkpoints in a **Task Pod** of **two** (pairs by default; a third podmate only by arrangement). For the final project, two pods merge into a **Project Team** of 4–6.
 
 1. On a note, write down **your skills** (languages, tools, hardware, design, …) and **your expectations / what you want to build**.
-2. No pod yet? Find **two other unpaired people**, compare notes, and check whether you **complement** each other — not merely whether you are alike.
+2. No pod yet? Find **one other unpaired person**; a third podmate is only by arrangement. Compare notes and check whether you **complement** each other — not merely whether you are alike.
 3. Exchange contacts and a first idea today. If you already have a pod, share your notes so the room knows who can help with what.
 4. Agree on how you will keep in touch and how you will split roles (who drives, who documents, who asks the next question).
 

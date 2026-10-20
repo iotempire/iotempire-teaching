@@ -135,9 +135,9 @@ You do not submit and grade every task. Instead, you earn a module's points in a
 
 Dates and slots are confirmed through the LMS.
 
-**Task Pods, and how checkpoints scale.** We work in **Task Pods** — small crews of **two or three** (three by default for a large cohort, roughly >40 students; a few **two-person pods** are welcome precisely because they reduce the instructor's checkpoint load; a fourth podmate is only by arrangement). The point is *small*, not rigid.
+**Task Pods, and how checkpoints scale.** We work in **Task Pods** — small crews of **two** (pairs by default; a **third podmate only by arrangement**). Pairs keep the checkpoint load manageable and give both partners a full share of the hands-on work. The point is *small*, not rigid.
 
-> **Why “Task Pod”?** In container orchestration (Kubernetes), a **pod** is the *smallest deployable unit* — one or a few tightly-coupled containers that are scheduled, run, and retired together. A **Task Pod** is the same idea for people: your tight little crew of two or three that owns one task end-to-end. Your **Project Team** is the larger unit — the alliance of two pods that ships the whole system.
+> **Why “Task Pod”?** In container orchestration (Kubernetes), a **pod** is the *smallest deployable unit* — one or a few tightly-coupled containers that are scheduled, run, and retired together. A **Task Pod** is the same idea for people: your tight little crew of **two** (occasionally three by arrangement) that owns one task end-to-end. Your **Project Team** is the larger unit — the alliance of two pods that ships the whole system.
 
 **These Task Pods are for the labs and checkpoints; the final project merges two pods into a Project Team of 4–6** (see [Final Project Requirements](#final-project-requirements-5-points)).
 
@@ -237,7 +237,7 @@ The 10 days correspond to the 12 four-hour sessions across the semester. Modules
 <a id="final-project-requirements-5-points"></a>
 ## Final Project Requirements (5 Points)
 
-The final project is a sensor/actuator system built by **Project Teams of 4–6 students** — the project merges two Task Pods from Modules 1–8, so you keep your pod and gain one or two more. Project Teams form and pitch a stakeholder story during the project kickoff (Module 9), then map their requirements onto the criteria below. A Project Team may, by agreement with the instructor, continue an earlier project of their own instead of starting fresh — this is a possibility, not a requirement; the default is a self-contained sensor/actuator project.
+The final project is a sensor/actuator system built by **Project Teams of 4–6 students** — the project merges two Task Pods from Modules 1–8, so you keep your pod and gain two or three more members (4–6 total). Project Teams form and pitch a stakeholder story during the project kickoff (Module 9), then map their requirements onto the criteria below. A Project Team may, by agreement with the instructor, continue an earlier project of their own instead of starting fresh — this is a possibility, not a requirement; the default is a self-contained sensor/actuator project.
 
 ### Must-Have System Criteria:
 
