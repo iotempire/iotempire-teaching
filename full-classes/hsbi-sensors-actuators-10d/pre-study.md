@@ -14,14 +14,14 @@ See the [syllabus](./syllabus.md) for the complete course schedule and policies.
 > **Canonical source:** [IoTempire Teaching repository — HSBI/GT Sensors and Actuators](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-sensors-actuators-10d)
 
 > [!NOTE]
-> **Language:** This course is taught in English and German; the written materials are in English. You may freely use German, English, or a mixture in class and in your portfolio documentation.
->
-> **Für deutschsprachige Studierende:** Diese Lehrveranstaltung wird auf Englisch und Deutsch unterrichtet; die gemeinsamen Materialien bleiben auf Englisch. Sie können im Unterricht und für Ihr Portfolio Deutsch, Englisch oder eine Mischung aus beidem verwenden.
+> **Language:** The written materials are in English. For the full language arrangement (spoken German/English, portfolio language), see the [syllabus](./syllabus.md#language-communication--course-material).
 
 > [!IMPORTANT]
-> **Required Module 0 — 1 Module Point:** Before the first session, create your personal portfolio from the [course Git template](https://github.com/iotempire/iot-portfolio-template) and add a first pre-study entry. Include notes responding to Guiding Questions 1–8 and evidence from the Wokwi mini-exercise below. Module 0 is assessed during the second session.
+> **Required Module 0 — 1 Module Point:** Before the first session, create your personal portfolio from the [course Git template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”** (not “Fork”) and add a first pre-study entry. Include notes responding to Guiding Questions 1–8 and evidence from the Wokwi mini-exercise below. Module 0 is checked in your first checkpoint (or during the first studio, by agreement with the instructor).
 >
-> **Preparation time and access:** Plan approximately 3 to 6 hours for the required core. You need no special hardware and no paid account — a laptop with a browser is enough. Wokwi may require a free account to save or share a simulation; if you cannot use it, contact the instructor through the LMS before the second session so an agreed alternative evidence (for example a hand-drawn circuit plus explanation) can be used.
+> **If your cohort needs more setup time**, Module 0 can be run as the first in-class module instead — same evidence, same 1 point.
+>
+> **Access:** Plan a focused preparation session. You need no special hardware and no paid account — a laptop with a browser is enough. Wokwi may require a free account to save or share a simulation; if you cannot use it, contact the instructor through the LMS before your first checkpoint so an agreed alternative evidence (for example a hand-drawn circuit plus explanation) can be used.
 
 > [!NOTE]
 > This is the first time we run this, so please keep your eyes open. The main class is still in flux and may even change based on what you experience here. Take notes as you go: anything that felt strange, tasks that seem unnecessary for the main class, or anything you found missing. Please share those notes with me — they directly shape the class.
@@ -62,7 +62,7 @@ Key ideas to internalize early:
 - Every number carries uncertainty. Resolution, accuracy, noise, and calibration all limit what you may claim. "23.4 °C" is a statement with conditions and an uncertainty attached.
 - Actuators are also physical. A motor needs current and a driver; a single LED needs a current-limiting resistor; an addressable LED strip (WS2812/NeoPixel) needs a power budget — dozens of LEDs at full white draw far more current than any logic pin can supply. Logic pins command; they do not power.
 
-## 2. Required Mini-Exercise: Wokwi Simulation (60–90 min)
+## 2. Required Mini-Exercise: Wokwi Simulation
 
 Wokwi is a browser-based ESP32/Arduino simulator. It lets you practice the signal chain before the hardware kit arrives and see the difference between a *value* and a *measurement*.
 
@@ -80,7 +80,7 @@ Wokwi is a browser-based ESP32/Arduino simulator. It lets you practice the signa
 
 The simulation is for program flow and logic. Real hardware adds everything this course is about: board pin labels, voltage limits, loose wires, noise, offset, self-heating, and current draw. Simulation never replaces the multimeter.
 
-## 3. Read Like a Sensor Engineer (45–60 min)
+## 3. Read Like a Sensor Engineer
 
 Now practice on real datasheets — the reference you will actually use. Google the datasheet for the VL53L0X ToF distance sensor and for the MPR121 capacitive touch sensor, and answer the same questions about both.
 
@@ -93,7 +93,7 @@ For each sensor, find and note:
 
 > **Tip:** The datasheet is a measurement document, not marketing. Look for the conditions attached to every performance number.
 
-## 4. Measurement and Uncertainty Basics (45–60 min)
+## 4. Measurement and Uncertainty Basics
 
 Look up and be able to explain, in your own words and with one concrete example from our kit:
 
@@ -103,7 +103,7 @@ Look up and be able to explain, in your own words and with one concrete example 
 - Systematic vs. random error — which one does calibration address? Which one does averaging address?
 - Sampling and quantization — what does the Nyquist condition require, and what does quantization error do to a small signal?
 
-## 5. Actuators Primer (30–45 min)
+## 5. Actuators Primer
 
 Look up short answers for:
 
@@ -113,7 +113,7 @@ Look up short answers for:
 - Motors: what is the difference between a servo, a brushed DC motor, and a stepper — in terms of what they are good at, and what electronics they need?
 - Isolation and drivers: why do motors and relays need a driver (transistor/H-bridge/driver IC) rather than a direct GPIO connection?
 
-## 6. Prepare Your Project Idea (30 min)
+## 6. Prepare Your Project Idea
 
 Your final project is a documented sensor/actuator system. You do not have to fix it now, but start thinking. Write a short abstract (5–10 lines) in your portfolio describing:
 
@@ -139,7 +139,7 @@ Answer these in your portfolio under `pre-study/README.md` (or `00-pre-study.md`
 ## Ready for Day 1? Checklist
 
 Before walking into the first lab session:
-- [ ] You have created your personal GitHub portfolio from [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template).
+- [ ] You have created your personal GitHub portfolio from [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”**, and added the instructor as a collaborator. See the [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) for the step-by-step.
 - [ ] You have committed your pre-study notes, answers to the 8 guiding questions, your Wokwi screenshot(s), and your project abstract.
 - [ ] You have your laptop ready with Arduino IDE v2 or PlatformIO installed (and, optionally, Wokwi and `i2c-tools`).
 - [ ] You are ready to receive your sensor/actuator kit and to work with the course's local broker/gateway setup (Mosquitto + Node-RED).

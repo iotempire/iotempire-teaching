@@ -5,9 +5,9 @@
 > [!NOTE]
 > Mostly conceptual — industrial hardware is usually unavailable. We normally do not have industrial gear (PLCs, Modbus meters, OPC-UA servers) in the lab, so this module is primarily a conceptual tour. Hands-on work is optional and mostly simulated; real RS-485 devices (if we have any) are the closest genuine Modbus experience. Learn what these protocols *are* and how they would bridge into IoT — you are not expected to own a factory.
 
-## 🎯 Learning Goals
+**Course placement:** Day 6 — the industrial-interoperability studio. Mostly conceptual; the bridge lab is optional and simulated.
 
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+## 🎯 Learning Goals
 
 This module gives you the opportunity to explore industrial interoperability and achieve competency in the concepts of Modbus, OPC-UA, RS-485, and deterministic/real-time networking, plus (optionally) a simulated bridge into MQTT.
 
@@ -17,12 +17,18 @@ By the end of this module, you can:
 3. Contrast the register/tag-based industrial paradigm with the topic-based pub/sub model of modern IoT.
 4. *(Optional)* Build a simulated Industrial-to-IoT Edge Bridge in Python or Node-RED that translates Modbus/OPC-UA into MQTT telemetry.
 
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
-## 📖 Industrial Communication vs. Modern IoT
+## 📖 Story — The Meter That Speaks 1979
+
+**Brinkmann Maschinenbau GmbH** has a working test rig and a problem that will be familiar to anyone who has walked into a factory: the energy meter on the rig speaks Modbus RTU over RS-485, the PLC speaks Modbus TCP, the company's new monitoring platform speaks MQTT with JSON, and nobody wants to touch the certified PLC code.
+
+Automation engineer **Sofia Roth** needs a non-invasive bridge: read the meter's registers, map them to meaningful names and units, and publish them into the local IoT fabric without changing the machine. She also needs to explain why a microsecond-precise motion loop cannot run over ordinary Wi-Fi. Today you learn the industrial vocabulary — Modbus, OPC-UA, RS-485, TSN — and build a simulated bridge that translates a register world into a topic world.
+
+## 📖 Pod Study: Industrial Communication vs. Modern IoT
+
+This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
 
 ### 1. The Legacy Factory Floor: Modbus (RTU & TCP)
 Developed in 1979 by Modicon, Modbus is still the most ubiquitous protocol in industrial sensors, PLCs, solar inverters, and power meters:
@@ -58,17 +64,62 @@ Standard Ethernet and Wi-Fi are best-effort: CSMA/CD and CSMA/CA allow collision
 [OpenWrt Broker / Node-RED / IoTempower Dashboard]
 ```
 
-## 🛠️ Optional Lab: Bridging Industry to the Cloud (simulated)
+### Pointers (start here, then keep looking)
+
+- Modbus — [Modbus Organization](https://modbus.org/), [Wikipedia: Modbus](https://en.wikipedia.org/wiki/Modbus)
+- OPC-UA — [OPC Foundation](https://opcfoundation.org/about/opc-technologies/opc-ua/), [open62541](https://www.open62541.org/)
+- RS-485 — [Wikipedia: RS-485](https://en.wikipedia.org/wiki/RS-485)
+- TSN — [IEEE 802.1 Time-Sensitive Networking](https://en.wikipedia.org/wiki/Time-Sensitive_Networking)
+- Python bridges — [pymodbus](https://pymodbus.readthedocs.io/), [asyncua](https://github.com/FreeOpcUa/opcua-asyncio)
+- The [resource bank's OPC-UA and Modbus quick references](./Z-resources-bank.md#opc-ua-quick-nodes-optional)
+
+### Questions to ask an LLM (then verify against a simulator)
+
+Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
+
+- "Explain Modbus RTU vs. Modbus TCP: physical layer, framing, addressing, and the role of the CRC."
+- "Contrast a Modbus holding register with an OPC-UA variable node and an MQTT topic. What is lost and gained in each translation?"
+- "Why is standard Ethernet non-deterministic, and what does TSN change for a motion-control loop?"
+- "Design a read-only Modbus-to-MQTT bridge for a power meter. How do I handle polling, timeouts, scaling, and units?"
+- "A factory forbids changes to its PLC code. How can an external edge bridge still provide monitoring without touching the PLC?"
+
+> Run each prompt against a simulator, and record where the model is wrong, vague, or over-confident.
+
+### ★ Task A: Study in your pod
+
+Work through the concepts above with your Task Pod and fill in `module-06/study-log.md`:
+
+1. **The references you used** — the source and the one concept you understood best from it.
+2. **Things you googled** — the term, what you found, and the source (URL). One line each.
+3. **Remarkable things** — surprises, "aha"s, and counterexamples from the industrial world.
+4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
+5. **Your two best found protocol/architecture diagrams** — compile down to the best two, with source and what they taught you.
+
+*Portfolio evidence:* `module-06/study-log.md`.
+
+### ★ Task B: Explain & share with another pod
+
+Pair with a **neighbouring pod**:
+
+1. **Explain to each other** — each pod walks the other through its protocol-translation matrix and its bridge design; ask questions and fill each other's gaps.
+2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"a register is not a variable; the bridge supplies the semantics"*).
+3. **Clean up your documentation** — update your `study-log.md` with what you learned from the other pod.
+4. Agree on **one shared artefact** — the best translation matrix, a bridge diagram, or a simulated capture the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
+5. Each member adds a short **“Agreed learning (pod discussion)”** section to *their own* `study-log.md`.
+
+*Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section) and your pod-pair's shared artefact.
+
+## 🛠️ Optional Lab: Bridging Industry to the Cloud (simulated) — **Challenging (optional lab)**
 
 *No tedious C++ compilation on microcontrollers — and no industrial hardware required.* These are stretcher tasks: we implement clean, educational edge bridging on the gateway/laptop using Python and Node-RED, mostly against simulated Modbus/OPC-UA servers. If you have a real RS-485 device (for example a Modbus RTU meter) and a USB-RS485 adapter, that is the closest genuine experience and makes a great bonus task.
 
-### ◇ Task 1 (Stretcher): Simulating an Industrial Modbus Power Meter (20 min)
+### ◇ Task 1 (Stretcher): Simulating an Industrial Modbus Power Meter
 
-1. On your laptop or gateway, install `pymodbus`:
+1. In your `uv` environment (see the [resource bank](./Z-resources-bank.md#python-environment-with-uv-optional)), add `pymodbus`:
    ```bash
-   pip3 install pymodbus
+   uv add pymodbus
    ```
-2. Run a simulated Modbus TCP server (`industrial_meter.py`):
+2. Run a simulated Modbus TCP server (`industrial_meter.py`) with `uv run python industrial_meter.py`:
    ```python
    from pymodbus.server import StartTcpServer
    from pymodbus.datastore import ModbusSequentialDataBlock, ModbusSlaveContext, ModbusServerContext
@@ -92,7 +143,7 @@ Standard Ethernet and Wi-Fi are best-effort: CSMA/CD and CSMA/CA allow collision
    ```
 3. Read the registers using a quick client script or CLI to verify voltage, current, and power.
 
-### ◇ Task 2 (Stretcher): Building the Modbus-to-MQTT Bridge in Python (35 min)
+### ◇ Task 2 (Stretcher): Building the Modbus-to-MQTT Bridge in Python
 
 Now write an edge bridging service that polls the Modbus registers, maps them to human-readable JSON, and publishes them into the MQTT bus:
 
@@ -129,7 +180,7 @@ while True:
 
 Run the bridge and verify in Node-RED or MQTT Explorer that the industrial registers now appear as real-time MQTT streams!
 
-### ◇ Task 3 (Stretcher): OPC-UA Integration in Node-RED (35 min)
+### ◇ Task 3 (Stretcher): OPC-UA Integration in Node-RED
 *Alternatively or in addition, explore OPC-UA:*
 
 1. In Node-RED, install the OPC-UA palette: `node-red-contrib-opcua`.
@@ -139,9 +190,9 @@ Run the bridge and verify in Node-RED or MQTT Explorer that the industrial regis
 4. Create an inject/read node in Node-RED that subscribes to variable changes and outputs them to the Node-RED UI dashboard.
 5. Create a reverse flow: A button on the Node-RED dashboard writes a setpoint value into an OPC-UA Variable Node!
 
-## 📝 Working-Day Reflection & Portfolio Tasks
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-In your portfolio under `modules/06-industrial-protocols/`:
+Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-06/`.)
 1. Protocol Translation Matrix *(recommended)*: Compare Modbus TCP, OPC-UA, and MQTT:
    - Data model (registers vs. objects/tags vs. topic payloads)
    - Read/Write model (polling vs. events/pub-sub)
@@ -150,3 +201,22 @@ In your portfolio under `modules/06-industrial-protocols/`:
 2. Real-Time Reflection *(recommended)*: Why cannot standard Wi-Fi or standard TCP/IP be used for microsecond-precise motion control in a factory, and how does TSN address this?
 3. *(Optional)* Bridge Architecture & Code: Include your bridge script and a diagram showing how the edge gateway bridges the factory domain to the IT/IoT domain.
 4. *(Optional, bonus)* Real RS-485/Modbus: If you have an RS-485 device, document reading it (physical layer, wiring, adapter, registers) and bridging it to MQTT.
+
+### Reflection logbook
+
+Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
+
+> [!IMPORTANT]
+> Never commit secrets, credentials, private keys, or plant data. Where you did not work entirely alone, link your pod mates and sources.
+
+## 📚 If you want to go deeper
+
+- [Modbus Organization](https://modbus.org/) and [Wikipedia: Modbus](https://en.wikipedia.org/wiki/Modbus) — the register model and framing.
+- [OPC Foundation: OPC-UA](https://opcfoundation.org/about/opc-technologies/opc-ua/) — the information model and security.
+- [Wikipedia: RS-485](https://en.wikipedia.org/wiki/RS-485) — the physical layer behind Modbus RTU.
+- [Time-Sensitive Networking](https://en.wikipedia.org/wiki/Time-Sensitive_Networking) — why factory control needs bounded latency.
+- [pymodbus](https://pymodbus.readthedocs.io/) and [asyncua](https://github.com/FreeOpcUa/opcua-asyncio) — the Python bridges.
+
+---
+
+[← Previous: Module 5](./05-wireless-technologies-and-espnow.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 7 — Fleet Management & IoTempower →](./07-fleet-management-and-iotempower.md)

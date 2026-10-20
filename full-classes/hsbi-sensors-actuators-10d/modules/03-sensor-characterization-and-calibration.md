@@ -4,9 +4,9 @@
 
 > A number without a transfer function and an uncertainty is not a measurement. Today you turn raw readings into characterized, calibrated, trustworthy values.
 
-## 🎯 Learning Goals
+**Course placement:** Day 3 — the characterization studio. You turn raw readings into characterized, calibrated values.
 
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+## 🎯 Learning Goals
 
 This module gives you the opportunity to explore sensor metrology and data quality and achieve competency in transfer functions, linearity and hysteresis, calibration, filtering, and uncertainty.
 
@@ -17,12 +17,20 @@ By the end of this module, you can:
 4. Quantify noise and improve data quality with filtering, understanding the latency trade-off.
 5. State a simple uncertainty budget for a measured value.
 
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
-## 📖 Part A — Static Characteristics
+## 📖 Story — The Frost Alarm That Cried Wolf
+
+**Klimapark GmbH** runs a greenhouse on the edge of Gütersloh. Agronomist **Dr. Elif Kaya** wants a frost alarm: when the air temperature near the seedlings drops below 2 °C, a fan and a heater should switch on. The first NTC prototype works in the lab, but in the greenhouse it reads 2.8 °C when the reference thermometer says 1.6 °C — and the error changes with the season.
+
+Elif does not need a prettier plot. She needs a number she can act on: *"How wrong is this reading, and can I trust it at the threshold?"* That is a characterization and calibration question. Today you build the transfer function, calibrate, validate, and state the uncertainty — for a sensor you can hold.
+
+## 📖 Pod Study: From Raw Reading to Trustworthy Value
+
+This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+
+### Static Characteristics
 
 The transfer function maps the physical input `x` to the sensor output `y`. For a well-behaved sensor it is often approximately linear:
 
@@ -42,7 +50,7 @@ y = gain · x + offset        (idealized)
 | Dead band | A range of inputs with no output change. |
 | Drift | Slow change of output over time or with temperature. |
 
-## 📖 Part B — Dynamic Characteristics
+### Dynamic Characteristics
 
 Sensors and their conditioning do not respond instantly:
 
@@ -52,7 +60,7 @@ Sensors and their conditioning do not respond instantly:
 
 A simple practical consequence: if you sample a temperature every 100 ms but the sensor's time constant is 15 s, you are recording noise, not information.
 
-## 📖 Part C — Calibration and Uncertainty
+### Calibration and Uncertainty
 
 Calibration compares your device under test (DUT) against a reference of known, better quality:
 
@@ -70,7 +78,7 @@ u_c = sqrt( u_ref² + u_res² + u_repeat² + u_noise² + ... )
 
 Report the expanded uncertainty `U = k · u_c` (often `k = 2`, i.e. ~95 %). You do not need a full metrology treatment; you do need honest error bars.
 
-## 📖 Part D — Data Quality and Filtering
+### Data Quality and Filtering
 
 Noise comes from the sensor, the wiring, the ADC, and the environment. Practical tools:
 
@@ -83,11 +91,55 @@ Noise comes from the sensor, the wiring, the ADC, and the environment. Practical
 > [!TIP]
 > IoTempower has built-in filters (`average`, `median`, smoothing, mapping). You can move processing out of your sketch and declare it instead — try this as a stretcher task.
 
-## 🛠️ In-Class Lab: Characterize, Calibrate, Trust
+### Pointers (start here, then keep looking)
+
+- NTC thermistors — [Wikipedia: Thermistor](https://en.wikipedia.org/wiki/Thermistor), the Beta equation and Steinhart–Hart model
+- Calibration and uncertainty — [Wikipedia: Calibration](https://en.wikipedia.org/wiki/Calibration), [Measurement uncertainty](https://en.wikipedia.org/wiki/Measurement_uncertainty), and the [GUM](https://www.bipm.org/en/publications/guides/gum.html)
+- Filtering — [Moving average](https://en.wikipedia.org/wiki/Moving_average), [Median filter](https://en.wikipedia.org/wiki/Median_filter), [Exponential smoothing](https://en.wikipedia.org/wiki/Exponential_smoothing)
+- Declarative filters — [IoTempower documentation](https://github.com/iotempire/iotempower)
+- Your sensor datasheets — linked from the [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once)
+
+### Questions to ask an LLM (then verify against your measurements)
+
+Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
+
+- "Explain a sensor transfer function, offset, sensitivity, span, linearity, hysteresis, and repeatability with one concrete example each. How do I measure each of these in a student lab?"
+- "My NTC divider gives a raw ADC code. Walk me through converting it to resistance and then to temperature with the Beta equation, and show me where the largest error comes from."
+- "I have six reference points. How do I fit an offset and gain correction, and how do I validate it at a seventh point?"
+- "Compare a moving average, a median filter, and an exponential moving average for a noisy temperature signal. Give the latency and the failure mode of each."
+- "How do I write an honest uncertainty budget for a temperature measurement with a multimeter reference, a 12-bit ADC, and a noisy NTC?"
+
+> Run each prompt against your own measurements, and record where the model is wrong, vague, or over-confident.
+
+### ★ Task A: Study in your pod
+
+Work through the concepts above with your Task Pod and fill in `module-03/study-log.md`:
+
+1. **The references you used** — the source and the one concept you understood best from it.
+2. **Things you googled** — the term, what you found, and the source (URL). One line each.
+3. **Remarkable things** — surprises, "aha"s, and counterexamples from your own data.
+4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
+5. **Your two best found characterization examples** — compile down to the best two, with source and what they taught you.
+
+*Portfolio evidence:* `module-03/study-log.md`.
+
+### ★ Task B: Explain & share with another pod
+
+Pair with a **neighbouring pod**:
+
+1. **Explain to each other** — each pod walks the other through its transfer-function plot and its uncertainty statement; ask questions and fill each other's gaps.
+2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"a calibration without a validation point is a hope"*).
+3. **Clean up your documentation** — update your `study-log.md` with what you learned from the other pod.
+4. Agree on **one shared artefact** — the best plot, calibration table, or a new uncertainty sketch the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
+5. Each member adds a short **“Agreed learning (pod discussion)”** section to *their own* `study-log.md`.
+
+*Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section) and your pod-pair's shared artefact.
+
+## 🛠️ In-Class Lab: Characterize, Calibrate, Trust — **Challenging**
 
 *Hardware:* 1× ESP32/ESP8266 + breadboard, 1× NTC 10 kΩ (or LDR), resistors for the divider, reference thermometer (or lux meter/phone), multimeter.
 
-### ★ Task 1: Determine a Transfer Function (50 min)
+### ★ Task 1: Determine a Transfer Function
 
 1. Wire the NTC as a voltage divider (a fixed resistor in series) into an analog input. Measure the divider output:
    ```text
@@ -99,35 +151,54 @@ Noise comes from the sensor, the wiring, the ADC, and the environment. Practical
 
 > No NTC? Do the same with an LDR and a phone lux meter (or a fixed light source at different distances), and characterize light instead of temperature.
 
-### ★ Task 2: Two-Point Calibration and Validation (30 min)
+### ★ Task 2: Two-Point Calibration and Validation
 
 1. From Task 1, fit an offset and gain correction using two reference points spread across the range.
 2. Apply it and re-measure a third, independent point.
 3. Compare: how large was the error before and after calibration? Did validation pass?
 
-### ★ Task 3: Hysteresis and Repeatability (25 min)
+### ★ Task 3: Hysteresis and Repeatability
 
 1. Sweep the input up and then down slowly, logging both directions. Overlay the two curves; measure the maximum vertical gap at the same input — that is your hysteresis.
 2. Repeat the same measurement three times and report the spread — that is your repeatability.
 
-### ★ Task 4: Noise and Filtering (30 min)
+### ★ Task 4: Noise and Filtering
 
 1. Hold the sensor at a constant input and log 500 raw samples. Compute the mean and the standard deviation — that is your noise floor.
 2. Apply a 5-sample moving average and a 5-sample median to the same data. Recompute the standard deviation.
 3. Introduce a deliberate spike (tap/light change) and compare how the two filters react.
 4. Measure the latency each filter adds on a step change. State the trade-off in one sentence.
 
-### ◇ Task 5 (Stretcher): Uncertainty and Declarative Filtering (25 min)
+### ◇ Task 5 (Stretcher): Uncertainty and Declarative Filtering
 
 1. Write a small uncertainty budget for your measurement (reference, resolution, repeatability, noise, drift). Report `y ± U` with a reasonable `k`.
 2. Move your smoothing into IoTempower: declare an average/median filter on the device and compare its behavior with your software filter.
 
-## 📝 Working-Day Reflection & Portfolio Tasks
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-In your portfolio under `modules/03-characterization/`:
+Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-03/`.)
 1. Transfer-function plot with your fitted offset/gain and the residuals (deviation from the reference).
 2. Calibration table: before/after error at the validation point.
 3. Hysteresis/repeatability numbers with the up/down curves.
 4. Noise table: standard deviation raw vs. moving average vs. median, plus the measured latency.
 5. Uncertainty statement for one final value.
 6. Reflection: Which error in your sensor is systematic and could be calibrated, and which is random and must be averaged or accepted?
+
+### Reflection logbook
+
+Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
+
+> [!IMPORTANT]
+> Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.
+
+## 📚 If you want to go deeper
+
+- [Wikipedia: Thermistor](https://en.wikipedia.org/wiki/Thermistor) — Beta equation, Steinhart–Hart, and self-heating.
+- [Wikipedia: Calibration](https://en.wikipedia.org/wiki/Calibration) — one-point, two-point, and multi-point calibration.
+- [Measurement uncertainty](https://en.wikipedia.org/wiki/Measurement_uncertainty) and the [GUM](https://www.bipm.org/en/publications/guides/gum.html) — how to state `y ± U` honestly.
+- [Moving average](https://en.wikipedia.org/wiki/Moving_average), [Median filter](https://en.wikipedia.org/wiki/Median_filter), [Exponential smoothing](https://en.wikipedia.org/wiki/Exponential_smoothing) — the filters you will compare.
+- [IoTempower](https://github.com/iotempire/iotempower) — declarative filters and node definitions.
+
+---
+
+[← Previous: Module 2](./02-i2c-and-sensor-addressing.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 4 — Distance, Motion & Environment Sensors →](./04-distance-motion-and-environment-sensors.md)

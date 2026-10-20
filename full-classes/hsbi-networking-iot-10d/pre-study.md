@@ -14,14 +14,14 @@ See the [syllabus](./syllabus.md) for the complete course schedule and policies.
 > **Canonical source:** [IoTempire Teaching repository — HSBI/GT Networking and IoT Solutions](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-networking-iot-10d)
 
 > [!NOTE]
-> **Language:** This course is taught in English and German; the written materials are in English. You may freely use German, English, or a mixture in class and in your portfolio documentation.
->
-> **Für deutschsprachige Studierende:** Diese Lehrveranstaltung wird auf Englisch und Deutsch unterrichtet; die gemeinsamen Materialien bleiben auf Englisch. Sie können im Unterricht und für Ihr Portfolio Deutsch, Englisch oder eine Mischung aus beidem verwenden.
+> **Language:** The written materials are in English. For the full language arrangement (spoken German/English, portfolio language), see the [syllabus](./syllabus.md#language-communication--course-material).
 
 > [!IMPORTANT]
-> **Required Module 0 — 1 Module Point:** Before the first session, create your personal portfolio from the [course Git template](https://github.com/iotempire/iot-portfolio-template) and add a first pre-study entry. Include notes responding to Guiding Questions 1–5 and terminal/browser evidence from the hands-on discovery. Module 0 is assessed during the second session.
+> **Required Module 0 — 1 Module Point:** Before the first session, create your personal portfolio from the [course Git template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”** (not “Fork”) and add a first pre-study entry. Include notes responding to Guiding Questions 1–5 and terminal/browser evidence from the hands-on discovery. Module 0 is checked in your first checkpoint (or during the first studio, by agreement with the instructor).
 >
-> **Preparation time:** Plan approximately 3 to 6 hours for this guide. You need no special hardware—only your laptop and an internet connection.
+> **If your cohort needs more setup time**, Module 0 can be run as the first in-class module instead — same evidence, same 1 point.
+>
+> **Access:** You need no special hardware — only your laptop and an internet connection. Plan a focused preparation session.
 
 > [!NOTE]
 > This is the first time we run this, so please keep your eyes open. The main class is still in flux and may even change based on what you experience here. Take notes as you go: anything that felt strange, tasks that seem unnecessary for the main class, or anything you found missing. Please share those notes with me — they directly shape the class.
@@ -51,20 +51,20 @@ Key architectural concepts to grasp early:
 
 Complete these steps and document your findings in your portfolio:
 
-### Step A: Inspiration (10 min)
-1. Watch ["Teaching the IoTempower Way"](https://video.iotempower.us) (the IoTempower inspiration video, about 1–2 minutes, dense and fast-paced).
+### Step A: Inspiration
+1. Watch ["Teaching the IoTempower Way"](https://video.iotempower.us) (the IoTempower inspiration video — dense and fast-paced).
 2. Note what excites you. What kind of distributed system, smart environment, or networked automation would you love to build?
 
-### Step B: The Journey of a Packet (≈40 min)
+### Step B: The Journey of a Packet
 1. Watch the first module of [How Data Moves Through the Internet](https://www.practicalnetworking.net/index/networking-fundamentals-how-data-moves-through-the-internet/) by Ed Harmoush (short lessons, numbered `1a`, `1b`, `2a`, …). For this pre-study, watch at least these three:
    - Lesson 1a — Network Devices: Hosts, IP Addresses, Networks
    - Lesson 1b — Network Devices: Repeaters, Hubs, Bridges, Switches, Routers
    - Lesson 2a — OSI Model: Layers 1, 2, 3
 
-   If you want the complete picture (recommended, roughly 30 min more), continue with Lesson 2b — OSI Model: Layers 4 and 5/6/7, Encapsulation/De-Encapsulation, and then **Lessons 3a and 3b — what hosts do when speaking to hosts on the *same* vs. a *foreign* network**. Lessons 3a/3b are the actual "journey of a packet" and the best preparation for Day 1. (A similar concise review of IP routing and encapsulation is fine too if you prefer another source.)
+   If you want the complete picture (recommended), continue with Lesson 2b — OSI Model: Layers 4 and 5/6/7, Encapsulation/De-Encapsulation, and then **Lessons 3a and 3b — what hosts do when speaking to hosts on the *same* vs. a *foreign* network**. Lessons 3a/3b are the actual "journey of a packet" and the best preparation for Day 1. (A similar concise review of IP routing and encapsulation is fine too if you prefer another source.)
 2. Note why practical network engineers usually work with the TCP/IP 4-layer model rather than the theoretical 7-layer OSI model.
 
-### Step C: Hands-on Network Discovery on Your Laptop (30 min)
+### Step C: Hands-on Network Discovery on Your Laptop
 Open your terminal (Linux/macOS terminal, or WSL/PowerShell on Windows) and inspect your current network stack:
 
 1. Find your local IP and Default Gateway:
@@ -75,7 +75,7 @@ Open your terminal (Linux/macOS terminal, or WSL/PowerShell on Windows) and insp
 2. Trace the Path:
    - Run `traceroute 1.1.1.1` (or `tracert 1.1.1.1` on Windows).
    - How many router hops does your packet take before reaching Cloudflare's DNS? Notice where private IP addresses (RFC 1918, e.g. `192.168.x.x` or `10.x.x.x`) transition to public IPs.
-3. Inspect MQTT in Action (15 min):
+3. Inspect MQTT in Action:
    - You do not need to install a broker yet. Use an MQTT client like MQTTX (download from [mqttx.app](https://mqttx.app)), `mosquitto_sub`/`mosquitto_pub` via CLI, or an online web client (e.g. [HiveMQ Web Client](https://www.hivemq.com/demos/websocket-client/)).
    - Connect to the public test broker `broker.hivemq.com` (port 1883, or port 8000 for WebSockets).
    - Choose a short pseudonym or random ID — do not use your real name; this broker is public. Subscribe to a unique topic such as `hsbi/student/<pseudonym-or-random-id>/test`.
@@ -95,7 +95,7 @@ Answer these questions in your portfolio under `pre-study/README.md` (or `00-pre
 ## Ready for Day 1? Checklist
 
 Before walking into the first lab session:
-- [ ] You have created your personal GitHub portfolio from [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template).
+- [ ] You have created your personal GitHub portfolio from [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”**, and added the instructor as a collaborator. See the [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) for the step-by-step.
 - [ ] You have committed your pre-study notes, answers to the 5 guiding questions, and your MQTT screenshot.
 - [ ] You have your laptop ready with Wi-Fi, an SSH client, and optionally Wireshark and MQTTX installed.
 - [ ] You are ready to receive your OpenWrt router and M5Stack hardware kit!

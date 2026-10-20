@@ -4,6 +4,29 @@
 
 [← Back to Module Index](./00-index.md) | [Back to Resources Bank](./Z-resources-bank.md)
 
+## 🧠 LLM verification drills (use in every module)
+
+AI is a **drafting tool**, not an oracle. For each module, pick at least one prompt, run it, and record in your `study-log.md`: the prompt, a 2–3 line summary, **how you verified it**, and where the model was wrong.
+
+- **Explain-and-test:** "Explain `<protocol>` in three levels — a peer, a technician, a network engineer — then give me one capture or test that would prove you right."
+- **Debug my reasoning:** "Here is my topology and configuration: `<paste>`. What is the most likely routing or NAT failure, and what should I measure first?"
+- **Break the answer:** "Give me three ways this configuration could fail silently, and the `tcpdump` or `ip route` check that would expose each."
+- **Translate a capture:** "Here is a Wireshark capture summary: `<paste>`. Explain what each layer is doing and where the payload is."
+- **Design an experiment:** "Design a measurement to compare latency, throughput, or recovery time for `<two options>` with the equipment in our lab."
+- **Challenge a claim:** "I measured `<RTT/throughput>` under `<conditions>`. What could make this number misleading, and how would I check?"
+
+> [!WARNING]
+> Never paste credentials, private keys, device certificates, or captures containing personal traffic into a public LLM. Treat every generated configuration and command as a hypothesis — verify it against a capture, a routing table, or a live test.
+
+## 🤝 Pod discussion prompts
+
+Use these to end a pod-study block with **agreed learning** and one shared artefact:
+
+- "What is the one sentence we would put on the whiteboard to explain this concept to another pod?"
+- "Which capture or measurement surprised us, and why?"
+- "Where did the LLM mislead us, and how did we catch it?"
+- "What is the smallest demonstration that would convince a skeptic that we understand this?"
+
 ## 📌 Module 1 – Foundations & The Master Class
 *Focus: OSI vs. TCP/IP reality, overhead tax, system storytelling, Master Class integration.*
 

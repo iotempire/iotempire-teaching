@@ -2,11 +2,9 @@
 
 [← Back to Module 8](./08-sensor-to-system-and-integration.md) | [Quick module index](./00-index.md) | [Next: Module 10 →](./10-demonstration-and-defense.md)
 
-> **Course placement:** This module spans the final project arc — the studio sessions dedicated to ideation, requirement mapping, building, characterization, hardening, and rehearsal. The exact split depends on the timetable and group progress; the schedule deliberately reserves buffer time here so slower labs do not eat into the project.
+**Course placement:** Days 9–10 (Sessions 9–11) — the final project studio: ideation, requirement mapping, building, characterization, hardening, and rehearsal. The exact split depends on the timetable and group progress; the schedule deliberately reserves buffer time here so slower labs do not eat into the project.
 
 ## 🎯 Learning Goals
-
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 This module gives you the opportunity to explore sensor/actuator system engineering and achieve competency in requirement mapping, sensor characterization and evaluation, and resilience testing.
 
@@ -17,10 +15,40 @@ By the end of this module, you can:
 4. Perform fault injection and show that the system degrades gracefully.
 5. Conduct a structured peer review and dry run of your demonstration.
 
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
+
+## 📖 Story — The Project Fair
+
+The last three days are a small project fair. Three stakeholders bring three real problems into the room:
+
+- **Aylin Demir**, curator at the Stadtmuseum, wants an interactive exhibit that reacts to visitors without a visible computer.
+- **Dr. Elif Kaya**, agronomist at Klimapark, wants a frost alarm and a vent/heater loop that keeps working when the network does not.
+- **Hendrik Brinkmann**, workshop lead at Brinkmann Maschinenbau, wants a part counter and a safe gate actuator for a test rig.
+
+Your **Project Team** — two Task Pods merged into 4–6 people — picks one story (or brings a stakeholder of your own), turns it into requirements, and builds a characterized sensor/actuator system. The story is the spine; the must-haves and the learning goals are the contract. By the end of the studio you have a working system, a measurement file, a short report, and a demo you can defend.
+
+## 📖 Studio Briefing: From Story to System
+
+Before you build, spend a short pod-study block on the project craft:
+
+### Pointers (start here, then keep looking)
+
+- Story-driven modeling — [Wikipedia: Story-driven modeling](https://en.wikipedia.org/wiki/Story-driven_modeling)
+- Requirements and acceptance criteria — [Wikipedia: Requirement](https://en.wikipedia.org/wiki/Requirement), [Acceptance testing](https://en.wikipedia.org/wiki/Acceptance_testing)
+- System architecture — [Wikipedia: Systems architecture](https://en.wikipedia.org/wiki/Systems_architecture)
+- Reliability and fault injection — [Wikipedia: Fault injection](https://en.wikipedia.org/wiki/Fault_injection)
+- The [story canon](./Z-resources-bank.md#story-canon-the-recurring-cast) and the [final-project must-haves](../syllabus.md#final-project-requirements-5-points)
+
+### Questions to ask an LLM (then verify against your kit)
+
+- "Here is our stakeholder story: `<paste it>`. Turn it into a requirements list with measurable acceptance criteria, and flag anything we cannot build with an ESP32 and the sensors in our kit."
+- "What is the smallest architecture that satisfies these requirements? Draw the data flow from sensor to actuator and name every failure point."
+- "Which characterization experiment would prove that our headline sensor is good enough for this story?"
+- "List five fault-injection tests for this architecture and the graceful behavior we should expect from each."
+- "Review our must-have mapping and tell us what is missing or untestable."
+
+> Treat every generated requirement as a hypothesis. Verify it against the kit, the syllabus must-haves, and a live test.
 
 ## 📖 How the Studio Sessions Work
 
@@ -35,12 +63,12 @@ The project is a short engineering sprint, not a single lab:
     |
 [Harden]         Fault injection, recovery, documentation
     |
-[Rehearse]       Peer dry run against the rubric
+[Rehearse]       Peer dry run against the must-haves
     |
 [Defend]         Module 10: live demo + portfolio defense
 ```
 
-Sessions are open-ended by design. If you finish a milestone early, harden the system, take more measurements, or help a neighboring team (which counts toward bonus points).
+Sessions are open-ended by design. If you finish a milestone early, harden the system, take more measurements, or help a neighboring Project Team (which counts toward bonus points).
 
 ## 📖 The Final Project Architecture Stack
 
@@ -65,18 +93,18 @@ Sessions are open-ended by design. If you finish a milestone early, harden the s
 
 A strong project uses each layer it includes deliberately and can defend the choice.
 
-## 🛠️ Studio Labs
+## 🛠️ Studio Labs — **Challenging**
 
-*Teams of 2–4 students. Work through the milestones; they are not a rigid clock.*
+*Project Teams of 4–6 students (two merged Task Pods). Work through the milestones; they are not a rigid clock.*
 
-### Task 1: Project Kickoff — Story, Team & Requirements (45 min)
+### ★ Task 1: Project Kickoff — Story, Project Team & Requirements
 
 1. Craft a story around a real stakeholder (a person with a name and a problem). Start from your pre-study abstract and refine it. It must be playable and pitchable.
-2. Pitch to a neighboring team (2×5 min) and note their questions.
-3. Form your team of 2–4 and document individual roles and contributions in each portfolio. If a team wants to continue an earlier project of their own instead of starting fresh, agree on this with the instructor — it is a possibility, not the default.
+2. Pitch to a neighboring Project Team and note their questions.
+3. Merge two Task Pods into a **Project Team of 4–6** and document individual roles and contributions in each portfolio. If a team wants to continue an earlier project of their own instead of starting fresh, agree on this with the instructor — it is a possibility, not the default.
 4. Map requirements onto the final-project must-haves (see the syllabus): which sensors (with which bus/addresses), which actuator, which characterization you will perform, which integration, which resilience test.
 
-### Task 2: Build and Integrate (milestones across sessions)
+### ★ Task 2: Build and Integrate (milestones across sessions)
 
 Verify your system against the must-haves:
 
@@ -86,7 +114,7 @@ Verify your system against the must-haves:
 4. Node-RED dashboard with display and control, plus one closed-loop/rule-based behavior.
 5. Safety and interlocks: a defined safe state and at least one limit (max duty, timeout, or limit switch).
 
-### Task 3: Characterize and Evaluate (60 min)
+### ★ Task 3: Characterize and Evaluate
 
 This is what distinguishes a Sensors-and-Actuators project from a generic IoT project.
 
@@ -95,7 +123,7 @@ This is what distinguishes a Sensors-and-Actuators project from a generic IoT pr
 3. System metrics: pick and measure at least one — sampling rate, end-to-end latency, current consumption, or robustness to noise/interference.
 4. Present the results as a small table/plot with conditions stated.
 
-### Task 4: Fault Injection & Resilience Testing (30 min)
+### ★ Task 4: Fault Injection & Resilience Testing
 
 Intentionally break things and document the recovery:
 
@@ -104,26 +132,45 @@ Intentionally break things and document the recovery:
 - Test C (actuator limit): block the motor/servo. Does current rise, and does your interlock/timeout react safely?
 - Test D (broker restart): restart Mosquitto. Do node and dashboard reconnect and resubscribe?
 
-### Task 5: Peer Review & Dry Run Rehearsal (40 min)
+### ★ Task 5: Peer Review & Dry Run Rehearsal
 
-Pair with another team for a reciprocal dry run:
+Pair with another Project Team for a reciprocal dry run:
 
-#### Presenting Team (5 min):
-1. Story (1 min): problem, users, and value.
-2. Architecture (2 min): sensors (bus/addresses), actuator, drivers, data path.
-3. Live demo (2 min): measure a real quantity and make the actuator respond; show one characterization result.
+#### Presenting Project Team:
+1. Story: problem, users, and value.
+2. Architecture: sensors (bus/addresses), actuator, drivers, data path.
+3. Live demo: measure a real quantity and make the actuator respond; show one characterization result.
 
-#### Reviewing Team (5 min, against the rubric):
+#### Reviewing Project Team:
 - Measurement quality: is the characterization credible, with units, conditions, and uncertainty?
 - Robustness: what happens under the fault-injection tests?
 - Evidence: are wiring, addresses, transfer functions, and metrics documented in the portfolio?
 
-## 📝 Working-Day Reflection & Portfolio Tasks
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-In your portfolio under `modules/09-final-project-studio/`:
+Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-09/`.)
 1. Kickoff story and the requirement-to-must-have mapping.
 2. System architecture diagram: sensors (with bus/addresses), conditioning, actuator + driver, node, data path.
 3. Characterization report: transfer function/calibration, resolution, uncertainty.
 4. Evaluation report: actuator performance and at least one system metric.
 5. Fault-injection log for the four tests.
 6. Peer feedback log and the concrete changes you will make before the final defense.
+
+### Reflection logbook
+
+Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
+
+> [!IMPORTANT]
+> Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.
+
+## 📚 If you want to go deeper
+
+- [Wikipedia: Story-driven modeling](https://en.wikipedia.org/wiki/Story-driven_modeling) — the method behind the stories.
+- [Wikipedia: Requirement](https://en.wikipedia.org/wiki/Requirement) and [Acceptance testing](https://en.wikipedia.org/wiki/Acceptance_testing) — turning a story into testable criteria.
+- [Wikipedia: Systems architecture](https://en.wikipedia.org/wiki/Systems_architecture) — layers, interfaces, and trade-offs.
+- [Wikipedia: Fault injection](https://en.wikipedia.org/wiki/Fault_injection) — how to prove resilience.
+- The [story canon](./Z-resources-bank.md#story-canon-the-recurring-cast) — keep your new story consistent with the course universe.
+
+---
+
+[← Previous: Module 8](./08-sensor-to-system-and-integration.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 10 — Demonstration & Portfolio Defense →](./10-demonstration-and-defense.md)

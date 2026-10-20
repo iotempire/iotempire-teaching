@@ -2,11 +2,9 @@
 
 [← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-i2c-and-sensor-addressing.md)
 
-> **One question for the whole course:** *How does a physical quantity become a trustworthy number — and how does that number move the world?*
+**Course placement:** Day 1 — the opening studio. We start with the signal chain, then build the first sensor node in the same session, together and in person.
 
 ## 🎯 Learning Goals
-
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 This module gives you the opportunity to explore measurement and the digital signal chain and achieve competency in metrology and uncertainty, signal conditioning, and ADC sampling and quantization.
 
@@ -17,15 +15,39 @@ By the end of this module, you can:
 4. Have a first working sensor node deployed with IoTempower and visible on MQTT/Node-RED.
 5. Have measured a real ADC and calculated its quantization step.
 
-> [!NOTE]
-> Task tiers. Tasks marked ★ Core must be completed by everyone. Tasks marked ◇ Stretcher are optional and are the natural trim point if time runs short — they are excellent bonus-task material.
-
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
-## 📖 Part A — What a Sensor Really Is
+## 📖 Story — The Reading That Would Not Sit Still
+
+**Wittkamp Zerspanung GmbH** is a small CNC machine shop in Gütersloh. Plant manager **Kai Lehmann** wants a simple thing: a temperature and vibration node on the oldest milling machine, so the team can see a bearing fail before it scraps a batch. The first prototype works — the serial monitor prints numbers — but the numbers jump, the temperature reads warm when the machine is cold, and nobody trusts the threshold.
+
+Kai asks the question every measurement engineer has to answer: *"What does this number actually mean, and how wrong is it?"* Before you can answer, you need the signal chain: the transducer, the conditioning, the ADC, the sampling, and the coding. That chain is this module.
+
+## 📖 Pod Study: From Transduction to a Trustworthy Number
+
+This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+
+### Warm-up (in your pod)
+
+Before reading on, answer these in one sentence each:
+
+- What is the difference between a **sensor** and a **transducer**? Give one example you own.
+- Your phone reports **23.4 °C**. What would you need to know before calling that a *measurement*?
+- Where in the chain from the physical quantity to the display could an error enter?
+
+### ★ Task 0: Form your Task Pod — who do you build with?
+
+You will do the labs and checkpoints in a **Task Pod** of two or three (three by default for a large cohort; pairs are welcome). For the final project, two pods merge into a **Project Team** of 4–6.
+
+1. On a note, write down **your skills** (languages, tools, hardware, design, …) and **your expectations / what you want to build**.
+2. No pod yet? Find **two other unpaired people**, compare notes, and check whether you **complement** each other — not merely whether you are alike.
+3. Exchange contacts and a first idea today. If you already have a pod, share your notes so the room knows who can help with what.
+4. Agree on how you will keep in touch and how you will split roles (who drives, who documents, who asks the next question).
+
+*Portfolio evidence:* your pod's names, skills, and one line on what you want to build.
+
+### What a Sensor Really Is
 
 A sensor is a device that converts one physical quantity into another, more convenient one — usually a voltage, a resistance, a charge, a current, a frequency, or a light intensity. That conversion is called transduction, and the sensor is a transducer.
 
@@ -68,7 +90,7 @@ physical quantity
 
 Every lab in this course is one link of this chain. When something does not work, ask *which link* is failing: the physics, the conditioning, the conversion, the calculation, or the system.
 
-## 📖 Part B — Measurement Fundamentals
+### Measurement Fundamentals
 
 - True value: the value we would obtain with a perfect measurement. We never know it exactly; we estimate it and state an uncertainty.
 - Measurement error: measured value − reference value. It can be systematic (offset, gain, temperature drift) or random (noise).
@@ -78,7 +100,7 @@ Every lab in this course is one link of this chain. When something does not work
 - Range / span: the minimum and maximum quantity the sensor is specified for. Outside the range, all bets are off.
 - Sensitivity: how much the output changes per unit of input (e.g. mV per °C).
 
-## 📖 Part C — The Digital Signal Chain
+### The Digital Signal Chain
 
 1. Conditioning: a raw sensor rarely matches the ADC. A voltage divider scales a resistance change into a voltage; an amplifier raises a small signal; a filter removes noise or anti-aliases; a reference fixes the conversion baseline.
 2. ADC (analog-to-digital converter): compares the conditioned voltage against a reference and returns an integer code.
@@ -91,11 +113,55 @@ Every lab in this course is one link of this chain. When something does not work
 > [!TIP]
 > The ESP32 has a 12-bit ADC with a non-linear region near the rails and some channel-to-channel variation. Its absolute accuracy is far worse than its resolution — a perfect illustration of this module. In Module 3 you will calibrate around exactly this.
 
-## 🛠️ In-Class Lab: From Blink to Measurement
+### Pointers (start here, then keep looking)
+
+- Measurement vocabulary — [Wikipedia: Measurement](https://en.wikipedia.org/wiki/Measurement), [Accuracy and precision](https://en.wikipedia.org/wiki/Accuracy_and_precision)
+- The signal chain and ADCs — [Wikipedia: Analog-to-digital converter](https://en.wikipedia.org/wiki/Analog-to-digital_converter), [Sampling (signal processing)](https://en.wikipedia.org/wiki/Sampling_(signal_processing)), [Nyquist–Shannon sampling theorem](https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem)
+- The ESP32 ADC in practice — [Espressif ADC documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html) (note the non-linearity and attenuation)
+- Simulate before you wire — [Wokwi](https://wokwi.com/) (the pre-study tool)
+- Your kit's datasheets — linked from the [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once)
+
+### Questions to ask an LLM (then verify against your hardware)
+
+Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
+
+- "I am a 3rd-semester engineering student. Explain **very briefly** what a sensor, a transducer, and signal conditioning are, with **simple examples**, and tell me how to explain the chain to a peer."
+- "A 12-bit ADC has a 3.3 V reference. What is the ideal step size, and why is the real ESP32 accuracy worse than that? Give me a measurement I can run to see the difference."
+- "My temperature reading jumps by 0.8 °C between samples. List the possible causes in the chain and one experiment for each."
+- "Explain quantization error and aliasing with a concrete example from a slow temperature sensor and a fast vibration sensor."
+- "What is the difference between resolution, accuracy, and precision? Give one example where a sensor is precise but inaccurate."
+
+> Run each prompt against your own circuit, and record where the model is wrong, vague, or over-confident.
+
+### ★ Task A: Study in your pod
+
+Work through the concepts above with your Task Pod and fill in `module-01/study-log.md`:
+
+1. **The references you used** — the source and the one concept you understood best from it.
+2. **Things you googled** — the term, what you found, and the source (URL). One line each.
+3. **Remarkable things** — surprises, "aha"s, and counterexamples from your own readings.
+4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
+5. **Your two best found explanations or diagrams** — compile down to the best two, with source and what they taught you.
+
+*Portfolio evidence:* `module-01/study-log.md`.
+
+### ★ Task B: Explain & share with another pod
+
+Pair with a **neighbouring pod**:
+
+1. **Explain to each other** — each pod walks the other through its study log and its chain diagram; ask questions and fill each other's gaps.
+2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"resolution is not accuracy"*).
+3. **Clean up your documentation** — update your `study-log.md` with what you learned from the other pod.
+4. Agree on **one shared artefact** — the best diagram, a measurement table, or a new sketch the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
+5. Each member adds a short **“Agreed learning (pod discussion)”** section to *their own* `study-log.md`.
+
+*Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section) and your pod-pair's shared artefact.
+
+## 🛠️ In-Class Lab: From Blink to Measurement — **Challenging**
 
 *Hardware:* 1× M5Stack node (or ESP32 DevKit / ESP32 Ethernet mini kit / Wemos D1 Mini + breadboard), 1× potentiometer, a local broker/gateway with Mosquitto + Node-RED, multimeter.
 
-### ★ Task 1: Master Class — A First Sensor Node (45 min)
+### ★ Task 1: Master Class — A First Sensor Node
 
 The goal is to experience the complete loop immediately, using the fast path.
 
@@ -113,7 +179,7 @@ The goal is to experience the complete loop immediately, using the fast path.
 
 *Portfolio:* screenshot of the node's MQTT topics plus the dashboard receiving live values.
 
-### ★ Task 2: The ADC Precision Dance (45 min)
+### ★ Task 2: The ADC Precision Dance
 
 *Work in pairs; one person measures, the other records.*
 
@@ -129,19 +195,39 @@ The goal is to experience the complete loop immediately, using the fast path.
 
 > **Document the failure worth having:** the flat/erratic regions near 0 V and 3.3 V. This is where the ESP32 ADC is least trustworthy — remember it in Module 3.
 
-### ★ Task 3: Draw Your Own Chain (20 min)
+### ★ Task 3: Draw Your Own Chain
 
 Pick one sensor from the kit (NTC, LDR, VL53L0X, MPU6050, DS18B20). Draw the full chain for it: physical quantity → transducer principle → conditioning (if any) → interface (analog? I²C?) → MCU processing → system use. Label where error and noise enter.
 
-### ◇ Task 4 (Stretcher): Resolution vs. Reality (20 min)
+### ◇ Task 4 (Stretcher): Resolution vs. Reality
 
 Reduce the ADC to the smallest signal change you can measure at the top of the range and at the bottom. Where is the effective resolution worst, and why? Propose one conditioning change (e.g. an op-amp, a better reference, or a different divider ratio) that would improve it.
 
-## 📝 Working-Day Reflection & Portfolio Tasks
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-In your portfolio under `modules/01-foundations/`:
+Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-01/`.)
+- A pod-formation note: names, skills, and one line on what you want to build.
 1. Chain diagram for your own sensor, with error/noise sources marked.
 2. ADC table: observed raw range, number of steps, step size in volts, and comparison with the theoretical value for at least two resolutions.
 3. Master Class proof: Node-RED/MQTT screenshot of your first sensor node.
 4. Vocabulary: define, in your own words, accuracy, precision, resolution, sensitivity, and uncertainty, each with one example.
 5. Reflection: Why can a sensor with high resolution still give an inaccurate measurement? Which link of the chain is responsible in your example?
+
+### Reflection logbook
+
+Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
+
+> [!IMPORTANT]
+> Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.
+
+## 📚 If you want to go deeper
+
+- [Wikipedia: Measurement](https://en.wikipedia.org/wiki/Measurement) and [Accuracy and precision](https://en.wikipedia.org/wiki/Accuracy_and_precision) — the vocabulary, with examples.
+- [Wikipedia: Analog-to-digital converter](https://en.wikipedia.org/wiki/Analog-to-digital_converter) — resolution, quantization, and conversion architectures.
+- [Nyquist–Shannon sampling theorem](https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem) — why sampling too slowly invents frequencies.
+- [Espressif ADC documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html) — the real limits of the ESP32 ADC.
+- [Wokwi](https://wokwi.com/) — simulate the chain before you wire it.
+
+---
+
+[← Course workbook](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 — I²C & Sensor Addressing →](./02-i2c-and-sensor-addressing.md)

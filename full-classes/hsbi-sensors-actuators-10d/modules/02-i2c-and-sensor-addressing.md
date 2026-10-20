@@ -4,9 +4,9 @@
 
 > This is the module that turns "a sensor in a library example" into "a device on a bus that you understand." We deliberately scan and poke the bus *before* trusting a library.
 
-## 🎯 Learning Goals
+**Course placement:** Day 2 — the bus studio. We scan and poke the bus before trusting a library.
 
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+## 🎯 Learning Goals
 
 This module gives you the opportunity to explore sensor buses and device addressing and achieve competency in I²C physics and addressing, register maps, multi-device buses, and bus comparison (SPI, UART, OneWire, analog).
 
@@ -17,12 +17,20 @@ By the end of this module, you can:
 4. Run two devices on one bus and resolve an address conflict.
 5. Recognize when a device is I²C, SPI, UART, OneWire, or analog, and why that matters for wiring and debugging.
 
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
-## 📖 Part A — The I²C Bus
+## 📖 Story — Two Sensors, One Address
+
+**Lumenwerk Gütersloh GmbH** builds interactive light installations for museums and public spaces. Creative director **Mara Voss** has a simple brief for the new Stadtmuseum exhibit: a distance sensor should wake the light wall when a visitor approaches, and an IMU should tilt the color field when they lean. Technician **Jonas Feld** wires both sensors to one controller, powers it up, and gets… one device.
+
+The scanner finds a single address. Reads are intermittent. Mara asks the question that turns a wiring problem into a lesson: *"If both sensors are on the same two wires, how does the controller know which one is answering?"* Today you learn the bus — addresses, registers, pull-ups, and what happens when two devices claim the same identity.
+
+## 📖 Pod Study: One Bus, Many Devices
+
+This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+
+### The I²C Bus
 
 I²C (*Inter-Integrated Circuit*) uses just two wires plus ground:
 
@@ -65,14 +73,58 @@ Most I²C sensors are not "send a command, get a value". They expose a register 
 | OneWire | 1 + GND | 64-bit ROM ID per device | DS18B20 temperature chains |
 | Analog / PWM | 1 signal | None | Simple sensors, servos, dimming |
 
-## 🛠️ In-Class Lab: Talk to the Bus
+### Pointers (start here, then keep looking)
+
+- The definitive bus reference — [NXP: I²C-bus specification (UM10204)](https://www.nxp.com/docs/en/user-guide/UM10204.pdf)
+- The readable overview — [Wikipedia: I²C](https://en.wikipedia.org/wiki/I%C2%B2C)
+- Arduino's implementation — [Arduino: Wire library](https://www.arduino.cc/reference/en/language/functions/communication/wire/)
+- Scanning from Linux — [`i2c-tools` / `i2cdetect`](https://i2c.wiki.kernel.org/index.php/I2C_Tools)
+- Your devices' register maps — the datasheets linked in the [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once)
+
+### Questions to ask an LLM (then verify against your hardware)
+
+Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
+
+- "Explain I²C to a student who has only used GPIO. What do START, ACK/NACK, repeated start, and clock stretching mean, and how would I see each on a logic analyzer?"
+- "My scan shows `0x3C` but my library wants `0x78`. Explain the 7-bit vs. 8-bit address convention and show the shift."
+- "Two identical sensors answer at `0x68`. List every way to make them coexist, with the trade-offs of each."
+- "Here is a register map from a sensor datasheet: `<paste the relevant page>`. Walk me through reading one raw value with `Wire`, including the byte order and scaling."
+- "Why do I²C lines need pull-up resistors, and what changes when I add more devices or a longer cable?"
+
+> Run each prompt against your own bus, and record where the model is wrong, vague, or over-confident.
+
+### ★ Task A: Study in your pod
+
+Work through the concepts above with your Task Pod and fill in `module-02/study-log.md`:
+
+1. **The references you used** — the source and the one concept you understood best from it.
+2. **Things you googled** — the term, what you found, and the source (URL). One line each.
+3. **Remarkable things** — surprises, "aha"s, and counterexamples from your own bus.
+4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
+5. **Your two best found bus explanations or diagrams** — compile down to the best two, with source and what they taught you.
+
+*Portfolio evidence:* `module-02/study-log.md`.
+
+### ★ Task B: Explain & share with another pod
+
+Pair with a **neighbouring pod**:
+
+1. **Explain to each other** — each pod walks the other through its scan map and its register-reading proof; ask questions and fill each other's gaps.
+2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"a scan shows the 7-bit address; the library may want the 8-bit form"*).
+3. **Clean up your documentation** — update your `study-log.md` with what you learned from the other pod.
+4. Agree on **one shared artefact** — the best scan map, a register table, or a new diagram the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
+5. Each member adds a short **“Agreed learning (pod discussion)”** section to *their own* `study-log.md`.
+
+*Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section) and your pod-pair's shared artefact.
+
+## 🛠️ In-Class Lab: Talk to the Bus — **Challenging**
 
 *Hardware:* 1× ESP32/ESP8266 (or M5Stack), 2× I²C sensor modules with different addresses (e.g. environment sensor + MPU6050 or VL53L0X), jumper wires, optional logic analyzer, optional Linux host or Raspberry Pi with `i2c-tools`.
 
 > [!WARNING]
 > Power off before rewiring. Check that every module's logic voltage matches 3.3 V. I²C modules with their own 5 V pull-ups can over-voltage a 3.3 V device — check before connecting.
 
-### ★ Task 1: Wire the Bus and Scan It (30 min)
+### ★ Task 1: Wire the Bus and Scan It
 
 1. Connect SCL and SDA (plus `3V3` and `GND`) to your board, using the correct pins for your board (ESP32 default is usually GPIO21=SDA, GPIO22=SCL; check your board).
 2. Upload an I²C scanner and record every address:
@@ -98,7 +150,7 @@ Most I²C sensors are not "send a command, get a value". They expose a register 
 
 > **Alternative/complement:** if you have a Linux host with an exposed I²C bus, run `i2cdetect -y 1`. It shows the same map and is the standard tool on gateways and Raspberry Pis.
 
-### ★ Task 2: Read Through the Library, Then Read the Register (35 min)
+### ★ Task 2: Read Through the Library, Then Read the Register
 
 1. Read one sensor using its library (e.g. an environment sensor) and log values.
 2. Now open the datasheet and find the register that returns the raw value (for example a temperature register). Read it directly with `Wire` and reconstruct the value using the datasheet's scaling.
@@ -106,14 +158,14 @@ Most I²C sensors are not "send a command, get a value". They expose a register 
 
 > This step is the difference between "it works" and "I understand it." You will need it whenever a library is missing, outdated, or wrong.
 
-### ★ Task 3: Two Devices on One Bus (30 min)
+### ★ Task 3: Two Devices on One Bus
 
 1. Add a second I²C sensor with a *different* address to the same SCL/SDA pair (no extra pins). Power and ground both.
 2. Scan again: both addresses must appear.
 3. Read both sensors in one sketch. Confirm that adding a device did not require new pins.
 4. Note the two addresses in your portfolio and explain why they can coexist.
 
-### ★ Task 4: Create and Resolve an Address Conflict (25 min)
+### ★ Task 4: Create and Resolve an Address Conflict
 
 1. If you have two modules with the same fixed address, connect both. Scan: only one address appears, and reads become unreliable or wrong. Explain what the bus is doing electrically.
 2. Resolve it in the way your hardware allows:
@@ -121,7 +173,7 @@ Most I²C sensors are not "send a command, get a value". They expose a register 
    - use an I²C multiplexer to give each device its own channel.
 3. Document the conflict and the fix — this is exactly the kind of engineering note the portfolio rewards.
 
-### ◇ Task 5 (Stretcher): See the Bits on the Wire (30 min)
+### ◇ Task 5 (Stretcher): See the Bits on the Wire
 
 With a USB logic analyzer (or an oscilloscope), capture one transaction:
 
@@ -129,11 +181,30 @@ With a USB logic analyzer (or an oscilloscope), capture one transaction:
 - Measure the actual clock frequency and compare it with the configured speed.
 - Try a longer/poorer cable or remove a pull-up and observe the signal integrity degrade. Record what you see.
 
-## 📝 Working-Day Reflection & Portfolio Tasks
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-In your portfolio under `modules/02-i2c/`:
+Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-02/`.)
 1. Scan artifact: serial output of at least two scans (one device, two devices), with each address mapped to its module.
 2. Register proof: the raw register value you read and the reconstruction you computed with the datasheet formula, next to the library's value.
 3. Address table: for each device in the kit: type, interface, address(es), and whether the address is configurable.
 4. Conflict report: how you created and resolved (or would resolve) an address conflict.
 5. Reflection: Why does adding a second I²C device not need a second data pin, and what are the limits of that elegance (capacitance, address space, speed, one defective device pulling the bus down)?
+
+### Reflection logbook
+
+Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
+
+> [!IMPORTANT]
+> Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.
+
+## 📚 If you want to go deeper
+
+- [NXP UM10204 — I²C-bus specification](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) — the definitive reference for addressing, arbitration, and clock stretching.
+- [Wikipedia: I²C](https://en.wikipedia.org/wiki/I%C2%B2C) — the readable overview and history.
+- [Arduino Wire library](https://www.arduino.cc/reference/en/language/functions/communication/wire/) — the API you will use.
+- [Linux `i2c-tools`](https://i2c.wiki.kernel.org/index.php/I2C_Tools) — the standard gateway/Pi scanner.
+- Your sensor datasheets — linked from the [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once).
+
+---
+
+[← Previous: Module 1](./01-foundations-measurement-and-sensor-chain.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 3 — Sensor Characterization →](./03-sensor-characterization-and-calibration.md)

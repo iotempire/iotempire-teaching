@@ -2,9 +2,9 @@
 
 [← Back to Module 3](./03-overlay-and-mesh-networks.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-wireless-technologies-and-espnow.md)
 
-## 🎯 Learning Goals
+**Course placement:** Day 4 — the messaging and integration studio, after Checkpoint 1 (Modules 1–3).
 
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+## 🎯 Learning Goals
 
 This module gives you the opportunity to explore decoupled messaging and system integration and achieve competency in **MQTT mechanics (topics, QoS, retain, LWT), Node-RED flows, and Python (`paho-mqtt` / IoTknit) services**.
 
@@ -14,12 +14,18 @@ By the end of this module, you can:
 3. Develop event-driven programmatic integration services in **Python using `paho-mqtt` and IoTknit**.
 4. Experience the power of pub/sub abstraction by swapping simulated/mock devices with physical M5Stack nodes with zero downstream code changes.
 
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
-## 📖 The Architecture of Decoupled Messaging
+## 📖 Story — The Warehouse Where Every Sensor Called Every Screen
+
+**Frachtflow** is a logistics startup building a small warehouse control system. Lead developer **Nils Bergmann** started with HTTP: every temperature sensor calls every dashboard directly. With three sensors and one screen it works. With thirty sensors, four dashboards, a Python logger, and an alarm service, it becomes a mesh of point-to-point connections, duplicated parsing code, and a dashboard that keeps polling a sensor that has been offline for a day.
+
+Operations lead **Rosa Klein** asks the question that changes the architecture: *"Why does the sensor need to know who is listening?"* Today you decouple producers from consumers with MQTT — topic hierarchies, QoS, retained state, Last Will and Testament — and build the integration layer in Node-RED and Python.
+
+## 📖 Pod Study: The Architecture of Decoupled Messaging
+
+This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
 
 ### Why MQTT Over Request/Response (HTTP)?
 Traditional web architectures rely on client-server request/response over HTTP:
@@ -56,9 +62,53 @@ MQTT (Message Queuing Telemetry Transport) decouples producers and consumers:
 - Retained Messages: The broker stores the last message published with `retain=true`. When a new dashboard or node subscribes, it immediately receives the current state instead of waiting minutes for the next publish.
 - Last Will and Testament (LWT): When a client connects, it gives the broker a "will" message (e.g. topic `devices/m5stick1/status`, payload `offline`, retain `true`). If the device suddenly loses power or drops Wi-Fi, the broker automatically publishes this message.
 
-## 🛠️ In-Class Lab: Building the Integration Engine
+### Pointers (start here, then keep looking)
 
-### Task 1: Exploring QoS, Retain & LWT with MQTT Explorer (20 min)
+- MQTT — [mqtt.org](https://mqtt.org/), [MQTT 5.0 specification](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)
+- A practical guide — [HiveMQ: MQTT essentials](https://www.hivemq.com/mqtt-essentials/)
+- Node-RED — [Node-RED documentation](https://nodered.org/docs/)
+- Python — [`paho-mqtt` documentation](https://eclipse.dev/paho/files/paho.mqtt.python/html/index.html)
+- The [resource bank's MQTT cheat sheet](./Z-resources-bank.md#mqtt-command-cheat-sheet)
+
+### Questions to ask an LLM (then verify against your broker)
+
+Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
+
+- "Compare QoS 0, 1, and 2 in terms of packet exchange, latency, and duplicate risk. When is QoS 0 acceptable in sensor telemetry?"
+- "Explain retained messages and Last Will and Testament with a concrete offline-detection example. What does the broker publish, and when?"
+- "Design an MQTT topic hierarchy for a warehouse with several zones, sensors, and actuators. Justify the levels and the command/state split."
+- "Why is a pub/sub broker more maintainable than direct HTTP connections between sensors and dashboards? Give the failure modes of each."
+- "My Python subscriber misses messages when it restarts. Which MQTT features fix this, and what are their limits?"
+
+> Run each prompt against your own broker and clients, and record where the model is wrong, vague, or over-confident.
+
+### ★ Task A: Study in your pod
+
+Work through the concepts above with your Task Pod and fill in `module-04/study-log.md`:
+
+1. **The references you used** — the source and the one concept you understood best from it.
+2. **Things you googled** — the term, what you found, and the source (URL). One line each.
+3. **Remarkable things** — surprises, "aha"s, and counterexamples from your own broker.
+4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
+5. **Your two best found MQTT diagrams or topic hierarchies** — compile down to the best two, with source and what they taught you.
+
+*Portfolio evidence:* `module-04/study-log.md`.
+
+### ★ Task B: Explain & share with another pod
+
+Pair with a **neighbouring pod**:
+
+1. **Explain to each other** — each pod walks the other through its topic hierarchy and its LWT/QoS evidence; ask questions and fill each other's gaps.
+2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"retained state is how a late subscriber catches up"*).
+3. **Clean up your documentation** — update your `study-log.md` with what you learned from the other pod.
+4. Agree on **one shared artefact** — the best topic tree, a Node-RED flow, or a new architecture sketch the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
+5. Each member adds a short **“Agreed learning (pod discussion)”** section to *their own* `study-log.md`.
+
+*Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section) and your pod-pair's shared artefact.
+
+## 🛠️ In-Class Lab: Building the Integration Engine — **Challenging**
+
+### ★ Task 1: Exploring QoS, Retain & LWT with MQTT Explorer
 1. Open MQTT Explorer or `mosquitto_sub` on your laptop, connecting to your OpenWrt broker (`192.168.8.1:1883` or via your Nebula IP).
 2. Connect an M5Stack node configured with an LWT topic:
    ```text
@@ -70,7 +120,7 @@ MQTT (Message Queuing Telemetry Transport) decouples producers and consumers:
 4. The Hard Disconnect Test: Unplug the M5Stack node from power (do not send a graceful disconnect).
 5. Watch how many seconds pass before the broker detects the missing TCP keep-alive (PINGREQ) and automatically fires the LWT `offline` payload!
 
-### Task 2: Visual Integration with Node-RED (30 min)
+### ★ Task 2: Visual Integration with Node-RED
 1. Open Node-RED on your OpenWrt gateway (`http://192.168.8.1:1880`).
 2. Build an intelligent thermostat/alarm flow:
    - Input: MQTT subscriber on `devices/+/temp`.
@@ -83,8 +133,8 @@ MQTT (Message Queuing Telemetry Transport) decouples producers and consumers:
    ```
 4. Verify the dashboard triggers and the control topic receives the command.
 
-### Task 3: Programmatic Integration with Python & `paho-mqtt` / IoTknit (40 min)
-Instead of putting all logic in Node-RED, modern production systems often use lightweight Python background services or IoTknit to bridge systems, write to databases, or handle custom business logic.
+### ★ Task 3: Programmatic Integration with Python & `paho-mqtt` / IoTknit
+Instead of putting all logic in Node-RED, modern production systems often use lightweight Python background services or IoTknit to bridge systems, write to databases, or handle custom business logic. Set up the pinned environment once with `uv add paho-mqtt` (see the [resource bank](./Z-resources-bank.md#python-environment-with-uv-optional)); run scripts with `uv run python <script>.py`.
 
 1. Create a Python script `iot_bridge.py`:
    ```python
@@ -131,10 +181,29 @@ Instead of putting all logic in Node-RED, modern production systems often use li
    - Turn on your physical M5Stack node publishing to the same topic structure.
    - Notice how neither Node-RED nor the Python bridge care whether the message originated from a mock script or a real M5Stack device!
 
-## 📝 Working-Day Reflection & Portfolio Tasks
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-In your portfolio under `modules/04-mqtt-integration/`:
+Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-04/`.)
 1. MQTT Architecture Diagram: Diagram your pub/sub flow showing the M5Stack node, OpenWrt broker, Node-RED flow, and Python bridge.
 2. QoS and LWT Protocol Analysis: In your own words, describe what happens at the network packet level when an MQTT client with LWT drops off the network without sending a `DISCONNECT` packet.
 3. Integration Code & Flow: Commit your Python script and export your Node-RED flow JSON into your portfolio repository.
 4. Reflection: Why is decoupling publishers from subscribers essential for scaling an IoT deployment across multiple teams and microservices?
+
+### Reflection logbook
+
+Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
+
+> [!IMPORTANT]
+> Never commit secrets, credentials, private keys, or broker configuration containing passwords. Where you did not work entirely alone, link your pod mates and sources.
+
+## 📚 If you want to go deeper
+
+- [MQTT 5.0 specification](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html) — the definitive protocol reference.
+- [HiveMQ: MQTT essentials](https://www.hivemq.com/mqtt-essentials/) — the readable guide to topics, QoS, retain, and LWT.
+- [Node-RED documentation](https://nodered.org/docs/) — flows, context, and dashboards.
+- [`paho-mqtt` documentation](https://eclipse.dev/paho/files/paho.mqtt.python/html/index.html) — the Python client.
+- [IoTknit](https://github.com/iotempire/iotknit) — the IoTempire integration helper used in the lab.
+
+---
+
+[← Previous: Module 3](./03-overlay-and-mesh-networks.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 5 — Wireless Technologies & ESP-NOW →](./05-wireless-technologies-and-espnow.md)

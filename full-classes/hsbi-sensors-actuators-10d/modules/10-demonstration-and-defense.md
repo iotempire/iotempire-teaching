@@ -2,37 +2,39 @@
 
 [← Back to Module 9](./09-final-project-studio.md) | [Quick module index](./00-index.md)
 
-> The final session: you demonstrate a characterized sensor/actuator system and defend the engineering behind it.
+**Course placement:** Day 10 / Session 12 — the final session. You demonstrate a characterized sensor/actuator system and defend the engineering behind it, to the instructor and to your peers.
 
 ## 🎯 Learning Goals
-
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 This module gives you the opportunity to explore engineering communication and defense and achieve competency in delivering a live sensor/actuator demonstration, defending your measurements, and presenting your portfolio.
 
 By the end of this module, you can:
-1. Deliver a compelling 5-minute live demonstration of your sensor/actuator system.
+1. Deliver a compelling live demonstration of your sensor/actuator system.
 2. Defend your measurement and characterization decisions, your actuator choices, and your resilience design.
-3. Complete the portfolio evaluation and assessment defense.
+3. Complete the portfolio evaluation and defense.
 4. Reflect on your journey from an ADC code to a documented, characterized system.
 
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
+## 📖 Story — The Night the System Has to Work
+
+It is the opening night at the Stadtmuseum. **Aylin Demir** is watching the corridor; **Mara Voss** is standing by the controller; **Jonas Feld** has a USB cable and a fallback recording. The light wall is supposed to breathe, wake on approach, and survive a guest unplugging the wrong thing. Nobody cares how elegant the sketch is if the wall goes dark at 19:55.
+
+Your final demo is the same moment in miniature. You have a short slot: first show the system measuring and acting, then defend the decisions you own. The instructor will ask you to break something on purpose. The story gives you the *why*; the characterization and the fault-injection log give you the *how do you know?*
+
 ## 🛠️ In-Class Demo & Defense Procedure
 
-*Format: 5-minute presentation + 2-minute live interaction / fault injection + 2-minute Q&A per team.*
+*The format and timing are set in the [syllabus](../syllabus.md#final-project-requirements-5-points); this page is the working script.*
 
-### Demonstration Script Guidelines (5 min)
+### Demonstration Script Guidelines
 
-1. System Story & Problem Context (1 min): Who uses this system? What real-world quantity does it measure, and what does it move?
-2. Architecture & Measurement Defense (2 min):
+1. System Story & Problem Context: Who uses this system? What real-world quantity does it measure, and what does it move?
+2. Architecture & Measurement Defense:
    - Show the physical nodes, the I²C bus and addresses, the second sensor, the actuator and its driver/supply.
    - Justify your sensor principles and your transfer function/calibration. State resolution and uncertainty.
    - Justify your actuator choice by torque/speed/precision and control complexity.
-3. Live Demonstration (2 min):
+3. Live Demonstration:
    - Measure a real quantity and show it on the dashboard.
    - Make the actuator respond (or show the animation/installation reacting to a sensor).
    - Show one characterization result (e.g. the error table before/after calibration).
@@ -40,17 +42,13 @@ By the end of this module, you can:
    - The instructor or a peer will test your resilience (disconnect the sensor, block the actuator, restart the broker).
    - Show how the system fails gracefully, reports the fault, or recovers.
 
-## 📋 Final Project Assessment Rubric (5 Points)
+## 📋 Where the Rubric Lives
 
-| Criteria | Max Points | Expectations |
-|---|:---:|---|
-| System Functionality & Measurement Quality | 2.0 pts | Two sensors (≥1 I²C, with addresses documented), one actuator demonstrated under control, credible transfer function/calibration with resolution and uncertainty, and correct addressing/register handling. |
-| Architecture, Documentation & Evaluation | 1.5 pts | Clear wiring/system diagram, bus and address documentation, IoTempower node + filter, MQTT topics, actuator performance and at least one system metric, and clean Git commits in the portfolio. |
-| Live Presentation & Technical Defense | 1.5 pts | Clear, fluent demonstration; confident explanation of sensor/actuator principles, characterization, and trade-offs; thoughtful answers to technical questions. |
+The final project is assessed according to the [syllabus](../syllabus.md#final-project-requirements-5-points), and the rubric lives **only** there. This page is the working demo script and evidence checklist; if the two ever disagree, the syllabus wins.
 
-## 📝 Final Portfolio Submission Checklist
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Ensure your personal GitHub portfolio includes all required evidence before final submission:
+Your portfolio only needs to **prove the course's learning goals**. The checklist below is a **suggested** set of proofs — commit them if they fit, or demonstrate the same goals your own way.
 - [ ] Module 0: Pre-study notes, Wokwi simulation screenshot(s), datasheet notes, project abstract, and answers to the guiding questions.
 - [ ] Module 1: Chain diagram, ADC table (raw range, steps, step size), Master Class node evidence, vocabulary definitions.
 - [ ] Module 2: I²C scan output, addresses mapped to modules, raw-register reconstruction, address-conflict report.
@@ -61,7 +59,11 @@ Ensure your personal GitHub portfolio includes all required evidence before fina
 - [ ] Module 7: Servo evidence and currents, H-bridge truth table and stall current, stepper results, sensor→motor logic.
 - [ ] Module 8: IoTempower node definition, MQTT topics, filter evidence, Node-RED flow export and dashboard, fault-injection report.
 - [ ] Modules 9 & 10: Final Project architecture diagram, characterization and evaluation reports, fault-injection log, presentation slides/script, and final retrospective.
-- [ ] Working-Day Reflections: Complete entries for every working day.
+- [ ] Reflection logbook: four block entries (Days 1–3, 4–6, 7–8, 9–10), each answering *what worked, what broke, how my mental model shifted, and how I verified AI suggestions*.
+- [ ] Where you did not work entirely alone: links to pod mates, sources, and borrowed code.
+
+> [!IMPORTANT]
+> Never commit `*.db`, `.venv/`, credentials, private keys, or personal data. Commit the scripts and configuration that rebuild your evidence.
 
 ## 🎓 Course Retrospective & What's Next
 
@@ -78,3 +80,14 @@ You have developed practical mastery of:
 - Continue with the IoTempire ecosystem: [iotempire.net](https://iotempire.net/) and [github.com/iotempire/iotempower](https://github.com/iotempire/iotempower).
 - Extend your final project toward the announcement's larger ideas: a flow sensor with light barriers, a Hall-effect power monitor, an interactive LED installation, or a music-synchronized fountain.
 - If you continue into a bachelor thesis or project, your characterization and evaluation documentation is exactly the material that turns a prototype into a credible engineering result.
+
+## 📚 If you want to go deeper
+
+- [Wikipedia: Story-driven modeling](https://en.wikipedia.org/wiki/Story-driven_modeling) — the method behind the project stories.
+- [Wikipedia: Fault injection](https://en.wikipedia.org/wiki/Fault_injection) — the resilience test you will face live.
+- [Wikipedia: Technical presentation](https://en.wikipedia.org/wiki/Technical_presentation) — structure, evidence, and time discipline.
+- The [resource bank's instructor hints](./Z-resources-bank.md#instructor-hints) — how the demo and defense are run.
+
+---
+
+[← Previous: Module 9](./09-final-project-studio.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md)

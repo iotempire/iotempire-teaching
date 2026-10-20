@@ -1,76 +1,85 @@
 # HSBI/GT Sensors and Actuators (Sensorik und Aktorik) — 10-Day Edition
 
-## Contents
+> **Make the physical world legible.** Turn a real quantity into a trustworthy number, and turn that number into light, motion, or heat — with measurements you can defend.
 
-| Start here | What it contains |
-|---|---|
-| [Pre-study guide](./pre-study.md) | Measurement basics, a Wokwi mini-exercise, and first sensor/actuator thinking (Module 0) |
-| [Syllabus](./syllabus.md) | Course schedule, learning objectives, assessment rules, and hardware kit |
-| [Module 1 — Foundations: Measurement, Signals & the Sensor–Actuator Chain](./modules/01-foundations-measurement-and-sensor-chain.md) | Metrology, error, ADC/sampling, Master Class with a first IoTempower sensor node |
-| [Module 2 — I²C & Sensor Addressing](./modules/02-i2c-and-sensor-addressing.md) | Buses, 7-bit addresses, scans, register maps, multiple devices on one bus |
-| [Module 3 — Sensor Characterization, Calibration & Data Quality](./modules/03-sensor-characterization-and-calibration.md) | Transfer function, linearity, hysteresis, resolution, calibration, filtering |
-| [Module 4 — Distance, Motion & Environment Sensors](./modules/04-distance-motion-and-environment-sensors.md) | ToF, ultrasonic, IR, IMU, Hall/current, temperature/humidity/pressure |
-| [Module 5 — LEDs & Light as Output](./modules/05-leds-and-light-output.md) | LED physics, current limiting, PWM, RGB mixing, addressable WS2812 strips |
-| [Module 6 — LED Animation, Sound & Interactive Installations](./modules/06-led-animation-sound-and-installations.md) | Animation, timing, sound reactivity, interactive installation prototyping |
-| [Module 7 — Motors & Motion Actuators](./modules/07-motors-and-motion-actuators.md) | Servo, DC motor with H-bridge, stepper, drivers, torque, current, safety |
-| [Module 8 — From Sensor to System: IoTempower & Integration](./modules/08-sensor-to-system-and-integration.md) | Declarative drivers and filters, MQTT, Node-RED dashboards, closed-loop control |
-| [Module 9 — Final Project Studio](./modules/09-final-project-studio.md) | Project kickoff, requirement mapping, build, characterization, resilience, peer review |
-| [Module 10 — Demonstration & Portfolio Defense](./modules/10-demonstration-and-defense.md) | Live demonstration, technical defense, portfolio evaluation, retrospective |
-| [Resource Prompts](./modules/Y-resources-prompt-bank.md) | Portfolio prompts and quick references |
-| [Resource Bank](./modules/Z-resources-bank.md) | Extra resources, cheat sheets, and troubleshooting |
+This is the course workbook and front page for **Sensors and Actuators (Sensorik und Aktorik)** at Hochschule Bielefeld University of Applied Sciences and Arts (HSBI), Campus Gütersloh. It is a hands-on, studio-style elective for engineering students who want to understand the *physical* side of IoT: what a sensor really measures, how a bus really works, how an actuator really moves, and how to prove it with a measurement instead of a slide.
 
-This README is the course workbook and front page for the Sensors and Actuators (Sensorik und Aktorik) course taught at Hochschule Bielefeld University of Applied Sciences and Arts (HSBI), Campus Gütersloh. It is delivered over 10 working days / 12 sessions (4 hours each, 48 contact hours) across the semester. The official timetable, room, and announcements are published through the course LMS (ILIAS).
+The course runs over **10 working days / 12 sessions (4 hours each, 48 contact hours)**. The official timetable, rooms, and announcements are published through the course LMS (ILIAS).
+
+- **[Module index & roadmap](./modules/00-index.md)** — the course at a glance: every module and the day-by-day plan.
+- **[Syllabus](./syllabus.md)** — the single source of truth: schedule, learning objectives, the learning-goals contract, tools, and policies.
+- **[Pre-study guide](./pre-study.md)** — Module 0: start here before Day 1.
+- **[Prompt bank](./modules/Y-resources-prompt-bank.md)** — reflection prompts and LLM-verification drills.
+- **[Resource bank](./modules/Z-resources-bank.md)** — cheat sheets, datasheets, Git/GitHub primer, story canon, troubleshooting, and instructor hints.
+
+## Why this course looks different
+
+A sensor is not a number, and an actuator is not a pin that goes high. Most courses teach a catalogue of principles and then let you copy a library example. This course flips that:
+
+- **You go to the bus before the device.** You wire and scan I²C, read registers, and resolve address conflicts before you trust a library.
+- **You characterize what you measure.** You determine real transfer functions, linearity, hysteresis, resolution, and uncertainty, then calibrate and filter.
+- **You build real systems.** Distance, motion, environment, Hall/current, LEDs and animation, servos, DC motors, and steppers — each with its driver, current draw, and safety rules.
+- **You connect the node to a system.** Your sensor/actuator node becomes part of a local-first IoTempower + MQTT + Node-RED system with a closed control loop.
+- **You prove claims with evidence.** A number without units, conditions, and uncertainty is not a measurement. A demonstration without a characterization is not engineering.
+
+> [!IMPORTANT]
+> **Local-first, buildable, documented.** The course is designed around hardware you actually have: M5Stack nodes with Grove modules for the fast path, and raw ESP32/ESP8266 plus breadboard parts when physics matters. Cloud services are optional; everything core runs on the local network.
+
+## How we teach — challenge- and project-based, in person, and always in flux
+
+This course is taught as Challenge-Based and Project-Based Learning (CBL/PBL): you learn by investigating an authentic challenge and building a real solution, not by reproducing a lecture. We begin from stories — a real problem that matters to a person — because you learn best what connects to something meaningful for your own life, studies, or community.
+
+It also matters that we do this in person, together. A university class is at its best where we actually meet, and you will learn a great deal from direct interaction with your peers: explaining, questioning, debugging, and demoing to one another, while the instructor learns alongside you.
+
+And this class is always in flux — that is a feature, not a bug. No course is ever finished: every offering is adjusted while it runs, and each class teaches us as much as it teaches you.
 
 > [!NOTE]
-> This is a new class, first taught in WS 2026/27, and a living document: expect adaptations before and during the semester. Large parts are still a draft — each module marks unsettled content with a moving *DRAFT BOUNDARY* that we raise as we approve it together, and your feedback is explicitly welcome and can shape the class.
+> **How the modules work.** Each module opens with its **learning goals** and a ***DRAFT BOUNDARY***; the tasks are negotiable as long as the goals are met. The [syllabus](./syllabus.md) is the single source of truth for the learning-goals contract and the “draft in motion” model.
 
-## Course Overview
+## How the course is organized
 
-- Duration: 10 working days / 12 sessions (4 hours each).
-- Target Group: Bachelor students in *Digitale Technologien* (6th semester, Wahlmodul). Module number 3350.
-- Workload: 150 hours (5 ECTS credits).
-- Format: Practical, laboratory-driven course combining measurement fundamentals, sensor characterization, and hands-on work with real sensors and actuators — from a first I²C scan to motors, LEDs, and animated installations.
-- A standalone elective: *Sensorik und Aktorik* is a 6th-semester elective (Wahlmodul) and stands on its own — it neither requires nor continues a specific earlier module. It concentrates on the *physical* side of IoT: what a sensor really measures and how an actuator really moves. The small amount of local-first infrastructure it uses (a node, a local MQTT broker, Node-RED) is introduced in the course itself. If you also take other IoT classes and notice useful touch points, you are welcome to raise them with the instructor — but there is no required prior course.
-- Hardware Kit:
-  - M5Stack Modular Nodes (M5StickC Plus2, M5Atom Matrix/Lite) with Grove sensors and actuators — the fast path to working I²C and PWM devices.
-  - Raw ESP boards on breadboards — the path where you meet physics: voltage dividers, current limiting, real transfer functions. Available as ESP32 DevKits, ESP32 Ethernet mini kits, and ESP8266/Wemos D1 Mini boards.
-  - Sensor set: NTC, LDR, Hall-effect, DS18B20, VL53L0X ToF, MPU6050 (IMU), ultrasonic, PIR, environment (T/RH/P).
-  - Actuator set: SG90 servo, DC motor + H-bridge driver, 28BYJ-48 stepper + ULN2003, relay, buzzers, RGB LEDs, and WS2812 (NeoPixel) strips.
-  - Instruments: multimeter, USB power meter, optional logic analyzer.
-- Software Stack:
-  - Firmware & Build: Arduino IDE v2 or PlatformIO (VSCode).
-  - Framework: [IoTempower](https://github.com/iotempire/iotempower) for declarative drivers, filters, and Over-The-Air deployment.
-  - Integration: Mosquitto MQTT broker, Node-RED dashboards, Python (`paho-mqtt`) where useful.
-  - Simulation & Tools: Wokwi (browser simulation), `i2c-tools`, FastLED.
+- **10 working days / 12 four-hour sessions (48 contact hours)**, plus optional tutorial support announced via the LMS.
+- **Module 0 (pre-study):** portfolio setup, measurement basics, datasheet reading, and a Wokwi mini-exercise — completed before Day 1 (or run as the first in-class module when the cohort needs more setup time).
+- **Modules 1–8:** one technical studio per day — measurement and the signal chain, I²C and addressing, characterization and calibration, distance/motion/environment sensors, LEDs and light, animation and installations, motors, and system integration.
+- **Modules 9–10:** the final-project arc — a story-driven sensor/actuator system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then demonstrated and defended in the last session.
 
-For the complete language arrangement, teaching team, learning objectives, assessment rules, and policies, read the [syllabus](./syllabus.md).
+The full module list, one-line summaries, and the session roadmap live in the **[module index](./modules/00-index.md)**.
 
-## Assessment: Kombinationsprüfung (20 Points Base + Bonus)
+## Get started
 
-Your final grade is assessed continuously through your personal GitHub Portfolio and a final project:
+1. Create your personal portfolio from the [IoTempire portfolio template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”** (not “Fork”), then add the instructor as a collaborator.
+2. Complete the **[pre-study guide](./pre-study.md)** (Module 0) before Day 1.
+3. Read the **[module index](./modules/00-index.md)**, then start with **[Module 1 — Foundations](./modules/01-foundations-measurement-and-sensor-chain.md)**.
+4. Keep the **[syllabus](./syllabus.md)** handy for the schedule, the learning-goals contract, and policies.
 
-- Module 0 (Pre-Study): 1 point (compulsory preparation before the first session; see [pre-study guide](./pre-study.md)).
-- Modules 1–8 (Learning goals): 10 points, earned through checkpoint presentations (~10 min each, covering 2–3 modules) that prove the module learning goals from your portfolio and reflections — not by completing every task. You may skip tasks, fail at some, or add your own. See the [syllabus](./syllabus.md#how-module-points-are-earned-checkpoint-presentations).
-- Working-Day Reflections: 4 points (one reflection for each working day documenting measurements, failures, and solutions).
-- Final Project: 5 points (25% of base score; a documented sensor/actuator system with characterization and an integration layer).
-- Bonus / Extra Points: Up to 3 points for outstanding work, peer mentoring, advanced stretcher tasks, or accepted upstream pull requests to IoTempower or this curriculum repository.
-- Passing Mark: 14 / 20 points (~70%).
+The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) in the resource bank walks you through the template workflow, your editor, Markdown, and merge conflicts.
 
-## Portfolio & Hardware
+## What you will work with
 
-Maintain a personal GitHub portfolio with circuits, measurement tables, transfer-function plots, calibration notes, code, MQTT topics, Node-RED flow exports, and working-day reflections. Start from the [portfolio template](https://github.com/iotempire/iot-portfolio-template).
+- **Hardware:** M5Stack nodes and Grove modules (fast path); ESP32/ESP8266 boards, breadboards, and discrete sensors/actuators (physics path); multimeter, USB power meter, optional logic analyzer.
+- **Firmware:** Arduino IDE v2 or PlatformIO with the ESP32/ESP8266 cores; FastLED for addressable LEDs.
+- **System layer:** [IoTempower](https://github.com/iotempire/iotempower) for declarative drivers, filters, and OTA deployment; Mosquitto MQTT; Node-RED dashboards.
+- **Optional Python glue:** a pinned `uv` environment for `paho-mqtt` and integration scripts where useful.
+- **Editor and terminal:** VS Code or Zed with the **integrated terminal**; on Windows, set the terminal profile to **Git Bash** (ships with Git for Windows) because the labs use bash.
+- **AI co-pilots:** use them to draft and explain — then verify against the datasheet, the multimeter, and your own measurements. Verification is the graded skill. The hands-on experiment comes first: touch the hardware, form a hypothesis, then ask AI — and respect voltage, current, and polarity limits.
 
-Module 0 is required: before the first session, fork your portfolio and complete the pre-study tasks in [pre-study.md](./pre-study.md). In sensor work, documented measurement and calibration matter more than a lucky reading — showing how you found a dead I²C device, a noisy channel, or a wrong transfer function is exactly the engineering skill this course builds.
+## For instructors
 
-## Navigation & Resources
+The workbook is meant to be reused and adapted. It relies on open hardware and open-source software; the labs are self-contained and run on a local network; and each module keeps its learning goals separate from the (draft) tasks, so you can swap exercises without breaking the course. Fork it, translate it, and change the stories to your own context — and please keep the attribution to IoTempower and Ulrich Norbisrath. Feedback and pull requests are welcome.
 
-- [Module index](./modules/00-index.md) — compact navigation
-- [Pre-study guide](./pre-study.md) — start here before Day 1
-- [Syllabus](./syllabus.md) — official course rules and policies
+Instructor hints — running the checkpoints, presenting from the workbook, hardware-kit tips, and the story canon — live in the [resource bank](./modules/Z-resources-bank.md#instructor-hints). If you present from slides, keep them plain Markdown (slides separated by `---`) and render a 16:9 PDF with **pandoc + Typst**; there is no notebook runtime and no build step.
+
+## Navigation & resources
+
+- [Module index & roadmap](./modules/00-index.md)
+- [Syllabus](./syllabus.md)
+- [Pre-study guide](./pre-study.md)
+- [Reflection prompts & LLM-verification drills](./modules/Y-resources-prompt-bank.md)
+- [Cheat sheets, datasheets, Git primer, story canon & troubleshooting](./modules/Z-resources-bank.md)
 - [IoTempower](https://github.com/iotempire/iotempower) — declarative sensor/actuator framework ([iotempower.us](https://iotempower.us))
 - [IoTempire](https://iotempire.net/) — organization, teaching tools, and community
 
-### LMS PDF Exports
+### LMS PDF exports
 
 Generate dated, upload-ready PDFs from the syllabus and pre-study guide using LibreOffice (default), Chromium, or LaTeX:
 
@@ -78,9 +87,9 @@ Generate dated, upload-ready PDFs from the syllabus and pre-study guide using Li
 ./generate-lms-pdfs.sh 2026-27
 ```
 
-## Contacts & Support
+## Contacts & support
 
-- Questions, schedule, and technical support: Use the course LMS (ILIAS), the authoritative communication channel.
-- Main Instructor: Prof. Dr. Ulrich Norbisrath (Ulno) — [ulno.net](https://ulno.net/)
-- Teaching Support: Fabian Tilman Schmid-Michels *(if available)*
+- Questions, schedule, and technical support: use the course LMS (ILIAS), the authoritative communication channel.
+- Main instructor: Prof. Dr. Ulrich Norbisrath (Ulno) — [ulno.net](https://ulno.net/)
+- Teaching support: Fabian Tilman Schmid-Michels *(if available)*
 - Community: [IoTempire](https://iotempire.net/)

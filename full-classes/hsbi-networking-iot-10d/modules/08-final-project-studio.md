@@ -2,11 +2,9 @@
 
 [← Back to Module 7](./07-fleet-management-and-iotempower.md) | [Quick module index](./00-index.md) | [Next: Module 9 →](./09-demonstrations-and-defense.md)
 
-> **Course placement:** This module spans the final project arc — several sessions dedicated to project ideation, architecture planning, integration, resilience testing, and presentation readiness. The exact split depends on the timetable and group progress; the schedule deliberately reserves buffer time here so that slower labs elsewhere do not eat into the project.
+**Course placement:** Days 8–9 (Sessions 8–11) — the final project studio, after Checkpoint 2 (Modules 4–7). The exact split depends on the timetable and group progress; the schedule deliberately reserves buffer time here so slower labs elsewhere do not eat into the project.
 
 ## 🎯 Learning Goals
-
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
 
 This module gives you the opportunity to explore systems integration and resilience engineering and achieve competency in turning a story into an architecture, integrating sensors/actuators/network layers, and fault-injection testing.
 
@@ -17,10 +15,36 @@ By the end of this module, you can:
 4. Conduct a structured peer review and rehearsal of your final project demonstration.
 5. Refine your system documentation and live demonstration script for the final defense.
 
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
+
+## 📖 Story — The Operations Centre at 3 A.M.
+
+**Stadtwerke Gütersloh** is about to run its first winter with the new monitoring system. **Petra Sommer** is on call. At 3 a.m. an intermediate router loses power, a sensor node reboots, and the MQTT broker restarts after an update. The control room must still show the last known state, flag what is stale, and recover without a technician driving across the city.
+
+Your **Project Team** — two Task Pods merged into 4–6 people — is the engineering team behind that night. You pick a stakeholder story (Stadtwerke, Lumenwerk's remote exhibition, Klimapark's greenhouse, Frachtflow's warehouse, or one of your own), turn it into a multi-node architecture, and then do the thing that separates a demo from a system: break it on purpose and prove it recovers.
+
+## 📖 Studio Briefing: From Story to Resilient System
+
+Before you build, spend a short pod-study block on the project craft:
+
+### Pointers (start here, then keep looking)
+
+- Story-driven modeling — [Wikipedia: Story-driven modeling](https://en.wikipedia.org/wiki/Story-driven_modeling)
+- Requirements and acceptance criteria — [Wikipedia: Requirement](https://en.wikipedia.org/wiki/Requirement), [Acceptance testing](https://en.wikipedia.org/wiki/Acceptance_testing)
+- Fault injection and resilience — [Wikipedia: Fault injection](https://en.wikipedia.org/wiki/Fault_injection), [Chaos engineering](https://en.wikipedia.org/wiki/Chaos_engineering)
+- Network architecture — [Wikipedia: Network architecture](https://en.wikipedia.org/wiki/Network_architecture)
+- The [story canon](./Z-resources-bank.md#story-canon-the-recurring-cast) and the [final-project must-haves](../syllabus.md#final-project-requirements-5-points)
+
+### Questions to ask an LLM (then verify against your kit)
+
+- "Here is our stakeholder story: `<paste it>`. Turn it into a requirements list with measurable acceptance criteria and flag anything we cannot build with our routers and M5Stack nodes."
+- "What is the smallest multi-node architecture that satisfies these requirements? Name every failure point."
+- "List five fault-injection tests for this architecture and the graceful behavior we should expect from each."
+- "How do we measure recovery time objectively, and what evidence should we capture?"
+- "Review our must-have mapping and tell us what is missing or untestable."
+
+> Treat every generated requirement as a hypothesis. Verify it against the kit, the syllabus must-haves, and a live test.
 
 ## 📖 How the Studio Sessions Work
 
@@ -33,12 +57,12 @@ The project is not a single lab exercise; it is a short engineering sprint. Expe
     |
 [Harden]             Fault injection, resilience fixes, documentation
     |
-[Rehearse]           Peer dry run against the rubric
+[Rehearse]           Peer dry run against the must-haves
     |
 [Defend]             Module 9: live demo + portfolio defense
 ```
 
-Sessions are open-ended by design: teams naturally progress at different speeds. If you finish an integration milestone early, use the time for hardening, measurements, or helping a neighboring team (which counts toward bonus points). If a lab from an earlier module ran over, this is the buffer that absorbs it.
+Sessions are open-ended by design: Project Teams naturally progress at different speeds. If you finish an integration milestone early, use the time for hardening, measurements, or helping a neighboring Project Team (which counts toward bonus points). If a lab from an earlier module ran over, this is the buffer that absorbs it.
 
 ## 📖 Architecting for Resiliency in the Continuum
 
@@ -67,20 +91,20 @@ A toy IoT project works only when every component is connected under ideal condi
 
 You do not have to use every layer. A strong project uses each layer it includes *deliberately* and can defend that choice. If you configured a B.A.T.M.A.N. mesh in Module 3, this is where it earns its place by carrying real traffic across a link you can physically break.
 
-## 🛠️ Studio Labs
+## 🛠️ Studio Labs — **Challenging**
 
-*Teams of 2–4 students assemble their full hardware and networking setup. Work through the tasks as milestones, not as a rigid clock.*
+*Project Teams of 4–6 students (two merged Task Pods) assemble their full hardware and networking setup. Work through the tasks as milestones, not as a rigid clock.*
 
-### Task 1: Project Kickoff — Story, Team & Requirements (45 min)
+### ★ Task 1: Project Kickoff — Story, Project Team & Requirements
 
 1. Craft a story. Pick one scenario around a real stakeholder (a person with a name and a problem). If you have no idea yet, generate one with AI and refine it by hand — the story must be *yours*.
    - It must be playable and pitchable: something you can demo live in a few minutes.
-2. Pitch to a neighboring team (2×5 min): present the story, take notes on their questions.
-3. Discuss feasibility (10 min): what can you build with the kit, what must be mocked, and what integration is needed?
-4. Form your team of 2–4 and document individual roles and contributions in each personal portfolio.
+2. Pitch to a neighboring Project Team: present the story, take notes on their questions.
+3. Discuss feasibility: what can you build with the kit, what must be mocked, and what integration is needed?
+4. Merge two Task Pods into a **Project Team of 4–6** and document individual roles and contributions in each personal portfolio.
 5. Map requirements onto the final project must-haves (see the syllabus): which nodes, which network layers, which messaging, which integration, which resilience test will you demonstrate?
 
-### Task 2: Complete System Integration (45 min)
+### ★ Task 2: Complete System Integration
 
 Verify that your system meets the Final Project Must-Haves:
 1. Multi-Node: At least 4 independent physical nodes active (e.g. 2 M5Stack nodes, 1 OpenWrt router, 1 laptop/edge server).
@@ -89,7 +113,7 @@ Verify that your system meets the Final Project Must-Haves:
 4. Integration Engine: Node-RED flow and/or Python script orchestrating real-time logic.
 5. Declarative Management: At least one node managed and updatable via IoTempower Over-The-Air (OTA).
 
-### Task 3: Fault Injection & Resilience Testing (30 min)
+### ★ Task 3: Fault Injection & Resilience Testing
 
 Before presenting, intentionally break your system and document the recovery:
 
@@ -99,24 +123,43 @@ Before presenting, intentionally break your system and document the recovery:
 
 Document these failure scenarios and your mitigation strategies in your portfolio!
 
-### Task 4: Peer Review & Dry Run Rehearsal (40 min)
+### ★ Task 4: Peer Review & Dry Run Rehearsal
 
-Pair with another team for a 15-minute reciprocal dry run:
+Pair with another Project Team for a reciprocal dry run:
 
-#### Presenting Team (5 min):
-1. The System Story (1 min): Problem domain, users, and core value proposition.
-2. Architecture Walkthrough (2 min): Point out physical nodes, network topologies, routing layers, and data flow.
-3. Live Demo (2 min): Trigger a physical interaction on an M5Stack node, show data crossing the network, and show the dashboard/actuator response.
+#### Presenting Project Team:
+1. The System Story: Problem domain, users, and core value proposition.
+2. Architecture Walkthrough: Point out physical nodes, network topologies, routing layers, and data flow.
+3. Live Demo: Trigger a physical interaction on an M5Stack node, show data crossing the network, and show the dashboard/actuator response.
 
-#### Reviewing Team (5 min Feedback using Rubric):
+#### Reviewing Project Team (feedback):
 - Clarity: Did they explain *why* specific protocols were chosen?
 - Robustness: What happens if the network drops? Did they demonstrate resilience?
 - Evidence: Are the network configs and packet flows documented in their GitHub repository?
 
-## 📝 Working-Day Reflection & Portfolio Tasks
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-In your portfolio under `modules/08-final-project-studio/`:
+Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-08/`.)
 1. Kickoff Story: Your stakeholder story, target users, team roles, and the requirement-to-must-have mapping.
 2. Final Project Architecture Diagram: Detailed schematic of your integrated system showing physical hardware, network interfaces, IP/overlay addressing, and protocol flows.
 3. Fault-Injection Test Report: Document the results of your three resilience tests (Link Drop, Node Loss, Broker Restart) with log snippets or screenshots.
 4. Peer Feedback Log: Summarize the feedback received from your review team and the concrete adjustments you are making for the final defense.
+
+### Reflection logbook
+
+Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
+
+> [!IMPORTANT]
+> Never commit secrets, credentials, private keys, captures with personal traffic, or `.venv/`. Where you did not work entirely alone, link your pod mates and sources.
+
+## 📚 If you want to go deeper
+
+- [Wikipedia: Story-driven modeling](https://en.wikipedia.org/wiki/Story-driven_modeling) — the method behind the stories.
+- [Wikipedia: Requirement](https://en.wikipedia.org/wiki/Requirement) and [Acceptance testing](https://en.wikipedia.org/wiki/Acceptance_testing) — turning a story into testable criteria.
+- [Fault injection](https://en.wikipedia.org/wiki/Fault_injection) and [Chaos engineering](https://en.wikipedia.org/wiki/Chaos_engineering) — how to prove resilience.
+- [Network architecture](https://en.wikipedia.org/wiki/Network_architecture) — layers, interfaces, and trade-offs.
+- The [story canon](./Z-resources-bank.md#story-canon-the-recurring-cast) — keep your new story consistent with the course universe.
+
+---
+
+[← Previous: Module 7](./07-fleet-management-and-iotempower.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 9 — Final Project Demonstrations & Defense →](./09-demonstrations-and-defense.md)

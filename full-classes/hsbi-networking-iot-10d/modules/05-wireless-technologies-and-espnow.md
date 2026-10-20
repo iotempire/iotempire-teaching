@@ -2,9 +2,9 @@
 
 [← Back to Module 4](./04-mqtt-and-integration.md) | [Quick module index](./00-index.md) | [Next: Module 6 →](./06-industrial-protocols-and-bridging.md)
 
-## 🎯 Learning Goals
+**Course placement:** Day 5 — the wireless studio. You choose a radio by measurement, then build an ESP-NOW-to-MQTT bridge.
 
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+## 🎯 Learning Goals
 
 This module gives you the opportunity to explore wireless IoT communication and achieve competency in radio and ISM-band trade-offs, Wi-Fi vs. BLE vs. LoRaWAN, and connectionless ESP-NOW with a gateway bridge.
 
@@ -14,12 +14,18 @@ By the end of this module, you can:
 3. Use ESP-NOW: connectionless IEEE 802.11 action frames for ultra-low latency, sub-millisecond edge communication.
 4. Architect and deploy an ESP-NOW to MQTT Gateway Bridge using M5Stack hardware.
 
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
-## 📖 The Wireless Landscape for IoT
+## 📖 Story — The Greenhouse With Too Many Radios
+
+**Klimapark GmbH** is expanding its greenhouse network. Agronomist **Dr. Elif Kaya** wants soil-moisture and temperature nodes in three polytunnels, a gate controller at the far end, and a battery-powered button for the night crew. The first proposal uses Wi-Fi for everything; the nodes at the far end drop out, the button drains a coin cell in a week, and the gate controller takes seconds to react.
+
+Operations manager **Tobias Kern** asks the question that drives this module: *"Which radio actually fits each job — and what does it cost in range, latency, power, and payload?"* Today you compare Wi-Fi, BLE, LoRaWAN, and ESP-NOW, then build the bridge that brings a connectionless ESP-NOW micro-network into the MQTT system.
+
+## 📖 Pod Study: The Wireless Landscape for IoT
+
+This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
 
 ### 1. The Physics of Radio & The ISM Band
 IoT wireless technologies operate largely in unlicensed ISM (Industrial, Scientific, Medical) bands:
@@ -60,11 +66,56 @@ ESP-NOW eliminates the entire TCP/IP and connection stack:
 [OpenWrt Router / Mosquitto MQTT Broker]
 ```
 
-## 🛠️ In-Class Lab: The Sub-Millisecond ESP-NOW Swarm
+### Pointers (start here, then keep looking)
+
+- ESP-NOW — [Espressif ESP-NOW documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/network/esp_now.html)
+- Wi-Fi — [IEEE 802.11](https://en.wikipedia.org/wiki/IEEE_802.11)
+- BLE — [Bluetooth Low Energy](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy)
+- LoRaWAN — [LoRa Alliance](https://lora-alliance.org/), [LoRaWAN 1.0 specification](https://lora-alliance.org/resource-hub/)
+- ISM bands and duty cycle — [Wikipedia: ISM radio band](https://en.wikipedia.org/wiki/ISM_radio_band)
+- The [resource bank's wireless references](./Z-resources-bank.md#pre-class-videos-by-module)
+
+### Questions to ask an LLM (then verify against your hardware)
+
+Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
+
+- "Compare Wi-Fi, BLE, LoRaWAN, and ESP-NOW for a battery-powered soil-moisture sensor. Give range, payload, latency, and power trade-offs."
+- "Why does standard Wi-Fi take seconds to send the first byte, while ESP-NOW can send in milliseconds? List the connection steps ESP-NOW skips."
+- "How does an ESP32 receive ESP-NOW frames and publish to MQTT over Wi-Fi at the same time? What channel constraint applies?"
+- "What is the EU duty-cycle limit for the 868 MHz band, and how does it affect a LoRaWAN sensor design?"
+- "My ESP-NOW packets are lost when the room is crowded. What are the likely causes, and how would I measure them?"
+
+> Run each prompt against your own radios, and record where the model is wrong, vague, or over-confident.
+
+### ★ Task A: Study in your pod
+
+Work through the concepts above with your Task Pod and fill in `module-05/study-log.md`:
+
+1. **The references you used** — the source and the one concept you understood best from it.
+2. **Things you googled** — the term, what you found, and the source (URL). One line each.
+3. **Remarkable things** — surprises, "aha"s, and counterexamples from your own measurements.
+4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
+5. **Your two best found wireless comparison tables** — compile down to the best two, with source and what they taught you.
+
+*Portfolio evidence:* `module-05/study-log.md`.
+
+### ★ Task B: Explain & share with another pod
+
+Pair with a **neighbouring pod**:
+
+1. **Explain to each other** — each pod walks the other through its wireless trade-off matrix and its ESP-NOW bridge; ask questions and fill each other's gaps.
+2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"the radio choice is a requirements question, not a religion"*).
+3. **Clean up your documentation** — update your `study-log.md` with what you learned from the other pod.
+4. Agree on **one shared artefact** — the best trade-off matrix, a latency measurement, or a new bridge diagram the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
+5. Each member adds a short **“Agreed learning (pod discussion)”** section to *their own* `study-log.md`.
+
+*Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section) and your pod-pair's shared artefact.
+
+## 🛠️ In-Class Lab: The Sub-Millisecond ESP-NOW Swarm — **Challenging**
 
 *Hardware:* 2× M5Stack nodes (e.g. 1 M5StickC and 1 M5Atom) + 1× OpenWrt Router.
 
-### Task 1: Peer Discovery & Sending Raw Action Frames (30 min)
+### ★ Task 1: Peer Discovery & Sending Raw Action Frames
 
 1. Find the MAC Address of Each Node:
    Upload a quick identifier sketch or read the MAC from the serial console at boot:
@@ -125,7 +176,7 @@ ESP-NOW eliminates the entire TCP/IP and connection stack:
    Set up a callback on Node B using `esp_now_register_recv_cb()`.
    Watch the incoming packets appear instantly on the serial monitor with zero Wi-Fi network or router involved!
 
-### Task 2: Building the ESP-NOW to MQTT Gateway Bridge (40 min)
+### ★ Task 2: Building the ESP-NOW to MQTT Gateway Bridge
 Can a single ESP32 speak ESP-NOW and connect to standard Wi-Fi simultaneously? Yes! As long as both use the same Wi-Fi radio channel (e.g. Channel 1, 6, or 11).
 
 1. Connect Node B (the bridge node) to your OpenWrt router's Wi-Fi network.
@@ -139,16 +190,34 @@ Can a single ESP32 speak ESP-NOW and connect to standard Wi-Fi simultaneously? Y
 4. Verify the flow in Node-RED:
    `M5 Sensor (ESP-NOW) -> M5 Bridge Node (Wi-Fi) -> OpenWrt Broker -> Node-RED Dashboard`.
 
-### Task 3: Latency & Interference Shootout (20 min)
+### ★ Task 3: Latency & Interference Shootout
 1. Trigger a physical button press on Node A that controls an LED on Node B via ESP-NOW.
 2. Measure the response time (perceived latency is essentially instantaneous, <5 ms).
 3. Compare this with triggering the LED via traditional Wi-Fi MQTT through the router:
    - Notice the difference in latency, especially when the Wi-Fi channel is heavily congested with class traffic.
 
-## 📝 Working-Day Reflection & Portfolio Tasks
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-In your portfolio under `modules/05-wireless-espnow/`:
+Your portfolio only needs to **prove this module's learning goals**. The items below are **suggested proofs** — commit them if they fit, or demonstrate the same goals your own way. (Under `module-05/`.)
 1. Wireless Trade-off Matrix: Detail when you would choose ESP-NOW vs. Standard Wi-Fi vs. LoRaWAN vs. BLE in a commercial IoT deployment.
 2. Bridge Architecture Diagram: Diagram the data flow from the standalone ESP-NOW sender, across the Layer-2 action frame, through the M5Stack dual-mode bridge, into the OpenWrt MQTT broker.
 3. Serial Capture Evidence: Include serial monitor output showing the received ESP-NOW payload and the corresponding MQTT publish on the gateway.
 4. Reflection: Why is connectionless transmission a game-changer for battery-powered IoT edge buttons and sensors?
+
+### Reflection logbook
+
+Write one entry for this teaching block in `reflection.md`: *What worked? What broke? How did my mental model shift? How did I verify AI suggestions?*
+
+> [!IMPORTANT]
+> Never commit secrets, credentials, private keys, or personal data. Where you did not work entirely alone, link your pod mates and sources.
+
+## 📚 If you want to go deeper
+
+- [Espressif ESP-NOW documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/network/esp_now.html) — peers, callbacks, and channel behavior.
+- [Bluetooth Low Energy](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy) — connection intervals and payload limits.
+- [LoRa Alliance](https://lora-alliance.org/) and the [LoRaWAN specification](https://lora-alliance.org/resource-hub/) — long range, low power, duty cycle.
+- [ISM radio band](https://en.wikipedia.org/wiki/ISM_radio_band) — the regulatory context.
+
+---
+
+[← Previous: Module 4](./04-mqtt-and-integration.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 6 — Industrial Protocols & Edge Bridging →](./06-industrial-protocols-and-bridging.md)

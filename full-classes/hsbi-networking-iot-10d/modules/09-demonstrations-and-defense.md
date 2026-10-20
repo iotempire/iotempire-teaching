@@ -2,52 +2,52 @@
 
 [← Back to Module 8](./08-final-project-studio.md) | [Quick module index](./00-index.md)
 
-## 🎯 Learning Goals
+**Course placement:** Day 10 / Session 12 — the final session. You demonstrate a multi-node system and defend the engineering behind it, to the instructor and to your peers.
 
-> **How these are assessed:** You earn this module's points by proving these goals in a short (~10-minute) checkpoint presentation with the instructor (see the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations)) — based on your portfolio and reflections, not on completing every task. You may skip tasks, fail at some, or add your own; documented exploration and demonstrated deep understanding both count in your favor.
+## 🎯 Learning Goals
 
 This module gives you the opportunity to explore engineering communication and defense and achieve competency in delivering a live demonstration, defending technical choices, and presenting your portfolio.
 
 By the end of this module, you can:
-1. Deliver a compelling 5-minute live demonstration of your end-to-end networked IoT final project system.
+1. Deliver a compelling live demonstration of your end-to-end networked IoT final project system.
 2. Defend your architectural choices, protocol trade-offs, and resilience mechanisms before instructors and peers.
-3. Complete the portfolio evaluation and assessment defense.
+3. Complete the portfolio evaluation and defense.
 4. Reflect on your learning journey from abstract textbook layering to real-world edge networking and fleet management.
 
-> [!WARNING]
-> DRAFT — first taught in WS 2026/27. Everything below this line is a working draft and will likely change as we refine it together in class; the line moves down as we approve content. Your input is welcome and can shape this module.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
+## 📖 Story — The Night the Network Has to Hold
+
+It is 3 a.m. in the operations centre. **Petra Sommer** is watching the dashboard; **Malik Yilmaz** is on the phone from a substation; the control room screen shows the last known state of every node. One router is down. The system has to say so clearly, keep the local loops running, and recover when the link returns.
+
+Your final demo is that night in miniature. You have a short slot: first show a multi-node system measuring, messaging, and acting, including one fault you inject on purpose; then defend the architecture and the trade-offs you own. The story gives you the *why*; the packet captures, recovery times, and fault-injection log give you the *how do you know?*
+
 ## 🛠️ In-Class Demo & Defense Procedure
 
-*Format: 5-minute presentation + 3-minute live interaction / fault injection + 2-minute Q&A per team.*
+*The format and timing are set in the [syllabus](../syllabus.md#final-project-requirements-5-points); this page is the working script.*
 
-### Demonstration Script Guidelines (5 min)
+### Demonstration Script Guidelines
 
-1. System Story & Problem Context (1 min):
+1. System Story & Problem Context:
    - Who uses this system? What real-world problem does it solve?
-2. Network Topology & Architectural Defense (2 min):
+2. Network Topology & Architectural Defense:
    - Walk through the physical and virtual topology: M5Stack nodes, OpenWrt router, optional B.A.T.M.A.N. mesh, Nebula/Yggdrasil overlay, and MQTT broker.
    - Justify your protocol choices: Why ESP-NOW instead of Wi-Fi for node X? Why MQTT instead of HTTP? How does the overlay provide remote access?
-3. Live Demonstration (2 min):
+3. Live Demonstration:
    - Demonstrate real physical sensor input propagating across the network to triggers, actuators, and dashboards.
    - Demonstrate an Over-The-Air (OTA) update or declarative reconfiguration using IoTempower.
 4. Live Fault Injection (Instructor Challenge):
    - The instructor or a peer will test the resilience of your system (e.g. pulling power on an intermediate mesh router or disconnecting a Wi-Fi link).
    - Show how the system degrades gracefully, re-routes, or recovers automatically.
 
-## 📋 Final Project Assessment Rubric (5 Points)
+## 📋 Where the Rubric Lives
 
-| Criteria | Max Points | Expectations |
-|---|:---:|---|
-| System Functionality & Resilience | 2.0 pts | System fulfills all must-haves: 4+ nodes, 2+ network layers, MQTT pub/sub, integration engine (Node-RED/Python), and IoTempower OTA. Graceful recovery under fault injection. |
-| Architecture & Engineering Metrics | 1.5 pts | Clear network diagram, IP/topic documentation, Wireshark packet captures, latency/overhead analysis, and clean Git commits in portfolio. |
-| Live Presentation & Technical Defense | 1.5 pts | Clear, fluent demonstration; confident explanation of networking trade-offs; thoughtful answers to technical questions. |
+The final project is assessed according to the [syllabus](../syllabus.md#final-project-requirements-5-points), and the rubric lives **only** there. This page is the working demo script and evidence checklist; if the two ever disagree, the syllabus wins.
 
-## 📝 Final Portfolio Submission Checklist
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-Ensure your personal GitHub portfolio includes all required evidence before final submission:
+Your portfolio only needs to **prove the course's learning goals**. The checklist below is a **suggested** set of proofs — commit them if they fit, or demonstrate the same goals your own way.
 - [ ] Module 0: Pre-study notes, initial network exploration, and answers to guiding questions.
 - [ ] Module 1: Node-RED hello-world screenshot, Wireshark packet capture, and OSI critique reflection.
 - [ ] Module 2: OpenWrt setup, network topology diagram, DHCP/ARP captures, and NAT/port forwarding test.
@@ -57,7 +57,11 @@ Ensure your personal GitHub portfolio includes all required evidence before fina
 - [ ] Module 6: Industrial protocol analysis (recommended); optional simulated Modbus/OPC-UA server and bridge.
 - [ ] Module 7: IoTempower declarative node configuration (`setup.cpp`), OTA deployment logs, and fleet integration.
 - [ ] Modules 8 & 9: Final Project architecture diagrams, fault-injection test logs, presentation slides/script, and final course retrospective.
-- [ ] Working-Day Reflections: Complete entries for every working day.
+- [ ] Reflection logbook: four block entries (Days 1–3, 4–6, 7–8, 9–10), each answering *what worked, what broke, how my mental model shifted, and how I verified AI suggestions*.
+- [ ] Where you did not work entirely alone: links to pod mates, sources, and borrowed configuration.
+
+> [!IMPORTANT]
+> Never commit secrets, credentials, private keys, `.venv/`, or packet captures containing personal traffic. Commit the configuration and the script that rebuilds your evidence.
 
 ## 🎓 Course Retrospective & What's Next
 
@@ -72,3 +76,14 @@ You have developed a deep, practical mastery of:
 ### Next Steps:
 - Continue exploring the IoTempire ecosystem: [iotempire.net](https://iotempire.net/) and [github.com/iotempire/iotempower](https://github.com/iotempire/iotempower).
 - If you are interested in the physical side, the elective Sensorik und Aktorik goes deeper into analog and digital sensor physics, signal conditioning, error calculations, and building custom sensing hardware.
+
+## 📚 If you want to go deeper
+
+- [Wikipedia: Story-driven modeling](https://en.wikipedia.org/wiki/Story-driven_modeling) — the method behind the project stories.
+- [Wikipedia: Fault injection](https://en.wikipedia.org/wiki/Fault_injection) — the resilience test you will face live.
+- [Wikipedia: Technical presentation](https://en.wikipedia.org/wiki/Technical_presentation) — structure, evidence, and time discipline.
+- The [resource bank's instructor hints](./Z-resources-bank.md#instructor-hints) — how the demo and defense are run.
+
+---
+
+[← Previous: Module 8](./08-final-project-studio.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md)

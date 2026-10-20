@@ -4,6 +4,29 @@
 
 [← Back to Module Index](./00-index.md) | [Back to Resources Bank](./Z-resources-bank.md)
 
+## 🧠 LLM verification drills (use in every module)
+
+AI is a **drafting tool**, not an oracle. For each module, pick at least one prompt, run it, and record in your `study-log.md`: the prompt, a 2–3 line summary, **how you verified it**, and where the model was wrong.
+
+- **Explain-and-test:** "Explain `<concept>` in three levels — a peer, a technician, a customer — then give me one measurement or experiment that would prove you right."
+- **Debug my reasoning:** "Here is my wiring and my code: `<paste>`. What is the most likely failure, and what should I measure first?"
+- **Break the answer:** "Give me three ways this result could be wrong or misleading, and the experiment that would expose each."
+- **Translate a datasheet:** "Here is the relevant datasheet page: `<paste>`. Extract the conditions behind the accuracy number and the register I need for a raw reading."
+- **Design a characterization:** "Design a five-point experiment to determine the transfer function and hysteresis of `<sensor>` with the equipment in our kit."
+- **Challenge a claim:** "I measured `<value>` with `<method>`. What could make this measurement systematically wrong, and how would I check?"
+
+> [!WARNING]
+> Never paste credentials, private keys, or personal data into a public LLM. Treat every generated circuit, register value, and formula as a hypothesis — verify it against the datasheet, the multimeter, and a live measurement.
+
+## 🤝 Pod discussion prompts
+
+Use these to end a pod-study block with **agreed learning** and one shared artefact:
+
+- "What is the one sentence we would put on the whiteboard to explain this concept to another pod?"
+- "Which of our measurements surprised us, and why?"
+- "Where did the LLM mislead us, and how did we catch it?"
+- "What is the smallest demonstration that would convince a skeptic that we understand this?"
+
 ## 📌 Module 1 – Foundations: Measurement, Signals & the Chain
 *Focus: transducer, error/uncertainty, accuracy vs. precision, ADC, sampling, quantization.*
 
