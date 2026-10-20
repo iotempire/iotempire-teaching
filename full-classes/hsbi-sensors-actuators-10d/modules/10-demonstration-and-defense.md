@@ -58,7 +58,7 @@ The final project is assessed according to the [syllabus](../syllabus.md#final-p
 - [ ] Module 7: Servo evidence and currents, H-bridge truth table and stall current, stepper results, sensor→motor logic.
 - [ ] Module 8: IoTempower node definition, MQTT topics, filter evidence, Node-RED flow export and dashboard, fault-injection report.
 - [ ] Modules 9 & 10: Final Project architecture diagram, characterization and evaluation reports, fault-injection log, presentation slides/script, and final retrospective.
-- [ ] Reflection logbook entries for the teaching blocks, using the reflection template in `Reflections/`.
+- [ ] Reflection logbook entries for the teaching blocks, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md) in `Reflections/`.
 - [ ] Where you did not work entirely alone: links to pod mates, sources, and borrowed code.
 
 > [!IMPORTANT]

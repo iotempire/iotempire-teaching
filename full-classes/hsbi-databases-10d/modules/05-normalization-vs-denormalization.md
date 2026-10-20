@@ -204,7 +204,7 @@ Load the same data into DuckDB and run the dashboard query there. Capture wall-c
 - [ ] The denormalized `report_jobpart` DDL and the benchmark table with all measured numbers.
 - [ ] `EXPLAIN QUERY PLAN` output for both designs.
 - [ ] The recommendation memo citing your numbers, including the staleness strategy.
-- [ ] `Reflections/ref05.md` — the logbook entry for this block, using the reflection template.
+- [ ] `Reflections/ref05.md` — the logbook entry for this block, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md).
 - [ ] (Stretcher) the DuckDB comparison.
 
 ## 📚 If you want to go deeper

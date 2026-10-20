@@ -27,6 +27,8 @@ In class we work with **GitHub on the web** and the **Git UI inside your editor*
 2. Name it `sensors-portfolio` and make it **public** (or at least readable by the instructor).
 3. Add the instructor as a collaborator (repo → *Settings → Collaborators → Add people*).
 
+**Reflections:** copy `Reflections/TEMPLATE.md` to `Reflections/refNN.md`; `ref02.md` is the worked example.
+
 > A **template** gives you a fresh repo with one clean commit and no upstream link; a **fork** keeps a link to the original and the full history — not what a personal portfolio wants.
 
 ### Clone it once with `gh`

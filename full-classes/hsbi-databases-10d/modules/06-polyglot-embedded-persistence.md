@@ -279,7 +279,7 @@ For ~15 years the “serious” way to build a networked app was the familiar th
 - [ ] `analytics.py`, the Parquet artifact (or its size), the two timings, and the engine-fit paragraph.
 - [ ] `kv_compare.py`, the four timings, your engine choice, and the SQLite-only capability.
 - [ ] The ACID/BASE/CAP paragraph.
-- [ ] `Reflections/ref06.md` — the logbook entry for this block, using the reflection template.
+- [ ] `Reflections/ref06.md` — the logbook entry for this block, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md).
 - [ ] (Stretcher) the FTS5 notes search **or** the Nushell-vs-SQL comparison (Task 5) **or** the case-study notes (Task 7).
 
 ## 📚 If you want to go deeper

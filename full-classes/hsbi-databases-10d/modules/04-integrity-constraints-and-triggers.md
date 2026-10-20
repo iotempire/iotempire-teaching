@@ -210,7 +210,7 @@ Switch the alarm trigger to `BEFORE INSERT` and observe the difference; or add a
 - [ ] The `UPSERT` SQL, `ingest.py`, and the double-run row-count proof.
 - [ ] The alarm and audit trigger DDL plus the rows they produced, and the trigger-cost measurement.
 - [ ] The access-control demonstration (`mode=ro`, `chmod`, a view) and your comparison note.
-- [ ] `Reflections/ref04.md` — the logbook entry for this block, using the reflection template.
+- [ ] `Reflections/ref04.md` — the logbook entry for this block, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md).
 - [ ] (Stretcher) the trigger-timing variant and what it changed.
 
 ## 📚 If you want to go deeper

@@ -84,7 +84,7 @@ Open your terminal (Linux/macOS terminal, or WSL/PowerShell on Windows) and insp
 
 ## 3. Guiding Questions for Your Portfolio
 
-Answer these questions in your portfolio under `Module00/README.md`:
+Answer these questions in your portfolio under `PreStudy/README.md`:
 
 1. The Core Story: Based on the IoTempower inspiration video, describe one IoT scenario you find compelling. Who uses it, and what devices need to communicate?
 2. Addressing & Subnetting: Explain in your own words what an IP address and a subnet mask are. Why can't two devices on the same local subnet have the same IP?

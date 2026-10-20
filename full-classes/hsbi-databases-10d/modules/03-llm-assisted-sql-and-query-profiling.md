@@ -208,7 +208,7 @@ Rewrite the "late orders per customer" report once with a correlated subquery an
 - [ ] The index before/after benchmark table and the negative result with your explanation.
 - [ ] `injection_demo.py` and its output, plus your escaping-vs-parameterizing answer.
 - [ ] The relational-algebra expression for one query of your choice.
-- [ ] `Reflections/ref03.md` — the logbook entry for this block, using the reflection template and explicitly addressing AI verification.
+- [ ] `Reflections/ref03.md` — the logbook entry for this block, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md) and explicitly addressing AI verification.
 - [ ] (Stretcher) the window-function rewrite and its plan.
 
 ## 📚 If you want to go deeper

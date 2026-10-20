@@ -159,6 +159,8 @@ In class we work with **GitHub on the web** and the **Git UI inside your editor*
 
 **1. Create the repo on GitHub (web).** Open [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) → **Use this template → Create a new repository**. Name it `databases-portfolio` and make it **public** (or at least readable by the instructor). (A **template** gives you a fresh repo with one clean commit and no upstream link; a **fork** keeps a link to the original and the full history — not what a personal portfolio wants.) [Docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 
+**Reflections:** copy `Reflections/TEMPLATE.md` to `Reflections/refNN.md`; `ref02.md` is the worked example.
+
 **2. Clone it once with `gh` — the only `gh` command you need.**
 
 ```sh

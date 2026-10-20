@@ -6,7 +6,7 @@ Supplementary material: reflection prompts, LLM-verification drills, and quick r
 
 ## Reflection logbook prompts
 
-Use the reflection template in `Reflections/` from the portfolio template — it includes the AI-verification question. Keep each entry short; the template's prompts are enough.
+Use the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md) in `Reflections/` — it includes the AI-verification question. Keep each entry short; the template's prompts are enough.
 
 ## LLM-verification drills
 

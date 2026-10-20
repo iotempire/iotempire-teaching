@@ -56,7 +56,7 @@ The final project is assessed according to the [syllabus](../syllabus.md#final-p
 - [ ] Module 6: Industrial protocol analysis (recommended); optional simulated Modbus/OPC-UA server and bridge.
 - [ ] Module 7: IoTempower declarative node configuration (`setup.cpp`), OTA deployment logs, and fleet integration.
 - [ ] Modules 8 & 9: Final Project architecture diagrams, fault-injection test logs, presentation slides/script, and final course retrospective.
-- [ ] Reflection logbook entries for the teaching blocks, using the reflection template in `Reflections/`.
+- [ ] Reflection logbook entries for the teaching blocks, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md) in `Reflections/`.
 - [ ] Where you did not work entirely alone: links to pod mates, sources, and borrowed configuration.
 
 > [!IMPORTANT]

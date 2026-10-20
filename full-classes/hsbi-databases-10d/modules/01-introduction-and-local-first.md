@@ -581,7 +581,7 @@ Run `uvx datasette Module01/telemetry.db -o` and explore the web side properly:
 - [ ] `telemetry.db` size + row count (a screenshot or text file; **do not commit the `.db` file itself**).
 - [ ] Query outputs for Tasks 6 and 7, with timings.
 - [ ] Your one-paragraph **AI verification** note (what the model got right/wrong and how you checked).
-- [ ] `Reflections/ref01.md` — your first logbook entry, using the reflection template.
+- [ ] `Reflections/ref01.md` — your first logbook entry, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md).
 - [ ] (Stretcher) Datasette screenshot and exported CSV.
 - [ ] (Optional) evidence for whichever of Tasks 9–11 you did (`shell-power.md`, `datasette.md`, `toolbox.md`).
 

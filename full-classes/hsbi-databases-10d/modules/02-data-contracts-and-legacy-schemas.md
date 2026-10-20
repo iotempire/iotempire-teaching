@@ -335,7 +335,7 @@ Pick **three** — one *good*, one *strange*, one *wrong or confusing* — and s
 - [ ] `er-audit.md` with the entity/attribute list, the reconstructed ER diagram, and cardinalities.
 - [ ] The five integrity-defect queries **with results** and one-line production-impact notes.
 - [ ] `contract.py` (Pydantic + SQLAlchemy) and the emitted corrected DDL.
-- [ ] `Reflections/ref02.md` — the logbook entry for this block, using the reflection template.
+- [ ] `Reflections/ref02.md` — the logbook entry for this block, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md).
 - [ ] (Stretcher) the two inheritance models and your decision.
 - [ ] (Stretcher) `mermaid-lab.md` — three curated ER diagrams + Mermaid source, the schema↔diagram round-trip, and your notes on cardinality and inheritance overuse.
 
