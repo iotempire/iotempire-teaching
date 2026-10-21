@@ -12,6 +12,9 @@ Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment l
 4. **Every session has two harvests.** At the break, five minutes of retrieval on the *previous* module; at the end, five minutes on what was learned today. Details in [Module 3](../modules/03-llm-assisted-sql-and-query-profiling.md), and one paragraph in the [syllabus](../syllabus.md#how-we-teach--challenge--and-project-based-in-person-and-always-in-flux).
 5. **Checkpoints, not an exam.** A short conversation per pod against the goals. Treated as *project work* in the module handbook — see the [syllabus](../syllabus.md) for the binding version.
 
+> [!IMPORTANT]
+> **If you teach one technical habit, make it `EXPLAIN QUERY PLAN`.** It is the spine of the second half of this course: it turns "it feels slow" into a claim you can check, it is the only performance skill that still matters when a model writes the SQL, and it appears in every module from 3 to 8 — the final project requires a before/after plan as evidence. Say the command out loud, prefix queries with it in front of the room, and ask "what does the plan say?" before "how long did it take?". Students copy that reflex faster than any slide can teach it.
+
 ## The session shape
 
 | Minutes | What happens |

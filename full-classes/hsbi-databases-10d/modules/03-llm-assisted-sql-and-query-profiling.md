@@ -13,7 +13,7 @@ This module gives you the opportunity to explore complex querying and query opti
 
 By the end of this module, you can:
 1. Build complex **DQL** queries: joins, aggregation with `GROUP BY`/`HAVING`, subqueries, and window functions.
-2. Read **`EXPLAIN QUERY PLAN`** and tell a `SCAN` from a `SEARCH`, a table lookup from a covering index.
+2. Read **`EXPLAIN QUERY PLAN`** as *primary evidence*: say what the engine will do for a given query, tell a `SCAN` from a `SEARCH`, and a table lookup from a covering index.
 3. **Benchmark** the effect of an index and explain when the planner ignores one.
 4. Generate a query with an **LLM**, then **verify** it: correctness, performance, and edge cases.
 5. **Prevent SQL injection** with bound parameters and demonstrate why string concatenation is exploitable.
@@ -43,12 +43,30 @@ This is **self/pod study, not a lecture** — about **20 minutes** in your pod, 
 
 **The six clauses and their logical order.** SQL is *written* `SELECT ... FROM ... WHERE ... GROUP BY ... HAVING ... ORDER BY` but *evaluated* in the order `FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY`. Confusing the two is the single most common LLM error (using a `SELECT` alias in `WHERE`).
 
-**What a query plan tells you.** `EXPLAIN QUERY PLAN` prints one line per table read:
+**What a query plan tells you — and why this is the command that matters.** `EXPLAIN QUERY PLAN` is the most useful command in this course. Timing tells you *how long*; the plan tells you *what the engine actually did* — and only the second one is explainable. A stopwatch says "40 ms"; the plan says "it read 240,000 rows to answer a question about 120 of them". You will meet this command in every remaining module, and the final project requires a before/after plan as evidence.
+
+It prints one line per table read, in execution order. Read it as a **loop nest**: the top line is the outer loop, and each line below runs once per row of the one above it. (The `|--` characters are list formatting — they do not mean "deeper work".)
 
 - `SCAN table` — every row is read. Fine for small tables, fatal for large ones.
-- `SEARCH table USING INDEX idx (col=?)` — the index narrows the rows.
-- `SEARCH table USING COVERING INDEX idx` — the index contains *everything the query needs*, so the table itself is never touched. The fastest path.
-- `USE TEMP B-TREE FOR ORDER BY` — the engine had to sort because no index supplied the order.
+- `SEARCH table USING INDEX idx (col=?)` — the index narrows the rows, but SQLite still fetches each match from the table.
+- `SEARCH table USING COVERING INDEX idx` — the index holds *everything the query needs*, so the table itself is never opened.
+- `SCAN table USING COVERING INDEX idx` — the whole index is walked (typical for `COUNT(*)`): linear, but over a much smaller structure than the table.
+- `USE TEMP B-TREE FOR ORDER BY` / `FOR GROUP BY` — the engine had to sort or group, because no index supplied the order.
+
+**Why "covering" is worth knowing.** An index entry is the indexed column(s) plus the rowid. If the query needs nothing else, there is no reason to open the table:
+
+```sql
+CREATE TABLE t(a INTEGER, b TEXT);
+CREATE INDEX i ON t(a);
+
+EXPLAIN QUERY PLAN SELECT a    FROM t WHERE a = 1;   -- SEARCH t USING COVERING INDEX i (a=?)
+EXPLAIN QUERY PLAN SELECT a, b FROM t WHERE a = 1;   -- SEARCH t USING INDEX i (a=?)
+```
+
+Ask for `b` and the index stops covering the query. An ordinary index search costs **two** B-tree descents per matching row (index, then table); a covering search costs **one**. On a query that matches 100,000 rows, that is 100,000 table seeks you never pay.
+
+> [!IMPORTANT]
+> **The plan is evidence; the clock is a symptom.** A `SCAN` over a large table explains a slow query before any stopwatch does. And after you add an index, the plan tells you whether the engine *used* it: a timing change with no plan change is usually noise, while a plan change with no timing change is still a real result — and often the more interesting one.
 
 **The 90/10 of tuning.** Most slow queries are slow because a filtered column has no index, or because a function wraps the column (`WHERE date(done_on) > ...` prevents index use — compare `done_on > '...'` instead).
 
@@ -98,7 +116,7 @@ A prediction you got **wrong** is the most useful line in `sql-notes.md`. Keep t
 
 ## 🛠️ Studio Lab: Generate, Profile, and Secure — **Challenging**
 
-*Software:* `sqlite3` CLI and Python 3.14. Keep `.timer on` in the shell (see [Measuring query time](./Z-resources-bank.md#measuring-query-time)).
+*Software:* `sqlite3` CLI and Python 3.14. Keep `.timer on` in the shell (see [Measuring query time](./Z-resources-bank.md#measuring-query-time)). **Prefix every query you tune with `EXPLAIN QUERY PLAN` before you measure it** — here and for the rest of the course.
 
 ### Setup
 
