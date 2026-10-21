@@ -175,6 +175,14 @@ The studio is where the learning happens, so none of this is required. But some 
 | 6 | [Parquet: row-based vs columnar storage](https://www.youtube.com/watch?v=f0frVLA5OBc) | visualizes *why* a column store reads less data |
 | 6 | [ACID properties in data, explained](https://www.youtube.com/watch?v=vNbslx32izM) | the four letters, with the bank-transfer example |
 
+> [!TIP]
+> **This list is deliberately unfinished — help us make it better.** We want **more and better** videos, and we would rather have one excellent explainer per topic than three average ones. So scour **YouTube** and **[Khan Academy's SQL course](https://www.khanacademy.org/computing/computer-programming/sql)** (free, calm, and interactive — a good counterweight to the clickbait), and bring back what you find. Two kinds of contribution count:
+>
+> - **A better option:** the link, plus one sentence on what it does *better* than the entry here — shorter, clearer example, the right level, or it actually shows the SQLite output instead of talking over slides.
+> - **A critique of an existing entry:** too fast, too long, wrong syntax, outdated SQLite, a misleading mental model — name it and say why. A well-argued critique is as valuable as a new link, and we will replace the entry because of it.
+>
+> Post both in `#sql-questions`. The best finds go into this table **with your name next to them**: this list should be something the class builds, not something you receive.
+
 > Videos are external and can be renamed, region-locked, or taken down. If one is gone, say so in `#sql-questions` and we will find a replacement. **Watching is never a substitute for running the query** — each of these ends with something you should reproduce on your own database.
 
 ## Visualizing an ER model (Mermaid, diagrams.net)
