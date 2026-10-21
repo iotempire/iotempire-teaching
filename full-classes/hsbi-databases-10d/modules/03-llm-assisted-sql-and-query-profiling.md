@@ -28,7 +28,29 @@ Both failures have the same root: **nobody profiled or parameterized the generat
 
 ## 📖 Pod Study: The Six Clauses and the Plan
 
-This is **self/pod study, not a lecture** — about **20 minutes** in your pod, then **10 minutes** with a neighbouring pod. Keep everything in `Module03/sql-notes.md`, with the same discipline as [Module 2](./02-data-contracts-and-legacy-schemas.md): references first, then what you googled, then surprises, then the LLM answers you actually verified.
+This is **self/pod study, not a lecture** — **30 minutes** in your pod, then **15 minutes** with a neighbouring pod. Keep everything in `Module03/sql-notes.md`, with the same discipline as [Module 2](./02-data-contracts-and-legacy-schemas.md): references first, then what you googled, then surprises, then the LLM answers you actually verified.
+
+### Divide and conquer (do not read this alone, front to back)
+
+There is more material here than one person reads well in 30 minutes. Split it: each pod member takes a **workstream**, works through it, and brings back one sentence per item. In a pair, double up; in a pod of three, double up the last row.
+
+| Workstream | Read and do | Bring back |
+|---|---|---|
+| **1 · Algebra ↔ SQL** | the mapping table, then ask an LLM to translate one query into algebra and check it | one query with its σ/π/⋈ form |
+| **2 · Clause order** | written vs. evaluated order; then find a query that breaks if you assume the written order | one counterexample |
+| **3 · Plan vocabulary** | the plan lines, then run the two-line covering demo below | one-line definitions of `SCAN`, `SEARCH`, `COVERING` |
+| **4 · Tuning & security** | the 90/10 rule and the injection note | one query that defeats an index, and one payload |
+
+**The rule that makes this work: interrupt each other.** Every six minutes, whoever is furthest along stops the pod for a **one-minute update** — what I found, what surprised me, what I still cannot explain. Nobody finishes in silence; the update is where the shared model forms.
+
+| Minute | What happens |
+|---|---|
+| 0:00 | split the workstreams and start |
+| 0:06 | update 1 — one minute each |
+| 0:13 | update 2 — one minute each |
+| **0:20** | **Task A — plan safari** |
+| **0:25** | **Task B — algebra check** |
+| **0:30** | **Task C — share with a neighbouring pod (15 min)** |
 
 **From relational algebra to SQL.** Relational algebra is the *meaning*; SQL is the *syntax*. The mapping is mechanical, and knowing it is what lets you check an LLM's work:
 
@@ -94,9 +116,9 @@ Ask for `b` and the index stops covering the query. An ordinary index search cos
 
 > Every one of these is a **claim to test**. Run it against a real database before you believe it.
 
-### ★ Task A: Study in your pod (~20 minutes)
+### ★ Task A: Plan safari (~10 minutes — start at minute 20)
 
-Work through the material above, then do a **plan safari** on last session's `Module02/legacy.db` (it should still be there; if not, rebuild it from [Module 2](./02-data-contracts-and-legacy-schemas.md)):
+All together, on one screen, on last session's `Module02/legacy.db` (it should still be there; if not, rebuild it from [Module 2](./02-data-contracts-and-legacy-schemas.md)):
 
 1. **Predict, then run.** For each query, write down `SCAN` or `SEARCH` *before* you prefix it with `EXPLAIN QUERY PLAN`:
    - `SELECT * FROM maint_job WHERE technician = 'Beier';`
@@ -104,11 +126,16 @@ Work through the material above, then do a **plan safari** on last session's `Mo
    - `SELECT * FROM maint_job WHERE technician LIKE '%ei%';`
 2. **Add one index** — `CREATE INDEX ix_job_tech ON maint_job(technician);` — and re-run all three. Which plan changed, which did not, and why?
 3. **Break it on purpose.** Find a `WHERE` that defeats that index anyway (wrap the column in a function, or use a leading-wildcard `LIKE`). The negative result is the valuable one.
-4. **Algebra check.** Take one of those queries, write its σ/π/⋈ form yourself, then ask the LLM for the same and diff the two.
 
 A prediction you got **wrong** is the most useful line in `sql-notes.md`. Keep the predictions next to the real plans.
 
-### ★ Task B: Explain & share with another pod (~10 minutes)
+### ★ Task B: Algebra check (~5 minutes — start at minute 25)
+
+Take the query your pod understands best from the safari and write its σ/π/⋈ form **yourself**. Then ask an LLM to translate the same query and diff the two answers.
+
+Where you disagree, you have found either your own gap or the model's — both are worth a line in `sql-notes.md`.
+
+### ★ Task C: Explain & share with another pod (~15 minutes — from minute 30)
 
 1. **Compare plans.** Did both pods get the *same* plan for the same query? Check `sqlite3 --version` first — Windows, macOS and Linux do not always ship the same one. If the plans differ, find out why; that difference is the discussion.
 2. **Explain the surprise.** Each pod names the plan that surprised it most, and what it now believes about indexes.

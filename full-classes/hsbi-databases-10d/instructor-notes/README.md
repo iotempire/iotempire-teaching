@@ -20,11 +20,11 @@ Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment l
 | Minutes | What happens |
 |---|---|
 | 0–5 | Story or a one-slide hook. Not a lecture. |
-| 5–25 | **Pod study**: read, google, ask an LLM, take notes. |
-| 25–35 | A concrete probe (predict-then-run, acceptance test, card sort). |
-| 35–45 | **Harvest round 1 at the break** — retrieve the previous module out loud. |
-| 45–90 | Studio lab: the core tasks. You circulate; pods ask for checkpoints. |
-| 90–95 | **Harvest round 2** — one thing you can explain, one you cannot. |
+| 5–50 | **Pod study and share** — 30 + 15 min in Modules 2–3, about 15 + 5 in Modules 4–6. |
+| 50–90 | Studio lab, part 1. |
+| 90–105 | **Break — harvest round 1** (retrieve the previous module out loud). |
+| 105–185 | Studio lab, part 2 — checkpoints live here. |
+| 185–195 | **Harvest round 2** (“one I can explain, one I cannot”) and wrap-up. |
 
 Rooms: the schedule is 90 minutes, a 15-minute break, 90 minutes. Protect the break — it is part of the method, not slack.
 
