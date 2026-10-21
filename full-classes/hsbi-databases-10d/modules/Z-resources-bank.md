@@ -157,6 +157,26 @@ print(f"{(time.perf_counter() - t0) / n * 1000:.4f} ms per query")
 
 On the Module 3 dataset this separates the indexed lookup (≈0.005 ms) from the unindexed one (≈2 ms) — a ~400× difference that `time sqlite3 …` reports as "1 ms" **either way**, because process start-up dominates. Dividing a batch is the oldest trick in benchmarking, and it is the only honest way to time something that finishes before your timer can blink.
 
+## Watching instead of reading
+
+The studio is where the learning happens, so none of this is required. But some people think better with someone talking at a whiteboard — here are the clearest explainers we found, grouped by module. Watch at 1.5×, and come back with **one question** for your pod.
+
+| Module | Watch | Why this one |
+|---|---|---|
+| 3 | [Relational Algebra Explained: The Foundation of Databases!](https://www.youtube.com/watch?v=z9IceBT2_ws) | ~9 min; selection, projection, join, union, difference — and each one mapped to its SQL form |
+| 3 | [Relational Algebra — Select Operation (Neso Academy)](https://www.youtube.com/watch?v=Givp56x6vbg) | slower and more formal; good if σ/π notation still looks like noise |
+| 3 | [SQLite index and `EXPLAIN QUERY PLAN`](https://www.youtube.com/watch?v=OY6sB91-OE4) | the one video that shows `SCAN` turning into `SEARCH` on a real SQLite file |
+| 3 | [CMU Database Systems — Query Optimization](https://www.youtube.com/watch?v=uLKzlSO6O1M) | a real lecture (45 min): why planners reorder joins. Optional depth |
+| 4 | [Primary Key and Foreign Key Constraints in SQL (Neso Academy)](https://www.youtube.com/watch?v=MR0PK0qkCD8) | the constraint vocabulary, with inserts that fail on camera |
+| 4 | [SQLite: foreign key constraints](https://www.youtube.com/watch?v=22LS5AGGT7s) | short and SQLite-specific; shows the `sensor 99`-style rejection |
+| 5 | [Learn Database Normalization — 1NF to 5NF (Decomplexify)](https://www.youtube.com/watch?v=GFQaEYEc8_8) | the best-structured normalization walkthrough; chapter markers per normal form |
+| 5 | [Database Normalization 1NF 2NF 3NF (Jesper Lowgren)](https://www.youtube.com/watch?v=SK4H5tTT6-M) | starts from a spreadsheet, which is how the anomaly actually feels |
+| 6 | [OLAP vs OLTP (IBM)](https://www.youtube.com/watch?v=iw-5kFzIdgY) | six minutes on row-oriented vs analytical, from people who sell both |
+| 6 | [Parquet: row-based vs columnar storage](https://www.youtube.com/watch?v=f0frVLA5OBc) | visualizes *why* a column store reads less data |
+| 6 | [ACID properties in data, explained](https://www.youtube.com/watch?v=vNbslx32izM) | the four letters, with the bank-transfer example |
+
+> Videos are external and can be renamed, region-locked, or taken down. If one is gone, say so in `#sql-questions` and we will find a replacement. **Watching is never a substitute for running the query** — each of these ends with something you should reproduce on your own database.
+
 ## Visualizing an ER model (Mermaid, diagrams.net)
 
 LLMs usually hand you a diagram as **Mermaid** text — a code fence tagged `mermaid` that contains an `erDiagram`. Mermaid is text-to-diagram; paste it where Mermaid renders:

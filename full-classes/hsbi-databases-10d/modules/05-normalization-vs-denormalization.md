@@ -23,7 +23,9 @@ Kortmann's plant now has a machine-health dashboard. Every 30 seconds it asks a 
 
 The operations lead, **Yasmin Kaya**, offers the classic shortcut: *"just copy the site and the technician name onto every job row and add a total-cost column. Then the dashboard reads one table."* She is right about the read. She is also about to introduce update anomalies. Your job in this studio is to **do both**: keep the schema correct, add the denormalized reporting path *on purpose*, and **measure** what it buys and what it costs, so the team makes the decision with numbers.
 
-## 📖 Part A — Mini-Lecture: Dependencies, Anomalies, and the Spectrum
+## 📖 Pod Study: Dependencies, Anomalies, and the Spectrum
+
+This is **self/pod study, not a lecture** — about **20 minutes** in your pod, then **10 minutes** with a neighbouring pod. Notes go in `Module05/normalization-notes.md`, same discipline as [Module 2](./02-data-contracts-and-legacy-schemas.md).
 
 **Functional dependency.** `X → Y` means: for any two rows, if they agree on `X`, they must agree on `Y`. In a maintenance table, `job_id → technician`, `machine_id → site`, `part_no → unit_price`. Dependencies are the *reason* normalization is possible — they are the redundancy you can remove.
 
@@ -46,6 +48,47 @@ The operations lead, **Yasmin Kaya**, offers the classic shortcut: *"just copy t
 
 > [!TIP]
 > 3NF is the default, not the law. Analytically heavy read paths (dashboards, reports) are exactly where deliberate denormalization — or a separate columnar engine like DuckDB (Module 6) — earns its keep.
+
+### Pointers (start here, then keep looking)
+
+- Functional dependency — [Wikipedia](https://en.wikipedia.org/wiki/Functional_dependency)
+- The normal forms, formally — [3NF](https://en.wikipedia.org/wiki/Third_normal_form) · [BCNF](https://en.wikipedia.org/wiki/Boyce%E2%80%93Codd_normal_form)
+- Denormalization as a decision, not a sin — [Wikipedia](https://en.wikipedia.org/wiki/Denormalization)
+- **Prefer watching?** [Lecture-style videos for this module](./Z-resources-bank.md#watching-instead-of-reading)
+
+### Questions to ask an LLM (then verify against the data)
+
+- "Here is a flat table: `<paste the columns and three sample rows>`. List the functional dependencies you can infer, and mark which are **domain facts** and which are only **observed** in these rows."
+- "Explain 2NF vs 3NF with a table where 2NF holds but 3NF fails."
+- "Give me a concrete update anomaly in this table, with the SQL statements and the inconsistent rows afterwards."
+- "When is denormalization the right call? Give a workload where 3NF is measurably slower, and say what the cost is."
+
+> The first prompt is the trap. An LLM will happily promote an accident in three sample rows into a "dependency". Decide for yourself which FDs the **domain** guarantees.
+
+### ★ Task A: Study in your pod (~20 minutes)
+
+**Find the dependencies, then break the table.** Here is a five-row extract of the kind of table this studio starts from:
+
+| job_id | machine_id | site | technician | part_no | part_price |
+|---|---|---|---|---|---|
+| 1 | cnc-01 | Gütersloh | tech-0 | P-0001 | 6.00 |
+| 1 | cnc-01 | Gütersloh | tech-0 | P-0002 | 7.00 |
+| 2 | cnc-02 | Gütersloh | tech-1 | P-0001 | 6.00 |
+| 2 | cnc-02 | Gütersloh | tech-1 | P-0003 | 8.50 |
+| 3 | cnc-01 | Gütersloh | tech-0 | P-0003 | 8.50 |
+
+1. **Name the FDs** (`X → Y`) you believe hold, and mark each as *guaranteed by the domain* or *merely observed here*.
+2. **Cause an update anomaly in SQL.** Put the five rows in a table, then move `cnc-01` to Bielefeld and count how many rows you had to touch. Then argue what happens when two people do it in two sessions.
+3. **Cause an insert anomaly.** Add a new part that no job has used yet — without inventing a job.
+4. **Then check yourself.** Ask the LLM for the FDs of the same table (prompt 1 above) and diff its list against yours. Where it disagrees, decide who is right and why.
+
+Keep the FD list and the three anomaly examples in `normalization-notes.md` — the lab asks for exactly this on the real 200,000-row table.
+
+### ★ Task B: Share with another pod (~10 minutes)
+
+1. Compare FD lists. **Every pod will have one FD the others do not** — argue it out; the disagreement is the lesson.
+2. Agree on the 3–5 points you jointly stand behind (e.g. *"a price is a property of the part, not of the job"*).
+3. Add an **“Agreed learning (pod discussion)”** section to your own `normalization-notes.md`; unresolved points go to `#sql-questions`.
 
 ## 🛠️ Studio Lab: Normalize, Denormalize, and Measure — **Challenging**
 

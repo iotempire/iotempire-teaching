@@ -26,7 +26,9 @@ By the end of this module, you can:
 
 Both failures have the same root: **nobody profiled or parameterized the generated SQL**. In this studio you become the person who does. You will write real analytics against a warehouse dataset, let an LLM draft the hard parts, and then put every query through three gates: does it **run**, is it **right**, is it **fast and safe**.
 
-## 📖 Part A — Mini-Lecture: The Six Clauses and the Plan
+## 📖 Pod Study: The Six Clauses and the Plan
+
+This is **self/pod study, not a lecture** — about **20 minutes** in your pod, then **10 minutes** with a neighbouring pod. Keep everything in `Module03/sql-notes.md`, with the same discipline as [Module 2](./02-data-contracts-and-legacy-schemas.md): references first, then what you googled, then surprises, then the LLM answers you actually verified.
 
 **From relational algebra to SQL.** Relational algebra is the *meaning*; SQL is the *syntax*. The mapping is mechanical, and knowing it is what lets you check an LLM's work:
 
@@ -54,6 +56,45 @@ Both failures have the same root: **nobody profiled or parameterized the generat
 
 > [!TIP]
 > When an LLM gives you SQL, ask it for the *relational algebra* too, then check the two against each other. Models are much worse at being consistent across two representations than at producing one plausible answer.
+
+### Pointers (start here, then keep looking)
+
+- Relational algebra — the operators and how each maps to SQL — [Wikipedia: Relational algebra](https://en.wikipedia.org/wiki/Relational_algebra)
+- Reading a plan — [sqlite.org/eqp.html](https://www.sqlite.org/eqp.html) (the reference) and [SQLite execution plan operations](https://use-the-index-luke.com/sql/explain-plan/sqlite/operations) (a glossary of what each line means)
+- Why an index gets ignored — [Use The Index, Luke](https://use-the-index-luke.com/)
+- SQL injection — [OWASP cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
+- **Prefer watching?** [Lecture-style videos for this module](./Z-resources-bank.md#watching-instead-of-reading)
+
+### Questions to ask an LLM (then verify by running it)
+
+- "I am a student in a 3rd-semester database class. Explain **very briefly** relational algebra with **simple examples**, highlight the main concepts, and tell me **how to explain it best to a peer**."
+- "Translate this SQL into relational algebra and justify each step: `<your query>`." Do it **yourself first**, then compare — where do you disagree?
+- "Why does SQL evaluate `FROM` before `SELECT`? Give me a query that fails because someone assumed the written order."
+- "Here is a query plan: `<paste your EXPLAIN QUERY PLAN output>`. What is the engine doing, line by line? What would make it choose a different plan?"
+- "When does SQLite use a *covering* index, and when does it still have to visit the table?"
+- "Why can't an index help `WHERE technician LIKE '%ei%'`? What could?"
+
+> Every one of these is a **claim to test**. Run it against a real database before you believe it.
+
+### ★ Task A: Study in your pod (~20 minutes)
+
+Work through the material above, then do a **plan safari** on last session's `Module02/legacy.db` (it should still be there; if not, rebuild it from [Module 2](./02-data-contracts-and-legacy-schemas.md)):
+
+1. **Predict, then run.** For each query, write down `SCAN` or `SEARCH` *before* you prefix it with `EXPLAIN QUERY PLAN`:
+   - `SELECT * FROM maint_job WHERE technician = 'Beier';`
+   - `SELECT * FROM machine WHERE machine_name = 'cnc-02';`
+   - `SELECT * FROM maint_job WHERE technician LIKE '%ei%';`
+2. **Add one index** — `CREATE INDEX ix_job_tech ON maint_job(technician);` — and re-run all three. Which plan changed, which did not, and why?
+3. **Break it on purpose.** Find a `WHERE` that defeats that index anyway (wrap the column in a function, or use a leading-wildcard `LIKE`). The negative result is the valuable one.
+4. **Algebra check.** Take one of those queries, write its σ/π/⋈ form yourself, then ask the LLM for the same and diff the two.
+
+A prediction you got **wrong** is the most useful line in `sql-notes.md`. Keep the predictions next to the real plans.
+
+### ★ Task B: Explain & share with another pod (~10 minutes)
+
+1. **Compare plans.** Did both pods get the *same* plan for the same query? Check `sqlite3 --version` first — Windows, macOS and Linux do not always ship the same one. If the plans differ, find out why; that difference is the discussion.
+2. **Explain the surprise.** Each pod names the plan that surprised it most, and what it now believes about indexes.
+3. **Harvest.** Add the agreed highlights to both pods' `sql-notes.md`; anything still unresolved goes to `#sql-questions`.
 
 ## 🛠️ Studio Lab: Generate, Profile, and Secure — **Challenging**
 

@@ -27,9 +27,11 @@ Wittkamp's machine-shop data now has three different shapes of problem, and the 
 
 Trying to force all three into one relational schema is the same mistake as Cirrus's cloud-server impulse in Module 1 — the wrong tool for the workload. In this studio you reach for three engines that all run **embedded, locally**, and you measure why each fits.
 
-## 📖 Part A — Mini-Lecture: Pick the Engine for the Workload
+## 📖 Pod Study: Pick the Engine for the Workload
 
-**ACID vs. BASE.** A transactional engine guarantees **Atomicity, Consistency, Isolation, Durability** — your writes either fully happen or fully do not. BASE ("**B**asically **A**vailable, **S**oft state, **E**ventually consistent") relaxes consistency for availability and scale, which is a trade you only need when you distribute across machines. **All of Module 1–4 was ACID, and that was correct** because the data lived on one machine.
+This is **self/pod study, not a lecture** — about **15 minutes** in your pod, then **5 minutes** with a neighbouring pod. Notes go in `Module06/engine-notes.md`, same discipline as [Module 2](./02-data-contracts-and-legacy-schemas.md).
+
+**ACID vs. BASE.** A transactional engine guarantees **Atomicity, Consistency, Isolation, Durability** — your writes either fully happen or fully do not. BASE ("**B**asically **A**vailable, **S**oft state, **E**ventually consistent") relaxes consistency for availability and scale, which is a trade you only need when you distribute across machines. **All of Modules 1–4 was ACID, and that was correct** because the data lived on one machine.
 
 **The CAP theorem.** A distributed system can guarantee at most two of **C**onsistency, **A**vailability, and **P**artition tolerance. Since partitions *will* happen on a network, real systems choose **CP** (refuse to answer rather than answer wrong) or **AP** (answer, possibly stale). An embedded database sidesteps CAP by not distributing — and that is a legitimate engineering choice, not a limitation to apologize for.
 
@@ -44,6 +46,39 @@ Trying to force all three into one relational schema is the same mistake as Cirr
 
 > [!TIP]
 > "NoSQL" does not mean "no schema". A JSON column with a `CHECK(json_valid(...))` and an index on the paths you actually query is a *designed* schema — just a flexible one.
+
+### Pointers (start here, then keep looking)
+
+- ACID — [Wikipedia](https://en.wikipedia.org/wiki/ACID) · CAP theorem — [Wikipedia](https://en.wikipedia.org/wiki/CAP_theorem)
+- Why columnar wins on scans — [DuckDB: why DuckDB](https://duckdb.org/why_duckdb) and [Parquet](https://parquet.apache.org/docs/overview/)
+- SQLite JSON — [json1](https://sqlite.org/json1.html) · R-Tree/other extensions if you are curious
+- **Prefer watching?** [Lecture-style videos for this module](./Z-resources-bank.md#watching-instead-of-reading)
+
+### Questions to ask an LLM (then verify by measuring)
+
+- "I have four workloads: `<paste the four cards from Task A>`. For each, which embedded engine would you pick, and what is the one cost you are accepting?"
+- "Explain ACID vs BASE without using the word 'NoSQL', and give a workload where BASE is genuinely required."
+- "Why does a columnar engine beat a row store for an aggregation over one column of ten, but lose on inserting a single row?"
+- "Does the CAP theorem apply to SQLite? Explain why or why not."
+
+> Engine choice is an **empirical** claim. Every answer here ends in a benchmark you can run.
+
+### ★ Task A: Study in your pod (~15 minutes)
+
+**The card sort.** For each workload, choose one engine from the palette above and write **one sentence of justification plus the cost you accept**:
+
+1. Every 3 seconds, three machines append a sensor reading. Nothing is ever updated. A crash must not lose committed rows.
+2. Once a week, the plant manager wants averages and peaks per machine over **two years** of those readings.
+3. The dashboard remembers the last filter setting per user session — get by key, set by key, nothing else.
+4. Vendor metadata gains a new field every few months; it is queried by `vendor` and `firmware`.
+
+Then map **your own final project's workloads** onto the same four engines. That mapping is a paragraph of your project documentation — and a question you will be asked at the checkpoint.
+
+### ★ Task B: Share with another pod (~5 minutes)
+
+- Compare cards 1 and 2: did any pod pick the **same** engine for both? Why is that a warning sign?
+- Which card had no good answer, and what does that tell you about the palette?
+- Agreed points go into `engine-notes.md`; open questions go to `#sql-questions`.
 
 ## 🛠️ Studio Lab: Three Engines, One Workload Each — **Challenging**
 

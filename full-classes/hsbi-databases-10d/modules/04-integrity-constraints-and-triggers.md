@@ -23,7 +23,9 @@ Wittkamp's machine-shop telemetry used to run through the cloud, until the plant
 
 But "at the edge, without a server" raises the stakes on integrity: there is no DBA to fix a bad row, and no backend to re-validate. The **database itself** must refuse garbage. A temperature of 9,000 °C from a disconnected sensor must be rejected by a `CHECK`. A spindle that overheats must raise an alarm **the moment the row is written**, by a trigger. Replayed readings after a network hiccup must not create duplicates, which is what `UPSERT` is for. In this studio, you make SQLite enforce the rules so the application cannot forget them.
 
-## 📖 Part A — Mini-Lecture: Integrity Has Layers
+## 📖 Pod Study: Integrity Has Layers
+
+This is **self/pod study, not a lecture** — about **15 minutes** in your pod, then **5 minutes** with a neighbouring pod. Keep notes in `Module04/integrity-notes.md`, same discipline as [Module 2](./02-data-contracts-and-legacy-schemas.md).
 
 The module handbook lists integrity as a first-class topic. In relational terms there are three layers, and each maps to a concrete SQL feature:
 
@@ -43,6 +45,43 @@ The module handbook lists integrity as a first-class topic. In relational terms 
 
 > [!TIP]
 > Trigger bodies must be *declared* in the DDL but *run* on every write. Test their cost: a trigger on a hot ingest path is a design decision, not a free lunch.
+
+### Pointers (start here, then keep looking)
+
+- Foreign keys — and **why they are off by default** — [sqlite.org/foreignkeys.html](https://sqlite.org/foreignkeys.html)
+- [`STRICT` tables](https://www.sqlite.org/stricttables.html) · [generated columns](https://www.sqlite.org/gencol.html) · [triggers](https://www.sqlite.org/lang_createtrigger.html) · [`UPSERT`](https://www.sqlite.org/lang_upsert.html)
+- Read-only access in SQLite — [`PRAGMA query_only`](https://www.sqlite.org/pragma.html#pragma_query_only)
+- **Prefer watching?** [Lecture-style videos for this module](./Z-resources-bank.md#watching-instead-of-reading)
+
+### Questions to ask an LLM (then verify by running it)
+
+- "Explain entity, referential and domain integrity, with one SQL example each — and tell me which one a `CHECK` constraint can never cover."
+- "Here is my `CREATE TABLE`: `<paste it>`. Which of the three layers is unguarded, and what concrete bad row gets through?"
+- "Give me a rule a `CHECK` constraint **cannot** express but a trigger can."
+- "What is the difference between `BEFORE` and `AFTER` triggers, and which one can reject a row?"
+- "Why is `PRAGMA foreign_keys` per connection? What silently breaks when a tool forgets it?"
+
+> Every answer is a **claim to test**. You have a database; use it.
+
+### ★ Task A: Study in your pod (~15 minutes)
+
+**The acceptance test.** Before you build the real schema, prove to yourself what an unconstrained table accepts. In a scratch database:
+
+```sql
+CREATE TABLE t(sensor_id INTEGER, metric TEXT, value REAL);
+INSERT INTO t VALUES (1,'temp_c',9000), (1,'temp_c','hot'), (2,'bogus',-500);
+SELECT * FROM t;
+```
+
+All three junk rows land, and nothing complains. Now write the **same** table with the constraints you would actually ship — `STRICT`, `PRIMARY KEY`, `CHECK(metric IN (...))`, `CHECK(value BETWEEN -273.15 AND 5000)` — and re-run the three inserts **one at a time**. Record for each: which of the three layers rejected it, and the exact error message.
+
+Two follow-ups worth five minutes: what does `CHECK` do with a `NULL` value (try it), and which of your constraints would still let a *plausible but wrong* value through?
+
+### ★ Task B: Share with another pod (~5 minutes)
+
+- Each pod reads out the most surprising thing an unconstrained table accepted.
+- Which constraint was hardest to get right — `CHECK` with `NULL`, `STRICT` with numbers, or `UNIQUE` over two columns?
+- Agreed points go into `integrity-notes.md`; anything unresolved goes to `#sql-questions`.
 
 ## 🛠️ Studio Lab: Make the Database Refuse to Lie — **Challenging**
 
