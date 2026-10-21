@@ -7,6 +7,7 @@ This is the course workbook for **Databases (DBS)**, a hands-on, studio-style da
 - **[Module index & roadmap](./modules/00-index.md)** — the course at a glance: every module and the session-by-session plan.
 - **[Syllabus](./syllabus.md)** — the official rules: schedule, learning objectives, assessment, tools, and policies.
 - **Resource pages** — [reflection prompts & LLM-verification drills](./modules/Y-resources-prompt-bank.md) and a [cheat-sheet & troubleshooting bank](./modules/Z-resources-bank.md).
+- **[Instructor notes](./instructor-notes/README.md)** — the per-session runbook for whoever teaches this: what to prepare, how to open the session, which exercises and harvests are non-negotiable, what to cut when you are behind, and what to read up on if databases are not your specialty.
 
 ## Why this course looks different
 
