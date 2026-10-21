@@ -5,7 +5,7 @@
 **Course placement:** Session 3. This module covers the legacy *Standard SQL (DQL)*, *Relational Algebra*, and *Query Optimization* chapters — reframed around the modern reality: you generate SQL with AI and then prove it correct, fast, and safe.
 
 > [!TIP]
-> **Optional warm-up:** if you would like SQL to *feel* familiar before we start generating it with AI, play [SQL Island](https://sql-island.informatik.uni-kl.de/) — a free, browser-based text-adventure from the RPTU Kaiserslautern-Landau (formerly TU Kaiserslautern) that teaches `SELECT`, `WHERE`, `ORDER BY`, aggregates, and joins in about an hour (no install, no account). More in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).
+> **SQL Island has replay value.** You met it in [Module 1](./01-introduction-and-local-first.md) — if you did not get far, or stopped at home, another hour before this studio pays off: the later chapters drill exactly the `JOIN` and aggregate patterns you are about to profile. Free, browser-based, no account: [sql-island.informatik.uni-kl.de](https://sql-island.informatik.uni-kl.de/). Other practice games are in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).
 
 ## 🎯 Learning Goals
 
@@ -350,7 +350,7 @@ Why bother at all: this course hands you *generated* data all the time (here, in
 
 ## 📚 If you want to go deeper
 
-- **Goody — build SQL intuition:** the [SQL Island](https://sql-island.informatik.uni-kl.de/) browser game from the warm-up note above — an hour there makes you far better at spotting generated queries that “run but are wrong”. Siblings in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).
+- **Goody — build SQL intuition:** the [SQL Island](https://sql-island.informatik.uni-kl.de/) game from the reminder above (you started it in Module 1) — an hour there makes you far better at spotting generated queries that “run but are wrong”. Siblings in the [resource bank](./Z-resources-bank.md#goody-sql-practice-games).
 - SQLite — `EXPLAIN QUERY PLAN` reference — [sqlite.org/eqp.html](https://www.sqlite.org/eqp.html)
 - Markus Winand — *Use The Index, Luke* — [use-the-index-luke.com](https://use-the-index-luke.com/)
 - OWASP — *SQL Injection Prevention Cheat Sheet* — [cheatsheetseries.owasp.org](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
