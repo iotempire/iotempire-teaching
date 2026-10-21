@@ -113,14 +113,18 @@ Prefer the file; otherwise enter commands **one line at a time**.
 
 | Where you are | How to time it |
 |---|---|
-| **`sqlite3` shell** | `.timer on` on its own line. Prints a `Run Time: real … user … sys …` line after each statement (it goes to the normal output, so `.output` and redirects capture it). It is **CPU** time, not wall-clock. |
+| **`sqlite3` shell** | `.timer on` on its own line. In the **interactive** shell it prints a `Run Time: real … user … sys …` line after each statement; in a **one-shot** run (`sqlite3 db "stmt1; stmt2;"`) it prints **one** line at the end, so time one statement per invocation when scripting. The line goes to normal output, so `.output` and redirects capture it. Read **`real`** (wall clock) for "how long did it take"; `user` + `sys` (CPU) tells you how much of that was actual computing. |
 | **One-shot `sqlite3`** | Dot-commands are *settings*, not SQL — pass them with `-cmd`: `sqlite3 -cmd ".timer on" app.db "SELECT …"`. |
-| **macOS / Linux CLI** | `time sqlite3 app.db "SELECT …"` (wall-clock; includes a few ms of process start-up). |
+| **macOS / Linux CLI** | `time sqlite3 app.db "SELECT …"` (wall-clock — but see **Trap 1** below). |
 | **Windows PowerShell** | `Measure-Command { sqlite3 app.db "SELECT …" }`. |
 | **Python (portable, recommended)** | `time.perf_counter()` around the query — wall-clock, works on every OS and everywhere. |
 | **Datasette** | No built-in timer. Use the `/-/query` page plus your own stopwatch, or time the same query from Python. |
 
-The portable timer (use this for the Module 3 index benchmarks):
+**Trap 1 — `time` measures a whole process, not your query.** `time sqlite3 app.db "SELECT …"` includes the shell fork, SQLite start-up, opening the file, **and formatting the output**. Find your floor with `time sqlite3 app.db ".exit"` — on an ordinary laptop that alone is about **1 ms**, so a 0.3 ms query "measures" 1.3 ms. Printing 120 rows instead of one changes the number again. Use `time` for queries in the **hundreds of milliseconds** and up, where that fixed cost disappears into the noise.
+
+**Trap 2 — one reading is not a measurement.** Run each query **three times** and report the **median**; the first run pays for the disk cache and the plan warm-up.
+
+The portable timer:
 
 ```python
 import sqlite3, time
@@ -133,7 +137,25 @@ rows = conn.execute(sql).fetchall()
 print(f"{time.perf_counter() - t0:.4f}s  ({len(rows)} rows)")
 ```
 
-> **Tips for numbers you can trust.** Run each query several times and report the **median** — the first run pays for disk cache and plan warm-up. A very fast query can be *faster* than the timer's resolution, so `.timer on`'s CPU figure or a repeat-in-a-loop makes the signal visible. And time it in the client you actually ship.
+### Timing a query that is too fast to time
+
+When the effect you are chasing is smaller than your timer's floor, do not buy a better stopwatch — **measure a batch and divide**. One process, one connection, `n` repetitions:
+
+```python
+import sqlite3, time
+
+conn = sqlite3.connect("Module03/warehouse.db")
+sql = "SELECT COUNT(*) FROM orders WHERE ordered_on='2026-02-14'"
+
+conn.execute(sql).fetchone()            # warm-up — never measured
+n = 1000
+t0 = time.perf_counter()
+for _ in range(n):
+    conn.execute(sql).fetchone()
+print(f"{(time.perf_counter() - t0) / n * 1000:.4f} ms per query")
+```
+
+On the Module 3 dataset this separates the indexed lookup (≈0.005 ms) from the unindexed one (≈2 ms) — a ~400× difference that `time sqlite3 …` reports as "1 ms" **either way**, because process start-up dominates. Dividing a batch is the oldest trick in benchmarking, and it is the only honest way to time something that finishes before your timer can blink.
 
 ## Visualizing an ER model (Mermaid, diagrams.net)
 

@@ -61,11 +61,15 @@ Both failures have the same root: **nobody profiled or parameterized the generat
 
 ### Setup
 
-Build a small warehouse/order dataset with enough rows to make plans meaningful.
+Build a small warehouse/order dataset with enough rows to make plans meaningful. Run every command from the folder that contains `Module03/` (your repository root).
 
 ```sh
 mkdir -p Module03
-sqlite3 Module03/warehouse.db <<'SQL'
+```
+
+Save the block below as **`Module03/setup.sql`**. A file replays cleanly in every shell and avoids the [multi-line paste problem](./Z-resources-bank.md#pasting-a-block-into-the-sqlite3-prompt):
+
+```sql
 DROP TABLE IF EXISTS order_line;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS product;
@@ -78,31 +82,62 @@ CREATE TABLE orders  (order_id INTEGER PRIMARY KEY, customer_id INTEGER NOT NULL
 CREATE TABLE order_line(order_id INTEGER NOT NULL, product_id INTEGER NOT NULL, qty INTEGER NOT NULL);
 
 -- 2,000 customers, 500 products, 60,000 orders, ~240,000 lines
-WITH RECURSIVE n(x) AS (SELECT 1 UNION ALL SELECT x+1 FROM n WHERE x < 60000)
-INSERT INTO customer(customer_id, name, city)
+WITH RECURSIVE n(x) AS (SELECT 1 UNION ALL SELECT x+1 FROM n WHERE x < 60000)   -- (1)
+INSERT INTO customer(customer_id, name, city)                                    -- (2)
   SELECT x, 'Customer ' || x, CASE x % 4 WHEN 0 THEN 'Gütersloh' WHEN 1 THEN 'Bielefeld'
                                     WHEN 2 THEN 'Paderborn' ELSE 'Münster' END FROM n WHERE x <= 2000;
 
 WITH RECURSIVE n(x) AS (SELECT 1 UNION ALL SELECT x+1 FROM n WHERE x < 500)
 INSERT INTO product(product_id, sku, price)
-  SELECT x, 'SKU-' || printf('%05d', x), 5 + (x % 90) * 1.5 FROM n;
+  SELECT x, 'SKU-' || printf('%05d', x), 5 + (x % 90) * 1.5 FROM n;              -- (5)
 
 WITH RECURSIVE n(x) AS (SELECT 1 UNION ALL SELECT x+1 FROM n WHERE x < 60000)
 INSERT INTO orders(order_id, customer_id, ordered_on, status)
-  SELECT x, (x % 2000) + 1, date('2025-01-01', '+' || (x % 540) || ' days'),
+  SELECT x, (x % 2000) + 1,                                                      -- (3)
+         date('2025-01-01', '+' || (x % 540) || ' days'),                        -- (4)
          CASE x % 5 WHEN 0 THEN 'late' WHEN 1 THEN 'open' ELSE 'shipped' END FROM n;
 
 WITH RECURSIVE n(x) AS (SELECT 1 UNION ALL SELECT x+1 FROM n WHERE x < 240000)
 INSERT INTO order_line(order_id, product_id, qty)
   SELECT (x % 60000) + 1, (x % 500) + 1, 1 + (x % 4) FROM n;
-SQL
+```
+
+> [!NOTE]
+> **Read the scaffolding before you run it.** This is a lot of SQL for a setup step, and none of it is disposable — every construct here is something you may be asked to explain later. Five lines are marked:
+>
+> 1. **`WITH RECURSIVE n(x) AS (SELECT 1 UNION ALL SELECT x+1 …)`** — there is no table anywhere with 240,000 rows. So where do the rows come from?
+> 2. **`INSERT INTO customer … SELECT …`** — you are inserting the *result of a query*. What happens if that query returns zero rows? (Try it: change `x <= 2000` to `x <= 0`.)
+> 3. **`customer_id` is literally `(x % 2000) + 1`** — what guarantees that this customer exists? Nothing does yet. Module 4 turns that hope into a real `FOREIGN KEY`.
+> 4. **`date('2025-01-01', '+' || (x % 540) || ' days')`** — why is the date modifier a *string* built with `||`? And what date appears when `x = 540`?
+> 5. **`printf('%05d', x)`** — remove it and compare the `sku` column. What does zero-padding buy you when those values are sorted or compared?
+>
+> One more, outside the block: the four `DROP TABLE`s run **children first**. That order is irrelevant today — it starts mattering the moment Module 4 adds foreign keys.
+
+Then build the database — use the line that fits your shell:
+
+```sh
+# bash, zsh, Git Bash (macOS, Linux, or the Git Bash profile of your editor)
+sqlite3 Module03/warehouse.db < Module03/setup.sql
+
+# any shell, including PowerShell (no redirect needed)
+sqlite3 Module03/warehouse.db ".read Module03/setup.sql"
+```
+
+Check the row counts:
+
+```sh
 sqlite3 Module03/warehouse.db "SELECT 'orders', COUNT(*) FROM orders UNION ALL
                                 SELECT 'lines', COUNT(*) FROM order_line;"
 ```
 
+Expected: `60000` orders and `240000` order lines. If the numbers are lower, the script stopped early — delete `Module03/warehouse.db` and run it again from the repository root.
+
 ### ★ Task 1: Ask the LLM, then check the plan
 
 Use the prompt below with your LLM. **Before running the answer**, predict the plan you expect (which tables will be `SCAN`, which will `SEARCH`).
+
+> [!NOTE]
+> **No LLM at hand, or it is temporarily unavailable?** Use the reference query in step 2 as though the model had produced it, and critique it: is the year filter in the right place? Is the customer count really *distinct*? Does the query still answer the question when a customer has no orders? The verification work — which is the actual skill — is identical, and a podmate's model output works just as well.
 
 > "SQLite schema: `customer(customer_id, name, city)`, `product(product_id, sku, price)`, `orders(order_id, customer_id, ordered_on, status)`, `order_line(order_id, product_id, qty)`. Write a query that returns, for each city, the number of distinct customers and the total revenue (sum of `qty*price`) of orders placed in 2025, ordered by revenue descending."
 
@@ -129,23 +164,38 @@ ORDER BY revenue DESC;
 
 ### ★ Task 2: Index benchmark — prove it or disprove it
 
-**1. Ask the LLM to *optimize* the query** and tell you which indexes to add. Do not accept the list — test each index independently. Time the dashboard query **once before adding any index**, then add **one index at a time** and re-time it after each step:
+**1. Ask the LLM to *optimize* the query** and tell you which indexes to add. Do not accept the list — test each index independently, **one at a time**.
+
+**2. Measure in a way that the numbers mean something.** The dashboard takes tens of milliseconds, so `.timer on` inside one `sqlite3` session fits it — but a single reading is noise, and a *different* tool will report a different number for the same query (see the [two traps in Measuring query time](./Z-resources-bank.md#measuring-query-time)). So:
+
+- Run each query **at least three times** and report the **median** (the first run pays for the file cache).
+- Use the same machine, the same shell, and the same session; close whatever else is compiling.
+- **Match the timer to the size of the effect.** `.timer` for the dashboard; for the single-day lookup in step 4, which lands near or below the ~1 ms floor of `time sqlite3 …`, use an [amortized batch](./Z-resources-bank.md#timing-a-query-that-is-too-fast-to-time) instead.
+- **A changed plan is stronger evidence than a millisecond delta.** `SCAN orders` → `SEARCH orders USING INDEX ix_orders_ordered_on` proves the index is used, regardless of what the clock says. Record **both**: plan and timing.
+
+Expect this up front: the dashboard is **aggregate-heavy** — it aggregates ~240,000 `order_line` rows — so "faster" is not guaranteed. Depending on your SQLite version and machine, `ix_orders_ordered_on` may leave this query's plan completely unchanged while `ix_orderline_order` flips it to an index-driven join that is measurably **slower** than the scan. **If your timing gets worse, that is not a failed experiment** — it is the most valuable result in this task. An index changes the plan; it does not guarantee a speedup. Never bend the measurement to fit the expectation.
+
+**3. Baseline, then one index at a time.** Time the dashboard query from Task 1 (three runs, median, and save the `EXPLAIN QUERY PLAN`), then add the indexes **one by one**, re-running the query and the plan after each:
 
 ```sql
-.timer on
--- 0. baseline: time the dashboard query with no new indexes
+-- re-running the lab in a fresh session? reset the benchmark state first:
+DROP INDEX IF EXISTS ix_orders_ordered_on;
+DROP INDEX IF EXISTS ix_orderline_order;
+DROP INDEX IF EXISTS ix_orderline_product;
 
 CREATE INDEX ix_orders_ordered_on ON orders(ordered_on);
--- 1. re-run and time the dashboard query
+-- re-run the dashboard query 3x: median time + EXPLAIN QUERY PLAN
 
 CREATE INDEX ix_orderline_order ON order_line(order_id);
--- 2. re-run and time the dashboard query
+-- re-run the dashboard query 3x: median time + EXPLAIN QUERY PLAN
 
 CREATE INDEX ix_orderline_product ON order_line(product_id);
--- 3. re-run and time the dashboard query
+-- re-run the dashboard query 3x: median time + EXPLAIN QUERY PLAN
 ```
 
-**2. Build a small before/after table.** To make the effect visible even on a fast machine, time repeated runs and/or use a filtered query that the planner can actually improve:
+Record **two** observations per step: did the *plan* change, and did the *time* change? They are not the same question, and the interesting cases are the ones where they disagree.
+
+**4. Now the query an index can actually win.** A single-day lookup reads a tiny slice of `orders`, so the plan change here is unambiguous:
 
 ```sql
 .timer on
@@ -154,9 +204,14 @@ FROM orders o JOIN customer c ON c.customer_id = o.customer_id
 WHERE o.ordered_on = '2026-02-14';      -- a single day: an index helps a lot here
 ```
 
-**3. Find one index that does *not* help** (or one the planner ignores) and explain *why* — a low-cardinality column like `status`, a function wrapping the column, or a table small enough that a scan is cheaper. This negative result is worth as much as a positive one.
+Run it **before** and **after** `ix_orders_ordered_on` exists — compare the timing *and* the plan (no index: `SCAN orders`; with index: `SEARCH orders USING INDEX ix_orders_ordered_on`). This is the case where the index is unambiguous: an order-of-magnitude speedup and a plan you can point at.
 
-*Portfolio evidence:* the before/after table, the plan output that proves the index is used (`SEARCH ... USING INDEX`), and your explanation of the index that did not help.
+**5. Name the index that does *not* help — and be precise about *which query* it does not help.** `ix_orderline_product` is never used by the dashboard query: the planner reaches `product` through its **primary key**. But try it against a query that filters on `ol.product_id` directly — suddenly the index *is* used. So "useless index" was the wrong conclusion; "useless *for this query*" was the right one. Two more honest negatives: `ix_orders_ordered_on` leaves this dashboard's plan untouched, and *any* index on `ordered_on` is ignored once a function wraps the column (`WHERE date(ordered_on) = …` still `SCAN`s — compare `ordered_on = …`).
+
+> [!TIP]
+> Put the measurement in a script (`Module03/bench.py`): loop over the queries, repeat each three times, print the medians. Then re-running the whole benchmark after every index is one command, the numbers stay comparable, and the file itself becomes your portfolio evidence.
+
+*Portfolio evidence:* the before/after table (median of ≥3 runs per cell), the plan output that proves the index is used (`SEARCH ... USING INDEX`), the plan for the negative result, and your explanation of why that index does not help.
 
 ### ★ Task 3: The injection drill
 
@@ -165,8 +220,13 @@ Reproduce the support agent's apostrophe crash and then fix it. Save as `Module0
 ```python
 """Demonstrate SQL injection and its one correct fix: bound parameters."""
 import sqlite3
+from pathlib import Path
 
-conn = sqlite3.connect("Module03/warehouse.db")
+DB = Path(__file__).with_name("warehouse.db")
+if not DB.exists():
+    raise SystemExit(f"{DB} not found — run the Module 3 setup first")
+
+conn = sqlite3.connect(DB)
 
 def vulnerable(name: str):
     """DON'T DO THIS. String-building the query is the bug."""
@@ -190,7 +250,7 @@ if __name__ == "__main__":
 
 Run it, then answer in your notes: **why is escaping or filtering `'` characters by hand *not* a real fix, whereas bound parameters are?** (Hint: think about identifiers, numeric contexts, encodings, and who is responsible for correctness.)
 
-*Portfolio evidence:* `injection_demo.py` output, the payload you used, and your answer about escaping-vs-parameterizing.
+*Portfolio evidence:* `Module03/injection_demo.py` output, the payload you used, and your answer about escaping-vs-parameterizing.
 
 ### ★ Task 4: One query, from algebra to plan
 
@@ -198,16 +258,52 @@ Take any query you wrote above and write its **relational algebra** expression (
 
 ### ◇ Task 5 (Stretcher): Window functions and a subquery rewrite
 
-Rewrite the "late orders per customer" report once with a correlated subquery and once with a window function (`COUNT(*) OVER (PARTITION BY ...)`). Compare the plans and the readability. Note which the LLM produced by default.
+Start from this report — late orders per customer:
+
+```sql
+SELECT c.customer_id, c.name, COUNT(*) AS late_orders
+FROM orders o
+JOIN customer c ON c.customer_id = o.customer_id
+WHERE o.status = 'late'
+GROUP BY c.customer_id, c.name
+ORDER BY late_orders DESC;
+```
+
+Rewrite it once with a correlated subquery and once with a window function (`COUNT(*) OVER (PARTITION BY ...)`). Compare the plans and the readability. Note which the LLM produced by default.
+
+## 🔁 The harvest — two rounds per session
+
+Our sessions run in **two 90-minute blocks with a 15-minute break**. Both halves end with the same five-minute habit; neither round is a task you can pass or fail.
+
+### ☕ Round 1 — at the break (5 minutes, on the *previous* module)
+
+Coffee in hand, one question per pod: **what from last time can you still explain without looking?**
+
+Pick one item from the previous module — a construct, a definition, a query — and say it out loud to your pod. Today that means **Module 2**: take one line of that deliberately broken legacy schema and answer *what did this `CREATE TABLE` fail to guarantee, and what did that cost us later?* If there was a Python or SQL statement you nodded along to without really following it, this is the moment to ask.
+
+- No writing, no slides, no points. This round should feel like a conversation, not a quiz.
+- "Nobody in the pod can answer" is a perfectly good outcome — post it (see step 3 below).
+- When we restart, one pod gives its best answer from memory in sixty seconds. That is the whole round.
+
+### 🧺 Round 2 — at the end (5 minutes, on *today*)
+
+1. **Each pod names two constructs:** one piece of SQL it now understands well enough to explain in a single sentence, and one it still finds opaque. Write both into `Module03/sql-notes.md`. The one sentence that made it click is the valuable half.
+2. **Pair with a neighbouring pod** and try to answer each other's opaque one. Very often the answer is already in the other pod's notes — that is the point of asking someone who read the same scaffolding differently.
+3. **Anything still open goes on the running list** in our Discord channel (`#sql-questions`), tagged with the module number.
+4. **The next session opens by answering two of them** — not by the instructor, but by whoever put them there, or whoever thinks they know.
+
+Why two rounds: retrieval works better **spaced**. Round 1 pulls the previous session back out of memory while it is starting to fade; Round 2 consolidates what just went in. Same five minutes each, very different job.
+
+Why bother at all: this course hands you *generated* data all the time (here, in Module 5, and in the final project), and reading generated data is the same skill as reading somebody else's legacy schema in Module 2. A construct you can explain in one sentence is a construct you can also debug; one you skim past becomes the line you cannot fix at two in the morning. Your `sql-notes.md` is also exactly the kind of concise evidence that makes a checkpoint conversation easy.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-
-- [ ] The setup script that builds `warehouse.db` (~240k order lines).
+- [ ] `Module03/setup.sql` — the setup script that builds `warehouse.db` (~240k order lines).
 - [ ] The LLM prompt(s), the generated SQL, your predicted plan, and the actual `EXPLAIN QUERY PLAN` output.
-- [ ] The index before/after benchmark table and the negative result with your explanation.
-- [ ] `injection_demo.py` and its output, plus your escaping-vs-parameterizing answer.
+- [ ] The index before/after benchmark table (median of ≥3 runs), `Module03/bench.py` if you wrote one, and the negative result with your explanation.
+- [ ] `Module03/injection_demo.py` and its output, plus your escaping-vs-parameterizing answer.
 - [ ] The relational-algebra expression for one query of your choice.
+- [ ] `Module03/sql-notes.md` — your harvest notes: the construct you can explain, the one you cannot (yet), and the questions you posted.
 - [ ] `Reflections/ref03.md` — the logbook entry for this block, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md) and explicitly addressing AI verification.
 - [ ] (Stretcher) the window-function rewrite and its plan.
 

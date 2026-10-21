@@ -17,6 +17,9 @@ __pycache__/
 # Generated slide PDFs (rebuild with slides/render-slides.sh)
 /slides/*.pdf
 
+# Instructor scratch: smoke-test.sh extracts the module's own code here
+/scratch/
+
 # Secrets
 .env
 

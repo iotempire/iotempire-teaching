@@ -87,6 +87,9 @@ SQL
 sqlite3 Module05/normalize.db "SELECT COUNT(*) AS rows FROM flat_jobpart;"
 ```
 
+> [!NOTE]
+> **Same harvest habit as [Module 3](./03-llm-assisted-sql-and-query-profiling.md)** (the two short rounds described at the end of that studio — one at the break, one at the end). Two constructs here are worth a sentence in your `Module05/sql-notes.md`: the **`CROSS JOIN`** of two generated sequences (why 20,000 × 10 = 200,000 rows — and why that is not a join in the relational sense at all), and **`printf('%.2f', …)`**, which stores a price as *text* (what does that cost you when you sort or compare it?). Bring one more construct you find opaque to the harvest at the end of the studio.
+
 ### ★ Task 1: Name the dependencies and the anomalies
 
 1. Write down the functional dependencies you can see: `machine_id → site`, `part_no → part_price`, `job_id → machine_id`, `job_id → technician`, `job_id → done_on`.

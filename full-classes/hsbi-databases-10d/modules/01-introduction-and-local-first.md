@@ -322,11 +322,11 @@ SELECT machine, max(vib) AS peak FROM reading GROUP BY machine;
 ```
 
 > [!IMPORTANT]
-> **About `.timer on` — and why you might "see nothing".** `.timer` is a **shell dot-command**, not SQL: it does **not exist in Datasette** (or in a Python string), and it is not something you `SELECT`. When it is on, the shell prints a `Run Time: real … user … sys …` line *after* each statement. The usual reasons it looks like it does nothing:
+> **About `.timer on` — and why you might "see nothing".** `.timer` is a **shell dot-command**, not SQL: it does **not exist in Datasette** (or in a Python string), and it is not something you `SELECT`. When it is on, the shell prints a `Run Time: real … user … sys …` line *after* each statement (in a one-shot run it prints a single line at the end). The usual reasons it looks like it does nothing:
 > - you issued a **one-shot** query, `sqlite3 db "SELECT …"` — a dot-command is a *setting*, so enable it in the same run: `sqlite3 -cmd ".timer on" db "SELECT …"`; or
 > - you were in a different tool (**Datasette**, `litecli`, Python), where `.timer` is simply not a command; or
-> - the query is so fast that `real` rounds to `0.000…` — that is a real measurement, not a failure (repeat the query in a loop to make it visible).
-> `.timer` reports **CPU** time (`user`/`sys`), not wall-clock. For trustworthy **wall-clock** numbers — and a method that also works in Datasette and Python — see [Measuring query time](./Z-resources-bank.md#measuring-query-time).
+> - the query is so fast that `real` rounds to `0.000…` — that is a real measurement, not a failure ([batch the repetitions](./Z-resources-bank.md#timing-a-query-that-is-too-fast-to-time) to make it visible).
+> `.timer` prints `real` (wall clock) **and** `user`/`sys` (CPU). Read `real` for "how long did it take"; `user`+`sys` tells you how much of that was actual computing. For numbers you can compare across tools, see [Measuring query time](./Z-resources-bank.md#measuring-query-time).
 
 **Capture a session to a file** (excellent portfolio evidence). The shell can redirect its output:
 
