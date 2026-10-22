@@ -9,7 +9,7 @@ Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment l
 1. **Students work in Task Pods of 2–3 for most of the term.** Default to 3 when the cohort is above ~40; keep a handful of pairs so the checkpoint schedule survives. *You never teach a room of 60 individuals — you teach 20–30 pods.*
 2. **Learning goals are the contract; tasks are negotiable.** Every module opens with its goals. Students may replace or skip tasks if they can still demonstrate the goals. That is why you assess conversations, not submissions.
 3. **You rarely lecture.** Most "input" is a pod study (20–30 min) with references and LLM prompts, followed by a concrete exercise and a share with a neighbouring pod. Your job is to walk, listen, and correct.
-4. **Every session has two harvests.** At the break, five minutes of retrieval on the *previous* module; at the end, five minutes on what was learned today. Details in [Module 3](../modules/03-llm-assisted-sql-and-query-profiling.md), and one paragraph in the [syllabus](../syllabus.md#how-we-teach--challenge--and-project-based-in-person-and-always-in-flux).
+4. **Every session has two harvests — collections, not quizzes.** At the break and again at the end, five minutes: students read out the curiosities they *marked while working* (an odd statement, a weird diagram, a bug, a UX surprise) and compare lists. Nobody explains and nobody is assessed; *"I collected these — which did you find?"* is the whole activity. Details in [Module 3](../modules/03-llm-assisted-sql-and-query-profiling.md), and one paragraph in the [syllabus](../syllabus.md#how-we-teach--challenge--and-project-based-in-person-and-always-in-flux).
 5. **Checkpoints, not an exam.** A short conversation per pod against the goals. Treated as *project work* in the module handbook — see the [syllabus](../syllabus.md) for the binding version.
 
 > [!IMPORTANT]
@@ -22,9 +22,9 @@ Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment l
 | 0–5 | Story or a one-slide hook. Not a lecture. |
 | 5–50 | **Pod study and share** — 30 + 15 min in Modules 2–3, about 15 + 5 in Modules 4–6. |
 | 50–90 | Studio lab, part 1. |
-| 90–105 | **Break — harvest round 1** (retrieve the previous module out loud). |
+| 90–105 | **Break — harvest swap 1** (read out the curiosities you marked). |
 | 105–185 | Studio lab, part 2 — checkpoints live here. |
-| 185–195 | **Harvest round 2** (“one I can explain, one I cannot”) and wrap-up. |
+| 185–195 | **Harvest swap 2** (same, plus what the second half added) and wrap-up. |
 
 Rooms: the schedule is 90 minutes, a 15-minute break, 90 minutes. Protect the break — it is part of the method, not slack.
 
@@ -70,7 +70,7 @@ Run only these four things and the session still works:
 1. The **story** (3 min).
 2. The **pod study** (20 min) — even if you do not fully understand the material yet; the pointers and LLM prompts carry it, and you learn by walking around.
 3. **One** core task, not all of them (rest of the time).
-4. **Harvest round 2** (5 min), and note what they could not explain.
+4. **Harvest swap 2** (5 min): compare what they collected, and note the entries nobody could place.
 
 Then read that module's instructor note before the next session. Nobody expects a first run to be polished; the syllabus says as much, in public.
 

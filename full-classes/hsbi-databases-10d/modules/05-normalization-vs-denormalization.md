@@ -131,7 +131,7 @@ sqlite3 Module05/normalize.db "SELECT COUNT(*) AS rows FROM flat_jobpart;"
 ```
 
 > [!NOTE]
-> **Same harvest habit as [Module 3](./03-llm-assisted-sql-and-query-profiling.md)** (the two short rounds described at the end of that studio — one at the break, one at the end). Two constructs here are worth a sentence in your `Module05/sql-notes.md`: the **`CROSS JOIN`** of two generated sequences (why 20,000 × 10 = 200,000 rows — and why that is not a join in the relational sense at all), and **`printf('%.2f', …)`**, which stores a price as *text* (what does that cost you when you sort or compare it?). Bring one more construct you find opaque to the harvest at the end of the studio.
+> **Same harvest habit as [Module 3](./03-llm-assisted-sql-and-query-profiling.md)** (collect curiosities, swap lists — at the break and at the end). Three things here are worth marking in your `Module05/sql-notes.md`: the **`CROSS JOIN`** of two generated sequences (why 20,000 × 10 = 200,000 rows — and why that is not a join in the relational sense at all), **`printf('%.2f', …)`**, which stores a price as *text* (what does that cost you when you sort or compare it?), and the `dbstat` numbers (why is the denormalized copy so much bigger?). Bring whatever else surprises you to the swap.
 
 ### ★ Task 1: Name the dependencies and the anomalies
 

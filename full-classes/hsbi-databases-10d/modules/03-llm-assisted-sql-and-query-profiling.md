@@ -139,7 +139,7 @@ Where you disagree, you have found either your own gap or the model's — both a
 
 1. **Compare plans.** Did both pods get the *same* plan for the same query? Check `sqlite3 --version` first — Windows, macOS and Linux do not always ship the same one. If the plans differ, find out why; that difference is the discussion.
 2. **Explain the surprise.** Each pod names the plan that surprised it most, and what it now believes about indexes.
-3. **Harvest.** Add the agreed highlights to both pods' `sql-notes.md`; anything still unresolved goes to `#sql-questions`.
+3. **Swap collections.** Add each other's best curiosities to both pods' `sql-notes.md`; anything neither pod could place goes to `#sql-questions`.
 
 ## 🛠️ Studio Lab: Generate, Profile, and Secure — **Challenging**
 
@@ -357,30 +357,20 @@ ORDER BY late_orders DESC;
 
 Rewrite it once with a correlated subquery and once with a window function (`COUNT(*) OVER (PARTITION BY ...)`). Compare the plans and the readability. Note which the LLM produced by default.
 
-## 🔁 The harvest — two rounds per session
+## 🔁 The harvest — collect curiosities, swap lists
 
-Our sessions run in **two 90-minute blocks with a 15-minute break**. Both halves end with the same five-minute habit; neither round is a task you can pass or fail.
+Nothing here is graded, and **you are not explaining anything**. You are **collecting curiosities**: a SQL, Python, or Bash statement that looks strange, hard, or worth arguing about; a weird ER diagram; a normalization that feels wrong; a bug; a UX nightmare. Scan the material as you work — including older modules — and **mark** them: a `?` in the margin, a line in `Module03/sql-notes.md`, a screenshot. Marking takes seconds, and it is what makes the swap interesting.
 
-### ☕ Round 1 — at the break (5 minutes, on the *previous* module)
+**Swap twice:** at the break, and again at the end. Five minutes each.
 
-Coffee in hand, one question per pod: **what from last time can you still explain without looking?**
+1. **One minute each, no explaining.** Read your list out: *"I collected these — which did you find?"* Pointing at the thing is enough; you do not have to know what it does yet.
+2. **Give every entry a source** — module and line, a link, or a screenshot — so it can be found again.
+3. **"I don't know what this does" is a first-class entry.** It is usually the best one on the list.
+4. **Anything two pods collected, or that nobody could place, goes to `#sql-questions`** with the module number. The next session opens with two of them.
 
-Pick one item from the previous module — a construct, a definition, a query — and say it out loud to your pod. Today that means **Module 2**: take one line of that deliberately broken legacy schema and answer *what did this `CREATE TABLE` fail to guarantee, and what did that cost us later?* If there was a Python or SQL statement you nodded along to without really following it, this is the moment to ask.
+That is the whole ritual. The list is the artefact; the conversation is the point — and a good `sql-notes.md` is exactly the kind of concise evidence that makes a checkpoint easy.
 
-- No writing, no slides, no points. This round should feel like a conversation, not a quiz.
-- "Nobody in the pod can answer" is a perfectly good outcome — post it (see step 3 below).
-- When we restart, one pod gives its best answer from memory in sixty seconds. That is the whole round.
-
-### 🧺 Round 2 — at the end (5 minutes, on *today*)
-
-1. **Each pod names two constructs:** one piece of SQL it now understands well enough to explain in a single sentence, and one it still finds opaque. Write both into `Module03/sql-notes.md`. The one sentence that made it click is the valuable half.
-2. **Pair with a neighbouring pod** and try to answer each other's opaque one. Very often the answer is already in the other pod's notes — that is the point of asking someone who read the same scaffolding differently.
-3. **Anything still open goes on the running list** in our Discord channel (`#sql-questions`), tagged with the module number.
-4. **The next session opens by answering two of them** — not by the instructor, but by whoever put them there, or whoever thinks they know.
-
-Why two rounds: retrieval works better **spaced**. Round 1 pulls the previous session back out of memory while it is starting to fade; Round 2 consolidates what just went in. Same five minutes each, very different job.
-
-Why bother at all: this course hands you *generated* data all the time (here, in Module 5, and in the final project), and reading generated data is the same skill as reading somebody else's legacy schema in Module 2. A construct you can explain in one sentence is a construct you can also debug; one you skim past becomes the line you cannot fix at two in the morning. Your `sql-notes.md` is also exactly the kind of concise evidence that makes a checkpoint conversation easy.
+Why bother: this course hands you *generated* data all the time (here, in Module 5, and in the final project), and reading generated data is the same skill as reading somebody else's legacy schema in Module 2. Marking the odd bits instead of skimming past them is how that becomes a habit — and the one you skim past is the line you cannot fix at two in the morning.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
@@ -389,7 +379,7 @@ Why bother at all: this course hands you *generated* data all the time (here, in
 - [ ] The index before/after benchmark table (median of ≥3 runs), `Module03/bench.py` if you wrote one, and the negative result with your explanation.
 - [ ] `Module03/injection_demo.py` and its output, plus your escaping-vs-parameterizing answer.
 - [ ] The relational-algebra expression for one query of your choice.
-- [ ] `Module03/sql-notes.md` — your harvest notes: the construct you can explain, the one you cannot (yet), and the questions you posted.
+- [ ] `Module03/sql-notes.md` — your collection of curiosities (with sources) and the questions you posted.
 - [ ] `Reflections/ref03.md` — the logbook entry for this block, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md) and explicitly addressing AI verification.
 - [ ] (Stretcher) the window-function rewrite and its plan.
 
