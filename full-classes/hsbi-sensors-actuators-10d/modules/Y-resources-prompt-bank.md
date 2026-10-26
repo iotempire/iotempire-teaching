@@ -37,14 +37,18 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 5. Technical: *LDR and filtering:* Show the LDR transfer behavior and compare raw, average, median, and cutoff output — what did each fix and what did it cost?
 6. Process: *Serial console and visualization:* Which tool did you use to inspect and plot your data, what did the plot reveal, and how did `delay()` versus `millis()` affect your sampling?
 
-## 📌 Module 2 – I²C & Sensor Addressing
-*Focus: scope/analyzer choice, bus physics, addresses, register maps, conflicts, bus comparison.*
+## 📌 Module 2 – Buses & I²C
+*Focus: bus landscape, simple pins/PWM/divider, I²C physics, addresses, registers, conflicts, scope/analyzer choice.*
 
-1. Technical: *Instrument choice:* Which scope/analyzer did the class adopt, what sample rate and input range does it have, and which signals can it not capture?
-2. Technical: *Scan map:* Show your scan output and map each address to its module and datasheet.
-3. Technical: *Raw vs. library:* Present the raw register value, your datasheet-based reconstruction, and the library value — and explain any mismatch.
-4. Hybrid: *Conflict resolution:* Describe the address conflict you created and exactly how you resolved (or would resolve) it.
-5. Project Context: *Why not just add pins?* Explain why one data pair for many devices is elegant, and name its limits.
+1. Technical: *Bus comparison:* Pick two buses (e.g. RS-485 and I²C) and compare wiring, signaling, topology, speed/length, and one use case each.
+2. Technical: *Simple pins vs. bus:* Why is PWM not a bus? What does a bus add (addressing, framing, error handling, multi-drop)?
+3. Technical: *UART to RS-485:* What does the transceiver add to a plain UART link, and why does that make a 20 m multi-drop run possible?
+4. Technical: *Voltage divider:* Show your `Vout` calculation, the measured value, and why the divider is needed.
+5. Technical: *Instrument choice:* Which scope/analyzer did the class adopt, what sample rate and input range does it have, and which signals can it not capture?
+6. Technical: *Scan map:* Show your scan output and map each address to its module and datasheet.
+7. Technical: *Raw vs. library:* Present the raw register value, your datasheet-based reconstruction, and the library value — and explain any mismatch.
+8. Hybrid: *Conflict resolution:* Describe the address conflict you created and exactly how you resolved (or would resolve) it.
+9. Project Context: *Why not just add pins?* Explain why one data pair for many devices is elegant, and name its limits.
 
 ## 📌 Module 3 – Sensor Characterization, Calibration & Data Quality
 *Focus: transfer function, linearity, hysteresis, calibration, uncertainty, filtering.*

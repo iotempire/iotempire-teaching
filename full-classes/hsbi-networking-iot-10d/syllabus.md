@@ -59,7 +59,9 @@ In this course, you will do less raw microcontroller breadboard wiring (which is
 
 This course is deliberately taught as Challenge-Based and Project-Based Learning (CBL/PBL): you learn by investigating an authentic challenge and building a real solution, not by reproducing a lecture. We begin from stories — a real problem that matters to you and the people it touches — because you learn best what connects to something meaningful for your own life, studies, or community. Your instructors genuinely care that you find that connection.
 
-It also matters that we do this in person, together — a university class is at its best where we actually meet. You will learn a great deal from direct interaction with your peers: explaining a route, questioning a topic hierarchy, debugging a packet flow, and demoing to one another, while your instructors learn alongside you.
+It also matters that we do this in person, together. A university class is at its best where we actually meet, and you will learn a great deal from direct interaction with your peers: explaining, questioning, debugging, and demoing to one another, while the instructor learns alongside you.
+
+**Optional studio ritual — the harvest.** If you and your pod want to try it, take five minutes at the break and again at the end to collect the curious bits you noticed while working — a route that looked wrong, an ARP entry that surprised you, an unexpected retransmission, a topic hierarchy that felt off, a firmware or OTA bug, a dashboard annoyance — and swap lists. Nobody explains anything; *"I collected these — which did you find?"* is the whole conversation, and "I don't know what this does" is a perfectly good entry. It is ungraded and entirely optional: if it does not fit the room or the day, skip it. Groups that try it usually find that the odd bits get a second look while they are still cheap to ask about, and that the next session can open with two of the questions they actually have. The full ritual lives in [Module 1](./modules/01-foundations-and-masterclass.md#harvest).
 
 And this class is always in flux — that is a feature, not a bug. No course is ever finished: every offering is adjusted while it runs, and each class teaches us as much as it teaches you. Expect the plan, the tasks, and even this syllabus to move as we discover together what works best; your questions, ideas, and feedback are part of the design.
 
@@ -81,7 +83,7 @@ By the end of this course, you will be able to:
 
 ## Course Load & Credits
 
-- Format: 10 working days / 12 sessions (4 hours each) across the semester. The final-project arc occupies several of these sessions (see the schedule below).
+- Format: 10 working days, **one module per day**, **48 contact hours** (45-minute class hours). Sessions are typically 2 × 45 min (90 min); most modules use two sessions, Module 3 uses three, and Modules 7–9 and Day 10 run longer.
 - Target Audience: Bachelor students in *Digitale Technologien* and *Software Engineering* (3rd semester, Campus Gütersloh).
 - Module Number: 3264 (*Vernetzung und IoT-Lösungen*), 5 ECTS.
 - Total Workload: 150 hours.
@@ -90,7 +92,7 @@ By the end of this course, you will be able to:
   - Guided self-study, portfolio documentation, and final project: the remaining balance.
 
 > [!NOTE]
-> **Where the 150 hours come from.** The module handbook specifies 150 h (5 ECTS). The delivered format is 12 four-hour sessions plus portfolio work, network experiments, and the final project. Treat the session count as fixed (12) and the *hours per session* as ~4.
+> **Where the 150 hours come from.** The module handbook specifies 150 h (5 ECTS). The delivered format is 48 contact hours across 10 working days, plus portfolio work, network experiments, and the final project. Session lengths vary slightly; the total contact time is what the handbook fixes.
 
 ### Prerequisites & Relationship to Other Modules
 
@@ -98,39 +100,39 @@ By the end of this course, you will be able to:
 - **Content:** basic computer literacy and comfort with a terminal help; ability to work with Git, a shell, and a markup language is expected, as in the other IoT courses. Basic Python is useful for the integration labs and is scaffolded in Module 4.
 - **Relationship to other modules:** *Vernetzung und IoT-Lösungen* is a 3rd-semester module. It pairs naturally with *Microcontroller Programming* and *Sensorik & Aktorik*: those courses produce the edge devices and measurements; this course connects them into a system. There is no required prior course.
 
-<a id="assessment-kombinationsprüfung-20-base-points--bonus"></a>
-## Assessment: Kombinationsprüfung (20 Base Points + Bonus)
+<a id="assessment-large-homework-20-base-points--bonus"></a>
+## Assessment: Large Homework — Portfolio Report + Project Presentation (20 Base Points + Bonus)
 
-Assessment is a **Kombinationsprüfung** combining continuous portfolio documentation, laboratory work, reflection logbook entries, and a final project. The formal form is fixed by the module handbook; where the handbook version constrains the mix, the instructor will announce the binding variant in the LMS. Everything below is the working agreement for this offering.
+Assessment is a **large homework** (*große Hausarbeit*): you build and maintain one personal **GitHub portfolio**, document your laboratory work, measurements, and reflections there, and submit it as your **portfolio report**. In the final session you give a **short project presentation of the last part of that report**. The formal form is fixed by the module handbook; where the handbook version constrains the mix, the instructor will announce the binding variant in the LMS. Everything below is the working agreement for this offering.
 
-You build and maintain one personal **GitHub portfolio**. The small tasks in each module are how you **prove that module's learning goals**, personalized through your **reflections**, and short **checkpoints** give you feedback on whether those goals have been achieved — while also giving the instructor a sense of your performance. In the **last session you present your final project to the instructor and to each other**.
+The small tasks in each module are how you **prove that module's learning goals**; the **reflections** make the report personal; and short **checkpoints** give you feedback on whether the evidence is complete and convincing before submission. Checkpoints are **not separate examinations** — the graded artefact is the portfolio report. Submit the complete report through the LMS by the announced deadline; the final session is the project presentation.
 
 > [!IMPORTANT]
-> **Module 0 and Modules 1–7 are worth 11 of the 20 base points.** You earn them by demonstrating the modules' learning goals in short checkpoints — not by completing every task. Module 0 is normally completed before Day 1; in a cohort that needs more setup time, it can be run as the first in-class module instead (same 1 point, same evidence).
+> **Module 0 and Modules 1–7 are worth 11 of the 20 base points.** You earn them through the portfolio evidence that proves the modules' learning goals — not by completing every task. Module 0 is normally completed before Day 1; in a cohort that needs more setup time, it can be run as the first in-class module instead (same 1 point, same evidence).
 
 ### Points Breakdown
 
 | Component | Points | Details |
 |---|---|---|
 | Module 0 (Pre-Study) | 1 point | Portfolio repository setup from the template, inspiration notes, network exploration, and answers to the guiding questions. |
-| Modules 1–7 (Learning goals) | 10 points | Earned through short checkpoint presentations that prove the module learning goals from your portfolio: OSI critique and packet overhead, OpenWrt configuration and captures, Nebula/Yggdrasil overlays, MQTT flows, ESP-NOW, optional industrial bridge, and IoTempower fleet deployment. |
-| Reflection points | 4 points | One logbook entry for each teaching block (four blocks: Days 1–3, 4–6, 7–8, and 9–10), captured in your personal logbook. |
-| Final meaningful project | 5 points | 25% of the base score. A multi-node, multi-protocol IoT network with a live demo, failover test, short documentation, and individual defense, built in a **Project Team** of 4–6. |
+| Modules 1–7 (Learning goals) | 10 points | Earned through the portfolio evidence that proves each module's learning goals: OSI critique and packet overhead, OpenWrt configuration and captures, Nebula/Yggdrasil overlays, MQTT flows, ESP-NOW, optional industrial bridge, and IoTempower fleet deployment. Checkpoints are feedback conversations on that evidence. |
+| Reflection points | 4 points | One logbook entry for each teaching block (four blocks: Days 1–3, 4–6, 7–8, and 9–10), captured in your personal logbook and included in the report. |
+| Final meaningful project | 5 points | 25% of the base score. A multi-node, multi-protocol IoT network documented in the final section of the portfolio report, with a failover test and a short project presentation of that section. Built in a **Project Team** of 4–6. |
 | **Base total** | **20 points** | 100% base score. |
 | Extra / bonus points | up to +3 | Outstanding benchmarking/measurement, accepted open-source pull requests to IoTempower or class repositories, or verified peer debugging and mentoring. |
 
 - **Score cap:** The final score is capped at 20 points, even if bonus points are earned. Bonus points compensate for minor weaknesses in regular deliverables, but all compulsory components must still be attempted.
 - **Passing threshold:** Minimum **14 out of 20 points** (~70%) to pass (*bestanden*).
 
-<a id="how-module-points-are-earned-checkpoint-presentations"></a>
-### How module points are earned: checkpoint presentations
+<a id="how-module-points-are-earned-portfolio-evidence-and-checkpoints"></a>
+### How module points are earned: portfolio evidence and feedback checkpoints
 
-You do not submit and grade every task. Instead, you earn a module's points in a short checkpoint presentation — **10–12 minutes, including questions and feedback** — with the instructor, based on your portfolio and reflection logbook. Checkpoints are done **with your Task Pod, in person**, and cover a few modules at a time:
+You do not submit and grade every task. You earn a module's points through the **portfolio evidence** that proves its learning goals. A short **feedback checkpoint** — **10–12 minutes, including questions** — tells you whether that evidence is convincing before the report is submitted. Checkpoints are done **with your Task Pod, in person**, and cover a few modules at a time:
 
-- **Checkpoint 1 — start of Day 4 (Modules 1–3).** For a larger cohort this runs as a **30-minute 2-pod practice round**: two pods pair up; each pod presents from its existing portfolios, and the other pod gives free-style feedback and questions checking how well the goals were proven. The instructor assesses from the presentations and the portfolios. In a small cohort, use the same slot for individual pod checkpoints.
+- **Checkpoint 1 — start of Day 4 (Modules 1–3).** For a larger cohort this runs as a **30-minute 2-pod practice round**: two pods pair up; each pod walks the other through its portfolio evidence, and the other pod gives free-style feedback and questions checking how well the goals were proven. The instructor joins the feedback and notes where the report still needs work. In a small cohort, use the same slot for individual pod checkpoints.
 - **Checkpoint 2 — start of Day 8 (Modules 4–7).**
 
-Dates and slots are confirmed through the LMS. The goals of Module 8 (final project studio) are demonstrated in the final project and defense.
+Dates and slots are confirmed through the LMS. The goals of Module 8 (final project studio) are demonstrated in the final project section and its presentation.
 
 **Task Pods, and how checkpoints scale.** We work in **Task Pods** — small crews of **two or three** (three by default for a large cohort, roughly >40 students; a few **two-person pods** are welcome precisely because they reduce the instructor's checkpoint load; a fourth podmate is only by arrangement). The point is *small*, not rigid.
 
@@ -160,7 +162,7 @@ Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one w
 
 For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). The template includes the **AI-verification** question.
 
-**When to write it:** reserve about **10 minutes after the meeting** — right after class, in the evening, or first thing next morning. It does **not** need to happen inside the 4-hour session. Writing a little later, in a different associative state, often helps the learning settle.
+**When to write it:** reserve about **10 minutes after the meeting** — right after class, in the evening, or first thing next morning. It does **not** need to happen inside the class session. Writing a little later, in a different associative state, often helps the learning settle.
 
 ### Grade Scale
 
@@ -215,31 +217,30 @@ Unlike pure microcontroller classes, our hardware focuses on modular, ready-to-n
 
 ## 10-Day Course Schedule
 
-The 10 days correspond to the 12 four-hour sessions across the semester. Modules 1–7 deliver the technical foundations; the final-project arc (Modules 8–9) spans the remaining studio sessions so that there is genuine build, hardening, and rehearsal time — not just a single rushed studio.
+The 10 days correspond to 48 contact hours, with **one module per day**. Session lengths vary slightly: most modules use two sessions of 2 × 45 min, Module 3 uses three, and some days run longer. Modules 1–7 deliver the technical foundations; the final-project arc (Modules 8–9) spans the remaining studio sessions so that there is genuine build, hardening, and rehearsal time — not just a single rushed studio.
 
 > Indicative plan. The day-by-day mapping below is a planning draft and may shift — including during the semester — as we refine this class together. The learning objectives and the final project matter more than the exact day a topic lands on.
 
-| Day | Session(s) | Module / Topic | Core Hands-on Focus |
-|:---:|:---:|---|---|
-| 0 | — | [Pre-Study](./pre-study.md) | Portfolio setup, inspiration video, network mental model, IP and MQTT exploration. |
-| 1 | 1 | [Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md) | The IoT computing continuum, OSI vs. TCP/IP friction, Master Class live integration (M5Stack + MQTT + Node-RED). |
-| 2 | 2 | [Module 2 — Local Networking & OpenWrt Gateways](./modules/02-local-networking-and-gateways.md) | IPv4 subnetting, DHCP, DNS, NAT, routing tables, OpenWrt LuCI/SSH, Wireshark & `tcpdump` packet capture. |
-| 3 | 3 | [Module 3 — Mesh & Overlay Networks](./modules/03-overlay-and-mesh-networks.md) | Nebula overlay remote access and Yggdrasil IPv6 mesh; optional B.A.T.M.A.N. Layer-2 mesh stretcher (`batctl`, failover). |
-| 4 | 4 | [Module 4 — MQTT Deep Dive & Integration](./modules/04-mqtt-and-integration.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* Topic hierarchy, QoS 0/1/2, Retain, Last Will, MQTT Explorer, Node-RED flows, Python `paho-mqtt` / IoTknit integration. |
-| 5 | 5 | [Module 5 — Wireless Technologies & ESP-NOW](./modules/05-wireless-technologies-and-espnow.md) | Radio spectrum, ISM bands, Wi-Fi vs BLE vs LoRaWAN trade-offs, ESP-NOW connectionless peer-to-peer micro-mesh and gateway bridge. |
-| 6 | 6 | [Module 6 — Industrial Protocols & Edge Bridging](./modules/06-industrial-protocols-and-bridging.md) | Conceptual tour: Modbus RTU/TCP, OPC-UA, RS-485, TSN context; optional simulated Python/Node-RED bridge to MQTT. |
-| 7 | 7 | [Module 7 — Fleet Management & Scaling with IoTempower](./modules/07-fleet-management-and-iotempower.md) | Declarative IoT architecture, multi-node configuration, Over-The-Air (OTA) deployment across M5Stack fleet, topic standardisation. |
-| 8 | 8–9 | [Module 8 — Final Project Studio](./modules/08-final-project-studio.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–7), then:* Project kickoff & story, team and requirement mapping, system integration across nodes and network layers. |
-| 9 | 10–11 | [Module 8 — Final Project Studio (continued)](./modules/08-final-project-studio.md) | Integration hardening, fault-injection & resilience testing, architecture documentation, peer review dry run. |
-| 10 | 12 | [Module 9 — Final Project Demonstrations & Portfolio Defense](./modules/09-demonstrations-and-defense.md) | Live multi-node demonstration, network fault-injection test, portfolio presentation, retrospective. |
+| Day | Module / Topic | Core Hands-on Focus |
+|:---:|---|---|
+| 0 | [Pre-Study](./pre-study.md) | Portfolio setup, inspiration video, network mental model, IP and MQTT exploration. |
+| 1 | [Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md) | The IoT computing continuum, OSI vs. TCP/IP friction, Master Class live integration (M5Stack + MQTT + Node-RED). |
+| 2 | [Module 2 — Local Networking & OpenWrt Gateways](./modules/02-local-networking-and-gateways.md) | IPv4 subnetting, DHCP, DNS, NAT, routing tables, OpenWrt LuCI/SSH, Wireshark & `tcpdump` packet capture. |
+| 3 | [Module 3 — Mesh & Overlay Networks](./modules/03-overlay-and-mesh-networks.md) | Nebula overlay remote access and Yggdrasil IPv6 mesh; optional B.A.T.M.A.N. Layer-2 mesh stretcher (`batctl`, failover). |
+| 4 | [Module 4 — MQTT Deep Dive & Integration](./modules/04-mqtt-and-integration.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* Topic hierarchy, QoS 0/1/2, Retain, Last Will, MQTT Explorer, Node-RED flows, Python `paho-mqtt` / IoTknit integration. |
+| 5 | [Module 5 — Wireless Technologies & ESP-NOW](./modules/05-wireless-technologies-and-espnow.md) | Radio spectrum, ISM bands, Wi-Fi vs BLE vs LoRaWAN trade-offs, ESP-NOW connectionless peer-to-peer micro-mesh and gateway bridge. |
+| 6 | [Module 6 — Industrial Protocols & Edge Bridging](./modules/06-industrial-protocols-and-bridging.md) | Conceptual tour: Modbus RTU/TCP, OPC-UA, RS-485, TSN context; optional simulated Python/Node-RED bridge to MQTT. |
+| 7 | [Module 7 — Fleet Management & Scaling with IoTempower](./modules/07-fleet-management-and-iotempower.md) | Declarative IoT architecture, multi-node configuration, Over-The-Air (OTA) deployment across M5Stack fleet, topic standardisation. |
+| 8–9 | [Module 8 — Final Project Studio](./modules/08-final-project-studio.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–7), then:* Project kickoff & story, team and requirement mapping, system integration across nodes and network layers, hardening, fault-injection & resilience testing, architecture documentation, peer review dry run. |
+| 10 | [Module 9 — Project Presentation & Portfolio Submission](./modules/09-project-presentation-and-portfolio.md) | Short project presentation of the final portfolio-report section, live multi-node demonstration, network fault-injection test, portfolio report hand-in, retrospective. |
 
 > [!TIP]
-> **Buffer and pacing:** Days 8–9 provide four studio sessions. At least one of them is deliberately loose and can absorb spill-over from earlier labs, be released as flexible/wiggle time, or be used for stretcher tasks and peer mentoring. Announce the concrete use of each studio session in the LMS as the course progresses.
+> **Buffer and pacing:** Days 8–9 form the final-project block. Part of it is deliberately loose and can absorb spill-over from earlier labs, be released as flexible/wiggle time, or be used for stretcher tasks and peer mentoring. Announce the concrete use of each part in the LMS as the course progresses.
 
 <a id="final-project-requirements-5-points"></a>
 ## Final Project Requirements (5 Points)
 
-The final project is an end-to-end networked system built by **Project Teams of 4–6 students** — the project merges two Task Pods from Modules 1–7, so you keep your pod and gain one or two more. Project Teams form and pitch a stakeholder story during the project kickoff (Module 8), then map their requirements onto the criteria below.
+The final project is an end-to-end networked system built by **Project Teams of 4–6 students** — the project merges two Task Pods from Modules 1–7, so you keep your pod and gain one or two more. Project Teams form and pitch a stakeholder story during the project kickoff (Module 8), then map their requirements onto the criteria below. The project is documented as the **final section of your portfolio report**, and the last session presents that section.
 
 ### Must-Have System Criteria:
 
@@ -249,13 +250,13 @@ The final project is an end-to-end networked system built by **Project Teams of 
 4. **System integration layer:** Automated event routing, data processing, and user interface implemented via Node-RED and/or custom Python (`paho-mqtt` / IoTknit).
 5. **External or industrial interoperability (choose one):** A functional bridge to an external service/API (for example an HTTP/JSON API or public data source); or, if hardware or a simulator is available, to an industrial protocol such as Modbus or OPC-UA.
 6. **Fleet / IoTempower deployment:** At least part of the node fleet configured and deployed declaratively via IoTempower with documented OTA update capability.
-7. **Resilience & fault tolerance:** The system must demonstrate graceful recovery when a network link drops or a node restarts (tested during the live demo).
+7. **Resilience & fault tolerance:** The system must demonstrate graceful recovery when a network link drops or a node restarts (tested during the presentation).
 
 ### Assessment Criteria:
 
 - **System functionality & resilience (2 points):** Meets specifications, handles disconnections cleanly, and shows valid packet flows.
-- **Architecture, documentation & metrics (1.5 points):** Clear network topology diagram, routing explanation, Wireshark/throughput/latency measurements, a concise project report, and clean Git history.
-- **Live demonstration & individual defense (1.5 points):** A clear **10-minute** Project Team demo — 5 minutes of live system demonstration including intentional fault injection, plus a 5-minute individual defense on the design decisions you own.
+- **Architecture, documentation & metrics (1.5 points):** Clear network topology diagram, routing explanation, Wireshark/throughput/latency measurements, a concise project section in the portfolio report, and clean Git history.
+- **Project presentation & discussion (1.5 points):** A clear **10-minute** Project Team presentation of the final report section — 5 minutes of live system demonstration including intentional fault injection, plus a 5-minute discussion of the design decisions you own.
 
 #### Detailed rubric
 
@@ -263,9 +264,9 @@ The final project is an end-to-end networked system built by **Project Teams of 
 |---|---:|---|---|---|
 | **System functionality & resilience** | 2.0 | Fulfills all must-haves: 4+ nodes, 2+ network layers, MQTT pub/sub, integration engine (Node-RED/Python), and IoTempower OTA. Graceful recovery under fault injection. | Meets most must-haves; one gap (e.g. weak resilience evidence). | Server/hand-built topology without a reproducible setup, no measured resilience, or missing integration. |
 | **Architecture, documentation & metrics** | 1.5 | Clear network diagram, IP/topic documentation, Wireshark captures, latency/overhead/recovery measurements, concise report, and clean Git history. | Documentation present and mostly complete; evidence thin in one section. | Missing diagram, report over/under length, or no measurements. |
-| **Live demonstration & individual defense** | 1.5 | End-to-end live demo runs; each member defends their architecture and protocol trade-offs fluently; handles an injected fault. | Demo runs but is partly slide-based, or defense is uneven across members. | Demo fails without explanation, or members cannot defend their parts. |
+| **Project presentation & discussion** | 1.5 | End-to-end live demo runs; each member explains their architecture and protocol trade-offs fluently; handles an injected fault. | Demo runs but is partly slide-based, or the discussion is uneven across members. | Demo fails without explanation, or members cannot explain their parts. |
 
-See the full [final project specification](./modules/09-demonstrations-and-defense.md) for the demo script and portfolio evidence checklist.
+See the full [project presentation and portfolio specification](./modules/09-project-presentation-and-portfolio.md) for the presentation script and portfolio evidence checklist.
 
 ## Portfolio & Documentation Standards
 

@@ -50,17 +50,16 @@
 
 ---
 
-# Class logistics & assessment (short version)
+# Class logistics (short version)
 
 - **No separate exercise sheets — but expect at least ~6 hours/week of self-study** to finish labs, portfolio, reflections, and project work
-- **10 working days / 12 four-hour sessions (48 contact hours)**, plus optional tutorial support announced via the LMS
-- **You work in small Task Pods — pairs by default** (a third podmate only by arrangement). For the **final project, two pods merge into a Project Team (4–6)**.
+- **10 working days / 48 contact hours, one module per day**; session lengths vary (typically two sessions of 2 × 45 min, with longer blocks on some days).
+- **You work in small Task Pods of two or three** (two by default; three in a large cohort). For the **final project, two pods merge into a Project Team (4–6)**.
 - In-class exercises are initially **individual**
 - **Ongoing feedback** in the lab — talk to us!
-- Final assessment: **module points + final project + reflections** (+ bonuses), with your **portfolio** as the record
-- **~10 minutes of reflection after each meeting — evening or next morning, not during the 4-hour studio**
-- **Checkpoints** are short portfolio conversations (10–12 minutes), not task-completion audits
-- The details live in the **syllabus** — next slide
+- **Assessment, checkpoints, task tiers, and the grade scale live in the syllabus** — read it before the first checkpoint; your **portfolio** is the record.
+- The workbook is the map: modules, learning goals, and tasks.
+- The details live in the **syllabus** — let's open it together.
 
 <!-- Note: emphasise the pod work and the continuous in-lab feedback. -->
 
@@ -86,7 +85,7 @@ Central entry point: **the course repository**.
 
 - Every module **begins with its learning goals** — that is the *contract*: demonstrate the goals and you have met the module
 - The **tasks are a draft** — you may modify, replace, or extend them, as long as you reach the goals
-- Tasks are marked **★ Core** or **◇ Stretcher** — the stretcher is the natural trim point when time is short
+- Tasks are marked with tiers; the **syllabus** explains what **★ Core** and **◇ Stretcher** mean for you
 - A moving ***DRAFT BOUNDARY*** marks what we are still designing together — your input shapes it
 - **AI is a tool you verify**, not an oracle: draft with it, then check the datasheet, the multimeter, and your measurement
 - **Already know basic electronics?** You may skip that task — document why in the portfolio and show the key skills
@@ -113,8 +112,8 @@ Central entry point: **the course repository**.
 # Form your Task Pod — who do you build with?
 
 1. On a note, write **your skills** (languages, tools, hardware, design, …) and **your expectations / what you want to build**.
-2. No pod yet? Find **one other unpaired person**; a third podmate is only by arrangement. Compare notes and check whether you **complement** each other — not just “same as me”.
-3. **You will work in a Task Pod — pair by default** (a third podmate only by arrangement). Exchange contacts and a first idea today.
+2. No pod yet? Find **one or two other unpaired people** (two-person pods by default; three when the cohort is large). Compare notes and check whether you **complement** each other — not just “same as me”.
+3. **You will work in a Task Pod of two or three** (two by default; three in a large cohort). Exchange contacts and a first idea today.
 4. Very optional (more chances later — even to change your initial pod): pair your pod with a **neighbouring pod** for a **2-pod practice round** — present your learning-goal proof and give each other free-style feedback.
 5. For the **final project, two pods merge into a Project Team of 4–6** — your neighbouring pod is the natural partner.
 

@@ -2,7 +2,7 @@
 
 [← Back to Module 8](./08-sensor-to-system-and-integration.md) | [Quick module index](./00-index.md) | [Next: Module 10 →](./10-demonstration-and-defense.md)
 
-**Course placement:** Days 9–10 (Sessions 9–11) — the final project studio: ideation, requirement mapping, building, characterization, hardening, and rehearsal. The exact split depends on the timetable and group progress; the schedule deliberately reserves buffer time here so slower labs do not eat into the project.
+**Course placement:** Days 9–10 — the final project studio: ideation, requirement mapping, building, characterization, hardening, and rehearsal. The exact split depends on the timetable and group progress; the schedule deliberately reserves buffer time here so slower labs do not eat into the project.
 
 ## 🎯 Learning Goals
 

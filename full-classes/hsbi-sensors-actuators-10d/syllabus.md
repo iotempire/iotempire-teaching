@@ -63,6 +63,8 @@ This course is deliberately taught as Challenge-Based and Project-Based Learning
 
 It also matters that we do this in person, together — a university class is at its best where we actually meet. You will learn a great deal from direct interaction with your peers: explaining a measurement, questioning a wiring choice, debugging a bus, and demoing to one another, while your instructors learn alongside you.
 
+**Optional studio ritual — the harvest.** If you and your pod want to try it, take five minutes at the break and again at the end to collect the curious bits you noticed while working — a datasheet line that made no sense, a register that would not answer, a wiring surprise, a noisy plot, a library bug, a UX annoyance — and swap lists. Nobody explains anything; *"I collected these — which did you find?"* is the whole conversation, and "I don't know what this does" is a perfectly good entry. It is ungraded and entirely optional: if it does not fit the room or the day, skip it. Groups that try it usually find that the odd bits get a second look while they are still cheap to ask about, and that the next session can open with two of the questions they actually have. The full ritual lives in [Module 1](./modules/01-foundations-measurement-and-sensor-chain.md#harvest).
+
 And this class is always in flux — that is a feature, not a bug. No course is ever finished: every offering is adjusted while it runs, and each class teaches us as much as it teaches you. Expect the plan, the tasks, and even this syllabus to move as we discover together what works best; your questions, ideas, and feedback are part of the design.
 
 > Want to read more? Challenge-Based Learning — [en.wikipedia.org/wiki/Challenge-based_learning](https://en.wikipedia.org/wiki/Challenge-based_learning) · Project-Based Learning — [pblworks.org/what-is-pbl](https://www.pblworks.org/what-is-pbl) · Why active, interactive learning beats passive lectures — [Harvard Gazette, 2019](https://news.harvard.edu/gazette/story/2019/09/study-shows-that-students-learn-more-when-taking-part-in-classrooms-that-employ-active-learning-strategies)
@@ -82,7 +84,7 @@ By the end of this course, you will be able to (mapped to the module-handbook co
 
 ## Course Load & Credits
 
-- Format: 10 working days / 12 sessions (4 hours each) across the semester; **48 contact hours**.
+- Format: 10 working days, **one module per day**, **48 contact hours** (45-minute class hours). Sessions are typically 2 × 45 min (90 min); most modules use two sessions, Module 3 uses three, and Modules 7–9 and Day 10 run longer.
 - Target Audience: Bachelor students in *Digitale Technologien* (6th semester, Campus Gütersloh).
 - Module Number: 3350 (*Sensorik und Aktorik*), **5 ECTS**.
 - Total Workload: **150 hours**.
@@ -107,7 +109,7 @@ A practical weekly rhythm:
 | Once per week | One deeper piece: an optional subtask, a stretcher, a better characterization, or project work | 2–3 h |
 
 > [!NOTE]
-> **Reflection ritual — outside the 4-hour studio.** Reserve about **10 minutes after the meeting** — right after class, in the evening, or first thing next morning — for your reflection log. It does **not** need to happen inside the 4-hour session. Writing a little later, in a different associative state, often helps the learning settle. These entries are what earn the reflection points.
+> **Reflection ritual — outside the studio.** Reserve about **10 minutes after the meeting** — right after class, in the evening, or first thing next morning — for your reflection log. It does **not** need to happen inside the session. Writing a little later, in a different associative state, often helps the learning settle. These entries are what earn the reflection points.
 
 - **If you finish early:** deepen the work — choose a stretcher, repeat a measurement with better conditions, or try an optional filter experiment. Share what you learned.
 - **If you run out of time:** carry the task into self-study, document where you stopped, and ask a precise question next time. An honest, documented partial result is much better than a rushed “done”.
@@ -157,9 +159,9 @@ You do not submit and grade every task. Instead, you earn a module's points in a
 
 Dates and slots are confirmed through the LMS.
 
-**Task Pods, and how checkpoints scale.** We work in **Task Pods** — small crews of **two** (pairs by default; a **third podmate only by arrangement**). Pairs keep the checkpoint load manageable and give both partners a full share of the hands-on work. The point is *small*, not rigid.
+**Task Pods, and how checkpoints scale.** We work in **Task Pods** — small crews of **two or three**. Use **two** by default; switch to **three** when the cohort is large (roughly >40 students), because larger pods reduce the instructor's checkpoint load. A fourth podmate is only by arrangement. The point is *small*, not rigid.
 
-> **Why “Task Pod”?** In container orchestration (Kubernetes), a **pod** is the *smallest deployable unit* — one or a few tightly-coupled containers that are scheduled, run, and retired together. A **Task Pod** is the same idea for people: your tight little crew of **two** (occasionally three by arrangement) that owns one task end-to-end. Your **Project Team** is the larger unit — the alliance of two pods that ships the whole system.
+> **Why “Task Pod”?** In container orchestration (Kubernetes), a **pod** is the *smallest deployable unit* — one or a few tightly-coupled containers that are scheduled, run, and retired together. A **Task Pod** is the same idea for people: your tight little crew of two or three that owns one task end-to-end. Your **Project Team** is the larger unit — the alliance of two pods that ships the whole system.
 
 **These Task Pods are for the labs and checkpoints; the final project merges two pods into a Project Team of 4–6** (see [Final Project Requirements](#final-project-requirements-5-points)).
 
@@ -236,27 +238,26 @@ The kit is deliberately two-layered, so you can move fast and still meet real ph
 
 ## 10-Day Course Schedule
 
-The 10 days correspond to the 12 four-hour sessions across the semester. Modules 1–8 deliver the technical foundations; the final-project arc (Modules 9–10) spans the remaining studio sessions so there is genuine build, characterization, and rehearsal time.
+The 10 days correspond to 48 contact hours, with **one module per day**. Session lengths vary slightly: most modules use two sessions of 2 × 45 min, Module 3 uses three, and some days run longer. Modules 1–8 deliver the technical foundations; the final-project arc (Modules 9–10) spans the remaining studio sessions so there is genuine build, characterization, and rehearsal time.
 
 > Indicative plan. The day-by-day mapping below is a planning draft and may shift — including during the semester — as we refine this class together. The learning objectives and the final project matter more than the exact day a topic lands on.
 
-| Day | Session(s) | Module / Topic | Core Hands-on Focus |
-|:---:|:---:|---|---|
-| 0 | — | [Pre-Study](./pre-study.md) | Measurement basics, datasheet reading, Wokwi mini-exercise, project scenario abstract. |
-| 1 | 1 | [Module 1 — Foundations: Electronics, Arduino & Measurement](./modules/01-foundations-measurement-and-sensor-chain.md) | Basic electronics (LED actor, button with pull-up/pull-down, debouncing), Arduino serial console and plotting, metrology and error, digital signal chain, ADC precision dance, LDR and first filtering. |
-| 2 | 2 | [Module 2 — I²C & Sensor Addressing](./modules/02-i2c-and-sensor-addressing.md) | Build/choose a low-cost ESP32 scope/logic analyzer (2-hour instrument sprint), then bus wiring and scan, 7-bit addresses, register maps, two devices on one bus, address conflicts. |
-| 3 | 3 | [Module 3 — Sensor Characterization, Calibration & Data Quality](./modules/03-sensor-characterization-and-calibration.md) | Transfer function, linearity, hysteresis, calibration, filtering, uncertainty of an NTC/LDR. |
-| 4 | 4 | [Module 4 — Distance, Motion & Environment Sensors](./modules/04-distance-motion-and-environment-sensors.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* ToF and ultrasonic distance, person counting, IMU tilt/rotation, Hall-effect current sensing. |
-| 5 | 5 | [Module 5 — LEDs & Light as Output](./modules/05-leds-and-light-output.md) | LED current limiting, PWM and gamma, RGB mixing, first addressable strip and power budget. |
-| 6 | 6 | [Module 6 — LED Animation, Sound & Interactive Installations](./modules/06-led-animation-sound-and-installations.md) | Non-blocking animation patterns, palettes, sensor-triggered and sound-reactive installations. |
-| 7 | 7 | [Module 7 — Motors & Motion Actuators](./modules/07-motors-and-motion-actuators.md) | Servo control, DC motor speed/direction with an H-bridge, stepper stepping, current measurement. |
-| 8 | 8 | [Module 8 — From Sensor to System: MQTT & Integration](./modules/08-sensor-to-system-and-integration.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–6), then:* MQTT publishing and commands, filtering in firmware, Node-RED dashboard, a closed control loop, fault injection; optional IoTempower comparison. |
-| 9 | 9–10 | [Module 9 — Final Project Studio](./modules/09-final-project-studio.md) | Project kickoff and story, requirement mapping, building and integrating the sensor/actuator system; checkpoint 3 (Modules 7–8). |
-| 10 | 11 | [Module 9 — Final Project Studio (continued)](./modules/09-final-project-studio.md) | Characterization and evaluation, fault injection, documentation, peer review dry run. |
-| 10 | 12 | [Module 10 — Demonstration & Portfolio Defense](./modules/10-demonstration-and-defense.md) | Live sensor/actuator demonstration, technical defense, portfolio presentation, retrospective. |
+| Day | Module / Topic | Core Hands-on Focus |
+|:---:|---|---|
+| 0 | [Pre-Study](./pre-study.md) | Measurement basics, datasheet reading, Wokwi mini-exercise, project scenario abstract. |
+| 1 | [Module 1 — Foundations: Electronics, Arduino & Measurement](./modules/01-foundations-measurement-and-sensor-chain.md) | Basic electronics (LED actor, button with pull-up/pull-down, debouncing), Arduino serial console and plotting, metrology and error, digital signal chain, ADC precision dance, LDR and first filtering. |
+| 2 | [Module 2 — Buses & I²C: From Simple Pins to One Bus, Many Devices](./modules/02-i2c-and-sensor-addressing.md) | *Two 90-minute sessions with a break; the instrument sprint can continue into self-study:* simple pins/PWM/UART/voltage divider, bus survey (RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire), I²C wiring/scan/register, address conflicts, scope/analyzer sprint. |
+| 3 | [Module 3 — Sensor Characterization, Calibration & Data Quality](./modules/03-sensor-characterization-and-calibration.md) | Transfer function, linearity, hysteresis, calibration, filtering, uncertainty of an NTC/LDR. |
+| 4 | [Module 4 — Distance, Motion & Environment Sensors](./modules/04-distance-motion-and-environment-sensors.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* ToF and ultrasonic distance, person counting, IMU tilt/rotation, Hall-effect current sensing. |
+| 5 | [Module 5 — LEDs & Light as Output](./modules/05-leds-and-light-output.md) | LED current limiting, PWM and gamma, RGB mixing, first addressable strip and power budget. |
+| 6 | [Module 6 — LED Animation, Sound & Interactive Installations](./modules/06-led-animation-sound-and-installations.md) | Non-blocking animation patterns, palettes, sensor-triggered and sound-reactive installations. |
+| 7 | [Module 7 — Motors & Motion Actuators](./modules/07-motors-and-motion-actuators.md) | Servo control, DC motor speed/direction with an H-bridge, stepper stepping, current measurement. |
+| 8 | [Module 8 — From Sensor to System: MQTT & Integration](./modules/08-sensor-to-system-and-integration.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–6), then:* MQTT publishing and commands, filtering in firmware, Node-RED dashboard, a closed control loop, fault injection; optional IoTempower comparison. |
+| 9 | [Module 9 — Final Project Studio](./modules/09-final-project-studio.md) | Project kickoff and story, requirement mapping, building and integrating the sensor/actuator system; checkpoint 3 (Modules 7–8). |
+| 10 | [Module 9 — Final Project Studio (continued)](./modules/09-final-project-studio.md) + [Module 10 — Demonstration & Portfolio Defense](./modules/10-demonstration-and-defense.md) | Characterization, evaluation, fault injection, documentation, peer review dry run; live demonstration, technical defense, portfolio presentation, retrospective. |
 
 > [!TIP]
-> **Buffer and pacing:** Days 9–10 provide four studio sessions. At least one is deliberately loose and can absorb spill-over from earlier labs, be released as flexible/wiggle time, or be used for stretcher tasks and peer mentoring. Announce the concrete use of each studio session in the LMS as the course progresses.
+> **Buffer and pacing:** Days 9–10 form the final-project block. Part of it is deliberately loose and can absorb spill-over from earlier labs, be released as flexible/wiggle time, or be used for stretcher tasks and peer mentoring. Announce the concrete use of each part in the LMS as the course progresses.
 
 <a id="final-project-requirements-5-points"></a>
 ## Final Project Requirements (5 Points)

@@ -14,11 +14,9 @@ By the end of this module, you can:
 1. Describe what a sensor is (a transducer) and how it fits into the full signal chain.
 2. Use the vocabulary of measurement correctly: true value, error, uncertainty, accuracy, precision, resolution, range, sensitivity.
 3. Explain the digital signal chain: conditioning, ADC, sampling theorem, quantization, coding.
-4. Wire and drive a simple actuator safely (an LED with a current-limiting resistor, or a relay module) and read a digital sensor (a button with a pull-up or pull-down).
-5. Explain contact bounce, observe it, and mitigate it in software and/or hardware.
-6. Use the Arduino IDE and serial console (Serial Monitor/Plotter) to inspect, log, and visualize data.
-7. Have measured a real ADC and calculated its quantization step.
-8. Have read an LDR and applied a first filter (moving average, median, and cutoff) to a noisy signal.
+4. Wire and drive a simple actuator safely (an LED with a current-limiting resistor, or a relay module) and read a digital sensor (a button with a pull-up or pull-down), including contact bounce and its mitigation in software and/or hardware.
+5. Use the Arduino IDE and serial console (Serial Monitor/Plotter) to inspect, log, and visualize data.
+6. Measure a real ADC, calculate its quantization step, read an LDR, and apply a first filter (moving average, median, and cutoff) to a noisy signal.
 
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
@@ -43,10 +41,10 @@ Before reading on, answer these in one sentence each:
 
 ### ★ Task 0: Form your Task Pod — who do you build with?
 
-You will do the labs and checkpoints in a **Task Pod** of **two** (pairs by default; a third podmate only by arrangement). For the final project, two pods merge into a **Project Team** of 4–6.
+You will do the labs and checkpoints in a **Task Pod** of **two or three** (default two; switch to three in a large cohort, roughly >40 students). For the final project, two pods merge into a **Project Team** of 4–6.
 
 1. On a note, write down **your skills** (languages, tools, hardware, design, …) and **your expectations / what you want to build**.
-2. No pod yet? Find **one other unpaired person**; a third podmate is only by arrangement. Compare notes and check whether you **complement** each other — not merely whether you are alike.
+2. No pod yet? Find **one or two other unpaired people** (two-person pods by default; three when the cohort is large). Compare notes and check whether you **complement** each other — not merely whether you are alike.
 3. Exchange contacts and a first idea today. If you already have a pod, share your notes so the room knows who can help with what.
 4. Agree on how you will keep in touch and how you will split roles (who drives, who documents, who asks the next question).
 
@@ -170,8 +168,6 @@ Pair with a **neighbouring pod**:
 *Hardware:* 1× M5Stack node and/or a raw ESP board (ESP32 DevKit / ESP32 Ethernet mini kit / Wemos D1 Mini), breadboard and jumper wires, 1× LED + 220–330 Ω resistor, 1× push button, **2× 10 kΩ resistors** (one for the button — or use the internal pull-up — and one fixed resistor for the LDR divider), 1× 100 nF capacitor (optional, for hardware debounce), 1× potentiometer, 1× LDR, optional relay module for a low-voltage load, multimeter.
 
 > **Optional RC-filter parts (for the optional subtasks):** 1× 1 µF and 1× 10 µF film/ceramic capacitors (if electrolytic, observe polarity), 1× 100 nF, 1× 100 µF (electrolytic is fine; observe polarity), 1× 100 kΩ, and **4× 10 kΩ resistors in total for the high-pass experiment** (two more than the core kit); the low-pass can reuse one. A second GPIO (for a clean square wave) or a button (for a manual step) can serve as the signal source.
-
-> **Suggested pacing (4 h):** opening/pods ~45–60 min → Task 1 ~40 min (or a quick skip check) → Task 2 ~25 min → Task 3 ~35 min → Tasks 4–5 ~45 min → chain/evidence ~20 min. If time runs short, carry Task 4–5 into self-study/portfolio time — that is expected, not a failure; the optional subtasks are stretch.
 
 > **Board note:** the ADC and breadboard tasks are easiest on a raw ESP32/ESP8266 DevKit. On a M5Stack, use the Grove/breakout pins and check which ones are ADC-capable; the logic is the same. Always check your board's pinout before wiring.
 
@@ -348,17 +344,36 @@ Pick one more sensor from the available material (NTC, LDR, VL53L0X, MPU6050, DS
 
 Reduce the ADC to the smallest signal change you can measure at the top of the range and at the bottom. Where is the effective resolution worst, and why? Propose one conditioning change (e.g. an op-amp, a better reference, or a different divider ratio) that would improve it.
 
+<a id="harvest"></a>
+## 🔁 Optional: the harvest — collect curiosities, swap lists
+
+> **Optional.** Try it for a session or two. If the room is short on time, skip it; it is ungraded.
+
+Nothing here is graded, and **you are not explaining anything**. You are **collecting curiosities**: a datasheet statement that made no sense, a register that refused to answer, a wiring surprise, a plot that looked wrong, a library bug, a UX annoyance. Scan the material as you work — including the pre-study — and **mark** it: a `?` in the margin, a line in `Module01/study-log.md`, a photo. Marking takes seconds, and it is what makes the swap interesting.
+
+**If you try it, swap twice:** at the break, and again at the end. Five minutes each.
+
+1. **One minute each, no explaining.** Read your list out: *"I collected these — which did you find?"* Pointing at the thing is enough; you do not have to know what it does yet.
+2. **Give every entry a source** — module and line, a link, a photo, or a measurement — so it can be found again.
+3. **"I don't know what this does" is a first-class entry.** It is usually the best one on the list.
+4. **Anything two pods collected, or that nobody could place, goes to the course channel** with the module number. The next session opens with two of them.
+
+That is the whole ritual. The list is the artefact; the conversation is the point — and a good `study-log.md` is exactly the kind of concise evidence that makes a checkpoint easy.
+
+Why bother: sensor work is full of odd bits that look harmless until they bite — an address that shifts by one, a missing pull-up, a filter that hides the very event you wanted to see. Marking the odd bits instead of skimming past them is how that becomes a habit.
+
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-- A pod-formation note: names, skills, and one line on what you want to build.
-1. Chain diagram for your own sensor, with error/noise sources marked.
-2. Basic-electronics evidence: wiring photo or schematic, LED resistor calculation (or relay wiring/safety note), the pull-up/pull-down explanation, and the button-count comparison before and after debouncing. (If you skipped Task 1, include your justification and the quick-check evidence instead.)
-3. Serial-visualization evidence: a structured serial log and a plot from the Arduino IDE Serial Plotter or your chosen local tool, plus a note on loop timing.
-4. ADC table: observed raw range, number of steps, step size in volts, and comparison with the theoretical value for at least two resolutions.
-5. LDR table: raw, voltage, and approximate resistance for dark/shade/bright conditions, with a repeatability note.
-6. Filter comparison: raw vs. moving average vs. median vs. cutoff, including window sizes and observed latency. Optional: hysteresis/dead-zone behavior and one low-pass/high-pass result.
-7. Vocabulary: define, in your own words, accuracy, precision, resolution, sensitivity, and uncertainty, each with one example.
-8. Deeper question: Why can a sensor with high resolution still give an inaccurate measurement? Which link of the chain is responsible in your example?
+1. Pod formation: names, skills, and one line on what you want to build.
+2. Chain diagram for your own sensor, with error/noise sources marked.
+3. Basic-electronics evidence: wiring photo or schematic, LED resistor calculation (or relay wiring/safety note), the pull-up/pull-down explanation, and the button-count comparison before and after debouncing. (If you skipped Task 1, include your justification and the quick-check evidence instead.)
+4. Serial-visualization evidence: a structured serial log and a plot from the Arduino IDE Serial Plotter or your chosen local tool, plus a note on loop timing.
+5. ADC table: observed raw range, number of steps, step size in volts, and comparison with the theoretical value for at least two resolutions.
+6. LDR table: raw, voltage, and approximate resistance for dark/shade/bright conditions, with a repeatability note.
+7. Filter comparison: raw vs. moving average vs. median vs. cutoff, including window sizes and observed latency. Optional: hysteresis/dead-zone behavior and one low-pass/high-pass result.
+8. Vocabulary: define, in your own words, accuracy, precision, resolution, sensitivity, and uncertainty, each with one example.
+9. Deeper question: Why can a sensor with high resolution still give an inaccurate measurement? Which link of the chain is responsible in your example?
+10. Harvest list: your marked curiosities in `Module01/study-log.md`, with sources and the questions you posted.
 
 
 > [!IMPORTANT]
@@ -380,4 +395,4 @@ Reduce the ADC to the smallest signal change you can measure at the top of the r
 
 ---
 
-[← Course workbook](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 — I²C & Sensor Addressing →](./02-i2c-and-sensor-addressing.md)
+[← Course workbook](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 — Buses & I²C: From Simple Pins to One Bus, Many Devices →](./02-i2c-and-sensor-addressing.md)

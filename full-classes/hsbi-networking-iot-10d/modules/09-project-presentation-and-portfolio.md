@@ -1,19 +1,18 @@
-# Module 9 – Final Project Demonstrations & Portfolio Defense
+# Module 9 – Project Presentation & Portfolio Submission
 
 [← Back to Module 8](./08-final-project-studio.md) | [Quick module index](./00-index.md)
 
-**Course placement:** Day 10 / Session 12 — the final session. You demonstrate a multi-node system and defend the engineering behind it, to the instructor and to your peers.
+**Course placement:** Day 10 — the final session. You present the last part of your **portfolio report** — the final project — and submit the complete report.
 
 ## 🎯 Learning Goals
 
-This module gives you the opportunity to explore engineering communication and defense and achieve competency in delivering a live demonstration, defending technical choices, and presenting your portfolio.
+This module gives you the opportunity to explore engineering communication and portfolio synthesis and achieve competency in presenting a networked system, explaining technical choices, and submitting a coherent report.
 
 By the end of this module, you can:
-1. Deliver a compelling live demonstration of your end-to-end networked IoT final project system.
-2. Defend your architectural choices, protocol trade-offs, and resilience mechanisms before instructors and peers.
-3. Complete the portfolio evaluation and defense.
+1. Present the final project section of your portfolio report to instructors and peers.
+2. Explain and justify your architectural choices, protocol trade-offs, and resilience mechanisms.
+3. Submit a complete portfolio report that connects the module evidence, measurements, and reflections into one coherent document.
 4. Reflect on your learning journey from abstract textbook layering to real-world edge networking and fleet management.
-
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
@@ -21,29 +20,23 @@ By the end of this module, you can:
 
 It is 3 a.m. in the operations centre. **Petra Sommer** is watching the dashboard; **Malik Yilmaz** is on the phone from a substation; the control room screen shows the last known state of every node. One router is down. The system has to say so clearly, keep the local loops running, and recover when the link returns.
 
-Your final demo is that night in miniature. You have a short slot: first show a multi-node system measuring, messaging, and acting, including one fault you inject on purpose; then defend the architecture and the trade-offs you own. The story gives you the *why*; the packet captures, recovery times, and fault-injection log give you the *how do you know?*
+Your final presentation is that night in miniature. You have a short slot: first show a multi-node system measuring, messaging, and acting, including one fault you inject on purpose; then explain the architecture and the trade-offs you own. The story gives you the *why*; the portfolio report, the packet captures, recovery times, and fault-injection log give you the *how do you know?*
 
-## 🛠️ In-Class Demo & Defense Procedure
+## 🛠️ In-Class Presentation & Discussion Procedure
 
-*The format and timing are set in the [syllabus](../syllabus.md#final-project-requirements-5-points); this page is the working script.*
+*The format, timing, and submission rules are set in the [syllabus](../syllabus.md#final-project-requirements-5-points); this page is the working script.*
 
-### Demonstration Script Guidelines
+### Presentation Script Guidelines
 
-1. System Story & Problem Context:
-   - Who uses this system? What real-world problem does it solve?
-2. Network Topology & Architectural Defense:
-   - Walk through the physical and virtual topology: M5Stack nodes, OpenWrt router, optional B.A.T.M.A.N. mesh, Nebula/Yggdrasil overlay, and MQTT broker.
-   - Justify your protocol choices: Why ESP-NOW instead of Wi-Fi for node X? Why MQTT instead of HTTP? How does the overlay provide remote access?
-3. Live Demonstration:
-   - Demonstrate real physical sensor input propagating across the network to triggers, actuators, and dashboards.
-   - Demonstrate an Over-The-Air (OTA) update or declarative reconfiguration using IoTempower.
-4. Live Fault Injection (Instructor Challenge):
-   - The instructor or a peer will test the resilience of your system (e.g. pulling power on an intermediate mesh router or disconnecting a Wi-Fi link).
-   - Show how the system degrades gracefully, re-routes, or recovers automatically.
+1. **System Story & Problem Context:** Who uses this system? What real-world problem does it solve?
+2. **Network Topology & Architecture:** Walk through the physical and virtual topology — M5Stack nodes, OpenWrt router, optional B.A.T.M.A.N. mesh, Nebula/Yggdrasil overlay, and MQTT broker. Justify your protocol choices: Why ESP-NOW instead of Wi-Fi for node X? Why MQTT instead of HTTP? How does the overlay provide remote access?
+3. **Live Demonstration:** Show real physical sensor input propagating across the network to triggers, actuators, and dashboards. Demonstrate an Over-The-Air (OTA) update or declarative reconfiguration using IoTempower.
+4. **Live Fault Injection (Instructor Challenge):** The instructor or a peer tests the resilience of your system (e.g. pulling power on an intermediate mesh router or disconnecting a Wi-Fi link). Show how the system degrades gracefully, re-routes, or recovers automatically.
+5. **Portfolio Report Walkthrough:** Open the last section of your report and show where the evidence lives — topology, captures, metrics, fault-injection results, and the reflection that ties the project together. Say what you would do next with another week.
 
 ## 📋 Where the Rubric Lives
 
-The final project is assessed according to the [syllabus](../syllabus.md#final-project-requirements-5-points), and the rubric lives **only** there. This page is the working demo script and evidence checklist; if the two ever disagree, the syllabus wins.
+The final project is assessed according to the [syllabus](../syllabus.md#final-project-requirements-5-points), and the rubric lives **only** there. This page is the working presentation script and evidence checklist; if the two ever disagree, the syllabus wins.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
@@ -55,7 +48,7 @@ The final project is assessed according to the [syllabus](../syllabus.md#final-p
 - [ ] Module 5: Wireless comparison table, ESP-NOW peer-to-peer code, and ESP-NOW to MQTT gateway bridge proof.
 - [ ] Module 6: Industrial protocol analysis (recommended); optional simulated Modbus/OPC-UA server and bridge.
 - [ ] Module 7: IoTempower declarative node configuration (`setup.cpp`), OTA deployment logs, and fleet integration.
-- [ ] Modules 8 & 9: Final Project architecture diagrams, fault-injection test logs, presentation slides/script, and final course retrospective.
+- [ ] Modules 8 & 9: The final project section of the portfolio report, architecture diagrams, fault-injection test logs, presentation slides/script, and final course retrospective.
 - [ ] Reflection logbook entries for the teaching blocks, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md) in `Reflections/`.
 - [ ] Where you did not work entirely alone: links to pod mates, sources, and borrowed configuration.
 
@@ -81,7 +74,7 @@ You have developed a deep, practical mastery of:
 - [Wikipedia: Story-driven modeling](https://en.wikipedia.org/wiki/Story-driven_modeling) — the method behind the project stories.
 - [Wikipedia: Fault injection](https://en.wikipedia.org/wiki/Fault_injection) — the resilience test you will face live.
 - [Wikipedia: Technical presentation](https://en.wikipedia.org/wiki/Technical_presentation) — structure, evidence, and time discipline.
-- The [resource bank's instructor hints](./Z-resources-bank.md#instructor-hints) — how the demo and defense are run.
+- The [resource bank's instructor hints](./Z-resources-bank.md#instructor-hints) — how the presentation and discussion are run.
 
 ---
 

@@ -2,7 +2,7 @@
 
 [← Back to Module 9](./09-final-project-studio.md) | [Quick module index](./00-index.md)
 
-**Course placement:** Day 10 / Session 12 — the final session. You demonstrate a characterized sensor/actuator system and defend the engineering behind it, to the instructor and to your peers.
+**Course placement:** Day 10 — the final session. You demonstrate a characterized sensor/actuator system and defend the engineering behind it, to the instructor and to your peers.
 
 ## 🎯 Learning Goals
 
@@ -62,7 +62,7 @@ The final project is assessed according to the [syllabus](../syllabus.md#final-p
 - [ ] Where you did not work entirely alone: links to pod mates, sources, and borrowed code.
 
 > [!IMPORTANT]
-> Never commit `*.db`, `.venv/`, credentials, private keys, or personal data. Commit the scripts and configuration that rebuild your evidence.
+> Never commit large binaries, `.venv/`, credentials, private keys, or personal data. Commit the scripts and configuration that rebuild your evidence.
 
 ## 🎓 Course Retrospective & What's Next
 

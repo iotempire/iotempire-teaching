@@ -40,7 +40,7 @@ Before reading on, answer these in one sentence each:
 You will do the labs and checkpoints in a **Task Pod** of two or three (three by default for a large cohort; pairs are welcome). For the final project, two pods merge into a **Project Team** of 4–6.
 
 1. On a note, write down **your skills** (networking, Linux, Python, hardware, documentation, design, …) and **your expectations / what you want to build**.
-2. No pod yet? Find **two other unpaired people**, compare notes, and check whether you **complement** each other — not merely whether you are alike.
+2. No pod yet? Find **one or two other unpaired people** (three-person pods are the default in a large cohort; pairs are welcome). Compare notes, and check whether you **complement** each other — not merely whether you are alike.
 3. Exchange contacts and a first idea today. If you already have a pod, share your notes so the room knows who can help with what.
 4. Agree on how you will keep in touch and how you will split roles (who drives the router, who captures packets, who documents).
 
@@ -165,13 +165,32 @@ Craft a short system story for a multi-node IoT deployment:
 - Draw the Continuum: Draw a simple block diagram showing:
   `Sensor Node -> Wi-Fi/ESP-NOW -> Router Gateway (MQTT Broker) -> Node-RED -> Dashboard / Alerting`.
 
+<a id="harvest"></a>
+## 🔁 Optional: the harvest — collect curiosities, swap lists
+
+> **Optional.** Try it for a session or two. If the room is short on time, skip it; it is ungraded.
+
+Nothing here is graded, and **you are not explaining anything**. You are **collecting curiosities**: a route that looked wrong, an ARP entry that surprised you, a capture with an unexpected retransmission, a topic hierarchy that felt off, a firmware or OTA bug, a dashboard annoyance. Scan the material as you work — including the pre-study — and **mark** it: a `?` in the margin, a line in `Module01/study-log.md`, a screenshot. Marking takes seconds, and it is what makes the swap interesting.
+
+**If you try it, swap twice:** at the break, and again at the end. Five minutes each.
+
+1. **One minute each, no explaining.** Read your list out: *"I collected these — which did you find?"* Pointing at the thing is enough; you do not have to know what it does yet.
+2. **Give every entry a source** — module and line, a link, a screenshot, or a capture — so it can be found again.
+3. **"I don't know what this does" is a first-class entry.** It is usually the best one on the list.
+4. **Anything two pods collected, or that nobody could place, goes to the course channel** with the module number. The next session opens with two of them.
+
+That is the whole ritual. The list is the artefact; the conversation is the point — and a good `study-log.md` is exactly the kind of concise evidence that makes a checkpoint easy.
+
+Why bother: network faults hide in the odd bits — a stale ARP entry, a route that only works one way, a QoS setting that silently changes delivery. Marking the odd bits instead of skimming past them is how that becomes a habit.
+
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-- A pod-formation note: names, skills, and one line on what you want to build.
-1. Node-RED & Packet Proof: Screenshot of your working Node-RED dashboard and your Wireshark packet capture showing the MQTT publish payload.
-2. Overhead Calculation: Your calculation of header overhead vs. sensor payload.
-3. OSI Critique Question: Write 1–2 paragraphs explaining why rigid 7-layer OSI models struggle in IoT systems, referencing RFC 3439.
-4. System Story: Your project concept and architectural block diagram.
+1. Pod formation: names, skills, and one line on what you want to build.
+2. Node-RED & Packet Proof: Screenshot of your working Node-RED dashboard and your Wireshark packet capture showing the MQTT publish payload.
+3. Overhead Calculation: Your calculation of header overhead vs. sensor payload.
+4. OSI Critique Question: Write 1–2 paragraphs explaining why rigid 7-layer OSI models struggle in IoT systems, referencing RFC 3439.
+5. System Story: Your project concept and architectural block diagram.
+6. Harvest list: your marked curiosities in `Module01/study-log.md`, with sources and the questions you posted.
 
 
 > [!IMPORTANT]

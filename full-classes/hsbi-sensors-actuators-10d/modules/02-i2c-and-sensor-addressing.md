@@ -1,25 +1,24 @@
-# Module 2 – I²C & Sensor Addressing: One Bus, Many Devices
+# Module 2 – Buses & I²C: From Simple Pins to One Bus, Many Devices
 
 [← Back to Module 1](./01-foundations-measurement-and-sensor-chain.md) | [Quick module index](./00-index.md) | [Next: Module 3 →](./03-sensor-characterization-and-calibration.md)
 
-> This is the module that turns "a sensor in a library example" into "a device on a bus that you understand." We deliberately scan and poke the bus *before* trusting a library.
+**Course placement:** Day 2 — the module runs across the day's two 90-minute sessions, with a break between them. We start with the bus landscape (simple pins and UART → RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire), zoom into I²C, and finish by building and choosing the scope/logic analyzer we use for the rest of the course. The instrument build is deliberately exploratory and a little risky: start it in class, and carry it into self-study if it needs more time.
 
-**Course placement:** Day 2 — the instrument-and-bus studio. We first build and choose a low-cost ESP32 scope/analyzer, then scan and poke the bus before trusting a library.
+> **Session shape.** Session 1: simple pins, UART, and the divider; launch the bus survey. Session 2: bus pitches and the class comparison, then the I²C pod study and the scan/register lab. Address conflicts and the instrument sprint are the natural carry-over into self-study; start the build in class so the class can compare candidates together. Keep the sequence; move the break points to fit the room.
 
-> **Session order:** begin the studio with **Task 1 — the 2-hour instrument sprint**. The pod-study concepts can be read before, during, or after; the class decision on 1–2 scope/analyzer solutions is the day's first deliverable.
+> **Why this order?** A bus is not just a wire. You need the comparison first — point-to-point vs. multi-drop, single-ended vs. differential, addressing vs. chip-select, short vs. long cable — before I²C's two-wire elegance makes sense. And you need I²C traffic before the scope/analyzer sprint has something real to capture.
 
 ## 🎯 Learning Goals
 
-This module gives you the opportunity to explore sensor buses and device addressing and achieve competency in I²C physics and addressing, register maps, multi-device buses, and bus comparison (SPI, UART, OneWire, analog).
+This module gives you the opportunity to explore buses and device addressing and achieve competency in the bus landscape, I²C physics and addressing, register maps, multi-device buses, and low-cost bus instrumentation.
 
 By the end of this module, you can:
-1. Explain how I²C works physically and logically: two wires, open-drain, pull-ups, addressing, ACK/NACK, repeated start, clock stretching.
-2. Wire and scan an I²C bus and identify every connected device by address.
-3. Read a sensor through a library and read its raw registers directly.
-4. Run two devices on one bus and resolve an address conflict.
-5. Recognize when a device is I²C, SPI, UART, OneWire, or analog, and why that matters for wiring and debugging.
+1. Compare simple digital/analog/PWM pins, UART serial, and the main buses (RS-232, RS-485, Modbus RTU, CAN, I²C/I³C, SPI, OneWire) by wiring, voltage, signaling, speed, length, topology, and use — and explain why PWM is not a bus.
+2. Explain how I²C works physically and logically: two wires, open-drain, pull-ups, addressing, ACK/NACK, repeated start, clock stretching.
+3. Wire and scan an I²C bus and identify every connected device by address.
+4. Read a sensor through a library and read its raw registers directly.
+5. Run two devices on one bus and resolve an address conflict.
 6. Build and evaluate a low-cost ESP32 scope/logic analyzer, and agree on 1–2 class solutions for future bus debugging.
-
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
@@ -27,11 +26,90 @@ By the end of this module, you can:
 
 **Lumenwerk Gütersloh GmbH** builds interactive light installations for museums and public spaces. Creative director **Mara Voss** has a simple brief for the new Stadtmuseum exhibit: a distance sensor should wake the light wall when a visitor approaches, and an IMU should tilt the color field when they lean. Technician **Jonas Feld** wires both sensors to one controller, powers it up, and gets… one device.
 
-The scanner finds a single address. Reads are intermittent. Mara asks the question that turns a wiring problem into a lesson: *"If both sensors are on the same two wires, how does the controller know which one is answering?"* Today you learn the bus — addresses, registers, pull-ups, and what happens when two devices claim the same identity.
+The scanner finds a single address. Reads are intermittent. Mara asks the question that turns a wiring problem into a lesson: *"If both sensors are on the same two wires, how does the controller know which one is answering?"* Before you can answer, you need the bus landscape: what a simple pin can do, and where I²C sits among RS-232, RS-485, Modbus, CAN, SPI, and OneWire. Today you build that map, then zoom in.
 
-## 📖 Pod Study: One Bus, Many Devices
+*Hardware for the module:* 1× ESP32 DevKit or ESP32 Ethernet mini kit per pod, 2× I²C sensor modules with different addresses (e.g. environment sensor + MPU6050 or VL53L0X), jumper wires, one shared multimeter, optional USB-serial adapter or second board for the UART check, optional 2× 10 kΩ pull-ups, optional voltage divider/clamp for the scope input, optional Linux host or Raspberry Pi with `i2c-tools`.
 
-This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+> [!WARNING]
+> Power off before rewiring. Check that every module's logic voltage matches 3.3 V. I²C modules with their own 5 V pull-ups can over-voltage a 3.3 V device — check before connecting. The scope/analyzer inputs are **3.3 V only**; use a divider or clamp for higher voltages and never connect to mains-referenced circuits.
+
+## 🛠️ Studio Lab 1: From Simple Pins to Buses — **Challenging**
+
+### ★ Task 1: Simple pins, PWM, UART, and a voltage divider
+
+Before the bus survey, get the baseline right. Work in your pod and record the answers in `Module02/pins-and-dividers.md`.
+
+1. **Classify the simple connections in the kit.** For each, name the wires, the voltage, and one failure mode:
+   - **Digital high/low:** button, switch, LED, relay.
+   - **PWM:** LED dimming, servo. PWM is a modulation technique for average power — **not** a bus: it has no addressing, no framing, and no error handling.
+   - **Analog:** capacitive soil sensor, gas sensor, NTC divider → ADC.
+   - **Serial/UART:** TX/RX at 3.3 V, point-to-point, no addressing. RS-232 and RS-485 add an electrical layer (voltage levels, differential pair, multi-drop) on top of the same serial idea.
+2. **Measure a divider.** Build a voltage divider for a 5 V sensor signal into a 3.3 V ADC:
+   ```text
+   Vout = Vin · R2 / (R1 + R2)
+   Example: Vin = 5 V, R1 = 10 kΩ, R2 = 20 kΩ → Vout = 5 · 20 / 30 = 3.33 V
+   ```
+   Measure `Vout` with the multimeter and compare it with the calculation.
+3. **Watch a UART line.** Open the serial console and send one line to a second device or a USB-serial adapter (or loop TX back to RX). Note the baud rate, and how you would recognize a wrong baud rate. Then explain in one sentence what an RS-485 transceiver adds for a 20 m multi-drop run.
+4. **Explain the why.** Why does a 5 V sensor need a divider for a 3.3 V board? Where else does a divider help (resistance sensors, level protection, reference scaling)?
+5. **Write the baseline table** in `Module02/pins-and-dividers.md`: connection, wires, voltage, speed/length, example, failure mode.
+
+*Portfolio evidence:* `Module02/pins-and-dividers.md` with the table, the UART note, the divider calculation, and the measurement.
+
+### ★ Task 2: Bus systems survey — research and pitch
+
+Your pod owns one bus. Research it from the English Wikipedia and the datasheet of a kit device, then produce a one-page profile.
+
+| Pod | Bus | What to focus on |
+|:---:|---|---|
+| 1 | **RS-232** | Point-to-point serial, voltage levels, connectors, legacy PCs/instruments |
+| 2 | **RS-485** | Differential signaling, multi-drop, termination, long cable runs |
+| 3 | **Modbus RTU** | RS-485 + protocol: registers, master/slave, industrial meters |
+| 4 | **CAN** | Differential, multi-master, arbitration, automotive/robotics |
+| 5 | **I²C / I³C** | Two wires, addressing, pull-ups, sensors and displays |
+| 6 | **SPI** | Four+ wires, chip-select, speed, short board-level links |
+| backup | **OneWire** | One data wire, 64-bit ROM ID, DS18B20 chains |
+
+With fewer pods, combine Modbus RTU + CAN or use OneWire as the backup. With more pods, split a bus into “wiring/electrical” and “protocol/use” and present together.
+
+**Cover at least:** wires and connectors · voltage and signaling (single-ended/differential) · serial/parallel · speed and maximum length · topology and addressing (point-to-point, multi-drop, multi-master) · typical use and one example from our kit · what can go wrong and how you would debug it.
+
+**Deliverable:** `Module02/bus-<name>.md`, using this shape:
+
+```markdown
+## Bus profile: <bus>
+- Wires and connectors:
+- Voltage and signaling:
+- Topology and addressing:
+- Speed and maximum length:
+- Typical use and kit example:
+- What can go wrong / how to debug:
+- Sources:
+```
+
+Keep it short — one page, one table or image, the facts that matter for choosing and debugging. Post the best table/image in the course Discord, and be ready to give a short pitch.
+
+*Portfolio evidence:* `Module02/bus-<name>.md` plus your notes from the other pods' pitches.
+
+### ★ Task 3: Build the class comparison table
+
+Merge the pod profiles into one class table. Suggested columns:
+
+| Bus | Wires | Signaling | Topology / addressing | Speed / length | Typical use | Kit example | Debug tool |
+|---|---|---|---|---|---|---|---|
+
+Then discuss and write down the answers:
+
+1. Which buses are **point-to-point**, which are **multi-drop**, which are **multi-master**?
+2. Which need **termination**? Which are **differential**? Which are **self-clocking**?
+3. Where does **I²C** sit, and why does it win for many small sensors on one board?
+4. Which bus would you choose for **20 m across a room**, for **20 sensors on one board**, and for a **motor driver**? Give one sentence each.
+
+*Portfolio evidence:* `Module02/bus-comparison.md` (or a link to the shared class table) with your three bus-choice sentences and one “what surprised me” note.
+
+## 📖 Pod Study: One Bus, Many Devices (I²C)
+
+Now that you have the map, zoom in on the bus the kit uses most. This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
 
 ### The I²C Bus
 
@@ -66,7 +144,9 @@ Common speeds are 100 kHz (standard) and 400 kHz (fast mode). A device may hold 
 
 Most I²C sensors are not "send a command, get a value". They expose a register map: you write a register address (e.g. "start a measurement", "select a range"), then read a register (or several bytes) and combine them. Datasheets for I²C sensors *are* register maps — reading them is a core skill here.
 
-### Where does I²C sit among the buses?
+### Where I²C sits among the buses
+
+Your class comparison table has the full landscape; this is the subset you will touch in the kit:
 
 | Bus | Wires | Addressing | Typical use |
 |---|---|---|---|
@@ -96,7 +176,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 > Run each prompt against your own bus, and record where the model is wrong, vague, or over-confident.
 
-### ★ Task A: Study in your pod
+### ★ Task A: I²C study log
 
 Work through the concepts above with your Task Pod and fill in `Module02/study-log.md`:
 
@@ -108,29 +188,78 @@ Work through the concepts above with your Task Pod and fill in `Module02/study-l
 
 *Portfolio evidence:* `Module02/study-log.md`.
 
-### ★ Task B: Explain & share with another pod
+### ★ Task B: Share your bus profile and I²C study log
 
 Pair with a **neighbouring pod**:
 
-1. **Explain to each other** — each pod walks the other through its scan map and its register-reading proof; ask questions and fill each other's gaps.
+1. **Explain to each other** — each pod walks the other through its bus profile and its I²C study log; compare the bus choices and fill each other's gaps.
 2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"a scan shows the 7-bit address; the library may want the 8-bit form"*).
 3. **Clean up your documentation** — update your `study-log.md` with what you learned from the other pod.
-4. Agree on **one shared artefact** — the best scan map, a register table, or a new diagram the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
+4. Agree on **one shared artefact** — the best bus table, a scan map, or a new diagram the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
 5. Each member adds a short **“Agreed learning (pod discussion)”** section to *their own* `study-log.md`.
 
 *Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section) and your pod-pair's shared artefact.
 
-## 🛠️ In-Class Lab: Build the Instrument, Then Talk to the Bus — **Challenging**
+## 🛠️ Studio Lab 2: Talk to the I²C Bus — **Challenging**
 
-*Hardware:* 1× ESP32 DevKit or ESP32 Ethernet mini kit per pod (for the scope/analyzer and for the bus), 2× I²C sensor modules with different addresses (e.g. environment sensor + MPU6050 or VL53L0X), jumper wires, one shared multimeter, optional 2× 10 kΩ pull-ups, optional voltage divider/clamp for the scope input, optional Linux host or Raspberry Pi with `i2c-tools`.
+### ★ Task 4: Wire the Bus and Scan It
+
+1. Connect SCL and SDA (plus `3V3` and `GND`) to your board, using the correct pins for your board (ESP32 default is usually GPIO21=SDA, GPIO22=SCL; check your board).
+2. Upload an I²C scanner and record every address:
+   ```cpp
+   #include <Wire.h>
+   void setup() {
+     Serial.begin(115200);
+     Wire.begin();              // use the correct SDA/SCL pins for your board
+     Serial.println("Scanning I2C bus...");
+     for (uint8_t addr = 1; addr < 127; addr++) {
+       Wire.beginTransmission(addr);
+       if (Wire.endTransmission() == 0) {
+         Serial.printf("device at 0x%02X\n", addr);
+         delay(5);
+       }
+     }
+     Serial.println("scan done");
+   }
+   void loop() {}
+   ```
+3. Write down every address found and match it to the module it belongs to (find the address in its datasheet).
+4. Deliberately unplug one sensor and scan again. Note which address disappears — this is your fastest I²C debugging tool.
+
+> **Alternative/complement:** if you have a Linux host with an exposed I²C bus, run `i2cdetect -y 1`. It shows the same map and is the standard tool on gateways and Raspberry Pis.
+
+### ★ Task 5: Read Through the Library, Then Read the Register
+
+1. Read one sensor using its library (e.g. an environment sensor) and log values.
+2. Now open the datasheet and find the register that returns the raw value (for example a temperature register). Read it directly with `Wire` and reconstruct the value using the datasheet's scaling.
+3. Compare your raw reconstruction with the library output. They should agree; if not, find out why (scaling, signed vs. unsigned, byte order, bit shifting).
+
+> This step is the difference between "it works" and "I understand it." You will need it whenever a library is missing, outdated, or wrong.
+
+### ★ Task 6: Two Devices on One Bus
+
+1. Add a second I²C sensor with a *different* address to the same SCL/SDA pair (no extra pins). Power and ground both.
+2. Scan again: both addresses must appear.
+3. Read both sensors in one sketch. Confirm that adding a device did not require new pins.
+4. Note the two addresses in your portfolio and explain why they can coexist.
+
+### ★ Task 7: Create and Resolve an Address Conflict
+
+1. If you have two modules with the same fixed address, connect both. Scan: only one address appears, and reads become unreliable or wrong. Explain what the bus is doing electrically.
+2. Resolve it in the way your hardware allows:
+   - change one device's address via a jumper or a configuration register (datasheet!), or
+   - use an I²C multiplexer to give each device its own channel.
+3. Document the conflict and the fix — this is exactly the kind of engineering note the portfolio rewards.
+
+## 🛠️ Studio Lab 3: Build the Instrument — **Challenging**
 
 > [!NOTE]
-> **Lab reality: no benchtop oscilloscope, one shared multimeter.** Task 1 is a **2-hour instrument sprint**: build and compare low-cost ESP32 solutions, then agree as a class on **1–2 solutions** we use for the rest of the course. For I²C and OneWire, a **logic analyzer** with PulseView/sigrok is the right tool; for slow analog signals and PWM, a browser-based ESP32 scope is useful. Use the multimeter for reference/sanity checks and let the scope/analyzer carry the bus debugging.
+> **Lab reality: no benchtop oscilloscope, one shared multimeter.** This instrument sprint follows the I²C work, which has given you real traffic to capture. It is deliberately a **risky, exploratory build**: try the candidates, compare them, and let the class's enthusiasm and evidence decide. Then agree on **1–2 solutions** we use for the rest of the course. For I²C and OneWire, a **logic analyzer** with PulseView/sigrok is the right tool; for slow analog signals and PWM, a browser-based ESP32 scope is useful. Use the multimeter for reference/sanity checks and let the scope/analyzer carry the bus debugging.
 
 > [!WARNING]
-> Power off before rewiring. Check that every module's logic voltage matches 3.3 V. I²C modules with their own 5 V pull-ups can over-voltage a 3.3 V device — check before connecting. The scope/analyzer inputs are **3.3 V only**; use a divider or clamp for higher voltages and never connect to mains-referenced circuits.
+> The scope/analyzer inputs are **3.3 V only**; use a divider or clamp for higher voltages and never connect to mains-referenced circuits. Power off before rewiring.
 
-### ★ Task 1: Build and Choose Our Scope — **2-hour instrument sprint**
+### ★ Task 8: Build and Choose Our Scope — instrument sprint
 
 **Goal:** by the end of this task, the class agrees on **1–2 open-source solutions** and writes down how to build, flash, and use them. Future modules use those solutions unless a documented reason forces a change.
 
@@ -161,7 +290,7 @@ Pair with a **neighbouring pod**:
    - **I²C:** run an I²C scanner on SDA/SCL at 100 kHz. A scanner's address probes are enough traffic. Look for **START, address, ACK/NACK, and STOP**; with PulseView, enable the I²C decoder.
    - **OneWire (optional):** read a DS18B20 and capture the reset/presence/data pulses.
 4. **Measure and record:** sample rate/timebase, whether edges are stable or missed, whether the I²C decode works, browser/OS compatibility, input voltage range and protection, and the total setup effort.
-5. **Class decision:** each pod gives a **2-minute demo** of its candidate. As a class, agree on **1–2 solutions** and write `Module02/scope-decision.md`:
+5. **Class decision:** each pod gives a short demo of its candidate. As a class, agree on **1–2 solutions** and write `Module02/scope-decision.md`:
    - chosen solution(s) and repo/commit,
    - install steps (Arduino IDE/PlatformIO) and pin mapping,
    - sample rate/timebase and input limits,
@@ -169,62 +298,11 @@ Pair with a **neighbouring pod**:
    - test captures (PWM, I²C, optional OneWire),
    - who owns the setup instructions.
 
-> **Timebox:** Task 1 is the first ~2 hours. Tasks 2–6 are the rest of the studio; if time runs short, finish the bus scan/register proof and carry the conflict/stretcher work into portfolio time.
+> If time runs short, finish the class decision and carry the captures into portfolio time.
 
-> **Suggested rhythm (2 h):** 15 min split/pick · 35 min build/flash · 30 min test PWM/I²C · 20 min record · 20 min demos + class decision.
+### ◇ Task 9 (Stretcher): See the Bits on the Wire
 
-### ★ Task 2: Wire the Bus and Scan It
-
-1. Connect SCL and SDA (plus `3V3` and `GND`) to your board, using the correct pins for your board (ESP32 default is usually GPIO21=SDA, GPIO22=SCL; check your board).
-2. Upload an I²C scanner and record every address:
-   ```cpp
-   #include <Wire.h>
-   void setup() {
-     Serial.begin(115200);
-     Wire.begin();              // use the correct SDA/SCL pins for your board
-     Serial.println("Scanning I2C bus...");
-     for (uint8_t addr = 1; addr < 127; addr++) {
-       Wire.beginTransmission(addr);
-       if (Wire.endTransmission() == 0) {
-         Serial.printf("device at 0x%02X\n", addr);
-         delay(5);
-       }
-     }
-     Serial.println("scan done");
-   }
-   void loop() {}
-   ```
-3. Write down every address found and match it to the module it belongs to (find the address in its datasheet).
-4. Deliberately unplug one sensor and scan again. Note which address disappears — this is your fastest I²C debugging tool.
-
-> **Alternative/complement:** if you have a Linux host with an exposed I²C bus, run `i2cdetect -y 1`. It shows the same map and is the standard tool on gateways and Raspberry Pis.
-
-### ★ Task 3: Read Through the Library, Then Read the Register
-
-1. Read one sensor using its library (e.g. an environment sensor) and log values.
-2. Now open the datasheet and find the register that returns the raw value (for example a temperature register). Read it directly with `Wire` and reconstruct the value using the datasheet's scaling.
-3. Compare your raw reconstruction with the library output. They should agree; if not, find out why (scaling, signed vs. unsigned, byte order, bit shifting).
-
-> This step is the difference between "it works" and "I understand it." You will need it whenever a library is missing, outdated, or wrong.
-
-### ★ Task 4: Two Devices on One Bus
-
-1. Add a second I²C sensor with a *different* address to the same SCL/SDA pair (no extra pins). Power and ground both.
-2. Scan again: both addresses must appear.
-3. Read both sensors in one sketch. Confirm that adding a device did not require new pins.
-4. Note the two addresses in your portfolio and explain why they can coexist.
-
-### ★ Task 5: Create and Resolve an Address Conflict
-
-1. If you have two modules with the same fixed address, connect both. Scan: only one address appears, and reads become unreliable or wrong. Explain what the bus is doing electrically.
-2. Resolve it in the way your hardware allows:
-   - change one device's address via a jumper or a configuration register (datasheet!), or
-   - use an I²C multiplexer to give each device its own channel.
-3. Document the conflict and the fix — this is exactly the kind of engineering note the portfolio rewards.
-
-### ◇ Task 6 (Stretcher): See the Bits on the Wire
-
-With the class scope/analyzer chosen in Task 1, capture one I²C transaction:
+With the class scope/analyzer chosen in Task 8, capture one I²C transaction:
 
 - Identify START, the 7-bit address, the R/W bit, the ACK from the device, the data byte(s), and STOP.
 - Measure the actual clock frequency and compare it with the configured speed.
@@ -232,25 +310,29 @@ With the class scope/analyzer chosen in Task 1, capture one I²C transaction:
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. Scope decision: chosen solution(s), repo/commit, install steps, pin mapping, sample rate, input limits, and the PWM/I²C test captures. Include one sentence on what the chosen tool cannot measure.
-2. Scan artifact: serial output of at least two scans (one device, two devices), with each address mapped to its module.
-3. Register proof: the raw register value you read and the reconstruction you computed with the datasheet formula, next to the library's value.
-4. Address table: for each device in the kit: type, interface, address(es), and whether the address is configurable.
-5. Conflict report: how you created and resolved (or would resolve) an address conflict.
-6. Deeper question: Why does adding a second I²C device not need a second data pin, and what are the limits of that elegance (capacitance, address space, speed, one defective device pulling the bus down)?
+1. Simple pins, UART, and divider: the table, the `Vout` calculation, and the multimeter measurement (`Module02/pins-and-dividers.md`).
+2. Bus profile: `Module02/bus-<name>.md` plus your notes from the other pods' pitches.
+3. Class comparison: `Module02/bus-comparison.md` (or a link to the shared table) with your three bus-choice sentences.
+4. Scope decision: chosen solution(s), repo/commit, install steps, pin mapping, sample rate, input limits, and the PWM/I²C test captures. Include one sentence on what the chosen tool cannot measure.
+5. Scan artifact: serial output of at least two scans (one device, two devices), with each address mapped to its module.
+6. Register proof: the raw register value you read and the reconstruction you computed with the datasheet formula, next to the library's value.
+7. Address table: for each device in the kit: type, interface, address(es), and whether the address is configurable.
+8. Conflict report: how you created and resolved (or would resolve) an address conflict.
+9. Deeper question: Why does adding a second I²C device not need a second data pin, and what are the limits of that elegance (capacitance, address space, speed, one defective device pulling the bus down)?
 
-
-> [!IMPORTANT]]
+> [!IMPORTANT]
 > Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.
 
 ## 📚 If you want to go deeper
 
+- [SparkFun: Voltage Dividers](https://learn.sparkfun.com/tutorials/voltage-dividers) — the formula and practical examples.
+- [Wikipedia: RS-232](https://en.wikipedia.org/wiki/RS-232) · [RS-485](https://en.wikipedia.org/wiki/RS-485) · [Modbus](https://en.wikipedia.org/wiki/Modbus) · [CAN bus](https://en.wikipedia.org/wiki/CAN_bus) · [SPI](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface) · [OneWire](https://en.wikipedia.org/wiki/1-Wire)
 - [NXP UM10204 — I²C-bus specification](https://www.nxp.com/docs/en/user-guide/UM10204.pdf) — the definitive reference for addressing, arbitration, and clock stretching.
 - [Wikipedia: I²C](https://en.wikipedia.org/wiki/I%C2%B2C) — the readable overview and history.
 - [Arduino Wire library](https://www.arduino.cc/reference/en/language/functions/communication/wire/) — the API you will use.
 - [Linux `i2c-tools`](https://i2c.wiki.kernel.org/index.php/I2C_Tools) — the standard gateway/Pi scanner.
 - [PulseView / sigrok](https://sigrok.org/wiki/PulseView) — open-source logic-analyzer software with I²C and 1-Wire protocol decoders.
-- Scope/analyzer candidates from Task 1: [lmcapacho/ESP32_LogicAnalyzer](https://github.com/lmcapacho/ESP32_LogicAnalyzer), [EUA/ESP32_LogicAnalyzer](https://github.com/EUA/ESP32_LogicAnalyzer), [hepter/web-logic-analyzer](https://github.com/hepter/web-logic-analyzer), [BojanJurca/Esp32_oscilloscope](https://github.com/BojanJurca/Esp32_oscilloscope), [MatAtBread/esp-scope](https://github.com/MatAtBread/esp-scope).
+- Scope/analyzer candidates from Task 8: [lmcapacho/ESP32_LogicAnalyzer](https://github.com/lmcapacho/ESP32_LogicAnalyzer), [EUA/ESP32_LogicAnalyzer](https://github.com/EUA/ESP32_LogicAnalyzer), [hepter/web-logic-analyzer](https://github.com/hepter/web-logic-analyzer), [BojanJurca/Esp32_oscilloscope](https://github.com/BojanJurca/Esp32_oscilloscope), [MatAtBread/esp-scope](https://github.com/MatAtBread/esp-scope).
 - Your sensor datasheets — linked from the [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once).
 
 ---

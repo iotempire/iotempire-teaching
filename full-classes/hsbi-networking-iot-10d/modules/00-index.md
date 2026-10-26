@@ -2,22 +2,20 @@
 
 [← Course workbook](../README.md) | [Pre-study guide](../pre-study.md) | [Syllabus](../syllabus.md)
 
-> Each module opens with its **learning goals** and a ***DRAFT BOUNDARY*** marking the content still under construction. How learning goals are assessed, and why the tasks are negotiable, is explained once in the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations).
+## Session roadmap (10 days, one module per day)
 
-## Session roadmap (10 days / 12 sessions)
-
-| Module | Day / Session | Modern studio | Hands-on focus |
+| Module | Day | Modern studio | Hands-on focus |
 |:---:|:---:|---|---|
 | [Module 0 — Pre-study](../pre-study.md) | Before Day 1 | Portfolio, network mental model, MQTT discovery | Packet journey, IP/subnet exploration, first MQTT publish/subscribe. |
-| [Module 1](./01-foundations-and-masterclass.md) | Day 1 / Session 1 | Foundations & Master Class: The IoT Computing Continuum | OSI vs. TCP/IP critique, packet-overhead measurement, Master Class integration (M5Stack + MQTT + Node-RED). |
-| [Module 2](./02-local-networking-and-gateways.md) | Day 2 / Session 2 | Local Networking, TCP/IP & OpenWrt Gateways | IPv4 subnetting, DHCP, DNS, NAT, routing tables, OpenWrt LuCI/SSH, Wireshark & `tcpdump`. |
-| [Module 3](./03-overlay-and-mesh-networks.md) | Day 3 / Session 3 | Mesh & Overlay Networks: Nebula, Yggdrasil & B.A.T.M.A.N. | Nebula overlay remote access, Yggdrasil IPv6 mesh, optional B.A.T.M.A.N. Layer-2 mesh stretcher. |
-| [Module 4](./04-mqtt-and-integration.md) | Day 4 / Session 4 | MQTT Deep Dive & Integration **+ Checkpoint 1** | Topic hierarchy, QoS 0/1/2, Retain, Last Will, Node-RED flows, Python `paho-mqtt` / IoTknit. |
-| [Module 5](./05-wireless-technologies-and-espnow.md) | Day 5 / Session 5 | Wireless Technologies & ESP-NOW Micro-Networking | Radio spectrum, ISM bands, Wi-Fi vs. BLE vs. LoRaWAN, ESP-NOW action frames and gateway bridge. |
-| [Module 6](./06-industrial-protocols-and-bridging.md) | Day 6 / Session 6 | Industrial Protocols & Edge Bridging | Modbus/OPC-UA/RS-485 overview, TSN context; optional simulated edge bridge. |
-| [Module 7](./07-fleet-management-and-iotempower.md) | Day 7 / Session 7 | Fleet Management & Scaling with IoTempower | Declarative node configuration, Over-The-Air (OTA) flashing, M5Stack fleet scaling. |
-| [Module 8](./08-final-project-studio.md) | Days 8–9 / Sessions 8–11 | Final Project Studio **+ Checkpoint 2** | Project kickoff and story, multi-node integration, resilience testing, peer review rehearsal. |
-| [Module 9](./09-demonstrations-and-defense.md) | Day 10 / Session 12 | Final Project Demonstrations & Portfolio Defense | Live multi-node demonstration, network fault-injection test, individual defense. |
+| [Module 1](./01-foundations-and-masterclass.md) | Day 1 | Foundations & Master Class: The IoT Computing Continuum | OSI vs. TCP/IP critique, packet-overhead measurement, Master Class integration (M5Stack + MQTT + Node-RED). |
+| [Module 2](./02-local-networking-and-gateways.md) | Day 2 | Local Networking, TCP/IP & OpenWrt Gateways | IPv4 subnetting, DHCP, DNS, NAT, routing tables, OpenWrt LuCI/SSH, Wireshark & `tcpdump`. |
+| [Module 3](./03-overlay-and-mesh-networks.md) | Day 3 | Mesh & Overlay Networks: Nebula, Yggdrasil & B.A.T.M.A.N. | Nebula overlay remote access, Yggdrasil IPv6 mesh, optional B.A.T.M.A.N. Layer-2 mesh stretcher. |
+| [Module 4](./04-mqtt-and-integration.md) | Day 4 | MQTT Deep Dive & Integration **+ Checkpoint 1** | Topic hierarchy, QoS 0/1/2, Retain, Last Will, Node-RED flows, Python `paho-mqtt` / IoTknit. |
+| [Module 5](./05-wireless-technologies-and-espnow.md) | Day 5 | Wireless Technologies & ESP-NOW Micro-Networking | Radio spectrum, ISM bands, Wi-Fi vs. BLE vs. LoRaWAN, ESP-NOW action frames and gateway bridge. |
+| [Module 6](./06-industrial-protocols-and-bridging.md) | Day 6 | Industrial Protocols & Edge Bridging | Modbus/OPC-UA/RS-485 overview, TSN context; optional simulated edge bridge. |
+| [Module 7](./07-fleet-management-and-iotempower.md) | Day 7 | Fleet Management & Scaling with IoTempower | Declarative node configuration, Over-The-Air (OTA) flashing, M5Stack fleet scaling. |
+| [Module 8](./08-final-project-studio.md) | Days 8–9 | Final Project Studio **+ Checkpoint 2** | Project kickoff and story, multi-node integration, resilience testing, peer review rehearsal. |
+| [Module 9](./09-project-presentation-and-portfolio.md) | Day 10 | Project Presentation & Portfolio Submission | Short project presentation of the final portfolio-report section, live multi-node demonstration, network fault-injection test, report hand-in. |
 | [Prompt bank](./Y-resources-prompt-bank.md) | — | Supplementary | Reflection prompts, LLM-verification drills, quick references. |
 | [Resource bank](./Z-resources-bank.md) | — | Supplementary | RFCs, cheat sheets, Git/GitHub primer, story canon, troubleshooting, instructor hints. |
 
@@ -39,4 +37,4 @@
 
 ## Assessment
 
-Assessment — how the points are earned, the checkpoints, the reflection format, the task tiers, and the grade scale — is defined **only** in the [syllabus](../syllabus.md#assessment-kombinationsprüfung-20-base-points--bonus).
+Assessment — how the points are earned, the checkpoints, the reflection format, the task tiers, and the grade scale — is defined **only** in the [syllabus](../syllabus.md#assessment-large-homework-20-base-points--bonus).

@@ -4,7 +4,7 @@
 
 This is the course workbook and front page for **Networking and IoT Solutions (Vernetzung und IoT-Lösungen)** at Hochschule Bielefeld University of Applied Sciences and Arts (HSBI), Campus Gütersloh. It is a hands-on, laboratory-driven course about the networking and integration layer of modern IoT: edge routers, overlays, messaging, wireless links, industrial bridges, and fleet operations.
 
-The course runs over **10 working days / 12 sessions (4 hours each, 48 contact hours)**. The official timetable, rooms, and announcements are published through the course LMS.
+The course runs over **10 working days / 48 contact hours**, with **one module per day**. Session lengths vary: most modules use two sessions of 2 × 45 min (90 minutes each), and a few days run longer. The official timetable, rooms, and announcements are published through the course LMS.
 
 - **[Module index & roadmap](./modules/00-index.md)** — the course at a glance: every module and the day-by-day plan.
 - **[Syllabus](./syllabus.md)** — the single source of truth: schedule, learning objectives, the learning-goals contract, tools, and policies.
@@ -42,10 +42,10 @@ And this class is always in flux — that is a feature, not a bug. No course is 
 
 ## How the course is organized
 
-- **10 working days / 12 four-hour sessions (48 contact hours)**, plus optional tutorial support announced via the LMS.
+- **10 working days / 48 contact hours**, one module per day; session lengths vary (typically two sessions of 2 × 45 min, with longer blocks on some days).
 - **Module 0 (pre-study):** portfolio setup, a network mental model, packet-journey videos, and a first MQTT exploration — completed before Day 1 (or run as the first in-class module when the cohort needs more setup time).
 - **Modules 1–7:** one technical studio per day — the IoT continuum, local networking and OpenWrt, overlays and mesh, MQTT and integration, wireless and ESP-NOW, industrial protocols, and fleet management.
-- **Modules 8–9:** the final-project arc — a multi-node, multi-protocol IoT system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then demonstrated and defended in the last session.
+- **Modules 8–9:** the final-project arc — a multi-node, multi-protocol IoT system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then presented as the closing section of the portfolio report on the final day.
 
 The full module list, one-line summaries, and the session roadmap live in the **[module index](./modules/00-index.md)**.
 

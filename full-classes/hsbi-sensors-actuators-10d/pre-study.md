@@ -19,6 +19,8 @@ See the [syllabus](./syllabus.md) for the complete course schedule and policies.
 > [!IMPORTANT]
 > **Required Module 0 — 1 Module Point:** Before the first session, create your personal portfolio from the [course Git template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”** (not “Fork”) and add a first pre-study entry. Include notes responding to Guiding Questions 1–8 and evidence from the Wokwi mini-exercise below. Module 0 is checked in your first checkpoint (or during the first studio, by agreement with the instructor).
 >
+> In sensor work, documented measurement and calibration matter more than a lucky reading. Showing how you found a dead I²C device, a noisy channel, or a wrong transfer function is exactly the engineering skill this course builds.
+>
 > **For instructors: If your cohort needs more setup time**, Module 0 can be run as the first in-class module instead — same evidence, same 1 point.
 >
 > **Access:** Plan for roughly **10 hours** of preparation. You need no special hardware and no paid account — a laptop with a browser is enough. Wokwi may require a free account to save or share a simulation; if you cannot use it, contact the instructor through the LMS before your first checkpoint so an agreed alternative evidence (for example a hand-drawn circuit plus explanation) can be used.

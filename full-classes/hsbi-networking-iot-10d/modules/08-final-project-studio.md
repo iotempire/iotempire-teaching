@@ -1,8 +1,8 @@
 # Module 8 – Final Project Studio: Strategy, Integration & Resilience
 
-[← Back to Module 7](./07-fleet-management-and-iotempower.md) | [Quick module index](./00-index.md) | [Next: Module 9 →](./09-demonstrations-and-defense.md)
+[← Back to Module 7](./07-fleet-management-and-iotempower.md) | [Quick module index](./00-index.md) | [Next: Module 9 →](./09-project-presentation-and-portfolio.md)
 
-**Course placement:** Days 8–9 (Sessions 8–11) — the final project studio, after Checkpoint 2 (Modules 4–7). The exact split depends on the timetable and group progress; the schedule deliberately reserves buffer time here so slower labs elsewhere do not eat into the project.
+**Course placement:** Days 8–9 — the final project studio, after Checkpoint 2 (Modules 4–7). The exact split depends on the timetable and group progress; the schedule deliberately reserves buffer time here so slower labs elsewhere do not eat into the project.
 
 ## 🎯 Learning Goals
 
@@ -13,7 +13,7 @@ By the end of this module, you can:
 2. Synthesize all networking, messaging, and hardware layers into an integrated Final Project IoT Architecture.
 3. Perform fault-injection testing and resilience validation: verify how the system behaves under network partition, packet loss, or node failure.
 4. Conduct a structured peer review and rehearsal of your final project demonstration.
-5. Refine your system documentation and live demonstration script for the final defense.
+5. Refine your system documentation and the presentation script for the final presentation.
 
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
@@ -59,7 +59,7 @@ The project is not a single lab exercise; it is a short engineering sprint. Expe
     |
 [Rehearse]           Peer dry run against the must-haves
     |
-[Defend]             Module 9: live demo + portfolio defense
+[Present]            Module 9: live demo + portfolio presentation
 ```
 
 Sessions are open-ended by design: Project Teams naturally progress at different speeds. If you finish an integration milestone early, use the time for hardening, measurements, or helping a neighboring Project Team (which counts toward bonus points). If a lab from an earlier module ran over, this is the buffer that absorbs it.
@@ -89,7 +89,7 @@ A toy IoT project works only when every component is connected under ideal condi
 ===========================================================================
 ```
 
-You do not have to use every layer. A strong project uses each layer it includes *deliberately* and can defend that choice. If you configured a B.A.T.M.A.N. mesh in Module 3, this is where it earns its place by carrying real traffic across a link you can physically break.
+You do not have to use every layer. A strong project uses each layer it includes *deliberately* and can explain that choice. If you configured a B.A.T.M.A.N. mesh in Module 3, this is where it earns its place by carrying real traffic across a link you can physically break.
 
 ## 🛠️ Studio Labs — **Challenging**
 
@@ -142,7 +142,7 @@ Pair with another Project Team for a reciprocal dry run:
 1. Kickoff Story: Your stakeholder story, target users, team roles, and the requirement-to-must-have mapping.
 2. Final Project Architecture Diagram: Detailed schematic of your integrated system showing physical hardware, network interfaces, IP/overlay addressing, and protocol flows.
 3. Fault-Injection Test Report: Document the results of your three resilience tests (Link Drop, Node Loss, Broker Restart) with log snippets or screenshots.
-4. Peer Feedback Log: Summarize the feedback received from your review team and the concrete adjustments you are making for the final defense.
+4. Peer Feedback Log: Summarize the feedback received from your review team and the concrete adjustments you are making for the final presentation.
 
 
 > [!IMPORTANT]
@@ -158,4 +158,4 @@ Pair with another Project Team for a reciprocal dry run:
 
 ---
 
-[← Previous: Module 7](./07-fleet-management-and-iotempower.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 9 — Final Project Demonstrations & Defense →](./09-demonstrations-and-defense.md)
+[← Previous: Module 7](./07-fleet-management-and-iotempower.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 9 — Project Presentation & Portfolio Submission →](./09-project-presentation-and-portfolio.md)

@@ -4,7 +4,7 @@
 
 This is the course workbook and front page for **Sensors and Actuators (Sensorik und Aktorik)** at Hochschule Bielefeld University of Applied Sciences and Arts (HSBI), Campus Gütersloh. It is a hands-on, studio-style elective for engineering students who want to understand the *physical* side of IoT: what a sensor really measures, how a bus really works, how an actuator really moves, and how to prove it with a measurement instead of a slide.
 
-The course runs over **10 working days / 12 sessions (4 hours each, 48 contact hours)**. The official timetable, rooms, and announcements are published through the course LMS.
+The course runs over **10 working days / 48 contact hours**, with **one module per day**. Session lengths vary: most modules use two sessions of 2 × 45 min (90 minutes each), Module 3 uses three, and a few days run longer. The official timetable, rooms, and announcements are published through the course LMS.
 
 - **[Module index & roadmap](./modules/00-index.md)** — the course at a glance: every module and the day-by-day plan.
 - **[Syllabus](./syllabus.md)** — the single source of truth: schedule, learning objectives, the learning-goals contract, tools, and policies.
@@ -38,10 +38,10 @@ And this class is always in flux — that is a feature, not a bug. No course is 
 
 ## How the course is organized
 
-- **10 working days / 12 four-hour sessions (48 contact hours)**, plus optional tutorial support announced via the LMS.
+- **10 working days / 48 contact hours**, one module per day; session lengths vary (typically two sessions of 2 × 45 min, with longer blocks on some days).
 - **Module 0 (pre-study):** portfolio setup, measurement basics, datasheet reading, and a Wokwi mini-exercise — completed before Day 1 (or run as the first in-class module when the cohort needs more setup time).
-- **Modules 1–8:** one technical studio per day — basic electronics and Arduino/serial basics, measurement and the signal chain, building a low-cost ESP32 scope/logic analyzer and I²C addressing, characterization and calibration, distance/motion/environment sensors, LEDs and light, animation and installations, motors, and system integration.
-- **Modules 9–10:** the final-project arc — a story-driven sensor/actuator system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then demonstrated and defended in the last session.
+- **Modules 1–8:** one technical module per day — basic electronics, Arduino/serial basics, measurement and the signal chain; a bus survey from simple pins through RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire, I²C addressing, and the ESP32 scope/logic-analyzer sprint; characterization and calibration; distance/motion/environment sensors; LEDs and light; animation and installations; motors; and system integration.
+- **Modules 9–10:** the final-project arc — a story-driven sensor/actuator system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then demonstrated and defended on the final day.
 - **Workload:** 150 hours total (5 ECTS) — 48 contact hours, about 10 hours of Module 0 preparation, and the remaining 60–90 hours as self-study, portfolio, reflection, and final project. Plan for **at least 6 hours per week** outside class.
 
 The full module list, one-line summaries, and the session roadmap live in the **[module index](./modules/00-index.md)**.
@@ -59,7 +59,7 @@ The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-templ
 
 ## What you will work with
 
-- **Hardware:** M5Stack nodes and Grove modules (fast path); ESP32/ESP8266 boards, breadboards, and discrete sensors/actuators (physics path); **one shared multimeter**, USB power meter; **no benchtop oscilloscope** — in Module 2 you build/select an ESP32-based scope/logic analyzer for I²C, OneWire, PWM, and slow analog signals.
+- **Hardware:** M5Stack nodes and Grove modules (fast path); ESP32/ESP8266 boards, breadboards, and discrete sensors/actuators (physics path); **one shared multimeter**, USB power meter; **no benchtop oscilloscope** — in Module 2 you first survey the bus landscape (simple pins, UART, RS-232/RS-485, Modbus, CAN, I²C, SPI, OneWire) and then build/select an ESP32-based scope/logic analyzer for I²C, OneWire, PWM, and slow analog signals.
 - **Firmware:** Arduino IDE v2 or PlatformIO with the ESP32/ESP8266 cores; **Adafruit NeoPixel** for a simple strip bring-up and **NeoPixelBus** for robust/multi-strip work. **FastLED** is kept as a reference/alternative, not the default.
 - **System layer:** a Mosquitto MQTT broker on any host in the network (travel router, Raspberry Pi, or laptop), direct MQTT from the node (for example `PubSubClient`), and optional Node-RED dashboards.
 - **Optional exploration:** [IoTempower](https://github.com/iotempire/iotempower) for declarative drivers, filters, and OTA deployment — not required for the core labs.

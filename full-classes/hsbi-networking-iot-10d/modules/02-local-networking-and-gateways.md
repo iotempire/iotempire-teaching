@@ -2,6 +2,8 @@
 
 [← Back to Module 1](./01-foundations-and-masterclass.md) | [Quick module index](./00-index.md) | [Next: Module 3 →](./03-overlay-and-mesh-networks.md)
 
+<!-- TODO(instructor): consider mirroring the Sensors & Actuators Module 2 bus survey (simple pins → UART → RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire) here; see Z-resources-bank.md#instructor-hints. Not scheduled for the current offering. -->
+
 **Course placement:** Day 2 — the edge-router studio. You subnet, route, NAT, and capture packets at the choke point.
 
 ## 🎯 Learning Goals
