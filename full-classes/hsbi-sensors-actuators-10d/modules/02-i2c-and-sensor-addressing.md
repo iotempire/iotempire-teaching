@@ -13,7 +13,7 @@
 This module gives you the opportunity to explore buses and device addressing and achieve competency in the bus landscape, I²C physics and addressing, register maps, multi-device buses, and low-cost bus instrumentation.
 
 By the end of this module, you can:
-1. Compare simple digital/analog/PWM pins, UART serial, and the main buses (RS-232, RS-485, Modbus RTU, CAN, I²C/I³C, SPI, OneWire) by wiring, voltage, signaling, speed, length, topology, and use — and explain why PWM is not a bus.
+1. Compare simple digital/analog/PWM pins, UART serial, and the main buses (RS-232, RS-485, Modbus RTU, CAN, I²C/I³C, SPI, OneWire) by wiring, voltage, signaling, drive style, speed, length, topology, use, and historical origin — and explain why PWM is not a bus.
 2. Explain how I²C works physically and logically: two wires, open-drain, pull-ups, addressing, ACK/NACK, repeated start, clock stretching.
 3. Wire and scan an I²C bus and identify every connected device by address.
 4. Read a sensor through a library and read its raw registers directly.
@@ -58,7 +58,7 @@ Before the bus survey, get the baseline right. Work in your pod and record the a
 
 ### ★ Task 2: Bus systems survey — research and pitch
 
-Your pod owns one bus. Research it from the English Wikipedia and the datasheet of a kit device, then produce a one-page profile.
+Your pod owns one bus. Research it from the English Wikipedia, the datasheet of a kit device, **or an LLM used as a research partner** — then produce a one-page profile. If you use an LLM, do not stop at “what is it”: ask for the **history and background**, its **relations to the other buses in the list**, and especially the **curiosities and remarkable design choices**. Treat every voltage, timing, and part number as a claim to verify against a datasheet or the bench.
 
 | Pod | Bus | What to focus on |
 |:---:|---|---|
@@ -72,22 +72,39 @@ Your pod owns one bus. Research it from the English Wikipedia and the datasheet 
 
 With fewer pods, combine Modbus RTU + CAN or use OneWire as the backup. With more pods, split a bus into “wiring/electrical” and “protocol/use” and present together.
 
-**Cover at least:** wires and connectors · voltage and signaling (single-ended/differential) · serial/parallel · speed and maximum length · topology and addressing (point-to-point, multi-drop, multi-master) · typical use and one example from our kit · what can go wrong and how you would debug it.
+**All pods:** be ready to explain the I²C open-drain/pull-up question in Task 3, even if I²C is not your assigned bus.
+
+**LLM research prompts (an alternative or complement to Wikipedia).** Pick 3–5, record the prompt, a short summary, and how you verified it.
+
+- **History and background:** “Trace the history of `<bus>`: who created it, which problem it solved, what it replaced, and which design decision from that era still shapes it today. Separate documented history from folklore.”
+- **Relation to the others:** “Compare `<bus>` with RS-232, RS-485, Modbus RTU, CAN, I²C/I³C, SPI, and OneWire. What does `<bus>` make easy that the others make hard, and vice versa? Give the trade-off in one sentence per bus.”
+- **Curiosities and remarkable features:** “What is genuinely unusual or surprising about `<bus>` compared with the other buses in this list? Give three technically substantive curiosities — not marketing facts — and say why each one matters for wiring or debugging.”
+- **The I²C question (all pods should be able to answer this):** “Explain I²C’s open-drain signaling: why can a device only pull a line low, and why does the bus rely on pull-ups? What happens electrically when several devices — possibly with different supply voltages — share SDA/SCL? Cover level shifting, bus capacitance, and what a stuck-low device does to the whole bus.”
+- **Failure lore:** “Give one classic failure mode of `<bus>` and the measurement or capture that identifies it. What would a beginner blame first, and what is the actual root cause?”
+- **Verification list:** “List the five claims from your answer that I should verify in a datasheet or on the bench, and name the source or measurement for each.”
+
+> [!WARNING]
+> LLMs are good at history, comparisons, and curiosities; they are unreliable on exact voltages, timing, and part numbers. Verify every number against a datasheet or standard, and mark in your profile which claims you verified and which remain open.
+
+**Cover at least:** history and background (who, when, why) · wires and connectors · voltage, signaling, and drive style (single-ended/differential, open-drain/pull-up) · serial/parallel · speed and maximum length · topology and addressing (point-to-point, multi-drop, multi-master) · typical use and one example from our kit · relation to the other buses in the list · one curiosity or remarkable design choice · what can go wrong and how you would debug it.
 
 **Deliverable:** `Module02/bus-<name>.md`, using this shape:
 
 ```markdown
 ## Bus profile: <bus>
+- History and background:
 - Wires and connectors:
-- Voltage and signaling:
+- Voltage, signaling, and drive style:
 - Topology and addressing:
 - Speed and maximum length:
+- Relation to the other buses:
 - Typical use and kit example:
+- Curiosities / remarkable features:
 - What can go wrong / how to debug:
-- Sources:
+- Sources and verification:
 ```
 
-Keep it short — one page, one table or image, the facts that matter for choosing and debugging. Post the best table/image in the course Discord, and be ready to give a short pitch.
+Keep it short — one page, one table or image, the facts that matter for choosing and debugging, and a short “curiosities” list. Post the best table/image in the course Discord, and be ready to give a short pitch.
 
 *Portfolio evidence:* `Module02/bus-<name>.md` plus your notes from the other pods' pitches.
 
@@ -95,17 +112,19 @@ Keep it short — one page, one table or image, the facts that matter for choosi
 
 Merge the pod profiles into one class table. Suggested columns:
 
-| Bus | Wires | Signaling | Topology / addressing | Speed / length | Typical use | Kit example | Debug tool |
-|---|---|---|---|---|---|---|---|
+| Bus | Wires | Signaling | Drive style | Topology / addressing | Speed / length | Typical use | Kit example | Debug tool |
+|---|---|---|---|---|---|---|---|---|
 
 Then discuss and write down the answers:
 
 1. Which buses are **point-to-point**, which are **multi-drop**, which are **multi-master**?
 2. Which need **termination**? Which are **differential**? Which are **self-clocking**?
-3. Where does **I²C** sit, and why does it win for many small sensors on one board?
-4. Which bus would you choose for **20 m across a room**, for **20 sensors on one board**, and for a **motor driver**? Give one sentence each.
+3. Which are **open-drain with pull-ups**, which are **push-pull**, and which are **differential**? What does that mean for sharing one bus and for connecting devices with different supply voltages?
+4. Where does **I²C** sit, and why does it win for many small sensors on one board?
+5. Which bus would you choose for **20 m across a room**, for **20 sensors on one board**, and for a **motor driver**? Give one sentence each.
+6. Which bus is the oldest, and which design constraint from its era is still visible in its wiring or protocol?
 
-*Portfolio evidence:* `Module02/bus-comparison.md` (or a link to the shared class table) with your three bus-choice sentences and one “what surprised me” note.
+*Portfolio evidence:* `Module02/bus-comparison.md` (or a link to the shared class table) with your bus-choice sentences, your open-drain/voltage answer, and one “what surprised me” note.
 
 ## 📖 Pod Study: One Bus, Many Devices (I²C)
 
@@ -311,8 +330,8 @@ With the class scope/analyzer chosen in Task 8, capture one I²C transaction:
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
 1. Simple pins, UART, and divider: the table, the `Vout` calculation, and the multimeter measurement (`Module02/pins-and-dividers.md`).
-2. Bus profile: `Module02/bus-<name>.md` plus your notes from the other pods' pitches.
-3. Class comparison: `Module02/bus-comparison.md` (or a link to the shared table) with your three bus-choice sentences.
+2. Bus profile: `Module02/bus-<name>.md` including history/background, relation to the other buses, one or two curiosities, and your verification notes (which claims came from a datasheet or the bench vs. an LLM).
+3. Class comparison: `Module02/bus-comparison.md` (or a link to the shared table) with your bus-choice sentences, the open-drain/voltage answer, and one “what surprised me” note.
 4. Scope decision: chosen solution(s), repo/commit, install steps, pin mapping, sample rate, input limits, and the PWM/I²C test captures. Include one sentence on what the chosen tool cannot measure.
 5. Scan artifact: serial output of at least two scans (one device, two devices), with each address mapped to its module.
 6. Register proof: the raw register value you read and the reconstruction you computed with the datasheet formula, next to the library's value.
