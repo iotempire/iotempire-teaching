@@ -128,7 +128,9 @@ Then discuss and write down the answers:
 
 ## 📖 Pod Study: One Bus, Many Devices (I²C)
 
-Now that you have the map, zoom in on the bus that we are going to use most in this class. This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+### ★ Task 4: I²C pod study — all pods, same bus
+
+**All pods do this task at the same time.** Unlike the bus survey in Task 2, this is not a jigsaw: everyone studies the same I²C material, then compares notes with a neighbouring pod. Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
 
 ### The I²C Bus
 
@@ -195,7 +197,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 > Run each prompt against your own bus, and record where the model is wrong, vague, or over-confident.
 
-### ★ Task A: I²C study log
+### ★ Task 4a: I²C study log
 
 Work through the concepts above with your Task Pod and fill in `Module02/study-log.md`:
 
@@ -207,7 +209,7 @@ Work through the concepts above with your Task Pod and fill in `Module02/study-l
 
 *Portfolio evidence:* `Module02/study-log.md`.
 
-### ★ Task B: Share your bus profile and I²C study log
+### ★ Task 4b: Share your bus profile and I²C study log
 
 Pair with a **neighbouring pod**:
 
@@ -221,7 +223,7 @@ Pair with a **neighbouring pod**:
 
 ## 🛠️ Studio Lab 2: Talk to the I²C Bus — **Challenging**
 
-### ★ Task 4: Wire the Bus and Scan It
+### ★ Task 5: Wire the Bus and Scan It
 
 1. Connect SCL and SDA (plus `3V3` and `GND`) to your board, using the correct pins for your board (ESP32 default is usually GPIO21=SDA, GPIO22=SCL; check your board).
 2. Upload an I²C scanner and record every address:
@@ -247,7 +249,7 @@ Pair with a **neighbouring pod**:
 
 > **Alternative/complement:** if you have a Linux host with an exposed I²C bus, run `i2cdetect -y 1`. It shows the same map and is the standard tool on gateways and Raspberry Pis.
 
-### ★ Task 5: Read Through the Library, Then Read the Register
+### ★ Task 6: Read Through the Library, Then Read the Register
 
 1. Read one sensor using its library (e.g. an environment sensor) and log values.
 2. Now open the datasheet and find the register that returns the raw value (for example a temperature register). Read it directly with `Wire` and reconstruct the value using the datasheet's scaling.
@@ -255,14 +257,14 @@ Pair with a **neighbouring pod**:
 
 > This step is the difference between "it works" and "I understand it." You will need it whenever a library is missing, outdated, or wrong.
 
-### ★ Task 6: Two Devices on One Bus
+### ★ Task 7: Two Devices on One Bus
 
 1. Add a second I²C sensor with a *different* address to the same SCL/SDA pair (no extra pins). Power and ground both.
 2. Scan again: both addresses must appear.
 3. Read both sensors in one sketch. Confirm that adding a device did not require new pins.
 4. Note the two addresses in your portfolio and explain why they can coexist.
 
-### ★ Task 7: Create and Resolve an Address Conflict
+### ★ Task 8: Create and Resolve an Address Conflict
 
 1. If you have two modules with the same fixed address, connect both. Scan: only one address appears, and reads become unreliable or wrong. Explain what the bus is doing electrically.
 2. Resolve it in the way your hardware allows:
@@ -278,7 +280,7 @@ Pair with a **neighbouring pod**:
 > [!WARNING]
 > The scope/analyzer inputs are **3.3 V only**; use a divider or clamp for higher voltages and never connect to mains-referenced circuits. Power off before rewiring.
 
-### ★ Task 8: Build and Choose Our Scope — instrument sprint
+### ★ Task 9: Build and Choose Our Scope — instrument sprint
 
 **Goal:** by the end of this task, the class agrees on **1–2 open-source solutions** and writes down how to build, flash, and use them. Future modules use those solutions unless a documented reason forces a change.
 
@@ -345,9 +347,9 @@ Pair with a **neighbouring pod**:
 
 > If time runs short, finish the class decision and carry the captures into portfolio time.
 
-### ◇ Task 9 (Stretcher): See the Bits on the Wire
+### ◇ Task 10 (Stretcher): See the Bits on the Wire
 
-With the class scope/analyzer chosen in Task 8, capture one I²C transaction:
+With the class scope/analyzer chosen in Task 9, capture one I²C transaction:
 
 - Identify START, the 7-bit address, the R/W bit, the ACK from the device, the data byte(s), and STOP.
 - Measure the actual clock frequency and compare it with the configured speed.
@@ -377,7 +379,7 @@ With the class scope/analyzer chosen in Task 8, capture one I²C transaction:
 - [Arduino Wire library](https://www.arduino.cc/reference/en/language/functions/communication/wire/) — the API you will use.
 - [Linux `i2c-tools`](https://i2c.wiki.kernel.org/index.php/I2C_Tools) — the standard gateway/Pi scanner.
 - [PulseView / sigrok](https://sigrok.org/wiki/PulseView) — open-source logic-analyzer software with I²C and 1-Wire protocol decoders.
-- Scope/analyzer candidates from Task 8: [lmcapacho/ESP32_LogicAnalyzer](https://github.com/lmcapacho/ESP32_LogicAnalyzer), [EUA/ESP32_LogicAnalyzer](https://github.com/EUA/ESP32_LogicAnalyzer), [hepter/web-logic-analyzer](https://github.com/hepter/web-logic-analyzer), [BojanJurca/Esp32_oscilloscope](https://github.com/BojanJurca/Esp32_oscilloscope), [MatAtBread/esp-scope](https://github.com/MatAtBread/esp-scope).
+- Scope/analyzer candidates from Task 9: [lmcapacho/ESP32_LogicAnalyzer](https://github.com/lmcapacho/ESP32_LogicAnalyzer), [EUA/ESP32_LogicAnalyzer](https://github.com/EUA/ESP32_LogicAnalyzer), [pschatzmann/logic-analyzer](https://github.com/pschatzmann/logic-analyzer), [hepter/web-logic-analyzer](https://github.com/hepter/web-logic-analyzer), [ok-home/logic_analyzer](https://github.com/ok-home/logic_analyzer), [GUELORD-MWENDERWA/esp32-web-oscilloscope](https://github.com/GUELORD-MWENDERWA/esp32-web-oscilloscope), [BojanJurca/Esp32_oscilloscope](https://github.com/BojanJurca/Esp32_oscilloscope), [MatAtBread/esp-scope](https://github.com/MatAtBread/esp-scope), and [Ebiroll/esp32_sigrok](https://github.com/Ebiroll/esp32_sigrok).
 - Your sensor datasheets — linked from the [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once).
 
 ---
