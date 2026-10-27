@@ -2,7 +2,7 @@
 
 [← Back to Module 1](./01-foundations-measurement-and-sensor-chain.md) | [Quick module index](./00-index.md) | [Next: Module 3 →](./03-sensor-characterization-and-calibration.md)
 
-**Course placement:** Day 2 — the module runs across the day's two 90-minute sessions, with a break between them. We start with the bus landscape (simple pins and UART → RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire), zoom into I²C, and finish by building and choosing the scope/logic analyzer we use for the rest of the course. The instrument build is deliberately exploratory and a little risky: start it in class, and carry it into self-study if it needs more time.
+**Course placement:** Day 2 — the module runs across the day's two to three 90-minute sessions, with a break(s) between them. We start with the bus landscape (simple pins and UART → RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire), zoom into I²C, and finish by building and choosing the scope/logic analyzer we use for the rest of the course. The instrument build is deliberately exploratory and a little . Let's compare results and progress after an hour and see how much time, we will further invest here or if we all focus on one or two tools.
 
 > **Session shape.** Session 1: simple pins, UART, and the divider; launch the bus survey. Session 2: bus pitches and the class comparison, then the I²C pod study and the scan/register lab. Address conflicts and the instrument sprint are the natural carry-over into self-study; start the build in class so the class can compare candidates together. Keep the sequence; move the break points to fit the room.
 
@@ -54,7 +54,7 @@ Before the bus survey, get the baseline right. Work in your pod and record the a
 4. **Explain the why.** Why does a 5 V sensor need a divider for a 3.3 V board? Where else does a divider help (resistance sensors, level protection, reference scaling)?
 5. **Write the baseline table** in `Module02/pins-and-dividers.md`: connection, wires, voltage, speed/length, example, failure mode.
 
-*Portfolio evidence:* `Module02/pins-and-dividers.md` with the table, the UART note, the divider calculation, and the measurement.
+*Portfolio evidence:* `Module02/pins-and-dividers.md` linked or embedded in the top Module 2 README with the table, the UART note, the divider calculation, and the measurement.
 
 ### ★ Task 2: Bus systems survey — research and pitch
 
@@ -88,7 +88,7 @@ With fewer pods, combine Modbus RTU + CAN or use OneWire as the backup. With mor
 
 **Cover at least:** history and background (who, when, why) · wires and connectors · voltage, signaling, and drive style (single-ended/differential, open-drain/pull-up) · serial/parallel · speed and maximum length · topology and addressing (point-to-point, multi-drop, multi-master) · typical use and one example from our kit · relation to the other buses in the list · one curiosity or remarkable design choice · what can go wrong and how you would debug it.
 
-**Deliverable:** `Module02/bus-<name>.md`, using this shape:
+**Deliverable:** `Module02/bus-<name>.md` and link from module top-level README (or embedded), using this shape:
 
 ```markdown
 ## Bus profile: <bus>
@@ -128,7 +128,7 @@ Then discuss and write down the answers:
 
 ## 📖 Pod Study: One Bus, Many Devices (I²C)
 
-Now that you have the map, zoom in on the bus the kit uses most. This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+Now that you have the map, zoom in on the bus that we are going to use most in this class. This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
 
 ### The I²C Bus
 
@@ -165,7 +165,7 @@ Most I²C sensors are not "send a command, get a value". They expose a register 
 
 ### Where I²C sits among the buses
 
-Your class comparison table has the full landscape; this is the subset you will touch in the kit:
+Your class comparison table has the full landscape; this is the subset you will touch in the kti you assemble from the hardware available:
 
 | Bus | Wires | Addressing | Typical use |
 |---|---|---|---|
