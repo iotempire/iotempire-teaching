@@ -282,36 +282,62 @@ Pair with a **neighbouring pod**:
 
 **Goal:** by the end of this task, the class agrees on **1–2 open-source solutions** and writes down how to build, flash, and use them. Future modules use those solutions unless a documented reason forces a change.
 
-**Candidate shortlist (all open source):**
+**Pick by role, not by repo name.** The shortlist falls into roles; the class needs at least one **A** and one **B**. A candidate can be replaced if it fills the same role.
+
+**A. Digital bus analyzers — SUMP firmware + PulseView.** Use these for I²C, SPI, UART, and OneWire. Sampling is in the MS/s range; protocol decoding happens in PulseView.
 
 | Candidate | What it gives you | Limits / notes |
 |---|---|---|
-| [lmcapacho/ESP32_LogicAnalyzer](https://github.com/lmcapacho/ESP32_LogicAnalyzer) | 16-channel SUMP logic analyzer, up to **20 MHz**, 128k samples, PulseView/sigrok | Digital only, 3.3 V; Arduino IDE; **best fit for I²C/OneWire** |
-| [EUA/ESP32_LogicAnalyzer](https://github.com/EUA/ESP32_LogicAnalyzer) | SUMP/PulseView logic analyzer, I2S DMA, up to **20 MHz** | Digital only; PlatformIO; alternate codebase |
-| [hepter/web-logic-analyzer](https://github.com/hepter/web-logic-analyzer) | Browser-based digital capture, export to PulseView; configurable sample rate (example: 1 MHz) | Digital only; set the correct rate when importing; easiest browser-only option |
-| [BojanJurca/Esp32_oscilloscope](https://github.com/BojanJurca/Esp32_oscilloscope) | Browser scope, analog + digital, optional I2S single-channel mode | ~736 samples/screen; **not a fast-bus decoder**; Arduino IDE; MIT |
-| [MatAtBread/esp-scope](https://github.com/MatAtBread/esp-scope) | Browser scope with trigger and test signal | Low-rate; ESP-IDF toolchain; nice UI, more setup |
+| [lmcapacho/ESP32_LogicAnalyzer](https://github.com/lmcapacho/ESP32_LogicAnalyzer) | 16-channel SUMP, up to **20 MS/s**, 128k samples, RLE, PulseView/sigrok | Digital only, 3.3 V; Arduino IDE; **best default for I²C/OneWire** |
+| [EUA/ESP32_LogicAnalyzer](https://github.com/EUA/ESP32_LogicAnalyzer) | 16-channel SUMP, I2S DMA, up to **20 MS/s** | Digital only; PlatformIO; alternate codebase |
+| [pschatzmann/logic-analyzer](https://github.com/pschatzmann/logic-analyzer) | Arduino SUMP library; ESP32, ESP32-S3, RP2040; clean sketch you can inspect and compile | SUMP max **65535 samples**; serial at 921600; more “build it yourself”; the ESP32 `MAX_FREQ` is not a reliable sampling rate — measure it |
+| [hepter/web-logic-analyzer](https://github.com/hepter/web-logic-analyzer) | Browser digital capture with export to PulseView; configurable sample rate (example: 1 MHz) | Digital only; export-based, not live SUMP/decoding; set the rate correctly on import |
+| [ok-home/logic_analyzer](https://github.com/ok-home/logic_analyzer) | SUMP plus `.bin` export; useful fallback | UART0 logging must be off; some PulseView quirks; less polished |
 
-**Recommended pairing:** one **bus analyzer** (first three rows) + one **analog web scope** (last two rows). If you adopt only one solution, choose the bus analyzer — it is the tool that actually decodes I²C/OneWire traffic.
+**B. Browser analog scopes — zero-install web UI.** Use these for RC curves, PWM, sensor outputs, and slow analog signals. They do **not** decode I²C.
 
-> **Sampling rule of thumb:** for 100 kHz I²C, sample at **≥1 MS/s** to see clean edges (the Nyquist minimum is 200 kS/s, but decoding wants margin); for 400 kHz I²C, use **≥4 MS/s**. A ~700-samples/s web scope cannot decode I²C — it is for slow analog signals and PWM only.
+| Candidate | What it gives you | Limits / notes |
+|---|---|---|
+| [GUELORD-MWENDERWA/esp32-web-oscilloscope](https://github.com/GUELORD-MWENDERWA/esp32-web-oscilloscope) | 100 S/s–**50 kS/s**, 12-bit, edge trigger with pre-trigger history, automatic measurements, 1 kHz test signal, prebuilt binary and browser flashing | Single analog channel; Wi-Fi AP; **new and not yet validated on hardware — timing figures are design targets**; **Web Serial flashing is Chromium-only**; treat as an experimental candidate |
+| [BojanJurca/Esp32_oscilloscope](https://github.com/BojanJurca/Esp32_oscilloscope) | Browser scope, analog + digital, optional I2S single-channel mode, public demo | ~736 samples/screen; sample rate varies with load; **not a fast-bus decoder**; Arduino IDE; MIT |
+| [MatAtBread/esp-scope](https://github.com/MatAtBread/esp-scope) | Browser scope with trigger, cursors, attenuation, and test signal; up to ~**83 kS/s** | ESP-IDF toolchain; more setup; analog only |
 
-> **Board note:** all candidates target a generic ESP32. The ESP32 Ethernet mini kit runs the same firmware; check whether the web UI expects Wi-Fi and adapt the network setup if you want Ethernet. For analog captures, use **ADC1** pins (on a classic ESP32: GPIO32–39) because Wi-Fi uses ADC2.
+**C. Hybrid / mixed-signal — stretcher.**
 
-> **Pin-conflict warning:** the SUMP logic analyzers reserve dedicated I2S/LEDC pins (for `lmcapacho`, GPIO23 and GPIO22 by default). Do not use those pins for I2C or other signals; remap them in the config or use a separate ESP32. Draw the pin map before wiring.
+| Candidate | What it gives you | Limits / notes |
+|---|---|---|
+| [Ebiroll/esp32_sigrok](https://github.com/Ebiroll/esp32_sigrok) | SUMP digital capture **plus** Rigol DS1000 emulation, so analog appears in PulseView | Only ~1400 analog samples; uncalibrated; older code; ESP-IDF; use as a stretcher/benchmark, not the default |
 
-> **Host software:** [PulseView / sigrok](https://sigrok.org/wiki/PulseView) is the open-source host for the logic-analyzer candidates and includes I²C and 1-Wire protocol decoders. Install it before the sprint.
+**D. Host software / baseline.**
 
-1. **Split the candidates across pods.** Each pod picks one or two from the shortlist, aiming for at least one bus analyzer and one analog scope in the room. Record the repo URL and the commit/version you used. With a small cohort (e.g. 12 students = six pairs), a good split is three bus-analyzer pods, two web-scope pods, and one cross-check pod; adapt to the room.
+- **[PulseView / sigrok](https://sigrok.org/wiki/PulseView):** the host for A and C, with I²C, 1-Wire, SPI, UART, and CAN protocol decoders.
+- **Arduino IDE Serial Plotter:** slow trend plot for `Serial.println()` values; useful as a sanity check, not a bus tool.
+- **Optional `sigrok-cli`:** scripted, reproducible captures for the portfolio.
+
+**E. Reference check (if available).** A known-good commercial **fx2lafw** 8-channel 24 MHz USB analyzer (often under €20) or a borrowed scope is not the class default. If you have one, use it for **one** reference capture and compare it with your ESP32 build. The point is calibration by comparison, not buying more hardware.
+
+**Recommended pairing:** one **A** + one **B**. If you adopt only one solution, choose **A** — it is the tool that actually decodes I²C/OneWire traffic. **C** is a stretcher for a pod that wants analog and digital in one host.
+
+> **Sampling rule of thumb:** for 100 kHz I²C, sample at **≥1 MS/s** to see clean edges (the Nyquist minimum is 200 kS/s, but decoding wants margin); for 400 kHz I²C, use **≥4 MS/s**. Even the fastest web scopes here (50–83 kS/s) cannot decode 100 kHz I²C — they are for slow analog signals and PWM. Use **A** for buses.
+
+> **Browser caveat:** the web UI itself works in modern browsers, but **Web Serial flashing** works only in Chrome, Edge, and Opera — not Safari or stable Firefox. On Safari/Firefox, flash with Arduino IDE/PlatformIO or use an AP-based firmware that does not need Web Serial.
+
+> **Board note:** most candidates target a classic ESP32; some support ESP32-S3, ESP32-C6, or RP2040. Check the board, pin map, and ADC pins before flashing. For analog captures, use **ADC1** pins (on a classic ESP32: GPIO32–39) because Wi-Fi uses ADC2.
+
+> **Pin-conflict warning:** the SUMP analyzers reserve dedicated I2S/LEDC pins (for `lmcapacho` and `EUA`, GPIO23 and GPIO22 by default). Do not use those pins for I2C or other signals; remap them in the config or use a separate ESP32. Draw the pin map before wiring.
+
+> **Host software:** [PulseView / sigrok](https://sigrok.org/wiki/PulseView) is the open-source host for the logic-analyzer candidates and includes I²C and 1-Wire protocol decoders. Install it before the sprint. `sigrok-cli` is optional for scripted captures; the Arduino IDE Serial Plotter is a separate slow-trend baseline, not a bus decoder.
+
+1. **Split the candidates by role across pods.** Each pod picks one or two candidates, aiming for at least one **A** and one **B** in the room. Record the repo URL and the commit/version you used. With a small cohort (e.g. 12 students = six pairs), a good split is three A pods, two B pods, and one cross-check pod; adapt to the room.
 2. **Build and flash** on your ESP32 DevKit or Ethernet mini kit. Use the project's Arduino IDE or PlatformIO instructions. Time the install: from unboxing to first capture.
 3. **Test on known signals:**
    - **PWM / square wave:** generate 1 kHz on a second ESP32 (or use the board's LEDC/DAC/test output) and display it.
    - **I²C:** run an I²C scanner on SDA/SCL at 100 kHz. A scanner's address probes are enough traffic. Look for **START, address, ACK/NACK, and STOP**; with PulseView, enable the I²C decoder.
    - **OneWire (optional):** read a DS18B20 and capture the reset/presence/data pulses.
-4. **Measure and record:** sample rate/timebase, whether edges are stable or missed, whether the I²C decode works, browser/OS compatibility, input voltage range and protection, and the total setup effort.
+4. **Measure and record:** sample rate/timebase, whether edges are stable or missed, whether the I²C decode works, browser/OS compatibility (viewing vs. Web Serial flashing), input voltage range and protection, and the total setup effort.
 5. **Class decision:** each pod gives a short demo of its candidate. As a class, agree on **1–2 solutions** and write `Module02/scope-decision.md`:
-   - chosen solution(s) and repo/commit,
-   - install steps (Arduino IDE/PlatformIO) and pin mapping,
+   - chosen solution(s), role (A/B/C), and repo/commit,
+   - install steps (Web Serial, Arduino IDE, or PlatformIO) and pin mapping,
    - sample rate/timebase and input limits,
    - what it can and cannot capture,
    - test captures (PWM, I²C, optional OneWire),
