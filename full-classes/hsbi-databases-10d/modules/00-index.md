@@ -4,7 +4,7 @@
 
 > **Teaching this course?** The [instructor notes](../instructor-notes/README.md) have a per-session runbook — what to prepare, how to open, what is non-negotiable, what to cut.
 
-> Each module opens with its **learning goals** and a ***DRAFT BOUNDARY*** marking the content still under construction. How learning goals are assessed, and why the tasks are negotiable, is explained once in the [syllabus](../syllabus.md#how-module-points-are-earned-checkpoint-presentations).
+> Each module opens with its **learning goals** and a ***DRAFT BOUNDARY*** marking the content still under construction. How learning goals are assessed, and why the tasks are negotiable, is explained once in the [syllabus](../syllabus.md#how-module-points-are-earned-from-your-portfolio).
 
 ## Session roadmap (11 sessions + tutorials)
 
@@ -14,9 +14,9 @@
 | [Module 2](./02-data-contracts-and-legacy-schemas.md) | 2 | Data Contracts & Reading Legacy Schemas (ERD Audits) | *Conceptual Database Design (ERM/EERM), requirements analysis* | Reconstruct an ER model from a legacy schema, hunt integrity bugs, draft a code-first data contract. |
 | [Module 3](./03-llm-assisted-sql-and-query-profiling.md) | 3 | LLM-Assisted SQL & Query Profiling | *Standard SQL (DQL), relational algebra, query optimization* | Generate complex SQL with an LLM, read `EXPLAIN QUERY PLAN`, benchmark indexes, drill SQL injection. |
 | [Module 4](./04-integrity-constraints-and-triggers.md) | 4 | Data Integrity, Constraints & Edge Triggers | *Standard SQL (DDL/DML/DCL), data integrity, triggers/procedures* | `CHECK`/`UNIQUE`/`FK`, `STRICT` tables, generated columns, a trigger enforcing edge-telemetry rules. |
-| [Module 5](./05-normalization-vs-denormalization.md) | 5 | Normalization vs. Denormalization Benchmarking Studio | *Relational model, functional dependencies, 1NF–3NF* | Normalize to 3NF, denormalize on purpose, measure read/write/storage trade-offs in SQLite. |
-| [Module 6](./06-polyglot-embedded-persistence.md) | 6 | Polyglot & Embedded Persistence | *NoSQL, ACID vs. BASE, CAP theorem, DB within applications* | JSON documents in SQLite, DuckDB analytics over Parquet/CSV, a key-value comparison. |
-| [Module 7](./07-final-project-studio.md) | 7–10 | Final Project Studio | *Project planning and implementation* | Kickoff and story, requirement mapping, build, integrate, harden, peer review, rehearse. |
+| [Module 5](./05-normalization-vs-denormalization.md) | 5–6 | Normalization vs. Denormalization Benchmarking Studio | *Relational model, functional dependencies, 1NF–3NF* | Normalize to 3NF, denormalize on purpose, measure read/write/storage trade-offs in SQLite. |
+| [Module 6](./06-polyglot-embedded-persistence.md) | 6–7 | Polyglot & Embedded Persistence | *NoSQL, ACID vs. BASE, CAP theorem, DB within applications* | JSON documents in SQLite, DuckDB analytics over Parquet/CSV, a key-value comparison. |
+| [Module 7](./07-final-project-studio.md) | 8–10 | Final Project Studio | *Project planning and implementation* | Kickoff and story, requirement mapping, build, integrate, harden, peer review, rehearse. |
 | [Module 8](./08-final-project.md) | 11 | Final Project Specification, Demos & Oral Defenses | *Assessment* | 15-minute live demo + individual oral defense; retrospective. |
 | [Resource Prompts](./Y-resources-prompt-bank.md) | — | Supplementary | — | Reflection prompts, LLM-verification drills, quick references. |
 | [Resource Bank](./Z-resources-bank.md) | — | Supplementary | — | Cheat sheets, troubleshooting, datasets, extended reading. |

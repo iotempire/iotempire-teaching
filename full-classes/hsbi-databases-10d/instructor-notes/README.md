@@ -10,7 +10,7 @@ Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment l
 2. **Learning goals are the contract; tasks are negotiable.** Every module opens with its goals. Students may replace or skip tasks if they can still demonstrate the goals. That is why you assess conversations, not submissions.
 3. **You rarely lecture.** Most "input" is a pod study (20–30 min) with references and LLM prompts, followed by a concrete exercise and a share with a neighbouring pod. Your job is to walk, listen, and correct.
 4. **Every session has two harvests — collections, not quizzes.** At the break and again at the end, five minutes: students read out the curiosities they *marked while working* (an odd statement, a weird diagram, a bug, a UX surprise) and compare lists. Nobody explains and nobody is assessed; *"I collected these — which did you find?"* is the whole activity. Details in [Module 3](../modules/03-llm-assisted-sql-and-query-profiling.md), and one paragraph in the [syllabus](../syllabus.md#how-we-teach--challenge--and-project-based-in-person-and-always-in-flux).
-5. **Checkpoints, not an exam.** A short conversation per pod against the goals. Treated as *project work* in the module handbook — see the [syllabus](../syllabus.md) for the binding version.
+5. **Checkpoints are feedback, not an exam.** A short conversation per pod. Points for Modules 1–6 are recorded when you *see* the evidence; the graded assessment happens at the end. See [feedback rounds](./feedback-rounds.md) and the [syllabus](../syllabus.md).
 
 > [!IMPORTANT]
 > **If you teach one technical habit, make it `EXPLAIN QUERY PLAN`.** It is the spine of the second half of this course: it turns "it feels slow" into a claim you can check, it is the only performance skill that still matters when a model writes the SQL, and it appears in every module from 3 to 8 — the final project requires a before/after plan as evidence. Say the command out loud, prefix queries with it in front of the room, and ask "what does the plan say?" before "how long did it take?". Students copy that reflex faster than any slide can teach it.
@@ -28,12 +28,17 @@ Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment l
 
 Rooms: the schedule is 90 minutes, a 15-minute break, 90 minutes. Protect the break — it is part of the method, not slack.
 
-## Checkpoints (tentative: session 4 and session 8)
+## Checkpoints are feedback rounds (sessions 4 and 7)
 
-- 10–12 minutes per pod, including questions and feedback — **in person** wherever possible.
-- The pod presents from its **existing portfolios**, not from slides prepared for the occasion.
-- Students who miss it send a **7–10 minute video plus a 3–5 page excerpt** from the portfolio; expect to give less feedback than in person.
-- At the start of session 4, give two pods ~15 minutes each to present to **each other** first (free-style feedback). This proves the goals to a peer before they prove them to you, and halves your load.
+Nothing is graded in a checkpoint. A checkpoint exists so students hear what is missing while it is still cheap to fix.
+
+- **~10 minutes per pod**, in person, from the **existing portfolio** — never from slides prepared for the occasion.
+- **One artefact, one question, one next step.** That is the whole slot.
+- **"Not yet" is a complete answer.** Write it down and move on; do not rescue a pod inside the slot.
+- The round opens with a **peer practice**: two pods present to each other, **12 minutes each way**, with a 3-minute switch for feedback notes. The receiving pod does the **portfolio gate** (own repository, can edit, commit, link) and asks the questions from the manual.
+- Students who miss it send a **short video plus a portfolio excerpt**; they get less feedback, and lose no points.
+
+The run sheet, the 10-minute script and the fill-in template live in the **[feedback-round manual](./feedback-rounds.md)**.
 
 ## Before your first session (about two hours)
 
@@ -90,3 +95,4 @@ A short path, in this order: [SQLite "Appropriate Uses"](https://www.sqlite.org/
 | 6 | [06](./06.md) | JSON, DuckDB/Parquet, key-value. |
 | 7 | [07](./07.md) | Four project-studio sessions: story → vertical slice → review → rehearsal. |
 | 8 | [08](./08.md) | Demo day and individual defenses. |
+| — | [Feedback rounds](./feedback-rounds.md) | The 10-minute script, a 145-minute run sheet, and the fill-in [template](./feedback-template.md). |

@@ -2,7 +2,7 @@
 
 [← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Previous: Module 7 →](./07-final-project-studio.md)
 
-**Course placement:** Session 11 (demo + defense), built during Sessions 7–10. Worth **5 points (25 % of the base score)**.
+**Course placement:** Session 11 (demo + defense), built during Sessions 8–10. Worth **5 points (25 % of the base score)**.
 
 > [!IMPORTANT]
 > **The syllabus is the single source of truth for assessment.** This page is the detailed specification and rubric. If this page and the [syllabus](../syllabus.md#final-project-requirements-5-points) ever disagree, the syllabus wins; this page is the working detail behind those requirements.
@@ -46,7 +46,7 @@ These are the requirements every project must meet. They are deliberately mapped
 
 ## 📄 Documentation — 5 Pages, Concise
 
-Submit a **5-page** report (Markdown or PDF) in the project repository under `docs/report.md`. Five pages, not five pages *minimum* — conciseness is graded. Use this exact structure:
+Submit a **5-page** report (Markdown or PDF) in the project repository under `docs/report.md`. Five pages, not five pages *minimum* — conciseness is graded. **This report is the evidence for the *architecture* point; it is not a separate deliverable.** Use this exact structure:
 
 1. **Story & stakeholders (≈½ page).** The person, the pain, the data. Why this matters.
 2. **Schema & data model (≈1 page).** One ER diagram, the `CREATE TABLE` essentials, and the relationship(s) you enforce. State your normalization level and *why*.
@@ -75,11 +75,14 @@ Your final presentation has two parts: a **Project Team demo** and an **individu
 
 ## 📊 Evaluation Rubric (5 Points)
 
-| Criterion | Points | Excellent (full) | Sufficient (partial) | Weak / missing |
-|---|---|---|---|---|
-| **System functionality & measurement quality** | **2.0** | Meets all 7 must-haves; ingestion is reproducible; index proof is convincing; integrity rules fire correctly; evaluation numbers are credible | Meets most must-haves; one gap (e.g. weak benchmark) | Server/hand-loaded data, no measured index, missing integrity, or non-reproducible build |
-| **Architecture, documentation & evaluation** | **1.5** | Clear schema/data-flow diagram; ≤5-page report with real before/after evidence and an honest limitation; clean Git history; rebuildable in three commands | Report present and mostly complete; evidence thin in one section | Missing diagram, report over/under length, or no evidence |
-| **Live demonstration & oral defense** | **1.5** | End-to-end live demo runs; each member defends their decisions and trade-offs fluently; handles an injected fault | Demo runs but is partly slide-based, or defense is uneven across members | Demo fails without explanation, or members cannot defend their parts |
+Four things, five points:
+
+| Criterion | Points | What earns it |
+|---|---|---|
+| **Story** | **1** | A named person with a real problem, and data that answers it. A generic topic ("a database for a warehouse") earns nothing here. |
+| **Architecture** | **1** | A schema with at least one enforced relationship, reproducible ingestion, the headline query, and an interface a human can use. |
+| **Plan** | **1** | A one-page delivery plan with **your own dates** — and evidence that you followed or revised it. |
+| **Demo & individual defense** | **2** | **1** for a live end-to-end run in Session 11, **1** for every member answering for the part they own. |
 
 **Distribution of the 5 points across the Project Team.** The project score is a Project Team score, but the *oral defense* is individual. A member who cannot defend their contribution does not automatically fail the Project Team — the instructor records an individual note, and the bonus/reflection components (4 + up to 3 points) can offset it. Speak to the instructor **early** if a Project Team member is not contributing; that is a project-management problem we solve together, not a reason to wait until the demo.
 
@@ -107,7 +110,7 @@ Before Session 11, the project repository must contain:
 
 ## 🗓️ Where this fits in the course
 
-- Build time: [Module 7 — Final Project Studio](./07-final-project-studio.md) (Sessions 7–10).
+- Build time: [Module 7 — Final Project Studio](./07-final-project-studio.md) (Sessions 8–10).
 - Demo & defense: Session 11.
 - Points: 5 of the 20 base points (25 %). See the [syllabus assessment rules](../syllabus.md#assessment-project-work-20-base-points--bonus) and the [grade scale](../syllabus.md#grade-scale).
 

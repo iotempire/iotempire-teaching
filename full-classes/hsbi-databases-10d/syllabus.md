@@ -100,54 +100,31 @@ By the end of this course, you will be able to (mapped to the module-handbook co
 
 ## Assessment: Project Work (20 Base Points + Bonus)
 
-Assessment is **project work** — one of the forms the module handbook allows (*written examination, project work, or oral examination, or a combination*); there is **no written examination**. You build and maintain one big **GitHub repository**: the small tasks in each module are how you **prove that module's learning goals**, personalized through your **reflections**, and short **checkpoints** give you **feedback on whether those goals have been achieved** — while also giving the instructor a sense of your performance. In the **last session you present your final project to the instructor and to each other**.
-
-> [!IMPORTANT]
-> **Modules 1–6 are worth 11 of the 20 base points.** You earn them by demonstrating these modules' learning goals in short checkpoints — not by completing every task. Checkpoints are **tentatively at the start of day 4** (Modules 1–3) and **day 8** (Modules 4–6); see [How module points are earned](#how-module-points-are-earned-checkpoint-presentations).
+Assessment is **project work** — one of the forms the module handbook allows (*written examination, project work, or oral examination, or a combination*); there is **no written examination**. You keep one **GitHub portfolio** through the term and present a **final project** in the last session. **The graded assessment happens at the end of the term**, from that portfolio and that project.
 
 ### Points Breakdown
 
-| Component | Points | Details |
+| Component | Points | How it is earned |
 |---|---|---|
-| Modules 1–6 (Learning goals) | 11 points | Earned through short checkpoint presentations that prove the module learning goals from your portfolio: portfolio setup and the first profiling task (Module 1, 1 point), then schema trade-off benchmarks, trigger and constraint implementations, and query-optimization evidence (Modules 2–6, 2 points each). |
-| Reflection Points | 4 points | One reflection for each teaching block, captured in your personal logbook. |
-| Final Personal Meaningful Challenge Project | 5 points | 25 % of the base score. Story-driven local-first embedded database application in merged **Project Teams** of 4–6, evaluated via a working GitHub repository, 5-page documentation, and a 15-minute live demo + individual defense, **presented to the instructor and your peers on the last session**. |
-| **Base Total** | **20 points** | 100 % base score. |
-| Extra / Bonus Points | up to +3 | Exceptional benchmarking, accepted open-source pull requests to IoTempower or class repositories, or peer debugging assistance. |
+| Modules 1–6 | **11** | **1 point for Module 1, 2 points for each of Modules 2–6.** I record a module's points when your portfolio shows you reached that module's learning goals. |
+| Reflections | **4** | One short logbook entry per teaching block — four blocks, one point each. |
+| Final project | **5** | **3 points for the work** — your **story**, your **architecture** (schema, ingestion, query, interface), and your **plan** — and **2 points for the demo and your individual defense** in week 11. |
+| **Base total** | **20** | Pass at **14 / 20** (~70 %). |
+| Bonus | up to +3 | Optional; the total stays capped at 20. |
 
-- **Score cap:** The final score is capped at 20 points, even if bonus points are earned. Bonus points compensate for minor weaknesses in regular deliverables, but all compulsory components must still be attempted.
-- **Passing threshold:** Minimum **14 out of 20 points** (~70 %) to pass (*bestanden*).
+### How module points are earned: from your portfolio
 
-### How module points are earned: checkpoint presentations
+There is no exam to pass module by module. For each of Modules 1–6 I look for the module's **learning goals** in your portfolio and record its points as soon as I can see them — in a checkpoint, in the studio, or in the final portfolio review, whichever comes first. **You never have to prove the same goal twice.**
 
-You do not submit and grade every task. Instead, you earn a module's points in a short checkpoint presentation — **10–12 minutes, including questions and feedback** — with the instructor, based on your portfolio and reflection logbook. Checkpoints are done **with your Task Pod, in person**, and cover a few modules at a time: **tentatively the start of day 4** (Modules 1–3) and **day 8** (Modules 4–6). Dates and slots are confirmed through the LMS.
+**Checkpoints are feedback, not assessment.** We meet for about ten minutes with your **Task Pod** (two or three people), look at what you have, and talk about what is missing. Nothing is decided in that conversation. If a module's goals are not visible yet, the answer is **"not yet"**, and you show them later. Missing a checkpoint costs you feedback, not points.
 
-**Task Pods, and how checkpoints scale.** We work in **Task Pods** — small crews of **two or three** (three by default for this cohort). Our usual default is pairs, but with **more than ~40 students we default to three-person pods** to keep the number of checkpoints workable; a few **two-person pods** are welcome precisely because they reduce the instructor's checkpoint load, and a **fourth** podmate is allowed only by arrangement. The point is *small*, not rigid.
+**Each round opens with a peer practice.** Your pod presents to a neighbouring pod, then they present to you — **12 minutes each way**, with a three-minute switch to write feedback notes. You start by opening your **own portfolio** on your own device, so the other pod can check that it is yours and that you can edit, commit, and link in it. Then each of you shows **one artefact** that proves a learning goal, and the pod shows **one reflection** it is proud of.
 
-> **Why “Task Pod”?** In container orchestration (Kubernetes), a **pod** is the *smallest deployable unit* — one or a few tightly-coupled containers that are scheduled, run, and retired together. A **Task Pod** is the same idea for people: your tight little crew of two or three that owns one task end-to-end. Your **Project Team** is the larger unit — the alliance of two pods that ships the whole application.
+**If you are ill on the day.** Tell your pod and me — this is not a problem to solve alone. You can **join the round by video call**, your pod can **record it** and share the recording, and if something about *your* contribution is missing from what they show, **send me a short message** so it is on the record. If it needs a real conversation, **book a 15-minute slot in my office hour**. None of this changes your points; it only changes how much feedback you get.
 
-**These Task Pods are for the labs and checkpoints; the final project merges two pods into a Project Team of 4–6** (see [Final Project Requirements](#final-project-requirements-5-points)).
+**Task Pods and Project Teams.** Your Task Pod of two or three is the unit for labs and checkpoints. For the final project, two pods merge into a **Project Team of 4–6**.
 
-**Checkpoint formats.** A **Task Pod** may use either format:
-
-- **Pod checkpoint (default).** Your pod books a **10–12 minute** slot and walks the instructor through the module's learning goals from your portfolios.
-- **2-pod practice round (for larger cohorts).** Two pods pair up: each pod presents its learning-goal proof from its portfolios to the other pod, and the other pod gives **free-style feedback and questions** — still checking each other on how well the goals were proven. The instructor assesses from the presentations and the portfolios.
-
-**Day 4 — a 2-pod practice round (30 minutes).** The first checkpoint runs as a **30-minute practice round** at the start of day 4. Two pods pair up; each pod presents from its **existing portfolios** for **10–15 minutes**, and the other pod gives **free-style feedback and questions**, checking how well the goals were proven. The instructor assesses from the presentations and the portfolios; pairings can rotate at the next round.
-
-In a checkpoint, you:
-
-1. **Show your evidence** — portfolio entries, benchmark tables, SQL, `EXPLAIN QUERY PLAN` screenshots, and reflections for the modules being checked.
-2. **Prove the learning goals** — the goals listed at the top of each module. Walk the instructor through how your work shows you reached them, and answer questions about them (expect to run a query or read a plan live).
-
-**Because assessment targets the learning goals — not task completion — the tasks are negotiable.** You are free to skip tasks, fail at tasks, or add your own, and for tasks below a module's draft boundary to **modify or replace them entirely, as long as you reach the same learning goals**. An honest, documented failure counts as exploration, not as a loss, and a convincing demonstration of deep understanding or analysis is rewarded generously.
-
-Practical notes:
-
-- Bring your portfolio (and your laptop with the SQLite/DuckDB databases open) to the checkpoint.
-- Expect to explain a design choice, justify an index, or debug a broken constraint live.
-- For a **2-pod practice round**, bring your portfolio ready to present, and expect to give — and take — free-style feedback.
-- If you **cannot attend in person**, talk to the instructor early and submit a **7–10 minute video** plus a **3–5 page explained excerpt** from your portfolio for review. You get **less feedback** than in an in-person checkpoint; a missed in-person checkpoint without such a submission is handled like a missed deadline.
+**Why it is built this way.** In database work the evidence is the artefact: a schema, a query plan, a benchmark table, a constraint that refuses bad data. Your portfolio is where those live, and a short conversation about them is a better test than a written exam — and a better use of our time than grading every task.
 
 ### Task tiers: ★ Core and ◇ Stretcher
 
@@ -185,7 +162,7 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 
 ## 11-Session Course Schedule
 
-The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6), and the final-project arc (Modules 7–8). Sessions 1–6 are taught studios; Sessions 7–10 are project studios; Session 11 is demo and defense. Optional **TA-led tutorial sessions** (times announced via the LMS) add catch-up, deeper practice, and project support.
+The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6), and the final-project arc (Modules 7–8). Sessions 1–7 are taught studios, with Modules 5–6 spread over three weeks; Sessions 8–10 are project studios; Session 11 is demo and defense. Optional **TA-led tutorial sessions** (times announced via the LMS) add catch-up, deeper practice, and project support.
 
 The full roadmap — with a one-line summary and learning goals for every studio — is in the [module index](./modules/00-index.md).
 
@@ -196,17 +173,17 @@ The full roadmap — with a one-line summary and learning goals for every studio
 | 1 | [Module 1 — Introduction & Local-First Foundations](./modules/01-introduction-and-local-first.md) | How the class works, then SQLite vs. server overkill: stand up an embedded DB in-process, load edge telemetry, and audit an LLM's first query. |
 | 2 | [Module 2 — Data Contracts & Reading Legacy Schemas](./modules/02-data-contracts-and-legacy-schemas.md) | Reconstruct an ER model from a legacy schema, find integrity bugs, draft a code-first data contract. |
 | 3 | [Module 3 — LLM-Assisted SQL & Query Profiling](./modules/03-llm-assisted-sql-and-query-profiling.md) | Generate complex SQL with an LLM, then read `EXPLAIN QUERY PLAN`, test parameterization, benchmark an index, and drill injection. |
-| 4 | [Module 4 — Data Integrity, Constraints & Edge Triggers](./modules/04-integrity-constraints-and-triggers.md) **+ Checkpoint 1** | *30 min peer checkpoint first (two pods, Modules 1–3), then:* `CHECK`/`UNIQUE`/`FK`, `STRICT` tables, generated columns, and a trigger that enforces edge telemetry rules. |
-| 5 | [Module 5 — Normalization vs. Denormalization Benchmarking Studio](./modules/05-normalization-vs-denormalization.md) | Normalize to 3NF, denormalize on purpose, and measure read/write/storage trade-offs in SQLite. |
-| 6 | [Module 6 — Polyglot & Embedded Persistence](./modules/06-polyglot-embedded-persistence.md) | JSON documents in SQLite, DuckDB analytics over Parquet/CSV, a key-value comparison. |
-| 7 | [Module 7 — Final Project Studio — kickoff & build](./modules/07-final-project-studio.md) | Story and Project Teams, requirement mapping, schema and ingestion build. |
-| 8 | [Module 7 — Final Project Studio — build & integrate](./modules/07-final-project-studio.md) **+ Checkpoint 2** | Checkpoint 2 first (Modules 4–6), then build the vertical slice and integrate the interface. |
-| 9 | [Module 7 — Final Project Studio — integrity, security & evaluation](./modules/07-final-project-studio.md) | Constraints/triggers, a full parameterization pass, indexing proof, and benchmark evidence. |
-| 10 | [Module 7 — Final Project Studio — peer review & rehearsal](./modules/07-final-project-studio.md) | Peer review, fixes, and a timed 15-minute demo dry run. |
+| 4 | [Module 4 — Data Integrity, Constraints & Edge Triggers](./modules/04-integrity-constraints-and-triggers.md) **+ Checkpoint 1 (feedback)** | *Peer-pod feedback round first (Modules 1–3), then:* `CHECK`/`UNIQUE`/`FK`, `STRICT` tables, generated columns, and a trigger that enforces edge telemetry rules. |
+| 5 | [Module 5 — Normalization vs. Denormalization](./modules/05-normalization-vs-denormalization.md) | Normalize to 3NF, denormalize on purpose, and measure read/write/storage trade-offs in SQLite. |
+| 6 | Modules 5–6 — finish the normalization benchmark, start polyglot persistence | Complete the Module 5 benchmark table, then JSON documents in SQLite. |
+| 7 | [Module 6 — Polyglot & Embedded Persistence](./modules/06-polyglot-embedded-persistence.md) **+ Checkpoint 2 (feedback)** | DuckDB analytics over Parquet/CSV, a key-value comparison, and a feedback round on Modules 4–6. |
+| 8 | [Module 7 — Project Studio — story, architecture, plan](./modules/07-final-project-studio.md) | Teams merge; story, one-page plan with your own dates, first vertical slice. |
+| 9 | [Module 7 — Project Studio — build & integrate](./modules/07-final-project-studio.md) | Build the slice out: ingestion, headline query, interface. |
+| 10 | [Module 7 — Project Studio — harden, review, rehearse](./modules/07-final-project-studio.md) | Constraints, parameterization, index proof, peer review, timed rehearsal. |
 | 11 | [Module 8 — Live Demos & Oral Defenses](./modules/08-final-project.md) | 15-minute Project Team demo + individual oral defense; retrospective. |
 
 > [!TIP]
-> **Buffer, pacing, and tutorials:** Sessions 7–10 are project studios, and at least one of them is deliberately loose — it can absorb spill-over from earlier labs, be released as flexible time, or be used for stretcher tasks and peer mentoring. The optional tutorial sessions (times announced via the LMS) are the natural home for catch-up and deeper deep dives. Announce the concrete use of each date in the LMS as the course progresses.
+> **Buffer, pacing, and tutorials:** Sessions 8–10 are project studios, and at least one of them is deliberately loose — it can absorb spill-over from earlier labs, be released as flexible time, or be used for stretcher tasks and peer mentoring. The optional tutorial sessions (times announced via the LMS) are the natural home for catch-up and deeper deep dives. Announce the concrete use of each date in the LMS as the course progresses.
 
 ## Final Project Requirements (5 Points)
 
@@ -222,11 +199,14 @@ The final project is a local-first, embedded database application built by **Pro
 6. **Evaluation**: documented performance and integrity evidence — query timings, plan output, storage size, or load throughput.
 7. **Reliability and a reachable interface**: the app recovers from a corrupt/missing row gracefully and exposes the data through an interface a human can use (Datasette, a CLI, a small app, or a dashboard).
 
-### Assessment Criteria:
+These seven are the **content criteria behind the architecture point** — they are not graded one by one. Meet them inside the three artefacts (story, architecture, plan) and the demo.
 
-- **System functionality & measurement quality (2 points):** Meets specifications; ingestion, query, and integrity behavior are credible and reproducible.
-- **Architecture, documentation & evaluation (1.5 points):** Clear schema/data-flow diagram, schema and index documentation, benchmark evidence, and the 5-page report.
-- **Live demonstration & oral defense (1.5 points):** A clear 15-minute Project Team demo showing the data flowing end-to-end, plus individual answers on the underlying design decisions and trade-offs.
+### Assessment Criteria (5 points)
+
+- **Story (1 point):** a named person, a real problem, and the data that answers it.
+- **Architecture (1 point):** a schema with at least one enforced relationship, reproducible ingestion, the headline query, and an interface a human can use.
+- **Plan (1 point):** a one-page list of what you will deliver with the dates **you** chose — and evidence that you followed or revised it.
+- **Demo and individual defense (2 points):** a live end-to-end run in week 11, and one question per team member about the part they own.
 
 See the full [final project specification](./modules/08-final-project.md) for the demo script, documentation template, and the detailed rubric.
 

@@ -2,14 +2,17 @@
 
 [← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 8 →](./08-final-project.md)
 
-**Course placement:** Sessions 7–10. Four project-studio sessions: kickoff and story, requirement mapping, build, integration, hardening, peer review, and rehearsal. The *specification* — Project Teams, must-haves, documentation, and the demo rubric — lives in [Module 8](./08-final-project.md); this module is the **studio guide** for how you spend the time.
+**Course placement:** Sessions 8–10. Three project-studio sessions: story and plan, build and integration, hardening, peer review, and rehearsal. The *specification* — Project Teams, must-haves, documentation, and the demo rubric — lives in [Module 8](./08-final-project.md); this module is the **studio guide** for how you spend the time.
 
 > [!IMPORTANT]
-> This is where the final project is built. Read [Module 8](./08-final-project.md) **before** Session 7 — you are expected to arrive with your **Project Team** and a one-paragraph story.
+> This is where the final project is built. Read [Module 8](./08-final-project.md) **before** Session 8 — you are expected to arrive with your **Project Team** and a one-paragraph story.
+
+> [!TIP]
+> **What is graded — and what is not.** The project is **3 points for the work** — the **story**, the **architecture** (schema, ingestion, headline query, interface) and the **plan** — plus **2 points** for the demo and your individual defense in Session 11. The steps below are a **menu** for building those three things, not a checklist: none of them is graded on its own, and you may merge, reorder, or skip them as long as the three artefacts exist and work.
 
 ## 🎯 Learning Goals
 
-By the end of these four sessions, your **Project Team** has:
+By the end of these three sessions, your **Project Team** has:
 
 1. A **stakeholder story** that names a real person, a real problem, and the data that solves it.
 2. A **mapped requirement set**: which must-have from Module 8 is covered by which deliverable.
@@ -38,7 +41,7 @@ That paragraph already implies entities (line, stop event, cause), a cardinality
 
 **Where this comes from.** Starting from concrete scenarios instead of class diagrams is *[Story Driven Modeling](https://en.wikipedia.org/wiki/Story-driven_modeling)* — Norbisrath, Zündorf & Jubeh, **Story Driven Modeling** (CreateSpace, 2013, ISBN 978-1483949253). It is why we begin with a named person and a moment of pain rather than an entity list.
 
-## 🛠️ Session 7 — Kickoff & Build (the "make it real" session)
+## 🛠️ Session 8 — Story, Plan, and the First Slice
 
 ### ★ Step 1: Story and Project Team charter
 
@@ -64,7 +67,7 @@ Fill in this table in `docs/requirements.md` — it is your checklist and your d
 
 *Evidence:* `docs/requirements.md` with the table filled in.
 
-### ★ Step 3: Build the vertical slice (rest of Session 7)
+### ★ Step 3: Build the vertical slice (rest of Session 8)
 
 Do not build breadth first — build **one path end-to-end**:
 
@@ -90,7 +93,7 @@ myproject/
 
 *Evidence:* commits for `schema.sql`, `ingest.py`, `queries.sql`, and a first interface.
 
-## 🛠️ Sessions 8–10 — Build, Review, and Rehearse
+## 🛠️ Sessions 9–10 — Build, Review, and Rehearse
 
 ### ★ Step 4: Benchmark and harden (first half)
 
