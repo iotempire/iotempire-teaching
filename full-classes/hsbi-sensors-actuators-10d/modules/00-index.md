@@ -8,7 +8,7 @@
 |:---:|:---:|---|---|
 | [Module 0 — Pre-study](../pre-study.md) | Before Day 1 | Portfolio, measurement basics, Wokwi | Measurement chain, datasheet reading, ADC resolution in simulation, first project abstract. |
 | [Module 1](./01-foundations-measurement-and-sensor-chain.md) | Day 1 | Foundations: Electronics, Arduino & Measurement | Basic electronics (LED actor, button with pull-up/pull-down, debouncing), Arduino serial console and plotting, metrology and the signal chain, ADC precision dance, LDR and first filtering. |
-| [Module 2](./02-i2c-and-sensor-addressing.md) | Day 2 | Buses & I²C: From Simple Pins to One Bus, Many Devices | Simple pins/PWM/UART/voltage divider, bus survey (RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire), I²C wiring/scan/register, address conflicts, scope/analyzer sprint. |
+| [Module 2](./02-i2c-and-sensor-addressing.md) | Day 2 | Buses & I²C: From Simple Pins to One Bus, Many Devices | Simple pins/PWM/voltage divider (optional UART detour), bus survey (RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire), I²C wiring/scan/register, address conflicts, scope/analyzer sprint. |
 | [Module 3](./03-sensor-characterization-and-calibration.md) | Day 3 | Sensor Characterization, Calibration & Data Quality | Transfer function, linearity, hysteresis, calibration, filtering, uncertainty of an NTC/LDR. |
 | [Module 4](./04-distance-motion-and-environment-sensors.md) | Day 4 | Distance, Motion & Environment Sensors **+ Checkpoint 1** | ToF and ultrasonic distance, people counting, IMU tilt/drift/fusion, Hall current sensing. |
 | [Module 5](./05-leds-and-light-output.md) | Day 5 | LEDs & Light as Output | Current limiting, PWM and gamma, RGB mixing, addressable WS2812, power budget. |

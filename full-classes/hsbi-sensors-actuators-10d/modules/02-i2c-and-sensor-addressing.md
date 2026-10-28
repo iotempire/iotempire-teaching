@@ -2,9 +2,9 @@
 
 [← Back to Module 1](./01-foundations-measurement-and-sensor-chain.md) | [Quick module index](./00-index.md) | [Next: Module 3 →](./03-sensor-characterization-and-calibration.md)
 
-**Course placement:** Day 2 — the module runs across the day's two to three 90-minute sessions, with a break(s) between them. We start with the bus landscape (simple pins and UART → RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire), zoom into I²C, and finish by building and choosing the scope/logic analyzer we use for the rest of the course. The instrument build is deliberately exploratory and a little . Let's compare results and progress after an hour and see how much time, we will further invest here or if we all focus on one or two tools.
+**Course placement:** Day 2 — the module runs across the day's two or three 90-minute sessions, with breaks between them. We start with the bus landscape (simple pins, with an optional UART detour → RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire), zoom into I²C, and finish by building and choosing the scope/logic analyzer we use for the rest of the course. The instrument build is deliberately exploratory and a little risky. Let's compare results and progress after an hour to decide how much more time to invest here, or whether the class should focus on one or two tools.
 
-> **Session shape.** Session 1: simple pins, UART, and the divider; launch the bus survey. Session 2: bus pitches and the class comparison, then the I²C pod study and the scan/register lab. Address conflicts and the instrument sprint are the natural carry-over into self-study; start the build in class so the class can compare candidates together. Keep the sequence; move the break points to fit the room.
+> **Session shape.** Start with simple pins and the divider (UART only as the optional detour), then launch the bus survey. In the next session, collect the comparisons, run the I²C **walkthrough or pod study**, and start the scan/register lab. Use the remaining time for address conflicts and the instrument sprint; carry what does not fit into self-study. Keep the sequence; move the break points to fit the room.
 
 > **Why this order?** A bus is not just a wire. You need the comparison first — point-to-point vs. multi-drop, single-ended vs. differential, addressing vs. chip-select, short vs. long cable — before I²C's two-wire elegance makes sense. And you need I²C traffic before the scope/analyzer sprint has something real to capture.
 
@@ -13,7 +13,7 @@
 This module gives you the opportunity to explore buses and device addressing and achieve competency in the bus landscape, I²C physics and addressing, register maps, multi-device buses, and low-cost bus instrumentation.
 
 By the end of this module, you can:
-1. Compare simple digital/analog/PWM pins, UART serial, and the main buses (RS-232, RS-485, Modbus RTU, CAN, I²C/I³C, SPI, OneWire) by wiring, voltage, signaling, drive style, speed, length, topology, use, and historical origin — and explain why PWM is not a bus.
+1. Compare simple digital/analog/PWM pins and the main buses (RS-232/UART, RS-485, Modbus RTU, CAN, I²C/I³C, SPI, OneWire) by wiring, voltage, signaling, drive style, speed, length, topology, use, and historical origin — and explain why PWM is not a bus.
 2. Explain how I²C works physically and logically: two wires, open-drain, pull-ups, addressing, ACK/NACK, repeated start, clock stretching.
 3. Wire and scan an I²C bus and identify every connected device by address.
 4. Read a sensor through a library and read its raw registers directly.
@@ -28,14 +28,14 @@ By the end of this module, you can:
 
 The scanner finds a single address. Reads are intermittent. Mara asks the question that turns a wiring problem into a lesson: *"If both sensors are on the same two wires, how does the controller know which one is answering?"* Before you can answer, you need the bus landscape: what a simple pin can do, and where I²C sits among RS-232, RS-485, Modbus, CAN, SPI, and OneWire. Today you build that map, then zoom in.
 
-*Hardware for the module:* 1× ESP32 DevKit or ESP32 Ethernet mini kit per pod, 2× I²C sensor modules with different addresses (e.g. environment sensor + MPU6050 or VL53L0X), jumper wires, one shared multimeter, optional USB-serial adapter or second board for the UART check, optional 2× 10 kΩ pull-ups, optional voltage divider/clamp for the scope input, optional Linux host or Raspberry Pi with `i2c-tools`.
+*Hardware for the module:* 1× ESP32 DevKit or ESP32 Ethernet mini kit per pod, 2× I²C sensor modules with different addresses (e.g. environment sensor + MPU6050 or VL53L0X), jumper wires, one shared multimeter, optional 2× 10 kΩ pull-ups, optional voltage divider/clamp for the scope input, optional Linux host or Raspberry Pi with `i2c-tools`; add a USB-serial adapter or second board only if you take the optional UART detour in Task 1.
 
 > [!WARNING]
 > Power off before rewiring. Check that every module's logic voltage matches 3.3 V. I²C modules with their own 5 V pull-ups can over-voltage a 3.3 V device — check before connecting. The scope/analyzer inputs are **3.3 V only**; use a divider or clamp for higher voltages and never connect to mains-referenced circuits.
 
 ## 🛠️ Studio Lab 1: From Simple Pins to Buses — **Challenging**
 
-### ★ Task 1: Simple pins, PWM, UART, and a voltage divider
+### ★ Task 1: Simple pins, PWM, and a voltage divider
 
 Before the bus survey, get the baseline right. Work in your pod and record the answers in `Module02/pins-and-dividers.md`.
 
@@ -50,11 +50,19 @@ Before the bus survey, get the baseline right. Work in your pod and record the a
    Example: Vin = 5 V, R1 = 10 kΩ, R2 = 20 kΩ → Vout = 5 · 20 / 30 = 3.33 V
    ```
    Measure `Vout` with the multimeter and compare it with the calculation.
-3. **Watch a UART line.** Open the serial console and send one line to a second device or a USB-serial adapter (or loop TX back to RX). Note the baud rate, and how you would recognize a wrong baud rate. Then explain in one sentence what an RS-485 transceiver adds for a 20 m multi-drop run.
-4. **Explain the why.** Why does a 5 V sensor need a divider for a 3.3 V board? Where else does a divider help (resistance sensors, level protection, reference scaling)?
-5. **Write the baseline table** in `Module02/pins-and-dividers.md`: connection, wires, voltage, speed/length, example, failure mode.
+3. **Explain the why.** Why does a 5 V sensor need a divider for a 3.3 V board? Where else does a divider help (resistance sensors, level protection, reference scaling)?
+4. **Write the baseline table** in `Module02/pins-and-dividers.md`: connection, wires, voltage, speed/length, example, failure mode.
 
-*Portfolio evidence:* `Module02/pins-and-dividers.md` linked or embedded in the top Module 2 README with the table, the UART note, the divider calculation, and the measurement.
+*Portfolio evidence:* `Module02/pins-and-dividers.md` linked or embedded in the top Module 2 README with the table, the divider calculation, and the measurement.
+
+#### ◇ Optional UART detour (very optional — only if the divider is done)
+
+UART is covered by the bus survey in Task 2; you do **not** need to wire it here. If you have time left and want the hands-on version:
+
+- Open the serial console and send one line to a second device or a USB-serial adapter (or loop TX back to RX). Note the baud rate, and how you would recognize a wrong baud rate.
+- In one sentence: what does an RS-485 transceiver add for a 20 m multi-drop run?
+
+*Optional evidence:* the UART note in `Module02/pins-and-dividers.md`.
 
 ### ★ Task 2: Bus systems survey — research and pitch
 
@@ -104,18 +112,20 @@ With fewer pods, combine Modbus RTU + CAN or use OneWire as the backup. With mor
 - Sources and verification:
 ```
 
-Keep it short — one page, one table or image, the facts that matter for choosing and debugging, and a short “curiosities” list. Post the best table/image in the course Discord, and be ready to give a short pitch.
+Keep it short — one page, one table or image, the facts that matter for choosing and debugging, and a short “curiosities” list. Post the best table/image in the course channel, and be ready to give a short pitch.
 
 *Portfolio evidence:* `Module02/bus-<name>.md` plus your notes from the other pods' pitches.
 
-### ★ Task 3: Build the class comparison table
+### ★ Task 3: Collect the class comparison table — whole class
 
-Merge the pod profiles into one class table. Suggested columns:
+Your pod's profile is the input. **The instructor collects the profiles in class** (from the course channel, a shared document, or the pod pitches) and builds the table with the room. You do not need a separate per-pod file — the task is the shared collection and the discussion around it.
+
+Suggested columns:
 
 | Bus | Wires | Signaling | Drive style | Topology / addressing | Speed / length | Typical use | Kit example | Debug tool |
 |---|---|---|---|---|---|---|---|---|
 
-Then discuss and write down the answers:
+Then discuss as a class and capture the answers:
 
 1. Which buses are **point-to-point**, which are **multi-drop**, which are **multi-master**?
 2. Which need **termination**? Which are **differential**? Which are **self-clocking**?
@@ -124,13 +134,15 @@ Then discuss and write down the answers:
 5. Which bus would you choose for **20 m across a room**, for **20 sensors on one board**, and for a **motor driver**? Give one sentence each.
 6. Which bus is the oldest, and which design constraint from its era is still visible in its wiring or protocol?
 
-*Portfolio evidence:* `Module02/bus-comparison.md` (or a link to the shared class table) with your bus-choice sentences, your open-drain/voltage answer, and one “what surprised me” note.
+*Portfolio evidence:* a link or screenshot of the shared class table, your pod's row/contribution, and one “what surprised me” note in your study log or module README.
 
 ## 📖 Pod Study: One Bus, Many Devices (I²C)
 
-### ★ Task 4: I²C pod study — all pods, same bus
+### ★ Task 4 (or whole-class walkthrough): I²C pod study — all pods, same bus
 
 **All pods do this task at the same time.** Unlike the bus survey in Task 2, this is not a jigsaw: everyone studies the same I²C material, then compares notes with a neighbouring pod. Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+
+> **Whole-class alternative.** If the instructor runs a whole-class I²C walkthrough, this task becomes optional: take notes from the walkthrough, use them as your study log, and go straight to Task 5. The concept sections below are then reference material, not a separate assignment.
 
 ### The I²C Bus
 
@@ -187,13 +199,11 @@ Your class comparison table has the full landscape; this is the subset you will 
 
 ### Questions to ask an LLM (then verify against your hardware)
 
-Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
+Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Pick one or two prompts:
 
 - "Explain I²C to a student who has only used GPIO. What do START, ACK/NACK, repeated start, and clock stretching mean, and how would I see each on a logic analyzer?"
 - "My scan shows `0x3C` but my library wants `0x78`. Explain the 7-bit vs. 8-bit address convention and show the shift."
-- "Two identical sensors answer at `0x68`. List every way to make them coexist, with the trade-offs of each."
 - "Here is a register map from a sensor datasheet: `<paste the relevant page>`. Walk me through reading one raw value with `Wire`, including the byte order and scaling."
-- "Why do I²C lines need pull-up resistors, and what changes when I add more devices or a longer cable?"
 
 > Run each prompt against your own bus, and record where the model is wrong, vague, or over-confident.
 
@@ -201,11 +211,9 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 Work through the concepts above with your Task Pod and fill in `Module02/study-log.md`:
 
-1. **The references you used** — the source and the one concept you understood best from it.
-2. **Things you googled** — the term, what you found, and the source (URL). One line each.
-3. **Remarkable things** — surprises, "aha"s, and counterexamples from your own bus.
-4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
-5. **Your two best found bus explanations or diagrams** — compile down to the best two, with source and what they taught you.
+1. **References and sources** — what you used and the one concept each taught you.
+2. **Remarkable things** — surprises, counterexamples, and one LLM Q&A with **how you verified it** (and where it was wrong).
+3. **Your best found explanation or diagram** — one, with source and what it taught you.
 
 *Portfolio evidence:* `Module02/study-log.md`.
 
@@ -213,13 +221,9 @@ Work through the concepts above with your Task Pod and fill in `Module02/study-l
 
 Pair with a **neighbouring pod**:
 
-1. **Explain to each other** — each pod walks the other through its bus profile and its I²C study log; compare the bus choices and fill each other's gaps.
-2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"a scan shows the 7-bit address; the library may want the 8-bit form"*).
-3. **Clean up your documentation** — update your `study-log.md` with what you learned from the other pod.
-4. Agree on **one shared artefact** — the best bus table, a scan map, or a new diagram the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
-5. Each member adds a short **“Agreed learning (pod discussion)”** section to *their own* `study-log.md`.
-
-*Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section) and your pod-pair's shared artefact.
+1. **Explain to each other** — walk through your bus profile and I²C study log; compare the bus choices and fill each other's gaps.
+2. Agree on the **3 most noteworthy points** and **one shared artefact** — the best bus table, a scan map, or a new diagram the two pods make together. **Post it in the course channel** with one sentence on why you chose it.
+3. Update your own `study-log.md` with what you learned and add a short **“Agreed learning (pod discussion)”** section.
 
 ## 🛠️ Studio Lab 2: Talk to the I²C Bus — **Challenging**
 
@@ -357,15 +361,16 @@ With the class scope/analyzer chosen in Task 9, capture one I²C transaction:
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. Simple pins, UART, and divider: the table, the `Vout` calculation, and the multimeter measurement (`Module02/pins-and-dividers.md`).
+1. Simple pins and divider: the table, the `Vout` calculation, and the multimeter measurement (`Module02/pins-and-dividers.md`). Optional: the UART note if you took the detour.
 2. Bus profile: `Module02/bus-<name>.md` including history/background, relation to the other buses, one or two curiosities, and your verification notes (which claims came from a datasheet or the bench vs. an LLM).
-3. Class comparison: `Module02/bus-comparison.md` (or a link to the shared table) with your bus-choice sentences, the open-drain/voltage answer, and one “what surprised me” note.
-4. Scope decision: chosen solution(s), repo/commit, install steps, pin mapping, sample rate, input limits, and the PWM/I²C test captures. Include one sentence on what the chosen tool cannot measure.
-5. Scan artifact: serial output of at least two scans (one device, two devices), with each address mapped to its module.
-6. Register proof: the raw register value you read and the reconstruction you computed with the datasheet formula, next to the library's value.
-7. Address table: for each device in the kit: type, interface, address(es), and whether the address is configurable.
-8. Conflict report: how you created and resolved (or would resolve) an address conflict.
-9. Deeper question: Why does adding a second I²C device not need a second data pin, and what are the limits of that elegance (capacitance, address space, speed, one defective device pulling the bus down)?
+3. Class comparison: a link or screenshot of the shared class table, your pod's row/contribution, and one “what surprised me” note.
+4. I²C study log: `Module02/study-log.md`, or your notes from the whole-class I²C walkthrough.
+5. Scope decision: chosen solution(s), repo/commit, install steps, pin mapping, sample rate, input limits, and the PWM/I²C test captures. Include one sentence on what the chosen tool cannot measure.
+6. Scan artifact: serial output of at least two scans (one device, two devices), with each address mapped to its module.
+7. Register proof: the raw register value you read and the reconstruction you computed with the datasheet formula, next to the library's value.
+8. Address table: for each device in the kit: type, interface, address(es), and whether the address is configurable.
+9. Conflict report: how you created and resolved (or would resolve) an address conflict.
+10. Deeper question: Why does adding a second I²C device not need a second data pin, and what are the limits of that elegance (capacitance, address space, speed, one defective device pulling the bus down)?
 
 > [!IMPORTANT]
 > Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.
