@@ -138,9 +138,12 @@ Then discuss as a class and capture the answers:
 
 ## 📖 Pod Study: One Bus, Many Devices (I²C)
 
-### ★ Task 4 (or whole-class walkthrough): I²C pod study — all pods, same bus
+### ◇ (optional) Task 4 (or whole-class walkthrough): I²C pod study — all pods, same bus
 
 **All pods do this task at the same time.** Unlike the bus survey in Task 2, this is not a jigsaw: everyone studies the same I²C material, then compares notes with a neighbouring pod. Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+
+> [!NOTE]
+> **Instructor note — sequencing option.** Task 4 can also run **after Task 9 (Build and Choose Our Scope)**: once students have their own working logic analyzer, START, ACK/NACK, and clock stretching are much easier to see on the wire. Keep the task where it is for now; this is an option for a future run, not a required reordering. The task does not depend on the instrument — the instrument makes the concepts concrete.
 
 > **Whole-class alternative.** If the instructor runs a whole-class I²C walkthrough, this task becomes optional: take notes from the walkthrough, use them as your study log, and go straight to Task 5. The concept sections below are then reference material, not a separate assignment.
 
@@ -207,7 +210,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 > Run each prompt against your own bus, and record where the model is wrong, vague, or over-confident.
 
-### ★ Task 4a: I²C study log
+### ◇ (optional) Task 4a: I²C study log
 
 Work through the concepts above with your Task Pod and fill in `Module02/study-log.md`:
 
@@ -217,7 +220,7 @@ Work through the concepts above with your Task Pod and fill in `Module02/study-l
 
 *Portfolio evidence:* `Module02/study-log.md`.
 
-### ★ Task 4b: Share your bus profile and I²C study log
+### ◇ (optional) Task 4b: Share your bus profile and I²C study log
 
 Pair with a **neighbouring pod**:
 
@@ -268,7 +271,7 @@ Pair with a **neighbouring pod**:
 3. Read both sensors in one sketch. Confirm that adding a device did not require new pins.
 4. Note the two addresses in your portfolio and explain why they can coexist.
 
-### ★ Task 8: Create and Resolve an Address Conflict
+### ◇ (optional)Task 8: Create and Resolve an Address Conflict
 
 1. If you have two modules with the same fixed address, connect both. Scan: only one address appears, and reads become unreliable or wrong. Explain what the bus is doing electrically.
 2. Resolve it in the way your hardware allows:
@@ -351,7 +354,7 @@ Pair with a **neighbouring pod**:
 
 > If time runs short, finish the class decision and carry the captures into portfolio time.
 
-### ◇ Task 10 (Stretcher): See the Bits on the Wire
+### ◇ (optional) Task 10: See the Bits on the Wire
 
 With the class scope/analyzer chosen in Task 9, capture one I²C transaction:
 
@@ -364,12 +367,12 @@ With the class scope/analyzer chosen in Task 9, capture one I²C transaction:
 1. Simple pins and divider: the table, the `Vout` calculation, and the multimeter measurement (`Module02/pins-and-dividers.md`). Optional: the UART note if you took the detour.
 2. Bus profile: `Module02/bus-<name>.md` including history/background, relation to the other buses, one or two curiosities, and your verification notes (which claims came from a datasheet or the bench vs. an LLM).
 3. Class comparison: a link or screenshot of the shared class table, your pod's row/contribution, and one “what surprised me” note.
-4. I²C study log: `Module02/study-log.md`, or your notes from the whole-class I²C walkthrough.
+4. (optional) I²C study log: `Module02/study-log.md`, or your notes from the whole-class I²C walkthrough.
 5. Scope decision: chosen solution(s), repo/commit, install steps, pin mapping, sample rate, input limits, and the PWM/I²C test captures. Include one sentence on what the chosen tool cannot measure.
 6. Scan artifact: serial output of at least two scans (one device, two devices), with each address mapped to its module.
 7. Register proof: the raw register value you read and the reconstruction you computed with the datasheet formula, next to the library's value.
 8. Address table: for each device in the kit: type, interface, address(es), and whether the address is configurable.
-9. Conflict report: how you created and resolved (or would resolve) an address conflict.
+9. (optional) Conflict report: how you created and resolved (or would resolve) an address conflict.
 10. Deeper question: Why does adding a second I²C device not need a second data pin, and what are the limits of that elegance (capacitance, address space, speed, one defective device pulling the bus down)?
 
 > [!IMPORTANT]
