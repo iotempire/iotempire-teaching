@@ -65,7 +65,7 @@ The module handbook lists integrity as a first-class topic. In relational terms 
 
 ### ★ Task A: Study in your pod (~15 minutes)
 
-**The acceptance test.** Before you build the real schema, prove to yourself what an unconstrained table accepts. In a scratch database:
+**The acceptance test.** Before you build the real schema, prove to yourself what an unconstrained table accepts (and record which strange things the table accepts, be creative here with yout INSERTs - try to break you littel database or at least complain). In a scratch database:
 
 ```sql
 CREATE TABLE t(sensor_id INTEGER, metric TEXT, value REAL);
@@ -73,11 +73,11 @@ INSERT INTO t VALUES (1,'temp_c',9000), (1,'temp_c','hot'), (2,'bogus',-500);
 SELECT * FROM t;
 ```
 
-All three junk rows land, and nothing complains. Now write the **same** table with the constraints you would actually ship — `STRICT`, `PRIMARY KEY`, `CHECK(metric IN (...))`, `CHECK(value BETWEEN -273.15 AND 5000)` — and re-run the three inserts **one at a time**. Record for each: which of the three layers rejected it, and the exact error message.
+All three junk rows land, and nothing complains. Now write the **same** table with the constraints you would actually ship — `STRICT`, `PRIMARY KEY`, `CHECK(metric IN (...))`, `CHECK(value BETWEEN -273.15 AND 5000)` — and re-run the INSERTs aboce adn your own inserts **one at a time**. Record for each: which of the three layers rejected it, and the exact error message.
 
 Two follow-ups worth five minutes: what does `CHECK` do with a `NULL` value (try it), and which of your constraints would still let a *plausible but wrong* value through?
 
-### ★ Task B: Share with another pod (~5 minutes)
+### ★ Task B: Share with another pod (~10 minutes)
 
 - Each pod reads out the most surprising thing an unconstrained table accepted.
 - Which constraint was hardest to get right — `CHECK` with `NULL`, `STRICT` with numbers, or `UNIQUE` over two columns?
