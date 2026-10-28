@@ -45,6 +45,8 @@ The point is that students hear the goals explained by peers before they hear th
 
 The **3-minute switch** between directions is for writing feedback notes, not for presenting. If a pod runs over, cut the reflection, not the gate.
 
+The receiving pod writes the presenting members' **first names** first — 30 seconds, same as in your round.
+
 ### The portfolio gate (the only hard requirement)
 
 The receiving pod checks, for **each** member:
@@ -80,6 +82,8 @@ The receiving pod's job ends with **two strengths, one gap, and one question the
 
 ## The instructor slot (12 minutes)
 
+**First 30 seconds: names.** While the pod sits down, it writes its members' **first names** into the `members` field. No discussion, no spelling bee — it is so you can use their names and so the line is still readable in week 11. If they hesitate, write what you hear and move on.
+
 **Move on the timer, not on the sentence.** Put the pods in a front-to-back order and sit at the front. When 12 minutes are up you move to the neighbouring pod — a few steps, never a walk across the room — and the next pod takes the seat you left. Do not wait for a sentence to finish; they will finish it while you sit down. The timer is visible to the pod, so nobody argues.
 
 | Minutes | What you do |
@@ -110,6 +114,7 @@ One line per pod, in the template:
 P03 | Ada, Ben, Chi | ok | M1, M2 | M4 | bring the M2 orphan query and its plan
 ```
 
+- **members** — first names only, written by the pod in the first 30 seconds. No surnames, no student IDs.
 - **gate** — `ok` or `fix`, taken from the peer practice round. This is the field that saves you in week 11.
 - **shown** — module numbers only. A tick is not needed; the list is the tick.
 - **not yet** — module numbers, or `—`.
