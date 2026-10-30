@@ -1,3 +1,4 @@
+# Local, untracked material
 untracked/
 
 # Locally generated, upload-ready LMS PDFs
@@ -5,8 +6,3 @@ untracked/
 /full-classes/hsbi-databases-10d/lms-announcements/
 /full-classes/hsbi-networking-iot-10d/lms-announcements/
 /full-classes/hsbi-sensors-actuators-10d/lms-announcements/
-
-# Internal instructor playbooks — never publish
-/full-classes/hsbi-databases-10d/INTERNAL-instructor-playbook.md
-/full-classes/hsbi-networking-iot-10d/INTERNAL-instructor-playbook.md
-/full-classes/hsbi-sensors-actuators-10d/INTERNAL-instructor-playbook.md
