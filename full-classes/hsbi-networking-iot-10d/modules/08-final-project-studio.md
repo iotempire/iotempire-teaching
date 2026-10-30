@@ -62,7 +62,7 @@ The project is not a single lab exercise; it is a short engineering sprint. Expe
 [Present]            Module 9: live demo + portfolio presentation
 ```
 
-Sessions are open-ended by design: Project Teams naturally progress at different speeds. If you finish an integration milestone early, use the time for hardening, measurements, or helping a neighboring Project Team (which counts toward bonus points). If a lab from an earlier module ran over, this is the buffer that absorbs it.
+Sessions are open-ended by design: Project Teams naturally progress at different speeds. If you finish an integration milestone early, use the time for hardening, measurements, or helping a neighboring Project Team (a strong **Excellence Stretcher** candidate). If a lab from an earlier module ran over, this is the buffer that absorbs it.
 
 ## 📖 Architecting for Resiliency in the Continuum
 

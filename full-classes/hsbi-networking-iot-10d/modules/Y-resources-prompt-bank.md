@@ -94,8 +94,8 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 2. Project Context: *Architecture Explanation:* Explain your end-to-end continuum: Why is each node, router, mesh link, and overlay tunnel positioned where it is?
 3. Process: *Peer Review Value:* What blind spot in your project did your peer review team identify during the dry run, and how did you address it before the final presentation?
 
-## 📌 Module 9 – Project Presentation & Portfolio Submission
-*Focus: Presentation of the final portfolio-report section, technical explanation, report hand-in, retrospective.*
+## 📌 Module 9 – Project Presentation & Technical Report Submission
+*Focus: Presentation of the final technical-report section, technical explanation, report hand-in, retrospective.*
 
 1. Technical: *The Live Demo:* Summarize how your system performed during the live demonstration and fault-injection challenge before the class.
 2. Personal Retrospective: *The Biggest "Aha!" Moment:* Across the entire 10-day journey from OSI critique to overlay mesh and IoTempower fleet management, what was your single most valuable technical realization?

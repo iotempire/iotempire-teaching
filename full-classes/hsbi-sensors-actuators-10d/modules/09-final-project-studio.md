@@ -1,6 +1,6 @@
 # Module 9 – Final Project Studio: From Story to Characterized System
 
-[← Back to Module 8](./08-sensor-to-system-and-integration.md) | [Quick module index](./00-index.md) | [Next: Module 10 →](./10-demonstration-and-defense.md)
+[← Back to Module 8](./08-sensor-to-system-and-integration.md) | [Quick module index](./00-index.md) | [Next: Module 10 →](./10-demonstration-and-presentation.md)
 
 **Course placement:** Days 9–10 — the final project studio: ideation, requirement mapping, building, characterization, hardening, and rehearsal. The exact split depends on the timetable and group progress; the schedule deliberately reserves buffer time here so slower labs do not eat into the project.
 
@@ -26,7 +26,7 @@ The last three days are a small project fair. Three stakeholders bring three rea
 - **Dr. Elif Kaya**, agronomist at Klimapark, wants a frost alarm and a vent/heater loop that keeps working when the network does not.
 - **Hendrik Brinkmann**, workshop lead at Brinkmann Maschinenbau, wants a part counter and a safe gate actuator for a test rig.
 
-Your **Project Team** — two Task Pods merged into 4–6 people — picks one story (or brings a stakeholder of your own), turns it into requirements, and builds a characterized sensor/actuator system. The story is the spine; the must-haves and the learning goals are the contract. By the end of the studio you have a working system, a measurement file, a short report, and a demo you can defend.
+Your **Project Team** — two Task Pods merged into 4–6 people — picks one story (or brings a stakeholder of your own), turns it into requirements, and builds a characterized sensor/actuator system. The story is the spine; the must-haves and the learning goals are the contract. By the end of the studio you have a working system, a measurement file, a short report, and a demo you can explain from the submitted artifacts.
 
 ## 📖 Studio Briefing: From Story to System
 
@@ -65,10 +65,10 @@ The project is a short engineering sprint, not a single lab:
     |
 [Rehearse]       Peer dry run against the must-haves
     |
-[Defend]         Module 10: live demo + portfolio defense
+[Present]        Module 10: artifact presentation + portfolio walkthrough
 ```
 
-Sessions are open-ended by design. If you finish a milestone early, harden the system, take more measurements, or help a neighboring Project Team (which counts toward bonus points).
+Sessions are open-ended by design. If you finish a milestone early, harden the system, take more measurements, or help a neighboring Project Team (a strong candidate for an **Excellence Stretcher**).
 
 ## 📖 The Final Project Architecture Stack
 
@@ -91,7 +91,7 @@ Sessions are open-ended by design. If you finish a milestone early, harden the s
 =========================================================================
 ```
 
-A strong project uses each layer it includes deliberately and can defend the choice.
+A strong project uses each layer it includes deliberately and can explain the choice.
 
 ## 🛠️ Studio Labs — **Challenging**
 
@@ -153,7 +153,7 @@ Pair with another Project Team for a reciprocal dry run:
 3. Characterization report: transfer function/calibration, resolution, uncertainty.
 4. Evaluation report: actuator performance and at least one system metric.
 5. Fault-injection log for the four tests.
-6. Peer feedback log and the concrete changes you will make before the final defense.
+6. Peer feedback log and the concrete changes you will make before the final presentation.
 
 
 > [!IMPORTANT]
@@ -169,4 +169,4 @@ Pair with another Project Team for a reciprocal dry run:
 
 ---
 
-[← Previous: Module 8](./08-sensor-to-system-and-integration.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 10 — Demonstration & Portfolio Defense →](./10-demonstration-and-defense.md)
+[← Previous: Module 8](./08-sensor-to-system-and-integration.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 10 — Project Presentation & Submitted Artifacts →](./10-demonstration-and-presentation.md)

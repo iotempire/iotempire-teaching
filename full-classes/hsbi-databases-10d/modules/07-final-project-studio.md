@@ -8,7 +8,7 @@
 > This is where the final project is built. Read [Module 8](./08-final-project.md) **before** Session 8 — you are expected to arrive with your **Project Team** and a one-paragraph story.
 
 > [!TIP]
-> **What is graded — and what is not.** The project is **3 points for the work** — the **story**, the **architecture** (schema, ingestion, headline query, interface) and the **plan** — plus **2 points** for the demo and your individual defense in Session 11. The steps below are a **menu** for building those three things, not a checklist: none of them is graded on its own, and you may merge, reorder, or skip them as long as the three artefacts exist and work.
+> **What is graded — and what is not.** The project is **3 points for the work** — the **story**, the **architecture** (schema, ingestion, headline query, interface) and the **plan** — plus **2 points** for the demo and your individual project discussion in Session 11. The steps below are a **menu** for building those three things, not a checklist: none of them is graded on its own, and you may merge, reorder, or skip them as long as the three artefacts exist and work.
 
 ## 🎯 Learning Goals
 
@@ -118,13 +118,13 @@ Give your notes to the other **Project Team**; they commit the fixes.
 
 ### ★ Step 6: Rehearse the demo (rest of Session 10)
 
-Run a timed **15-minute dry run** of the Session 11 demo (format in [Module 8](./08-final-project.md#the-15-minute-demo--oral-defense)). Time it. The most common failure is running long on slides and short on the live demo — fix that now. Assign who answers which categories of questions.
+Run a timed **15-minute dry run** of the Session 11 demo (format in [Module 8](./08-final-project.md#the-15-minute-demo--project-discussion)). Time it. The most common failure is running long on slides and short on the live demo — fix that now. Assign who answers which categories of questions.
 
 *Evidence:* `docs/demo-plan.md` with timings and speaker assignments.
 
 ### ◇ Step 7 (Stretcher): Ship something back
 
-Open a pull request to IoTempower, this course repository, or an open-source tool that helped you — a fixed typo in a doc, a sample script, a driver tweak. Accepted contributions qualify for bonus points.
+Open a pull request to IoTempower, this course repository, or an open-source tool that helped you — a fixed typo in a doc, a sample script, a driver tweak. Accepted contributions can be proposed as an **Excellence Stretcher**.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals, per member)
 
@@ -134,7 +134,7 @@ It is enough that each member's portfolio entry **proves their part of the proje
 - Includes the evidence for that piece (their query, their benchmark, their ingestion module).
 - Contains `Reflections/ref07.md` (and further entries) for the project-studio blocks, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md).
 
-A project repository alone is not enough: the project assessment includes an **individual oral defense**, and your personal portfolio is what you defend from.
+A project repository alone is not enough: the project assessment includes an **individual project discussion**, and your personal portfolio is what you explain from.
 
 ## 📚 Project Team hygiene that saves the demo
 

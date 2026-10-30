@@ -101,13 +101,13 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 ## 📌 Module 9 – Final Project Studio
 *Focus: requirements, integration, characterization, evaluation, resilience.*
 
-1. Technical: *Characterization defense:* Defend your transfer function/calibration and the uncertainty you report.
+1. Technical: *Characterization explanation:* Explain your transfer function/calibration and the uncertainty you report from the submitted evidence.
 2. Technical: *Evaluation:* Present the actuator performance and one system metric (latency, rate, current) with conditions.
 3. Project Context: *Architecture split:* Which processing lives on the node and which in the integration layer — and why?
-4. Process: *Peer review value:* What blind spot did your review team find, and how did you fix it before the defense?
+4. Process: *Peer review value:* What blind spot did your review team find, and how did you fix it before the presentation?
 
-## 📌 Module 10 – Demonstration & Portfolio Defense
-*Focus: live demo, technical defense, retrospective.*
+## 📌 Module 10 – Project Presentation & Submitted Artifacts
+*Focus: submitted slide deck, demo artifacts, portfolio walkthrough, retrospective.*
 
 1. Technical: *The live demo:* Summarize how your system performed, including the fault-injection challenge.
 2. Technical: *What I measured:* Which single measurement from this course are you most confident in, and why?

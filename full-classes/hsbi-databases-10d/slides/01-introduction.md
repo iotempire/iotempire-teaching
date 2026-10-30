@@ -55,7 +55,7 @@
 - **You work in small Task Pods** — two or three (three by default; a few pairs; four only by arrangement). For the **final project, two pods merge into a Project Team (4–6)**.
 - In-class exercises are initially **individual**
 - **Ongoing feedback** in the lab — talk to us!
-- Final assessment: **module points + final project + reflections** (+ bonuses), with your **portfolio** as the record
+- Final assessment: **module points + final project + reflections**, with your **portfolio** as the record
 - The details live in the **syllabus** — next slide
 
 <!-- Note: emphasise the pod work and the continuous in-lab feedback. -->

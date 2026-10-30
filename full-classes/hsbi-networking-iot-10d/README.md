@@ -45,7 +45,7 @@ And this class is always in flux — that is a feature, not a bug. No course is 
 - **10 working days / 48 contact hours**, one module per day; session lengths vary (typically two sessions of 2 × 45 min, with longer blocks on some days).
 - **Module 0 (pre-study):** portfolio setup, a network mental model, packet-journey videos, and a first MQTT exploration — completed before Day 1 (or run as the first in-class module when the cohort needs more setup time).
 - **Modules 1–7:** one technical studio per day — the IoT continuum, local networking and OpenWrt, overlays and mesh, MQTT and integration, wireless and ESP-NOW, industrial protocols, and fleet management.
-- **Modules 8–9:** the final-project arc — a multi-node, multi-protocol IoT system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then presented as the closing section of the portfolio report on the final day.
+- **Modules 8–9:** the final-project arc — a multi-node, multi-protocol IoT system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then presented as the closing section of the technical engineering report on the final day.
 
 The full module list, one-line summaries, and the session roadmap live in the **[module index](./modules/00-index.md)**.
 

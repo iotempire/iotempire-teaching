@@ -111,7 +111,7 @@ Pair with a **neighbouring pod**:
 
 ## 🛠️ Optional Lab: Bridging Industry to the Cloud (simulated) — **Challenging (optional lab)**
 
-*No tedious C++ compilation on microcontrollers — and no industrial hardware required.* These are stretcher tasks: we implement clean, educational edge bridging on the gateway/laptop using Python and Node-RED, mostly against simulated Modbus/OPC-UA servers. If you have a real RS-485 device (for example a Modbus RTU meter) and a USB-RS485 adapter, that is the closest genuine experience and makes a great bonus task.
+*No tedious C++ compilation on microcontrollers — and no industrial hardware required.* These are stretcher tasks: we implement clean, educational edge bridging on the gateway/laptop using Python and Node-RED, mostly against simulated Modbus/OPC-UA servers. If you have a real RS-485 device (for example a Modbus RTU meter) and a USB-RS485 adapter, that is the closest genuine experience and a strong Excellence Stretcher candidate.
 
 ### ◇ Task 1 (Stretcher): Simulating an Industrial Modbus Power Meter
 
@@ -199,7 +199,7 @@ Run the bridge and verify in Node-RED or MQTT Explorer that the industrial regis
    - Primary deployment domain
 2. Real-Time Question *(recommended)*: Why cannot standard Wi-Fi or standard TCP/IP be used for microsecond-precise motion control in a factory, and how does TSN address this?
 3. *(Optional)* Bridge Architecture & Code: Include your bridge script and a diagram showing how the edge gateway bridges the factory domain to the IT/IoT domain.
-4. *(Optional, bonus)* Real RS-485/Modbus: If you have an RS-485 device, document reading it (physical layer, wiring, adapter, registers) and bridging it to MQTT.
+4. *(Optional stretcher)* Real RS-485/Modbus: If you have an RS-485 device, document reading it (physical layer, wiring, adapter, registers) and bridging it to MQTT.
 
 
 > [!IMPORTANT]

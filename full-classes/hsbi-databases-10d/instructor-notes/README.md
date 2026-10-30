@@ -94,5 +94,5 @@ A short path, in this order: [SQLite "Appropriate Uses"](https://www.sqlite.org/
 | 5 | [05](./05.md) | Dependencies, normalization, measured denormalization. |
 | 6 | [06](./06.md) | JSON, DuckDB/Parquet, key-value. |
 | 7 | [07](./07.md) | Four project-studio sessions: story → vertical slice → review → rehearsal. |
-| 8 | [08](./08.md) | Demo day and individual defenses. |
+| 8 | [08](./08.md) | Demo day and individual project discussions. |
 | — | [Feedback rounds](./feedback-rounds.md) | The 10-minute script, a 145-minute run sheet, and the fill-in [template](./feedback-template.md). |

@@ -2,7 +2,7 @@
 
 [← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Previous: Module 7 →](./07-final-project-studio.md)
 
-**Course placement:** Session 11 (demo + defense), built during Sessions 8–10. Worth **5 points (25 % of the base score)**.
+**Course placement:** Session 11 (demo + project discussion), built during Sessions 8–10. Worth **5 points (25 % of the total)**.
 
 > [!IMPORTANT]
 > **The syllabus is the single source of truth for assessment.** This page is the detailed specification and rubric. If this page and the [syllabus](../syllabus.md#final-project-requirements-5-points) ever disagree, the syllabus wins; this page is the working detail behind those requirements.
@@ -42,7 +42,7 @@ These are the requirements every project must meet. They are deliberately mapped
 | 7 | **Reachable interface** — the data is shown through something a human uses (Datasette, a CLI, a small app, or a dashboard), and the app recovers gracefully from a missing/corrupt row | The story has to reach the person it is for | Modules 6–7 |
 
 > [!NOTE]
-> **Stretchers (optional, bonus-worthy).** A normalized-read vs. denormalized-read comparison (Module 5); a DuckDB analytics view over a Parquet export (Module 6); a key-value or JSON component with a measured justification (Module 6); an accepted upstream pull request (any module).
+> **Stretchers (optional, Excellence Stretcher candidates).** A normalized-read vs. denormalized-read comparison (Module 5); a DuckDB analytics view over a Parquet export (Module 6); a key-value or JSON component with a measured justification (Module 6); an accepted upstream pull request (any module).
 
 ## 📄 Documentation — 5 Pages, Concise
 
@@ -55,10 +55,10 @@ Submit a **5-page** report (Markdown or PDF) in the project repository under `do
 5. **Security, integrity & evaluation (≈1 page).** Your parameterization proof, your constraint/trigger, the measured evaluation numbers, and one honest limitation.
 6. **Project Team & contributions (≈½ page).** One line per member: what they owned.
 
-<a id="the-15-minute-demo--oral-defense"></a>
-## 🎤 The 15-Minute Demo & Oral Defense
+<a id="the-15-minute-demo--project-discussion"></a>
+## 🎤 The 15-Minute Demo & Project Discussion
 
-Your final presentation has two parts: a **Project Team demo** and an **individual defense**. Budget your time like this:
+Your final presentation has two parts: a **Project Team demo** and an **individual project discussion**. Budget your time like this:
 
 | Minutes | Segment | Who |
 |---|---|---|
@@ -66,7 +66,7 @@ Your final presentation has two parts: a **Project Team demo** and an **individu
 | 2–8 | **Live end-to-end demo.** Raw data → ingestion → database → the headline query → the interface. Run it live; do not show only slides. | Rotating |
 | 8–10 | **The proof.** Show one `EXPLAIN QUERY PLAN` before/after, the timings, and the injection self-test. | Query owner |
 | 10–12 | **Integrity.** Trigger the constraint/trigger live — show it rejecting bad data. | Integrity owner |
-| 12–15 | **Defense.** Individual questions to specific members on the design decisions they own; one "what would you change and why?" | All |
+| 12–15 | **Project discussion.** Individual questions to specific members on the design decisions they own; one "what would you change and why?" | All |
 
 **Preparation rules:**
 - Rehearse to the clock (see the Module 7 rehearsal). Slides may support, never replace, the live run.
@@ -82,15 +82,19 @@ Four things, five points:
 | **Story** | **1** | A named person with a real problem, and data that answers it. A generic topic ("a database for a warehouse") earns nothing here. |
 | **Architecture** | **1** | A schema with at least one enforced relationship, reproducible ingestion, the headline query, and an interface a human can use. |
 | **Plan** | **1** | A one-page delivery plan with **your own dates** — and evidence that you followed or revised it. |
-| **Demo & individual defense** | **2** | **1** for a live end-to-end run in Session 11, **1** for every member answering for the part they own. |
+| **Demo & individual project discussion** | **2** | **1** for a live end-to-end run in Session 11, **1** for every member explaining the part they own. |
 
-**Distribution of the 5 points across the Project Team.** The project score is a Project Team score, but the *oral defense* is individual. A member who cannot defend their contribution does not automatically fail the Project Team — the instructor records an individual note, and the bonus/reflection components (4 + up to 3 points) can offset it. Speak to the instructor **early** if a Project Team member is not contributing; that is a project-management problem we solve together, not a reason to wait until the demo.
+**Distribution of the 5 points across the Project Team.** The project score is a Project Team score, but the *project discussion* is individual. A member who cannot explain their contribution does not automatically fail the Project Team — the instructor records an individual note, and the **reflection component (4 points)** or an approved **Excellence Stretcher** can offset it. Speak to the instructor **early** if a Project Team member is not contributing; that is a project-management problem we solve together, not a reason to wait until the demo.
 
-### What earns bonus points (up to +3 overall for the course)
+### Excellence Stretcher
+
+There are no additional point categories outside the 20-point scale. If you are tracking below mastery, propose an **Excellence Stretcher** to the instructor before the final deadline. Examples:
 
 - A benchmark that goes beyond the requirement (e.g. a before/after/after-three-indexes sweep with a plotted curve).
 - An accepted pull request to IoTempower, this course repository, or an open-source tool used in the project.
 - Substantial, verifiable peer-debugging assistance to another Project Team (documented in your reflection and confirmed by the helped Project Team).
+
+An approved Stretcher is assessed against the same learning goals and counts within the 20-point scale; it never raises the maximum above 20.
 
 ## ✅ Submission Checklist
 
@@ -111,8 +115,8 @@ Before Session 11, the project repository must contain:
 ## 🗓️ Where this fits in the course
 
 - Build time: [Module 7 — Final Project Studio](./07-final-project-studio.md) (Sessions 8–10).
-- Demo & defense: Session 11.
-- Points: 5 of the 20 base points (25 %). See the [syllabus assessment rules](../syllabus.md#assessment-project-work-20-base-points--bonus) and the [grade scale](../syllabus.md#grade-scale).
+- Demo & project discussion: Session 11.
+- Points: 5 of the 20 points (25 %). See the [syllabus assessment rules](../syllabus.md#assessment-project-work-20-points) and the [grade scale](../syllabus.md#grade-scale).
 
 ---
 

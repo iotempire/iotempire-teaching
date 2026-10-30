@@ -5,7 +5,7 @@
 > **Canonical source:** [IoTempire Teaching repository — HSBI/GT Sensors and Actuators](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-sensors-actuators-10d)
 
 > [!NOTE]
-> **Every module begins with its learning goals.** Those goals are the agreement between you and the instructor: you earn a module's points by *demonstrating the goals* — in a short checkpoint conversation and through your portfolio — not by ticking off every task. The goals are fixed; the way you reach them is yours.
+> **Every module begins with its learning goals.** Those goals are the agreement between you and the instructor: you earn a module's points through the **written portfolio evidence** that proves the goals — not by ticking off every task. Checkpoints are short **feedback** conversations, not separate examinations. The goals are fixed; the way you reach them is yours.
 
 > [!NOTE]
 > **This class is a draft in motion.** It is a first-time offering in WS 2026/27. In every module a ***DRAFT BOUNDARY*** marks the part that is not settled yet; it moves down as we approve content together. Expect this syllabus to keep changing, and bring your own deep dives and stretchers — your input can shape the class.
@@ -124,38 +124,47 @@ Self-study is also where the course becomes yours: follow a datasheet further th
 - **Standalone elective:** *Sensorik und Aktorik* is a 6th-semester elective (Wahlmodul) that stands on its own — it neither requires nor continues a specific earlier module. It concentrates on the *physical* side of IoT — what a sensor really measures and how an actuator really moves — and introduces the small amount of local-first infrastructure it uses (a node, a local MQTT broker, Node-RED) within the course itself.
 - **Building on an earlier project (optional, by agreement):** the final project is self-contained by default. If you would like to continue an earlier project of your own, that is very welcome — just talk to the instructor, and we will agree on the scope and on how the sensors/actuators part is deepened.
 
-<a id="assessment-kombinationsprüfung-20-base-points--bonus"></a>
-## Assessment: Kombinationsprüfung (20 Base Points + Bonus)
+<a id="assessment-kombinationsprüfung-20-points"></a>
+## Assessment: Kombinationsprüfung (20 Points)
 
-Assessment is a **Kombinationsprüfung** combining continuous portfolio documentation, laboratory and measurement work, reflection logbook entries, and a final project. The formal form is fixed by the module handbook; where the handbook version constrains the mix, the instructor will announce the binding variant in the LMS. Everything below is the working agreement for this offering.
+Assessment is a **Kombinationsprüfung** in two formally separate parts: **Part 1** is the written portfolio documentation; **Part 2** is the project documentation and presentation materials. The formal form is fixed by the module handbook; where the handbook version constrains the mix, the instructor announces the binding variant in the LMS.
 
-You build and maintain one personal **GitHub portfolio**. The small tasks in each module are how you **prove that module's learning goals**, personalized through your **reflections**, and short **checkpoints** give you feedback on whether those goals have been achieved — while also giving the instructor a sense of your performance. In the **last session you present your final project to the instructor and to each other**.
+You build and maintain one personal **GitHub portfolio**. The small tasks in each module are how you **prove that module's learning goals**, personalized through your **reflections**; short **checkpoints** give you feedback on whether those goals have been achieved.
 
-> [!IMPORTANT]
-> **Module 0 and Modules 1–8 are worth 11 of the 20 base points.** You earn them by demonstrating the modules' learning goals in short checkpoints — not by completing every task. Module 0 is normally completed before Day 1; in a cohort that needs more setup time, it can be run as the first in-class module instead (same 1 point, same evidence).
-
-### Points Breakdown
+### Part 1 — Written Portfolio Documentation (75% / 15 points)
 
 | Component | Points | Details |
 |---|---|---|
-| Module 0 (Pre-Study) | 1 point | Portfolio setup from the template, Wokwi simulation, datasheet reading, and answers to the guiding questions. |
-| Modules 1–8 (Learning goals) | 10 points | Earned through short checkpoint presentations that prove the module learning goals from your portfolio: measurement and signal chain, I²C scan and register reads, sensor characterization, distance/motion/environment labs, LED and animation labs, motor control, and MQTT system integration. |
-| Reflection points | 4 points | One logbook entry for each teaching block (four blocks: Days 1–3, 4–6, 7–8, and 9–10), captured in your personal logbook. |
-| Final meaningful project | 5 points | 25% of the base score. A documented sensor/actuator system with real characterization, an actuator demonstration, and an integration layer, built in a **Project Team** of 4–6. |
-| **Base total** | **20 points** | 100% base score. |
-| Extra / bonus points | up to +3 | Outstanding benchmarking/characterization, accepted open-source pull requests to IoTempower or class repositories, or verified peer debugging and mentoring. |
+| Module 0 + Modules 1–8 — core technologies and lab challenges | 11 points | Portfolio setup, the technical labs, code, measurements, wiring, characterization, and functional artifacts that prove each module's learning goals. Module 0 is normally completed before Day 1; in a cohort that needs more setup time it can run as the first in-class module (same 1 point, same evidence). |
+| Individual reflection and engineering decision log | 4 points | One logbook entry for each teaching block (Days 1–3, 4–6, 7–8, 9–10): what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals. |
+| **Part 1 total** | **15 points** | **75% of the assessment.** |
 
-- **Score cap:** The final score is capped at 20 points, even if bonus points are earned. Bonus points compensate for minor weaknesses in regular deliverables, but all compulsory components must still be attempted.
-- **Passing threshold:** Minimum **14 out of 20 points** (~70%) to pass (*bestanden*).
+### Part 2 — Project Documentation & Presentation Materials (25% / 5 points)
 
-<a id="how-module-points-are-earned-checkpoint-presentations"></a>
-### How module points are earned: checkpoint presentations
+| Component | Points | Details |
+|---|---|---|
+| Code and system documentation | 3 points | Working sensor/actuator system, characterization and uncertainty, architecture and wiring, bus/address documentation, reproducible build, and clean Git history. |
+| Slide deck / demo artifacts | 2 points | The submitted slide deck and demo artifacts: story, architecture, measurement evidence, fault-injection evidence, and the artifact walkthrough. |
+| **Part 2 total** | **5 points** | **25% of the assessment.** |
 
-You do not submit and grade every task. Instead, you earn a module's points in a short checkpoint presentation — **10–12 minutes, including questions and feedback** — with the instructor, based on your portfolio and reflection logbook. Checkpoints are done **with your Task Pod, in person**, and cover a few modules at a time:
+> [!IMPORTANT]
+> **The presentation is artifact-based, not an oral examination.** Part 2 is assessed from the **submitted project documentation, code/system artifacts, slide deck, and demo artifacts**. The final session is a presentation of those submitted artifacts — not a separate oral examination (*mündliche Prüfung*) — so no co-examiner (*Beisitzer*) or minutes are required.
 
-- **Checkpoint 1 — start of Day 4 (Modules 1–3).** For a larger cohort this runs as a **30-minute 2-pod practice round**: two pods pair up; each pod presents from its existing portfolios, and the other pod gives free-style feedback and questions checking how well the goals were proven. The instructor assesses from the presentations and the portfolios. In a small cohort, use the same slot for individual pod checkpoints.
+> [!IMPORTANT]
+> **Total = 15 + 5 = 20 points.** Pass at **14 / 20** (~70%). There are no additional point categories outside the fixed 20-point scale.
+
+### Excellence Stretcher
+
+All deliverables are evaluated on the fixed 20-point scale. If you are tracking below mastery in a core competence area, contact the instructor **before the final deadline** to agree an **Excellence Stretcher**: an advanced challenge or deep-dive task that lets you demonstrate full mastery of the targeted learning objective, or a documented didactic contribution such as outstanding peer teaching, teaching material, or a tool that improves the class. An approved Stretcher is assessed against the same learning goals and counts within the 20-point scale; it never raises the maximum above 20.
+
+<a id="how-module-points-are-earned-feedback-checkpoints"></a>
+### How module points are earned: feedback checkpoints
+
+You do not submit and grade every task. Module points are earned through the **written portfolio evidence** that proves the learning goals. A short **feedback checkpoint** — **10–12 minutes, including questions and feedback** — tells you whether that evidence is convincing before the portfolio is submitted. Checkpoints are **formative**, not a separate examination; the graded artefact for Part 1 is the written portfolio documentation. Checkpoints are done **with your Task Pod, in person**, and cover a few modules at a time:
+
+- **Checkpoint 1 — start of Day 4 (Modules 1–3).** For a larger cohort this runs as a **30-minute 2-pod practice round**: two pods pair up; each pod walks the other through its portfolio evidence, and the other pod gives free-style feedback and questions checking how well the goals are documented. The instructor joins the feedback and notes where the written evidence still needs work. In a small cohort, use the same slot for individual pod checkpoints.
 - **Checkpoint 2 — start of Day 8 (Modules 4–6).**
-- **Checkpoint 3 — start of Day 9 project studio (Modules 7–8)**, or folded into the final defense by agreement with the instructor.
+- **Checkpoint 3 — start of Day 9 project studio (Modules 7–8)**, or folded into the final project presentation by agreement with the instructor.
 
 Dates and slots are confirmed through the LMS.
 
@@ -168,7 +177,7 @@ Dates and slots are confirmed through the LMS.
 In a checkpoint, you:
 
 1. **Show your evidence** — portfolio entries, measurement tables, plots, code, diagrams, I²C scans, and reflections for the modules being checked.
-2. **Prove the learning goals** — the goals listed at the top of each module. Walk the instructor through how your work shows you reached them, and answer questions about them (expect to explain a measurement, justify a wiring choice, or read a register or datasheet live).
+2. **Explain the learning goals from your evidence** — the goals listed at the top of each module. Walk the instructor through how your portfolio shows you reached them, and answer questions about them (expect to explain a measurement, justify a wiring choice, or read a register or datasheet live).
 
 **Because assessment targets the learning goals — not task completion — the tasks are negotiable.** You are free to skip tasks, fail at tasks, or add your own, and for tasks below a module's draft boundary to **modify or replace them entirely, as long as you reach the same learning goals**. An honest, documented failure counts as exploration, not as a loss, and a convincing demonstration of deep understanding or analysis is rewarded generously.
 
@@ -181,11 +190,11 @@ Practical notes:
 
 ### Task tiers: ★ Core and ◇ Stretcher
 
-Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one we consider *core* to the module — the straightforward way to reach its learning goals. It is not a hard requirement, but note the asymmetry: for an ordinary task you can argue “this was not needed to reach the goals” and we will usually accept it; for a **★ Core** task that argument is harder, so skipping one means convincing us you reached the same goals another way. A **◇ Stretcher** is optional — an extension, a deeper dive, or bonus material, and the natural trim point when time is short. **Have a better task idea?** Propose it; if it reaches the same learning goal, we can swap it into the module — student-designed tasks are explicitly welcome.
+Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one we consider *core* to the module — the straightforward way to reach its learning goals. It is not a hard requirement, but note the asymmetry: for an ordinary task you can argue “this was not needed to reach the goals” and we will usually accept it; for a **★ Core** task that argument is harder, so skipping one means convincing us you reached the same goals another way. A **◇ Stretcher** is optional — an extension, a deeper dive, or additional practice, and the natural trim point when time is short. **Have a better task idea?** Propose it; if it reaches the same learning goal, we can swap it into the module — student-designed tasks are explicitly welcome.
 
 ### Reflection format
 
-For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). The template includes the **AI-verification** question.
+For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). The template includes the **AI-verification** question. The log is an **engineering decision log**: what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals.
 
 ### Grade Scale
 
@@ -254,7 +263,7 @@ The 10 days correspond to 48 contact hours, with **one module per day**. Session
 | 7 | [Module 7 — Motors & Motion Actuators](./modules/07-motors-and-motion-actuators.md) | Servo control, DC motor speed/direction with an H-bridge, stepper stepping, current measurement. |
 | 8 | [Module 8 — From Sensor to System: MQTT & Integration](./modules/08-sensor-to-system-and-integration.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–6), then:* MQTT publishing and commands, filtering in firmware, Node-RED dashboard, a closed control loop, fault injection; optional IoTempower comparison. |
 | 9 | [Module 9 — Final Project Studio](./modules/09-final-project-studio.md) | Project kickoff and story, requirement mapping, building and integrating the sensor/actuator system; checkpoint 3 (Modules 7–8). |
-| 10 | [Module 9 — Final Project Studio (continued)](./modules/09-final-project-studio.md) + [Module 10 — Demonstration & Portfolio Defense](./modules/10-demonstration-and-defense.md) | Characterization, evaluation, fault injection, documentation, peer review dry run; live demonstration, technical defense, portfolio presentation, retrospective. |
+| 10 | [Module 9 — Final Project Studio (continued)](./modules/09-final-project-studio.md) + [Module 10 — Project Presentation & Submitted Artifacts](./modules/10-demonstration-and-presentation.md) | Characterization, evaluation, fault injection, documentation, peer review dry run; artifact-based presentation of the submitted slide deck and demo artifacts, portfolio walkthrough, retrospective. |
 
 > [!TIP]
 > **Buffer and pacing:** Days 9–10 form the final-project block. Part of it is deliberately loose and can absorb spill-over from earlier labs, be released as flexible/wiggle time, or be used for stretcher tasks and peer mentoring. Announce the concrete use of each part in the LMS as the course progresses.
@@ -276,19 +285,17 @@ The final project is a sensor/actuator system built by **Project Teams of 4–6 
 
 ### Assessment Criteria:
 
-- **System functionality & measurement quality (2 points):** Meets specifications; the characterization is credible and the actuator demonstration is reliable.
-- **Architecture, documentation & evaluation (1.5 points):** Clear wiring/system diagram, bus and addressing documentation, transfer-function/calibration evidence, a concise project report, and clean Git history.
-- **Live demonstration & individual defense (1.5 points):** A clear **10-minute** Project Team demo — 5 minutes of live measurement and actuation plus a 5-minute individual defense — showing the measured quantity, the actuation, and the reasoning behind your sensor/actuator choices.
+- **Code and system documentation (3 points):** Working sensor/actuator system, credible characterization and uncertainty, architecture and wiring, bus/address documentation, reproducible build, and clean Git history.
+- **Slide deck / demo artifacts (2 points):** The submitted slide deck and demo artifacts show the story, architecture, measurement evidence, fault-injection evidence, and an artifact walkthrough. All claims must be traceable to the portfolio, code, or measurements.
 
 #### Detailed rubric
 
 | Criterion | Points | Excellent (full) | Sufficient (partial) | Weak / missing |
 |---|---:|---|---|---|
-| **System functionality & measurement quality** | 2.0 | Meets all must-haves; two sensors (≥1 I²C, addresses documented), one actuator demonstrated under control, credible transfer function/calibration with resolution and uncertainty, and correct addressing/register handling. | Meets most must-haves; one gap (e.g. weak characterization or an undocumented address). | Server/hand-loaded data, no measured characterization, missing integrity, or non-reproducible build. |
-| **Architecture, documentation & evaluation** | 1.5 | Clear wiring/system diagram; bus and address documentation; firmware implementation plus at least one filter (or an optional IoTempower node + filter); MQTT topics; actuator performance and at least one system metric; concise report with real evidence; clean Git history. | Documentation present and mostly complete; evidence thin in one section. | Missing diagram, report over/under length, or no evidence. |
-| **Live demonstration & individual defense** | 1.5 | End-to-end live demo runs; each member defends their decisions and trade-offs fluently; handles an injected fault. | Demo runs but is partly slide-based, or defense is uneven across members. | Demo fails without explanation, or members cannot defend their parts. |
+| **Code and system documentation** | 3.0 | Meets all must-haves; two sensors (≥1 I²C, addresses documented), one actuator demonstrated under control, credible transfer function/calibration with resolution and uncertainty, correct addressing/register handling, clear wiring/system diagram, firmware plus at least one filter, MQTT topics, reproducible build, and clean Git history. | Documentation present and mostly complete; one gap (e.g. weak characterization or an undocumented address). | Hand-loaded data, no measured characterization, missing integrity, or non-reproducible build. |
+| **Slide deck / demo artifacts** | 2.0 | The submitted slide deck and demo artifacts clearly show the story, architecture, measurement evidence, fault-injection evidence, and an artifact walkthrough; every claim is traceable to the portfolio or code. | Artifacts present but one section is thin, or the walkthrough is uneven across the team. | Artifacts missing, or they fail to show the measured quantity, the actuation, or the evidence behind the claims. |
 
-See the full [final project specification](./modules/10-demonstration-and-defense.md) for the demo script and portfolio evidence checklist.
+See the full [final project specification](./modules/10-demonstration-and-presentation.md) for the artifact checklist and presentation script.
 
 ## Portfolio & Documentation Standards
 
@@ -313,7 +320,7 @@ Each module lists **suggested portfolio evidence** — suggestions, not a checkl
 3. **Collaborate within your pod:** Two sets of eyes on a floating SDA line or a hot motor driver save the afternoon. Split tasks, audit each other, and change roles often.
 4. **Measurement mindset:** Write down what you measured, with what, and how uncertain it is. A number without units, conditions, or uncertainty is not a measurement.
 5. **AI with responsibility:** Use AI co-pilots enthusiastically — and verify relentlessly. You are accountable for every circuit and every line you ship, whether you or a model wrote it.
-6. **Open-source mindset:** Share discoveries and help other pods (and, later, other Project Teams). Accepted pull requests to IoTempower, this course repository, or open-source tools qualify for bonus points.
+6. **Open-source mindset:** Share discoveries and help other pods (and, later, other Project Teams). Accepted pull requests to IoTempower, this course repository, or open-source tools can be proposed as an **Excellence Stretcher**.
 
 ## Contacts & Support
 

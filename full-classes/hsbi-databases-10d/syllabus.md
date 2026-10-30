@@ -98,19 +98,26 @@ By the end of this course, you will be able to (mapped to the module-handbook co
 - **Content:** none required (module handbook Section 5). Basic Python, a terminal, and Git help and are scaffolded in Session 1 (Module 1).
 - **Relationship to other modules:** *Databases* is a standalone 3rd-semester module. It pairs naturally with the IoT course family (MCU programming, networking, sensors/actuators): the data those courses produce on the edge is exactly the data you will store, query, and analyze here — but there is no required prior course.
 
-## Assessment: Project Work (20 Base Points + Bonus)
+<a id="assessment-project-work-20-points"></a>
+## Assessment: Project Work (Projektarbeit — 20 Points)
 
-Assessment is **project work** — one of the forms the module handbook allows (*written examination, project work, or oral examination, or a combination*); there is **no written examination**. You keep one **GitHub portfolio** through the term and present a **final project** in the last session. **The graded assessment happens at the end of the term**, from that portfolio and that project.
+Assessment is the official form **project work** (*Projektarbeit*) fixed by the module handbook; there is **no written examination**. You keep one **GitHub portfolio** through the term and present a **final project** in the last session. The cumulative technical portfolio **is the written project report (*Projektbericht*)**: the module evidence, measurements, code, and reflections form its chapters, and the final project is its closing section. The graded assessment happens at the end of the term, from that portfolio/report and the project presentation.
 
 ### Points Breakdown
 
 | Component | Points | How it is earned |
 |---|---|---|
-| Modules 1–6 | **11** | **1 point for Module 1, 2 points for each of Modules 2–6.** I record a module's points when your portfolio shows you reached that module's learning goals. |
-| Reflections | **4** | One short logbook entry per teaching block — four blocks, one point each. |
-| Final project | **5** | **3 points for the work** — your **story**, your **architecture** (schema, ingestion, query, interface), and your **plan** — and **2 points for the demo and your individual defense** in week 11. |
-| **Base total** | **20** | Pass at **14 / 20** (~70 %). |
-| Bonus | up to +3 | Optional; the total stays capped at 20. |
+| Core technologies and lab challenges (Modules 1–6) | **11** | **1 point for Module 1, 2 points for each of Modules 2–6.** I record a module's points when your portfolio shows you reached that module's learning goals. |
+| Reflections & engineering decision log | **4** | One short logbook entry per teaching block — four blocks, one point each. |
+| Final project | **5** | **3 points for the work** — your **story**, your **architecture** (schema, ingestion, query, interface), and your **plan** — and **2 points for the project presentation and individual project discussion** in week 11. |
+| **Total** | **20** | Pass at **14 / 20** (~70 %). |
+
+> [!IMPORTANT]
+> **There are no additional point categories outside the fixed 20-point scale.**
+
+### Excellence Stretcher
+
+All deliverables are evaluated on the fixed 20-point scale. If you are tracking below mastery in a core competence area, contact the instructor **before the final deadline** to agree an **Excellence Stretcher**: an advanced challenge or deep-dive task that lets you demonstrate full mastery of the targeted learning objective, or a documented didactic contribution such as outstanding peer teaching, teaching material, or a tool that improves the class. An approved Stretcher is assessed against the same learning goals and counts within the 20-point scale; it never raises the maximum above 20.
 
 ### How module points are earned: from your portfolio
 
@@ -128,11 +135,11 @@ There is no exam to pass module by module. For each of Modules 1–6 I look for 
 
 ### Task tiers: ★ Core and ◇ Stretcher
 
-Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one we consider *core* to the module — the straightforward way to reach its learning goals. It is not a hard requirement, but note the asymmetry: for an ordinary task you can argue “this was not needed to reach the goals” and we will usually accept it; for a **★ Core** task that argument is harder, so skipping one means convincing us you reached the same goals another way. A **◇ Stretcher** is optional — an extension, a deeper dive, or bonus material, and the natural trim point when time is short.
+Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one we consider *core* to the module — the straightforward way to reach its learning goals. It is not a hard requirement, but note the asymmetry: for an ordinary task you can argue “this was not needed to reach the goals” and we will usually accept it; for a **★ Core** task that argument is harder, so skipping one means convincing us you reached the same goals another way. A **◇ Stretcher** is optional — an extension, a deeper dive, or additional practice, and the natural trim point when time is short.
 
 ### Reflection format
 
-For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). The template includes the **AI-verification** question.
+For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). The template includes the **AI-verification** question. The log is an **engineering decision log**: what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals.
 
 ### Grade Scale
 
@@ -162,7 +169,7 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 
 ## 11-Session Course Schedule
 
-The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6), and the final-project arc (Modules 7–8). Sessions 1–7 are taught studios, with Modules 5–6 spread over three weeks; Sessions 8–10 are project studios; Session 11 is demo and defense. Optional **TA-led tutorial sessions** (times announced via the LMS) add catch-up, deeper practice, and project support.
+The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6), and the final-project arc (Modules 7–8). Sessions 1–7 are taught studios, with Modules 5–6 spread over three weeks; Sessions 8–10 are project studios; Session 11 is demo and project discussion. Optional **TA-led tutorial sessions** (times announced via the LMS) add catch-up, deeper practice, and project support.
 
 The full roadmap — with a one-line summary and learning goals for every studio — is in the [module index](./modules/00-index.md).
 
@@ -180,7 +187,7 @@ The full roadmap — with a one-line summary and learning goals for every studio
 | 8 | [Module 7 — Project Studio — story, architecture, plan](./modules/07-final-project-studio.md) | Teams merge; story, one-page plan with your own dates, first vertical slice. |
 | 9 | [Module 7 — Project Studio — build & integrate](./modules/07-final-project-studio.md) | Build the slice out: ingestion, headline query, interface. |
 | 10 | [Module 7 — Project Studio — harden, review, rehearse](./modules/07-final-project-studio.md) | Constraints, parameterization, index proof, peer review, timed rehearsal. |
-| 11 | [Module 8 — Live Demos & Oral Defenses](./modules/08-final-project.md) | 15-minute Project Team demo + individual oral defense; retrospective. |
+| 11 | [Module 8 — Live Demos & Project Discussions](./modules/08-final-project.md) | 15-minute Project Team demo + individual project discussion; retrospective. |
 
 > [!TIP]
 > **Buffer, pacing, and tutorials:** Sessions 8–10 are project studios, and at least one of them is deliberately loose — it can absorb spill-over from earlier labs, be released as flexible time, or be used for stretcher tasks and peer mentoring. The optional tutorial sessions (times announced via the LMS) are the natural home for catch-up and deeper deep dives. Announce the concrete use of each date in the LMS as the course progresses.
@@ -206,7 +213,7 @@ These seven are the **content criteria behind the architecture point** — they 
 - **Story (1 point):** a named person, a real problem, and the data that answers it.
 - **Architecture (1 point):** a schema with at least one enforced relationship, reproducible ingestion, the headline query, and an interface a human can use.
 - **Plan (1 point):** a one-page list of what you will deliver with the dates **you** chose — and evidence that you followed or revised it.
-- **Demo and individual defense (2 points):** a live end-to-end run in week 11, and one question per team member about the part they own.
+- **Demo and individual project discussion (2 points):** a live end-to-end run in week 11, and one question per team member about the part they own.
 
 See the full [final project specification](./modules/08-final-project.md) for the demo script, documentation template, and the detailed rubric.
 
@@ -233,7 +240,7 @@ Each module lists **suggested portfolio evidence** — suggestions, not a checkl
 3. **Collaborate within your pod:** Two sets of eyes on a silent `NULL` or a broken join save the afternoon. Debug together, review each other's query plans, and share discoveries.
 4. **Measurement mindset:** A performance claim without a number, a dataset size, and a plan is an opinion. Write down *what* you measured, *with what*, and *under what conditions*.
 5. **AI with responsibility:** Use AI co-pilots enthusiastically — and verify relentlessly. You are accountable for every query you ship, whether you or a model wrote it.
-6. **Open-source mindset:** Share discoveries and help other pods (and, later, other Project Teams). Accepted pull requests to IoTempower, this course repository, or open-source tools qualify for bonus points.
+6. **Open-source mindset:** Share discoveries and help other pods (and, later, other Project Teams). Accepted pull requests to IoTempower, this course repository, or open-source tools can be proposed as an **Excellence Stretcher**.
 
 ## Contacts & Support
 

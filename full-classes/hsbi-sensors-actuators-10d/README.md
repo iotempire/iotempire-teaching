@@ -1,6 +1,6 @@
 # HSBI/GT Sensors and Actuators (Sensorik und Aktorik) — 10-Day Edition
 
-> **Make the physical world legible.** Turn a real quantity into a trustworthy number, and turn that number into light, motion, or heat — with measurements you can defend.
+> **Make the physical world legible.** Turn a real quantity into a trustworthy number, and turn that number into light, motion, or heat — with measurements you can justify.
 
 This is the course workbook and front page for **Sensors and Actuators (Sensorik und Aktorik)** at Hochschule Bielefeld University of Applied Sciences and Arts (HSBI), Campus Gütersloh. It is a hands-on, studio-style elective for engineering students who want to understand the *physical* side of IoT: what a sensor really measures, how a bus really works, how an actuator really moves, and how to prove it with a measurement instead of a slide.
 
@@ -41,7 +41,7 @@ And this class is always in flux — that is a feature, not a bug. No course is 
 - **10 working days / 48 contact hours**, one module per day; session lengths vary (typically two sessions of 2 × 45 min, with longer blocks on some days).
 - **Module 0 (pre-study):** portfolio setup, measurement basics, datasheet reading, and a Wokwi mini-exercise — completed before Day 1 (or run as the first in-class module when the cohort needs more setup time).
 - **Modules 1–8:** one technical module per day — basic electronics, Arduino/serial basics, measurement and the signal chain; a bus survey from simple pins through RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire, I²C addressing, and the ESP32 scope/logic-analyzer sprint; characterization and calibration; distance/motion/environment sensors; LEDs and light; animation and installations; motors; and system integration.
-- **Modules 9–10:** the final-project arc — a story-driven sensor/actuator system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then demonstrated and defended on the final day.
+- **Modules 9–10:** the final-project arc — a story-driven sensor/actuator system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then presented as submitted artifacts on the final day.
 - **Workload:** 150 hours total (5 ECTS) — 48 contact hours, about 10 hours of Module 0 preparation, and the remaining 60–90 hours as self-study, portfolio, reflection, and final project. Plan for **at least 6 hours per week** outside class.
 
 The full module list, one-line summaries, and the session roadmap live in the **[module index](./modules/00-index.md)**.

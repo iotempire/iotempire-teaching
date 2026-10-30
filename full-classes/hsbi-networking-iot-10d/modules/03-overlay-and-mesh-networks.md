@@ -248,7 +248,7 @@ Because this session runs *before* the MQTT module, we test resilience at the ne
 
 ### ◇ Task 4 (Stretcher): Exploring Decentralized Mesh with Yggdrasil
 
-Do this task if you finish the core labs early, or as homework/bonus.
+Do this task if you finish the core labs early, or as homework/stretcher practice.
 
 1. Install Yggdrasil on your laptop or OpenWrt router (available via apt, brew, or pre-compiled).
 2. Inspect your cryptographic identity: run `yggdrasil -genconf` and find your assigned IPv6 address.

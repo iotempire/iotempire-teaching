@@ -16,7 +16,7 @@
 | [Module 7](./07-motors-and-motion-actuators.md) | Day 7 | Motors & Motion Actuators | Servo position, DC motor with H-bridge, stepper steps, current and stall, sensor→motor logic. |
 | [Module 8](./08-sensor-to-system-and-integration.md) | Day 8 | From Sensor to System: MQTT & Integration **+ Checkpoint 2** | Direct MQTT publishing and commands, filters in firmware, Node-RED dashboard, closed-loop control, fault injection; optional IoTempower comparison. |
 | [Module 9](./09-final-project-studio.md) | Days 9–10 | Final Project Studio | Kickoff and story, build and integrate, characterization and evaluation, peer review; **checkpoint 3** (Modules 7–8). |
-| [Module 10](./10-demonstration-and-defense.md) | Day 10 | Demonstration & Portfolio Defense | Live sensor/actuator demonstration, fault injection, individual defense. |
+| [Module 10](./10-demonstration-and-presentation.md) | Day 10 | Project Presentation & Submitted Artifacts | Artifact-based presentation of the submitted slide deck and demo artifacts, measurement and fault-injection evidence, portfolio walkthrough. |
 | [Session 1 slides](../slides/01-introduction.md) | Day 1 | Supplementary | Plain-Markdown intro deck: whoami, first portfolio notes, course contract, pre-study rehash, and hand-over to the Module 1 tasks. |
 | [Prompt bank](./Y-resources-prompt-bank.md) | — | Supplementary | Reflection prompts, LLM-verification drills, quick references. |
 | [Resource bank](./Z-resources-bank.md) | — | Supplementary | Datasheets, cheat sheets, Git/GitHub primer, story canon, troubleshooting, instructor hints. |
@@ -38,4 +38,4 @@
 
 ## Assessment
 
-Assessment — how the points are earned, the checkpoints, the reflection format, the task tiers, and the grade scale — is defined **only** in the [syllabus](../syllabus.md#assessment-kombinationsprüfung-20-base-points--bonus).
+Assessment — how the points are earned, the checkpoints, the reflection format, the task tiers, and the grade scale — is defined **only** in the [syllabus](../syllabus.md#assessment-kombinationsprüfung-20-points).

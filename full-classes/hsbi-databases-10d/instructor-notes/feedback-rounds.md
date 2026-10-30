@@ -119,7 +119,7 @@ P03 | Ada, Ben, Chi | ok | M1, M2 | M4 | bring the M2 orphan query and its plan
 - **shown** — module numbers only. A tick is not needed; the list is the tick.
 - **not yet** — module numbers, or `—`.
 - **next step** — one imperative sentence. If you cannot fit it in one line, it is not a next step yet.
-- Nothing per student. The individual picture comes from the final project defense and the portfolio review.
+- Nothing per student. The individual picture comes from the final project discussion and the portfolio review.
 
 ## What not to do
 
@@ -132,7 +132,7 @@ P03 | Ada, Ben, Chi | ok | M1, M2 | M4 | bring the M2 orphan query and its plan
 ## After the round
 
 - Tell the room the **running count** if you keep one ("most pods have Modules 1–2; Module 3 is where everyone is behind"). That is feedback at cohort level and it is useful.
-- Keep the template file — it is the index for the final portfolio review and for the project defense in week 11.
+- Keep the template file — it is the index for the final portfolio review and for the project discussion in week 11.
 - Convert it to a table when you need to look at it again (see the template file for the one-liner), or paste it into a spreadsheet with `|` as the separator.
 
 > [!TIP]

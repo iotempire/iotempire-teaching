@@ -28,7 +28,7 @@ The prototype works on the bench — until the animation freezes whenever the di
 
 ## 📖 Pod Study: Animation as a Time-Based State Machine
 
-This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can explain in the checkpoint.
 
 ### Animation as a Time-Based State Machine
 

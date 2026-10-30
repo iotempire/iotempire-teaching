@@ -15,7 +15,7 @@
 | [Module 6](./06-industrial-protocols-and-bridging.md) | Day 6 | Industrial Protocols & Edge Bridging | Modbus/OPC-UA/RS-485 overview, TSN context; optional simulated edge bridge. |
 | [Module 7](./07-fleet-management-and-iotempower.md) | Day 7 | Fleet Management & Scaling with IoTempower | Declarative node configuration, Over-The-Air (OTA) flashing, M5Stack fleet scaling. |
 | [Module 8](./08-final-project-studio.md) | Days 8–9 | Final Project Studio **+ Checkpoint 2** | Project kickoff and story, multi-node integration, resilience testing, peer review rehearsal. |
-| [Module 9](./09-project-presentation-and-portfolio.md) | Day 10 | Project Presentation & Portfolio Submission | Short project presentation of the final portfolio-report section, live multi-node demonstration, network fault-injection test, report hand-in. |
+| [Module 9](./09-project-presentation-and-portfolio.md) | Day 10 | Project Presentation & Technical Report Submission | Short project presentation of the final technical-report section, live multi-node demonstration, network fault-injection test, report hand-in. |
 | [Prompt bank](./Y-resources-prompt-bank.md) | — | Supplementary | Reflection prompts, LLM-verification drills, quick references. |
 | [Resource bank](./Z-resources-bank.md) | — | Supplementary | RFCs, cheat sheets, Git/GitHub primer, story canon, troubleshooting, instructor hints. |
 
@@ -37,4 +37,4 @@
 
 ## Assessment
 
-Assessment — how the points are earned, the checkpoints, the reflection format, the task tiers, and the grade scale — is defined **only** in the [syllabus](../syllabus.md#assessment-large-homework-20-base-points--bonus).
+Assessment — how the points are earned, the checkpoints, the reflection format, the task tiers, and the grade scale — is defined **only** in the [syllabus](../syllabus.md#assessment-hausarbeit-20-points).

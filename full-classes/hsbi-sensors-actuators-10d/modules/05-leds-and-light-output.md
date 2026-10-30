@@ -28,7 +28,7 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 ## 📖 Pod Study: Light as an Actuator
 
-This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can explain in the checkpoint.
 
 ### LED Physics and Current Limiting
 

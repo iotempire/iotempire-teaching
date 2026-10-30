@@ -17,7 +17,7 @@
 | [Module 5](./05-normalization-vs-denormalization.md) | 5–6 | Normalization vs. Denormalization Benchmarking Studio | *Relational model, functional dependencies, 1NF–3NF* | Normalize to 3NF, denormalize on purpose, measure read/write/storage trade-offs in SQLite. |
 | [Module 6](./06-polyglot-embedded-persistence.md) | 6–7 | Polyglot & Embedded Persistence | *NoSQL, ACID vs. BASE, CAP theorem, DB within applications* | JSON documents in SQLite, DuckDB analytics over Parquet/CSV, a key-value comparison. |
 | [Module 7](./07-final-project-studio.md) | 8–10 | Final Project Studio | *Project planning and implementation* | Kickoff and story, requirement mapping, build, integrate, harden, peer review, rehearse. |
-| [Module 8](./08-final-project.md) | 11 | Final Project Specification, Demos & Oral Defenses | *Assessment* | 15-minute live demo + individual oral defense; retrospective. |
+| [Module 8](./08-final-project.md) | 11 | Final Project Specification, Demos & Project Discussions | *Assessment* | 15-minute live demo + individual project discussion; retrospective. |
 | [Resource Prompts](./Y-resources-prompt-bank.md) | — | Supplementary | — | Reflection prompts, LLM-verification drills, quick references. |
 | [Resource Bank](./Z-resources-bank.md) | — | Supplementary | — | Cheat sheets, troubleshooting, datasets, extended reading. |
 | [Session 1 slides](../slides/01-introduction.md) | 1 | Supplementary | — | Plain-Markdown slide deck Session 1 is presented from (any Markdown viewer; render to a 16:9 PDF with pandoc + Typst). See the [instructor hints](./Z-resources-bank.md#instructor-hints-presenting-the-markdown-slide-deck). |
@@ -38,4 +38,4 @@
 
 ## Assessment
 
-Assessment — how the points are earned, the checkpoints, the reflection format, and the grade scale — is defined in the [syllabus](../syllabus.md#assessment-project-work-20-base-points--bonus).
+Assessment — how the points are earned, the checkpoints, the reflection format, and the grade scale — is defined in the [syllabus](../syllabus.md#assessment-project-work-20-points).

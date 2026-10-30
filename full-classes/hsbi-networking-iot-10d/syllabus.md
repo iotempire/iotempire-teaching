@@ -100,29 +100,31 @@ By the end of this course, you will be able to:
 - **Content:** basic computer literacy and comfort with a terminal help; ability to work with Git, a shell, and a markup language is expected, as in the other IoT courses. Basic Python is useful for the integration labs and is scaffolded in Module 4.
 - **Relationship to other modules:** *Vernetzung und IoT-Lösungen* is a 3rd-semester module. It pairs naturally with *Microcontroller Programming* and *Sensorik & Aktorik*: those courses produce the edge devices and measurements; this course connects them into a system. There is no required prior course.
 
-<a id="assessment-large-homework-20-base-points--bonus"></a>
-## Assessment: Large Homework — Portfolio Report + Project Presentation (20 Base Points + Bonus)
+<a id="assessment-hausarbeit-20-points"></a>
+## Assessment: Hausarbeit — Technical Engineering Report (20 Points)
 
-Assessment is a **large homework** (*große Hausarbeit*): you build and maintain one personal **GitHub portfolio**, document your laboratory work, measurements, and reflections there, and submit it as your **portfolio report**. In the final session you give a **short project presentation of the last part of that report**. The formal form is fixed by the module handbook; where the handbook version constrains the mix, the instructor will announce the binding variant in the LMS. Everything below is the working agreement for this offering.
+Assessment is a **Hausarbeit** (*Term Paper / Technical Engineering Report*). You build and maintain one personal **GitHub portfolio**, document your laboratory work, measurements, and reflections there, and package it as a formal **technical engineering report**: a synthesized overview in continuous text, architecture decisions, and learning-goal reflections, with challenge logs, code, schematics, captures, and measurements included as detailed appendices. In the final session you give a short presentation of the last section of that report. The formal form is fixed by the module handbook; where the handbook version constrains the mix, the instructor announces the binding variant in the LMS.
 
-The small tasks in each module are how you **prove that module's learning goals**; the **reflections** make the report personal; and short **checkpoints** give you feedback on whether the evidence is complete and convincing before submission. Checkpoints are **not separate examinations** — the graded artefact is the portfolio report. Submit the complete report through the LMS by the announced deadline; the final session is the project presentation.
+The small tasks in each module are how you **prove that module's learning goals**; the **reflections** make the report personal; and short **checkpoints** give you feedback on whether the evidence is complete and convincing before submission. Checkpoints are **not separate examinations** — the graded artefact is the technical report. Submit the complete report through the LMS by the announced deadline; the final session is the project presentation.
 
 > [!IMPORTANT]
-> **Module 0 and Modules 1–7 are worth 11 of the 20 base points.** You earn them through the portfolio evidence that proves the modules' learning goals — not by completing every task. Module 0 is normally completed before Day 1; in a cohort that needs more setup time, it can be run as the first in-class module instead (same 1 point, same evidence).
+> **Module 0 and Modules 1–7 are worth 11 of the 20 points.** You earn them through the portfolio evidence that proves the modules' learning goals — not by completing every task. Module 0 is normally completed before Day 1; in a cohort that needs more setup time, it can be run as the first in-class module instead (same 1 point, same evidence).
 
 ### Points Breakdown
 
 | Component | Points | Details |
 |---|---|---|
-| Module 0 (Pre-Study) | 1 point | Portfolio repository setup from the template, inspiration notes, network exploration, and answers to the guiding questions. |
-| Modules 1–7 (Learning goals) | 10 points | Earned through the portfolio evidence that proves each module's learning goals: OSI critique and packet overhead, OpenWrt configuration and captures, Nebula/Yggdrasil overlays, MQTT flows, ESP-NOW, optional industrial bridge, and IoTempower fleet deployment. Checkpoints are feedback conversations on that evidence. |
-| Reflection points | 4 points | One logbook entry for each teaching block (four blocks: Days 1–3, 4–6, 7–8, and 9–10), captured in your personal logbook and included in the report. |
-| Final meaningful project | 5 points | 25% of the base score. A multi-node, multi-protocol IoT network documented in the final section of the portfolio report, with a failover test and a short project presentation of that section. Built in a **Project Team** of 4–6. |
-| **Base total** | **20 points** | 100% base score. |
-| Extra / bonus points | up to +3 | Outstanding benchmarking/measurement, accepted open-source pull requests to IoTempower or class repositories, or verified peer debugging and mentoring. |
+| Module 0 + Modules 1–7 — core technologies and lab challenges | 11 points | Portfolio repository setup, the technical labs, configuration, captures, code, measurements, and functional artifacts that prove each module's learning goals. Module 0 is normally completed before Day 1; in a cohort that needs more setup time it can run as the first in-class module (same 1 point, same evidence). |
+| Individual reflection and engineering decision log | 4 points | One logbook entry for each teaching block (Days 1–3, 4–6, 7–8, 9–10): what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals. Included in the report. |
+| Final project | 5 points | 25% of the report. A multi-node, multi-protocol IoT network in the final report section, with a failover test and a short project presentation of that section. Built in a **Project Team** of 4–6. |
+| **Total** | **20 points** | Pass at **14 / 20** (~70%). |
 
-- **Score cap:** The final score is capped at 20 points, even if bonus points are earned. Bonus points compensate for minor weaknesses in regular deliverables, but all compulsory components must still be attempted.
-- **Passing threshold:** Minimum **14 out of 20 points** (~70%) to pass (*bestanden*).
+> [!IMPORTANT]
+> **There are no additional point categories outside the fixed 20-point scale.**
+
+### Excellence Stretcher
+
+All deliverables are evaluated on the fixed 20-point scale. If you are tracking below mastery in a core competence area, contact the instructor **before the final deadline** to agree an **Excellence Stretcher**: an advanced challenge or deep-dive task that lets you demonstrate full mastery of the targeted learning objective, or a documented didactic contribution such as outstanding peer teaching, teaching material, or a tool that improves the class. An approved Stretcher is assessed against the same learning goals and counts within the 20-point scale; it never raises the maximum above 20.
 
 <a id="how-module-points-are-earned-portfolio-evidence-and-checkpoints"></a>
 ### How module points are earned: portfolio evidence and feedback checkpoints
@@ -156,11 +158,11 @@ Practical notes:
 
 ### Task tiers: ★ Core and ◇ Stretcher
 
-Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one we consider *core* to the module — the straightforward way to reach its learning goals. It is not a hard requirement, but note the asymmetry: for an ordinary task you can argue “this was not needed to reach the goals” and we will usually accept it; for a **★ Core** task that argument is harder, so skipping one means convincing us you reached the same goals another way. A **◇ Stretcher** is optional — an extension, a deeper dive, or bonus material, and the natural trim point when time is short. **Have a better task idea?** Propose it; if it reaches the same learning goal, we can swap it into the module — student-designed tasks are explicitly welcome.
+Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one we consider *core* to the module — the straightforward way to reach its learning goals. It is not a hard requirement, but note the asymmetry: for an ordinary task you can argue “this was not needed to reach the goals” and we will usually accept it; for a **★ Core** task that argument is harder, so skipping one means convincing us you reached the same goals another way. A **◇ Stretcher** is optional — an extension, a deeper dive, or additional practice, and the natural trim point when time is short. **Have a better task idea?** Propose it; if it reaches the same learning goal, we can swap it into the module — student-designed tasks are explicitly welcome.
 
 ### Reflection format
 
-For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). The template includes the **AI-verification** question.
+For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). The template includes the **AI-verification** question. The log is an **engineering decision log**: what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals.
 
 **When to write it:** reserve about **10 minutes after the meeting** — right after class, in the evening, or first thing next morning. It does **not** need to happen inside the class session. Writing a little later, in a different associative state, often helps the learning settle.
 
@@ -232,7 +234,7 @@ The 10 days correspond to 48 contact hours, with **one module per day**. Session
 | 6 | [Module 6 — Industrial Protocols & Edge Bridging](./modules/06-industrial-protocols-and-bridging.md) | Conceptual tour: Modbus RTU/TCP, OPC-UA, RS-485, TSN context; optional simulated Python/Node-RED bridge to MQTT. |
 | 7 | [Module 7 — Fleet Management & Scaling with IoTempower](./modules/07-fleet-management-and-iotempower.md) | Declarative IoT architecture, multi-node configuration, Over-The-Air (OTA) deployment across M5Stack fleet, topic standardisation. |
 | 8–9 | [Module 8 — Final Project Studio](./modules/08-final-project-studio.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–7), then:* Project kickoff & story, team and requirement mapping, system integration across nodes and network layers, hardening, fault-injection & resilience testing, architecture documentation, peer review dry run. |
-| 10 | [Module 9 — Project Presentation & Portfolio Submission](./modules/09-project-presentation-and-portfolio.md) | Short project presentation of the final portfolio-report section, live multi-node demonstration, network fault-injection test, portfolio report hand-in, retrospective. |
+| 10 | [Module 9 — Project Presentation & Technical Report Submission](./modules/09-project-presentation-and-portfolio.md) | Short project presentation of the final technical-report section, live multi-node demonstration, network fault-injection test, technical engineering report hand-in, retrospective. |
 
 > [!TIP]
 > **Buffer and pacing:** Days 8–9 form the final-project block. Part of it is deliberately loose and can absorb spill-over from earlier labs, be released as flexible/wiggle time, or be used for stretcher tasks and peer mentoring. Announce the concrete use of each part in the LMS as the course progresses.
@@ -240,7 +242,7 @@ The 10 days correspond to 48 contact hours, with **one module per day**. Session
 <a id="final-project-requirements-5-points"></a>
 ## Final Project Requirements (5 Points)
 
-The final project is an end-to-end networked system built by **Project Teams of 4–6 students** — the project merges two Task Pods from Modules 1–7, so you keep your pod and gain one or two more. Project Teams form and pitch a stakeholder story during the project kickoff (Module 8), then map their requirements onto the criteria below. The project is documented as the **final section of your portfolio report**, and the last session presents that section.
+The final project is an end-to-end networked system built by **Project Teams of 4–6 students** — the project merges two Task Pods from Modules 1–7, so you keep your pod and gain one or two more. Project Teams form and pitch a stakeholder story during the project kickoff (Module 8), then map their requirements onto the criteria below. The project is documented as the **final section of your technical engineering report**, and the last session presents that section.
 
 ### Must-Have System Criteria:
 
@@ -255,7 +257,7 @@ The final project is an end-to-end networked system built by **Project Teams of 
 ### Assessment Criteria:
 
 - **System functionality & resilience (2 points):** Meets specifications, handles disconnections cleanly, and shows valid packet flows.
-- **Architecture, documentation & metrics (1.5 points):** Clear network topology diagram, routing explanation, Wireshark/throughput/latency measurements, a concise project section in the portfolio report, and clean Git history.
+- **Architecture, documentation & metrics (1.5 points):** Clear network topology diagram, routing explanation, Wireshark/throughput/latency measurements, a concise project section in the technical engineering report, and clean Git history.
 - **Project presentation & discussion (1.5 points):** A clear **10-minute** Project Team presentation of the final report section — 5 minutes of live system demonstration including intentional fault injection, plus a 5-minute discussion of the design decisions you own.
 
 #### Detailed rubric
@@ -271,6 +273,8 @@ See the full [project presentation and portfolio specification](./modules/09-pro
 ## Portfolio & Documentation Standards
 
 All assessments are based on your personal GitHub Portfolio, created from the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”**, then made your own; the [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) covers the template workflow, your editor, Markdown, and resolving conflicts.
+
+For submission, package the portfolio as the **technical engineering report** described in the assessment section: a continuous-text overview and architecture decisions, with challenge logs, code, schematics, captures, and measurements as detailed appendices.
 
 Each module lists **suggested portfolio evidence** — suggestions, not a checklist. You may prove the same learning goals another way; if you do, say so in the module entry.
 
@@ -291,7 +295,7 @@ Each module lists **suggested portfolio evidence** — suggestions, not a checkl
 3. **Collaborate within your pod:** Debugging packet flow is twice as fast when one student monitors the sender and the other runs `tcpdump` on the receiver. Split tasks, audit each other, and change roles often.
 4. **Measurement mindset:** A resilience claim without a recovery time, a packet capture, or a throughput number is an opinion. Write down *what* you measured, *with what*, and *under what conditions*.
 5. **AI with responsibility:** Use AI co-pilots enthusiastically — and verify relentlessly. You are accountable for every configuration and every line you ship, whether you or a model wrote it.
-6. **Open-source mindset:** Share discoveries and help other pods (and, later, other Project Teams). Accepted pull requests to IoTempower, this course repository, or open-source tools qualify for bonus points.
+6. **Open-source mindset:** Share discoveries and help other pods (and, later, other Project Teams). Accepted pull requests to IoTempower, this course repository, or open-source tools can be proposed as an **Excellence Stretcher**.
 
 ## Contacts & Support
 

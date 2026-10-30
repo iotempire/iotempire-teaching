@@ -140,7 +140,7 @@ Then discuss as a class and capture the answers:
 
 ### ◇ (optional) Task 4 (or whole-class walkthrough): I²C pod study — all pods, same bus
 
-**All pods do this task at the same time.** Unlike the bus survey in Task 2, this is not a jigsaw: everyone studies the same I²C material, then compares notes with a neighbouring pod. Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+**All pods do this task at the same time.** Unlike the bus survey in Task 2, this is not a jigsaw: everyone studies the same I²C material, then compares notes with a neighbouring pod. Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can explain in the checkpoint.
 
 > [!NOTE]
 > **Instructor note — sequencing option.** Task 4 can also run **after Task 9 (Build and Choose Our Scope)**: once students have their own working logic analyzer, START, ACK/NACK, and clock stretching are much easier to see on the wire. Keep the task where it is for now; this is an option for a future run, not a required reordering. The task does not depend on the instrument — the instrument makes the concepts concrete.
