@@ -52,7 +52,7 @@ Key architectural concepts to grasp early:
 Complete these steps and document your findings in your portfolio:
 
 ### Step A: Inspiration
-1. Watch ["Teaching the IoTempower Way"](https://video.iotempower.us) (the IoTempower inspiration video — dense and fast-paced).
+1. Watch ["Teaching the IoTempower Way"](https://video.iotempower.us) (the IoTempower inspiration video — dense and fast-paced). *External link, last checked 2026-11-02; if it is gone, ask in the class channel and use the written intro in this guide instead.*
 2. Note what excites you. What kind of distributed system, smart environment, or networked automation would you love to build?
 
 ### Step B: The Journey of a Packet

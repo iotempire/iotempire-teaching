@@ -87,19 +87,22 @@ uv run python iot_bridge.py
 <a id="pre-class-videos-by-module"></a>
 ## 🎥 Pre-Class Videos by Module
 
-| Module | Topic                 | Video                                                                               | Guiding Question                                                                 |
-|------------|---------------------------|---------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| 1          | OSI Model Critique         | [OSI Model – Practical Perspective](https://www.youtube.com/watch?v=vv4y_vyBGN8)        | How does layering help—or hinder—debugging an MQTT broker crash?                            |
-| 1          | OSI vs TCP/IP             | [OSI Model vs TCP/IP](https://www.youtube.com/watch?v=ZT07sZ0tJcc)                     | What benefit does TCP/IP’s flexible layering bring to real-time IoT?                      |
-| 4          | MQTT in IoT                | [MQTT Beginner Guide](https://www.youtube.com/watch?v=hzJ00SqJYeY)                   | How does MQTT’s pub/sub reduce integration friction compared to REST?                      |
-| 4          | Mocking Hardware with MQTT  | [Mocking Hardware for IoT](https://www.youtube.com/watch?v=4QbQ0xVGG0M)                 | What’s the benefit of swapping a Python mock for an ESP32 with *no other changes*?       |
-| 5          | LoRaWAN Deep Dive          | [LoRaWAN Protocol & Hardware](https://www.youtube.com/watch?v=VhB1Iv7Q3HY)           | What’s the trade-off between WiFi’s throughput and LoRaWAN’s range?                      |
-| 5          | WiFi vs LoRaWAN Choices    | [WiFi LoRaWAN Infographic](https://www.youtube.com/watch?v=fFoRz2q2yqA)             | If a project needs a 15 km line-of-sight, which would you pick and why?                      |
-| 7          | Raspberry Pi Gateway        | [Pi as IoT Gateway](https://www.youtube.com/watch?v=6Nz7Xv7sLqM)                     | What job does the gateway perform that neither the sensor nor the cloud can do alone?        |
-| 6 (optional) | OPC-UA for Beginners       | [OPC-UA Explained](https://www.youtube.com/watch?v=5m5q6XZKJXQ)                        | How is an OPC-UA node different from a Modbus register?                                     |
-| 6 (optional) | Modbus for Beginners       | [Modbus Explained](https://www.youtube.com/watch?v=Txv-OT-AJrA)                         | What happens when 100 Modbus devices share a single RS-485 line?                        |
-| 5          | ESP32 Deep Sleep Modes      | [ESP32 Deep Sleep vs Light Sleep](https://www.youtube.com/watch?v=ZvfA1XxjVa4)       | What sleep mode achieves 6-month battery life on your ESP-NOW soil sensor?                          |
-| 5          | IoT Power Optimization      | [IoT Power Techniques](https://www.youtube.com/watch?v=eEE9xTQHw9c)                   | Why is frequency scaling often unused in IoT? What’s cheaper instead?                         |
+> [!NOTE]
+> **Videos are external and temporary.** YouTube links get renamed, region-locked, or taken down without notice, so an entry that worked when this table was written may already be gone. Each row carries the date it was last verified (see the *Checked* column). The **guiding question**, not the exact video, is the part that matters: if a link is dead, search for the topic yourself and post a working replacement in the class channel. The written pointers and LLM prompts inside the modules are the authoritative path — a video is only ever a second opinion.
+
+| Module | Topic | Video | Guiding Question | Checked |
+|---|---|---|---|---|
+| 1 | OSI Model Critique | [OSI Model: A Practical Perspective (Practical Networking)](https://www.youtube.com/watch?v=LkolbURrtTs) | How does layering help — or hinder — debugging an MQTT broker crash? | 2026-11-02 |
+| 1 | OSI vs TCP/IP | [OSI and TCP/IP Models — Best Explanation](https://www.youtube.com/watch?v=3b_TAYtzuho) | What benefit does TCP/IP’s flexible layering bring to real-time IoT? | 2026-11-02 |
+| 4 | MQTT in IoT | [What is MQTT and How It Works (Rui Santos)](https://www.youtube.com/watch?v=EIxdz-2rhLs) | How does MQTT’s pub/sub reduce integration friction compared to REST? | 2026-11-02 |
+| 4 | Replacing a mock with real hardware | [Getting Started with ESP32 & MQTT](https://www.youtube.com/watch?v=OAoM5IV393o) | What’s the benefit of swapping a Python mock for an ESP32 with *no other changes*? | 2026-11-02 |
+| 5 | LoRaWAN Architecture | [LoRaWAN Explained: Basics, Devices, Architecture](https://www.youtube.com/watch?v=EAby2vOeLpc) | What’s the trade-off between WiFi’s throughput and LoRaWAN’s range? | 2026-11-02 |
+| 5 | Wireless Technology Choices | [Wi-Fi, Bluetooth, Zigbee, and LoRa in IoT (comparison)](https://www.youtube.com/watch?v=V7E6ytEttsA) | If a project needs a 15 km line-of-sight, which would you pick and why? | 2026-11-02 |
+| 5 | ESP32 Deep Sleep Modes | [ESP32 Deep Sleep Tutorial for Low Power Projects](https://www.youtube.com/watch?v=y1R2y8dCsIg) | What sleep mode achieves 6-month battery life on your ESP-NOW soil sensor? | 2026-11-02 |
+| 5 | IoT Power Optimization | [Power Management in IoT: Battery Life & Energy Harvesting](https://www.youtube.com/watch?v=a7PTizUNfsI) | Why is frequency scaling often unused in IoT? What’s cheaper instead? | 2026-11-02 |
+| 6 (optional) | OPC-UA for Beginners | [The ABCs of OPC UA (RealPars)](https://www.youtube.com/watch?v=_rQHcKwvRJw) | How is an OPC-UA node different from a Modbus register? | 2026-11-02 |
+| 6 (optional) | Modbus for Beginners | [What is Modbus and How does it Work? (RealPars)](https://www.youtube.com/watch?v=txi2p5_OjKU) | What happens when 100 Modbus devices share a single RS-485 line? | 2026-11-02 |
+| 7 | Raspberry Pi Gateway | [Raspberry Pi IoT Server: InfluxDB, MQTT, Grafana, Node-RED & Docker](https://www.youtube.com/watch?v=_DO2wHI6JWQ) | What job does the gateway perform that neither the sensor nor the cloud can do alone? | 2026-11-02 |
 
 <a id="rfcs--standards-every-student-should-glance-once"></a>
 ## 📖 RFCs & Standards Every Student Should Glance Once
