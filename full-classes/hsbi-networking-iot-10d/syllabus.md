@@ -103,9 +103,12 @@ By the end of this course, you will be able to:
 <a id="assessment-hausarbeit-20-points"></a>
 ## Assessment: Hausarbeit — Technical Engineering Report (20 Points)
 
-Assessment is a **Hausarbeit** (*Term Paper / Technical Engineering Report*). You build and maintain one personal **GitHub portfolio**, document your laboratory work, measurements, and reflections there, and package it as a formal **technical engineering report**: a synthesized overview in continuous text, architecture decisions, and learning-goal reflections, with challenge logs, code, schematics, captures, and measurements included as detailed appendices. In the final session you give a short presentation of the last section of that report. The formal form is fixed by the module handbook; where the handbook version constrains the mix, the instructor announces the binding variant in the LMS.
+Assessment is a **Hausarbeit** (*Term Paper / Technical Engineering Report*). You build and maintain one personal **GitHub portfolio**, documenting your laboratory work, measurements, and reflections there. For submission, you package that portfolio as a formal **technical engineering report**: a synthesized overview in continuous text, architecture decisions, and a **learning-goal argumentation** that connects each goal to its evidence, with challenge logs, code, schematics, captures, and measurements included as detailed appendices. In the final session you give a short presentation of the last section of that report. The formal form is fixed by the module handbook; where the handbook version constrains the mix, the instructor announces the binding variant in the LMS.
 
-The small tasks in each module are how you **prove that module's learning goals**; the **reflections** make the report personal; and short **checkpoints** give you feedback on whether the evidence is complete and convincing before submission. Checkpoints are **not separate examinations** — the graded artefact is the technical report. Submit the complete report through the LMS by the announced deadline; the final session is the project presentation.
+The small tasks in each module are how you **produce evidence for that module's learning goals**. The **reflections** document the learning journey — what worked, what did not, and how your thinking changed. The **learning-goal argumentation** is the analytical bridge: for each goal, it states the claim and shows which evidence supports it. Short **checkpoints** give you feedback on whether that argument is complete and convincing before submission. Checkpoints are **not separate examinations** — the graded artefact is the technical report. Submit the complete report through the LMS by the announced deadline; the final session is the project presentation.
+
+> [!NOTE]
+> **Three different things, kept separate.** The **evidence** is what you built, configured, captured, or measured. The **reflection** is the journey: what worked, what broke, and how your mental model changed. The **learning-goal argumentation** is the reasoned claim that the evidence demonstrates the goal. The report needs all three — but they are not the same text.
 
 > [!IMPORTANT]
 > **Module 0 and Modules 1–7 are worth 11 of the 20 points.** You earn them through the portfolio evidence that proves the modules' learning goals — not by completing every task. Module 0 is normally completed before Day 1; in a cohort that needs more setup time, it can be run as the first in-class module instead (same 1 point, same evidence).
@@ -115,7 +118,7 @@ The small tasks in each module are how you **prove that module's learning goals*
 | Component | Points | Details |
 |---|---|---|
 | Module 0 + Modules 1–7 — core technologies and lab challenges | 11 points | Portfolio repository setup, the technical labs, configuration, captures, code, measurements, and functional artifacts that prove each module's learning goals. Module 0 is normally completed before Day 1; in a cohort that needs more setup time it can run as the first in-class module (same 1 point, same evidence). |
-| Individual reflection and engineering decision log | 4 points | One logbook entry for each teaching block (Days 1–3, 4–6, 7–8, 9–10): what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals. Included in the report. |
+| Individual reflection and engineering decision log | 4 points | One logbook entry for each teaching block (Days 1–3, 4–6, 7–8, 9–10): what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment of your learning progress. Included in the report. |
 | Final project | 5 points | 25% of the report. A multi-node, multi-protocol IoT network in the final report section, with a failover test and a short project presentation of that section. Built in a **Project Team** of 4–6. |
 | **Total** | **20 points** | Pass at **14 / 20** (~70%). |
 
@@ -162,7 +165,7 @@ Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one w
 
 ### Reflection format
 
-For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). The template includes the **AI-verification** question. The log is an **engineering decision log**: what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals.
+For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). The template includes the **AI-verification** question. The log is an **engineering decision log**: what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment of your learning progress.
 
 **When to write it:** reserve about **10 minutes after the meeting** — right after class, in the evening, or first thing next morning. It does **not** need to happen inside the class session. Writing a little later, in a different associative state, often helps the learning settle.
 
