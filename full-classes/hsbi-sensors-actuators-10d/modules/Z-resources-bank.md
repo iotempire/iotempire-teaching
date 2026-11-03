@@ -113,6 +113,7 @@ uv run python plot_measurements.py
 | MPU6050 register map | Accel/gyro scales, `0x68`/`0x69`, WHO_AM_I | Shows how an IMU is configured via registers |
 | LDR (photoresistor) characteristics | Resistance vs. illuminance, spectral response, light history | The analog, nonlinear transfer-function lab |
 | DS18B20 datasheet | 9–12-bit resolution, ±0.5 °C accuracy, conversion time, OneWire, sealed probe | The digital-sensor characterization and the frost-alarm decision |
+| DHT11 datasheet | 0–50 °C, ±2 °C, 1 °C resolution, 20–90 % RH, ±5 % RH, ~1 Hz, proprietary single-wire | The cheap-sensor counterexample for the frost alarm |
 | WS2812B datasheet | 5 V, ~60 mA/LED full white, 800 kHz timing | Why the strip needs a power budget and level shifting |
 | SG90 / servo datasheet | 50 Hz PWM, pulse widths, stall current | Why servos need their own 5 V supply |
 | TB6612 / L298N datasheet | H-bridge, current ratings, flyback | Why running vs. stall current decides your driver |
@@ -212,6 +213,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Logic analyzer software | PulseView / sigrok | I²C, 1-Wire, SPI, UART protocol decoders |
 | ESP32 scope/analyzer | ESP32 logic analyzer / web scope | Built/selected in Module 2; see the [Module 2 candidate shortlist](./02-i2c-and-sensor-addressing.md) |
 | Addressable LEDs | Adafruit NeoPixel; NeoPixelBus | Simple bring-up vs. robust/multi-strip; FastLED as a reference only |
+| DHT11 / DHT22 | Adafruit DHT sensor library or DHTesp | Timing-sensitive single-wire protocol; not 1-Wire; respect the sampling interval |
 | I²C convenience | `Wire` (Arduino core) | Scan, read/write registers |
 | I²C tools (Linux) | `i2c-tools` (`i2cdetect`) | Standard bus scan on a Pi/gateway |
 | Integration & dashboards | Node-RED, Mosquitto | Local-first MQTT stack |
@@ -223,6 +225,8 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 **Before the first studio.** Check the kit: label every Grove module with its I²C address, keep one known-good jumper wire and one known-good sensor as a reference, and test the Mosquitto broker (and optional Node-RED) on its host before students arrive. A USB power meter saves many “why does it reset?” conversations. For Module 2, have one known-good ESP32 scope/analyzer build and a PulseView install ready as a fallback for the instrument sprint.
 
 **Module 3 studio (LDR, potentiometer, DS18B20).** Six pods share three multimeters: pair pods, one meter per pair, and swap at the round boundary. Each pod has its own LDR, potentiometer, and 2–3 DS18B20s; the class tables collect the LDR rows and the DS18B20 unit means so pods can compare unit-to-unit variation. The DS18B20s are sealed probes on long cables; the connectors are not — keep them dry. In fall, use the cold weather: send pods outside with the probes and the shared reference thermometer for the field transect. Each instructor covers three pods; the class reference thermometer stays with the instructors. Keep one DS18B20 checked against the thermometer as a secondary reference. The mini-check prompts are at the end of each round in the module; draw one at random and ask a pod to answer from its bench or log. For the LDR light ladder, a dark card and a fixed lamp are enough; a phone lux meter is a relative reference, not a calibration standard.
+
+**Module 3 water prep.** About an hour before the session, put a few plastic drink bottles of water in the freezer — they make a clean, mess-free cold source, and the slush can be poured into cups for the ice-water validation. Get hot water from the kitchen on demand and mix it down to warm, never boiling, before the probes go in. Keep a towel and a dry tray for the connectors: the DS18B20 probe is sealed, the connector is not. The DHT11 stays dry and out of the water; it is an air-only comparison.
 
 **Pods and checkpoints.** Form Task Pods of two or three on Day 1 (two is the default; use three for a large cohort, roughly >40 students). The checkpoint schedule, the 2-pod practice round, and the video alternative are defined in the [syllabus](../syllabus.md#how-module-points-are-earned-feedback-checkpoints); run the slots from there. Assess from the portfolio, not from task completion, and keep the checkpoint a short conversation rather than a presentation rehearsal.
 

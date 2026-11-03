@@ -30,7 +30,7 @@ Elif does not need a prettier plot. She needs a number she can act on: *"How wro
 
 ## 🛠️ Characterization Studio — **Challenging**
 
-*Hardware per pod:* 1× ESP32 (or ESP8266), breadboard and jumper wires, 1× LDR + 10 kΩ resistor, 1× 10 kΩ potentiometer, 2–3× DS18B20 sealed probes on long cables (OneWire) plus a 4.7 kΩ pull-up, two cups for ice water and warm water.
+*Hardware per pod:* 1× ESP32 (or ESP8266), breadboard and jumper wires, 1× LDR + 10 kΩ resistor, 1× 10 kΩ potentiometer, 1× DHT11 (optional comparison), 2–3× DS18B20 sealed probes on long cables (OneWire) plus a 4.7 kΩ pull-up, two cups for ice water and warm water.
 
 *Shared:* lamps, rulers, dark cards or boxes, a phone with a lux-meter app (or one per bench); 3 multimeters for 6 pods — pair pods, one meter per pair, and swap at the round boundary; the class reference thermometer (or a DS18B20 checked against it); hot and cold water.
 
@@ -39,7 +39,7 @@ Elif does not need a prettier plot. She needs a number she can act on: *"How wro
 > [!WARNING]
 > **Field and water safety.** The DS18B20 probe is sealed; the cable connector and the ESP32 are not. Keep them dry and do not put the connector in water. Use warm, not boiling, water — the probe may survive it, but the cable and connector may not. Outside, dress for the cold, watch for wet or slippery ground, and keep the electronics under cover. Check the DS18B20 wiring: `VDD` to 3.3 V, `GND` to GND, `DQ` to the GPIO with a 4.7 kΩ pull-up to 3.3 V.
 
-> **Your bench.** Each pod has its own LDR, potentiometer, and 2–3 DS18B20s. The class still compares results — add your LDR rows and DS18B20 unit means to the class tables if your instructor sets them up — but the measurements happen at your own bench.
+> **Your bench.** Each pod has its own LDR, potentiometer, 2–3 DS18B20s, and an optional DHT11. The class still compares results — add your LDR rows and DS18B20 unit means to the class tables if your instructor sets them up — but the measurements happen at your own bench.
 >
 > **Studio rhythm.** Each round has four modes: **Brief** (read the short concept block), **Bench** (measure), **Explain** (a mini check), and **Log/Swap** (write and exchange). The three rounds map to the module's three sessions; keep the order if your timetable differs.
 >
@@ -143,10 +143,31 @@ The DS18B20 is the digital, factory-calibrated sensor. It does not need a voltag
 6. **Response time.** Put one probe in stirred water; move it from cold to warm; log `(time, temperature)` at 12-bit. Plot the step response and estimate `τ` (63 % of the change) and the settling time (4–5 τ). Repeat in still air and compare; keep the probe in the same position for both runs. Explain why the air measurement is slower.
 7. **Optional — self-heating.** Compare continuous conversions with a duty-cycled read in still air. Does the reading shift? How large is the effect compared with the datasheet accuracy?
 
+##### ◇ Optional sub-task 2a: The cheap sensor check (DHT11)
+
+The DHT11 is the sensor everyone has — and a good lesson in why it is the wrong part for a 2 °C frost alarm. Its datasheet is a lesson in reading the numbers before the marketing:
+
+| | DHT11 | DS18B20 |
+|---|---|---|
+| Temperature range | 0–50 °C | −55 to +125 °C |
+| Accuracy | ±2 °C | ±0.5 °C (−10 to +85 °C) |
+| Resolution | 1 °C | 0.0625 °C at 12-bit |
+| Sampling | about one reading per second | 750 ms at 12-bit |
+| Protocol | proprietary single-wire | 1-Wire |
+
+1. **Read the datasheet.** Write down the temperature range, resolution, accuracy, humidity range and accuracy, sampling interval, and protocol. Check the module's supply and pull-up before wiring it to 3.3 V. The DHT11 also reports relative humidity (20–90 % RH, ±5 % RH); the greenhouse cares about dew point, but this is not a dew-point sensor.
+2. **Compare in the same air.** Put the DHT11 and a DS18B20 in the same stable **air** spot (the indoor reference or a sheltered corner) — **not in water**. Log 10 readings from each, respecting the DHT11's sampling interval. Which sensor is stable? Which one occasionally returns a checksum error or a stale value?
+3. **Compare the decision.** Which sensor can resolve a 1 °C change? Which can tell 1 °C from 3 °C reliably? Can the DHT11 validate at 0 °C, or is it at the bottom of its range? Which would you ship for a 2 °C frost alarm?
+4. **Write the one-sentence recommendation to Elif**, with the datasheet numbers. Then add it to your study log.
+
+> [!WARNING]
+> **The DHT11 is not waterproof.** Keep it out of the ice water, the warm water, and the field transect. Only the sealed DS18B20 probe goes into water or outside. The DHT11's humidity reading is ±5 % RH; if you need humidity or dew point, use a SHT3x/BME280-class sensor, not the DHT11.
+
 > **Mini check — Round 1.** The instructor picks a pod and one prompt. Answer from your bench or your log:
 > - "Show your divider orientation and predict the direction of `Vout` when the light increases."
 > - "Which term in the static-characteristics table does your LDR fit actually give you, and which term does not apply?"
 > - "Which DS18B20 is the outlier, and is that calibration, accuracy, or noise?"
+> - "DHT11 or DS18B20 for the frost alarm — which would you ship, and which datasheet number decides it?"
 >
 > **Log and swap.** Update Task A with your LDR class-table rows, your DS18B20 table, and one surprise. Compare your LDR fit with a neighbouring pod's: did you choose the same levels, and do your slopes agree?
 >
@@ -380,6 +401,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 6. Uncertainty statement for one final value (`y ± U`, `k = 2`) with the dominant contribution named.
 7. The one-sentence answer to Elif at 2 °C, with the uncertainty.
 8. Deeper question: Which error in your chain is systematic and could be calibrated, and which is random and must be averaged or accepted? Which is resolution, and which is accuracy?
+9. Optional: the DHT11-vs-DS18B20 selection note, with the datasheet numbers and the one-sentence recommendation to Elif.
 
 
 > [!IMPORTANT]
