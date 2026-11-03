@@ -1,0 +1,18 @@
+# Instructor Notes — Networking and IoT Solutions
+
+Operational notes for teaching the class. They are kept in the open on purpose:
+students can see how the course is run, and co-teachers can reuse the setup. The
+**binding** rules remain the RPO/SPO, the module handbook, and the
+Prüfungsausschuss.
+
+[← Course workbook](../README.md) · [Syllabus](../syllabus.md) · [Module index](../modules/00-index.md)
+
+| Note | What is inside |
+|---|---|
+| [Assessment & operations](./00-assessment-and-operations.md) | Assessment form, milestone plan, submission hygiene, group accountability and sign-off template, re-examination, privacy, AI assistance |
+| [Nebula session](./nebula-session.md) | Preparing the lighthouse, class CA, bundles, handout, in-session recovery, cleanup |
+| [Collecting portfolios](./portfolios.md) | The one-click template link, the invite rule, bulk-accepting invitations and cloning repositories |
+
+Technical hints that are useful to students (capture points, router quirks,
+troubleshooting) live in the [resource bank](../modules/Z-resources-bank.md#instructor-hints);
+this folder holds the course-operation side.

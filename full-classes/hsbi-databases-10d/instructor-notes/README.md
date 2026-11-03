@@ -96,3 +96,4 @@ A short path, in this order: [SQLite "Appropriate Uses"](https://www.sqlite.org/
 | 7 | [07](./07.md) | Four project-studio sessions: story → vertical slice → review → rehearsal. |
 | 8 | [08](./08.md) | Demo day and individual project discussions. |
 | — | [Feedback rounds](./feedback-rounds.md) | The 10-minute script, a 145-minute run sheet, and the fill-in [template](./feedback-template.md). |
+| Course | [Assessment & operations](./00-assessment-and-operations.md) | Assessment form, milestone plan, submission hygiene, group sign-off, re-examination, privacy, AI declaration. |

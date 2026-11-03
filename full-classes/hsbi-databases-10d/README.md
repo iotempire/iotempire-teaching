@@ -62,6 +62,8 @@ The workbook is meant to be reused and adapted. It relies only on open-source, p
 
 **Presenting the class:** Session 1 has a plain-Markdown slide deck — [`slides/01-introduction.md`](./slides/01-introduction.md) — that opens in any Markdown viewer (Zed preview, GitHub, VS Code) and renders to a 16:9 PDF with **pandoc + Typst** ([`slides/render-slides.sh`](./slides/render-slides.sh)), presented fullscreen in **Okular**. Slides are separated by a `---` line; there is no notebook runtime and no build step — the live Python is run on demand from the workbook. See the [resource bank's instructor hints](./modules/Z-resources-bank.md#instructor-hints-presenting-the-markdown-slide-deck) for the full workflow.
 
+**Course operations:** the assessment form, milestone plan, group sign-off template, re-examination guidance, and privacy rules live in [`instructor-notes/`](./instructor-notes/) — in the open, so students can see how the course is run.
+
 ## Navigation & resources
 
 - [Module index & roadmap](./modules/00-index.md)
