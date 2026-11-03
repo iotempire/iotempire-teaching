@@ -59,7 +59,7 @@ The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-templ
 
 ## What you will work with
 
-- **Hardware:** M5Stack nodes and Grove modules (fast path); ESP32/ESP8266 boards, breadboards, and discrete sensors/actuators (physics path); **one shared multimeter**, USB power meter; **no benchtop oscilloscope** — in Module 2 you first survey the bus landscape (simple pins, UART, RS-232/RS-485, Modbus, CAN, I²C, SPI, OneWire) and then build/select an ESP32-based scope/logic analyzer for I²C, OneWire, PWM, and slow analog signals.
+- **Hardware:** M5Stack nodes and Grove modules (fast path); ESP32/ESP8266 boards, breadboards, and discrete sensors/actuators (physics path); **three shared multimeters** (one per two pods), USB power meter; **no benchtop oscilloscope** — in Module 2 you first survey the bus landscape (simple pins, UART, RS-232/RS-485, Modbus, CAN, I²C, SPI, OneWire) and then build/select an ESP32-based scope/logic analyzer for I²C, OneWire, PWM, and slow analog signals.
 - **Firmware:** Arduino IDE v2 or PlatformIO with the ESP32/ESP8266 cores; **Adafruit NeoPixel** for a simple strip bring-up and **NeoPixelBus** for robust/multi-strip work. **FastLED** is kept as a reference/alternative, not the default.
 - **System layer:** a Mosquitto MQTT broker on any host in the network (travel router, Raspberry Pi, or laptop), direct MQTT from the node (for example `PubSubClient`), and optional Node-RED dashboards.
 - **Optional exploration:** [IoTempower](https://github.com/iotempire/iotempower) for declarative drivers, filters, and OTA deployment — not required for the core labs.

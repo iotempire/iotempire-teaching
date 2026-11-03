@@ -111,7 +111,8 @@ uv run python plot_measurements.py
 |---|---|---|
 | VL53L0X datasheet | Optical ToF, registers, I²C address `0x29` | Your primary distance sensor; the register map is the lesson |
 | MPU6050 register map | Accel/gyro scales, `0x68`/`0x69`, WHO_AM_I | Shows how an IMU is configured via registers |
-| NTC datasheet (R25, B value) | Beta/Steinhart–Hart, tolerance | The basis of your transfer-function lab |
+| LDR (photoresistor) characteristics | Resistance vs. illuminance, spectral response, light history | The analog, nonlinear transfer-function lab |
+| DS18B20 datasheet | 9–12-bit resolution, ±0.5 °C accuracy, conversion time, OneWire | The digital-sensor characterization and the frost-alarm decision |
 | WS2812B datasheet | 5 V, ~60 mA/LED full white, 800 kHz timing | Why the strip needs a power budget and level shifting |
 | SG90 / servo datasheet | 50 Hz PWM, pulse widths, stall current | Why servos need their own 5 V supply |
 | TB6612 / L298N datasheet | H-bridge, current ratings, flyback | Why running vs. stall current decides your driver |
@@ -148,7 +149,11 @@ Code → voltage:      V = code · Vref / 2^n
 RC time constant:    τ = R · C
 RC cutoff:           fc = 1 / (2πRC)
 EMA low-pass:        y += alpha · (x − y)
-NTC (Beta equation):1/T = 1/T0 + (1/B) · ln(R/R0)      [T in Kelvin]
+LDR power law:       R = A · E^(−γ)        (log R = log A − γ log E)
+DS18B20 (12-bit):    T = code · 0.0625 °C
+DS18B20 conversion:  9 bit 93.75 ms, 10 bit 187.5 ms, 11 bit 375 ms, 12 bit 750 ms
+OneWire pull-up:     4.7 kΩ to 3.3 V
+NTC (optional):      1/T = 1/T0 + (1/B) · ln(R/R0)      [T in Kelvin]
 Servo:               1.0 ms ≈ 0°, 1.5 ms ≈ 90°, 2.0 ms ≈ 180° at 50 Hz
 WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 ```
@@ -159,7 +164,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Tool | Use |
 |---|---|
 | USB power meter | Log current for strips, servos, motors; verify the power budget |
-| Multimeter | One shared unit — use it for reference checks; the ESP32 scope/analyzer is the primary bus instrument |
+| Multimeter | One per two pods — use it for reference checks; the ESP32 scope/analyzer is the primary bus instrument |
 | ESP32 scope/logic analyzer | I²C/OneWire transactions, PWM duty, slow analog signals; built/selected in Module 2 |
 | Reference thermometer / lux meter | A reference for your characterization labs |
 
@@ -216,6 +221,8 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 ## 🧑‍🏫 Instructor hints
 
 **Before the first studio.** Check the kit: label every Grove module with its I²C address, keep one known-good jumper wire and one known-good sensor as a reference, and test the Mosquitto broker (and optional Node-RED) on its host before students arrive. A USB power meter saves many “why does it reset?” conversations. For Module 2, have one known-good ESP32 scope/analyzer build and a PulseView install ready as a fallback for the instrument sprint.
+
+**Module 3 studio (LDR, potentiometer, DS18B20).** Six pods share three multimeters: pair pods, one meter per pair, and swap at the round boundary. Each pod has its own LDR, potentiometer, and 2–3 DS18B20s; the class tables collect the LDR rows and the DS18B20 unit means so pods can compare unit-to-unit variation. Each instructor covers three pods; the class reference thermometer stays with the instructors. Keep one DS18B20 checked against the thermometer as a secondary reference. The mini-check prompts are at the end of each round in the module; draw one at random and ask a pod to answer from its bench or log. For the LDR light ladder, a dark card and a fixed lamp are enough; a phone lux meter is a relative reference, not a calibration standard.
 
 **Pods and checkpoints.** Form Task Pods of two or three on Day 1 (two is the default; use three for a large cohort, roughly >40 students). The checkpoint schedule, the 2-pod practice round, and the video alternative are defined in the [syllabus](../syllabus.md#how-module-points-are-earned-feedback-checkpoints); run the slots from there. Assess from the portfolio, not from task completion, and keep the checkpoint a short conversation rather than a presentation rehearsal.
 

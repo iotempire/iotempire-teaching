@@ -28,7 +28,7 @@ By the end of this module, you can:
 
 The scanner finds a single address. Reads are intermittent. Mara asks the question that turns a wiring problem into a lesson: *"If both sensors are on the same two wires, how does the controller know which one is answering?"* Before you can answer, you need the bus landscape: what a simple pin can do, and where I²C sits among RS-232, RS-485, Modbus, CAN, SPI, and OneWire. Today you build that map, then zoom in.
 
-*Hardware for the module:* 1× ESP32 DevKit or ESP32 Ethernet mini kit per pod, 2× I²C sensor modules with different addresses (e.g. environment sensor + MPU6050 or VL53L0X), jumper wires, one shared multimeter, optional 2× 10 kΩ pull-ups, optional voltage divider/clamp for the scope input, optional Linux host or Raspberry Pi with `i2c-tools`; add a USB-serial adapter or second board only if you take the optional UART detour in Task 1.
+*Hardware for the module:* 1× ESP32 DevKit or ESP32 Ethernet mini kit per pod, 2× I²C sensor modules with different addresses (e.g. environment sensor + MPU6050 or VL53L0X), jumper wires, a shared multimeter (one per two pods), optional 2× 10 kΩ pull-ups, optional voltage divider/clamp for the scope input, optional Linux host or Raspberry Pi with `i2c-tools`; add a USB-serial adapter or second board only if you take the optional UART detour in Task 1.
 
 > [!WARNING]
 > Power off before rewiring. Check that every module's logic voltage matches 3.3 V. I²C modules with their own 5 V pull-ups can over-voltage a 3.3 V device — check before connecting. The scope/analyzer inputs are **3.3 V only**; use a divider or clamp for higher voltages and never connect to mains-referenced circuits.
@@ -42,7 +42,7 @@ Before the bus survey, get the baseline right. Work in your pod and record the a
 1. **Classify the simple connections in the kit.** For each, name the wires, the voltage, and one failure mode:
    - **Digital high/low:** button, switch, LED, relay.
    - **PWM:** LED dimming, servo. PWM is a modulation technique for average power — **not** a bus: it has no addressing, no framing, and no error handling.
-   - **Analog:** capacitive soil sensor, gas sensor, NTC divider → ADC.
+   - **Analog:** capacitive soil sensor, gas sensor, LDR divider → ADC.
    - **Serial/UART:** TX/RX at 3.3 V, point-to-point, no addressing. RS-232 and RS-485 add an electrical layer (voltage levels, differential pair, multi-drop) on top of the same serial idea.
 2. **Measure a divider.** Build a voltage divider for a 5 V sensor signal into a 3.3 V ADC:
    ```text
@@ -282,7 +282,7 @@ Pair with a **neighbouring pod**:
 ## 🛠️ Studio Lab 3: Build the Instrument — **Challenging**
 
 > [!NOTE]
-> **Lab reality: no benchtop oscilloscope, one shared multimeter.** This instrument sprint follows the I²C work, which has given you real traffic to capture. It is deliberately a **risky, exploratory build**: try the candidates, compare them, and let the class's enthusiasm and evidence decide. Then agree on **1–2 solutions** we use for the rest of the course. For I²C and OneWire, a **logic analyzer** with PulseView/sigrok is the right tool; for slow analog signals and PWM, a browser-based ESP32 scope is useful. Use the multimeter for reference/sanity checks and let the scope/analyzer carry the bus debugging.
+> **Lab reality: no benchtop oscilloscope, shared multimeters.** This instrument sprint follows the I²C work, which has given you real traffic to capture. It is deliberately a **risky, exploratory build**: try the candidates, compare them, and let the class's enthusiasm and evidence decide. Then agree on **1–2 solutions** we use for the rest of the course. For I²C and OneWire, a **logic analyzer** with PulseView/sigrok is the right tool; for slow analog signals and PWM, a browser-based ESP32 scope is useful. Use the multimeter for reference/sanity checks and let the scope/analyzer carry the bus debugging.
 
 > [!WARNING]
 > The scope/analyzer inputs are **3.3 V only**; use a divider or clamp for higher voltages and never connect to mains-referenced circuits. Power off before rewiring.

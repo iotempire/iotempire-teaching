@@ -58,8 +58,8 @@ Useful ways to classify sensors (get used to naming the class of any sensor you 
 
 | Axis | Examples from our kit |
 |---|---|
-| Energy source: active vs. passive | Active: ultrasonic, ToF (emits). Passive: NTC, LDR, thermocouple. |
-| Output: analog vs. digital | Analog: NTC voltage divider. Digital: DS18B20, MPU6050, VL53L0X. |
+| Energy source: active vs. passive | Active: ultrasonic, ToF (emits). Passive: LDR, thermocouple. |
+| Output: analog vs. digital | Analog: LDR voltage divider. Digital: DS18B20, MPU6050, VL53L0X. |
 | Measurand: direct vs. indirect | Direct: temperature sensor. Indirect: current via magnetic field, distance via time-of-flight. |
 | Physical principle | Resistive, capacitive, inductive, piezo, photoelectric, thermoelectric, magnetic (Hall). |
 
@@ -338,7 +338,7 @@ At each edge the output jumps; between edges it decays back to about 1.65 V. The
 
 ### ★ Task 6: Draw Your Own Chain
 
-Pick one more sensor from the available material (NTC, LDR, VL53L0X, MPU6050, DS18B20). Draw the full chain for it: physical quantity → transducer principle → conditioning (if any) → interface (analog? I²C?) → MCU processing → system use. Label where error and noise enter.
+Pick one more sensor from the available material (LDR, potentiometer, VL53L0X, MPU6050, DS18B20). Draw the full chain for it: physical quantity → transducer principle → conditioning (if any) → interface (analog? I²C?) → MCU processing → system use. Label where error and noise enter.
 
 ### ◇ Task 7 (Stretcher): Resolution vs. Reality
 
