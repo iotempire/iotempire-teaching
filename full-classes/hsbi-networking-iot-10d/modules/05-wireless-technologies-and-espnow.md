@@ -196,6 +196,16 @@ Can a single ESP32 speak ESP-NOW and connect to standard Wi-Fi simultaneously? Y
 3. Compare this with triggering the LED via traditional Wi-Fi MQTT through the router:
    - Notice the difference in latency, especially when the Wi-Fi channel is heavily congested with class traffic.
 
+### ◇ Task 4 (Stretcher): Watch the air — capture ESP-NOW as pcap
+
+ESP-NOW is connectionless, so there is no broker to look at and no TCP connection to follow. The frames are still there on the channel, and an ESP32 in promiscuous mode can hand them to you as an ordinary capture:
+
+1. Flash [`sp4rkie/ultra-espnow-sniff`](https://github.com/sp4rkie/ultra-espnow-sniff) to a third ESP32 and capture while Task 1 sends its frames.
+2. Open the pcap and find one ESP-NOW frame: source and destination MAC, the vendor action-frame header, your payload.
+3. Answer: where did the *reliability* go? What would you have to add in your own protocol to notice a lost frame?
+
+> A single sniffer misses a few percent of frames depending on where it sits — which is itself the lesson: one observer cannot tell a broken link from a badly placed observer. See the [capture recipes](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card).
+
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
 1. Wireless Trade-off Matrix: Detail when you would choose ESP-NOW vs. Standard Wi-Fi vs. LoRaWAN vs. BLE in a commercial IoT deployment.
@@ -210,6 +220,7 @@ Can a single ESP32 speak ESP-NOW and connect to standard Wi-Fi simultaneously? Y
 ## 📚 If you want to go deeper
 
 - [Espressif ESP-NOW documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/network/esp_now.html) — peers, callbacks, and channel behavior.
+- [esp32_eth_wifi_bridge](https://github.com/martin-ger/esp32_eth_wifi_bridge) and [ultra-espnow-sniff](https://github.com/sp4rkie/ultra-espnow-sniff) — two ways to get packets off the air and into a pcap.
 - [Bluetooth Low Energy](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy) — connection intervals and payload limits.
 - [LoRa Alliance](https://lora-alliance.org/) and the [LoRaWAN specification](https://lora-alliance.org/resource-hub/) — long range, low power, duty cycle.
 - [ISM radio band](https://en.wikipedia.org/wiki/ISM_radio_band) — the regulatory context.

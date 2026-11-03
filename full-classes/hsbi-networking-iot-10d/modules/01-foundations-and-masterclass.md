@@ -13,7 +13,7 @@ By the end of this module, you can:
 2. Explain publish/subscribe with an MQTT broker: the star topology, hierarchical topics, wildcards, and why decoupling producers from consumers is what makes an IoT system maintainable.
 3. Build Node-RED flows that subscribe and publish, turn a physical button into a remote actuator action, and render live telemetry as a gauge, a chart, and a wildcard aggregation.
 4. Wire a digital 1-wire sensor, read its value over MQTT, and explain the declarative OTA loop (one line in `setup.cpp` → a fleet-wide deployment) and what it changes for a real fleet.
-5. Critically analyze the ISO/OSI 7-layer model against real TCP/IP in IoT systems (referencing RFC 3439 and RFC 1958), and quantify header overhead from a capture of your own traffic — stating every assumption.
+5. Critically analyze the ISO/OSI 7-layer model against real TCP/IP in IoT systems (referencing RFC 3439 and RFC 1958), and quantify header overhead from a capture taken at the edge — the router, an ESP32 tap, or a provided dump — stating every assumption.
 6. Craft a system story that is concrete enough to pitch, spanning the computing continuum with named stakeholders, devices, and interfaces — and name the weakest link in it.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
@@ -245,16 +245,16 @@ The instructor will show a **gauge and the `+/temp` chart live** and then hand t
 
 *Portfolio evidence:* screenshot of the gauge, the chart, and the `+/temp` heatmap; plus one sentence on what would break if each pod had invented its own topic names.
 
-### ★ Task 8: What the layers cost — measure your own traffic
+### ★ Task 8: What the layers cost — read a real capture
 
-This one is yours, not the workshop's. Theory is in the pod study; now measure.
+This one is yours, not the workshop's. Theory is in the pod study; now measure. **It is about the arithmetic, not about owning a sniffer** — nobody in the room has a second Wi-Fi adapter or monitor mode, so you cannot watch the air from your laptop.
 
-1. **Pick a capture point you are allowed to see.** On a managed Wi-Fi adapter you only see *your own* unicast traffic — other pods' stick→broker frames are invisible to you, and that is normal. So run your own subscriber on your laptop (for example `mosquitto_sub -h <broker-ip> -t '+/temp' -v`, or MQTTX) and capture that: it is your session, so you see every frame. *Alternatively* ask the instructor to record `tcpdump -i any -w class.pcap 'tcp port 1883'` on the gateway and share the file.
-2. **Filter** for `mqtt` or `tcp.port == 1883` and find one PUBLISH.
+1. **Get a dump from a point the traffic crosses.** The class default is the router: `tcpdump` on `br-lan`, filtered to `tcp port 1883`, then copy the file over. An ESP32 tap or the instructor's `Module01` capture work just as well — that is exactly what the [capture recipes](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card) are for. If you cannot capture anything on your machine today, **use the provided dump**: the analysis is the skill, the tapping is plumbing.
+2. **Open it** in Wireshark if you have it; otherwise `tshark -r module01.pcap -Y mqtt -V`, or `tcpdump -r module01.pcap -A 'tcp port 1883'`. Filter for `mqtt` or `tcp.port == 1883` and find one PUBLISH.
 3. **Break it down:** frame length on the wire; 802.11 or Ethernet header; IPv4 header; TCP header; MQTT fixed header + topic string + payload.
 4. **Compute** `overhead ratio = (frame bytes − payload bytes) / payload bytes`, and the share of the frame that is actual sensor data.
 5. **Scale it, with stated assumptions:** one reading every *N* seconds; the transmit current from the ESP32 datasheet; the capacity of the coin cell you would really use (look it up — do not trust a remembered number). How many days does the arithmetic give? Write the assumptions next to the result; an estimate without assumptions is a guess.
-6. **Ask an LLM for the header sizes first, then check each one in Wireshark.** Record where it was wrong.
+6. **Ask an LLM for the header sizes first, then check each one in the dump.** Record where it was wrong.
 
 > **Story hook.** *Petra's accountant.* He wants to know what the monthly cloud fee actually buys. You have twenty bytes of temperature and a frame that is mostly paperwork. Show him the invoice.
 

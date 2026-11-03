@@ -167,11 +167,12 @@ This session has one ★ Core task (Nebula) and several ◇ Stretchers (B.A.T.M.
      ```
    - Verify that your virtual network adapter (`nebula1`) receives your assigned overlay IP.
 3. Install Nebula on the OpenWrt Router:
-   - Transfer the OpenWrt MIPS/ARM binary and certificates to the router via SCP:
+   - **Check the space first.** The Cudy has 16 MB of flash: `df -h /overlay`. Match the binary to the router's architecture (`uname -m`), then transfer it and the certificates:
      ```bash
      scp nebula root@192.168.8.1:/usr/bin/
      scp config-router.yaml root@192.168.8.1:/etc/nebula/config.yaml
      ```
+   - If it does not fit, or you get `No space left on device`, move the root filesystem to the **USB stick** first — the [extroot recipe](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card) takes you through it, and the same stick later holds `tshark` and MicroPython.
    - Start Nebula on the router:
      ```bash
      nebula -config /etc/nebula/config.yaml &

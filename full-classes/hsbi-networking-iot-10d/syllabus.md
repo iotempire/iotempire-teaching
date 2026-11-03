@@ -73,7 +73,7 @@ By the end of this course, you will be able to:
 
 1. **Apply TCP/IP and network fundamentals:** Configure and debug IPv4 addressing, CIDR subnetting, DHCP, DNS, NAT, and basic IPv6 in real IoT edge topologies.
 2. **Critically assess network models:** Use the ISO/OSI model as an architectural reference while recognizing its real-world limitations in IoT (referencing RFC 3439 *"Layering Considered Harmful"* and RFC 1958).
-3. **Deploy edge gateways & routers:** Configure OpenWrt routers via CLI and LuCI; analyze live packet captures using Wireshark and `tcpdump`.
+3. **Deploy edge gateways & routers:** Configure OpenWrt routers via CLI and LuCI; capture traffic at the choke point with `tcpdump` and read the dump with Wireshark, `tshark`, or as text.
 4. **Build overlay and mesh networks:** Deploy Nebula peer-to-peer overlay tunnels and Yggdrasil encrypted IPv6 mesh routing to securely connect distributed IoT nodes from home or behind firewalls; and *(optionally)* configure B.A.T.M.A.N. advanced for ad-hoc, self-healing wireless mesh routing between edge routers.
 5. **Architect publish/subscribe systems:** Design robust topic structures and message flows with MQTT (QoS levels, Retain, Last Will and Testament, TLS).
 6. **Understand multi-protocol integration:** Explain how sensor nodes, actuators, and industrial protocols (OPC-UA, Modbus, RS-485) fit together, and — if hardware or a simulator is available — *(optionally)* bridge them using Node-RED and Python.
@@ -186,7 +186,7 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 | Editor | **VS Code** or **Zed** | Use the **integrated terminal** and the Git UI; keep the workbook open beside your terminal. |
 | Terminal | **bash** (Git Bash on Windows) | The labs use heredocs, pipes, and `<` redirects; Git Bash ships with Git for Windows. WSL is also fine. |
 | Version control | **Git + GitHub** | Your portfolio is the evidence artifact. Create it from the template with **“Use this template”**, not a fork. |
-| Routing & capture | **OpenWrt + LuCI**, `tcpdump`, **Wireshark**, `iperf3` | One router per two students; capture at the edge, not only on the laptop. |
+| Routing & capture | **OpenWrt + LuCI**, `tcpdump`, **Wireshark** or `tshark` (optional), `iperf3` | One router per two students. **Capture on the router**, then read the dump — the lab laptops have one Wi-Fi adapter and no monitor mode. |
 | Overlays & mesh | **Nebula**, **Yggdrasil**, optional **B.A.T.M.A.N. advanced** | Certificates and peers provided or generated in class. |
 | Messaging & integration | **Mosquitto**, **MQTT Explorer**, **Node-RED**, **Python 3** (`paho-mqtt`, IoTknit; optional `pymodbus`, `asyncua`) | Local-first broker; Python as the programmatic glue. |
 | Python environment | **`uv`** | Pin Python and libraries with `uv`; commit `pyproject.toml` and `uv.lock`, never `.venv/`. Avoid bare `pip install` in the normal path. |
@@ -195,6 +195,9 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 
 > [!NOTE]
 > **Hands-on first, AI second.** You learn this subject by building networks, breaking links, and reading captures. Use AI to draft explanations, configuration, or hypotheses — but only after you have observed the system. Verify every generated command against a capture, a routing table, or a live test.
+
+> [!NOTE]
+> **Packet capture without monitor mode.** The lab laptops have a single Wi-Fi adapter (usually on Windows) and no monitor-mode support, so nobody is expected to sniff the air from their laptop. Captures are taken where the traffic must cross — `tcpdump` on the OpenWrt router, an ESP32 used as a transparent tap, or a dump provided by the instructor — and then read offline. Neither Wireshark nor a second adapter is required to succeed: `tcpdump -A`, `tshark`, and a provided `.pcap` are all acceptable evidence. The recipes, including the USB-stick **extroot** that gives the routers room for Nebula, `tshark`, and MicroPython, live in the [resource bank](./modules/Z-resources-bank.md#packet-capture-without-a-second-wifi-card).
 
 > [!WARNING]
 > **No secrets, captures with personal data, or binaries in Git.** Never commit credentials, private keys, `.venv/`, or packet captures containing personal traffic. Commit the configuration and the script that reproduces an experiment. The [resource bank](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) has the template workflow and the `.gitignore` guidance.
@@ -207,6 +210,7 @@ Unlike pure microcontroller classes, our hardware focuses on modular, ready-to-n
   - Primarily the Cudy TR1200 flashed to pure upstream OpenWrt.
   - Partner and fallback models: GL.iNet GL-MT300N-V2 ("Mango") (used by colleagues in Tartu and Regensburg) and GL-AR300M ("Shadow") (to fill gaps).
   - All routers run upstream OpenWrt with LuCI, Mosquitto MQTT broker, `tcpdump`, and `iperf3`; optional `kmod-batman-adv` and mesh tools for the B.A.T.M.A.N. stretcher.
+  - **USB sticks (1 per router, handed out after the first OpenWrt session).** The Cudy has 16 MB of flash and one USB 2.0 port; the stick becomes **extended root** for Nebula, `tshark`, and optional MicroPython. Setup: [extroot recipe](./modules/Z-resources-bank.md#packet-capture-without-a-second-wifi-card).
 - **Modular edge nodes (M5Stack ecosystem):**
   - M5StickC Plus / Plus2 and/or M5Atom Matrix / Lite / S3: ESP32-based devices with built-in displays, buttons, IMU, and Grove I²C/GPIO ports.
   - Eliminates fragile breadboard wiring so lab time is spent on protocols, integration, and packet flow.
@@ -230,7 +234,7 @@ The 10 days correspond to 48 contact hours, with **one module per day**. Session
 |:---:|---|---|
 | 0 | [Pre-Study](./pre-study.md) | Portfolio setup, inspiration video, network mental model, IP and MQTT exploration. |
 | 1 | [Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md) | Class opening and portfolio start, the IoT computing continuum, OSI vs. TCP/IP friction, Master Class live integration (M5StickC + MQTT + Node-RED + dashboard), packet-overhead measurement, system story pitch. |
-| 2 | [Module 2 — Local Networking & OpenWrt Gateways](./modules/02-local-networking-and-gateways.md) | IPv4 subnetting, DHCP, DNS, NAT, routing tables, OpenWrt LuCI/SSH, Wireshark & `tcpdump` packet capture. |
+| 2 | [Module 2 — Local Networking & OpenWrt Gateways](./modules/02-local-networking-and-gateways.md) | IPv4 subnetting, DHCP, DNS, NAT, routing tables, OpenWrt LuCI/SSH, `tcpdump` at the choke point (Wireshark optional). |
 | 3 | [Module 3 — Mesh & Overlay Networks](./modules/03-overlay-and-mesh-networks.md) | Nebula overlay remote access and Yggdrasil IPv6 mesh; optional B.A.T.M.A.N. Layer-2 mesh stretcher (`batctl`, failover). |
 | 4 | [Module 4 — MQTT Deep Dive & Integration](./modules/04-mqtt-and-integration.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* Topic hierarchy, QoS 0/1/2, Retain, Last Will, MQTT Explorer, Node-RED flows, Python `paho-mqtt` / IoTknit integration. |
 | 5 | [Module 5 — Wireless Technologies & ESP-NOW](./modules/05-wireless-technologies-and-espnow.md) | Radio spectrum, ISM bands, Wi-Fi vs BLE vs LoRaWAN trade-offs, ESP-NOW connectionless peer-to-peer micro-mesh and gateway bridge. |
@@ -260,7 +264,7 @@ The final project is an end-to-end networked system built by **Project Teams of 
 ### Assessment Criteria:
 
 - **System functionality & resilience (2 points):** Meets specifications, handles disconnections cleanly, and shows valid packet flows.
-- **Architecture, documentation & metrics (1.5 points):** Clear network topology diagram, routing explanation, Wireshark/throughput/latency measurements, a concise project section in the technical engineering report, and clean Git history.
+- **Architecture, documentation & metrics (1.5 points):** Clear network topology diagram, routing explanation, packet-capture/throughput/latency measurements, a concise project section in the technical engineering report, and clean Git history.
 - **Project presentation & discussion (1.5 points):** A clear **10-minute** Project Team presentation of the final report section — 5 minutes of live system demonstration including intentional fault injection, plus a 5-minute discussion of the design decisions you own.
 
 #### Detailed rubric
@@ -268,7 +272,7 @@ The final project is an end-to-end networked system built by **Project Teams of 
 | Criterion | Points | Excellent (full) | Sufficient (partial) | Weak / missing |
 |---|---:|---|---|---|
 | **System functionality & resilience** | 2.0 | Fulfills all must-haves: 4+ nodes, 2+ network layers, MQTT pub/sub, integration engine (Node-RED/Python), and IoTempower OTA. Graceful recovery under fault injection. | Meets most must-haves; one gap (e.g. weak resilience evidence). | Server/hand-built topology without a reproducible setup, no measured resilience, or missing integration. |
-| **Architecture, documentation & metrics** | 1.5 | Clear network diagram, IP/topic documentation, Wireshark captures, latency/overhead/recovery measurements, concise report, and clean Git history. | Documentation present and mostly complete; evidence thin in one section. | Missing diagram, report over/under length, or no measurements. |
+| **Architecture, documentation & metrics** | 1.5 | Clear network diagram, IP/topic documentation, packet captures, latency/overhead/recovery measurements, concise report, and clean Git history. | Documentation present and mostly complete; evidence thin in one section. | Missing diagram, report over/under length, or no measurements. |
 | **Project presentation & discussion** | 1.5 | End-to-end live demo runs; each member explains their architecture and protocol trade-offs fluently; handles an injected fault. | Demo runs but is partly slide-based, or the discussion is uneven across members. | Demo fails without explanation, or members cannot explain their parts. |
 
 See the full [project presentation and portfolio specification](./modules/09-project-presentation-and-portfolio.md) for the presentation script and portfolio evidence checklist.
@@ -285,7 +289,7 @@ Each module lists **suggested portfolio evidence** — suggestions, not a checkl
 - For each module, include:
   - Configuration files (OpenWrt network configs, Node-RED flows `.json`, Python scripts, IoTempower `setup.cpp` or node definitions).
   - Network diagrams showing physical links, subnets, overlay addresses, and data flows.
-  - Screenshots of dashboards, packet captures (Wireshark), and terminal routing outputs (`ip route`, `traceroute`, `batctl`).
+  - Screenshots of dashboards, packet captures (Wireshark, `tshark`, or `tcpdump -A`), and terminal routing outputs (`ip route`, `traceroute`, `batctl`).
   - Measurement evidence: ping/RTT, throughput, latency, packet loss, or recovery time.
   - Reflection logbook entries in `Reflections/`, using the template.
 - Where you did not work entirely alone, **link your pod mates and your sources**.

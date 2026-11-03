@@ -18,7 +18,7 @@ Classical networking courses often begin with the seven-layer ISO/OSI model and 
 
 In this course you will:
 
-- **Work at the edge.** Configure OpenWrt routers, subnet a local network, run DHCP/DNS/NAT, and capture packets at the choke point with `tcpdump` and Wireshark.
+- **Work at the edge.** Configure OpenWrt routers, subnet a local network, run DHCP/DNS/NAT, and capture packets at the choke point with `tcpdump` — then read the dump with Wireshark, `tshark`, or as text.
 - **Extend the network without asking for a public IP.** Deploy Nebula and Yggdrasil overlays that cross CGNAT, campus firewalls, and changing WAN addresses.
 - **Decouple producers from consumers.** Design MQTT topic hierarchies with QoS, retained state, and Last Will and Testament, then integrate with Node-RED and Python.
 - **Choose the right radio.** Compare Wi-Fi, BLE, LoRaWAN, and connectionless ESP-NOW by range, latency, power, and payload — and build an ESP-NOW-to-MQTT bridge.
@@ -62,8 +62,8 @@ The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-templ
 
 ## What you will work with
 
-- **Hardware:** one OpenWrt travel router per two students (Cudy TR1200 with pure upstream OpenWrt; GL.iNet Mango/Shadow as partners), M5Stack nodes with Grove modules, Ethernet and USB cables, lab switches/access points.
-- **Networking:** OpenWrt + LuCI, `tcpdump`, Wireshark, `iperf3`, Nebula, Yggdrasil, optional B.A.T.M.A.N. advanced.
+- **Hardware:** one OpenWrt travel router per two students (Cudy TR1200 with pure upstream OpenWrt; GL.iNet Mango/Shadow as partners), **one USB stick per router** for extended root (Nebula, `tshark`, MicroPython), M5Stack nodes with Grove modules, Ethernet and USB cables, lab switches/access points.
+- **Networking:** OpenWrt + LuCI, `tcpdump` (Wireshark or `tshark` optional — captures are taken on the router or with an ESP32 tap, then read offline), `iperf3`, Nebula, Yggdrasil, optional B.A.T.M.A.N. advanced.
 - **Messaging and integration:** Mosquitto, MQTT Explorer, Node-RED, Python with `paho-mqtt` / IoTknit, optional `pymodbus` / `asyncua`.
 - **Fleet:** [IoTempower](https://github.com/iotempire/iotempower) for declarative nodes and OTA deployment.
 - **Editor and terminal:** VS Code or Zed with the **integrated terminal**; on Windows, set the terminal profile to **Git Bash** (ships with Git for Windows) because the labs use bash.

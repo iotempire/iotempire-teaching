@@ -8,13 +8,13 @@
 
 ## 🎯 Learning Goals
 
-This module gives you the opportunity to explore TCP/IP at the network edge and achieve competency in **IPv4 addressing and subnetting, DHCP/DNS/NAT, OpenWrt administration, and packet capture with Wireshark and `tcpdump`**.
+This module gives you the opportunity to explore TCP/IP at the network edge and achieve competency in **IPv4 addressing and subnetting, DHCP/DNS/NAT, OpenWrt administration, and packet capture at the choke point with `tcpdump`** (read in Wireshark when it is available).
 
 By the end of this module, you can:
 1. Configure IPv4 addressing, CIDR subnetting, default gateways, and routing tables.
 2. Inspect and diagnose the core IP plumbing services: ARP, DHCP (DORA), DNS, and NAT.
 3. Configure, administer, and secure an OpenWrt edge router via SSH and the LuCI web interface.
-4. Capture and analyze real-time network traffic directly on the router using `tcpdump` and stream it into Wireshark.
+4. Capture traffic at the choke point with `tcpdump` on the router, and read the dump with Wireshark, `tshark`, or as text — without needing a second network adapter.
 
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
@@ -119,22 +119,26 @@ Pair with a **neighbouring pod**:
    brctl show   # Check the br-lan bridge
    ```
 
-### ★ Task 2: Live Packet Inspection with `tcpdump` and Wireshark
-Instead of capturing packets only on your laptop, capture packets *at the choke point*—the OpenWrt router itself!
+### ★ Task 2: Packet inspection at the choke point — `tcpdump` first, Wireshark second
 
-1. Install/verify `tcpdump` on the OpenWrt router:
+Capture where every packet must pass: the router. **You do not need a second Wi-Fi adapter, and you do not need Wireshark to prove anything** — but a dump is easier to read in a GUI, so the pattern is always: capture on the router → copy the file → open it. The recipes and the extroot setup live in the [resource bank](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card).
+
+1. `tcpdump` is already on the class image. On a fresh router: `opkg update && opkg install tcpdump` (`apk add tcpdump` on OpenWrt 24.10 and newer).
+2. Capture on the router and copy the dump over:
    ```bash
-   opkg update && opkg install tcpdump
+   ssh root@192.168.8.1 "tcpdump -i br-lan -s 0 -w /tmp/lan.pcap 'arp or udp port 67 or udp port 68'"
+   # stop with Ctrl-C, then from your laptop:
+   scp root@192.168.8.1:/tmp/lan.pcap .
    ```
-2. Stream live router traffic directly into Wireshark on your laptop:
-   ```bash
-   # Run this on your local laptop terminal:
-   ssh root@192.168.8.1 "tcpdump -i any -U -s 0 -w - not port 22" | wireshark -k -i -
-   ```
-3. Trigger and observe these specific network events:
-   - DHCP: Disconnect and reconnect your M5Stack node or phone Wi-Fi. Observe the DHCP Discover, Offer, Request, and ACK packets (UDP ports 67 & 68).
-   - ARP: Flush your laptop's ARP table (`ip -s -s neigh flush all` or `arp -d *`) and ping `192.168.8.1`. Observe the `Who has 192.168.8.1? Tell ...` broadcast frame and unicast reply.
-   - TCP Handshake: Connect MQTTX or curl an HTTP page. Observe the 3-way handshake (`[SYN]`, `[SYN, ACK]`, `[ACK]`) and subsequent teardown (`[FIN, ACK]`).
+   `br-lan` is the LAN bridge, so it sees traffic between LAN ports and Wi-Fi clients. Use `-i any` if you also want the router's own WAN traffic.
+3. **Read it — Wireshark optional.** `wireshark lan.pcap` if you have it; otherwise `tshark -r lan.pcap -V`, or straight on the router `tcpdump -r /tmp/lan.pcap -A`. The text output is enough for the portfolio.
+4. Trigger and observe these specific network events:
+   - **DHCP:** connect a fresh client (your phone) to the OpenWrt Wi-Fi. Watch Discover (broadcast, 67→68), Offer, Request, ACK.
+   - **ARP:** flush your ARP cache (`ip -s -s neigh flush all` on Linux; `arp -d *` or `netsh interface ip delete arpcache` in an **admin** shell on Windows), then `ping 192.168.8.1`. Look for *Who has 192.168.8.1?* and the unicast reply.
+   - **TCP handshake:** connect MQTTX or `curl` to a port on the router. Find `[SYN]`, `[SYN, ACK]`, `[ACK]`, and the teardown.
+
+> [!NOTE]
+> **No live streaming into a GUI.** `ssh … | wireshark -k -i -` works on Linux and macOS when netcat is in the path; on Windows, and in this lab generally, the two-step is the reliable route. If you cannot capture at all today, use the instructor's dump — the analysis is the skill, not the tapping.
 
 ### ★ Task 3: Custom Subnets, Static Leases & Port Forwarding
 1. Open the LuCI web interface: `http://192.168.8.1` (Network $\rightarrow$ DHCP and DNS).
@@ -148,7 +152,7 @@ Instead of capturing packets only on your laptop, capture packets *at the choke 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
 1. Network Map: Draw a clean network diagram of your setup showing MAC addresses, assigned IPs, subnets, and the WAN/LAN interfaces of the OpenWrt router.
-2. Packet Trace Proof: Export a Wireshark screenshot showing either a DHCP DORA sequence or an ARP request/reply captured live from the router.
+2. Packet Trace Proof: A Wireshark screenshot **or** the `tcpdump -A` / `tshark` text of a DHCP DORA sequence or an ARP request/reply, captured on the router. Say which one you used and why.
 3. Port Forwarding & NAT Analysis: Explain how NAT masquerading works and why a client on the outside WAN cannot connect to an internal M5Stack node without explicit port forwarding.
 4. Deeper question: What surprised you about the volume of background broadcast/multicast traffic (mDNS, SSDP, ARP) on a local network?
 

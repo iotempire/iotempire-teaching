@@ -41,7 +41,7 @@ The final project is assessed according to the [syllabus](../syllabus.md#final-p
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
 - [ ] Module 0: Pre-study notes, initial network exploration, and answers to guiding questions.
-- [ ] Module 1: Node-RED hello-world screenshot, Wireshark packet capture, and OSI critique note.
+- [ ] Module 1: Node-RED hello-world screenshot, a packet capture (Wireshark, `tshark`, or the `tcpdump -A` text), and OSI critique note.
 - [ ] Module 2: OpenWrt setup, network topology diagram, DHCP/ARP captures, and NAT/port forwarding test.
 - [ ] Module 3: Nebula overlay setup, cross-NAT ping/SSH proof, and Yggdrasil comparison (optional: B.A.T.M.A.N. `batctl` tables and mesh failover report).
 - [ ] Module 4: MQTT QoS, Retain, LWT analysis, Node-RED flows (`.json`), and Python/IoTknit integration scripts.

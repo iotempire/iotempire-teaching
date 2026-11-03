@@ -143,6 +143,70 @@ uv run python iot_bridge.py
   sudo apt install avahi-daemon avahi-utils
   ```
 
+<a id="packet-capture-without-a-second-wifi-card"></a>
+### 📌 Packet capture without a second Wi-Fi card
+
+**The room has one Wi-Fi adapter per laptop, usually on Windows, and no monitor mode.** That is fine: you do not need to see the air in order to read the traffic. Capture at a point the packets *must* cross, copy the dump, and read it afterwards.
+
+| Where you capture | How | Good for |
+|---|---|---|
+| **The OpenWrt router** (default) | `ssh root@<router>`, `tcpdump -i br-lan -w /tmp/x.pcap '<filter>'`, then `scp` the file | Everything that crosses the router: ARP, DHCP, DNS, NAT, MQTT |
+| **An ESP32 as a transparent tap** | [`martin-ger/esp32_eth_wifi_bridge`](https://github.com/martin-ger/esp32_eth_wifi_bridge) sits in the path as an L2 bridge and streams pcap over TCP. On its console: `pcap start`; from the collector: `nc <bridge-ip> 19000 \| wireshark -k -i -` (or save to a file) | Watching all traffic without installing anything on the router. [`martin-ger/esp32_nat_router`](https://github.com/martin-ger/esp32_nat_router) has the same PCAP feature |
+| **Your own laptop** | Wireshark / `tcpdump` on your normal interface | Only *your* traffic — see the caveat below |
+
+**Why sniffing from the laptop does not work.** On managed Wi-Fi your adapter receives frames addressed to *you* (plus broadcast and multicast). Another station's unicast traffic never reaches your card — promiscuous mode cannot help, because the access point does not forward it to you. Seeing it requires **monitor mode**, which on Windows means a specific adapter *and* driver, and usually a second radio anyway. This course does not assume either.
+
+**Always two steps:** capture on the device → copy the file → open it. Do not build a lab step around streaming into a GUI, especially not on Windows.
+
+```bash
+# On the router: capture (stop with Ctrl-C)
+tcpdump -i br-lan -s 0 -w /tmp/lan.pcap 'arp or udp port 67 or udp port 68'
+
+# From your laptop: copy it over and open it
+scp root@192.168.8.1:/tmp/lan.pcap .
+wireshark lan.pcap            # or: tshark -r lan.pcap -V | less
+```
+
+**If Wireshark is not installed** (or you cannot install software), `tcpdump -A` prints the packets as text — enough to prove a DORA exchange or an ARP request/reply, in any SSH client:
+
+```bash
+ssh root@192.168.8.1 "tcpdump -i br-lan -A -c 20 'arp'"
+ssh root@192.168.8.1 "tcpdump -r /tmp/lan.pcap -A 'udp port 67 or udp port 68'"
+```
+
+**Storage: 16 MB of flash.** `tcpdump` and Mosquitto are already on the class image. For anything bigger — Nebula, `tshark`, MicroPython — move the root filesystem to a **USB stick** (the routers have one USB 2.0 port):
+
+```bash
+# on the router, once, with the stick plugged in
+opkg update
+opkg install block-mount kmod-fs-ext4 kmod-usb-storage e2fsprogs   # 24.10+: apk add ...
+# If the stick does not show up at all, the USB controller module is missing too:
+#   opkg install kmod-usb2      (or kmod-usb-ohci on older SoCs), then check `logread`
+mkfs.ext4 /dev/sda1                       # confirm the device name with `logread` after plugging in
+mkdir -p /mnt/sda1 && mount /dev/sda1 /mnt/sda1
+cp -a /overlay/. /mnt/sda1/ && umount /mnt/sda1
+block detect > /etc/config/fstab
+uci set fstab.@mount[0].target='/overlay'
+uci set fstab.@mount[0].enabled='1'
+uci commit fstab
+reboot
+# after the reboot: df -h should show /overlay on the stick
+```
+
+> **Never commit the contents of a USB stick, and do not commit a router backup you did not read.** Document *what* you installed and *how* instead — that is the reproducible part.
+
+**ESP-NOW is its own case.** Unencrypted ESP-NOW frames *can* be captured by an ESP32 in promiscuous mode: [`sp4rkie/ultra-espnow-sniff`](https://github.com/sp4rkie/ultra-espnow-sniff) streams them as ordinary pcap over UART or Ethernet. Expect a few percent of frames to be missed depending on where the observer sits — one sniffer cannot tell a broken link from a badly placed observer (Module 5).
+
+**What to capture for which module**
+
+| Module | Capture | What it shows |
+|---|---|---|
+| 1 | `tcp port 1883` | MQTT publish/subscribe, the header overhead |
+| 2 | `arp`, `udp port 67 or 68` | ARP resolution, DHCP DORA |
+| 3 | `-i nebula1` (or `-i tun0`) | overlay traffic inside the tunnel, and its encapsulation outside |
+| 4 | `tcp port 1883` | QoS bits, retained message, Last Will |
+| 5 | ESP32 sniffer | ESP-NOW frames on the air |
+
 <a id="mqtt-command-cheat-sheet"></a>
 ### 📌 MQTT Command Cheat Sheet
 | Command                      | Example                                      | Purpose                                  |
@@ -243,13 +307,15 @@ Use these as portfolio prompts or in-class hook.
 
 **Network safety.** Keep every experiment inside the isolated lab router network. Never plug a rogue DHCP server into the campus network. Before any mesh/overlay lab, agree on team IDs, channels, and address ranges; write them on the board.
 
+**Packet capture in the room.** Assume **one Wi-Fi adapter per laptop and no monitor mode**: a laptop cannot see another station's unicast traffic, and Windows rarely supports monitor mode at all. Prepare capture *points*, not sniffers: (a) `tcpdump` on the router — it is on the class image, and `br-lan` covers the LAN; (b) one ESP32 running [`martin-ger/esp32_eth_wifi_bridge`](https://github.com/martin-ger/esp32_eth_wifi_bridge) as a transparent tap that streams pcap over TCP port 19000 (`pcap start`); and (c) one recorded dump per module (`module01.pcap`, `module02.pcap`, …) for pods whose hardware or laptop cannot capture that day. Open every dump yourself before handing it out, and say out loud that analysing a provided dump is full evidence. Hand out the **USB sticks for extroot** before Module 3 — Nebula does not fit into 16 MB of flash — and the [extroot recipe](#packet-capture-without-a-second-wifi-card) is what you walk through with the first pod that hits `No space left on device`.
+
 **Potential TODO (not scheduled).** Consider mirroring the Sensors & Actuators Module 2 bus survey — simple pins → UART → RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire, with a pod profile and a class comparison table — as an opening map in [Module 2](../modules/02-local-networking-and-gateways.md). It overlaps with the Modbus/RS-485 material in Module 6; decide whether the survey belongs at the start of the networking arc or stays in Module 6. Revisit after the first offering.
 
 **Stories.** The stories in the modules are deliberately separate case studies. Keep new examples consistent with the [story canon](#story-canon-the-recurring-cast), and make a story concrete enough to pitch in a minute: one named person, one place, one moment of pain, something at stake.
 
 **Demo day.** Ask every Project Team for a fallback recording of the live flow. Run the fault injection yourself (pull an intermediate router, unplug a node, restart the broker) and let the team explain the recovery. The rubric lives only in the syllabus.
 
-**Slides (optional).** The workbook is the source. If you want slides, write plain Markdown separated by `---` and render a 16:9 PDF with **pandoc + Typst**; do not introduce a notebook runtime or a browser-only presentation tool. HTML comments (`<!-- note -->`) are a good place for speaker hints.
+**Slides (optional).** Module 1's opening is presented from the plain-Markdown deck [`slides/01-introduction.md`](../slides/01-introduction.md); render it with [`slides/render-slides.sh`](../slides/render-slides.sh) (pandoc + Typst → 16:9 PDF, `---` separates slides, `<!-- note -->` is a speaker hint that is dropped from the PDF). For further sessions, keep the same format: plain Markdown, no notebook runtime and no browser-only presentation tool.
 
 <a id="story-craft-is-it-concrete-enough"></a>
 ## ✍️ Story craft: is it concrete enough?

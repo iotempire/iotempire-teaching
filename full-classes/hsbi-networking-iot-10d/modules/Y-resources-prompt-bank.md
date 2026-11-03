@@ -30,7 +30,7 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 ## 📌 Module 1 – Foundations & The Master Class
 *Focus: OSI vs. TCP/IP reality, overhead tax, system storytelling, Master Class integration.*
 
-1. Technical: *How did the packet trace challenge your view of the OSI 7-layer model?* Where did real-world protocols (like Wi-Fi, TLS, or MQTT) clash with rigid textbook boundaries? Share a Wireshark screenshot illustrating the overlap.
+1. Technical: *How did the packet trace challenge your view of the OSI 7-layer model?* Where did real-world protocols (like Wi-Fi, TLS, or MQTT) clash with rigid textbook boundaries? Share a Wireshark screenshot *or* the `tcpdump -A` text illustrating the overlap.
 2. Technical: *Calculate the overhead tax:* What was the ratio of headers and protocol metadata to actual sensor payload in your capture? What does this mean for battery-powered nodes?
 3. Project Context: *Grandma-Level System Story:* Explain your final project idea in one jargon-free paragraph. Who uses it, what problem does it solve, and why does it need a network?
 4. Process: *Master Class First Impressions:* What was the smoothest part of getting the M5Stack node talking to Node-RED on Day 1? Where did you or your peer get stuck?
@@ -38,7 +38,7 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 ## 📌 Module 2 – Local Networking & OpenWrt Gateways
 *Focus: IPv4 subnetting, DHCP DORA, ARP, NAT masquerading, tcpdump on OpenWrt.*
 
-1. Technical: *Dissecting DORA:* Show a Wireshark capture of a DHCP exchange. What information is conveyed in each step, and what happens if two DHCP servers respond on the same subnet?
+1. Technical: *Dissecting DORA:* Show a capture of a DHCP exchange — Wireshark, `tshark`, or the `tcpdump -A` text taken on the router. What information is conveyed in each step, and what happens if two DHCP servers respond on the same subnet?
 2. Technical: *NAT and Port Forwarding:* Why can a client behind the OpenWrt router reach the Internet, but an outside computer cannot initiate a connection to an internal M5Stack node without port forwarding?
 3. Process: *Router Debugging via CLI:* What was your most useful discovery when administering OpenWrt over SSH (`uci`, `ip route`, `brctl`, or `tcpdump`)?
 4. Project Context: *Edge vs. Cloud:* Why run the Mosquitto broker and DHCP locally on the OpenWrt router instead of pointing every sensor directly to a public cloud broker?
