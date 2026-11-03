@@ -6,7 +6,7 @@
 
 ## 🧠 LLM verification drills (use in every module)
 
-AI is a **drafting tool**, not an oracle. For each module, pick at least one prompt, run it, and record in your `study-log.md`: the prompt, a 2–3 line summary, **how you verified it**, and where the model was wrong.
+AI is a **drafting tool**, not an oracle. For each module, pick at least one prompt, run it, and record it under `## Study log` in that module's README: the prompt, a 2–3 line summary, **how you verified it**, and where the model was wrong.
 
 - **Explain-and-test:** "Explain `<protocol>` in three levels — a peer, a technician, a network engineer — then give me one capture or test that would prove you right."
 - **Debug my reasoning:** "Here is my topology and configuration: `<paste>`. What is the most likely routing or NAT failure, and what should I measure first?"

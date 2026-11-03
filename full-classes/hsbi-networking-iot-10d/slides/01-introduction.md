@@ -131,7 +131,7 @@ Central entry point: **the course repository**.
 1. Open your portfolio repository (created from the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template); instructor added as collaborator).
 2. Today's entry is a **section in `Module01/README.md`**, not a new file — files are fine too, sections are simpler to read.
 3. Write **`## Who I am`** (your *Who are U?* answers + expectations) and **`## My pod`** (names, skills, first idea).
-4. During the day you add **`## Pre-study artefact`**, **`## Study log`**, and (optional) **`## Story seeds`**.
+4. During the day you add **`## Pre-study artefact`**, **`## Study log`**, and (optional) **`## Story seeds`** — shared notes are kept **once per pod**; the others link to that section and add one sentence.
 5. Commit and push — a small commit with a clear message.
 6. Keep `PreStudy/` where it is: this is an **additional** in-class entry, not a replacement.
 

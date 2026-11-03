@@ -1,0 +1,3 @@
+# Binary files — never diff, merge, or "check whitespace" in them.
+# (Rendered slide decks: `slides/render-slides.sh`.)
+*.pdf binary

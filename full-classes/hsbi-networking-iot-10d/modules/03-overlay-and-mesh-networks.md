@@ -123,7 +123,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 ### ★ Task A: Study in your pod
 
-Work through the concepts above with your Task Pod and fill in `Module03/study-log.md`:
+Work through the concepts above with your Task Pod and write it up under `## Study log` in `Module03/README.md` — a section, not a file, unless it outgrows the page. **One pod member keeps the shared log; the others link to that section from their own module README and add one sentence on what they took from it.**
 
 1. **The references you used** — the source and the one concept you understood best from it.
 2. **Things you googled** — the term, what you found, and the source (URL). One line each.
@@ -131,7 +131,7 @@ Work through the concepts above with your Task Pod and fill in `Module03/study-l
 4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
 5. **Your two best found overlay/mesh diagrams** — compile down to the best two, with source and what they taught you.
 
-*Portfolio evidence:* `Module03/study-log.md`.
+*Portfolio evidence:* the `## Study log` section (yours, or a link to your pod's shared one).
 
 ### ★ Task B: Explain & share with another pod
 
@@ -139,11 +139,11 @@ Pair with a **neighbouring pod**:
 
 1. **Explain to each other** — each pod walks the other through its tool-selection matrix and its remote-access proof; ask questions and fill each other's gaps.
 2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"an overlay gives you an address, not a public hole"*).
-3. **Clean up your documentation** — update your `study-log.md` with what you learned from the other pod.
+3. **Clean up your documentation** — update the `## Study log` with what you learned from the other pod.
 4. Agree on **one shared artefact** — the best topology diagram, a `ping`/`ssh` proof, or a new decision table the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
-5. Each member adds a short **“Agreed learning (pod discussion)”** section to *their own* `study-log.md`.
+5. Each member adds a short **“Agreed learning (pod discussion)”** note — in the shared log, or in your own module README with a link to it.
 
-*Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section) and your pod-pair's shared artefact.
+*Portfolio evidence:* the cleaned-up `## Study log` (with the **“Agreed learning (pod discussion)”** note) and your pod-pair's shared artefact.
 
 ## 🛠️ In-Class Lab: One Session, Three Networks — **Challenging**
 

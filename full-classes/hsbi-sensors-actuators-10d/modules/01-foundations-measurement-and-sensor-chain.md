@@ -141,7 +141,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 ### ★ Task A: Study in your pod
 
-Work through the concepts above with your Task Pod and fill in `Module01/study-log.md`:
+Work through the concepts above with your Task Pod and write it up under `## Study log` in `Module01/README.md` — a section, not a file, unless it outgrows the page. **One pod member keeps the shared log; the others link to that section from their own module README and add one sentence on what they took from it.**
 
 1. **The references you used** — the source and the one concept you understood best from it.
 2. **Things you googled** — the term, what you found, and the source (URL). One line each.
@@ -149,7 +149,7 @@ Work through the concepts above with your Task Pod and fill in `Module01/study-l
 4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
 5. **Your two best found explanations or diagrams** — compile down to the best two, with source and what they taught you.
 
-*Portfolio evidence:* `Module01/study-log.md`.
+*Portfolio evidence:* the `## Study log` section (yours, or a link to your pod's shared one).
 
 ### ★ Task B: Explain & share with another pod
 
@@ -157,11 +157,11 @@ Pair with a **neighbouring pod**:
 
 1. **Explain to each other** — each pod walks the other through its study log and its chain diagram; ask questions and fill each other's gaps.
 2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"resolution is not accuracy"*).
-3. **Clean up your documentation** — update your `study-log.md` with what you learned from the other pod.
+3. **Clean up your documentation** — update the `## Study log` with what you learned from the other pod.
 4. Agree on **one shared artefact** — the best diagram, a measurement table, or a new sketch the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
-5. Each member adds a short **“Agreed learning (pod discussion)”** section to *their own* `study-log.md`.
+5. Each member adds a short **“Agreed learning (pod discussion)”** note — in the shared log, or in your own module README with a link to it.
 
-*Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section) and your pod-pair's shared artefact.
+*Portfolio evidence:* the cleaned-up `## Study log` (with the **“Agreed learning (pod discussion)”** note) and your pod-pair's shared artefact.
 
 ## 🛠️ In-Class Lab: From Blink to Measurement — **Challenging**
 
@@ -349,7 +349,7 @@ Reduce the ADC to the smallest signal change you can measure at the top of the r
 
 > **Optional.** Try it for a session or two. If the room is short on time, skip it; it is ungraded.
 
-Nothing here is graded, and **you are not explaining anything**. You are **collecting curiosities**: a datasheet statement that made no sense, a register that refused to answer, a wiring surprise, a plot that looked wrong, a library bug, a UX annoyance. Scan the material as you work — including the pre-study — and **mark** it: a `?` in the margin, a line in `Module01/study-log.md`, a photo. Marking takes seconds, and it is what makes the swap interesting.
+Nothing here is graded, and **you are not explaining anything**. You are **collecting curiosities**: a datasheet statement that made no sense, a register that refused to answer, a wiring surprise, a plot that looked wrong, a library bug, a UX annoyance. Scan the material as you work — including the pre-study — and **mark** it: a `?` in the margin, a line under `## Story seeds`, a photo. Marking takes seconds, and it is what makes the swap interesting.
 
 **If you try it, swap twice:** at the break, and again at the end. Five minutes each.
 
@@ -358,7 +358,7 @@ Nothing here is graded, and **you are not explaining anything**. You are **colle
 3. **"I don't know what this does" is a first-class entry.** It is usually the best one on the list.
 4. **Anything two pods collected, or that nobody could place, goes to the course channel** with the module number. The next session opens with two of them.
 
-That is the whole ritual. The list is the artefact; the conversation is the point — and a good `study-log.md` is exactly the kind of concise evidence that makes a checkpoint easy.
+That is the whole ritual. The list is the artefact; the conversation is the point — and a good `## Study log` section is exactly the kind of concise evidence that makes a checkpoint easy.
 
 Why bother: sensor work is full of odd bits that look harmless until they bite — an address that shifts by one, a missing pull-up, a filter that hides the very event you wanted to see. Marking the odd bits instead of skimming past them is how that becomes a habit.
 
@@ -373,7 +373,7 @@ Why bother: sensor work is full of odd bits that look harmless until they bite �
 7. Filter comparison: raw vs. moving average vs. median vs. cutoff, including window sizes and observed latency. Optional: hysteresis/dead-zone behavior and one low-pass/high-pass result.
 8. Vocabulary: define, in your own words, accuracy, precision, resolution, sensitivity, and uncertainty, each with one example.
 9. Deeper question: Why can a sensor with high resolution still give an inaccurate measurement? Which link of the chain is responsible in your example?
-10. Harvest list: your marked curiosities in `Module01/study-log.md`, with sources and the questions you posted.
+10. Harvest list: your marked curiosities under `## Story seeds`, with sources and the questions you posted.
 
 
 > [!IMPORTANT]

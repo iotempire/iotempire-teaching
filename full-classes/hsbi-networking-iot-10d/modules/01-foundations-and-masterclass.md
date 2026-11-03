@@ -144,7 +144,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 ### ★ Task 1: Study in your pod
 
-Work through the concepts above with your Task Pod and write it up under `## Study log` in `Module01/README.md` (a separate `Module01/study-log.md` is fine if you prefer files):
+Work through the concepts above with your Task Pod and write it up under `## Study log` in `Module01/README.md` — a section, not a file, unless it outgrows the page. **One pod member keeps the shared log; the others link to that section from their own module README and add one sentence on what they took from it.**
 
 1. **The references you used** — the source and the one concept you understood best from it.
 2. **Things you googled** — the term, what you found, and the source (URL). One line each.

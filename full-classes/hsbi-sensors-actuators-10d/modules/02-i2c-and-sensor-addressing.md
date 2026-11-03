@@ -212,13 +212,13 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 ### ◇ (optional) Task 4a: I²C study log
 
-Work through the concepts above with your Task Pod and fill in `Module02/study-log.md`:
+Work through the concepts above with your Task Pod and write it up under `## Study log` in `Module02/README.md` — a section, not a file, unless it outgrows the page. **One pod member keeps the shared log; the others link to that section from their own module README and add one sentence on what they took from it.**
 
 1. **References and sources** — what you used and the one concept each taught you.
 2. **Remarkable things** — surprises, counterexamples, and one LLM Q&A with **how you verified it** (and where it was wrong).
 3. **Your best found explanation or diagram** — one, with source and what it taught you.
 
-*Portfolio evidence:* `Module02/study-log.md`.
+*Portfolio evidence:* the `## Study log` section (yours, or a link to your pod's shared one).
 
 ### ◇ (optional) Task 4b: Share your bus profile and I²C study log
 
@@ -226,7 +226,7 @@ Pair with a **neighbouring pod**:
 
 1. **Explain to each other** — walk through your bus profile and I²C study log; compare the bus choices and fill each other's gaps.
 2. Agree on the **3 most noteworthy points** and **one shared artefact** — the best bus table, a scan map, or a new diagram the two pods make together. **Post it in the course channel** with one sentence on why you chose it.
-3. Update your own `study-log.md` with what you learned and add a short **“Agreed learning (pod discussion)”** section.
+3. Update the `## Study log` with what you learned and add a short **“Agreed learning (pod discussion)”** note.
 
 ## 🛠️ Studio Lab 2: Talk to the I²C Bus — **Challenging**
 
@@ -367,7 +367,7 @@ With the class scope/analyzer chosen in Task 9, capture one I²C transaction:
 1. Simple pins and divider: the table, the `Vout` calculation, and the multimeter measurement (`Module02/pins-and-dividers.md`). Optional: the UART note if you took the detour.
 2. Bus profile: `Module02/bus-<name>.md` including history/background, relation to the other buses, one or two curiosities, and your verification notes (which claims came from a datasheet or the bench vs. an LLM).
 3. Class comparison: a link or screenshot of the shared class table, your pod's row/contribution, and one “what surprised me” note.
-4. (optional) I²C study log: `Module02/study-log.md`, or your notes from the whole-class I²C walkthrough.
+4. (optional) I²C study log: the `## Study log` section, or your notes from the whole-class I²C walkthrough.
 5. Scope decision: chosen solution(s), repo/commit, install steps, pin mapping, sample rate, input limits, and the PWM/I²C test captures. Include one sentence on what the chosen tool cannot measure.
 6. Scan artifact: serial output of at least two scans (one device, two devices), with each address mapped to its module.
 7. Register proof: the raw register value you read and the reconstruction you computed with the datasheet formula, next to the library's value.
