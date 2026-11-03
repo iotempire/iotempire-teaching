@@ -22,22 +22,22 @@ By the end of this module, you can:
 
 ## 📖 Story — The Frost Alarm That Cried Wolf
 
-**Klimapark GmbH** runs a greenhouse on the edge of Gütersloh. Agronomist **Dr. Elif Kaya** wants a frost alarm: when the air temperature near the seedlings drops below 2 °C, a fan and a heater should switch on. The first NTC prototype works in the lab, but in the greenhouse it reads 0.8 °C when the reference thermometer says 2.2 °C — so the heater runs on mild nights, and the error changes with the season.
+**Klimapark GmbH** runs a greenhouse and a row of unheated polytunnels on the edge of Gütersloh. It is a cold fall morning; the forecast is 4 °C and falling, and the seedlings in the unheated tunnel are at risk. Agronomist **Dr. Elif Kaya** wants a frost alarm: when the air temperature near the seedlings drops below 2 °C, a fan and a heater should switch on. The first NTC prototype works in the lab, but in the tunnel it reads 0.8 °C when the reference thermometer says 2.2 °C — so the heater runs while the tunnel is still above freezing, and the error changes with the season.
 
-Elif replaced the NTC with a **DS18B20** and added an **LDR** to the same node for the grow-light control. Now she has two numbers she does not yet trust: the DS18B20's temperature and the LDR's light level. If the temperature is wrong, the heater runs when it should not — or stays off on a cold night. If the light is wrong, the grow lights run at the wrong time.
+Elif replaced the NTC with a **DS18B20** on a long sealed cable, so the probe can sit in the coldest corner of the tunnel while the electronics stay dry, and added an **LDR** to the same node for the grow-light control. Now she has two numbers she does not yet trust: the DS18B20's temperature and the LDR's light level. If the temperature is wrong, the heater runs when it should not — or stays off on a cold night. If the light is wrong, the grow lights run at the wrong time.
 
-Elif does not need a prettier plot. She needs a number she can act on: *"How wrong is each reading, and can I trust it at the threshold?"* Today you characterize, calibrate, and state the uncertainty for both sensors — and use a **potentiometer** as the stable "known input" that lets you check the measurement chain itself.
+Elif does not need a prettier plot. She needs a number she can act on: *"How wrong is each reading, and can I trust it at the threshold?"* Today you characterize, calibrate, and state the uncertainty for both sensors — take the sealed probes outside to find the cold pockets before tonight, and use a **potentiometer** as the stable "known input" that lets you check the measurement chain itself.
 
 ## 🛠️ Characterization Studio — **Challenging**
 
-*Hardware per pod:* 1× ESP32 (or ESP8266), breadboard and jumper wires, 1× LDR + 10 kΩ resistor, 1× 10 kΩ potentiometer, 2–3× DS18B20 (OneWire) plus a 4.7 kΩ pull-up, a sealed bag and two cups for water baths.
+*Hardware per pod:* 1× ESP32 (or ESP8266), breadboard and jumper wires, 1× LDR + 10 kΩ resistor, 1× 10 kΩ potentiometer, 2–3× DS18B20 sealed probes on long cables (OneWire) plus a 4.7 kΩ pull-up, two cups for ice water and warm water.
 
 *Shared:* lamps, rulers, dark cards or boxes, a phone with a lux-meter app (or one per bench); 3 multimeters for 6 pods — pair pods, one meter per pair, and swap at the round boundary; the class reference thermometer (or a DS18B20 checked against it); hot and cold water.
 
 > **No NTC in this kit.** The NTC in the story is the failed first prototype. This run characterizes the sensors you actually have: the **LDR** (analog, nonlinear), the **DS18B20** (digital, factory-calibrated), and the **potentiometer** (a stable input for checking the chain). If an NTC appears, the Beta equation is in the [resource bank](./Z-resources-bank.md#formulas-you-will-use); the method is the same.
 
 > [!WARNING]
-> **Water and electronics.** Seal the DS18B20 in a bag before it goes into water, dry the leads, and keep the ESP32 and breadboard away from the water. Use warm, not boiling, water. Check the DS18B20 wiring: `VDD` to 3.3 V, `GND` to GND, `DQ` to the GPIO with a 4.7 kΩ pull-up to 3.3 V.
+> **Field and water safety.** The DS18B20 probe is sealed; the cable connector and the ESP32 are not. Keep them dry and do not put the connector in water. Use warm, not boiling, water — the probe may survive it, but the cable and connector may not. Outside, dress for the cold, watch for wet or slippery ground, and keep the electronics under cover. Check the DS18B20 wiring: `VDD` to 3.3 V, `GND` to GND, `DQ` to the GPIO with a 4.7 kΩ pull-up to 3.3 V.
 
 > **Your bench.** Each pod has its own LDR, potentiometer, and 2–3 DS18B20s. The class still compares results — add your LDR rows and DS18B20 unit means to the class tables if your instructor sets them up — but the measurements happen at your own bench.
 >
@@ -117,6 +117,7 @@ The LDR is the analog, nonlinear sensor in your kit. Its resistance falls as lig
 4. **Plot and fit your LDR dataset.** Plot `log R_LDR` vs. `log E` for your rows; fit a line; report the slope `−γ` and the residual. Compare the log-log fit with a linear fit over the same range. Where does the linear fit fail? If the class table exists, compare your slope with it; the spread across LDRs is itself a result. If your rows scatter more than you expect, check Task 4: light history can make the same light level give different resistances.
 5. **Repeat one level three times** and add the spread in `R_LDR` to the class LDR table if your instructor set one up. Compare it with the change in `R_LDR` caused by one ADC step at that light level. Which is larger?
 6. **Optional:** measure your LDR's response to a light step (a card or shutter) and estimate its time constant. Compare it with the DS18B20 in Task 2.
+7. **Optional — fall light.** At a dry window or under cover, compare overcast sky, open shade, and direct low sun. Which condition would trigger the grow lights first? How does the weather change the reading?
 
 > **Measure with the meter, not only the ADC.** The multimeter is your voltage reference; the ADC is the logger. Keep the ADC code in its linear band, or mark where it is not. The difference between the meter and the ADC is part of your uncertainty budget.
 
@@ -135,11 +136,12 @@ A practical consequence: if you request a DS18B20 reading every 100 ms but its 1
 The DS18B20 is the digital, factory-calibrated sensor. It does not need a voltage divider, but it does need a 1-Wire bus and a pull-up. Its datasheet gives the transfer function; your job is to find out what that means at the threshold.
 
 1. **Read the datasheet first.** Find the 9–12-bit resolution settings, the conversion time for each, the accuracy specification, the active/standby current, and the 1-Wire pull-up. Write the key numbers in your log.
-2. **Wire 2–3 DS18B20s on one bus.** Use a 4.7 kΩ pull-up to 3.3 V; scan the ROM IDs; read each sensor. Each DS18B20 has a unique 64-bit ROM ID — that is how several sensors share one wire. Confirm that all units are visible.
+2. **Wire 2–3 DS18B20s on one bus.** Use a 4.7 kΩ pull-up to 3.3 V; scan the ROM IDs; read each sensor. Each DS18B20 has a unique 64-bit ROM ID — that is how several sensors share one wire. Long probe cables add capacitance; if a probe is not found, check the pull-up and the cable length. Confirm that all units are visible.
 3. **Resolution vs. accuracy.** Configure 9, 10, 11, and 12 bits; record the step size and the datasheet conversion time. Compare the step size with the datasheet accuracy. Which one limits your frost decision?
-4. **Unit-to-unit check.** Put all sensors in the same stable place (still air, or a sealed bag in stirred water) next to the reference thermometer. Wait for all sensors and the reference to settle. Record 10 readings per unit. Add your unit means to the class DS18B20 table if your instructor set one up; the class has more units than any one pod. Compare the means and the spread. Is the difference between units calibration, accuracy, or noise?
-5. **Response time.** Put one sensor in a sealed bag in stirred water; move it from cold to warm; log `(time, temperature)` at 12-bit. Plot the step response and estimate `τ` (63 % of the change) and the settling time (4–5 τ). Repeat in still air and compare; keep the bag and its position the same for both runs. Explain why the air measurement is slower.
-6. **Optional — self-heating.** Compare continuous conversions with a duty-cycled read in still air. Does the reading shift? How large is the effect compared with the datasheet accuracy?
+4. **Unit-to-unit check.** Put all probes in the same stable place (still air, or stirred water) next to the reference thermometer. Wait for all probes and the reference to settle. Record 10 readings per unit. Add your unit means to the class DS18B20 table if your instructor set one up; the class has more units than any one pod. Compare the means and the spread. Is the difference between units calibration, accuracy, or noise?
+5. **Field transect — find the cold pocket.** Take your probes outside. The cable is long and the probe is sealed, so the electronics can stay dry under cover. Take the shared reference thermometer (or the checked DS18B20) to the same spot. Each pod measures one or two spots and adds them to the class field table: air at 1 m, air at 10 cm, soil surface, soil at 10 cm, a puddle or the water butt, the tunnel/greenhouse air, and the indoor reference. Record spot, time, probe ID, DS18B20 reading, reference reading, and notes. Which spot is coldest? Which differences are real microclimate, and which are within the datasheet accuracy?
+6. **Response time.** Put one probe in stirred water; move it from cold to warm; log `(time, temperature)` at 12-bit. Plot the step response and estimate `τ` (63 % of the change) and the settling time (4–5 τ). Repeat in still air and compare; keep the probe in the same position for both runs. Explain why the air measurement is slower.
+7. **Optional — self-heating.** Compare continuous conversions with a duty-cycled read in still air. Does the reading shift? How large is the effect compared with the datasheet accuracy?
 
 > **Mini check — Round 1.** The instructor picks a pod and one prompt. Answer from your bench or your log:
 > - "Show your divider orientation and predict the direction of `Vout` when the light increases."
@@ -148,7 +150,7 @@ The DS18B20 is the digital, factory-calibrated sensor. It does not need a voltag
 >
 > **Log and swap.** Update Task A with your LDR class-table rows, your DS18B20 table, and one surprise. Compare your LDR fit with a neighbouring pod's: did you choose the same levels, and do your slopes agree?
 >
-> **Instructor bench round.** Show your LDR plot and your DS18B20 setup; the instructor will ask one "why" question.
+> **Instructor bench round.** Show your LDR plot, your DS18B20 setup, and your field transect row; the instructor will ask one "why" question.
 
 ### Round 2 — Calibrate and Challenge
 
@@ -161,6 +163,8 @@ Calibration compares your device under test (DUT) against a reference of known, 
 - Multi-point / polynomial calibration handles a clearly nonlinear sensor (the LDR over a wide range).
 
 Always validate at a point you did not calibrate at. A calibration that has not been checked at a third point is a hope, not a result.
+
+On this board, the **ESP32 ADC is the noisy, non-linear DUT**: it has offset, gain, and noise. The multimeter is the reference; the potentiometer lets you see the chain's behavior without a sensor in the way.
 
 Uncertainty at an appropriate level of rigor is a budget: list the contributions (reference uncertainty, component tolerance, resolution/quantization, repeatability, noise, nonlinearity/fit residual, drift, self-heating, reading error), convert them to a common unit, and combine them in quadrature:
 
@@ -194,17 +198,17 @@ Calibration is not one recipe. Calibrate the chain, the analog sensor, and the d
 
 **3c — The digital sensor (DS18B20).** This is the factory-calibrated case.
 
-1. Compare one DS18B20 with the reference thermometer at a stable temperature. Record the offset.
-2. Apply a one-point offset correction; validate at a second temperature.
-3. Compare the residual with the datasheet accuracy. Is the correction worth applying? What would you tell Elif?
+1. Use two real temperatures: the cold outdoor spot from the field transect and the indoor/greenhouse reference. Measure each with the DS18B20 and the reference thermometer; record the offset at each.
+2. Apply a one-point offset correction at the cold point; validate in stirred ice water (0 °C), which is closest to the frost threshold. The probe is sealed, so it can go into the ice water; keep the connector dry.
+3. Compare the corrected reading at 0 °C with the reference. Does the offset you measured indoors predict the cold point? Is the residual within the datasheet accuracy? Is the correction worth applying at 2 °C? What would you tell Elif?
 
-> **A one-point correction at room temperature does not guarantee accuracy at 2 °C.** The datasheet accuracy is a bound over a range, not a constant offset. That is exactly the story's seasonal problem in miniature.
+> **A one-point correction at one temperature does not guarantee accuracy at 2 °C.** The datasheet accuracy is a bound over a range, not a constant offset. That is exactly the story's seasonal problem in miniature.
 
 #### ★ Task 4: Hysteresis and repeatability — where the loop is real
 
 1. **LDR — light up and down.** Fix the lamp; slowly cover and uncover it with a card, logging light and resistance in both directions. Overlay the two curves; measure the maximum gap at the same light level. An LDR can remember previous illumination — light history — and that can look like hysteresis. Repeat at two sweep speeds and with a pause at each level: lag changes with speed, light history changes with time. Is the gap hysteresis, light history, or lag? How would you tell?
 2. **Potentiometer — mechanical repeatability.** Set the pot to a marked position, read the voltage; turn it away and back to the mark; read again. Repeat 10 times. Report the spread. Is this the pot's mechanical play, the ADC's noise, or your marking error?
-3. **DS18B20 — repeatability and resolution.** Hold a sensor at a stable temperature; take 10 readings at 9-bit and 12-bit. Compare the spread with the resolution step. Do the same for 2–3 units. Which sensor shows hysteresis? Which shows only quantization?
+3. **DS18B20 — repeatability and resolution.** Use a stable point (ice water or the indoor reference), not the outdoor transect: the weather drifts. Take 10 readings at 9-bit and 12-bit. Compare the spread with the resolution step. Do the same for 2–3 probes. Which sensor shows hysteresis? Which shows only quantization?
 4. **One sentence:** for each sensor, name the effect you actually measured and the effect you did not.
 
 > **Mini check — Round 2.** The instructor picks a pod and one prompt. Answer from your bench or your log:
@@ -228,7 +232,7 @@ Noise comes from the sensor, the wiring, the ADC, and the environment. Practical
 - Exponential moving average (EMA): light, tunable smoothing for streaming data (a simple recursive low-pass filter).
 - Oversampling + decimation: average many samples for extra effective bits, at the cost of speed.
 
-**Match the input to the question.** The potentiometer gives a clean, fast step — use it to measure filter latency. The LDR gives a noisy sensor signal — use it to measure noise and spike rejection. A DS18B20's output is quantized; averaging identical codes does not add information unless the input changes.
+**Match the input to the question.** The ESP32 ADC is the noisy, non-linear part of the chain: its noise is what you measure with the pot fixed, and its non-linearity is what the multimeter catches in Task 3a. The potentiometer gives a clean, fast step — use it to measure filter latency. The LDR gives a noisy sensor signal — use it to measure noise and spike rejection. A DS18B20 is digital and quantized; averaging identical codes does not add information unless the input changes.
 
 #### ◇ Optional study sub-task: The wider filter toolbox
 
@@ -259,7 +263,7 @@ Ask an LLM for its recommendation for the frost alarm, then mark which of its cl
 
 > **Logging.** Use the Serial Monitor's save output, Teleplot, or a short `pyserial` script; the analysis is the point, not the tool.
 
-1. **The chain's noise floor (potentiometer).** Hold the pot fixed; log 500 raw samples with your ESP32. Compute the mean and standard deviation. This is the ADC/electrical noise, not the sensor.
+1. **The chain's noise floor (potentiometer).** Hold the pot fixed; log 500 raw samples with your ESP32. Compute the mean and standard deviation. This is the ESP32 ADC/electrical noise, not the sensor.
 2. **The sensor's noise (LDR).** Hold the light fixed; log 500 samples. Compute the mean and standard deviation. Compare with the chain's noise floor. How much of the noise comes from the sensor?
 3. **The filter comparison.** Apply a 5-sample moving average, a 5-sample median, and an EMA (`alpha = 0.2`, or tuned to match the moving average) to your LDR log. Recompute the standard deviation. Introduce a single-sample outlier (a synthetic spike; a brief shadow is a wider pulse) and compare how each filter reacts.
 4. **The step and the lag (potentiometer).** Step the pot between two voltages; log raw and filtered. Measure the lag each filter adds. For the moving average, the group delay is about `(N−1)/2` samples; for the EMA, measure it. State the trade-off in one sentence.
