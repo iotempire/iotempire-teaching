@@ -19,7 +19,7 @@ Classical networking courses often begin with the seven-layer ISO/OSI model and 
 In this course you will:
 
 - **Work at the edge.** Configure OpenWrt routers, subnet a local network, run DHCP/DNS/NAT, and capture packets at the choke point with `tcpdump` — then read the dump with Wireshark, `tshark`, or as text.
-- **Extend the network without asking for a public IP.** Deploy Nebula and Yggdrasil overlays that cross CGNAT, campus firewalls, and changing WAN addresses.
+- **Extend the network without asking for a public IP.** Deploy Nebula and Yggdrasil overlays that cross CGNAT, campus firewalls, and changing WAN addresses — Nebula from a per-device **bundle** on the router or your laptop, with the lighthouse and certificates issued for the class.
 - **Decouple producers from consumers.** Design MQTT topic hierarchies with QoS, retained state, and Last Will and Testament, then integrate with Node-RED and Python.
 - **Choose the right radio.** Compare Wi-Fi, BLE, LoRaWAN, and connectionless ESP-NOW by range, latency, power, and payload — and build an ESP-NOW-to-MQTT bridge.
 - **Bridge the factory floor.** Understand Modbus, OPC-UA, RS-485, and deterministic networking, and build a simulated industrial-to-IoT bridge.

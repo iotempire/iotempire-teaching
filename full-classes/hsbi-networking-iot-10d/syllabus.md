@@ -74,7 +74,7 @@ By the end of this course, you will be able to:
 1. **Apply TCP/IP and network fundamentals:** Configure and debug IPv4 addressing, CIDR subnetting, DHCP, DNS, NAT, and basic IPv6 in real IoT edge topologies.
 2. **Critically assess network models:** Use the ISO/OSI model as an architectural reference while recognizing its real-world limitations in IoT (referencing RFC 3439 *"Layering Considered Harmful"* and RFC 1958).
 3. **Deploy edge gateways & routers:** Configure OpenWrt routers via CLI and LuCI; capture traffic at the choke point with `tcpdump` and read the dump with Wireshark, `tshark`, or as text.
-4. **Build overlay and mesh networks:** Deploy Nebula peer-to-peer overlay tunnels and Yggdrasil encrypted IPv6 mesh routing to securely connect distributed IoT nodes from home or behind firewalls; and *(optionally)* configure B.A.T.M.A.N. advanced for ad-hoc, self-healing wireless mesh routing between edge routers.
+4. **Build overlay and mesh networks:** Deploy Nebula peer-to-peer overlay tunnels from a per-device **bundle** (on an OpenWrt router or a laptop) and Yggdrasil encrypted IPv6 mesh routing to securely connect distributed IoT nodes from home or behind firewalls; and *(optionally)* configure B.A.T.M.A.N. advanced for ad-hoc, self-healing wireless mesh routing between edge routers.
 5. **Architect publish/subscribe systems:** Design robust topic structures and message flows with MQTT (QoS levels, Retain, Last Will and Testament, TLS).
 6. **Understand multi-protocol integration:** Explain how sensor nodes, actuators, and industrial protocols (OPC-UA, Modbus, RS-485) fit together, and — if hardware or a simulator is available — *(optionally)* bridge them using Node-RED and Python.
 7. **Leverage local wireless standards:** Evaluate trade-offs between Wi-Fi, BLE, LoRaWAN, and connectionless ESP-NOW for latency, range, power, and payload constraints.
@@ -187,7 +187,7 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 | Terminal | **bash** (Git Bash on Windows) | The labs use heredocs, pipes, and `<` redirects; Git Bash ships with Git for Windows. WSL is also fine. |
 | Version control | **Git + GitHub** | Your portfolio is the evidence artifact. Create it from the template with **“Use this template”**, not a fork. |
 | Routing & capture | **OpenWrt + LuCI**, `tcpdump`, **Wireshark** or `tshark` (optional), `iperf3` | One router per two students. **Capture on the router**, then read the dump — the lab laptops have one Wi-Fi adapter and no monitor mode. |
-| Overlays & mesh | **Nebula**, **Yggdrasil**, optional **B.A.T.M.A.N. advanced** | Certificates and peers provided or generated in class. |
+| Overlays & mesh | **Nebula** (class bundles, [nebula-manager](https://github.com/iotempire/nebula-manager)), **Yggdrasil**, optional **B.A.T.M.A.N. advanced** | Nebula bundles are prepared by the instructor (class CA + one lighthouse); the bundle's own `install.sh` / `install.ps1` needs no extra tooling. Router path: static binary + four files. |
 | Messaging & integration | **Mosquitto**, **MQTT Explorer**, **Node-RED**, **Python 3** (`paho-mqtt`, IoTknit; optional `pymodbus`, `asyncua`) | Local-first broker; Python as the programmatic glue. |
 | Python environment | **`uv`** | Pin Python and libraries with `uv`; commit `pyproject.toml` and `uv.lock`, never `.venv/`. Avoid bare `pip install` in the normal path. |
 | Fleet | **IoTempower** | Declarative node definition and OTA deployment. |
@@ -220,6 +220,9 @@ Unlike pure microcontroller classes, our hardware focuses on modular, ready-to-n
 - **Cables & networking gear:**
   - USB-C data cables, Ethernet patch cables, USB power hubs.
   - Dedicated lab switches and access points for isolated mesh/subnet testing.
+- **Overlay infrastructure (instructor side):**
+  - One **Nebula lighthouse** with a stable address (small VPS or lab VM), run for the whole class.
+  - One **class CA** on the instructor's machine and **one bundle per pod** (router certificate, plus laptop certificates for students with admin rights), handed out as croc codes or a download link. Bundles are credentials: they are not shared in the repository and are deleted after the session.
 
 > [!WARNING]
 > **Network hygiene.** You will configure DHCP servers, routing, and ad-hoc Wi-Fi networks. Never plug a rogue DHCP server into the campus network; always work inside the isolated lab router network. Disconnect power before rewiring, and never connect a 5 V or 12 V supply to a 3.3 V logic pin.
@@ -235,7 +238,7 @@ The 10 days correspond to 48 contact hours, with **one module per day**. Session
 | 0 | [Pre-Study](./pre-study.md) | Portfolio setup, inspiration video, network mental model, IP and MQTT exploration. |
 | 1 | [Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md) | Class opening and portfolio start, the IoT computing continuum, OSI vs. TCP/IP friction, Master Class live integration (M5StickC + MQTT + Node-RED + dashboard), packet-overhead measurement, system story pitch. |
 | 2 | [Module 2 — Local Networking & OpenWrt Gateways](./modules/02-local-networking-and-gateways.md) | IPv4 subnetting, DHCP, DNS, NAT, routing tables, OpenWrt LuCI/SSH, `tcpdump` at the choke point (Wireshark optional). |
-| 3 | [Module 3 — Mesh & Overlay Networks](./modules/03-overlay-and-mesh-networks.md) | Nebula overlay remote access and Yggdrasil IPv6 mesh; optional B.A.T.M.A.N. Layer-2 mesh stretcher (`batctl`, failover). |
+| 3 | [Module 3 — Mesh & Overlay Networks](./modules/03-overlay-and-mesh-networks.md) | Nebula overlay from class bundles (router path and laptop path), cross-NAT remote access, Yggdrasil IPv6 mesh; optional B.A.T.M.A.N. Layer-2 mesh stretcher (`batctl`, failover). |
 | 4 | [Module 4 — MQTT Deep Dive & Integration](./modules/04-mqtt-and-integration.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* Topic hierarchy, QoS 0/1/2, Retain, Last Will, MQTT Explorer, Node-RED flows, Python `paho-mqtt` / IoTknit integration. |
 | 5 | [Module 5 — Wireless Technologies & ESP-NOW](./modules/05-wireless-technologies-and-espnow.md) | Radio spectrum, ISM bands, Wi-Fi vs BLE vs LoRaWAN trade-offs, ESP-NOW connectionless peer-to-peer micro-mesh and gateway bridge. |
 | 6 | [Module 6 — Industrial Protocols & Edge Bridging](./modules/06-industrial-protocols-and-bridging.md) | Conceptual tour: Modbus RTU/TCP, OPC-UA, RS-485, TSN context; optional simulated Python/Node-RED bridge to MQTT. |

@@ -10,7 +10,7 @@ This module gives you the opportunity to explore extending a network beyond a si
 
 By the end of this module, you can:
 1. Explain why classical port forwarding fails under Carrier-Grade NAT (CGNAT), DS-Lite, and campus/enterprise firewalls.
-2. Deploy Nebula, a peer-to-peer overlay with lighthouse discovery and UDP hole punching.
+2. Deploy Nebula, a peer-to-peer overlay with lighthouse discovery and UDP hole punching — from a class **bundle** onto a router or a laptop, and explain what the certificate, the key, and the config each do.
 3. Evaluate Yggdrasil, a self-arranging, cryptographically addressed IPv6 mesh.
 4. Distinguish a Layer-3 overlay (Nebula/Yggdrasil) from a Layer-2 router mesh (B.A.T.M.A.N. advanced) and choose the right tool for local vs. wide-area coverage.
 5. *(Optional stretch)* Configure an **OpenWrt 802.11s + `batman-adv`** mesh across several routers, inspect it with `batctl`, and observe self-healing rerouting under live traffic.
@@ -53,6 +53,7 @@ Overlay Network (Nebula / Yggdrasil):
 - Architecture: Mutually authenticated peer-to-peer mesh using Noise Protocol cryptography (similar to WireGuard).
 - Lighthouse: A node with a static, public IP that acts as a directory server. It does *not* relay user traffic; it only tells peers each other's current public IP:port so they can perform UDP hole punching to establish direct, peer-to-peer encrypted tunnels.
 - Security: Every node has a cryptographic certificate signed by a private Certificate Authority (CA), defining its fixed overlay IP and firewall rules.
+- **The deployment unit is a node = certificate + private key + config.** In this class you receive those three as a **bundle** (plus an installer and a README). That is the whole credential model: no shared passwords, and revoking one machine is one certificate — which is why an overlay is administratively cheaper than a VPN account for every device.
 
 ### 2. Yggdrasil Network
 - Architecture: A fully decentralized, zero-configuration end-to-end encrypted IPv6 mesh network.
@@ -104,6 +105,7 @@ In traditional networks, extending a network across multiple hops requires Layer
 ### Pointers (start here, then keep looking)
 
 - Nebula — [Nebula documentation](https://nebula.defined.net/docs/), [GitHub](https://github.com/slackhq/nebula)
+- The class bundles — [nebula-manager](https://github.com/iotempire/nebula-manager), [client bundles & installers](https://github.com/iotempire/nebula-manager/blob/main/docs/bundles.md), and the [bundle cheat sheet in the resource bank](./Z-resources-bank.md#nebula-bundles--the-class-ca)
 - Yggdrasil — [Yggdrasil documentation](https://yggdrasil-network.github.io/)
 - B.A.T.M.A.N. advanced — [OpenWrt batman-adv documentation](https://openwrt.org/docs/guide-user/network/wifi/mesh/batman)
 - NAT traversal — [Wikipedia: NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal), [UDP hole punching](https://en.wikipedia.org/wiki/UDP_hole_punching)
@@ -145,51 +147,104 @@ Pair with a **neighbouring pod**:
 
 *Portfolio evidence:* the cleaned-up `## Study log` (with the **“Agreed learning (pod discussion)”** note) and your pod-pair's shared artefact.
 
-## 🛠️ In-Class Lab: One Session, Three Networks — **Challenging**
+## 🛠️ In-Class Lab: Three Networks — **Challenging**
 
-*Hardware:* 1× OpenWrt router per student pair + laptops with a connection to the university/mobile network. For the optional mesh stretcher, the class connects 3–6 routers into a shared multi-hop mesh.
+*Hardware:* 1× OpenWrt router per student pair (with the **USB stick** for extended root handed out before this session) + laptops with a connection to the university/mobile network. For the optional mesh stretcher, the class connects 3–6 routers into a shared multi-hop mesh.
 
-This session has one ★ Core task (Nebula) and several ◇ Stretchers (B.A.T.M.A.N. mesh, Yggdrasil). Choose the stretchers that fit your time and interest; the core is the overlay/remote-access work.
+This module has one ★ Core task (Nebula) and several ◇ Stretchers (B.A.T.M.A.N. mesh, Yggdrasil). Choose the stretchers that fit your time and interest; the core is the overlay/remote-access work.
 
 ### ★ Task 1: Deploying Nebula for Team Remote Access
 
-1. Meet the Lighthouse:
-   - The instructor provides a running Nebula lighthouse address (e.g. `lighthouse.iotempire.net` or a dedicated lab VM).
-   - Your team receives signed client certificates:
-     - `gateway-<team>.crt` / `gateway-<team>.key` (assigned IP e.g. `10.100.0.10`)
-     - `laptop-<student>.crt` / `laptop-<student>.key` (assigned IP e.g. `10.100.0.11`)
-2. Install & Configure Nebula on Your Laptop:
-   - Download Nebula for your OS (Linux, macOS, Windows) from [github.com/slackhq/nebula](https://github.com/slackhq/nebula/releases).
-   - Create `config.yaml` pointing to the CA certificate, your node key/cert, and the lighthouse IP.
-   - Start Nebula:
+**You get a bundle, not a certificate ceremony.** The instructor runs the class CA and one lighthouse; every pod receives a **self-contained bundle** — `<name>.crt`, `<name>.key`, `ca.crt`, `config.yml.template`, `install.sh`, `install.ps1`, `README.txt`. A node is exactly that: a certificate, a key, and a config. The bundle is also the thing you can hand to a machine, which is why a whole class can join in one session.
+
+> **Story hook.** *The keys to the sculpture.* Mara does not want an account on a museum server; she wants the sculpture to have its own address and its own key, while the museum's IT department never opens a port. A bundle is that promise in a file — and revoking it costs one certificate, not a password reset for everybody.
+
+1. **Collect your bundle and read its `README.txt`.** It arrives as a croc code or a URL from the projector, one archive per pod. The README lists your overlay IP, your groups, and the exact install commands. **The archive contains a private key** — keep it out of Git, out of chat, and delete it after installing. Find the lighthouse in your config (`lighthouse.hosts`, `static_host_map`): you never configure the lighthouse, but you have to be able to point at it.
+2. **Pick the machine you will join from.** Most pods join with the **router** (that gives the whole LAN behind it a way in); students with admin rights can also join directly from Windows; Linux and macOS laptops use the installer. You may hold **two bundles** — one for the router, one for your laptop: they are two separate nodes with two overlay addresses, and that is the normal case, not a mistake.
+
+| Your machine | What you need | Path |
+|---|---|---|
+| **OpenWrt router** — the default for most pods | static `nebula` binary for the router's architecture + the four bundle files | **A** |
+| **Windows 10/11 laptop with admin rights** | Nebula for Windows + the bundle | **B** |
+| **Linux / macOS laptop** | `nebula` from the package manager + the bundle | **C** |
+| Linux laptop or VM that wants the manager UI | [nebula-manager](https://github.com/iotempire/nebula-manager) | **D** *(optional)* |
+
+**Path A — the OpenWrt router (class default).** No systemd and 16 MB of flash, so the bundle's `install.sh` is not used here: copy four files, run the binary.
+
+```bash
+# on the router: architecture and space
+uname -m                 # mips | mipsle | arm | aarch64
+df -h /overlay
+
+# on your laptop: unpack the bundle and push the four files
+unzip <name>-nebula-bundle.zip -d nb && cd nb
+ssh root@192.168.8.1 'mkdir -p /etc/nebula'
+scp <name>.crt <name>.key ca.crt config.yml.template root@192.168.8.1:/etc/nebula/
+ssh root@192.168.8.1 'cd /etc/nebula && [ -f config.yml ] || mv config.yml.template config.yml; chmod 600 *.key'
+
+# the static binary must match `uname -m`: download it from
+# https://github.com/slackhq/nebula/releases and copy it over
+scp nebula root@192.168.8.1:/etc/nebula/nebula
+ssh root@192.168.8.1 'chmod +x /etc/nebula/nebula'
+
+# validate, watch it once in the foreground, then keep it running
+ssh root@192.168.8.1 '/etc/nebula/nebula -test -config /etc/nebula/config.yml'
+ssh root@192.168.8.1 'nohup /etc/nebula/nebula -config /etc/nebula/config.yml >/tmp/nebula.log 2>&1 &'
+sleep 2; ssh root@192.168.8.1 'ip -brief addr show nebula1; tail -5 /tmp/nebula.log'
+```
+
+- The bundle's config already points at `/etc/nebula/…`, so the paths match. If yours does not, edit `pki.ca`, `pki.cert`, and `pki.key` — that is the only config difference between a router and a laptop.
+- **16 MB is tight.** If `scp` fails with `No space left on device`, do the [extroot](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card) first; the same stick later holds `tshark` and MicroPython.
+- **Firewall:** outbound UDP is open by default. If other nodes must reach *you* first, allow the Nebula UDP port (default `4242`) inbound on WAN.
+- **Survives a reboot?** Not yet — an initscript is the difference between a demo and a gateway. That is a good stretcher (see the note at the end of this task).
+
+**Path B — a Windows laptop (needs admin).**
+
+```powershell
+# once: install Nebula for Windows (release zip/MSI) so nebula.exe is in PATH
+#       or under C:\Program Files\Nebula\
+# then, in an ELEVATED PowerShell, inside the extracted bundle:
+powershell -ExecutionPolicy Bypass -File .\install.ps1
+Get-Service Nebula
+ipconfig | Select-String nebula
+```
+
+The installer backs up existing files, restricts the key to `SYSTEM` + `Administrators`, validates with `nebula.exe -test`, writes `config.yml`, installs the `Nebula` service and starts it. `-CertsOnly` refreshes only cert/key/CA, `-NoStart` installs without starting the service. **No admin rights?** Use Path C in WSL2, or join from the router — both are perfectly good evidence.
+
+**Path C — a Linux or macOS laptop.**
+
+```bash
+sudo apt install -y nebula unzip        # macOS: brew install nebula
+unzip <name>-nebula-bundle.zip -d nb && sudo bash nb/install.sh
+systemctl status nebula; ip -brief addr show nebula1    # macOS: brew services list
+```
+
+The same script with `--certs-only` refreshes the certificate without touching a working config — that is what you use after the instructor re-signs you.
+
+**Path D (optional) — the manager UI.** The bundle needs nothing else, but [`nebula-manager`](https://github.com/iotempire/nebula-manager) gives you a menu, config editing, and diagnostics. It is a bash tool for Linux (WSL2 is fine, systemd required) — **it does not run on OpenWrt, and you never run it as root**:
+
+```bash
+curl -fsSL https://github.com/iotempire/nebula-manager/releases/latest/download/nebula-manager -o nebula-manager
+curl -fsSL https://github.com/iotempire/nebula-manager/releases/latest/download/nebula-manager.sha256 -o nebula-manager.sha256
+sha256sum -c nebula-manager.sha256 && chmod +x nebula-manager
+./nebula-manager import --bundle ~/Downloads/<name>-nebula-bundle.zip --yes
+./nebula-manager diag        # TUN address, UDP socket, certificate expiry
+./nebula-manager             # the same actions in a numbered menu
+```
+
+If you would rather click than type: run `./nebula-manager` and use **Manager Setup ▸ Import client bundle**, then **Diagnostics**. The menu and the CLI do the same things — use whichever you can explain to your pod.
+
+3. **The cross-NAT test.** Now prove that a hole in a firewall was never needed:
+   - Disconnect your laptop from the lab router and use your phone's hotspot or eduroam. Both ends are now behind different firewalls.
+   - Ping your node's overlay IP (from its README — e.g. `10.100.0.10`):
      ```bash
-     sudo nebula -config config.yaml
-     ```
-   - Verify that your virtual network adapter (`nebula1`) receives your assigned overlay IP.
-3. Install Nebula on the OpenWrt Router:
-   - **Check the space first.** The Cudy has 16 MB of flash: `df -h /overlay`. Match the binary to the router's architecture (`uname -m`), then transfer it and the certificates:
-     ```bash
-     scp nebula root@192.168.8.1:/usr/bin/
-     scp config-router.yaml root@192.168.8.1:/etc/nebula/config.yaml
-     ```
-   - If it does not fit, or you get `No space left on device`, move the root filesystem to the **USB stick** first — the [extroot recipe](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card) takes you through it, and the same stick later holds `tshark` and MicroPython.
-   - Start Nebula on the router:
-     ```bash
-     nebula -config /etc/nebula/config.yaml &
-     ```
-4. The Cross-NAT Ping Test:
-   - Disconnect your laptop from the OpenWrt router! Connect your laptop to your smartphone's mobile hotspot or the campus eduroam network.
-   - Both devices are now behind completely separate, firewalled networks.
-   - Run:
-     ```bash
-     ping 10.100.0.10   # Ping your OpenWrt router over the Nebula overlay
-     ```
-   - Connect to your OpenWrt SSH or Mosquitto broker over the overlay:
-     ```bash
+     ping 10.100.0.10
      ssh root@10.100.0.10
-     mosquitto_sub -h 10.100.0.10 -t "test/#" -v
+     mosquitto_sub -h 10.100.0.10 -t 'test/#' -v
      ```
-   - *Success:* You now have secure, direct, bidirectional access to your IoT gateway from anywhere!
+   - *Success:* secure, direct, bidirectional access to your gateway from a network that would never accept an inbound connection.
+
+4. **(Stretcher) Make the router a gateway.** Joining from the router gives the *router* an overlay address. If the devices **behind** it should reach the overlay too, enable forwarding and give `nebula1` a firewall zone (input `reject`, forward `accept`, masquerading off) — that is the step that turns “my router is on the mesh” into “my substation is on the mesh”. Document what you had to allow.
 
 ### ◇ Task 2 (Stretcher): Building the Class Mesh with B.A.T.M.A.N. advanced
 
@@ -266,21 +321,47 @@ Do this task if you finish the core labs early, or as homework/stretcher practic
    ```
 4. End-to-end IPv6 ping: ask another student for their Yggdrasil IPv6 address and `ping -6 200:...` — then reach a simple service (for example an HTTP server or SSH) listening on that Yggdrasil IPv6 socket.
 
+### ◇ Task 5 (Stretcher): Be the CA — run the other side of the bundle
+
+The bundle exists because somebody ran a CA and signed a certificate. Do it yourself once, in a **scratch workspace**, so the bundle stops being magic. Linux laptop or WSL; the manager never needs root for this:
+
+```bash
+curl -fsSL https://github.com/iotempire/nebula-manager/releases/latest/download/nebula-manager -o nebula-manager
+chmod +x nebula-manager
+./nebula-manager ca   --name LabCA --cert-dir ~/keys/lab
+./nebula-manager sign --name demo1 --ip 10.99.0.1/24 --groups lighthouse --cert-dir ~/keys/lab
+./nebula-manager sign --name demo2 --ip 10.99.0.2/24 --groups home       --cert-dir ~/keys/lab
+./nebula-manager cert config generate --all --cert-dir ~/keys/lab
+./nebula-manager cert bundle demo2 --out ~/Downloads
+./nebula-manager cert list --cert-dir ~/keys/lab      # expiry, groups, IPs
+```
+
+*(The menu does the same: run `./nebula-manager` with no arguments.)*
+
+Then answer, in three sentences each:
+
+1. What did the CA actually sign, and which file must never leave your machine?
+2. What does the **bundle** contain that the certificate alone does not — and why does that make the archive a credential?
+3. The instructor revokes one node. What does “revoked” mean here, and why is that cheaper than deleting a VPN account?
+
+> **Never use this scratch CA for anything real, and never commit `~/keys/lab`.** Delete it when you are done — the exercise is the artifact, not the key.
+
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
 1. Tool Selection Matrix: Compare Port Forwarding, Nebula, Yggdrasil, and B.A.T.M.A.N. advanced across: central infrastructure required, NAT traversal, encryption model, layer, and suitability for remote vs. local coverage. (Extend the table from Part C with your own observations.)
-2. Remote-Access Proof: Terminal screenshot showing your laptop on an external network (e.g. mobile hotspot) with a successful `ping` and `ssh` session to your OpenWrt router via its Nebula IP (`10.100.0.x`).
+2. Remote-Access Proof: Terminal screenshot showing your laptop on an external network (e.g. mobile hotspot) with a successful `ping` and `ssh` session to your OpenWrt router via its Nebula IP (`10.100.0.x`). Say **which path** you used (router / Windows / Linux) and what you had to do that the bundle did not do for you.
 3. *(Optional)* Mesh Routing Artifacts: Capture `batctl n` and `batctl o` output showing your router's multi-hop neighbors, plus a `batctl traceroute` across the room.
 4. *(Optional)* Failover Experiment Report: Describe what happened during the link drop: how many pings/packets were lost before B.A.T.M.A.N. converged on the alternate route?
 5. Deeper question: Why can `batman-adv` give you a flat subnet across the room, while Nebula/Yggdrasil are needed to reach a device across the Internet? Which one would your final project use — and why?
 
 
 > [!IMPORTANT]
-> Never commit secrets, credentials, private keys, or certificates. Where you did not work entirely alone, link your pod mates and sources.
+> Never commit **bundles**, credentials, private keys, or certificates — an archive containing a `.key` file *is* a credential, even if it is “just” for a class mesh. Where you did not work entirely alone, link your pod mates and sources.
 
 ## 📚 If you want to go deeper
 
 - [Nebula documentation](https://nebula.defined.net/docs/) — lighthouses, certificates, and firewall rules.
+- [nebula-manager](https://github.com/iotempire/nebula-manager) — the class CA and bundle tool: [client bundles & installers](https://github.com/iotempire/nebula-manager/blob/main/docs/bundles.md), [certificates & workspaces](https://github.com/iotempire/nebula-manager/blob/main/docs/certificates.md).
 - [Yggdrasil documentation](https://yggdrasil-network.github.io/) — cryptographic addressing and tree routing.
 - [OpenWrt batman-adv](https://openwrt.org/docs/guide-user/network/wifi/mesh/batman) — the Layer-2 mesh stretcher.
 - [NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal) and [UDP hole punching](https://en.wikipedia.org/wiki/UDP_hole_punching) — why overlays work where port forwarding fails.

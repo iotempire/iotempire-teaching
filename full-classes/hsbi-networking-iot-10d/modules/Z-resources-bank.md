@@ -207,6 +207,40 @@ reboot
 | 4 | `tcp port 1883` | QoS bits, retained message, Last Will |
 | 5 | ESP32 sniffer | ESP-NOW frames on the air |
 
+<a id="nebula-bundles--the-class-ca"></a>
+### 📌 Nebula bundles & the class CA
+
+A **bundle** is the deployment unit: certificate, private key, `ca.crt`, `config.yml.template`, `install.sh`, `install.ps1`, `README.txt`. The installers are self-contained — a client does **not** need nebula-manager. Treat every archive and every `.key` as a credential.
+
+```bash
+# client, Linux/macOS: unpack and install (needs the nebula package)
+unzip <name>-nebula-bundle.zip -d nb && sudo bash nb/install.sh
+sudo bash nb/install.sh --certs-only     # after a re-sign: refresh cert/key, keep config
+
+# client, Windows (elevated PowerShell, nebula.exe already installed)
+powershell -ExecutionPolicy Bypass -File .\install.ps1
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -CertsOnly
+
+# inspect what a certificate actually says
+nebula-cert print -path /etc/nebula/<name>.crt
+```
+
+On **OpenWrt** the installer does not apply (no systemd): copy `<name>.crt`, `<name>.key`, `ca.crt` and `config.yml` into `/etc/nebula/`, `chmod 600` the key, and run the static binary — the full recipe is in [Module 3](./03-overlay-and-mesh-networks.md).
+
+**The instructor side (the class CA).** All of this runs as a normal user; only the lighthouse's `/etc/nebula` needs sudo:
+
+```bash
+./nebula-manager ca   --name ClassCA --cert-dir ~/keys/class
+./nebula-manager sign --name pod07-router --ip 10.100.0.7/24 --groups students --cert-dir ~/keys/class
+./nebula-manager cert config generate --all --cert-dir ~/keys/class
+./nebula-manager cert list --cert-dir ~/keys/class            # expiry, groups, addresses
+./nebula-manager cert bundle pod07-router --out ~/bundles
+./nebula-manager fleet croc --select group:students --policy students   # one code per node
+./nebula-manager cert resign-all --yes                          # after a CA rotation
+```
+
+The CA **key** never leaves the instructor's machine; only `ca.crt` and the signed node certificates travel. Back up `~/keys/class` — losing the CA key means re-issuing the whole mesh.
+
 <a id="mqtt-command-cheat-sheet"></a>
 ### 📌 MQTT Command Cheat Sheet
 | Command                      | Example                                      | Purpose                                  |
@@ -258,6 +292,11 @@ reboot
 - **SSH host keys after a reflash:** a reflashed router presents a new host key. Remove the old entry (`ssh-keygen -R <host>`) instead of disabling the check.
 - **`opkg update` first:** installs fail on a stale package list. Run `opkg update` before `opkg install tcpdump` or `kmod-batman-adv`.
 - **Capturing on `any`:** `tcpdump -i any` can show the same packet twice (ingress and egress). Note the interface when you interpret a capture.
+- **Nebula has no `nebula1`:** run it in the foreground first (`/etc/nebula/nebula -config …`) instead of with `nohup`; the error is almost always a wrong `pki.*` path, a missing lighthouse in `static_host_map`, or a key with the wrong permissions.
+- **`certificate is not yet valid` / `expired`:** the node clock is wrong. Check `date` on the router (NTP) before touching certificates.
+- **Overlay ping works one way:** the receiving node's firewall is blocking the Nebula UDP port (default `4242`) — outbound UDP is open by default, inbound is not.
+- **Windows installer fails silently:** `install.ps1` needs an **elevated** PowerShell and `nebula.exe` on `PATH` (or in `C:\Program Files\Nebula\`). `-NoStart` isolates install problems from service problems.
+- **After a re-sign:** refresh only the credentials (`install.sh --certs-only` / `install.ps1 -CertsOnly` / copy the `.crt` on the router) — do not overwrite a working config just because the certificate changed.
 - **Retained MQTT messages:** a “live” test may show an old retained value. Clear retained state or publish a fresh value before you draw conclusions.
 - **Throughput/latency measurements:** note the payload size, protocol, channel, and load. A single ping is not a benchmark; use `iperf3` and repeat.
 - **Clock skew:** timestamps from different devices disagree. Compare durations, not absolute times, unless the clocks are synced.
@@ -300,6 +339,8 @@ Use these as portfolio prompts or in-class hook.
 ## 🧑‍🏫 Instructor hints
 
 **Before the first studio.** Label every router and node, record which router is the lab uplink, and keep one known-good Ethernet cable and one known-good M5Stack. Test the local Mosquitto broker and Node-RED on the gateway before students arrive. If you use the B.A.T.M.A.N. stretcher, pre-check that the routers have `kmod-batman-adv` and a common Wi-Fi channel.
+
+**Nebula in one session — bundles, not ceremonies.** Before class, create the class CA and sign **one certificate per pod** for its router (e.g. `pod07-router`, `10.100.0.7/24`, group `students`), plus laptop certs for the students who have admin rights on their own machine. Generate the configs and bundles and hand out **one croc code per pod** (`fleet croc --select group:students`), with the lighthouse already in `static_host_map`; the [bundles chapter](https://github.com/iotempire/nebula-manager/blob/main/docs/bundles.md) is the reference. Two things to prepare: (1) the router path needs a **static `nebula` binary** matching MIPS/ARM — pre-download the right release and keep it on a USB stick or an HTTP folder, because 16 MB of flash will not take a package install; (2) a **re-sign drill** for the pod that loses its key (`cert resign-all` or a single `sign`, then `--certs-only`) — it is a five-minute lesson in why the key *is* the credential. Never put the CA key on a shared drive, and delete the student bundles from the instructor host at the end of the day.
 
 **Pods and checkpoints.** Form Task Pods of two or three on Day 1 (three is the default for a large cohort). The checkpoint schedule, the 2-pod practice round, and the video alternative are defined in the [syllabus](../syllabus.md#how-module-points-are-earned-portfolio-evidence-and-checkpoints); run the slots from there. Treat checkpoints as feedback on the portfolio evidence, not as task-completion audits, and keep them a short conversation rather than a presentation rehearsal.
 
