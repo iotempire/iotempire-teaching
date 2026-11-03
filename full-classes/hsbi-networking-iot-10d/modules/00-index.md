@@ -7,7 +7,7 @@
 | Module | Day | Modern studio | Hands-on focus |
 |:---:|:---:|---|---|
 | [Module 0 — Pre-study](../pre-study.md) | Before Day 1 | Portfolio, network mental model, MQTT discovery | Packet journey, IP/subnet exploration, first MQTT publish/subscribe. |
-| [Module 1](./01-foundations-and-masterclass.md) | Day 1 | Foundations & Master Class: The IoT Computing Continuum | OSI vs. TCP/IP critique, packet-overhead measurement, Master Class integration (M5Stack + MQTT + Node-RED). |
+| [Module 1](./01-foundations-and-masterclass.md) | Day 1 | Foundations & Master Class: The IoT Computing Continuum | Class opening and portfolio start, OSI vs. TCP/IP critique, packet-overhead measurement, Master Class integration (M5StickC + MQTT + Node-RED + dashboard), story pitch. |
 | [Module 2](./02-local-networking-and-gateways.md) | Day 2 | Local Networking, TCP/IP & OpenWrt Gateways | IPv4 subnetting, DHCP, DNS, NAT, routing tables, OpenWrt LuCI/SSH, Wireshark & `tcpdump`. |
 | [Module 3](./03-overlay-and-mesh-networks.md) | Day 3 | Mesh & Overlay Networks: Nebula, Yggdrasil & B.A.T.M.A.N. | Nebula overlay remote access, Yggdrasil IPv6 mesh, optional B.A.T.M.A.N. Layer-2 mesh stretcher. |
 | [Module 4](./04-mqtt-and-integration.md) | Day 4 | MQTT Deep Dive & Integration **+ Checkpoint 1** | Topic hierarchy, QoS 0/1/2, Retain, Last Will, Node-RED flows, Python `paho-mqtt` / IoTknit. |

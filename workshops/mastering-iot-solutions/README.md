@@ -12,7 +12,7 @@ You will work in **teams of two (or three)**:
 - 🔄 **Rotate roles freely** during the workshop so everyone gets hands-on experience with both hardware and visual programming!
 
 > [!TIP]
-> **Pacing is flexible:** You do not need to wait for everyone before moving to the next step. Tasks may be introduced orally by the instructor or explored self-paced through this workbook. If you finish core tasks early, jump straight into the [Open-Ended Explorations](#-open-ended-explorations)!
+> **Pacing is flexible:** You do not need to wait for everyone before moving to the next step. Tasks may be introduced orally by the instructor or explored self-paced through this workbook. If you finish core tasks early, jump straight into the [Open-Ended Explorations](#open-ended-explorations)!
 
 ## Phase 1: First Contact & Hello World in Node-RED
 
@@ -137,7 +137,7 @@ Now let's build an interactive user interface using **Dashboard 2.0** (`@flowfus
 6. Open your dashboard in another browser tab:
    `http://<instructor-host>:18nn/dashboard/` *(or `http://<instructor-ip>:18nn/dashboard/`)*.
 7. Pinch the Dallas sensor head with warm fingers and watch the needle rise and the history line chart draw live!
-Update course curriculum and workshop documentation - minor refinements
+
 ### 2. Classroom Heatmap (Wildcard Aggregation)
 Want to know if one corner of the room is warmer than another?
 1. Add an **mqtt in** node with topic: `+/temp` *(the `+` is an MQTT single-level wildcard meaning "any stick")*.

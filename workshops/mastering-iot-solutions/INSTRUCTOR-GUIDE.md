@@ -135,7 +135,7 @@ The parent directory contains **`system.conf`** with the workshop Wi-Fi credenti
      - URL: `http://<instructor-host>:18nn/` (or `http://<host-ip>:18nn/`).
      - Credentials: `admin` / Password from table.
 2. **Team Hands-On:**
-   - Teams follow [Phase 2 of the Workbook](./README.md#%EF%B8%8F-phase-2-interacting-with-your-m5stickc) (or oral guidance).
+   - Teams follow [Phase 2 of the Workbook](./README.md#phase-2-interacting-with-your-m5stickc) (or oral guidance).
    - Listen to `<id>/home` -> watch button presses in debug sidebar.
    - Toggle their own LED via `<id>/led/set`.
    - Print custom team names or messages to `<id>/console/set`.

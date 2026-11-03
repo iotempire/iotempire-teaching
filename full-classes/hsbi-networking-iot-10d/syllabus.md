@@ -229,7 +229,7 @@ The 10 days correspond to 48 contact hours, with **one module per day**. Session
 | Day | Module / Topic | Core Hands-on Focus |
 |:---:|---|---|
 | 0 | [Pre-Study](./pre-study.md) | Portfolio setup, inspiration video, network mental model, IP and MQTT exploration. |
-| 1 | [Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md) | The IoT computing continuum, OSI vs. TCP/IP friction, Master Class live integration (M5Stack + MQTT + Node-RED). |
+| 1 | [Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md) | Class opening and portfolio start, the IoT computing continuum, OSI vs. TCP/IP friction, Master Class live integration (M5StickC + MQTT + Node-RED + dashboard), packet-overhead measurement, system story pitch. |
 | 2 | [Module 2 — Local Networking & OpenWrt Gateways](./modules/02-local-networking-and-gateways.md) | IPv4 subnetting, DHCP, DNS, NAT, routing tables, OpenWrt LuCI/SSH, Wireshark & `tcpdump` packet capture. |
 | 3 | [Module 3 — Mesh & Overlay Networks](./modules/03-overlay-and-mesh-networks.md) | Nebula overlay remote access and Yggdrasil IPv6 mesh; optional B.A.T.M.A.N. Layer-2 mesh stretcher (`batctl`, failover). |
 | 4 | [Module 4 — MQTT Deep Dive & Integration](./modules/04-mqtt-and-integration.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* Topic hierarchy, QoS 0/1/2, Retain, Last Will, MQTT Explorer, Node-RED flows, Python `paho-mqtt` / IoTknit integration. |
