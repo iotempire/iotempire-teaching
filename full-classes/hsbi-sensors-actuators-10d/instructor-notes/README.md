@@ -10,7 +10,7 @@ Prüfungsausschuss.
 | Note | What is inside |
 |---|---|
 | [Assessment & operations](./00-assessment-and-operations.md) | Kombinationsprüfung mapping, milestone plan, submission hygiene, group accountability and sign-off template, re-examination, privacy, AI assistance |
+| [General teaching hints](./01-general-teaching-hints.md) | First-studio kit check, Task Pods and feedback rounds, studio rhythm, stories, demo day, slides |
+| [Module 3 studio](./02-module-3-studio.md) | LDR/potentiometer/DS18B20 setup, multimeter pairing, water prep, fall field transect, DHT11 comparison, running the three rounds |
 
-Technical hints that are useful to students (I²C troubleshooting, calibration,
-measurement gotchas) live in the [resource bank](../modules/Z-resources-bank.md);
-this folder holds the course-operation side.
+Technical reference material for students lives in the [resource bank](../modules/Z-resources-bank.md); this folder holds teaching and course-operation notes.
