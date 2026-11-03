@@ -125,7 +125,7 @@ All together, on one screen, on last session's `Module02/legacy.db` (it should s
    - `SELECT * FROM machine WHERE machine_name = 'cnc-02';`
    - `SELECT * FROM maint_job WHERE technician LIKE '%ei%';`
 2. **Add one index** — `CREATE INDEX ix_job_tech ON maint_job(technician);` — and re-run all three. Which plan changed, which did not, and why?
-3. **Break it on purpose.** Find a `WHERE` that defeats that index anyway (wrap the column in a function, or use a leading-wildcard `LIKE`). The negative result is the valuable one.
+3. **Break it on purpose.** Find a `WHERE` that defeats that index anyway (wrap the column in a function, or use a leading-wildcard `LIKE`). The negative result is the valuable one. *Why a leading `%` defeats any B-tree index, and what does help: [FAQ](../modules/Z-resources-bank.md#faq-questions-that-come-back-every-term).*
 
 A prediction you got **wrong** is the most useful line in `sql-notes.md`. Keep the predictions next to the real plans.
 

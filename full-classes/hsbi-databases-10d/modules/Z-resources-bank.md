@@ -334,6 +334,42 @@ The module stories share a small cast of named (fictional) organizations and peo
 | `database is locked` | Another writer holds the file; SQLite allows one writer | Enable WAL, shorten transactions, or serialize writers. |
 | Wrong numbers after a join | Fan-out: a 1:n join multiplied rows before aggregation | Aggregate in a subquery first, then join. |
 
+## FAQ: questions that come back every term
+
+### Why does SQLite ignore my index for `LIKE '%ei%'`?
+
+Because a B-tree index is sorted by the **start** of the value. A leading `%` says "this text can be anywhere", so there is no sorted position to jump to — SQLite reads every row. This is not a missing index type or a bug; it is an access pattern the index does not cover.
+
+Three details worth knowing (checked on SQLite 3.54):
+
+| Query | Plan |
+|---|---|
+| `LIKE 'Bei%'`, plain index on the column | `SCAN` |
+| `LIKE 'Bei%'`, index on `column COLLATE NOCASE` | `SEARCH … USING … INDEX` |
+| `GLOB 'Bei*'`, plain index | `SEARCH … USING … INDEX` |
+| `LIKE '%ei%'`, any B-tree index | `SCAN` |
+
+The second row is the one that surprises people: `LIKE` is case-insensitive by default, but a plain index is case-sensitive, so the collations do not match. Either index the column `COLLATE NOCASE`, or set `PRAGMA case_sensitive_like = ON`.
+
+**What actually helps**
+
+- **Substring search** → **FTS5 with the trigram tokenizer** (SQLite 3.34+): it accelerates `LIKE '%…%'` and `GLOB '*…*'`. The plan looks different — `SCAN … VIRTUAL TABLE INDEX 0:L0` — so do not expect `SEARCH … USING INDEX`.
+- **Word search** → plain FTS5 with `MATCH`, not `LIKE`.
+- **Prefix or suffix only** → an index on the column, or on a reversed copy for suffixes.
+- **Nothing at all** → if the table is small, a scan is already the cheapest plan. Module 2's `maint_job` has four rows.
+
+```sql
+-- the trigram option, minimally
+CREATE VIRTUAL TABLE job_search USING fts5(technician, tokenize='trigram');
+INSERT INTO job_search(technician) SELECT technician FROM maint_job;
+SELECT * FROM job_search WHERE technician LIKE '%ei%';
+```
+
+> A real system keeps that table in sync with triggers, or uses FTS5's `content=` option instead of copying the rows.
+
+> [!TIP]
+> Two habits generalise beyond this question: read the plan before reaching for a new index type, and measure on realistic row counts. An index that helps at 100,000 rows can lose to a scan at four.
+
 ## Suggested practice datasets
 
 - **The course's own generators** (Modules 1, 3, 5) — self-contained, no network needed.
