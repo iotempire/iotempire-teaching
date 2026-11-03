@@ -27,15 +27,15 @@ In class we work with **GitHub on the web** and the **Git UI inside your editor*
 
 The button opens GitHub's *new repository* form with `iotempire/iot-portfolio-template` already selected — no hunting for the green **Use this template** button, and no way to fork by accident. If it ever lands you on an empty form without the template pre-selected, use [`github.com/iotempire/iot-portfolio-template/generate`](https://github.com/iotempire/iot-portfolio-template/generate) instead: same form, guaranteed to be the template.
 
-1. **Name it** `iot-2026-<your-name>` (e.g. `iot-2026-bianca-mueller`) and make it **public** — or at least readable by the instructor.
-2. **Invite the instructor.** Open `https://github.com/<YOUR-USERNAME>/<YOUR-REPO>/settings/access` → **Add people** → search for **`ulno`** → role **Write** (Admin is fine too).
+1. **Name it exactly** `net-iot-hsbi-2026-portfolio` and make it **public** — or at least readable by the instructor. Same name for everybody; your GitHub account tells them apart.
+2. **Invite the instructor.** Open `https://github.com/<YOUR-USERNAME>/net-iot-hsbi-2026-portfolio/settings/access` → **Add people** → search for **`ulno`** → role **Write** (Admin is fine too).
 3. **Confirm it worked:** the repository shows `ulno` under *Settings → Access*.
 
 > **`gh` users:** if you already have the GitHub CLI authenticated, the whole step is three lines:
 >
 > ```sh
-> gh repo create "iot-2026-<your-name>" --template iotempire/iot-portfolio-template --public --clone
-> cd "iot-2026-<your-name>"
+> gh repo create net-iot-hsbi-2026-portfolio --template iotempire/iot-portfolio-template --public --clone
+> cd net-iot-hsbi-2026-portfolio
 > gh api -X PUT "repos/{owner}/{repo}/collaborators/ulno" -f permission=push   # there is no `gh repo invite`
 > ```
 >
@@ -48,7 +48,7 @@ The button opens GitHub's *new repository* form with `iotempire/iot-portfolio-te
 ### Clone it once (if you work locally)
 
 ```sh
-gh repo clone <you>/iot-2026-<your-name>    # the ONLY gh command you need
+gh repo clone <you>/net-iot-hsbi-2026-portfolio    # the ONLY gh command you need
 ```
 
 Then **open the folder in VS Code or Zed** and do everything else in the editor's Git UI. Working only in the browser is fine too — GitHub's web editor commits for you.

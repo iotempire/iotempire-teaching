@@ -78,16 +78,18 @@ student repository.
 ```sh
 bash tools/collect-portfolios.sh invitations          # who invited you, and what is still pending
 bash tools/collect-portfolios.sh accept               # accept every pending invitation
-bash tools/collect-portfolios.sh list                 # repos matching ^iot-20YY-
+bash tools/collect-portfolios.sh list                 # repos named net-iot-hsbi-20YY-portfolio
 bash tools/collect-portfolios.sh clone --dir ~/review  # clone them next to each other
 ```
 
 | Flag | Meaning |
 |---|---|
-| `--pattern RE` | Repository-name regex. Default `^iot-20[0-9]{2}-` (e.g. `iot-2026-bianca-mueller`). |
+| `--pattern RE` | Repository-**name** regex (the part after the owner). Default `^net-iot-hsbi-20[0-9]{2}-portfolio$`. |
 | `--dir DIR` | Target directory for `clone`. Default: the current directory. |
 | `--depth N` | Shallow clone depth (faster for large cohorts). Default: full history. |
 | `--dry-run` | Show what would happen (`accept`, `clone`). |
+
+Clones are written to `DIR/<owner>__<repo>` (e.g. `alice__net-iot-hsbi-2026-portfolio`), because every student's repository carries the same name.
 
 Requires an authenticated `gh` (`gh auth login`) and `git`. Notes:
 

@@ -17,7 +17,7 @@ See the [syllabus](./syllabus.md) for the complete course schedule and policies.
 > **Language:** The written materials are in English. For the full language arrangement (spoken German/English, portfolio language), see the [syllabus](./syllabus.md#language-communication--course-material).
 
 > [!IMPORTANT]
-> **Required Module 0 — 1 Module Point:** Before the first session, create your personal portfolio with one click, **name it `iot-2026-<your-name>`, and invite the instructor (`ulno`) as a collaborator** — otherwise nobody can read your work.
+> **Required Module 0 — 1 Module Point:** Before the first session, create your personal portfolio with one click, **name it exactly `net-iot-hsbi-2026-portfolio`, and invite the instructor (`ulno`) as a collaborator** — otherwise nobody can read your work.
 >
 > [![Create Portfolio](https://img.shields.io/badge/1--Click-Create%20Portfolio-brightgreen?style=for-the-badge&logo=github)](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire)
 >
@@ -99,7 +99,7 @@ Answer these questions in your portfolio under `PreStudy/README.md`:
 ## Ready for Day 1? Checklist
 
 Before walking into the first lab session:
-- [ ] You created your portfolio with the **[1-click template link](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire)**, named it `iot-2026-<your-name>`, and **invited `ulno`** (*Settings → Access → Add people*, role *Write*). Full steps: [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts).
+- [ ] You created your portfolio with the **[1-click template link](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire)**, named it exactly `net-iot-hsbi-2026-portfolio`, and **invited `ulno`** (*Settings → Access → Add people*, role *Write*). Full steps: [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts).
 - [ ] You have committed your pre-study notes, answers to the 5 guiding questions, and your MQTT screenshot.
 - [ ] You have your laptop ready with Wi-Fi, an SSH client, and optionally Wireshark and MQTTX installed.
 - [ ] You are ready to receive your OpenWrt router and M5Stack hardware kit!

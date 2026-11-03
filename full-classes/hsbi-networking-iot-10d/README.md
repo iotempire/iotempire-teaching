@@ -55,7 +55,7 @@ The full module list, one-line summaries, and the session roadmap live in the **
 
 [![Create Portfolio](https://img.shields.io/badge/1--Click-Create%20Portfolio-brightgreen?style=for-the-badge&logo=github)](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire)
 
-1. **One click:** the button above creates your repository from the template (do **not** fork). Name it `iot-2026-<your-name>` and make it public — or at least readable by the instructor.
+1. **One click:** the button above creates your repository from the template (do **not** fork). Name it exactly **`net-iot-hsbi-2026-portfolio`** and make it public — or at least readable by the instructor.
 2. **Invite the instructor:** `https://github.com/<YOUR-USERNAME>/<YOUR-REPO>/settings/access` → **Add people** → **`ulno`** → role **Write**. The pre-study checklist cannot be ticked without this.
 3. Complete the **[pre-study guide](./pre-study.md)** (Module 0) before Day 1.
 4. Read the **[module index](./modules/00-index.md)**, then start with **[Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md)**.

@@ -14,7 +14,7 @@
 
 set -euo pipefail
 
-DEFAULT_PATTERN='^iot-20[0-9]{2}-'
+DEFAULT_PATTERN='^net-iot-hsbi-20[0-9]{2}-portfolio$'
 PATTERN="$DEFAULT_PATTERN"
 DIR="."
 DEPTH=""
@@ -45,8 +45,11 @@ parse_flags() {
 
 list_collaborator_repos() {
     # `gh repo list` cannot list collaborator repos; the API can.
+    # The pattern is matched against the repository NAME (the part after the
+    # owner), because every student's repository is called the same thing.
     gh api "user/repos?affiliation=collaborator&per_page=100" --paginate \
-        --jq '.[].full_name' | grep -E "$PATTERN" | sort || true
+        --jq '.[].full_name' \
+        | awk -F/ -v re="$PATTERN" '$NF ~ re' | sort || true
 }
 
 cmd_invitations() {
@@ -108,7 +111,8 @@ cmd_clone() {
         return 0
     fi
     for repo in $repos; do
-        name="${repo#*/}"
+        # Student repositories share one name, so the directory carries the owner.
+        name="${repo//\//__}"          # owner__repo
         target="$DIR/$name"
         if [ -e "$target" ]; then
             echo "skip  $repo (already in $target)"
