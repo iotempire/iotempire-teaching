@@ -19,26 +19,39 @@ Run the module commands in your **editor's integrated terminal** (VS Code or Zed
 <a id="git--github-primer-template-editor-markdown-conflicts"></a>
 ## 🐙 Git & GitHub primer (template, editor, Markdown, conflicts)
 
-In class we work with **GitHub on the web** and the **Git UI inside your editor** (VS Code or Zed) — commit, fetch, pull, and push from the buttons, not the terminal. **`gh` is used exactly once: to clone your new repository.** Command-line `git`/`gh` and SSH keys are *optional*.
+In class we work with **GitHub on the web** and the **Git UI inside your editor** (VS Code or Zed) — commit, fetch, pull, and push from the buttons, not the terminal. **`gh` is optional**: it can create your repository, invite the instructor, and clone it, but the browser does all three as well. Command-line `git`/`gh` and SSH keys are *optional*.
 
 ### Create the portfolio from the template (not a fork)
 
-1. Open [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) → **Use this template → Create a new repository**.
-2. Name it `networking-portfolio` and make it **public** (or at least readable by the instructor).
-3. Add the instructor as a collaborator (repo → *Settings → Collaborators → Add people*).
+[![Create Portfolio](https://img.shields.io/badge/1--Click-Create%20Portfolio-brightgreen?style=for-the-badge&logo=github)](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire)
+
+The button opens GitHub's *new repository* form with `iotempire/iot-portfolio-template` already selected — no hunting for the green **Use this template** button, and no way to fork by accident. If it ever lands you on an empty form without the template pre-selected, use [`github.com/iotempire/iot-portfolio-template/generate`](https://github.com/iotempire/iot-portfolio-template/generate) instead: same form, guaranteed to be the template.
+
+1. **Name it** `iot-2026-<your-name>` (e.g. `iot-2026-bianca-mueller`) and make it **public** — or at least readable by the instructor.
+2. **Invite the instructor.** Open `https://github.com/<YOUR-USERNAME>/<YOUR-REPO>/settings/access` → **Add people** → search for **`ulno`** → role **Write** (Admin is fine too).
+3. **Confirm it worked:** the repository shows `ulno` under *Settings → Access*.
+
+> **`gh` users:** if you already have the GitHub CLI authenticated, the whole step is three lines:
+>
+> ```sh
+> gh repo create "iot-2026-<your-name>" --template iotempire/iot-portfolio-template --public --clone
+> cd "iot-2026-<your-name>"
+> gh api -X PUT "repos/{owner}/{repo}/collaborators/ulno" -f permission=push   # there is no `gh repo invite`
+> ```
+>
+> Everyone else: the button and two clicks are the normal path, and nobody needs a terminal for this.
 
 **Reflections:** copy `Reflections/TEMPLATE.md` to `Reflections/refNN.md`; `ref02.md` is the worked example.
 
 > A **template** gives you a fresh repo with one clean commit and no upstream link; a **fork** keeps a link to the original and the full history — not what a personal portfolio wants.
 
-### Clone it once with `gh`
+### Clone it once (if you work locally)
 
 ```sh
-gh auth login                                # GitHub.com → HTTPS → "Login with a web browser"
-gh repo clone <you>/networking-portfolio     # the ONLY gh command you need
+gh repo clone <you>/iot-2026-<your-name>    # the ONLY gh command you need
 ```
 
-Then **open the folder in VS Code or Zed** and do everything else in the editor's Git UI.
+Then **open the folder in VS Code or Zed** and do everything else in the editor's Git UI. Working only in the browser is fine too — GitHub's web editor commits for you.
 
 ### Install the tools (once)
 

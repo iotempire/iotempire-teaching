@@ -17,7 +17,11 @@ See the [syllabus](./syllabus.md) for the complete course schedule and policies.
 > **Language:** The written materials are in English. For the full language arrangement (spoken German/English, portfolio language), see the [syllabus](./syllabus.md#language-communication--course-material).
 
 > [!IMPORTANT]
-> **Required Module 0 — 1 Module Point:** Before the first session, create your personal portfolio from the [course Git template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”** (not “Fork”) and add a first pre-study entry. Include notes responding to Guiding Questions 1–5 and terminal/browser evidence from the hands-on discovery. Module 0 is checked in your first checkpoint (or during the first studio, by agreement with the instructor).
+> **Required Module 0 — 1 Module Point:** Before the first session, create your personal portfolio with one click, **name it `iot-2026-<your-name>`, and invite the instructor (`ulno`) as a collaborator** — otherwise nobody can read your work.
+>
+> [![Create Portfolio](https://img.shields.io/badge/1--Click-Create%20Portfolio-brightgreen?style=for-the-badge&logo=github)](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire)
+>
+> Then add a first pre-study entry: notes responding to Guiding Questions 1–5 and the terminal/browser evidence from the hands-on discovery. Module 0 is checked in your first checkpoint (or during the first studio, by agreement with the instructor).
 >
 > **If your cohort needs more setup time**, Module 0 can be run as the first in-class module instead — same evidence, same 1 point.
 >
@@ -95,7 +99,7 @@ Answer these questions in your portfolio under `PreStudy/README.md`:
 ## Ready for Day 1? Checklist
 
 Before walking into the first lab session:
-- [ ] You have created your personal GitHub portfolio from [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”**, and added the instructor as a collaborator. See the [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) for the step-by-step.
+- [ ] You created your portfolio with the **[1-click template link](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire)**, named it `iot-2026-<your-name>`, and **invited `ulno`** (*Settings → Access → Add people*, role *Write*). Full steps: [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts).
 - [ ] You have committed your pre-study notes, answers to the 5 guiding questions, and your MQTT screenshot.
 - [ ] You have your laptop ready with Wi-Fi, an SSH client, and optionally Wireshark and MQTTX installed.
 - [ ] You are ready to receive your OpenWrt router and M5Stack hardware kit!

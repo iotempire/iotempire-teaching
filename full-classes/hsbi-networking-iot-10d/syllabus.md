@@ -185,7 +185,7 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 |---|---|---|
 | Editor | **VS Code** or **Zed** | Use the **integrated terminal** and the Git UI; keep the workbook open beside your terminal. |
 | Terminal | **bash** (Git Bash on Windows) | The labs use heredocs, pipes, and `<` redirects; Git Bash ships with Git for Windows. WSL is also fine. |
-| Version control | **Git + GitHub** | Your portfolio is the evidence artifact. Create it from the template with **“Use this template”**, not a fork. |
+| Version control | **Git + GitHub** | Your portfolio is the evidence artifact. Create it from the template with the **[1-click link](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire)** (not a fork), name it `iot-2026-<your-name>`, and invite **`ulno`** as a collaborator. |
 | Routing & capture | **OpenWrt + LuCI**, `tcpdump`, **Wireshark** or `tshark` (optional), `iperf3` | One router per two students. **Capture on the router**, then read the dump — the lab laptops have one Wi-Fi adapter and no monitor mode. |
 | Overlays & mesh | **Nebula** (class bundles, [nebula-manager](https://github.com/iotempire/nebula-manager)), **Yggdrasil**, optional **B.A.T.M.A.N. advanced** | Nebula bundles are prepared by the instructor (class CA + one lighthouse); the bundle's own `install.sh` / `install.ps1` needs no extra tooling. Router path: static binary + four files. |
 | Messaging & integration | **Mosquitto**, **MQTT Explorer**, **Node-RED**, **Python 3** (`paho-mqtt`, IoTknit; optional `pymodbus`, `asyncua`) | Local-first broker; Python as the programmatic glue. |
@@ -282,7 +282,7 @@ See the full [project presentation and portfolio specification](./modules/09-pro
 
 ## Portfolio & Documentation Standards
 
-All assessments are based on your personal GitHub Portfolio, created from the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”**, then made your own; the [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) covers the template workflow, your editor, Markdown, and resolving conflicts.
+All assessments are based on your personal GitHub Portfolio, created in **one click** from the [iot-portfolio-template](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire) (not a fork) and shared with the instructor (`ulno`, role *Write*); the [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) covers the template workflow, your editor, Markdown, and resolving conflicts.
 
 For submission, package the portfolio as the **technical engineering report** described in the assessment section: a continuous-text overview and architecture decisions, with challenge logs, code, schematics, captures, and measurements as detailed appendices.
 

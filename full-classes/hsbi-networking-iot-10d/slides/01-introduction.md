@@ -128,7 +128,7 @@ Central entry point: **the course repository**.
 
 # Portfolio check — before we touch hardware
 
-1. Open your portfolio repository (created from the [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template); instructor added as collaborator).
+1. **No repository yet? Do it now — it takes two minutes.** [Create it in one click](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire) → name it `iot-2026-<your-name>` → *Settings → Access → Add people* → **`ulno`** (role *Write*). Nothing in this module can be checked without that invite.
 2. Today's entry is a **section in `Module01/README.md`**, not a new file — files are fine too, sections are simpler to read.
 3. Write **`## Who I am`** (your *Who are U?* answers + expectations) and **`## My pod`** (names, skills, first idea).
 4. During the day you add **`## Pre-study artefact`**, **`## Study log`**, and (optional) **`## Story seeds`** — shared notes are kept **once per pod**; the others link to that section and add one sentence.

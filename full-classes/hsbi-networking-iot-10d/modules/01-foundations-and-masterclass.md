@@ -41,6 +41,8 @@ You do the labs and the checkpoints in a **Task Pod** of **two or three** (three
 
 You did Module 0 at home, so Module 1 is an **addition**: leave `PreStudy/` exactly as it is.
 
+**No repository yet?** [Create it in one click](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire), name it `iot-2026-<your-name>`, and invite `ulno` under *Settings → Access → Add people* (role *Write*). Two minutes — and nothing else in this module can be checked without it. The [primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) has the step-by-step and the three-line `gh` variant.
+
 Everything from today goes into **`Module01/README.md`** as sections — easier to read than a pile of tiny files. Split something into its own file only when a section outgrows the page; the portfolio template's `ModuleNN.md` shows that shape if you prefer it.
 
 - `## Who I am` — your *Who are U?* answers and what you expect from the class.

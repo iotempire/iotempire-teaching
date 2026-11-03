@@ -51,14 +51,17 @@ The full module list, one-line summaries, and the session roadmap live in the **
 
 ## Get started
 
-> **Module 0 (pre-study) is required.** Create your portfolio from the template, add the instructor as a collaborator, and complete the pre-study tasks before Day 1.
+> **Module 0 (pre-study) is required.** Create your portfolio, invite the instructor, and complete the pre-study tasks before Day 1.
 
-1. Create your personal portfolio from the [IoTempire portfolio template](https://github.com/iotempire/iot-portfolio-template) with **“Use this template”** (not “Fork”), then add the instructor as a collaborator.
-2. Complete the **[pre-study guide](./pre-study.md)** (Module 0) before Day 1.
-3. Read the **[module index](./modules/00-index.md)**, then start with **[Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md)**.
-4. Keep the **[syllabus](./syllabus.md)** handy for the schedule, the learning-goals contract, and policies.
+[![Create Portfolio](https://img.shields.io/badge/1--Click-Create%20Portfolio-brightgreen?style=for-the-badge&logo=github)](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire)
 
-The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) in the resource bank walks you through the template workflow, your editor, Markdown, and merge conflicts.
+1. **One click:** the button above creates your repository from the template (do **not** fork). Name it `iot-2026-<your-name>` and make it public — or at least readable by the instructor.
+2. **Invite the instructor:** `https://github.com/<YOUR-USERNAME>/<YOUR-REPO>/settings/access` → **Add people** → **`ulno`** → role **Write**. The pre-study checklist cannot be ticked without this.
+3. Complete the **[pre-study guide](./pre-study.md)** (Module 0) before Day 1.
+4. Read the **[module index](./modules/00-index.md)**, then start with **[Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md)**.
+5. Keep the **[syllabus](./syllabus.md)** handy for the schedule, the learning-goals contract, and policies.
+
+The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) in the resource bank has the full workflow (and the three-line `gh` variant), your editor setup, Markdown, and merge conflicts.
 
 ## What you will work with
 

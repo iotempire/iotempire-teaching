@@ -68,6 +68,37 @@ exec "$SCRIPT_DIR/../../tools/generate-lms-pdfs.sh" \
 
 Finally, add `/<class-dir>/lms-announcements/` to the repository `.gitignore`.
 
+## `collect-portfolios.sh` — student repositories
+
+Instructor helper for the “create from template + invite” workflow. Students
+create their portfolio in *one click* and invite you; this script accepts the
+invitations in bulk and clones the repositories for review. It never writes to a
+student repository.
+
+```sh
+bash tools/collect-portfolios.sh invitations          # who invited you, and what is still pending
+bash tools/collect-portfolios.sh accept               # accept every pending invitation
+bash tools/collect-portfolios.sh list                 # repos matching ^iot-20YY-
+bash tools/collect-portfolios.sh clone --dir ~/review  # clone them next to each other
+```
+
+| Flag | Meaning |
+|---|---|
+| `--pattern RE` | Repository-name regex. Default `^iot-20[0-9]{2}-` (e.g. `iot-2026-bianca-mueller`). |
+| `--dir DIR` | Target directory for `clone`. Default: the current directory. |
+| `--depth N` | Shallow clone depth (faster for large cohorts). Default: full history. |
+| `--dry-run` | Show what would happen (`accept`, `clone`). |
+
+Requires an authenticated `gh` (`gh auth login`) and `git`. Notes:
+
+- `gh repo invite` does **not** exist, and `gh repo list` cannot list
+  collaborator repositories — the script uses `gh api` for both directions.
+- Accepting an invitation requires that the student granted you access; a public
+  repository that was never shared will not appear at all. Students who never
+  invite are a *missing submission* problem, not a tooling problem.
+- Invitations can expire. Run `invitations` before the first checkpoint, not on
+  the last day.
+
 ## `lms-pdf.css`
 
 Shared default stylesheet for the Chromium rendering path. Identical copies
