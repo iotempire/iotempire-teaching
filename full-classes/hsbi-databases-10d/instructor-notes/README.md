@@ -20,13 +20,21 @@ Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment l
 | Minutes | What happens |
 |---|---|
 | 0–5 | Story or a one-slide hook. Not a lecture. |
-| 5–50 | **Pod study and share** — 30 + 15 min in Modules 2, 3 and 5; 20 + 10 in Modules 4 and 6. In practice these run **1.5–2× longer** than printed, so treat the printed number as a **hard stop**, not a prediction. |
+| 5–50 | **Pod study and share** — 30 + 15 min in Modules 2 and 3; 20 + 10 in Modules 4 and 6; **Module 5 replaces this with a 15-minute skim and seven self-paced rounds**. In practice studies run **1.5–2× longer** than printed, so treat the printed number as a **hard stop**, not a prediction. |
 | 50–90 | Studio lab, part 1. |
 | 90–105 | **Break — harvest swap 1** (read out the curiosities you marked). |
 | 105–185 | Studio lab, part 2 — checkpoints live here. |
 | 185–195 | **Harvest swap 2** (same, plus what the second half added) and wrap-up. |
 
 Rooms: the schedule is 90 minutes, a 15-minute break, 90 minutes. Protect the break — it is part of the method, not slack.
+
+## The stage-and-gate pattern (Module 5 onward)
+
+Module 5 dropped its pod study and became **seven rounds**: a short primer, a fifteen-minute skim, then small hands-on stages, each with a *“Theory you need”* box and a two-minute **peer gate** at the end. No timer, no synchronised share — the room runs at different speeds on purpose, and a gate board shows you who is stuck.
+
+Use it when the material is **practical enough to start without the theory** and the study has been eating the lab. Do not use it where a shared vocabulary must exist before anyone can act — that is what the 30 + 15 studies in Modules 2–3 are for. Modules 4 and 6 are the natural next candidates.
+
+The full catalogue of formats we considered, the six dials behind them, and the observations we still owe are in **[study formats](./study-formats.md)**. Do not redesign Module 6 before those observations exist.
 
 ## Checkpoints are feedback rounds (sessions 4 and 7)
 

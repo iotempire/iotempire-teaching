@@ -23,85 +23,32 @@ Kortmann's plant now has a machine-health dashboard. Every 30 seconds it asks a 
 
 The operations lead, **Yasmin Kaya**, offers the classic shortcut: *"just copy the site and the technician name onto every job row and add a total-cost column. Then the dashboard reads one table."* She is right about the read. She is also about to introduce update anomalies. Your job in this studio is to **do both**: keep the schema correct, add the denormalized reporting path *on purpose*, and **measure** what it buys and what it costs, so the team makes the decision with numbers.
 
-## 📖 Pod Study: Dependencies, Anomalies, and the Spectrum
+## 🧭 How this studio works now
 
-This is **self/pod study, not a lecture** — **30 minutes** in your pod, then **15 minutes** with a neighbouring pod. **Hard stop at minute 30**, even if you have not finished: the lab continues the same material, and starting it with half an answer beats running out of time. Notes go in `Module05/normalization-notes.md`, same discipline as [Module 2](./02-data-contracts-and-legacy-schemas.md).
+**The study is folded into the practice.** In the earlier modules the pod study ate 60–90 minutes and crowded out the lab, so from here on there is **no separate study phase and no scheduled hand-off to another pod**. Each round below gives you a small thing to do, and a short **“Theory you need”** box you read only when the task makes you want it. Keep your notes in `Module05/normalization-notes.md`.
 
-### Divide and conquer (do not read this alone, front to back)
+**First 15 minutes: skim, do not start.** Read this primer (2 minutes), then skim the whole module — the seven rounds, the theory boxes, the evidence list at the end. You are looking for two things: **where the numbers come from**, and **where you will be asked to draw something**. After that, start Round 1 and work at your pod's pace.
 
-| Workstream | Read and do | Bring back |
-|---|---|---|
-| **1 · FDs and keys** | the first two blocks, then the five-row table in Task A | the FD list, marked *domain* vs *observed* |
-| **2 · Normal forms** | the 1NF–3NF table; find one table in this course for each form | one example per form |
-| **3 · Anomalies** | the three anomalies; cause the update, insert, and delete by hand | the three SQL statements and the inconsistent row |
-| **4 · Examples** | the “Where you have already met both designs” table and the star schema below | one normalized and one denormalized example from your own project |
+**Every round ends with a gate.** Show the round's artefact to the **nearest pod** and ask them the gate question. Two minutes, no instructor, no schedule. Tick the round on the gate board (or in your notes) when you have passed it. If a neighbour cannot answer your question, that is a better use of five minutes than reading the box again.
 
-Every six minutes, interrupt each other for a **one-minute update** — found, surprised, still unclear. At minute 30 you stop, whatever state you are in.
-
-**Functional dependency.** `X → Y` means: for any two rows, if they agree on `X`, they must agree on `Y`. In a maintenance table, `job_id → technician`, `machine_id → site`, `part_no → unit_price`. Dependencies are the *reason* normalization is possible — they are the redundancy you can remove.
-
-**Candidate keys.** The minimal set of attributes that determines all others. From the dependencies above, `(job_id, part_no) → everything` is a candidate key for a job-part row.
-
-**The normal forms — and the anomaly each one removes:**
-
-| Form | Rule | Anomaly it removes |
-|---|---|---|
-| **1NF** | Atomic values only; no repeating groups or comma-lists | The `parts_used = 'P-1001,P-1002'` mess from Module 2 |
-| **2NF** | 1NF **and** no partial dependency on part of a composite key | `part_no → unit_price` stored on a `(job_id, part_no)` row — price duplicates and drifts |
-| **3NF** | 2NF **and** no transitive dependency (non-key → non-key) | `machine_id → site` stored on job rows — change a site once, update a thousand rows |
-
-**The three anomalies** (be ready to name them at the checkpoint):
-- **Update anomaly:** the same fact stored in many places can disagree after one edit.
-- **Insert anomaly:** you cannot record a fact because an unrelated fact is missing.
-- **Delete anomaly:** deleting one row silently destroys another fact.
-
-**The spectrum.** Normalization minimizes redundancy and anomalies; denormalization trades redundancy back for read speed. There is no "correct" level — there is a **workload**, and a level that fits it. That is what you will prove.
-
-> [!TIP]
-> 3NF is the default, not the law. Analytically heavy read paths (dashboards, reports) are exactly where deliberate denormalization — or a separate columnar engine like DuckDB (Module 6) — earns its keep.
-
-### Where you have already met both designs
-
-| Design | In this course | What is duplicated | What it buys |
+| # | Round | You produce | Gate question for a neighbour |
 |---|---|---|---|
-| **Normalized** | Module 2's repaired schema; Module 3's `customer` / `orders` / `order_line`; this module's 3NF tables | nothing | change a fact once; integrity |
-| **Denormalized — accidental** | Module 2's `parts_used = 'P-1001,P-1002'` | a list of parts per job | “one column instead of a junction table” |
-| **Denormalized — mild** | Module 1's `readings` — the machine name on every reading | machine name per row | no join to a machine table |
-| **Denormalized — deliberate** | This module's `report_jobpart`; your final project | site, technician, price on every fact row | one table for the dashboard |
-| **Semi-structured** | Module 6's `device.meta` JSON | vendor fields per device | schema flexibility |
-| **Star schema** | analytics in general; Module 6's Parquet export | dimensions copied into the fact table | fast aggregates |
+| 1 | **See it** | an FD list and two ER sketches | “Which arrow disappears in the second diagram?” |
+| 2 | **Break it** | three SQL statements and the broken row | “Try to break one of my three statements.” |
+| 3 | **Build it** | the 200k table, the 3NF schema, matching row counts | “Why does `part` have 10 rows?” |
+| 4 | **Race it** | the report table, two plans, two timings | “Did you get the same plan? If not, why?” |
+| 5 | **Price it** | rows touched, storage, the index experiment | “Guess my numbers before I show you.” |
+| 6 | **Decide** | the memo to the operations lead | “Read it aloud — I will ask one *what if*.” |
+| 7 | **Harvest** | your curiosities, swapped | “I collected these — which did you find?” |
 
-**The star schema is the standard analytics denormalization.** A fact table stores keys and measures; the dimensions store the descriptive attributes once:
+> [!NOTE]
+> **This format is an experiment — like everything in this class.** You have been through four pod studies by now, so you know what they cost. If the rounds work better (or worse), say so: what was confusing, what was missing, what you would cut. Your feedback decides whether Module 6 keeps this shape or goes back to a study phase. Two minutes in the harvest, or a message in `#sql-questions`, is enough — and it counts as a contribution.
 
-| Table | Columns |
-|---|---|
-| `fact_sales` | `date_key, product_key, store_key, qty, revenue` |
-| `dim_product` | `product_key, name, category, brand` |
-| `dim_date` | `date_key, day, week, month, quarter, year` |
+---
 
-A *fully* denormalized variant would copy `name, category, brand` onto every fact row — fastest to read, and painful the day a product is renamed. That is the same trade-off as `report_jobpart`, one level up.
+## 1 · See it — dependencies and two pictures (~15 minutes)
 
-Concretely, one row of `report_jobpart` is `(1, 'cnc-02', 'Gütersloh', 'tech-1', 'P-0002', 6.0, '2026-01-02')` — the site and the technician that the 3NF design stores **once** are now repeated on all 4,000 rows for that machine.
-
-### Pointers (start here, then keep looking)
-
-- Functional dependency — [Wikipedia](https://en.wikipedia.org/wiki/Functional_dependency)
-- The normal forms, formally — [3NF](https://en.wikipedia.org/wiki/Third_normal_form) · [BCNF](https://en.wikipedia.org/wiki/Boyce%E2%80%93Codd_normal_form)
-- Denormalization as a decision, not a sin — [Wikipedia](https://en.wikipedia.org/wiki/Denormalization)
-- **Prefer watching?** [Lecture-style videos for this module](./Z-resources-bank.md#watching-instead-of-reading)
-
-### Questions to ask an LLM (then verify against the data)
-
-- "Here is a flat table: `<paste the columns and three sample rows>`. List the functional dependencies you can infer, and mark which are **domain facts** and which are only **observed** in these rows."
-- "Explain 2NF vs 3NF with a table where 2NF holds but 3NF fails."
-- "Give me a concrete update anomaly in this table, with the SQL statements and the inconsistent rows afterwards."
-- "When is denormalization the right call? Give a workload where 3NF is measurably slower, and say what the cost is."
-
-> The first prompt is the trap. An LLM will happily promote an accident in three sample rows into a "dependency". Decide for yourself which FDs the **domain** guarantees.
-
-### ★ Task A: Study in your pod (~30 minutes — hard stop)
-
-**Find the dependencies, then break the table.** Here is a five-row extract of the kind of table this studio starts from:
+Take this five-row extract of the kind of table this studio starts from:
 
 | job_id | machine_id | site | technician | part_no | part_price |
 |---|---|---|---|---|---|
@@ -111,26 +58,58 @@ Concretely, one row of `report_jobpart` is `(1, 'cnc-02', 'Gütersloh', 'tech-1'
 | 2 | cnc-02 | Gütersloh | tech-1 | P-0003 | 8.50 |
 | 3 | cnc-01 | Gütersloh | tech-0 | P-0003 | 8.50 |
 
-1. **Name the FDs** (`X → Y`) you believe hold, and mark each as *guaranteed by the domain* or *merely observed here*.
-2. **Cause an update anomaly in SQL.** Put the five rows in a table, then move `cnc-01` to Bielefeld and count how many rows you had to touch. Then argue what happens when two people do it in two sessions.
-3. **Cause an insert and a delete anomaly.** Add a new part that no job has used yet — without inventing a job. Then delete the last job that used a part and ask what fact just vanished with it.
-4. **Then check yourself.** Ask the LLM for the FDs of the same table (prompt 1 above) and diff its list against yours. Where it disagrees, decide who is right and why.
+**Do.**
+1. **Name the FDs** (`X → Y`) you believe hold, and mark each as *guaranteed by the domain* or *merely observed in these rows*.
+2. **Draw two ER sketches side by side:** one for the table as it is, one for the schema you think it *should* be.
+3. **Ask an LLM for its FD list** and diff it against yours — prompt below. Where you disagree, decide who is right and why.
 
-Keep the FD list and the three anomaly examples in `normalization-notes.md` — the lab asks for exactly this on the real 200,000-row table.
+**Theory you need (read only if the task is unclear).**
+- **Functional dependency.** `X → Y` means: for any two rows, if they agree on `X`, they must agree on `Y`. Here: `job_id → technician`, `machine_id → site`, `part_no → part_price`.
+- **Candidate key.** The minimal set of attributes that determines all others. Here `(job_id, part_no)` is the candidate key for a job-part row.
+- Dependencies are the *reason* normalization is possible — they are the redundancy you can remove.
 
-### ★ Task B: Share with another pod (~15 minutes)
+**If you are stuck, ask:** *“Here is a flat table: `<columns and the five rows>`. List the functional dependencies you can infer, and mark which are domain facts and which are only observed in these rows.”* The model will promote an accident in five rows into a “dependency”. Deciding for yourself is the skill.
 
-1. Compare FD lists. **Every pod will have one FD the others do not** — argue it out; the disagreement is the lesson.
-2. Agree on the 3–5 points you jointly stand behind (e.g. *"a price is a property of the part, not of the job"*).
-3. Add an **“Agreed learning (pod discussion)”** section to your own `normalization-notes.md`; unresolved points go to `#sql-questions`.
+**Gate.** Show your two diagrams to the nearest pod and ask: *“Which arrow disappears in the second one?”*
 
-## 🛠️ Studio Lab: Normalize, Denormalize, and Measure — **Challenging**
+---
 
-*Software:* the `sqlite3` CLI and Python 3.14. Use `.timer on` in SQLite, or Python's `time.perf_counter()` — see [Measuring query time](./Z-resources-bank.md#measuring-query-time).
+## 2 · Break it — cause the anomalies (~15 minutes)
 
-### Setup
+Put the five rows in a table and break it on purpose:
 
-Build a deliberately unnormalized table with real volume so the benchmark means something.
+```sql
+CREATE TABLE flat5(
+  job_id INTEGER, machine_id TEXT, site TEXT,
+  technician TEXT, part_no TEXT, part_price REAL
+);
+INSERT INTO flat5 VALUES
+  (1,'cnc-01','Gütersloh','tech-0','P-0001',6.00),
+  (1,'cnc-01','Gütersloh','tech-0','P-0002',7.00),
+  (2,'cnc-02','Gütersloh','tech-1','P-0001',6.00),
+  (2,'cnc-02','Gütersloh','tech-1','P-0003',8.50),
+  (3,'cnc-01','Gütersloh','tech-0','P-0003',8.50);
+```
+
+**Do.** Write and run one statement for each:
+1. **Update anomaly** — move `cnc-01` to Bielefeld. How many rows did you touch? What happens when two people do it in two sessions?
+2. **Insert anomaly** — add a new part that no job has used yet, without inventing a job.
+3. **Delete anomaly** — delete the last job that used a part. What fact just vanished with it?
+
+**Theory you need.**
+- **Update anomaly:** the same fact stored in many places can disagree after one edit.
+- **Insert anomaly:** you cannot record a fact because an unrelated fact is missing.
+- **Delete anomaly:** deleting one row silently destroys another fact.
+
+**If you are stuck, ask:** *“Give me a concrete update anomaly in this table, with the SQL statements and the inconsistent rows afterwards.”*
+
+**Gate.** Show your three statements to a neighbour and say: *“Try to break one of them.”*
+
+---
+
+## 3 · Build it — the 200k table and 3NF (~25 minutes)
+
+Build a deliberately unnormalized table with real volume, so the benchmark in Round 4 means something.
 
 ```sh
 mkdir -p Module05
@@ -164,19 +143,7 @@ SQL
 sqlite3 Module05/normalize.db "SELECT COUNT(*) AS rows FROM flat_jobpart;"
 ```
 
-> [!NOTE]
-> **Same harvest habit as [Module 3](./03-llm-assisted-sql-and-query-profiling.md)** (collect curiosities, swap lists — at the break and at the end). Three things here are worth marking in your `Module05/sql-notes.md`: the **`CROSS JOIN`** of two generated sequences (why 20,000 × 10 = 200,000 rows — and why that is not a join in the relational sense at all), **`printf('%.2f', …)`**, which stores a price as *text* (what does that cost you when you sort or compare it?), and the `dbstat` numbers (why is the denormalized copy so much bigger?). Bring whatever else surprises you to the swap.
-
-### ★ Task 1: Name the dependencies and the anomalies
-
-1. Write down the functional dependencies you can see: `machine_id → site`, `part_no → part_price`, `job_id → machine_id`, `job_id → technician`, `job_id → done_on`.
-2. For each of the three anomalies (update, insert, delete), write **one concrete example** that this flat table makes possible. Save to `Module05/normalization-notes.md`.
-
-*Portfolio evidence:* the dependency list and the three anomaly examples.
-
-### ★ Task 2: Normalize to 3NF
-
-Decompose `flat_jobpart` into `machine`, `part`, `job`, and `job_part`. Keep the derived tables, then verify that a join reproduces the original facts.
+Then decompose it into `machine`, `part`, `job`, and `job_part`:
 
 ```sql
 DROP TABLE IF EXISTS job_part;
@@ -202,14 +169,28 @@ SELECT (SELECT COUNT(*) FROM flat_jobpart)  AS flat_rows,
        (SELECT COUNT(*) FROM job_part)      AS normalized_rows;
 ```
 
-*Portfolio evidence:* the DDL, the insert statements, and the row-count integrity check (the two numbers must match).
+**Theory you need — the normal forms and the anomaly each removes:**
+
+| Form | Rule | Anomaly it removes |
+|---|---|---|
+| **1NF** | Atomic values only; no repeating groups or comma-lists | The `parts_used = 'P-1001,P-1002'` mess from Module 2 |
+| **2NF** | 1NF **and** no partial dependency on part of a composite key | `part_no → part_price` stored on a `(job_id, part_no)` row — price duplicates and drifts |
+| **3NF** | 2NF **and** no transitive dependency (non-key → non-key) | `machine_id → site` stored on job rows — change a site once, update a thousand rows |
 
 > [!NOTE]
-> `PRAGMA foreign_keys` is **off** by default (Module 4), so the `REFERENCES` clauses here are documentation unless you switch it on. The data in this generator is consistent, so the inserts succeed either way — but turn the pragma on once and re-run to see whether your decomposition really respects the relationships.
+> `PRAGMA foreign_keys` is **off** by default (Module 4), so the `REFERENCES` clauses are documentation unless you switch it on. Turn it on once and re-run the decomposition — does it still load?
+>
+> And watch `SELECT DISTINCT`: it silently assumes a job has exactly one technician. If that assumption were false, the `job` primary key would reject the insert. That is the decomposition checking your model.
 
-### ★ Task 3: The benchmark — the anomaly the operations lead likes
+**If you are stuck, ask:** *“Explain 2NF vs 3NF with a table where 2NF holds but 3NF fails.”*
 
-Now build the **denormalized reporting table** the operations lead asked for — site, technician, and the part price copied onto every row — and race the two designs on the dashboard query.
+**Gate.** Show your two row counts to a neighbour and ask: *“Why does `part` have 10 rows, not 40?”*
+
+---
+
+## 4 · Race it — normalized vs denormalized (~25 minutes)
+
+Build the **denormalized reporting table** the operations lead asked for — site, technician, and the part price copied onto every row:
 
 ```sql
 DROP TABLE IF EXISTS report_jobpart;
@@ -244,9 +225,40 @@ WHERE done_on >= date('2026-03-01')
 GROUP BY machine_id, technician;
 ```
 
-> Your numbers will be in the **milliseconds**, not the 40 seconds from the story — that story is about the production dataset. What matters is the **ratio**, the **plan**, and the **rows touched**, not the absolute value. If the difference is small on 200,000 rows, that is itself a finding.
+> Your numbers will be in the **milliseconds**, not the 40 seconds from the story — that story is about the production dataset. What matters is the **ratio**, the **plan**, and the **rows touched**. If the difference is small on 200,000 rows, that is itself a finding.
 
-Then measure the **cost of the shortcut** — the duplicated fact and the storage. Do not time a single-row insert: both designs do that in well under a millisecond. The cost of denormalization is *changing a duplicated fact*.
+**Theory you need — the spectrum, and where you have already met both ends of it.**
+
+Normalization minimizes redundancy and anomalies; denormalization trades redundancy back for read speed. There is no “correct” level — there is a **workload**, and a level that fits it.
+
+| Design | In this course | What is duplicated | What it buys |
+|---|---|---|---|
+| **Normalized** | Module 2's repaired schema; Module 3's `customer` / `orders` / `order_line`; this module's 3NF tables | nothing | change a fact once; integrity |
+| **Denormalized — accidental** | Module 2's `parts_used = 'P-1001,P-1002'` | a list of parts per job | “one column instead of a junction table” |
+| **Denormalized — mild** | Module 1's `readings` — the machine name on every reading | machine name per row | no join to a machine table |
+| **Denormalized — deliberate** | This module's `report_jobpart`; your final project | site, technician, price on every fact row | one table for the dashboard |
+| **Semi-structured** | Module 6's `device.meta` JSON | vendor fields per device | schema flexibility |
+| **Star schema** | analytics in general; Module 6's Parquet export | dimensions copied into the fact table | fast aggregates |
+
+**The star schema is the standard analytics denormalization.** A fact table stores keys and measures; dimensions store the descriptive attributes once:
+
+| Table | Columns |
+|---|---|
+| `fact_sales` | `date_key, product_key, store_key, qty, revenue` |
+| `dim_product` | `product_key, name, category, brand` |
+| `dim_date` | `date_key, day, week, month, quarter, year` |
+
+A *fully* denormalized variant would copy `name, category, brand` onto every fact row — fastest to read, painful the day a product is renamed. Concretely, one row of `report_jobpart` is `(1, 'cnc-02', 'Gütersloh', 'tech-1', 'P-0002', 6.0, '2026-01-02')` — the site and technician that 3NF stores **once** are repeated on all 4,000 rows for that machine.
+
+**If you are stuck, ask:** *“When is denormalization the right call? Give a workload where 3NF is measurably slower, and say what the cost is.”*
+
+**Gate.** Compare plans with a neighbour: *“Did you get the same plan? If not, why?”* (Check `sqlite3 --version` first.)
+
+---
+
+## 5 · Price it — writes and storage (~15 minutes)
+
+Do not time a single-row insert: both designs do that in well under a millisecond. The cost of denormalization is *changing a duplicated fact*.
 
 ```sql
 .timer on
@@ -264,48 +276,64 @@ SELECT 'denormalized (report_jobpart)' AS design,
        (SELECT SUM(pgsize) FROM dbstat WHERE name = 'report_jobpart') AS bytes;
 ```
 
-Record the **number of rows touched**, not only the milliseconds: **1 versus 4,000** is the number that scales — and it is the update anomaly you caused by hand in Task A, now with a price tag.
+Record the **number of rows touched**, not only the milliseconds: **1 versus 4,000** is the number that scales — and it is the update anomaly you caused by hand in Round 2, now with a price tag.
+
+If `dbstat` is missing in your SQLite build, say so and keep the row counts; the storage number is a bonus, not the lesson.
 
 > [!NOTE]
 > **Try dropping the index.** `DROP INDEX ix_report_machine;` and re-run the dashboard query. On this dataset it usually gets *faster*: the planner was walking the whole index and then fetching each row from the table, which costs more than one sequential scan. That is a second negative result, and a good one to keep.
 
-Record, in a table like the one below, every number you measured:
+Fill in every number you measured:
 
 | Design | Dashboard query (ms) | Rows changed by one site update | Storage (KB) | Redundancy? |
 |---|---|---|---|---|
 | Normalized (3NF) | | | | none |
 | Denormalized (report) | | | | site/technician/price repeated |
 
-*Portfolio evidence:* the `report_jobpart` DDL, both query plans (`EXPLAIN QUERY PLAN`), both timings, the write/storage numbers, and your filled table.
+**Gate.** Tell a neighbour your two storage numbers and your two row counts, and ask: *“Guess my query timings before I show you.”*
 
-### ★ Task 4: Decide and defend
+---
+
+## 6 · Decide and defend (~10 minutes)
 
 Write a short recommendation (5–8 sentences) to the operations lead: which design should serve the dashboard, what the normalization of the transactional tables must stay at, and — crucially — **how you would keep the denormalized table from going stale** (a trigger from Module 4, a scheduled rebuild, or a materialized view). Cite your own numbers.
 
+**Gate.** Read the memo aloud to a neighbour. They ask one *“what if…”* question, and you answer it without notes.
+
 *Portfolio evidence:* the recommendation memo, referencing your benchmark table.
 
-### ◇ Task 5 (Stretcher): Push the frontier
+---
 
-Load the same data into DuckDB and run the dashboard query there. Capture wall-clock time and note whether DuckDB's columnar engine removes the need for the denormalized table entirely. This is a natural bridge into Module 6.
+## 7 · Harvest and stretch (~5 minutes, plus optional)
+
+**Collect curiosities, swap lists — no explaining.** Scan the material you just worked through and mark the bits that looked strange, hard, or worth arguing about: the `CROSS JOIN` that turns 20,000 × 10 into 200,000 rows, `printf('%.2f', …)` storing money as *text*, the `dbstat` numbers, the plan for the report table, the `DISTINCT` assumption. Bring them to the nearest pod: *“I collected these — which did you find?”* Anything nobody can place goes to `#sql-questions` with the module number.
+
+**◇ Stretcher — push the frontier.** Load the same data into DuckDB and run the dashboard query there. Capture wall-clock time and note whether the columnar engine removes the need for the denormalized table entirely. This is the bridge into Module 6.
+
+---
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-
 - [ ] The setup script that builds `flat_jobpart` with ~200k rows (so the benchmark is reproducible).
-- [ ] `normalization-notes.md` — functional dependencies and one example of each anomaly.
+- [ ] `normalization-notes.md` — your FD list, the two ER sketches, and one example of each anomaly.
 - [ ] The 3NF DDL, the inserts, and the integrity row-count check.
-- [ ] The denormalized `report_jobpart` DDL and the benchmark table with all measured numbers.
+- [ ] The `report_jobpart` DDL and the benchmark table with all measured numbers.
 - [ ] `EXPLAIN QUERY PLAN` output for both designs.
 - [ ] The recommendation memo citing your numbers, including the staleness strategy.
 - [ ] `Reflections/ref05.md` — the logbook entry for this block, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md).
+- [ ] Your curiosities from the harvest, with sources.
 - [ ] (Stretcher) the DuckDB comparison.
 
 ## 📚 If you want to go deeper
 
+- Functional dependencies — [Wikipedia](https://en.wikipedia.org/wiki/Functional_dependency)
+- The normal forms, formally — [3NF](https://en.wikipedia.org/wiki/Third_normal_form) · [BCNF](https://en.wikipedia.org/wiki/Boyce%E2%80%93Codd_normal_form)
+- Denormalization as a decision, not a sin — [Wikipedia](https://en.wikipedia.org/wiki/Denormalization)
 - SQLite — `PRAGMA optimize`, `ANALYZE`, and planner statistics — [sqlite.org/pragma.html#pragma_optimize](https://www.sqlite.org/pragma.html#pragma_optimize)
 - SQLite — the `dbstat` virtual table for measuring storage per object — [sqlite.org/dbstat.html](https://www.sqlite.org/dbstat.html)
 - Markus Winand — *Use The Index, Luke* (indexing and pagination) — [use-the-index-luke.com](https://use-the-index-luke.com/)
 - DuckDB — why columnar and vectorized engines win on aggregations — [duckdb.org/why_duckdb](https://duckdb.org/why_duckdb.html)
+- **Prefer watching?** [Lecture-style videos for this module](./Z-resources-bank.md#watching-instead-of-reading)
 
 ---
 
