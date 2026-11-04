@@ -199,7 +199,39 @@ Report the expanded uncertainty `U = k · u_c` (often `k = 2`, i.e. ~95 %). You 
 
 Calibration is not one recipe. Calibrate the chain, the analog sensor, and the digital sensor, and compare what "two measurements" means in each case.
 
-> **Divide the work.** In a pod of three, take one case each; in a pair, do 3a together, then split 3b and 3c. Compare at the end: which calibration corrected the most error, and which was not worth applying?
+> **Divide the work.** In a pod of three, take one case each and fill one calibration record per case; in a pair, do 3a together, then split 3b and 3c. Compare at the end: which calibration corrected the most error, and which was not worth applying?
+
+##### Calibration record — fill this in and exchange it
+
+All three cases use the same record. Copy this block into `Module03/README.md` (or the shared pod log), fill it as you go, and keep the checked copy for Task B.
+
+```markdown
+### Calibration record — <3a chain | 3b LDR | 3c DS18B20>
+
+| Case | Point | Reference (unit) | Raw reading | Converted (unit) | Corrected (unit) | Residual (unit) | Conditions / notes |
+|---|---|---|---|---|---|---|---|
+|  | calibration 1 |  |  |  |  |  |  |
+|  | calibration 2 |  |  |  |  |  |  |
+|  | validation |  |  |  |  |  |  |
+
+Fit: <model and coefficients, e.g. V = a·code + b with a = ..., b = ...>
+Reference uncertainty: <value and source>
+Validation residual: <corrected − reference>
+Uncertainty at validation: <one line, two largest contributions>
+Checked by (neighbouring pod): <name / initials / date>
+```
+
+**How to fill it — step by step**
+
+1. **Write the model before you measure.** 3a: `V = a·code + b`; 3b: `log R = log A − γ log E`; 3c: `T_corr = T_raw + offset`.
+2. **Fill the two calibration rows.** Record the reference value, the raw reading, the converted value, and the conditions. Use the same units for reference and corrected values.
+3. **Fit and write the coefficients.** Put the model and coefficients in the `Fit` line. Check that the model reproduces the two calibration rows before you go on.
+4. **Take a fresh validation point.** It must not be one of the two calibration measurements. Record it in the `validation` row and apply the model.
+5. **Compute the residual.** `residual = corrected − reference`; keep the sign. If the residual is larger than your uncertainty, the model or the range is wrong — say so. For 3a, put the residual in volts, not ADC codes. For 3b, you can work in log space or convert back to `R`; say which in the notes.
+6. **Exchange the table.** Swap with a neighbouring pod. They check that the validation point is fresh and outside the fit, the units match, the residual arithmetic is right, and the uncertainty line names the two largest contributions. Both initial the `Checked by` line.
+7. **Decide.** Write one sentence: is the correction worth applying at the decision threshold, and why?
+
+> **Do not hide a bad residual.** A validation that fails is a result — it tells you the model does not generalize, which is exactly what Elif needs to know.
 
 **3a — The chain (potentiometer + multimeter).** This is the clean case.
 
@@ -345,7 +377,7 @@ By the end, it should contain:
 4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
 5. **Your two best found characterization examples** — compile down to the best two, with source and what they taught you.
 6. **The mini checks you answered** — the prompt and your one-line answer.
-7. **The calibration decision** — which correction you applied, which you rejected, and why.
+7. **The calibration decision** — which correction you applied, which you rejected, and why; link the completed calibration record.
 
 *Portfolio evidence:* the `## Study log` section (yours, or a link to your pod's shared one).
 
@@ -353,8 +385,8 @@ By the end, it should contain:
 
 **First exchange — end of Round 2 (peer validation).**
 
-1. Swap calibration tables with a neighbouring pod.
-2. One pod explains its procedure; the other checks the validation point: was it fresh, was it outside the fit, was the reference in the same conditions?
+1. Swap calibration records with a neighbouring pod; use the `Checked by` line in the template.
+2. One pod explains its procedure; the other checks the validation point: was it fresh, was it outside the fit, was the reference in the same conditions? Check the units and the residual arithmetic too.
 3. Record one thing the other pod caught and one thing you caught in theirs.
 
 **Second exchange — end of Round 3 (shared artefact).**
@@ -362,7 +394,7 @@ By the end, it should contain:
 1. **Explain to each other** — each pod walks the other through its best plot and its uncertainty statement; ask questions and fill each other's gaps.
 2. Agree on the **3–5 most noteworthy takeaways** and the **learning you jointly stand behind** (e.g. *"a calibration without a validation point is a hope"*).
 3. **Clean up your documentation** — update the `## Study log` with what you learned from the other pod.
-4. Agree on **one shared artefact** — the best plot, calibration table, or a new uncertainty sketch the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
+4. Agree on **one shared artefact** — the best plot, calibration record, or a new uncertainty sketch the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
 5. Each member adds a short **“Agreed learning (pod discussion)”** note — in the shared log, or in your own module README with a link to it.
 
 *Portfolio evidence:* the cleaned-up `## Study log` (with the **“Agreed learning (pod discussion)”** note) and your pod-pair's shared artefact.
@@ -395,7 +427,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 1. LDR transfer-function plot: `log R` vs. `log E`, the fitted slope and residual, and the linear-fit comparison.
 2. DS18B20 characterization: resolution settings and step sizes, unit-to-unit table, and the response-time curve (`τ` in air vs. water).
-3. Calibration table: chain before/after error at the validation point; LDR log-fit prediction vs. the measured third point; DS18B20 offset check and its residual against the datasheet accuracy.
+3. Calibration record: chain before/after error at the validation point; LDR log-fit prediction vs. the measured third point; DS18B20 offset check and its residual against the datasheet accuracy.
 4. Hysteresis/repeatability: LDR up/down curves, potentiometer repeat-set spread, DS18B20 repeat readings at two resolutions; the effect you measured and the effect you did not.
 5. Noise table: standard deviation raw vs. moving average vs. median vs. EMA, plus the step-latency measurement on the potentiometer.
 6. Uncertainty statement for one final value (`y ± U`, `k = 2`) with the dominant contribution named.
