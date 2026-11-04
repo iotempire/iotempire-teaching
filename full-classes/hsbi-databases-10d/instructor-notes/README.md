@@ -20,7 +20,7 @@ Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment l
 | Minutes | What happens |
 |---|---|
 | 0–5 | Story or a one-slide hook. Not a lecture. |
-| 5–50 | **Pod study and share** — 30 + 15 min in Modules 2–3, about 15 + 5 in Modules 4–6. |
+| 5–50 | **Pod study and share** — 30 + 15 min in Modules 2, 3 and 5; 20 + 10 in Modules 4 and 6. In practice these run **1.5–2× longer** than printed, so treat the printed number as a **hard stop**, not a prediction. |
 | 50–90 | Studio lab, part 1. |
 | 90–105 | **Break — harvest swap 1** (read out the curiosities you marked). |
 | 105–185 | Studio lab, part 2 — checkpoints live here. |

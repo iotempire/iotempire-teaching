@@ -29,7 +29,7 @@ Trying to force all three into one relational schema is the same mistake as Cirr
 
 ## 📖 Pod Study: Pick the Engine for the Workload
 
-This is **self/pod study, not a lecture** — about **15 minutes** in your pod, then **5 minutes** with a neighbouring pod. Notes go in `Module06/engine-notes.md`, same discipline as [Module 2](./02-data-contracts-and-legacy-schemas.md).
+This is **self/pod study, not a lecture** — **20 minutes** in your pod, then **10 minutes** with a neighbouring pod. **Hard stop at minute 20**: the card sort and the lab continue the same material. Notes go in `Module06/engine-notes.md`, same discipline as [Module 2](./02-data-contracts-and-legacy-schemas.md).
 
 **ACID vs. BASE.** A transactional engine guarantees **Atomicity, Consistency, Isolation, Durability** — your writes either fully happen or fully do not. BASE ("**B**asically **A**vailable, **S**oft state, **E**ventually consistent") relaxes consistency for availability and scale, which is a trade you only need when you distribute across machines. **All of Modules 1–4 was ACID, and that was correct** because the data lived on one machine.
 
@@ -63,7 +63,7 @@ This is **self/pod study, not a lecture** — about **15 minutes** in your pod, 
 
 > Engine choice is an **empirical** claim. Every answer here ends in a benchmark you can run.
 
-### ★ Task A: Study in your pod (~15 minutes)
+### ★ Task A: Study in your pod (~20 minutes)
 
 **The card sort.** For each workload, choose one engine from the palette above and write **one sentence of justification plus the cost you accept**:
 
@@ -74,7 +74,7 @@ This is **self/pod study, not a lecture** — about **15 minutes** in your pod, 
 
 Then map **your own final project's workloads** onto the same four engines. That mapping is a paragraph of your project documentation — and a question you will be asked at the checkpoint.
 
-### ★ Task B: Share with another pod (~5 minutes)
+### ★ Task B: Share with another pod (~10 minutes)
 
 - Compare cards 1 and 2: did any pod pick the **same** engine for both? Why is that a warning sign?
 - Which card had no good answer, and what does that tell you about the palette?

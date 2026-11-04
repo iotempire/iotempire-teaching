@@ -25,7 +25,7 @@ But "at the edge, without a server" raises the stakes on integrity: there is no 
 
 ## 📖 Pod Study: Integrity Has Layers
 
-This is **self/pod study, not a lecture** — about **15 minutes** in your pod, then **5 minutes** with a neighbouring pod. Keep notes in `Module04/integrity-notes.md`, same discipline as [Module 2](./02-data-contracts-and-legacy-schemas.md).
+This is **self/pod study, not a lecture** — **20 minutes** in your pod, then **10 minutes** with a neighbouring pod. **Hard stop at minute 20**: the acceptance test and the lab continue the same material. Keep notes in `Module04/integrity-notes.md`, same discipline as [Module 2](./02-data-contracts-and-legacy-schemas.md).
 
 The module handbook lists integrity as a first-class topic. In relational terms there are three layers, and each maps to a concrete SQL feature:
 
@@ -63,7 +63,7 @@ The module handbook lists integrity as a first-class topic. In relational terms 
 
 > Every answer is a **claim to test**. You have a database; use it.
 
-### ★ Task A: Study in your pod (~15 minutes)
+### ★ Task A: Study in your pod (~20 minutes)
 
 **The acceptance test.** Before you build the real schema, prove to yourself what an unconstrained table accepts (and record which strange things the table accepts, be creative here with yout INSERTs - try to break you littel database or at least complain). In a scratch database:
 
