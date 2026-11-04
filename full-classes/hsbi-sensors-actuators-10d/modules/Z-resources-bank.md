@@ -198,6 +198,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Animation stutters | Blocking `delay()` in the loop | Use `millis()`-based timing | 6 |
 | Servo jitters or the MCU resets | Servo powered from the MCU rail | Power the servo separately, common ground | 7 |
 | Motor does not turn / driver hot | Undersized supply/driver, stall | Size for stall current; check H-bridge wiring and PWM enable | 7 |
+| DS18B20 resolution setting seems to do nothing | Constant temperature, no new conversion, or a clone that ignores the config | Warm the probe and log a sweep; call `requestTemperatures()` after `setResolution()`; check `getResolution(address)`; test a known-good probe | 3 |
 | ADC reads are wildly non-linear | ESP32 ADC non-linearity near the rails | Keep the signal in the linear region; calibrate | 1, 3 |
 
 ## 📚 Software & Library Landmarks

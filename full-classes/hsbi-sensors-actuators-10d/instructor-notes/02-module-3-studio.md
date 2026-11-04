@@ -48,6 +48,7 @@ Operational setup for Module 3 (Sensor Characterization, Calibration & Data Qual
 ## 6. Common hiccups
 
 - **DS18B20 not found:** check 3.3 V, GND, DQ, and the 4.7 kΩ pull-up. Long cables add capacitance; try a shorter cable or a lower pull-up.
+- **DS18B20 resolution seems to do nothing:** first check that the temperature is changing and that you took a new conversion after `setResolution()`; a constant temperature can look identical at every resolution. Then check `getResolution(address)`; if it stays at 12, the probe may be a clone. Test a known-good probe.
 - **DHT11 checksum errors:** respect the sampling interval, retry, and do not read faster than the datasheet allows.
 - **LDR near the rails:** keep `Vout` in the ESP32 ADC's linear band; the multimeter is the voltage reference.
 - **Ice water:** use a slush of ice and water, stir it, and keep the connector dry. The probe is sealed; the connector is not.
