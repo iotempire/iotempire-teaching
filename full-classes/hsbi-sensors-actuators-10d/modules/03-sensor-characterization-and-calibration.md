@@ -136,12 +136,22 @@ A practical consequence: if you request a DS18B20 reading every 100 ms but its 1
 The DS18B20 is the digital, factory-calibrated sensor. It does not need a voltage divider, but it does need a 1-Wire bus and a pull-up. Its datasheet gives the transfer function; your job is to find out what that means at the threshold.
 
 1. **Read the datasheet first.** Find the 9–12-bit resolution settings, the conversion time for each, the accuracy specification, the active/standby current, and the 1-Wire pull-up. Write the key numbers in your log.
-2. **Wire 2–3 DS18B20s on one bus.** Use a 4.7 kΩ pull-up to 3.3 V; scan the ROM IDs; read each sensor. Each DS18B20 has a unique 64-bit ROM ID — that is how several sensors share one wire. Long probe cables add capacitance; if a probe is not found, check the pull-up and the cable length. Confirm that all units are visible.
-3. **Resolution vs. accuracy.** Configure 9, 10, 11, and 12 bits; record the step size and the datasheet conversion time. Compare the step size with the datasheet accuracy. Which one limits your frost decision?
-4. **Unit-to-unit check.** Put all probes in the same stable place (still air, or stirred water) next to the reference thermometer. Wait for all probes and the reference to settle. Record 10 readings per unit. Add your unit means to the class DS18B20 table if your instructor set one up; the class has more units than any one pod. Compare the means and the spread. Is the difference between units calibration, accuracy, or noise?
-5. **Field transect — find the cold pocket.** Take your probes outside. The cable is long and the probe is sealed, so the electronics can stay dry under cover. Take the shared reference thermometer (or the checked DS18B20) to the same spot. Each pod measures one or two spots and adds them to the class field table: air at 1 m, air at 10 cm, soil surface, soil at 10 cm, a puddle or the water butt, the tunnel/greenhouse air, and the indoor reference. Record spot, time, probe ID, DS18B20 reading, reference reading, and notes. Which spot is coldest? Which differences are real microclimate, and which are within the datasheet accuracy?
-6. **Response time.** Put one probe in stirred water; move it from cold to warm; log `(time, temperature)` at 12-bit. Plot the step response and estimate `τ` (63 % of the change) and the settling time (4–5 τ). Repeat in still air and compare; keep the probe in the same position for both runs. Explain why the air measurement is slower.
-7. **Optional — self-heating.** Compare continuous conversions with a duty-cycled read in still air. Does the reading shift? How large is the effect compared with the datasheet accuracy?
+2. **Wire one DS18B20 to the ESP32.** The sealed probe has three connections: `VDD` to 3.3 V, `GND` to GND, and `DQ` (data) to a GPIO — for example GPIO4. Add a **4.7 kΩ pull-up between `DQ` and 3.3 V**: one leg to 3.3 V, the other to `DQ`. It is not a series resistor in the data line.
+   ```text
+   3.3 V ──┬──────────────── VDD
+           │
+          4.7 kΩ
+           │
+   GPIO4 ──┴──────────────── DQ
+   GND ───────────────────── GND
+   ```
+   Cable colours vary between probes; check the label or datasheet. If your probe is on a breakout board with a built-in pull-up, check before adding a second one. Keep the connector dry. Read the sensor with the OneWire/DallasTemperature libraries and confirm a plausible temperature before going on.
+3. ◇ **Optional — 2–3 DS18B20s on one bus.** Use the same 4.7 kΩ pull-up; scan the ROM IDs; read each probe. Each DS18B20 has a unique 64-bit ROM ID — that is how several probes share one wire. Long cables add capacitance; if a probe is not found, check the pull-up and the cable length. Confirm that all units are visible.
+4. **Resolution vs. accuracy.** Configure 9, 10, 11, and 12 bits; record the step size and the datasheet conversion time. Compare the step size with the datasheet accuracy. Which one limits your frost decision?
+5. **Unit-to-unit check (use the class table if you wired only one probe).** Put your probe (and any extra probes you wired) in the same stable place (still air, or stirred water) next to the reference thermometer. Wait for all probes and the reference to settle. Record 10 readings per unit. Add your unit means to the class DS18B20 table if your instructor set one up; the class has more units than any one pod. Compare the means and the spread. Is the difference between units calibration, accuracy, or noise?
+6. **Field transect — find the cold pocket.** Take your probe(s) outside. The cable is long and the probe is sealed, so the electronics can stay dry under cover. Take the shared reference thermometer (or the checked DS18B20) to the same spot. Each pod measures one or two spots and adds them to the class field table: air at 1 m, air at 10 cm, soil surface, soil at 10 cm, a puddle or the water butt, the tunnel/greenhouse air, and the indoor reference. Record spot, time, probe ID, DS18B20 reading, reference reading, and notes. Which spot is coldest? Which differences are real microclimate, and which are within the datasheet accuracy?
+7. **Response time.** Put one probe in stirred water; move it from cold to warm; log `(time, temperature)` at 12-bit. Plot the step response and estimate `τ` (63 % of the change) and the settling time (4–5 τ). Repeat in still air and compare; keep the probe in the same position for both runs. Explain why the air measurement is slower.
+8. **Optional — self-heating.** Compare continuous conversions with a duty-cycled read in still air. Does the reading shift? How large is the effect compared with the datasheet accuracy?
 
 ##### ◇ Optional sub-task 2a: The cheap sensor check (DHT11)
 
