@@ -126,7 +126,9 @@ One page of definitions, then the whole session is lab. The card is the only rea
 
 ### Module 5, first run (stage-and-gate)
 
-- Did pods finish all seven rounds in the session? Which round was the bottleneck?
+- **Timing:** even after the block plan was made generous, the room did not reach the end of Round 4 in 180 minutes. **Double every estimate again** for the next run. Keep the **end of Round 4** as the class boundary; Rounds 5–7 are homework by design.
+- **Attendance:** about **one third of the class** attended. The room was regrouped once; that regrouping is the last one — do not re-form pods again in the same session.
+- Did the gates happen without the instructor? Did pods tick honestly?
 - Did the gates happen without the instructor? Did pods tick honestly?
 - Did anyone actually read the "Theory you need" boxes — and did the gate questions expose the ones who did not?
 - Was the 15-minute skim enough? Too much?
