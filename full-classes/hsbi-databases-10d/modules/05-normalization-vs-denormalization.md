@@ -29,6 +29,8 @@ The operations lead, **Yasmin Kaya**, offers the classic shortcut: *"just copy t
 
 **First 15 minutes: skim, do not start.** Read this primer (2 minutes), then skim the whole module — the seven rounds, the theory boxes, the evidence list at the end. You are looking for two things: **where the numbers come from**, and **where you will be asked to draw something**. After that, start Round 1 and work at your pod's pace.
 
+**Rough timing — two blocks of 90.** Before the break: skim 15 → **1 See it** 20 → **2 Break it** 20 → **3 Build it** 35. After the break: **4 Race it** 35 → **5 Price it** 25 → **6 Decide** 15 → **7 Harvest** 15. These are deliberately generous, because everything in this class takes longer than planned. If a round ends early, start the next one; if one runs long, cut the memo or the stretcher — never the benchmark.
+
 **Every round ends with a gate.** Show the round's artefact to the **nearest pod** and ask them the gate question. Two minutes, no instructor, no schedule. Tick the round on the gate board (or in your notes) when you have passed it. If a neighbour cannot answer your question, that is a better use of five minutes than reading the box again.
 
 | # | Round | You produce | Gate question for a neighbour |
@@ -46,7 +48,7 @@ The operations lead, **Yasmin Kaya**, offers the classic shortcut: *"just copy t
 
 ---
 
-## 1 · See it — dependencies and two pictures (~15 minutes)
+## 1 · See it — dependencies and two pictures (~20 minutes)
 
 Take this five-row extract of the kind of table this studio starts from:
 
@@ -74,7 +76,7 @@ Take this five-row extract of the kind of table this studio starts from:
 
 ---
 
-## 2 · Break it — cause the anomalies (~15 minutes)
+## 2 · Break it — cause the anomalies (~20 minutes)
 
 Put the five rows in a table and break it on purpose:
 
@@ -107,7 +109,7 @@ INSERT INTO flat5 VALUES
 
 ---
 
-## 3 · Build it — the 200k table and 3NF (~25 minutes)
+## 3 · Build it — the 200k table and 3NF (~35 minutes)
 
 Build a deliberately unnormalized table with real volume, so the benchmark in Round 4 means something.
 
@@ -188,7 +190,7 @@ SELECT (SELECT COUNT(*) FROM flat_jobpart)  AS flat_rows,
 
 ---
 
-## 4 · Race it — normalized vs denormalized (~25 minutes)
+## 4 · Race it — normalized vs denormalized (~35 minutes)
 
 Build the **denormalized reporting table** the operations lead asked for — site, technician, and the part price copied onto every row:
 
@@ -256,7 +258,7 @@ A *fully* denormalized variant would copy `name, category, brand` onto every fac
 
 ---
 
-## 5 · Price it — writes and storage (~15 minutes)
+## 5 · Price it — writes and storage (~25 minutes)
 
 Do not time a single-row insert: both designs do that in well under a millisecond. The cost of denormalization is *changing a duplicated fact*.
 
@@ -294,7 +296,7 @@ Fill in every number you measured:
 
 ---
 
-## 6 · Decide and defend (~10 minutes)
+## 6 · Decide and defend (~15 minutes)
 
 Write a short recommendation (5–8 sentences) to the operations lead: which design should serve the dashboard, what the normalization of the transactional tables must stay at, and — crucially — **how you would keep the denormalized table from going stale** (a trigger from Module 4, a scheduled rebuild, or a materialized view). Cite your own numbers.
 
@@ -304,7 +306,7 @@ Write a short recommendation (5–8 sentences) to the operations lead: which des
 
 ---
 
-## 7 · Harvest and stretch (~5 minutes, plus optional)
+## 7 · Harvest and stretch (~15 minutes, plus optional)
 
 **Collect curiosities, swap lists — no explaining.** Scan the material you just worked through and mark the bits that looked strange, hard, or worth arguing about: the `CROSS JOIN` that turns 20,000 × 10 into 200,000 rows, `printf('%.2f', …)` storing money as *text*, the `dbstat` numbers, the plan for the report table, the `DISTINCT` assumption. Bring them to the nearest pod: *“I collected these — which did you find?”* Anything nobody can place goes to `#sql-questions` with the module number.
 
