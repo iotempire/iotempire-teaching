@@ -231,6 +231,68 @@ GROUP BY machine_id, technician;
 
 > Your numbers will be in the **milliseconds**, not the 40 seconds from the story — that story is about the production dataset. What matters is the **ratio**, the **plan**, and the **rows touched**. If the difference is small on 200,000 rows, that is itself a finding.
 
+> [!IMPORTANT]
+> **What should happen — and what actually happens.** The denormalized query *should* win: it reads one table instead of joining four. If your numbers say otherwise, you have found something more interesting than a speedup. Three things flip the result here:
+>
+> - **The index on `report_jobpart`.** `SCAN … USING INDEX` walks the whole index and *then* fetches every row from the table. Dropping it is often faster.
+> - **Row width.** `report_jobpart` carries site, technician, price, and date on every row — roughly three times the bytes of `job_part`.
+> - **Warm cache.** At tens of milliseconds the order of measurement decides. Run A and B **interleaved**, three times each, and compare medians.
+>
+> **Discussion point.** Denormalization pays when the **join** is the expensive part. Here the joins hit 50 machines, 10 parts and 20,000 jobs — all in cache — so the join is cheap and the scan dominates. Make the join expensive (more dimensions, bigger dimensions, data that does not fit in memory) and the picture changes. Your memo has to say *which cost* the denormalized table removes.
+
+> [!NOTE]
+> **◇ Optional try — make the join hurt.** Add two dimensions, rebuild the report table with their columns, and run both queries again. They still return the same rows — 3,500 rows and a total of 722,610.0, if you want to check:
+>
+> ```sql
+> CREATE TABLE vendor(part_no TEXT PRIMARY KEY, vendor TEXT NOT NULL, country TEXT NOT NULL);
+> INSERT INTO vendor
+> SELECT part_no, 'vendor-' || (rowid % 12),
+>        CASE rowid % 3 WHEN 0 THEN 'DE' WHEN 1 THEN 'CN' ELSE 'US' END
+> FROM part;
+>
+> CREATE TABLE site_dim(site TEXT PRIMARY KEY, region TEXT NOT NULL, manager TEXT NOT NULL);
+> INSERT INTO site_dim
+> SELECT site, 'region-' || (row_number() OVER () % 5), 'mgr-' || row_number() OVER ()
+> FROM (SELECT DISTINCT site FROM machine);
+>
+> DROP TABLE IF EXISTS report_jobpart;
+> CREATE TABLE report_jobpart AS
+> SELECT j.job_id, m.machine_id, m.site, sd.region, j.technician, jp.part_no,
+>        p.part_price, v.vendor, j.done_on
+> FROM job j
+> JOIN machine m   ON m.machine_id = j.machine_id
+> JOIN site_dim sd ON sd.site = m.site
+> JOIN job_part jp ON jp.job_id = j.job_id
+> JOIN part p      ON p.part_no = jp.part_no
+> JOIN vendor v    ON v.part_no = p.part_no;
+> ```
+>
+> Then compare a **six-join** A against B on the wider table:
+>
+> ```sql
+> -- A: two extra joins
+> SELECT m.machine_id, m.site, sd.region, j.technician, v.vendor, SUM(p.part_price) AS cost
+> FROM job j
+> JOIN machine m   ON m.machine_id = j.machine_id
+> JOIN site_dim sd ON sd.site = m.site
+> JOIN job_part jp ON jp.job_id = j.job_id
+> JOIN part p      ON p.part_no = jp.part_no
+> JOIN vendor v    ON v.part_no = p.part_no
+> WHERE j.done_on >= date('2026-03-01')
+> GROUP BY m.machine_id, m.site, sd.region, j.technician, v.vendor;
+>
+> -- B: the same facts, one wide table
+> SELECT machine_id, site, region, technician, vendor, SUM(part_price) AS cost
+> FROM report_jobpart
+> WHERE done_on >= date('2026-03-01')
+> GROUP BY machine_id, site, region, technician, vendor;
+> ```
+>
+> On this dataset A grows from ~30 ms to ~45 ms and B lands at ~29 ms — B now wins clearly. **Honest caveat:** the rebuild drops `ix_report_machine`, and 200,000 rows still fit in cache, so this is a direction, not a production number. The point is that the win comes from removing **row-level work**, not from “one table” as a slogan.
+>
+> Done experimenting? Put the index back before Round 5, which drops it on purpose:
+> `CREATE INDEX ix_report_machine ON report_jobpart(machine_id);`
+
 **Theory you need — the spectrum, and where you have already met both ends of it.**
 
 Normalization minimizes redundancy and anomalies; denormalization trades redundancy back for read speed. There is no “correct” level — there is a **workload**, and a level that fits it.
