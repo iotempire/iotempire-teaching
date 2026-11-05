@@ -22,10 +22,10 @@ Connect your laptop or tablet to the workshop Wi-Fi:
 - **Password:** `iotempire`
 
 ### 2. Open Your Team's Node-RED Instance
-Each team has a private, isolated Node-RED instance running in a container on the instructor's presentation host:
-- **URL:** `http://<instructor-host>:18nn/` *(or `http://<instructor-ip>:18nn/` where `nn` is your team number, e.g. `1801` for Team 01; check the slide for the exact host address)*
+Each team has a private, isolated Node-RED instance running in a container on the instructor's PC. It is reachable only from the workshop network — no cloud and no Tailscale:
+- **URL:** `http://<instructor-ip>:18nn/` — replace `nn` with your pod number, e.g. `1801` for Pod 01. The exact address is on the board/projector.
 - **Username:** `admin`
-- **Password:** Check the projector screen or ask your instructor (e.g. `iotempireXX`)
+- **Password:** on the sticky note at your table.
 
 ### 3. Your First Flow: Inject -> Debug
 1. Find the **inject** node in the left palette and drag it onto the canvas.
@@ -52,7 +52,7 @@ Your instructor will hand you an **M5StickC** pre-programmed with [IoTempower](h
 ### 1. Listen to Stick Buttons
 1. Drag an **mqtt in** node onto the canvas.
 2. Double-click it:
-   - **Server:** Select `Classroom Broker` (or enter `broker.internal` / gateway IP, port `1883`).
+   - **Server:** Select `Classroom Broker` — it points to `broker.internal`, the classroom broker on the router (`192.168.114.1:1883`).
    - **Topic:** `<id>/home` *(replace `<id>` with your stick number, e.g. `01/home`)*.
 3. Wire it to a **debug** node and click **Deploy**.
 4. Press the large front **M5** button on your stick. Watch `"pressed"` and `"released"` appear in your debug sidebar!
@@ -135,7 +135,7 @@ Now let's build an interactive user interface using **Dashboard 2.0** (`@flowfus
    - Label it `"Room Temperature"`.
 5. Click **Deploy**.
 6. Open your dashboard in another browser tab:
-   `http://<instructor-host>:18nn/dashboard/` *(or `http://<instructor-ip>:18nn/dashboard/`)*.
+   `http://<instructor-ip>:18nn/dashboard/`.
 7. Pinch the Dallas sensor head with warm fingers and watch the needle rise and the history line chart draw live!
 
 ### 2. Classroom Heatmap (Wildcard Aggregation)
@@ -187,7 +187,7 @@ Your M5StickC has an onboard 6-axis IMU (MPU6886).
 
 ### What is MQTT?
 **MQTT (Message Queuing Telemetry Transport)** is a lightweight publish/subscribe protocol designed for low-bandwidth, high-latency, or unreliable networks:
-- **Broker:** The central post office (e.g. Mosquitto). Nodes do not talk directly to each other; they only talk to the broker.
+- **Broker:** The central post office (Mosquitto). In this room it runs on the classroom router at `192.168.114.1:1883`. Nodes do not talk directly to each other; they only talk to the broker.
 - **Publish:** Sending data to a specific topic (e.g. `01/temp` -> `22.4`).
 - **Subscribe:** Telling the broker you want to receive any messages published to a topic (e.g. listening to `01/home`).
 - **Wildcards:**

@@ -176,14 +176,14 @@ The hands-on part of today is the **[Mastering IoT Solutions](../../../workshops
 
 **Hardware, per pod:** 1× M5StickC (Plus/Plus2), 1× USB-C cable for power, 1× Dallas DS18B20 temperature module with three jumper wires. Optional for fast pods: a Sensirion SCD4x (CO₂).
 
-> **Who owns the machine?** Your Node-RED is a container on the instructor's host, not on your laptop. That is why the workshop needs zero installation — and why the whole room's dashboards share one point of failure. Keep that thought for Task 10.
+> **Who owns the machine?** Your Node-RED is a container on the instructor PC, not on your laptop. That is why the workshop needs zero installation — and why the whole room's dashboards share one point of failure. Keep that thought for Task 10.
 
 | What | Where to find it |
 |---|---|
 | Room Wi-Fi | `iotempire-b1300-5g` for your laptop, `iotempire-b1300` (2.4 GHz) for the sticks — password `iotempire` |
-| Your Node-RED | `http://<instructor-host>:18nn/` — the exact host and the port for **your pod** are on the projector |
-| Login | user `admin`, plus the pod password shown on the projector |
-| Broker | `broker.internal`, port `1883` — already configured in your Node-RED |
+| Your Node-RED | `http://<instructor-ip>:18nn/` — the exact address and your pod's port are on the board/projector |
+| Login | user `admin`, plus the password on the sticky note at your table |
+| Broker | `broker.internal` → `192.168.114.1:1883` (classroom router), already configured |
 | Your node | the M5StickC labeled with your pod's two-digit ID — that ID is the first level of every topic |
 
 > **Rotate roles.** One of you drives the laptop, one reads the workbook aloud, one keeps notes and photos. Swap every phase; everybody should have published to a topic and wired a jumper at least once.
@@ -282,7 +282,7 @@ The day closes with the story — because tomorrow's system will be built from s
 1. **A person and a moment of pain.** Use the canon (Petra Sommer, Malik Yilmaz, Mara Voss, Nils Bergmann, Dr. Elif Kaya, Hendrik Brinkmann — see the [story canon](./Z-resources-bank.md#story-canon-the-recurring-cast)) or invent someone with a name. Not “a factory”: *Hendrik Brinkmann, 6:40 on a Monday, the mill has been running cold since Saturday.*
 2. **What is at stake** — money, safety, a night shift, a batch, a reputation.
 3. **Draw the continuum** with the devices you actually touched: stick → access point → broker → Node-RED → dashboard or phone. Mark every hop and name the protocol on it. Keep it to one screen or one whiteboard.
-4. **Name the weakest link** and say what happens when it dies. (The honest answer today is usually the broker, the Wi-Fi, or the person who owns the laptop running Node-RED.)
+4. **Name the weakest link** and say what happens when it dies. (The honest answer today is usually the broker, the Wi-Fi, or the person who owns the PC running Node-RED.)
 5. **One sentence for the report** that a non-engineer would understand.
 
 The room votes for the pitch that would survive Petra's first question. Post the sketch in the course channel so the class has a shared collection of continuums.

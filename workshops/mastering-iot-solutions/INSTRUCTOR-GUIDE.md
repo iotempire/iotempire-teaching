@@ -17,7 +17,7 @@ graph LR
 ### Core Didactical Principle: Hardware-First, Zero-Install
 Participants do **not** spend the first hour installing drivers, toolchains, or Python environments.
 - Microcontrollers (**M5StickC**) are pre-provisioned using [IoTempower](https://iotempower.us).
-- Teams log into pre-configured **Node-RED** containers hosted on the instructor's laptop.
+- Teams log into pre-configured **Node-RED** containers hosted on the instructor PC.
 - Within 10–15 minutes of entering the room, participants are triggering MQTT messages and seeing physical hardware react.
 
 ### Organic Cadence (~90 Minutes Baseline + Open Exploration)
@@ -40,8 +40,10 @@ Avoid rigid time blocks or artificial school bells. Treat the workshop as an **o
     - `iotempire-b1300` (2.4 GHz, for M5StickC nodes and non-5G devices)
     - Password for both: **`iotempire`**
   - *Network Note on Linux Hotspots:* Running a software AP on a laptop for 20+ clients is prone to dropouts under Linux unless using specialized Atheros or older Realtek USB network cards (the only chipsets handling dense multi-client traffic reliably). A dedicated external router avoids Wi-Fi congestion entirely.
-- **1× Instructor Laptop:**
+- **1× Instructor PC:**
+  - Runs the 15 Node-RED containers and the IoTempower CLI.
   - Container engine: **Podman** (rootless) or **Docker**.
+  - The MQTT broker runs on the classroom router (`192.168.114.1:1883`); this PC does not need to run mosquitto for the workshop.
   - **IoTempower** framework installed (`iot` CLI in path, see [iotempower.us](https://iotempower.us)).
   - HDMI connection to projector.
   - 1× Instructor M5StickC (e.g. labeled `00`) for live demonstration.
@@ -62,7 +64,7 @@ In IoTempower, each node directory is self-contained and needs only two minimal 
    //ds18b20(temp, 26);
    //scd4x(gas).i2c(26,0);
    ```
-The parent directory contains **`system.conf`** with the workshop Wi-Fi credentials (`iotempire-b1300`, password `iotempire`) and MQTT broker IP (`_gateway`).
+The parent directory contains **`system.conf`** with the workshop Wi-Fi credentials (`iotempire-b1300`, password `iotempire`) and the MQTT broker (`_gateway`, which resolves to the classroom router at `192.168.114.1`).
 
 ### Provisioning the Sticks via USB (Initial Flash)
 
@@ -88,19 +90,32 @@ The parent directory contains **`system.conf`** with the workshop Wi-Fi credenti
    *(Shortcut from outside the subshell: `iot x deploy serial`).*
    Repeat for each stick (`02`, `03`, ...). Once initially flashed and connected to Wi-Fi, **all future firmware updates are done Over-The-Air (OTA) without USB!**
 
-### Launching the Infrastructure & Node-RED Containers
+### Launching the Broker and Node-RED Containers
 
-1. **Start MQTT Broker via IoTempower Service:**
-   IoTempower manages background services cleanly via `iot service`:
+1. **Verify the MQTT broker (it runs on the classroom router).**
+   The B1300 is the broker for the room; the instructor PC does not run
+   mosquitto for this workshop:
    ```bash
-   iot service start --mqtt
+   nc -zv 192.168.114.1 1883
    ```
-   *(We select `--mqtt` explicitly; `--web` is not needed because Node-RED runs in container instances).*
-2. **Start Multi-Tenant Node-RED Containers:**
+   The sticks use `_gateway` (which resolves to `192.168.114.1`); the
+   containers use `broker.internal`, mapped to the same address by the
+   orchestrator.
+
+2. **Start the LAN-only Node-RED fleet.**
+   Use `classroom-nodered.sh` (maintained in the standalone `iot-nodered-demo`
+   repository as `bin/classroom-nodered.sh`; copy it into this workshop's
+   `instructor-tools/` when packaging the workshop):
    ```bash
-   ./start-nodered-containers.sh start --count 15 --base-port 1801
+   cd <directory-containing-classroom-nodered.sh>
+   ./classroom-nodered.sh check     # pre-flight, no changes
+   ./classroom-nodered.sh start     # pods 01-15 on ports 1801-1815
    ```
-   This creates `nodered-1` on port `1801`, `nodered-2` on port `1802`, etc., with `@flowfuse/node-red-dashboard` pre-installed.
+   The fleet has 15 containers on `1801`–`1815`, bound to all interfaces, with
+   bcrypt-protected editors and Dashboard 2.0 installed. It is LAN-only; no
+   Tailscale or reverse proxy is involved. Use `reset` for blank flows before
+   a new class, `status` for a table, and `stop` at the end.
+
 3. **Monitor Live MQTT Traffic:**
    IoTempower provides the built-in `mqtt_listen` command:
    ```bash
@@ -130,10 +145,16 @@ The parent directory contains **`system.conf`** with the workshop Wi-Fi credenti
 
 ### Stage 2: Team Exploration & The Domino Chain (~25 min)
 1. **Teams Log In:**
-   - Display the Wi-Fi credentials and the container access table on the projector:
+   - Display the Wi-Fi credentials and the pod → port mapping on the projector.
+     The mapping is linear: pod 01 → `1801`, pod 02 → `1802`, … pod 15 → `1815`.
+     Write it on the board. Do not project `state/access-table.md` or the
+     orchestrator's terminal output — both contain the passwords.
      - Wi-Fi: `iotempire-b1300-5g` (password: `iotempire`).
-     - URL: `http://<instructor-host>:18nn/` (or `http://<host-ip>:18nn/`).
-     - Credentials: `admin` / Password from table.
+     - URL: `http://<instructor-ip>:18nn/`.
+     - Login: `admin` / the password on each pod's sticky note.
+   - Hand out the pod passwords on sticky notes. Do not project the password
+     table or the rule behind it; in past editions, participants used a visible
+     table to log into other pods' sessions.
 2. **Team Hands-On:**
    - Teams follow [Phase 2 of the Workbook](./README.md#phase-2-interacting-with-your-m5stickc) (or oral guidance).
    - Listen to `<id>/home` -> watch button presses in debug sidebar.
@@ -164,9 +185,15 @@ The parent directory contains **`system.conf`** with the workshop Wi-Fi credenti
    - Point to the stick: it compiles, downloads the new binary over Wi-Fi, and reboots in seconds without touching the USB cable!
    - Students immediately see temperature readings arriving in Node-RED on `<id>/temp`.
 
+> **Pin check before the OTA phase.** The workbook wires DATA to `G26` and shows
+> `ds18b20(temp, 26)`. Make the `setup.cpp` pin match the physical wiring on your
+> sticks. If your prepared fleet uses a different pin (the local fleet uses GPIO
+> `32`), either re-flash with `26` or update the workbook and the wiring table
+> together. A mismatched pin reads `-127`.
+
 ### Stage 4: Dashboards & Room Aggregation (~25 min)
 1. Teams add **ui-gauge** and **ui-chart** nodes in Node-RED.
-2. Open the dashboard at `http://<instructor-host>:18nn/dashboard/`.
+2. Open the dashboard at `http://<instructor-ip>:18nn/dashboard/`.
 3. Teams pinch the sensor to watch live temperature rise.
 4. **Classroom Heatmap:**
    - Show the wildcard subscription `+/temp`.
@@ -186,22 +213,27 @@ For fast teams, 3-hour editions, or open labs, encourage teams to pick an explor
 | Symptom | Probable Cause | Action |
 |---|---|---|
 | Stick display stuck at Wi-Fi connect | 2.4 GHz vs 5 GHz mismatch | Ensure router broadcasts 2.4 GHz `iotempire-b1300` (ESP32 does not support 5 GHz Wi-Fi). |
-| Cannot resolve instructor host | Student OS lacks mDNS | Provide direct numeric IP: `http://<host-ip>:18nn/` (e.g. `http://192.168.15.1:18nn/`). |
-| Node-RED shows `Disconnected` on broker | Broker address misconfigured | Use `broker.internal` or host IP (`192.168.15.1`), not `127.0.0.1`. |
+| Students cannot open the Node-RED URL | Wrong IP or firewall | Give the numeric address: `http://<instructor-ip>:18nn/`; open the Node-RED ports if the orchestrator reported an active firewall. |
+| Node-RED shows `Disconnected` on broker | Broker address misconfigured | Use `broker.internal` (mapped by the orchestrator) or `192.168.114.1`, not `127.0.0.1`. |
 | Temperature reads `-127` or `85` | 1-wire pin contact loose | Check DuPont jumper on pin `G26` and `GND`. `-127` means disconnected bus. |
 | Student broke their flow | Accidental deletion | Re-import from [`sample-flows.json`](./instructor-tools/sample-flows.json) via Menu -> Import. |
 
 ## 7. Post-Workshop Cleanup
 
 ```bash
-cd workshops/mastering-iot-solutions/instructor-tools
+# from the directory containing classroom-nodered.sh
+./classroom-nodered.sh stop      # keeps containers, flows and volumes
+# or, for a completely fresh class (destroys all student flows):
+./classroom-nodered.sh purge
 
-# Stop Node-RED containers (preserves student flows in volumes):
-./start-nodered-containers.sh stop
-
-# Or completely purge volumes and configs for a fresh class:
-./start-nodered-containers.sh purge
-
-# Stop MQTT infrastructure:
-iot service stop
+# The MQTT broker runs on the classroom router; leave it running.
 ```
+
+## 8. Packaging note for other instructors
+
+The LAN-only orchestrator (`classroom-nodered.sh`) currently lives in the
+standalone `iot-nodered-demo` repository (`bin/classroom-nodered.sh`). When this
+workshop is packaged for other instructors, copy it and its `seed-flows.json`
+into `instructor-tools/` and update the paths above. The old
+`start-nodered-containers.sh` and `start-infra.sh` are deprecated (they do not
+install Dashboard 2.0 correctly and assume the broker runs on the laptop).

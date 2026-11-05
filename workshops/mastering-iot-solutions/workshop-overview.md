@@ -24,7 +24,7 @@ It serves a **dual purpose**:
 ### Hardware-First, Zero-Install
 Participants do not spend their first hour installing drivers, cross-compilers, or IDEs. Instead:
 - Microcontrollers (**M5StickC**) are pre-provisioned.
-- Isolated **Node-RED** instances run as lightweight containers on the instructor's host (or local server).
+- Isolated **Node-RED** instances run as lightweight containers on the instructor PC.
 - Participants only need a standard web browser on their laptop or tablet.
 
 ### Organic Flow (~90 Minutes Baseline + Open Exploration)
@@ -54,7 +54,7 @@ By the end of this workshop, participants are able to:
 | **Dallas DS18B20 Sensor Module** | 1 per team | 1-wire digital temperature sensor with 3 DuPont jumpers. |
 | *(Optional)* **Sensirion SCD4x** | Optional | I2C sensor for CO2, temperature, and relative humidity. |
 | **Wi-Fi Router (e.g. GL-iNet B1300)** | 1 for room | Local network (`iotempire-b1300`), isolates workshop traffic. |
-| **Instructor Laptop** | 1 for room | Runs Mosquitto broker, Node-RED containers, and IoTempower CLI. |
+| **Instructor PC** | 1 for room | Runs the Node-RED containers and the IoTempower CLI. The MQTT broker runs on the router. |
 
 ## 5. Course Alignment & Portfolio Deliverables
 

@@ -228,14 +228,14 @@ Follow the **[Master Class workbook](https://github.com/iotempire/iotempire-teac
 | What | Where to find it |
 |:---|:---|
 | Room Wi-Fi | `iotempire-b1300-5g` (laptop) · `iotempire-b1300` (2.4 GHz, sticks) · password `iotempire` |
-| Your Node-RED | `http://<instructor-host>:18nn/` — exact host and port on the projector |
-| Login | `admin` + your pod password from the projector |
-| Broker | `broker.internal`, port `1883` — already configured |
+| Your Node-RED | `http://<instructor-ip>:18nn/` — exact address and port on the board |
+| Login | `admin` + the password on your sticky note |
+| Broker | `broker.internal` → `192.168.114.1:1883` (classroom router) — already configured |
 | Your node | the M5StickC labeled with your pod's two-digit ID |
 
 **Hardware per pod:** 1× M5StickC, 1× USB-C cable, 1× Dallas DS18B20 + 3 jumpers.
 
-<!-- Note: display this slide while handing out hardware. Write the host IP on the board if mDNS fails. -->
+<!-- Note: display this slide while handing out hardware. Write the instructor PC's IP on the board. -->
 
 ---
 
