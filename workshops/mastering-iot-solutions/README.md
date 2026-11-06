@@ -66,7 +66,7 @@ Your instructor will hand you an **M5StickC** pre-programmed with [IoTempower](h
 
 ### 3. Send Text to the Stick's TFT Display
 1. Create another **inject** node with string payload: `"Coffee Time!"` (or your team name).
-2. Wire it to an **mqtt out** node with topic `<id>/console/set` (e.g. `01/console/set`).
+2. Wire it to an **mqtt out** node with topic `<id>/console` (e.g. `sticks/01/console` - no /set for the display).
 3. Deploy and trigger the node -> The text prints live on your microcontroller's screen!
 
 ## ⚡ Phase 3: The Classroom Domino Chain
