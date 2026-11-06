@@ -160,7 +160,7 @@ Want to know if one corner of the room is warmer than another?
 2. Wire it into a **function** node with this small script to label the data series:
    ```javascript
    const parts = msg.topic.split('/');
-   msg.topic = 'Stick ' + parts[0];
+   msg.topic = 'Stick ' + parts[1];
    msg.payload = parseFloat(msg.payload);
    return msg;
    ```
