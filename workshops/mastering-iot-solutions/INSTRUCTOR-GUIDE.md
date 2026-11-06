@@ -8,10 +8,10 @@ This guide provides operational guidance for instructors and lab assistants deli
 
 ```mermaid
 graph LR
-    A["1. Warm-Up & Spark<br/>(Instructor demos Node-RED + stick)"] --> B["2. Team Exploration<br/>(Hand out sticks, ping-pong & domino)"]
-    B --> C["3. Physical Sensor Wiring<br/>(Dallas DS18B20 & OTA deploy)"]
-    C --> D["4. Dashboards & Aggregation<br/>(Live gauges & +/temp heatmap)"]
-    D --> E["5. Open-Ended Breakouts<br/>(CO2, IMU, Telegram, IoTempower docs)"]
+    A["1) Warm-Up & Spark<br/>(Instructor demos Node-RED + stick)"] --> B["2) Team Exploration<br/>(Hand out sticks, ping-pong & domino)"]
+    B --> C["3) Physical Sensor Wiring<br/>(Dallas DS18B20 & OTA deploy)"]
+    C --> D["4) Dashboards & Aggregation<br/>(Live gauges & +/temp heatmap)"]
+    D --> E["5) Open-Ended Breakouts<br/>(CO2, IMU, Telegram, IoTempower docs)"]
 ```
 
 ### Core Didactical Principle: Hardware-First, Zero-Install
