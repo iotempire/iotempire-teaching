@@ -203,7 +203,7 @@ Follow the **[Master Class workbook](https://github.com/iotempire/iotempire-teac
 1. **First contact** — room Wi-Fi, your Node-RED, inject → debug
 2. **Your stick answers** — button, LED, screen text
 3. **The domino chain** — your button switches your neighbour's LED
-4. **A real sensor** — wire the DS18B20, watch an over-the-air deploy
+4. **A real sensor** — connect the DS18B20 (Grove protoboard, or three jumpers), watch an over-the-air deploy
 5. **The control room** — gauge, chart, and the whole room with `+/temp`
 
 *Then: measure what it cost, and pitch the system.*
@@ -233,7 +233,7 @@ Follow the **[Master Class workbook](https://github.com/iotempire/iotempire-teac
 | Broker | `broker.internal` → `192.168.114.1:1883` (classroom router) — already configured |
 | Your node | the M5StickC labeled with your pod's two-digit ID |
 
-**Hardware per pod:** 1× M5StickC, 1× USB-C cable, 1× Dallas DS18B20 + 3 jumpers.
+**Hardware per pod:** 1× M5StickC, 1× USB-C cable, 1× Dallas DS18B20 — Grove protoboard or 3 jumpers.
 
 <!-- Note: display this slide while handing out hardware. Write the instructor PC's IP on the board. -->
 

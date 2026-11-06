@@ -95,8 +95,15 @@ graph LR
 
 Let's turn your stick into an environmental sensing station.
 
-### 1. Hardware Wiring
-Carefully wire your **Dallas DS18B20** temperature sensor to the top 8-pin header of the M5StickC:
+### 1. Hardware: two options
+
+**Option A — pre-soldered Grove protoboard (default, no wiring).**
+If your pod received a small protoboard with a Grove connector, just plug it into
+the M5StickC's Grove port (the small connector on the side). The Dallas sensor is
+already wired to **GPIO32**. No jumper wires and no header wiring are needed.
+
+**Option B — bare sensor and jumper wires.**
+If you only have the bare sensor module, wire it to the top 8-pin header:
 
 ![M5StickC Wiring](./images/m5stickc-temp-shield-wiring.png)
 
@@ -107,16 +114,22 @@ Carefully wire your **Dallas DS18B20** temperature sensor to the top 8-pin heade
 | **G26** | **DATA** / **D2** | Yellow / White |
 
 > [!IMPORTANT]
-> Always verify GND and power pins before plugging in! Make sure the data pin is connected to **G26**.
+> Option B only: always verify GND and power pins before plugging in, and make
+> sure the data pin is connected to **G26**. With the Grove protoboard (Option A),
+> just plug it in — there is nothing to wire.
 
 ### 2. Over-The-Air (OTA) Deployment
 How does the stick know a temperature sensor is connected?
-In [IoTempower](https://iotempower.us), the entire hardware definition for a sensor is just **one single line of declarative C++**:
+In [IoTempower](https://iotempower.us), the entire hardware definition for a sensor is just **one single line of declarative C++**. The pin depends on your hardware option:
 ```cpp
+// Option A: Grove protoboard (GPIO32)
+ds18b20(temp, 32);
+// Option B: HAT header wiring (G26)
 ds18b20(temp, 26);
 ```
-- Tell your instructor that your sensor is wired.
-- The instructor uncomments that line in your stick's configuration and deploys it **Over-The-Air (OTA)** over Wi-Fi.
+Only one of these lines is active in your stick's configuration.
+- Tell your instructor which option you are using.
+- The instructor uncomments the matching line in your stick's configuration and deploys it **Over-The-Air (OTA)** over Wi-Fi.
 - Watch your stick screen: it reboots and reconnects within seconds—**no USB flashing cable required!**
 - Create an **mqtt in** node subscribing to `<id>/temp` (e.g. `01/temp`) and wire it to a debug node. You will now see live Celsius temperature readings stream in every few seconds!
 

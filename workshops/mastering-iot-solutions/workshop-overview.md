@@ -32,7 +32,7 @@ Rather than adhering to rigid, school-like bells and 45-minute cutoffs, the work
 1. **Ignition & Quick Warm-Up (~10 min):** Short welcome, whoami, and rapid crowd-sourcing of IoT definitions and challenges.
 2. **Live Sparks (~5 min):** Instructor demonstrates Node-RED Hello World on the beamer, sends a message to an instructor M5StickC (LED flips, screen greets), and hands out hardware to teams.
 3. **Team Bring-Up & Ping-Pong (~25 min):** Teams log into their container, listen to button presses, toggle LEDs, and establish cross-table "domino" links.
-4. **Physical Sensing & OTA Deploy (~25 min):** Teams wire a Dallas DS18B20 temperature sensor. The instructor triggers an Over-The-Air (OTA) deployment via IoTempower without touching USB cables. Live temperature streams appear!
+4. **Physical Sensing & OTA Deploy (~25 min):** Teams connect a Dallas DS18B20 sensor (pre-soldered Grove protoboard, or three jumper wires). The instructor triggers an Over-The-Air (OTA) deployment via IoTempower without touching USB cables. Live temperature streams appear!
 5. **Dashboards & Aggregation (~25 min):** Teams assemble live gauges, historical line charts, and subscribe to class-wide room telemetry using MQTT wildcards (`+/temp`).
 6. **Open-Ended Extensions & Spontaneous Breakouts:** For faster teams or longer (3h) sessions, participants branch into custom explorations (e.g. CO2 sensor integration, IMU tilt control, Telegram bot messaging, or diving into IoTempower's fluent syntax).
 
@@ -41,7 +41,7 @@ Rather than adhering to rigid, school-like bells and 45-minute cutoffs, the work
 By the end of this workshop, participants are able to:
 - **Understand Event-Driven IoT Messaging:** Explain the publish/subscribe pattern, MQTT broker star topology, and hierarchical topic conventions (`<node>/<device>/<topic>`).
 - **Integrate Systems with Node-RED:** Wire visual dataflow nodes, inspect payloads in real time, and map input events to physical actuators.
-- **Connect Physical Digital Sensors:** Interface a 1-wire digital temperature sensor (Dallas DS18B20) to microcontroller GPIO headers.
+- **Connect Physical Digital Sensors:** Interface a 1-wire digital temperature sensor (Dallas DS18B20) to a Grove connector or GPIO header.
 - **Experience Declarative Edge Management:** Understand single-line hardware abstractions in IoTempower and witness fleet-wide Over-The-Air (OTA) firmware deployment.
 - **Build Real-Time Dashboards:** Visualise streaming telemetry using gauges and charts, and aggregate multi-node classroom data.
 
@@ -51,7 +51,7 @@ By the end of this workshop, participants are able to:
 |---|---|---|
 | **M5StickC / Plus / Plus2** | 1 per team (up to 15) | Pre-flashed ESP32 microcontroller with screen, buttons, LED, and IMU. |
 | **USB-C Cables & Power** | 1 per team | Power supply from participant laptop or USB hub. |
-| **Dallas DS18B20 Sensor Module** | 1 per team | 1-wire digital temperature sensor with 3 DuPont jumpers. |
+| **Dallas DS18B20 Sensor** | 1 per team | 1-wire digital temperature sensor; pre-soldered Grove protoboard or bare module with 3 DuPont jumpers. |
 | *(Optional)* **Sensirion SCD4x** | Optional | I2C sensor for CO2, temperature, and relative humidity. |
 | **Wi-Fi Router (e.g. GL-iNet B1300)** | 1 for room | Local network (`iotempire-b1300`), isolates workshop traffic. |
 | **Instructor PC** | 1 for room | Runs the Node-RED containers and the IoTempower CLI. The MQTT broker runs on the router. |

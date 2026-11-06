@@ -174,7 +174,7 @@ The hands-on part of today is the **[Mastering IoT Solutions](../../../workshops
 
 > **The order is a suggestion.** The phases are a path, not a timetable. Take a different route if your pod can still prove the goals: stuck on wiring? do a flow task first. Finished the dashboard early? go back and measure the overhead. **The instructor demos pieces live in Node-RED** — ask for the demo you need instead of waiting for it — and write down what you changed and why. The checkpoint question is always *“what did you choose, and what did it cost you?”*
 
-**Hardware, per pod:** 1× M5StickC (Plus/Plus2), 1× USB-C cable for power, 1× Dallas DS18B20 temperature module with three jumper wires. Optional for fast pods: a Sensirion SCD4x (CO₂).
+**Hardware, per pod:** 1× M5StickC (Plus/Plus2), 1× USB-C cable for power, and 1× Dallas DS18B20 sensor — either the pre-soldered Grove protoboard (default, no wiring) or a bare module with three jumper wires. Optional for fast pods: a Sensirion SCD4x (CO₂).
 
 > **Who owns the machine?** Your Node-RED is a container on the instructor PC, not on your laptop. That is why the workshop needs zero installation — and why the whole room's dashboards share one point of failure. Keep that thought for Task 10.
 
@@ -222,7 +222,7 @@ The instructor will bring **one link of the chain up live on the beamer** first,
 
 ### ★ Task 6: A real sensor, and an OTA deploy
 
-Wire the **Dallas DS18B20** (GND, power, data on `G26`) and run **Phase 4**: the instructor uncomments `ds18b20(temp, 26);` in your stick's `setup.cpp` and deploys **over the air**. Subscribe to `<id>/temp`.
+Connect the **Dallas DS18B20** and run **Phase 4**. If your pod has the pre-soldered Grove protoboard, plug it into the Grove port — the sensor is on **GPIO32**, and the instructor uncomments `ds18b20(temp, 32);`. If you only have the bare sensor, wire DATA to `G26` and the instructor uses `ds18b20(temp, 26);`. Either way the deploy goes **over the air**. Subscribe to `<id>/temp`.
 
 The instructor will **deploy one stick on the beamer** so the room sees the reboot before anyone waits for their own. If you are stuck at the wiring, swap to another task and come back — the deploy can wait, and half the room is usually ahead of you anyway.
 
@@ -231,7 +231,7 @@ The instructor will **deploy one stick on the beamer** so the room sees the rebo
 **Aim:** live temperature on your topic, and a working explanation of why no USB cable was involved.
 
 > [!TIP]
-> `-127` and `85` are the classic DS18B20 error values (disconnected bus; power-on default). Write down which one you saw and what you did — that is exactly the kind of evidence that makes a checkpoint easy.
+> `-127` and `85` are the classic DS18B20 error values (disconnected bus; power-on default). Write down which one you saw and what you did — that is exactly the kind of evidence that makes a checkpoint easy. With the protoboard, the usual cause is that it is not fully seated in the Grove port; with a bare sensor, check the `G26` jumper and `GND`.
 
 *Portfolio evidence:* photo of your wired stick, screenshot of `<id>/temp` arriving, and two sentences on what changed in `setup.cpp` and why the update did not need a cable.
 

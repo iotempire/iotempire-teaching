@@ -30,7 +30,7 @@ Avoid rigid time blocks or artificial school bells. Treat the workshop as an **o
 ### Per Team (Pairs or Trios, up to 15 Teams)
 - **1× M5StickC / M5StickC Plus / Plus2** (pre-flashed, labeled `01`–`15`).
 - **1× USB-C cable** (for power from student laptop or USB strip).
-- **1× Dallas DS18B20 Temperature Sensor module** with 3 DuPont female-to-female jumper wires.
+- **1× Dallas DS18B20 temperature sensor** — either the pre-soldered Grove protoboard (default, no jumpers) or a bare module with 3 DuPont female-to-female jumper wires.
 - *(Optional for fast teams)* **1× Sensirion SCD4x CO2/temp/humidity sensor** (Grove connector).
 
 ### Instructor Station
@@ -61,6 +61,9 @@ In IoTempower, each node directory is self-contained and needs only two minimal 
    button(buttom, BUTTON_RIGHT, "pressed", "released").inverted().debounce(10);
    m5stickc_display(console, 2, 270);
    m5stickc_imu(imu, true, true, false, false);
+   // Grove protoboard (sensor on GPIO32):
+   //ds18b20(temp, 32);
+   // Bare sensor wired to the top HAT header (G26):
    //ds18b20(temp, 26);
    //scd4x(gas).i2c(26,0);
    ```
@@ -166,15 +169,24 @@ The parent directory contains **`system.conf`** with the workshop Wi-Fi credenti
    - *Educational moment (On-Demand):* When students ask how messages travel, explain the **MQTT publish/subscribe star topology** and topic hierarchy.
 
 ### Stage 3: Adding Physical Sensors & Live OTA Deploy (~25 min)
-1. Hand out the **Dallas DS18B20** temperature sensor modules and jumpers.
-2. Guide wiring to the top HAT header:
-   - `GND` -> `GND`
-   - `5V` -> `5V`
-   - `DATA` -> `G26`
+1. Hand out the **Dallas DS18B20** sensors: the pre-soldered Grove protoboards
+   (default) and/or bare modules with jumper wires.
+2. **Choose the hardware option with the pod:**
+   - **Grove protoboard (default if available):** plug it into the stick's Grove
+     port. The sensor is on **GPIO32**; use `ds18b20(temp, 32);`.
+   - **Bare sensor + jumpers:** wire the top HAT header:
+     - `GND` -> `GND`
+     - `5V` -> `5V`
+     - `DATA` -> `G26`
+     and use `ds18b20(temp, 26);`.
 3. **The IoTempower OTA Moment:**
-   - Show the code on the projector: in `setup.cpp`, uncommenting one line:
+   - Show both lines on the projector and uncomment the one that matches the
+     pod's hardware:
      ```cpp
-     ds18b20(temp, 26);
+     // Grove protoboard (GPIO32):
+     //ds18b20(temp, 32);
+     // Bare sensor, top HAT header (G26):
+     //ds18b20(temp, 26);
      ```
    - In the terminal, run the Over-The-Air deployment:
      ```bash
@@ -185,11 +197,9 @@ The parent directory contains **`system.conf`** with the workshop Wi-Fi credenti
    - Point to the stick: it compiles, downloads the new binary over Wi-Fi, and reboots in seconds without touching the USB cable!
    - Students immediately see temperature readings arriving in Node-RED on `<id>/temp`.
 
-> **Pin check before the OTA phase.** The workbook wires DATA to `G26` and shows
-> `ds18b20(temp, 26)`. Make the `setup.cpp` pin match the physical wiring on your
-> sticks. If your prepared fleet uses a different pin (the local fleet uses GPIO
-> `32`), either re-flash with `26` or update the workbook and the wiring table
-> together. A mismatched pin reads `-127`.
+> **Pin check before the OTA phase.** GPIO32 is for the Grove protoboard, G26 for
+> HAT wiring. A mismatched pin reads `-127`. If the pod is unsure, use the
+> protoboard option — it is plug-and-play.
 
 ### Stage 4: Dashboards & Room Aggregation (~25 min)
 1. Teams add **ui-gauge** and **ui-chart** nodes in Node-RED.
@@ -215,7 +225,7 @@ For fast teams, 3-hour editions, or open labs, encourage teams to pick an explor
 | Stick display stuck at Wi-Fi connect | 2.4 GHz vs 5 GHz mismatch | Ensure router broadcasts 2.4 GHz `iotempire-b1300` (ESP32 does not support 5 GHz Wi-Fi). |
 | Students cannot open the Node-RED URL | Wrong IP or firewall | Give the numeric address: `http://<instructor-ip>:18nn/`; open the Node-RED ports if the orchestrator reported an active firewall. |
 | Node-RED shows `Disconnected` on broker | Broker address misconfigured | Use `broker.internal` (mapped by the orchestrator) or `192.168.114.1`, not `127.0.0.1`. |
-| Temperature reads `-127` or `85` | 1-wire pin contact loose | Check DuPont jumper on pin `G26` and `GND`. `-127` means disconnected bus. |
+| Temperature reads `-127` or `85` | Sensor not connected or wrong pin | Grove protoboard: check it is fully seated (GPIO32). Bare sensor: check the `G26` jumper and `GND`. `-127` means disconnected bus. |
 | Student broke their flow | Accidental deletion | Re-import from [`sample-flows.json`](./instructor-tools/sample-flows.json) via Menu -> Import. |
 
 ## 7. Post-Workshop Cleanup
