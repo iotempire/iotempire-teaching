@@ -59,7 +59,7 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 4. Process: *Uncertainty honesty:* Write your uncertainty budget and state `y ± U`. Which contribution dominates, and why?
 
 ## 📌 Module 4 – Liquid Measurement & Sensor Selection
-*Focus: ToF/ultrasonic level, HX711 mass, Hall float, capacitive/conductive, IMU shock/motion, failure modes, sensor selection.*
+*Focus: ToF/ultrasonic level, HX711 mass, Hall float, capacitive probe/conductive, light barrier, IMU shock/motion, failure modes, sensor selection.*
 
 1. Technical: *Two ways to measure one tank:* Compare distance vs. mass, including calibration and uncertainty.
 2. Technical: *Principle comparison:* Which principle wins for clear water, dirty water, oil, and bilge water — and why?

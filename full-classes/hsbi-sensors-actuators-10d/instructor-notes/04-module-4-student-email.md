@@ -1,0 +1,62 @@
+# Module 4 — Student Email Draft
+
+> **Instructor-facing draft.** Copy the email below, replace the placeholders, and send it through the LMS. The student-facing module is [Module 4](../modules/04-liquid-measurement-and-sensor-selection.md); the schedule and assessment rules stay in the [syllabus](../syllabus.md).
+
+[All instructor notes](./README.md) · [Syllabus](../syllabus.md) · [Module index](../modules/00-index.md)
+
+## Email
+
+```text
+Subject: Module 4 — bring a bottle/cup and polish your portfolio for the first checkpoint
+
+Hi everyone,
+
+Next session we start the Module 4 liquid-measurement challenge. You will build
+a mock tank, test a few sensing principles, and recommend what you would put on
+the charter boat Nordwind. Most of the work happens at the bench, so please
+bring a few things from home if you can:
+
+- 2–3 clear plastic bottles or large plastic drinking cups (with lids if you have them)
+- some water
+- optionally, a small amount of cooking oil
+- scissors, cardboard, and tape if you have them
+
+We will also bring a supply of bottles, cardboard, scissors, tape, water, and
+oil, so please do not buy anything special. Plastic only — no glass — and
+please label your bottle with your name.
+
+Before the session, please polish your portfolio: make sure your Module 1–3
+evidence is committed and easy to find. We will run the first checkpoint during
+the session and verify your learning goals so far — about 15 minutes per pod.
+Have your portfolio, study log, and one or two pieces of evidence ready to talk
+through.
+
+A few notes for the session:
+
+- We will have ToF, ultrasonic, load-cell scales, Hall sensors, foil/copper tape,
+  analog capacitive liquid/soil probes, light barriers (photo-interrupters — the
+  “light bar” switches), reed/float switches, an M5StickC-S3 IMU, and an optional
+  MPR121 capacitive-touch board.
+- You do not have to test every sensor. About 80% coverage is enough to make a
+  good recommendation — and all of them are fun. Pick the ones that fit your tanks.
+- You choose how to visualize your results: a screen, LEDs, the serial plotter, a
+  collage of plots, or anything else that makes the tanks legible. Node-RED is
+  not required in this module.
+- We will use safe simulants only: no real fuel and no real waste water. We will
+  provide the dirty-water simulant, salt, dish soap, trays, and towels.
+- We will check in with your pod while you build, so keep your notes and your
+  prototype handy.
+
+See you in the studio,
+[Instructor names]
+```
+
+## Sending notes
+
+- Replace `[Instructor names]`; add the date or room if your LMS needs it.
+- The first checkpoint is about **15 minutes per pod**; the syllabus owns the rules.
+- The module and this email assume safe simulants only: no real fuel, no real waste water, no glass, no tasting.
+- The sensor menu and the 80% guidance are in [Module 4](../modules/04-liquid-measurement-and-sensor-selection.md).
+- The email is written for students; keep the tone practical and do not add assessment details beyond the pointer to the syllabus.
+
+[All instructor notes](./README.md) · [Syllabus](../syllabus.md) · [Module index](../modules/00-index.md)

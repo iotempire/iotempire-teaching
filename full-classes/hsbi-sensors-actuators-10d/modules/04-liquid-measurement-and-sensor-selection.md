@@ -11,7 +11,7 @@
 This module gives you the opportunity to explore liquid-level sensing and achieve competency in sensor selection, tank calibration, and the safety and maintenance constraints of real liquids.
 
 By the end of this module, you can:
-1. Explain what each candidate principle actually measures: optical ToF, ultrasonic, weight/load cell, magnetic float + Hall, capacitive/conductive, a float/reed switch, and IMU motion/shock.
+1. Explain what each candidate principle actually measures: optical ToF, ultrasonic, weight/load cell, magnetic float + Hall, capacitive/conductive (foil and analog probe), a float/reed/light-barrier switch, and IMU motion/shock.
 2. Match a principle to a liquid, a tank, and a failure mode using opacity, foam, conductivity, dielectric constant, density, hygiene, flammability, tank shape, mounting, and motion.
 3. Build and calibrate at least two mock tank measurements; convert raw readings into level and volume; state the uncertainty.
 4. Use a motion/shock sensor to distinguish “in harbor” from “outside” and explain how boat motion affects the tank reading.
@@ -41,11 +41,13 @@ We first taught it in the IoT class at the **University of Applied Sciences Linz
 
 ## 🛠️ Liquid-Measurement Studio — **Challenging**
 
-*Hardware per pod:* 1× ESP32, breadboard and jumper wires, 1× ToF distance sensor (VL53L0X), 1× ultrasonic module, 1× Hall sensor + small magnet + cork float, foil or copper tape, 1× reed/float switch or light barrier (optional), 1× M5StickC-S3 (StickS3) with its built-in BMI270 IMU — one per pod where available, otherwise share with the partner pod — and a local display (the M5StickC-S3 screen, an OLED, LEDs/buzzer, or the serial plotter).
+*Hardware per pod:* 1× ESP32, breadboard and jumper wires, 1× ToF distance sensor (VL53L0X), 1× ultrasonic module, 1× Hall sensor + small magnet + cork float, foil or copper tape, 1× reed/float switch (optional), 1× light barrier (photo-interrupter) where available, 1× analog capacitive liquid/soil probe where available, 1× M5StickC-S3 (StickS3) with its built-in BMI270 IMU — one per pod where available, otherwise share with the partner pod — and a local display (the M5StickC-S3 screen, an OLED, LEDs/buzzer, or the serial plotter).
+
+**Sensor menu — choose, do not test all.** ToF, ultrasonic, HX711 scale, Hall + magnet float, foil/copper-tape capacitive, analog capacitive liquid/soil probe, light barrier (photo-interrupter; the original "light bar" switch), reed/float switch, MPR121 (optional), M5StickC-S3 IMU. Aim for roughly 80% coverage of the menu — enough for an evidence-based recommendation — and pick the ones that are most fun for your tanks. Say in the report what you skipped and why.
 
 *Shared:* 3× HX711 load-cell scales with calibration weights — one scale per two pods; 3 multimeters for 6 pods; trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper. Students bring three clear plastic bottles: clear water, vegetable oil, and dirty water.
 
-> **If the kit is short:** share the ToF/ultrasonic modules like the scales; the divide-and-conquer split still works.
+> **If the kit is short:** share the ToF/ultrasonic modules, the analog capacitive probe, and the light barrier like the scales; the divide-and-conquer split still works.
 
 > **◇ Optional extra:** If you have an MPR121 capacitive-touch board and want the extra challenge, use it instead of the ESP32 touch pins; it is a clean I²C controller and a possible final-project part.
 
@@ -65,7 +67,7 @@ We first taught it in the IoT class at the **University of Applied Sciences Linz
 
 | Session | Focus | Bench | Exchange |
 |---|---|---|---|
-| **1 — Measure** | Principles; liquids; tank geometry; motion | Task 1: build the mock tank; distance + weight; Hall/capacitive; IMU harbor/outside | Partner pod checks calibration; share the raw data |
+| **1 — Measure** | Principles; liquids; tank geometry; motion | Task 1: build the mock tank; distance + weight; Hall/capacitive/probe/light barrier; IMU harbor/outside | Partner pod checks calibration; share the raw data |
 | **2 — Break and recommend** | Failure modes; filtering; dashboard; reports | Task 1: break it; build the prototype; picture proofs; set up the reports | Gallery walk; instructor review; Task 2 transfer story |
 
 > [!WARNING]
@@ -85,8 +87,10 @@ Nordwind needs a trustworthy local view of four tanks. You cannot test on the re
 - **Ultrasonic:** `d = v·t / 2`; `v ≈ 331 + 0.6·T` m/s; foam, soft/angled surfaces, beam angle, crosstalk.
 - **Weight / load cell:** `m = F/g`; `V = m/ρ`; `h = V/A` for a cylinder, or a calibration curve for a tapered tank; tare, mounting, acceleration.
 - **Magnetic float + Hall:** buoyancy; magnetic field vs. distance; binary vs. continuous; no electronics inside the tank.
-- **Capacitive:** `C = ε₀·ε_r·A/d`; water vs. oil vs. air; through-wall detection; drift and humidity.
-- **Conductive / switch:** two electrodes, a reed/float switch, or a light barrier; binary; corrosion, fouling, mounting.
+- **Capacitive (foil/copper tape):** `C = ε₀·ε_r·A/d`; water vs. oil vs. air; through-wall detection; drift and humidity.
+- **Analog capacitive liquid/soil probe:** the dielectric of the medium changes the probe capacitance; an analog voltage; water vs. oil vs. air; soil moisture; not food-safe; keep the electronics dry.
+- **Conductive / switch:** two electrodes or a reed/float switch; binary; corrosion, fouling, mounting.
+- **Light barrier (photo-interrupter; the "light bar" switch):** a beam is interrupted by a float, flag, or liquid surface; binary; alignment, ambient light, and fouling.
 - **Motion / shock (M5StickC-S3, BMI270):** acceleration magnitude and a short window; `harbor / moving / rough`; no fusion, no tilt accuracy.
 
 ### Bench 1 — Build, measure, and log
@@ -115,8 +119,9 @@ The boat rolls, pitches, and heels; the liquid surface is never flat. Use the IM
 
 1. **Magnet + Hall.** Float a small magnet on a cork; scan the Hall sensor along the outside of the tank. Is the output continuous or only a threshold? Where does the float stick?
 2. **Capacitive / conductive.** Put foil or copper tape on the outside of a cup; detect water through the wall. Compare water with oil. Then try two electrodes inside the cup: water conducts, oil does not. Which version is binary, and which can give a level?
-3. **Switch.** Use a reed or float switch as a high/low limit. Note intrusion, fouling, and mounting.
-4. **Record a first selection matrix.** Which principle would you trust for each tank, and what evidence do you already have?
+3. **Analog capacitive probe and light barrier.** Dip the analog liquid/soil probe in water, oil, and wet/dry soil; record the analog voltage and compare it with the foil version. Use the light barrier as a high/low limit with a float or flag; note alignment and ambient light. Keep the probe electronics dry; it is not food-safe.
+4. **Switch.** Use a reed or float switch as a high/low limit. Note intrusion, fouling, and mounting.
+5. **Record a first selection matrix.** Which principle would you trust for each tank, and what evidence do you already have?
 
 ### Brief 3 — Calibration, uncertainty, filtering, and alarms
 
@@ -156,7 +161,7 @@ Write this as your own section in `Module04/README.md`. Even when the experiment
 
 Write this as your own section in `Module04/README.md`. It is the "how everything works and how the measurements are done" part of the module.
 
-1. Principles and equations: ToF, ultrasonic, weight, Hall, capacitive/conductive, switch, IMU motion.
+1. Principles and equations: ToF, ultrasonic, weight, Hall, capacitive/conductive (foil and analog probe), switch/light barrier, IMU motion.
 2. Liquid properties and why they matter: opacity, foam, conductivity, dielectric constant, density, hygiene, flammability, fouling.
 3. Tank geometry and level → volume; tilted and tapered tanks.
 4. Calibration and uncertainty for the scale, the tank, and the distance sensor.
@@ -255,6 +260,7 @@ Rate each principle for each tank. The rating must cite a measurement, not an op
 - [Wikipedia: Level sensor](https://en.wikipedia.org/wiki/Level_sensor) — the principle catalogue.
 - [Wikipedia: Hall effect sensor](https://en.wikipedia.org/wiki/Hall_effect_sensor) — magnetic float and switch.
 - [Wikipedia: Capacitive sensing](https://en.wikipedia.org/wiki/Capacitive_sensing) — through-wall detection.
+- [Wikipedia: Photoelectric sensor](https://en.wikipedia.org/wiki/Photoelectric_sensor) — light barrier and photo-interrupter.
 - The [resource bank](./Z-resources-bank.md#formulas-you-will-use) — formulas, datasheets, troubleshooting.
 - [Module 3](./03-sensor-characterization-and-calibration.md) — calibration record, uncertainty, filtering.
 
@@ -265,6 +271,7 @@ Rate each principle for each tank. The rating must cite a measurement, not an op
 - "My ToF reads correctly on a wall but wrongly on clear water. Explain the physics and design a quick test."
 - "How can an IMU distinguish a boat in harbor from a boat underway without sensor fusion?"
 - "Which dielectric property makes capacitive water detection work through a plastic wall?"
+- "Why does an analog capacitive soil probe read differently in water, oil, and wet soil, and what would you calibrate?"
 
 > Treat each answer as a claim to test. Record where the model is wrong, vague, or over-confident.
 

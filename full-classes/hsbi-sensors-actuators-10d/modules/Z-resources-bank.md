@@ -98,6 +98,7 @@ uv run python plot_measurements.py
 | 4 | Liquid-level principles | A short level-sensor overview (float, capacitive, ultrasonic, radar, pressure) | Which principle survives foam, clear water, or a moving tank? |
 | 4 | Load-cell scale | A short HX711 / load-cell calibration demo | What do tare and the calibration factor do? |
 | 4 | Motion/shock with an IMU | A short accelerometer threshold/variance explainer | How can acceleration variance distinguish a docked boat from one underway? |
+| 4 | Capacitive and light-barrier sensing | A short capacitive-sensing and photo-interrupter explainer | When is the output continuous, and when is it just a switch? |
 | 5 | PWM & LED dimming | A "PWM and gamma correction" explainer | Why does a linear ramp look like it "jumps"? |
 | 5 | Addressable LEDs | A WS2812 / NeoPixel overview | Why does each pixel need a driver chip? |
 | 6 | LED animation | An addressable LED animation demo (Adafruit NeoPixel / NeoPixelBus) | How do palettes and HSV simplify effects? |
@@ -117,6 +118,8 @@ uv run python plot_measurements.py
 | M5StickC-S3 / BMI270 datasheet | 6-axis IMU, I²C, accelerometer/gyro ranges | The simple shock/motion detector for harbor vs. outside |
 | Hall sensor (analog/latch) | Magnetic field vs. distance, threshold, hysteresis | The magnetic float and the reed/float switch |
 | Capacitive / float / reed switch datasheets | Dielectric sensing, through-wall, buoyancy, contact rating | The non-distance alternatives and their mounting constraints |
+| Analog capacitive soil/liquid probe | Dielectric sensing, analog output, supply, corrosion/waterproofing | The cheap capacitive probe and its limits |
+| Light barrier / photo-interrupter | Beam interruption, output type, ambient light | The binary high/low limit switch |
 | MPU6050 register map | Accel/gyro scales, `0x68`/`0x69`, WHO_AM_I | Optional reference for IMU configuration |
 | LDR (photoresistor) characteristics | Resistance vs. illuminance, spectral response, light history | The analog, nonlinear transfer-function lab |
 | DS18B20 datasheet | 9–12-bit resolution, ±0.5 °C accuracy, conversion time, OneWire, sealed probe | The digital-sensor characterization and the frost-alarm decision |
@@ -214,6 +217,8 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | HX711 reading drifts or is noisy | Unstable supply, long leads, temperature, mounting | Short leads, stable supply, tare, average, check with known masses | 4 |
 | HX711 not detected / readings saturated | Wiring, gain, or overload | Check E+/E−/A+/A−, common ground, reduce load, verify with a known mass | 4 |
 | Capacitive sensor triggers without water | Grounding, humidity, baseline drift | Re-baseline, keep the foil flat, avoid stray capacitance | 4 |
+| Capacitive probe reads wet/dry wrongly or drifts | Temperature, salinity, supply, probe coating | Re-baseline, clean, keep the electronics dry; compare with the foil version | 4 |
+| Light barrier false-triggers | Ambient light, alignment, flag sticking | Shield, align, add hysteresis; test with a card | 4 |
 | Ultrasonic modules interfere | Crosstalk between pods | Stagger firing or shield; keep the beams apart | 4 |
 | Water or oil on the electronics | Spills | Dry tray, towels, keep the ESP32 and scale dry; clean immediately | 4 |
 | LED dims other parts of the circuit | Drawing too much from the pin/rail | Use a driver/transistor, separate supply | 5 |
@@ -243,6 +248,8 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | M5StickC-S3 IMU/display | M5Unified / M5GFX; BMI270 driver | Use the board support; read acceleration; no fusion needed |
 | Distance sensors | VL53L0X library (Pololu/Adafruit); ultrasonic `pulseIn`/NewPing | Check the 5 V echo level; use a divider |
 | Capacitive touch | ESP32 `touchRead()` | Baseline drift; re-baseline; avoid strapping pins |
+| Analog capacitive probe | ESP32 ADC + calibration | Water/oil/soil; not food-safe; keep the electronics dry |
+| Light barrier | `digitalRead` or interrupt | Binary high/low limit; alignment and ambient light |
 | I²C convenience | `Wire` (Arduino core) | Scan, read/write registers |
 | I²C tools (Linux) | `i2c-tools` (`i2cdetect`) | Standard bus scan on a Pi/gateway |
 | Integration & dashboards | Node-RED, Mosquitto | Module 8 and the final project; Module 4 visualization is the pod's choice |

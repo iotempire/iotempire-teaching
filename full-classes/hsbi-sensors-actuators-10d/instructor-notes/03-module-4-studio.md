@@ -8,8 +8,9 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 
 - **Six pods, three HX711 scales:** pair Task Pods, one scale per pair, and swap at the round boundary. One pod builds or measures distance while the other weighs.
 - **Six pods, three multimeters:** same pairing as Module 3; one meter per pair.
-- **Per pod:** one ESP32, one ToF sensor, one ultrasonic module, one Hall sensor with a small magnet and cork, foil or copper tape, one reed/float switch (optional), one M5StickC-S3 (StickS3) with its BMI270 IMU where available, and a local display (the StickS3 screen, an OLED, LEDs/buzzer, or the serial plotter).
+- **Per pod:** one ESP32, one ToF sensor, one ultrasonic module, one Hall sensor with a small magnet and cork, foil or copper tape, one reed/float switch (optional), one light barrier (photo-interrupter) where available, one analog capacitive liquid/soil probe where available, one M5StickC-S3 (StickS3) with its BMI270 IMU where available, and a local display (the StickS3 screen, an OLED, LEDs/buzzer, or the serial plotter).
 - **Optional:** an MPR121 capacitive-touch board for pods that want the extra challenge or a final-project part.
+- **Sensor menu:** ToF, ultrasonic, HX711 scale, Hall + magnet float, foil/copper-tape capacitive, analog capacitive liquid/soil probe, light barrier (photo-interrupter), reed/float switch, MPR121 (optional), M5StickC-S3 IMU. Pods do not need to test every sensor — roughly 80% coverage is enough; let them choose the ones that fit their tanks.
 - **Shared:** calibration weights for the scales, trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper.
 - **Students bring:** three clear plastic bottles — clear water, vegetable oil, and dirty water. Drinking cups are useful as extra tanks.
 - **Two instructors:** split the room three pods each; one instructor owns the scale-corner check.
@@ -41,17 +42,18 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 
 ## 5. Divide and conquer
 
-- **Pair two Task Pods.** Split the benches: one pod owns distance + IMU, the other owns weight + Hall/capacitive. Share the raw data, calibration records, and picture proofs.
+- **Pair two Task Pods.** Split the benches: one pod owns distance + IMU, the other owns weight + Hall/capacitive/probe/light barrier. Share the raw data, calibration records, and picture proofs.
 - **Reports are individual.** Each student writes their own recommendation report, theory report, and transfer story; cite the shared log instead of copying it.
 - **One shared study log per pair of pods.** One pod hosts the `## Study log` section; the other links to it. Each student adds one sentence on what they contributed.
 - **Finish the practice in the two sessions.** The reports are written outside class from the data and photos the pods already have.
 
 ## 6. Running the two sessions
 
-- **Session 1 — Measure:** Brief 1 (principles), Bench 1 (build the mock tank, distance + weight, IMU states), Brief 2 (liquids and tanks), Bench 2 (Hall/capacitive/switch), a random mini check, and the partner calibration check.
+- **Session 1 — Measure:** Brief 1 (principles), Bench 1 (build the mock tank, distance + weight, IMU states), Brief 2 (liquids and tanks), Bench 2 (Hall/capacitive, analog probe, light barrier, switch), a random mini check, and the partner calibration check.
 - **Session 2 — Break and recommend:** Brief 3 (calibration, filtering, alarms), Bench 3 (break it, prototype, picture proofs), a random mini check, the gallery walk with another pod and an instructor, and the Task 2 transfer story.
 - **Mini checks:** draw one prompt at random; ask the pod to answer from the bench or the log. Keep it short.
-- **Day 4 feedback at the bench:** the instructors run the Day 4 feedback conversation while pods are working — move pod to pod, ask one "why" question, and do not stop the room for a presentation. The rules stay in the syllabus.
+- **Day 4 feedback at the bench:** the instructors run the Day 4 feedback conversation while pods are working — move pod to pod, ask one "why" question, and do not stop the room for a presentation. The first checkpoint is about **15 minutes per pod**; ask students to have their portfolio and evidence ready. The rules stay in the syllabus.
+- **Student email:** a ready-to-send draft is in [Module 4 student email](./04-module-4-student-email.md).
 - **Instructor bench round:** ask one "why" question per pod — for example, "Why did you choose this principle for the waste tank?" or "What does the IMU tell you that the level sensor does not?"
 - **Gallery walk:** each pod shows the prototype, the selection matrix, and the transfer story; another pod asks one question. The instructor checks that the evidence, not the opinion, carries the recommendation.
 
@@ -63,6 +65,8 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 - **Ultrasonic crosstalk:** two pods firing at once can see each other. Stagger or shield; keep the beams apart.
 - **HX711 drift or saturation:** check the supply, leads, wiring, and load; tare and verify with a known mass.
 - **Capacitive drift:** re-baseline, keep the foil flat, and avoid stray capacitance and strapping pins.
+- **Analog capacitive probe:** not food-safe; keep the electronics dry; it can drift with temperature, salinity, and probe coating.
+- **Light barrier:** alignment and ambient light; a floating flag can stick.
 - **Slosh:** a single reading is not a level. Log a series, filter, and add hysteresis; use the IMU to label the state.
 - **Scale queue:** pair pods and rotate; do not let six pods wait for three scales.
 - **Oil and water on the bench:** trays, towels, labels, and a dry side for the electronics. Clean oil before the next liquid.
