@@ -279,7 +279,7 @@ The module stories share a small cast of named (fictional) organizations and peo
 | 7, 9 | **Brinkmann Maschinenbau GmbH** — special-purpose machines | **Hendrik Brinkmann** (workshop lead), **Sofia Roth** (automation engineer) | Bielefeld / Gütersloh |
 | 4, 9 | **Nordsee Charter Cuxhaven GmbH** — charter yacht **SY "Nordwind"** | **Hauke Petersen** (skipper/owner), **Imke Thomsen** (marine systems engineer) | Cuxhaven / German Bight |
 
-> The original liquid-measurement challenge was co-developed on the US yacht **Hither-and-Yarn**; the North Sea charter and its cast are the fictional teaching adaptation.
+> The original liquid-measurement challenge was co-developed on the US yacht **Hither & Yon**; the North Sea charter and its cast are the fictional teaching adaptation.
 
 > Cross-course consistency: Wittkamp, Frachtflow, and the local-first theme also appear in the Databases and Networking courses. Reuse the names, but keep each course's story self-contained.
 

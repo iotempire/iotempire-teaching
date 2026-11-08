@@ -31,11 +31,11 @@ On a late-October return from Helgoland, the fuel gauge on *Nordwind* stuck at a
 
 ### Where this challenge comes from
 
-The first version of this challenge was built on a friend's yacht **Hither-and-Yarn** on the US East Coast — the boat in the photo. He used the boat himself and chartered it out, and he needed a reliable way to see fuel, fresh water, and waste water at a glance, from the dock and later remotely. We developed the challenge together; he has since sold the boat, but the challenge remains.
+The first version of this challenge was built on a friend's yacht **Hither & Yon** on the US East Coast — the boat in the photo. He used the boat himself and chartered it out, and he needed a reliable way to see fuel, fresh water, and waste water at a glance, from the dock and later remotely. We developed the challenge together; he has since sold the boat, but the challenge remains.
 
 We first taught it in the IoT class at the **University of Applied Sciences Linz, Campus Hagenberg**; it later moved with the course to **Tartu**. The North Sea charter above is the German adaptation. The tanks, liquids, and failure modes are the same — only the weather is worse.
 
-![Hither-and-Yarn, the original testbed on the US East Coast.](./assets/boat-challenge.jpg)
+![Hither & Yon, the original testbed on the US East Coast.](./assets/boat-challenge.jpg)
 
 *Photo from the original challenge; used with permission.*
 

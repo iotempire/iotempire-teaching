@@ -75,7 +75,7 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 
 ## 8. Story and photo
 
-- The original challenge was co-developed on the US yacht **Hither-and-Yarn**. The friend who owned her has since sold the boat; the photo is from the original challenge and is used with permission.
+- The original challenge was co-developed on the US yacht **Hither & Yon**. The friend who owned her has since sold the boat; the photo is from the original challenge and is used with permission.
 - The German adaptation is **Nordsee Charter Cuxhaven GmbH** with **SY "Nordwind"**, **Hauke Petersen**, and **Imke Thomsen**. Keep the names and the Cuxhaven/German Bight setting consistent with the [story canon](../modules/Z-resources-bank.md#story-canon-the-recurring-cast).
 - The image lives at `modules/assets/boat-challenge.jpg`; the module caption credits the original challenge.
 
