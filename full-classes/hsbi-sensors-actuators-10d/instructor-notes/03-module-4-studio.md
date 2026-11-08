@@ -9,6 +9,7 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 - **Six pods, three HX711 scales:** pair Task Pods, one scale per pair, and swap at the round boundary. One pod builds or measures distance while the other weighs.
 - **Six pods, three multimeters:** same pairing as Module 3; one meter per pair.
 - **Per pod:** one ESP32, one ToF sensor, one ultrasonic module, one Hall sensor with a small magnet and cork, foil or copper tape, one reed/float switch (optional), one M5StickC-S3 (StickS3) with its BMI270 IMU where available, and a local display (the StickS3 screen, an OLED, LEDs/buzzer, or the serial plotter).
+- **Optional:** an MPR121 capacitive-touch board for pods that want the extra challenge or a final-project part.
 - **Shared:** calibration weights for the scales, trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper.
 - **Students bring:** three clear plastic bottles — clear water, vegetable oil, and dirty water. Drinking cups are useful as extra tanks.
 - **Two instructors:** split the room three pods each; one instructor owns the scale-corner check.
@@ -50,6 +51,7 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 - **Session 1 — Measure:** Brief 1 (principles), Bench 1 (build the mock tank, distance + weight, IMU states), Brief 2 (liquids and tanks), Bench 2 (Hall/capacitive/switch), a random mini check, and the partner calibration check.
 - **Session 2 — Break and recommend:** Brief 3 (calibration, filtering, alarms), Bench 3 (break it, prototype, picture proofs), a random mini check, the gallery walk with another pod and an instructor, and the Task 2 transfer story.
 - **Mini checks:** draw one prompt at random; ask the pod to answer from the bench or the log. Keep it short.
+- **Day 4 feedback at the bench:** the instructors run the Day 4 feedback conversation while pods are working — move pod to pod, ask one "why" question, and do not stop the room for a presentation. The rules stay in the syllabus.
 - **Instructor bench round:** ask one "why" question per pod — for example, "Why did you choose this principle for the waste tank?" or "What does the IMU tell you that the level sensor does not?"
 - **Gallery walk:** each pod shows the prototype, the selection matrix, and the transfer story; another pod asks one question. The instructor checks that the evidence, not the opinion, carries the recommendation.
 
@@ -65,7 +67,7 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 - **Scale queue:** pair pods and rotate; do not let six pods wait for three scales.
 - **Oil and water on the bench:** trays, towels, labels, and a dry side for the electronics. Clean oil before the next liquid.
 - **Report scope:** keep the selection matrix as the spine; the theory report should explain only the principles actually used.
-- **Node-RED before MQTT:** Module 4 is before Module 8. Build a local display and describe the remote view; do not teach the broker twice.
+- **No Node-RED requirement:** visualization is the pod's choice — screen, OLED, LEDs, serial plotter, or a collage of plots. If they want Node-RED, it belongs to Module 8 or the final project; do not teach the broker twice.
 
 ## 8. Story and photo
 

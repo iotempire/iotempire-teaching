@@ -86,6 +86,8 @@ The simulation is for program flow and logic. Real hardware adds everything this
 
 Now practice on real datasheets — the reference you will actually use. Google the datasheet for the VL53L0X ToF distance sensor and for the MPR121 capacitive touch sensor, and answer the same questions about both.
 
+> **Optional extra:** The MPR121 is not required for Module 4 — the core path uses the ESP32's capacitive-touch pins with foil or copper tape. The datasheet exercise above is still useful; if you are motivated, consider the MPR121 for the final project — it is a clean I²C capacitive-touch controller.
+
 For each sensor, find and note:
 
 - What physical quantity does it measure, by which physical principle?

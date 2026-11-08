@@ -73,7 +73,8 @@ Central entry point: **the course repository**.
 - **[Syllabus](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-sensors-actuators-10d/syllabus.md)** — schedule, learning objectives, assessment, tools, policies
 - **[Pre-study guide](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-sensors-actuators-10d/pre-study.md)** — Module 0
 - **[Module 1](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-sensors-actuators-10d/modules/01-foundations-measurement-and-sensor-chain.md)** — today's studio
-- **[Resource bank](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-sensors-actuators-10d/modules/Z-resources-bank.md)** — datasheets, cheat sheets, troubleshooting, instructor hints
+- **[Resource bank](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-sensors-actuators-10d/modules/Z-resources-bank.md)** — datasheets, cheat sheets, troubleshooting, story canon
+- **[Instructor notes](https://github.com/iotempire/iotempire-teaching/tree/main/full-classes/hsbi-sensors-actuators-10d/instructor-notes/)** — course operations and teaching hints
 
 *(Let's open the workbook on screen now — this is the material we will actually use.)*
 
@@ -349,7 +350,7 @@ Before you leave, commit to your portfolio:
 
 - **Module 2:** build/choose our own ESP32 scope/logic analyzer, then I²C and sensor addressing — scan the bus, read registers, resolve address conflicts.
 - **Before next session:** finish the basic-electronics and serial tasks, commit your evidence, and bring your open questions.
-- **Checkpoint 1:** start of Day 4, covering Modules 1–3.
+- **Checkpoint 1:** during the Day 4 liquid-measurement studio, while you work on the liquid challenge; it covers Modules 1–3.
 
 **Questions?**
 

@@ -4,7 +4,7 @@
 
 > A tank is not a number. Today you choose sensing principles for four liquids, build a mock tank, and prove which measurement you would trust on a boat.
 
-**Course placement:** Day 4 — the liquid-measurement studio. Two sessions; the Day 4 feedback slot is defined in the syllabus.
+**Course placement:** Day 4 — the liquid-measurement studio. Two sessions; the Day 4 feedback conversation runs at the bench, with the rules and scheduling in the syllabus.
 
 ## 🎯 Learning Goals
 
@@ -47,6 +47,8 @@ We first taught it in the IoT class at the **University of Applied Sciences Linz
 
 > **If the kit is short:** share the ToF/ultrasonic modules like the scales; the divide-and-conquer split still works.
 
+> **◇ Optional extra:** If you have an MPR121 capacitive-touch board and want the extra challenge, use it instead of the ESP32 touch pins; it is a clean I²C controller and a possible final-project part.
+
 > **Divide and conquer.** Pair with a neighbouring Task Pod. Split the benches — for example, one pod owns distance + IMU, the other owns weight + Hall/capacitive — and share the raw data, calibration records, and picture proofs. **The reports are individual:** cite the shared log, do not copy it.
 
 > **Studio rhythm.** Each session has four modes: **Brief** (read the short concept block), **Bench** (build and measure), **Explain** (a random mini check), and **Log/Swap** (write and exchange). There is no separate Pod Study block; the theory arrives just in time.
@@ -54,8 +56,12 @@ We first taught it in the IoT class at the **University of Applied Sciences Linz
 > **Mini checks are random and short.** The instructor picks a pod and one prompt; answer from your bench or your log.
 
 > **Exchange is planned.** Session 1: your partner pod checks your scale calibration. Session 2: a gallery walk with another pod and an instructor; show the prototype, the selection matrix, and the transfer story.
+>
+> **Day 4 feedback at the bench.** The instructors will join your pod while you work; keep the log, the prototype, and one failure case handy. The rules and scheduling stay in the syllabus.
 
 > **Finish the practice in class.** The two sessions are for building, measuring, and taking the picture proofs. The reports are written outside class from the data and photos you already have.
+>
+> **Visualization is your choice.** Show the tanks however you like: the M5StickC-S3 screen, an OLED, LEDs/buzzer, the Arduino serial plotter, a collage of plots, or another local display. Node-RED is not required in this module; it is available for Module 8 and the final project.
 
 | Session | Focus | Bench | Exchange |
 |---|---|---|---|
@@ -124,12 +130,12 @@ The boat rolls, pitches, and heels; the liquid surface is never flat. Use the IM
 
 1. **Break the measurement on purpose.** Try foam, dirty water, clear/dark liquid, tilt/slosh, an empty tank, a full tank, and condensation. Record what fails and what the failure looks like in the data.
 2. **Add the fix.** Filter, add hysteresis/debounce, or choose a different principle. Set a local low/high alarm with a clear state.
-3. **Build the local display.** Use the M5StickC-S3 screen, an OLED, LEDs/buzzer, or the serial plotter. Show the four tanks (measured or marked as not measured) and one alarm state.
+3. **Build a local visualization.** Use the M5StickC-S3 screen, an OLED, LEDs/buzzer, the serial plotter, or a collage of plots — whatever makes the tanks legible. Show the four tanks (measured or marked as not measured) and one alarm state.
 4. **Take the picture proofs.** Photograph the build, the wiring, the display, the calibration setup, and one failure case. Add a one-sentence caption saying what each picture proves.
 
 ### Deliverable 1 — Prototype and picture proofs
 
-- One working prototype per pair of Task Pods: mock tank + at least two measurement principles + local display/alarm.
+- One working prototype per pair of Task Pods: mock tank + at least two measurement principles + local visualization/alarm.
 - A photo set with captions: build, wiring, display, calibration, failure case.
 - A code link (repository or gist) and a short wiring note.
 - A one-page result table: liquid, principle, range, failure mode, and uncertainty.
@@ -143,7 +149,7 @@ Write this as your own section in `Module04/README.md`. Even when the experiment
 3. Candidate principles and your test evidence.
 4. Selection matrix per tank.
 5. Recommendation per tank: primary and backup, mounting sketch, calibration plan, maintenance.
-6. Local architecture (ESP32/M5StickC-S3 display/alarm) and remote outlook (topics, update rate, alarm payload).
+6. Local visualization and alarm (your choice of display or plot) plus a remote outlook (topics, update rate, alarm payload) — describe it, do not build it in this module.
 7. Risks and open questions.
 
 ### Deliverable 3 — Theory report

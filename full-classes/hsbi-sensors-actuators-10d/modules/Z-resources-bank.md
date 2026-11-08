@@ -245,7 +245,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Capacitive touch | ESP32 `touchRead()` | Baseline drift; re-baseline; avoid strapping pins |
 | I²C convenience | `Wire` (Arduino core) | Scan, read/write registers |
 | I²C tools (Linux) | `i2c-tools` (`i2cdetect`) | Standard bus scan on a Pi/gateway |
-| Integration & dashboards | Node-RED, Mosquitto | Local-first MQTT stack |
+| Integration & dashboards | Node-RED, Mosquitto | Module 8 and the final project; Module 4 visualization is the pod's choice |
 | Simulation | [Wokwi](https://wokwi.com/) | Pre-study and quick prototyping |
 
 <a id="instructor-hints"></a>
