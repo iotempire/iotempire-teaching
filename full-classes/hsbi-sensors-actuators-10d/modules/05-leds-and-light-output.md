@@ -1,6 +1,6 @@
 # Module 5 – LEDs & Light as Output
 
-[← Back to Module 4](./04-distance-motion-and-environment-sensors.md) | [Quick module index](./00-index.md) | [Next: Module 6 →](./06-led-animation-sound-and-installations.md)
+[← Back to Module 4](./04-liquid-measurement-and-sensor-selection.md) | [Quick module index](./00-index.md) | [Next: Module 6 →](./06-led-animation-sound-and-installations.md)
 
 > Light is the actuator you will use most in this course. Today: how to drive it correctly — safely, dimmably, in color, and addressably.
 
@@ -192,4 +192,4 @@ Deliberately introduce problems and record the symptoms: remove the data-line re
 
 ---
 
-[← Previous: Module 4](./04-distance-motion-and-environment-sensors.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 6 — LED Animation, Sound & Interactive Installations →](./06-led-animation-sound-and-installations.md)
+[← Previous: Module 4](./04-liquid-measurement-and-sensor-selection.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 6 — LED Animation, Sound & Interactive Installations →](./06-led-animation-sound-and-installations.md)

@@ -94,8 +94,10 @@ uv run python plot_measurements.py
 | 2 | I²C debugging | A short "logic analyzer reads I²C" demonstration | Where do you see the ACK? What does a NACK tell you? |
 | 2 | Build your own scope/analyzer | A browser-based ESP32 oscilloscope or PulseView logic-analyzer demo | What can it capture, and where is its sampling limit? |
 | 3 | Calibration & transfer function | A short sensor-calibration walkthrough | What is the difference between calibration and verification? |
-| 4 | Time-of-flight vs ultrasonic | A comparison of ToF and ultrasonic distance sensing | Which fails on a black or a soft target, and why? |
-| 4 | IMU / sensor fusion | A short complementary/Kalman filter intuition video | Why does the gyro drift while the accelerometer does not? |
+| 4 | Time-of-flight vs ultrasonic | A comparison of ToF and ultrasonic distance sensing | Which fails on clear water, foam, or a soft target, and why? |
+| 4 | Liquid-level principles | A short level-sensor overview (float, capacitive, ultrasonic, radar, pressure) | Which principle survives foam, clear water, or a moving tank? |
+| 4 | Load-cell scale | A short HX711 / load-cell calibration demo | What do tare and the calibration factor do? |
+| 4 | Motion/shock with an IMU | A short accelerometer threshold/variance explainer | How can acceleration variance distinguish a docked boat from one underway? |
 | 5 | PWM & LED dimming | A "PWM and gamma correction" explainer | Why does a linear ramp look like it "jumps"? |
 | 5 | Addressable LEDs | A WS2812 / NeoPixel overview | Why does each pixel need a driver chip? |
 | 6 | LED animation | An addressable LED animation demo (Adafruit NeoPixel / NeoPixelBus) | How do palettes and HSV simplify effects? |
@@ -110,7 +112,12 @@ uv run python plot_measurements.py
 | Document | Focus | Why it matters |
 |---|---|---|
 | VL53L0X datasheet | Optical ToF, registers, I²C address `0x29` | Your primary distance sensor; the register map is the lesson |
-| MPU6050 register map | Accel/gyro scales, `0x68`/`0x69`, WHO_AM_I | Shows how an IMU is configured via registers |
+| HC-SR04 / ultrasonic module | 40 kHz burst, echo timing, beam angle, 5 V logic | The acoustic level sensor and its foam/angle failure modes |
+| HX711 + load cell | Bridge excitation, differential input, gain, tare, calibration | The mass-based level measurement and its uncertainty |
+| M5StickC-S3 / BMI270 datasheet | 6-axis IMU, I²C, accelerometer/gyro ranges | The simple shock/motion detector for harbor vs. outside |
+| Hall sensor (analog/latch) | Magnetic field vs. distance, threshold, hysteresis | The magnetic float and the reed/float switch |
+| Capacitive / float / reed switch datasheets | Dielectric sensing, through-wall, buoyancy, contact rating | The non-distance alternatives and their mounting constraints |
+| MPU6050 register map | Accel/gyro scales, `0x68`/`0x69`, WHO_AM_I | Optional reference for IMU configuration |
 | LDR (photoresistor) characteristics | Resistance vs. illuminance, spectral response, light history | The analog, nonlinear transfer-function lab |
 | DS18B20 datasheet | 9–12-bit resolution, ±0.5 °C accuracy, conversion time, OneWire, sealed probe | The digital-sensor characterization and the frost-alarm decision |
 | DHT11 datasheet | 0–50 °C, ±2 °C, 1 °C resolution, 20–90 % RH, ±5 % RH, ~1 Hz, proprietary single-wire | The cheap-sensor counterexample for the frost alarm |
@@ -130,6 +137,7 @@ uv run python plot_measurements.py
 |---|---|---|
 | SSD1306 OLED | `0x3C` / `0x3D` | Often shown as `0x78`/`0x7A` in 8-bit form |
 | MPU6050 IMU | `0x68` / `0x69` | `AD0` pin selects |
+| BMI270 IMU (M5StickC-S3) | `0x68` (some boards `0x69`) | Internal on the StickS3; check the board docs |
 | VL53L0X ToF | `0x29` | Fixed; conflicts need power-cycling or a mux |
 | BME280 / BMP280 | `0x76` / `0x77` | Environment |
 | SHT3x | `0x44` / `0x45` | Environment |
@@ -154,6 +162,13 @@ LDR power law:       R = A · E^(−γ)        (log R = log A − γ log E)
 DS18B20 (12-bit):    T = code · 0.0625 °C
 DS18B20 conversion:  9 bit 93.75 ms, 10 bit 187.5 ms, 11 bit 375 ms, 12 bit 750 ms
 OneWire pull-up:     4.7 kΩ to 3.3 V
+ToF distance:        d = c · t / 2
+Ultrasonic distance: d = v · t / 2,  v ≈ 331 + 0.6 · T  [m/s, T in °C]
+Level from distance: h = H − d
+Cylinder volume:     V = A · h = π · r² · h
+Mass → volume:       V = m / ρ
+Scale calibration:   m = (raw − offset) / scale
+Hydrostatic pressure: p = ρ · g · h
 NTC (optional):      1/T = 1/T0 + (1/B) · ln(R/R0)      [T in Kelvin]
 Servo:               1.0 ms ≈ 0°, 1.5 ms ≈ 90°, 2.0 ms ≈ 180° at 50 Hz
 WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
@@ -166,6 +181,8 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 |---|---|
 | USB power meter | Log current for strips, servos, motors; verify the power budget |
 | Multimeter | One per two pods — use it for reference checks; the ESP32 scope/analyzer is the primary bus instrument |
+| HX711 scale + calibration weights | Three shared scales, one per two pods; tare and verify with known masses |
+| M5StickC-S3 | Built-in display and BMI270 IMU; motion/shock and local readout |
 | ESP32 scope/logic analyzer | I²C/OneWire transactions, PWM duty, slow analog signals; built/selected in Module 2 |
 | Reference thermometer / lux meter | A reference for your characterization labs |
 
@@ -190,8 +207,15 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Bus "locks up" after a while | One device holding SDA low / noise | Shorter wires, lower speed, power-cycle, check one device at a time | 2 |
 | Sensor reading drifts with load | Self-heating or supply sag | Isolate the sensor, check supply, average | 3 |
 | Reading is jumpy | Noise / no filtering | Add averaging/median, tidy wiring, add decoupling | 3 |
-| Distance wrong on dark/shiny targets | Reflectance-dependent principle | Re-characterize; choose a different principle | 4 |
-| Gyro angle drifts | Bias in the gyroscope | Use a complementary/Kalman filter | 4 |
+| Distance wrong on dark/shiny/clear targets | Reflectance-dependent principle | Re-characterize; compare with the scale; choose a different principle | 4 |
+| ToF reads wrong on clear water | Clear liquid reflects/scatters poorly; the beam may see the bottom | Use the scale as reference; try ultrasonic; document the failure | 4 |
+| Ultrasonic reading jumps with foam | Foam absorbs/deflects the burst | Remove foam, use another principle, or filter and flag | 4 |
+| Level reading oscillates | Slosh, tilt, or vibration | Log a series; filter/median; add hysteresis; use the IMU to label the state | 4 |
+| HX711 reading drifts or is noisy | Unstable supply, long leads, temperature, mounting | Short leads, stable supply, tare, average, check with known masses | 4 |
+| HX711 not detected / readings saturated | Wiring, gain, or overload | Check E+/E−/A+/A−, common ground, reduce load, verify with a known mass | 4 |
+| Capacitive sensor triggers without water | Grounding, humidity, baseline drift | Re-baseline, keep the foil flat, avoid stray capacitance | 4 |
+| Ultrasonic modules interfere | Crosstalk between pods | Stagger firing or shield; keep the beams apart | 4 |
+| Water or oil on the electronics | Spills | Dry tray, towels, keep the ESP32 and scale dry; clean immediately | 4 |
 | LED dims other parts of the circuit | Drawing too much from the pin/rail | Use a driver/transistor, separate supply | 5 |
 | RGB "white" looks wrong | Channel imbalance / common anode mixup | Rebalance channels; check anode/cathode | 5 |
 | WS2812 flickers or shows wrong colors | Data level, grounding, or power | Level shifter, common ground, data resistor, decoupling cap, power injection | 5 |
@@ -215,6 +239,10 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | ESP32 scope/analyzer | ESP32 logic analyzer / web scope | Built/selected in Module 2; see the [Module 2 candidate shortlist](./02-i2c-and-sensor-addressing.md) |
 | Addressable LEDs | Adafruit NeoPixel; NeoPixelBus | Simple bring-up vs. robust/multi-strip; FastLED as a reference only |
 | DHT11 / DHT22 | Adafruit DHT sensor library or DHTesp | Timing-sensitive single-wire protocol; not 1-Wire; respect the sampling interval |
+| HX711 scale | HX711 Arduino library (bogde/HX711) or a scale library | Tare, calibration factor, raw reads; verify with known masses |
+| M5StickC-S3 IMU/display | M5Unified / M5GFX; BMI270 driver | Use the board support; read acceleration; no fusion needed |
+| Distance sensors | VL53L0X library (Pololu/Adafruit); ultrasonic `pulseIn`/NewPing | Check the 5 V echo level; use a divider |
+| Capacitive touch | ESP32 `touchRead()` | Baseline drift; re-baseline; avoid strapping pins |
 | I²C convenience | `Wire` (Arduino core) | Scan, read/write registers |
 | I²C tools (Linux) | `i2c-tools` (`i2cdetect`) | Standard bus scan on a Pi/gateway |
 | Integration & dashboards | Node-RED, Mosquitto | Local-first MQTT stack |
@@ -223,7 +251,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 <a id="instructor-hints"></a>
 ## 🧑‍🏫 Instructor hints
 
-Course-wide teaching hints — first-studio kit check, Task Pods and feedback rounds, studio rhythm, stories, demo day, and the optional slides — are in the [general teaching hints](../instructor-notes/01-general-teaching-hints.md). Module 3 setup, water prep, the fall field transect, and the DHT11 comparison are in the [Module 3 studio note](../instructor-notes/02-module-3-studio.md).
+Course-wide teaching hints — first-studio kit check, Task Pods and feedback rounds, studio rhythm, stories, demo day, and the optional slides — are in the [general teaching hints](../instructor-notes/01-general-teaching-hints.md). Module 3 setup, water prep, the fall field transect, and the DHT11 comparison are in the [Module 3 studio note](../instructor-notes/02-module-3-studio.md). Module 4 setup — the three HX711 scales, liquids and materials, the IMU motion check, and the two-session studio — is in the [Module 4 studio note](../instructor-notes/03-module-4-studio.md).
 
 <a id="story-craft-is-it-concrete-enough"></a>
 ## ✍️ Story craft: is it concrete enough?
@@ -241,7 +269,10 @@ The module stories share a small cast of named (fictional) organizations and peo
 | 2, 5, 6, 9, 10 | **Lumenwerk Gütersloh GmbH** — interactive light installations | **Mara Voss** (creative director), **Jonas Feld** (embedded technician) | Gütersloh |
 | 2, 5, 6, 9, 10 | **Stadtmuseum** — the exhibition client | **Aylin Demir** (curator) | Gütersloh |
 | 3, 8, 9 | **Klimapark GmbH** — a greenhouse / urban-farming startup | **Dr. Elif Kaya** (agronomist), **Tobias Kern** (operations) | Gütersloh |
-| 4, 7, 9 | **Brinkmann Maschinenbau GmbH** — special-purpose machines | **Hendrik Brinkmann** (workshop lead), **Sofia Roth** (automation engineer) | Bielefeld / Gütersloh |
+| 7, 9 | **Brinkmann Maschinenbau GmbH** — special-purpose machines | **Hendrik Brinkmann** (workshop lead), **Sofia Roth** (automation engineer) | Bielefeld / Gütersloh |
+| 4, 9 | **Nordsee Charter Cuxhaven GmbH** — charter yacht **SY "Nordwind"** | **Hauke Petersen** (skipper/owner), **Imke Thomsen** (marine systems engineer) | Cuxhaven / German Bight |
+
+> The original liquid-measurement challenge was co-developed on the US yacht **Hither-and-Yarn**; the North Sea charter and its cast are the fictional teaching adaptation.
 
 > Cross-course consistency: Wittkamp, Frachtflow, and the local-first theme also appear in the Databases and Networking courses. Reuse the names, but keep each course's story self-contained.
 
@@ -251,6 +282,7 @@ The module stories share a small cast of named (fictional) organizations and peo
 - **Measurement and uncertainty:** [Wikipedia: Measurement](https://en.wikipedia.org/wiki/Measurement) · [Accuracy and precision](https://en.wikipedia.org/wiki/Accuracy_and_precision) · [Measurement uncertainty](https://en.wikipedia.org/wiki/Measurement_uncertainty) · [GUM](https://www.bipm.org/en/publications/guides/gum.html)
 - **Signals and conversion:** [Analog-to-digital converter](https://en.wikipedia.org/wiki/Analog-to-digital_converter) · [Nyquist–Shannon sampling theorem](https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem) · [Espressif ADC documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html)
 - **Sensors:** [Thermistor](https://en.wikipedia.org/wiki/Thermistor) · [Hall effect sensor](https://en.wikipedia.org/wiki/Hall_effect_sensor) · [Inertial measurement unit](https://en.wikipedia.org/wiki/Inertial_measurement_unit) · [VL53L0X](https://www.st.com/en/imaging-and-photonics-solutions/vl53l0x.html)
+- **Liquid level and weighing:** [Level sensor](https://en.wikipedia.org/wiki/Level_sensor) · [Load cell](https://en.wikipedia.org/wiki/Load_cell) · [HX711 guide](https://learn.sparkfun.com/tutorials/load-cell-amplifier-hx711-breakout-hookup-guide) · [Ultrasonic transducer](https://en.wikipedia.org/wiki/Ultrasonic_transducer)
 - **Actuators:** [Light-emitting diode](https://en.wikipedia.org/wiki/Light-emitting_diode) · [Pulse-width modulation](https://en.wikipedia.org/wiki/Pulse-width_modulation) · [Servomotor](https://en.wikipedia.org/wiki/Servomotor) · [Stepper motor](https://en.wikipedia.org/wiki/Stepper_motor)
 - **Systems:** [MQTT essentials](https://www.hivemq.com/mqtt-essentials/) · [Mosquitto](https://mosquitto.org/) · [Node-RED](https://nodered.org/docs/) · [Control theory](https://en.wikipedia.org/wiki/Control_theory) · optional [IoTempower](https://github.com/iotempire/iotempower)
 - **Method:** [Story-driven modeling](https://en.wikipedia.org/wiki/Story-driven_modeling) · [Challenge-based learning](https://en.wikipedia.org/wiki/Challenge-based_learning) · [Project-based learning](https://www.pblworks.org/what-is-pbl)
@@ -258,6 +290,7 @@ The module stories share a small cast of named (fictional) organizations and peo
 ## 🧑‍🏫 Discussion Starters
 
 - *"Your sensor is precise but inaccurate. Which of the two can calibration fix, and which can it not?"*
+- *"Your tank sensor is accurate on the bench and wrong at sea. Which failure mode did you not test?"*
 - *"A 12-bit ADC sounds great. Give one reason your real measurement is far worse than 12 bits."*
 - *"You have two sensors but only one address. Name two different ways to make them coexist."*
 - *"Your strip is beautiful for 10 minutes and browns out at full white. What did you forget?"*

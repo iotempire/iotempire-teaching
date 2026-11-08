@@ -77,7 +77,7 @@ You have developed practical mastery of:
 - [Wikipedia: Story-driven modeling](https://en.wikipedia.org/wiki/Story-driven_modeling) — the method behind the project stories.
 - [Wikipedia: Fault injection](https://en.wikipedia.org/wiki/Fault_injection) — the resilience evidence you present.
 - [Wikipedia: Technical presentation](https://en.wikipedia.org/wiki/Technical_presentation) — structure, evidence, and time discipline.
-- The [resource bank's instructor hints](./Z-resources-bank.md#instructor-hints) — how the artifact presentation is run.
+- The [general teaching hints](../instructor-notes/01-general-teaching-hints.md#demo-day) — how the artifact presentation is run.
 
 ---
 

@@ -1,6 +1,6 @@
 # Sensors and Actuators (Sensorik und Aktorik) — Module Index & Roadmap
 
-[← Course workbook](../README.md) | [Pre-study guide](../pre-study.md) | [Syllabus](../syllabus.md)
+[← Course workbook](../README.md) | [Pre-study guide](../pre-study.md) | [Syllabus](../syllabus.md) | [Instructor notes](../instructor-notes/)
 
 ## Session roadmap (10 days, one module per day)
 
@@ -10,7 +10,7 @@
 | [Module 1](./01-foundations-measurement-and-sensor-chain.md) | Day 1 | Foundations: Electronics, Arduino & Measurement | Basic electronics (LED actor, button with pull-up/pull-down, debouncing), Arduino serial console and plotting, metrology and the signal chain, ADC precision dance, LDR and first filtering. |
 | [Module 2](./02-i2c-and-sensor-addressing.md) | Day 2 | Buses & I²C: From Simple Pins to One Bus, Many Devices | Simple pins/PWM/voltage divider (optional UART detour), bus survey (RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire), I²C wiring/scan/register, address conflicts, scope/analyzer sprint. |
 | [Module 3](./03-sensor-characterization-and-calibration.md) | Day 3 | Sensor Characterization, Calibration & Data Quality | Transfer function, linearity, hysteresis, calibration, filtering, uncertainty of an LDR/DS18B20 and the ADC chain. |
-| [Module 4](./04-distance-motion-and-environment-sensors.md) | Day 4 | Distance, Motion & Environment Sensors **+ Checkpoint 1** | ToF and ultrasonic distance, people counting, IMU tilt/drift/fusion, Hall current sensing. |
+| [Module 4](./04-liquid-measurement-and-sensor-selection.md) | Day 4 | Liquid Measurement & Sensor Selection **+ Checkpoint 1** | ToF/ultrasonic level, HX711 mass, Hall float, capacitive/conductive, IMU shock/motion, failure modes; Nordwind recommendation and theory reports. |
 | [Module 5](./05-leds-and-light-output.md) | Day 5 | LEDs & Light as Output | Current limiting, PWM and gamma, RGB mixing, addressable WS2812, power budget. |
 | [Module 6](./06-led-animation-sound-and-installations.md) | Day 6 | LED Animation, Sound & Interactive Installations | Non-blocking animation, palettes and blending, sensor- and sound-reactive installations. |
 | [Module 7](./07-motors-and-motion-actuators.md) | Day 7 | Motors & Motion Actuators | Servo position, DC motor with H-bridge, stepper steps, current and stall, sensor→motor logic. |
@@ -19,7 +19,8 @@
 | [Module 10](./10-demonstration-and-presentation.md) | Day 10 | Project Presentation & Submitted Artifacts | Artifact-based presentation of the submitted slide deck and demo artifacts, measurement and fault-injection evidence, portfolio walkthrough. |
 | [Session 1 slides](../slides/01-introduction.md) | Day 1 | Supplementary | Plain-Markdown intro deck: whoami, first portfolio notes, course contract, pre-study rehash, and hand-over to the Module 1 tasks. |
 | [Prompt bank](./Y-resources-prompt-bank.md) | — | Supplementary | Reflection prompts, LLM-verification drills, quick references. |
-| [Resource bank](./Z-resources-bank.md) | — | Supplementary | Datasheets, cheat sheets, Git/GitHub primer, story canon, troubleshooting, instructor hints. |
+| [Resource bank](./Z-resources-bank.md) | — | Supplementary | Datasheets, cheat sheets, Git/GitHub primer, story canon, troubleshooting. |
+| [Instructor notes](../instructor-notes/) | — | Supplementary | Course operations, teaching hints, module studio notes, and alternative modules. |
 
 ## What changed, and why
 

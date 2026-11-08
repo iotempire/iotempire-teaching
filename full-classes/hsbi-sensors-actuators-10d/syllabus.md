@@ -232,14 +232,15 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 The kit is deliberately two-layered, so you can move fast and still meet real physics:
 
 - **Fast path — M5Stack nodes and Grove modules:**
-  - M5StickC Plus2 and/or M5Atom Matrix / Lite (ESP32-based, built-in display, button, IMU, Grove port).
+  - M5StickC Plus2, M5StickC-S3 (StickS3, BMI270 IMU), and/or M5Atom Matrix / Lite (ESP32-based, built-in display, button, IMU, Grove port).
   - Grove sensors (I²C and analog): environment (T/RH/P), ToF distance, PIR, light/gesture.
   - Grove actuators: RGB LED, buzzer, servo, relay.
 - **Physics path — raw microcontrollers and discrete parts:**
   - ESP32 DevKits, ESP32 Ethernet mini kits, and ESP8266 / Wemos D1 Mini boards, breadboards, jumper wires, resistors, capacitors, diodes.
   - Discrete sensors: LDR, potentiometer, DHT11 (optional comparison), Hall-effect (analog + digital latch), DS18B20 (OneWire, sealed probe), MPU6050 (I²C), ultrasonic, light barrier (photo-interrupter).
+  - Liquid-level parts: clear plastic bottles, foil/copper tape, cork floats, magnets.
   - Actuators: SG90 servo, small DC motor, 28BYJ-48 stepper with ULN2003, H-bridge driver (TB6612 / L298N), 5 V relay, piezo buzzer, high-brightness RGB LEDs, WS2812 / NeoPixel strip.
-- **Instruments:** **three shared digital multimeters** (one per two pods), USB power meter, thermometer for reference measurements; **no benchtop oscilloscope** — Module 2 builds/selects an ESP32-based scope/logic analyzer (with PulseView/sigrok) that the class uses for the rest of the course.
+- **Instruments:** **three shared digital multimeters** (one per two pods), **three shared HX711 load-cell scales with calibration weights** (one per two pods), USB power meter, thermometer for reference measurements; **no benchtop oscilloscope** — Module 2 builds/selects an ESP32-based scope/logic analyzer (with PulseView/sigrok) that the class uses for the rest of the course.
 - **Broker & infrastructure:** a Mosquitto MQTT broker running on any host in the network — a local OpenWrt travel router, a small Linux/Raspberry Pi host, or a laptop — plus laptops, USB power supplies, and hubs. Node-RED is optional; IoTempower is an optional declarative tool.
 
 > [!WARNING]
@@ -257,7 +258,7 @@ The 10 days correspond to 48 contact hours, with **one module per day**. Session
 | 1 | [Module 1 — Foundations: Electronics, Arduino & Measurement](./modules/01-foundations-measurement-and-sensor-chain.md) | Basic electronics (LED actor, button with pull-up/pull-down, debouncing), Arduino serial console and plotting, metrology and error, digital signal chain, ADC precision dance, LDR and first filtering. |
 | 2 | [Module 2 — Buses & I²C: From Simple Pins to One Bus, Many Devices](./modules/02-i2c-and-sensor-addressing.md) | *Two 90-minute sessions with a break; the instrument sprint can continue into self-study:* simple pins/PWM/voltage divider (optional UART detour), bus survey (RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire), I²C wiring/scan/register, address conflicts, scope/analyzer sprint. |
 | 3 | [Module 3 — Sensor Characterization, Calibration & Data Quality](./modules/03-sensor-characterization-and-calibration.md) | Transfer function, linearity, hysteresis, calibration, filtering, uncertainty of an LDR/DS18B20 and the ADC chain. |
-| 4 | [Module 4 — Distance, Motion & Environment Sensors](./modules/04-distance-motion-and-environment-sensors.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* ToF and ultrasonic distance, person counting, IMU tilt/rotation, Hall-effect current sensing. |
+| 4 | [Module 4 — Liquid Measurement & Sensor Selection](./modules/04-liquid-measurement-and-sensor-selection.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* liquid-level sensing for a charter boat — ToF/ultrasonic level, HX711 mass, Hall float, capacitive/conductive, IMU shock/motion, failure modes; Nordwind recommendation and theory reports. |
 | 5 | [Module 5 — LEDs & Light as Output](./modules/05-leds-and-light-output.md) | LED current limiting, PWM and gamma, RGB mixing, first addressable strip and power budget. |
 | 6 | [Module 6 — LED Animation, Sound & Interactive Installations](./modules/06-led-animation-sound-and-installations.md) | Non-blocking animation patterns, palettes, sensor-triggered and sound-reactive installations. |
 | 7 | [Module 7 — Motors & Motion Actuators](./modules/07-motors-and-motion-actuators.md) | Servo control, DC motor speed/direction with an H-bridge, stepper stepping, current measurement. |

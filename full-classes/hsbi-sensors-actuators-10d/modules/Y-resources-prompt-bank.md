@@ -58,13 +58,14 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 3. Technical: *Noise vs. latency:* Present your raw/mean/median noise numbers and the latency each filter adds.
 4. Process: *Uncertainty honesty:* Write your uncertainty budget and state `y ± U`. Which contribution dominates, and why?
 
-## 📌 Module 4 – Distance, Motion & Environment Sensors
-*Focus: ToF/ultrasonic/IR, IMU, Hall/current, environment sensors.*
+## 📌 Module 4 – Liquid Measurement & Sensor Selection
+*Focus: ToF/ultrasonic level, HX711 mass, Hall float, capacitive/conductive, IMU shock/motion, failure modes, sensor selection.*
 
-1. Technical: *ToF characterization:* Report error and repeatability across the range and for different targets.
-2. Technical: *Principle comparison:* Give one task each where IR, ultrasonic, and ToF win — with justification.
-3. Hybrid: *People counter:* Present your state machine, timing window, and the false detections you observed.
-4. Technical: *IMU drift:* Show the gyro drift over time and the effect of your complementary filter.
+1. Technical: *Two ways to measure one tank:* Compare distance vs. mass, including calibration and uncertainty.
+2. Technical: *Principle comparison:* Which principle wins for clear water, dirty water, oil, and bilge water — and why?
+3. Hybrid: *Failure modes:* Show one measurement that fails with foam, clear water, tilt, or an empty/full end stop, and the fix.
+4. Technical: *Motion:* Show how you used the IMU to distinguish harbor from outside, and how motion affected the level reading.
+5. Project context: *Recommendation:* Defend your Nordwind selection and your local industrial transfer.
 
 ## 📌 Module 5 – LEDs & Light as Output
 *Focus: current limiting, PWM/gamma, RGB mixing, addressable strips, power budget.*

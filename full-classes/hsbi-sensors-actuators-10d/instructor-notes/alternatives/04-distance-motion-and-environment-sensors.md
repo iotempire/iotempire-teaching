@@ -1,6 +1,8 @@
-# Module 4 – Distance, Motion & Environment Sensors
+# Module 4 (alternative) – Distance, Motion & Environment Sensors
 
-[← Back to Module 3](./03-sensor-characterization-and-calibration.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-leds-and-light-output.md)
+> **Alternative Module 4 — kept for instructors.** This is the earlier distance/motion/environment version. It is not part of the current student path; the active Module 4 is [Liquid Measurement & Sensor Selection](../../modules/04-liquid-measurement-and-sensor-selection.md). Links have been adjusted for this archive location.
+
+[← Back to Module 3](../../modules/03-sensor-characterization-and-calibration.md) | [Back to front page](../../README.md) | [Quick module index](../../modules/00-index.md) | [Next: Module 5 →](../../modules/05-leds-and-light-output.md)
 
 > Today: how the world around the node is measured. Distance, motion, touch, and environment are the workhorses of the example projects — people counters, flow sensors, interactive installations.
 
@@ -76,7 +78,7 @@ For simple use cases you often do not need full fusion — a tilt angle from the
 - Ultrasonic ranging — [Wikipedia: Ultrasonic transducer](https://en.wikipedia.org/wiki/Ultrasonic_transducer) and the HC-SR04 datasheet
 - IMUs and sensor fusion — [Wikipedia: Inertial measurement unit](https://en.wikipedia.org/wiki/Inertial_measurement_unit), [Complementary filter](https://en.wikipedia.org/wiki/Complementary_filter)
 - Hall effect and current sensing — [Wikipedia: Hall effect sensor](https://en.wikipedia.org/wiki/Hall_effect_sensor)
-- Environment sensors — the BME280/SHT3x/DS18B20 datasheets linked in the [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once)
+- Environment sensors — the BME280/SHT3x/DS18B20 datasheets linked in the [resource bank](../../modules/Z-resources-bank.md#datasheets--standards-to-read-once)
 
 ### Questions to ask an LLM (then verify against your hardware)
 
@@ -196,8 +198,8 @@ Use a Hall sensor to build a simple current monitor (the announcement lists "cur
 - [VL53L0X](https://www.st.com/en/imaging-and-photonics-solutions/vl53l0x.html) — the register map and the reflectance caveats.
 - [Wikipedia: Inertial measurement unit](https://en.wikipedia.org/wiki/Inertial_measurement_unit) and [Complementary filter](https://en.wikipedia.org/wiki/Complementary_filter) — why gyro and accelerometer need each other.
 - [Wikipedia: Hall effect sensor](https://en.wikipedia.org/wiki/Hall_effect_sensor) — current sensing without a shunt.
-- The BME280/SHT3x/DS18B20 datasheets — linked from the [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once).
+- The BME280/SHT3x/DS18B20 datasheets — linked from the [resource bank](../../modules/Z-resources-bank.md#datasheets--standards-to-read-once).
 
 ---
 
-[← Previous: Module 3](./03-sensor-characterization-and-calibration.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 5 — LEDs & Light as Output →](./05-leds-and-light-output.md)
+[← Previous: Module 3](../../modules/03-sensor-characterization-and-calibration.md) | [Back to front page](../../README.md) | [Quick module index](../../modules/00-index.md) | [Next: Module 5 — LEDs & Light as Output →](../../modules/05-leds-and-light-output.md)

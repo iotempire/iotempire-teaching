@@ -1,6 +1,6 @@
 # Module 3 – Sensor Characterization, Calibration & Data Quality
 
-[← Back to Module 2](./02-i2c-and-sensor-addressing.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 4 →](./04-distance-motion-and-environment-sensors.md)
+[← Back to Module 2](./02-i2c-and-sensor-addressing.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 4 →](./04-liquid-measurement-and-sensor-selection.md)
 
 > A number without a transfer function and an uncertainty is not a measurement. Today you turn raw readings into characterized, calibrated, trustworthy values.
 
@@ -466,4 +466,4 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 ---
 
-[← Previous: Module 2](./02-i2c-and-sensor-addressing.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 4 — Distance, Motion & Environment Sensors →](./04-distance-motion-and-environment-sensors.md)
+[← Previous: Module 2](./02-i2c-and-sensor-addressing.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 4 — Liquid Measurement & Sensor Selection →](./04-liquid-measurement-and-sensor-selection.md)

@@ -14,7 +14,7 @@ Form Task Pods of two or three on Day 1: two is the default; use three for a lar
 
 ## Studio rhythm
 
-Open with a short warm-up, then a pod-study block (concepts, pointers, LLM Q&A, study log), a share with a neighbouring pod, a short whole-room clarification, then the lab. Split this across the day's sessions as the timetable allows, and protect the break. Consider closing a session with a five-minute **harvest** — the optional, ungraded curiosity swap described in [Module 1](../modules/01-foundations-measurement-and-sensor-chain.md#harvest); if it does not fit, skip it, and never turn it into a quiz. Resist the urge to lecture the concept a second time; let the pod study surface the gaps.
+Open with a short warm-up. Some modules use a pod-study block (concepts, pointers, LLM Q&A, study log), a share with a neighbouring pod, a short whole-room clarification, then the lab; Modules 3 and 4 instead run the theory as just-in-time briefs inside the studio (Brief → Bench → Explain → Log/Swap). Split this across the day's sessions as the timetable allows, and protect the break. Consider closing a session with a short **harvest** — the optional, ungraded curiosity swap described in [Module 1](../modules/01-foundations-measurement-and-sensor-chain.md#harvest); if it does not fit, skip it, and never turn it into a quiz. Resist the urge to lecture the concept a second time; let the pod study surface the gaps.
 
 ## Stories
 
@@ -31,5 +31,6 @@ Session 1 has a plain-Markdown deck — [`slides/01-introduction.md`](../slides/
 ## Module-specific notes
 
 - [Module 3 studio](./02-module-3-studio.md) — LDR/potentiometer/DS18B20 setup, multimeter pairing, water prep, fall field transect, DHT11 comparison, running the three rounds.
+- [Module 4 studio](./03-module-4-studio.md) — three HX711 scales, liquid/materials prep, IMU shock/motion, divide-and-conquer pairing, running the two sessions.
 
 [All instructor notes](./README.md) · [Syllabus](../syllabus.md) · [Module index](../modules/00-index.md)

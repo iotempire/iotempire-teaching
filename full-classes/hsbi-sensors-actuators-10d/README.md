@@ -10,7 +10,8 @@ The course runs over **10 working days / 48 contact hours**, with **one module p
 - **[Syllabus](./syllabus.md)** — the single source of truth: schedule, learning objectives, the learning-goals contract, tools, and policies.
 - **[Pre-study guide](./pre-study.md)** — Module 0: start here before Day 1.
 - **[Prompt bank](./modules/Y-resources-prompt-bank.md)** — reflection prompts and LLM-verification drills.
-- **[Resource bank](./modules/Z-resources-bank.md)** — cheat sheets, datasheets, Git/GitHub primer, story canon, troubleshooting, and instructor hints.
+- **[Resource bank](./modules/Z-resources-bank.md)** — cheat sheets, datasheets, Git/GitHub primer, story canon, and troubleshooting.
+- **[Instructor notes](./instructor-notes/)** — course operations, teaching hints, module studio notes, and alternative modules.
 
 ## Why this course looks different
 
@@ -18,7 +19,7 @@ A sensor is not a number, and an actuator is not a pin that goes high. Most cour
 
 - **You go to the bus before the device.** You wire and scan I²C, read registers, and resolve address conflicts before you trust a library.
 - **You characterize what you measure.** You determine real transfer functions, linearity, hysteresis, resolution, and uncertainty, then calibrate and filter.
-- **You build real systems.** Distance, motion, environment, Hall/current, LEDs and animation, servos, DC motors, and steppers — each with its driver, current draw, and safety rules.
+- **You build real systems.** Liquid measurement and sensor selection, LEDs and animation, servos, DC motors, and steppers — each with its driver, current draw, and safety rules.
 - **You connect the node to a system.** Your sensor/actuator node publishes directly over MQTT to a Mosquitto broker running anywhere on the local network, with an optional Node-RED dashboard and a closed control loop. [IoTempower](https://github.com/iotempire/iotempower) is available as an optional declarative shortcut if you want to explore it.
 - **You prove claims with evidence.** A number without units, conditions, and uncertainty is not a measurement. A demonstration without a characterization is not engineering.
 
@@ -40,7 +41,7 @@ And this class is always in flux — that is a feature, not a bug. No course is 
 
 - **10 working days / 48 contact hours**, one module per day; session lengths vary (typically two sessions of 2 × 45 min, with longer blocks on some days).
 - **Module 0 (pre-study):** portfolio setup, measurement basics, datasheet reading, and a Wokwi mini-exercise — completed before Day 1 (or run as the first in-class module when the cohort needs more setup time).
-- **Modules 1–8:** one technical module per day — basic electronics, Arduino/serial basics, measurement and the signal chain; a bus survey from simple pins through RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire, I²C addressing, and the ESP32 scope/logic-analyzer sprint; characterization and calibration; distance/motion/environment sensors; LEDs and light; animation and installations; motors; and system integration.
+- **Modules 1–8:** one technical module per day — basic electronics, Arduino/serial basics, measurement and the signal chain; a bus survey from simple pins through RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire, I²C addressing, and the ESP32 scope/logic-analyzer sprint; characterization and calibration; liquid measurement and sensor selection; LEDs and light; animation and installations; motors; and system integration.
 - **Modules 9–10:** the final-project arc — a story-driven sensor/actuator system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then presented as submitted artifacts on the final day.
 - **Workload:** 150 hours total (5 ECTS) — 48 contact hours, about 10 hours of Module 0 preparation, and the remaining 60–90 hours as self-study, portfolio, reflection, and final project. Plan for **at least 6 hours per week** outside class.
 
@@ -59,7 +60,7 @@ The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-templ
 
 ## What you will work with
 
-- **Hardware:** M5Stack nodes and Grove modules (fast path); ESP32/ESP8266 boards, breadboards, and discrete sensors/actuators (physics path); **three shared multimeters** (one per two pods), USB power meter; **no benchtop oscilloscope** — in Module 2 you first survey the bus landscape (simple pins, UART, RS-232/RS-485, Modbus, CAN, I²C, SPI, OneWire) and then build/select an ESP32-based scope/logic analyzer for I²C, OneWire, PWM, and slow analog signals.
+- **Hardware:** M5Stack nodes and Grove modules (fast path); ESP32/ESP8266 boards, breadboards, and discrete sensors/actuators (physics path); **three shared multimeters** (one per two pods), **three shared HX711 load-cell scales with calibration weights** (one per two pods), USB power meter; **no benchtop oscilloscope** — in Module 2 you first survey the bus landscape (simple pins, UART, RS-232/RS-485, Modbus, CAN, I²C, SPI, OneWire) and then build/select an ESP32-based scope/logic analyzer for I²C, OneWire, PWM, and slow analog signals.
 - **Firmware:** Arduino IDE v2 or PlatformIO with the ESP32/ESP8266 cores; **Adafruit NeoPixel** for a simple strip bring-up and **NeoPixelBus** for robust/multi-strip work. **FastLED** is kept as a reference/alternative, not the default.
 - **System layer:** a Mosquitto MQTT broker on any host in the network (travel router, Raspberry Pi, or laptop), direct MQTT from the node (for example `PubSubClient`), and optional Node-RED dashboards.
 - **Optional exploration:** [IoTempower](https://github.com/iotempire/iotempower) for declarative drivers, filters, and OTA deployment — not required for the core labs.
@@ -71,12 +72,13 @@ The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-templ
 
 The workbook is meant to be reused and adapted. It relies on open hardware and open-source software; the labs are self-contained and run on a local network; and each module keeps its learning goals separate from the (draft) tasks, so you can swap exercises without breaking the course. Fork it, translate it, and change the stories to your own context — and please keep the attribution to IoTempower and Ulrich Norbisrath. Feedback and pull requests are welcome.
 
-Instructor hints — running the checkpoints, presenting from the workbook, hardware-kit tips, and the story canon — live in the [resource bank](./modules/Z-resources-bank.md#instructor-hints). **Course operations** — the Kombinationsprüfung mapping, milestone plan, group sign-off template, re-examination guidance, and privacy rules — live in [`instructor-notes/`](./instructor-notes/), in the open so students can see how the course is run. Session 1 has a plain-Markdown slide deck — [`slides/01-introduction.md`](./slides/01-introduction.md) — that opens in any Markdown viewer and renders to a 16:9 PDF with **pandoc + Typst** ([`slides/render-slides.sh`](./slides/render-slides.sh)), presented fullscreen in **Okular**. Slides are separated by a `---` line; there is no notebook runtime and no build step.
+Teaching hints — running the studio, module-specific setup, and hardware-kit tips — live in [`instructor-notes/`](./instructor-notes/); the story canon and technical reference stay in the [resource bank](./modules/Z-resources-bank.md#story-canon-the-recurring-cast). **Course operations** — the Kombinationsprüfung mapping, milestone plan, group sign-off template, re-examination guidance, and privacy rules — live in [`instructor-notes/`](./instructor-notes/), in the open so students can see how the course is run. Session 1 has a plain-Markdown slide deck — [`slides/01-introduction.md`](./slides/01-introduction.md) — that opens in any Markdown viewer and renders to a 16:9 PDF with **pandoc + Typst** ([`slides/render-slides.sh`](./slides/render-slides.sh)), presented fullscreen in **Okular**. Slides are separated by a `---` line; there is no notebook runtime and no build step.
 
 ## Navigation & resources
 
 - [Module index & roadmap](./modules/00-index.md)
 - [Syllabus](./syllabus.md)
+- [Instructor notes](./instructor-notes/)
 - [Pre-study guide](./pre-study.md)
 - [Reflection prompts & LLM-verification drills](./modules/Y-resources-prompt-bank.md)
 - [Cheat sheets, datasheets, Git primer, story canon & troubleshooting](./modules/Z-resources-bank.md)
