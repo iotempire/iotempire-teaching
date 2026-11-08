@@ -59,6 +59,9 @@ Your instructor will hand you an **M5StickC** pre-programmed with [IoTempower](h
 5. *Bonus:* Create another **mqtt in** node for `<id>/buttom` to listen to the smaller right-side button.
 
 ### 2. Remote Control: Toggle the Onboard LED
+You need to toggle in node-red the led cannot do it on its own.
+Use this subflow (copy and insert): https://flows.nodered.org/flow/15c17f3445639d90139f4b05113f4a8d
+
 1. Drag an **inject** node onto the canvas. Double-click it, select **string**, and set the payload to `"toggle"`.
 2. Drag an **mqtt out** node onto the canvas. Set its topic to `<id>/led/set` (e.g. `01/led/set`).
 3. Connect the inject node to the mqtt out node and click **Deploy**.
@@ -66,7 +69,7 @@ Your instructor will hand you an **M5StickC** pre-programmed with [IoTempower](h
 
 ### 3. Send Text to the Stick's TFT Display
 1. Create another **inject** node with string payload: `"Coffee Time!"` (or your team name).
-2. Wire it to an **mqtt out** node with topic `<id>/console/set` (e.g. `01/console/set`).
+2. Wire it to an **mqtt out** node with topic `<id>/console` (e.g. `sticks/01/console` - no /set for the display).
 3. Deploy and trigger the node -> The text prints live on your microcontroller's screen!
 
 ## ⚡ Phase 3: The Classroom Domino Chain
@@ -157,7 +160,7 @@ Want to know if one corner of the room is warmer than another?
 2. Wire it into a **function** node with this small script to label the data series:
    ```javascript
    const parts = msg.topic.split('/');
-   msg.topic = 'Stick ' + parts[0];
+   msg.topic = 'Stick ' + parts[1];
    msg.payload = parseFloat(msg.payload);
    return msg;
    ```
