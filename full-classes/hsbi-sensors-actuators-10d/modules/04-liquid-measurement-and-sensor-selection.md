@@ -2,7 +2,7 @@
 
 [← Back to Module 3](./03-sensor-characterization-and-calibration.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-leds-and-light-output.md)
 
-> A tank is not a number. Today you choose sensing principles for four liquids, build a mock tank, and prove which measurement you would trust on a boat.
+> A tank is not a number. Choose binary, thresholded, or continuous sensing for Nordwind's four tanks, and defend one choice per tank with evidence.
 
 **Course placement:** Day 4 — the liquid-measurement studio. Two sessions; the Day 4 feedback conversation runs at the bench, with the rules and scheduling in the syllabus.
 
@@ -13,12 +13,11 @@ During the class, the instructors will also come around and check your existing 
 This module gives you the opportunity to explore liquid-level sensing and achieve competency in sensor selection, tank calibration, and the safety and maintenance constraints of real liquids.
 
 By the end of this module, you can:
-1. Explain what each candidate principle actually measures: optical ToF, ultrasonic, weight/load cell, magnetic float + Hall, capacitive/conductive (foil and analog probe), a float/reed/light-barrier switch, and IMU motion/shock.
-2. Match a principle to a liquid, a tank, and a failure mode using opacity, foam, conductivity, dielectric constant, density, hygiene, flammability, tank shape, mounting, and motion.
-3. Build and calibrate at least two mock tank measurements; convert raw readings into level and volume; state the uncertainty.
+1. Explain the difference between **binary, thresholded, and continuous** sensing, and what each candidate principle actually measures.
+2. Match a principle to a tank, liquid, decision, and failure mode using opacity, foam, conductivity, dielectric constant, density, hygiene, flammability, tank shape, mounting, and motion.
+3. Build and calibrate **one continuous and one binary** mock-tank measurement; convert continuous readings into level and volume and state the uncertainty.
 4. Use a motion/shock sensor to distinguish “in harbor” from “outside” and explain how boat motion affects the tank reading.
-5. Test the failure cases — foam, dirty/clear/dark liquid, tilt/slosh, empty/full — and choose filtering, hysteresis, and alarm logic. -- ulno: what does this add, can it be merged? Wouldn't it better to think about binary vs. analog sensing - and how to move in between? or is this aboutadding to detect failure cases?
-6. Write a recommendation report for Nordwind and a theory report, and transfer the reasoning to a local industrial story.
+5. Write a pod recommendation and a short theory report, and transfer the reasoning to a local industrial story.
 
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
@@ -41,155 +40,73 @@ We first taught it in the IoT class at the **University of Applied Sciences Linz
 
 *Photo from the original challenge; used with permission.*
 
-## 🛠️ Liquid-Measurement Studio — **Challenging**
+## 🛠️ Studio — one tank, two principles
 
-*Hardware per pod:* 1× ESP32, breadboard and jumper wires, 1× ToF distance sensor (VL53L0X), 1× ultrasonic module, 1× Hall sensor + small magnet + cork float, foil or copper tape, 1× reed/float switch (optional), 1× light barrier (photo-interrupter), 1× analog capacitive liquid/soil probe where available, 1× M5StickC-S3 (StickS3) with its built-in BMI270 IMU — one per pod where available, otherwise share with the partner pod — and a local display (the serial plotter of Arduino/your IDE, the M5StickC-S3 screen, an OLED, or just LEDs/buzzer). Node-RED is not required in this module, but can also be used if you like.
+Work in your Task Pod. Pair with a neighbouring Task Pod: one shared `## Study log` per pair, shared data and picture proofs, but **one report per pod**. Every student adds a short contribution note and links the pod report from their portfolio. Compare results; mark your most epic ideas and fails for the gallery walk.
 
-**Sensor menu — choose, do not test all.** ToF, ultrasonic, HX711 scale, Hall + magnet float, foil/copper-tape capacitive, analog capacitive liquid/soil probe, light barrier (photo-interrupter; the original "light bar" switch), reed/float switch, MPR121 (optional), M5StickC-S3 IMU. Aim for roughly 80% coverage of the menu — enough for an evidence-based recommendation — and pick the ones that are most fun for your tanks. Say in the report what you skipped and why.
+### You bring / we provide
 
-Check what you have at home: we need trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper. Students bring three clear plastic bottles: clear water, vegetable oil, and dirty water. -- ulno: be explicit and check yourself, communicate today -> needs to go into instructor notes and instructor email
+| You bring | We provide | Shared with your partner pod |
+|---|---|---|
+| 2–3 clear plastic bottles or large plastic cups, water, optional cooking oil, scissors/cardboard/tape if you have them | trays, towels, ruler, funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper; the sensors in the menu below | 3 HX711 scales + calibration weights (one per pair), 3 multimeters, and the ToF/ultrasonic modules if the kit is short |
 
-*Shared:* 3× HX711 load-cell scales with calibration weights — one scale per two pods; 3 multimeters for 6 pods; 
-
-> **If the kit is short:** share the ToF/ultrasonic modules or the scales -- ulno: merge above - duplicate
-
-> **◇ Optional extra:** If you have an MPR121 capacitive-touch board and want the extra challenge, use it instead of the ESP32 touch pins; it is a clean I²C controller and a possible final-project part. -- ulno: move to end - does not belong here
-
-> **Divide and conquer.** Pair with a neighbouring Task Pod. Split the benches — for example, one pod owns distance + IMU, the other owns weight + Hall/capacitive — and share the raw data, calibration records, and picture proofs. **The reports are individual:** cite the shared log, do not copy it.
-
-> **Studio rhythm.** Each session has four modes: **Brief** (read the short concept block), **Bench** (build and measure), **Explain** (a random mini check), and **Log/Swap** (write and exchange). 
-
-> **Finish the practice in class.** The two sessions are for building, measuring, and taking the picture proofs. The reports can be written or finished outside class from the data and photos you already have.
-
-
-| Session | Focus | Bench | Exchange |
-|---|---|---|---|
-| **1 — Measure** | Principles; liquids; tank geometry; motion | Task 1: build the mock tank; distance + weight; Hall/capacitive/probe/light barrier; IMU harbor/outside | Partner pod checks calibration; share the raw data |
-| **2 — Break and recommend** | Failure modes; filtering; dashboard; reports | Task 1: break it; build the prototype; picture proofs; set up the reports | Gallery walk; instructor review; Task 2 transfer story |
+**Sensor menu — choose, do not test all.** ToF, ultrasonic, HX711 scale, Hall + magnet float, foil/copper-tape capacitive, analog capacitive liquid/soil probe, light barrier (photo-interrupter; the original "light bar" switch), reed/float switch, MPR121 (optional), M5StickC-S3 IMU. Across the class, aim for roughly 80% coverage of the menu; your pod pair contributes **one tank** and at least **one continuous + one binary** principle. Pick the ones that are most fun.
 
 > [!WARNING]
 > **Water, oil, and electronics.** No real fuel and no real waste water; no tasting. No hot liquids and no open flame. Keep the ESP32, the scale, and the breadboard dry; use trays and towels; label every bottle; clean up spills; dispose of oil separately, not in the sink. Cooking oil is a qualitative fuel simulant, not diesel.
 >
 > **Ultrasonic warning.** Some ultrasonic modules are 5 V devices — check before connecting to 3.3 V logic, and use a level shifter/divider for the echo line.
 
-## ★ Task 1 — Solve the Nordwind challenge
+### The decision sheet — the one artifact
 
-*Work as a pair of Task Pods. Split the benches, share the data, and finish the practice in the two sessions. Every student writes their own reports.*
+| Tank | Decision | Mode | Principle (primary / backup) | Evidence | Failure + installation note |
+|---|---|---|---|---|---|
+| Diesel | range / low alarm | continuous | | | |
+| Fresh water | fill level / low alarm | continuous | | | |
+| Waste water | full alarm | threshold | | | |
+| Bilge | presence alarm | binary | | | |
 
-Nordwind needs a trustworthy local view of four tanks. You cannot test on the real boat, so build a mock tank, characterize the candidate principles, and recommend a sensor set with mounting, calibration, maintenance, and a local display.
+**Mode** is the key design choice: **binary** (yes/no), **threshold** (a limit with hysteresis), or **continuous** (level/volume). Your pod pair fills one row; the class assembles the four rows. Your pod report uses the class table and cites the owner pod.
 
-### Brief 1 — What does each principle actually measure? -- ulno: move concepts to resources at the end, make them recoverable, let students discuss what each can measure and move this one solution to instructors notes - consider merging breif and bench (still starting with brief)
+> The original challenge also listed heating/AC water. On *Nordwind* that is the engine coolant/heating loop; add it as an optional fifth row if you want the extra case.
 
-- **Optical ToF:** `d = c·t / 2`; reflectance, ambient light, clear water, condensation.
-- **Ultrasonic:** `d = v·t / 2`; `v ≈ 331 + 0.6·T` m/s; foam, soft/angled surfaces, beam angle, crosstalk.
-- **Weight / load cell:** `m = F/g`; `V = m/ρ`; `h = V/A` for a cylinder, or a calibration curve for a tapered tank; tare, mounting, acceleration.
-- **Magnetic float + Hall:** buoyancy; magnetic field vs. distance; binary vs. continuous; no electronics inside the tank.
-- **Capacitive (foil/copper tape):** `C = ε₀·ε_r·A/d`; water vs. oil vs. air; through-wall detection; drift and humidity.
-- **Analog capacitive liquid/soil probe:** the dielectric of the medium changes the probe capacitance; an analog voltage; water vs. oil vs. air; soil moisture; not food-safe; keep the electronics dry.
-- **Conductive / switch:** two electrodes or a reed/float switch; binary; corrosion, fouling, mounting.
-- **Light barrier (photo-interrupter; the "light bar" switch):** a beam is interrupted by a float, flag, or liquid surface; binary; alignment, ambient light, and fouling.
-- **Motion / shock (M5StickC-S3, BMI270):** acceleration magnitude and a short window; `harbor / moving / rough`; no fusion, no tilt accuracy.
+### Explore — one tank, two principles
 
-### Bench 1 — Build, measure, and log
+Every sensor is binary, thresholded, or continuous. The tank decision decides which you need. The full principle reference is in the [resource bank](./Z-resources-bank.md#liquid-level-principles); use it when you need it, not as a lecture.
 
-1. **Build a mock tank.** Use a clear plastic bottle or cup and a cardboard stand. Put it on the shared HX711 scale. Add a ruler or reference marks; label the bottle. Fill it with water first.
-2. **Measure the level from above.** Use ToF and/or ultrasonic; log distance vs. time; convert to level and then to volume. Note where the reading fails.
-3. **Measure the mass from below.** Calibrate the HX711 scale with the known weights, tare the empty tank, and convert mass to volume with the liquid density. Repeat with oil and dirty water; record what changes.
-4. **Measure the motion.** Mount the M5StickC-S3 on the mock boat/tray. Log acceleration for `in harbor` (still), `moving` (gentle rock), and `rough` (sharp shake). Compare the level noise in each state. The BMI270 is a 6-axis IMU; a threshold on the acceleration magnitude and a short window is enough.
+1. **Pick your tank and liquid.** Your instructor assigns one tank per pod pair. Build a clear plastic mock tank; put it on the shared scale if you test weight.
+2. **Test one continuous and one binary principle.** Continuous: ToF, ultrasonic, scale, analog capacitive probe. Binary: Hall float, reed/float, light barrier, capacitive threshold. Record what each measures, what it needs, and one failure.
+3. **Measure and calibrate.** For a continuous principle, log empty/half/full and convert to level/volume; for a binary principle, find the threshold and add hysteresis. Use the scale calibration record if you test weight.
+4. **Fill your row and share it.** Add your test card and decision-sheet row to the class table. Compare with your partner pod; if you finish early, test a second tank or a second principle.
+5. **Label the sea state.** Mount the M5StickC-S3 on the mock boat/tray; log `in harbor` (still), `moving` (gentle rock), and `rough` (sharp shake). Note how the level reading changes. The BMI270 is a 6-axis IMU; acceleration magnitude + a short window is enough.
 
-### Brief 2 — Liquids, tanks, and moving surfaces
+### Break and choose
 
-A tank is a geometry problem and a liquid problem at the same time. Level → volume is a cylinder only for a cylinder; a tapered bottle needs a calibration curve (for simplicity still just assume a cylinder). A tilted tank changes the zero. Empty and full are end stops, not analog measurements.
-
-| Tank | Liquid | Decision | What makes it hard |
-|---|---|---|---|
-| Diesel | fuel | range / low alarm | opaque, flammable, no electronics inside, gauge sticking |
-| Fresh water | drinking water | fill level / low alarm | food-safe, clear, condensation, tank shape |
-| Waste water | holding tank | full alarm | dark, dirty, foam, hygiene, not overfill |
-| Bilge | seawater / rain | presence alarm | any water is a message; salt, debris, false alarms |
-
-The boat rolls, pitches, and heels; the liquid surface is never flat. Use the IMU to label the sea state, and use the level series to show how much the reading moves. The report should say which part of the variation is real level and which part is motion.
-
-> The original challenge also listed heating/AC water. On *Nordwind* that is the engine coolant/heating loop; treat it as an optional fifth tank in your recommendation if you want the extra case.
-
-### Bench 2 — Try the alternatives -- this is completely duplicated and can be folded into the last
-
-1. **Magnet + Hall.** Float a small magnet on a cork; scan the Hall sensor along the outside of the tank. Is the output continuous or only a threshold? Where does the float stick?
-2. **Capacitive / conductive.** Put foil or copper tape on the outside of a cup; detect water through the wall. Compare water with oil. Then try two electrodes inside the cup: water conducts, oil does not. Which version is binary, and which can give a level?
-3. **Analog capacitive probe and light barrier.** Dip the analog liquid/soil probe in water, oil, and wet/dry soil; record the analog voltage and compare it with the foil version. Use the light barrier as a high/low limit with a float or flag; note alignment and ambient light. Keep the probe electronics dry; it is not food-safe.
-4. **Switch.** Use a reed or float switch as a high/low limit. Note intrusion, fouling, and mounting.
-5. **Record a first selection matrix.** Which principle would you trust for each tank, and what evidence do you already have?
-
-### Brief 3 — Calibration, uncertainty, filtering, and alarms
-
-- **Scale:** calibrate with known masses; tare the empty tank; check linearity; state the uncertainty. The HX711 is a 24-bit ADC, but the load cell, mounting, and temperature set the real accuracy.
-- **Tank:** level → volume with a ruler or a calibration curve; repeat the fill/drain cycle; record the residuals.
-- **Distance:** calibrate against a ruler; note offset and temperature; compare ToF and ultrasonic on the same surface.
-- **Filtering:** moving average, median, EMA; know the latency each adds. **Hysteresis and debounce** stop alarm chatter; a short alarm delay is a design choice, not a fix for a bad sensor.
-- **Uncertainty:** reuse the Module 3 calibration record and state `y ± U` for at least one tank measurement.
-
-### Bench 3 — Break it and build the prototype
-
-1. **Break the measurement on purpose.** Try foam, dirty water, clear/dark liquid, tilt/slosh, an empty tank, a full tank, and condensation. Record what fails and what the failure looks like in the data. -- uln: what does foam do here?
-2. **Add the fix.** Filter, add hysteresis/debounce, or choose a different principle. Set a local low/high alarm with a clear state.
-3. **Build a local visualization.** Use the M5StickC-S3 screen, an OLED, LEDs/buzzer, the serial plotter, or a collage of plots — whatever makes the tanks legible. Show the four tanks (measured or marked as not measured) and one alarm state.
-4. **Take the picture proofs.** Photograph the build, the wiring, the display, the calibration setup, and one failure case. Add a one-sentence caption saying what each picture proves.
-
-### Deliverable 1 — Prototype and picture proofs
-
-- One working prototype per pair of Task Pods: mock tank + at least two measurement principles + local visualization/alarm.
-- A photo set with captions: build, wiring, display, calibration, failure case.
-- A code link (repository or gist) and a short wiring note.
-- A one-page result table: liquid, principle, range, failure mode, and uncertainty.
-
-### Deliverable 2 — Recommendation report for Nordwind
-
-Write this as your own pod section in `Module04/README.md`. Even when the experiments are shared, the report is individual per pod.
-
-1. The four tanks and the decision each one supports: full/empty, alarm, range.
-2. Criteria and weights: accuracy, range, mounting, maintenance, safety, cost, remote readiness.
-3. Candidate principles and your test evidence.
-4. Selection matrix per tank.
-5. Recommendation per tank: primary and backup, mounting sketch, calibration plan, maintenance.
-6. Local visualization and alarm (your choice of display or plot) plus a remote outlook (topics, update rate, alarm payload) — describe it, do not build it in this module.
-7. Risks and open questions.
-
-### Deliverable 3 — Theory report
-
-Write this as your own section in `Module04/README.md`. It is the "how everything works and how the measurements are done" part of the module.
-
-1. Principles and equations: ToF, ultrasonic, weight, Hall, capacitive/conductive (foil and analog probe), switch/light barrier, IMU motion.
-2. Liquid properties and why they matter: opacity, foam, conductivity, dielectric constant, density, hygiene, flammability, fouling.
-3. Tank geometry and level → volume; tilted and tapered tanks.
-4. Calibration and uncertainty for the scale, the tank, and the distance sensor.
-5. Filtering and alarm logic: noise, slosh, hysteresis, debounce, latency.
-6. Failure modes and mitigations, with your own measurements as evidence.
-7. References: datasheets, application notes, and the Module 3 material.
-
-### ◇ Optional sub-task — Pump current
-
-If a Hall current sensor and a small pump or motor are available, measure the current with the pump dry, wet, and blocked. A dry-running pump usually draws less; a blocked pump draws more. Add one sentence to the recommendation report: could current tell you something the level sensor cannot?
-
-As we (currently) don't have pumps, read and think about this part and potentially add it to your report.
+1. **Try the failure cases that matter.** Clear drinking water often defeats ToF; the ultrasonic sensor usually works, but a slender bottle can give echoes. Foam is worth trying — non-contact sensors may see the foam, while the scale does not. Also try tilt/slosh, empty/full, and condensation. Record what the failure looks like in the data.
+2. **Make the choice robust.** Add a filter, hysteresis, or debounce; decide whether the tank needs binary, threshold, or continuous. Set a local alarm with a clear state.
+3. **Complete the decision sheet.** Use the class table for all four tanks; mark your pod's row. Add a primary and a backup principle, the evidence, and one installation note.
+4. **Build one demo and take picture proofs.** Use the M5StickC-S3 screen, an OLED, LEDs/buzzer, the serial plotter, or a collage of plots — whatever makes the tanks legible. Photograph the build, wiring, display, calibration, and one failure case; caption what each picture proves.
 
 ## ★ Task 2 — Transfer to a local industrial story
 
 Pick a fictional local facility that measures liquids — a dairy, a brewery, a camper van, a fuel depot, a heating/AC loop, a wastewater plant, an aquarium. Do not reuse the boat.
 
 - Who is the user, what liquid, what decision, and what failure hurts?
-- Which principles from Task 1 transfer, which do not, and why?
+- Which principles from the decision sheet transfer, which do not, and why?
 - Sketch the installation and the local display; say what you would verify before trusting it.
-- Add it as your own section in `Module04/README.md` as pod.
+- Add it as a short paragraph in `Module04/README.md` as pod.
 
 > **Speculate, then check.** The transfer story is allowed to be a hypothesis. Mark what you know from your bench, what you infer, and what you would measure next.
 
-> Task A and Task B are the collaboration wrapper for the two tasks — not extra lab work.
+## ✅ What you hand in
 
-## General notes
+1. **Decision sheet** — the class table with four rows; mark your pod's row. Include mode, principle, evidence, failure + installation note.
+2. **Test cards** — one per principle your pod tested: what it measures, works/fails, calibration/uncertainty.
+3. **Demo and picture proofs** — one working mock tank, one visualization/alarm, photos with captions, and a code link.
+4. **Pod reports** — one recommendation report and one short theory report per pod. The recommendation is the decision sheet plus a short paragraph per row; the theory report covers how your chosen principles work and how you calibrated and validated them. Every student adds a contribution note and links the pod report from their portfolio.
+5. **Transfer paragraph** — one per pod, in `Module04/README.md`.
 
-Make sure you work together, share results, but get a chance to mostly measure everything. Compare results and techniques. Try to mark you most epic ideas and fails - also for sharing.
-
-## Templates to fill in and exchange
+## Templates
 
 ### Scale calibration record
 
@@ -210,58 +127,44 @@ Use the calibration weights you have. Use at least three known masses, including
 | | | | | | |
 | | | | | | |
 
-### Selection matrix
+### Test card
 
-Rate each principle for each tank. The rating must cite a measurement, not an opinion.
+| Principle | Liquid | What it measures | Works? | Fails when? | Calibration/uncertainty |
+|---|---|---|---|---|---|
+| | | | | | |
+| | | | | | |
 
-| Tank | Liquid | Decision | Primary principle | Backup | Evidence | Mounting | Maintenance |
-|---|---|---|---|---|---|---|---|
-| Diesel | fuel | range / low alarm | | | | | |
-| Fresh water | drinking water | fill level / low alarm | | | | | |
-| Waste water | holding tank | full alarm | | | | | |
-| Bilge | seawater / rain | presence alarm | | | | | |
+## ◇ Optional extras
+
+- **MPR121:** If you have an MPR121 capacitive-touch board and want the extra challenge, use it instead of the ESP32 touch pins; it is a clean I²C controller and a possible final-project part. See the [pre-study note](../pre-study.md#3-read-like-a-sensor-engineer).
+- **Pump current:** If a Hall current sensor and a small pump are available, measure the current dry, wet, and blocked. No pump? Read and think about it, and add a sentence to the report.
+- **Remote outlook / Node-RED:** Not required in this module. Describe what you would publish; build it in Module 8 or the final project.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. Shared study log: scale and tank calibration records, raw data, and picture proofs.
-2. Prototype photos with captions: build, wiring, display, calibration, failure case.
-3. Recommendation report for Nordwind (your own section).
-4. Theory report (your own section).
-5. Transfer story (your own section).
+1. Your pod's decision-sheet row and test cards.
+2. Demo photos with captions.
+3. Pod report plus your contribution note.
+4. Transfer paragraph.
 
-*You may prove the same goals another way. The reports are individual even when the experiments are shared; cite the shared log instead of copying it.*
+*You may prove the same goals another way. The reports are per pod; cite the shared log and the class table instead of copying them.*
 
-## Pointers (start here, then keep looking)
+## 📚 Reference & prompts
 
-- [M5StickC-S3 / StickS3 documentation](https://docs.m5stack.com/en/core/StickS3) — BMI270 IMU, display, pinout.
-- [VL53L0X](https://www.st.com/en/imaging-and-photonics-solutions/vl53l0x.html) — datasheet and API.
-- [HX711 load-cell guide](https://learn.sparkfun.com/tutorials/load-cell-amplifier-hx711-breakout-hookup-guide) — wiring, tare, calibration.
-- [Wikipedia: Level sensor](https://en.wikipedia.org/wiki/Level_sensor) — the principle catalogue.
-- [Wikipedia: Hall effect sensor](https://en.wikipedia.org/wiki/Hall_effect_sensor) — magnetic float and switch.
-- [Wikipedia: Capacitive sensing](https://en.wikipedia.org/wiki/Capacitive_sensing) — through-wall detection.
-- [Wikipedia: Photoelectric sensor](https://en.wikipedia.org/wiki/Photoelectric_sensor) — light barrier and photo-interrupter.
-- The [resource bank](./Z-resources-bank.md#formulas-you-will-use) — formulas, datasheets, troubleshooting.
+- [Liquid-level principles](./Z-resources-bank.md#liquid-level-principles) — what each sensor measures, output, strengths, and failure modes.
+- [Formulas](./Z-resources-bank.md#formulas-you-will-use) — ToF, ultrasonic, level, volume, mass, scale.
+- [Datasheets](./Z-resources-bank.md#datasheets--standards-to-read-once) — the sensor shelf.
 - [Module 3](./03-sensor-characterization-and-calibration.md) — calibration record, uncertainty, filtering.
 
-## Questions to ask an LLM (then verify against your bench)
+**Questions to ask an LLM (then verify against your bench):**
 
 - "Compare ToF, ultrasonic, and weight for a diesel tank on a moving boat. Which one fails first, and why?"
 - "How do I calibrate an HX711 scale with known masses, and what does tare do to the offset?"
-- "My ToF reads correctly on a wall but wrongly on clear water. Explain the physics and design a quick test."
+- "My ToF works on a wall but not on clear water. My ultrasonic works on clear water but echoes in a slender bottle. Explain both and design a test."
 - "How can an IMU distinguish a boat in harbor from a boat underway without sensor fusion?"
 - "Which dielectric property makes capacitive water detection work through a plastic wall?"
-- "Why does an analog capacitive soil probe read differently in water, oil, and wet soil, and what would you calibrate?"
 
 > Treat each answer as a claim to test. Record where the model is wrong, vague, or over-confident.
-
-## 📚 If you want to go deeper
-
-- [M5Stack StickS3](https://docs.m5stack.com/en/core/StickS3) and the BMI270 datasheet — the motion detector and its limits.
-- [VL53L0X](https://www.st.com/en/imaging-and-photonics-solutions/vl53l0x.html) — reflectance and ambient-light caveats.
-- [SparkFun HX711 guide](https://learn.sparkfun.com/tutorials/load-cell-amplifier-hx711-breakout-hookup-guide) — load-cell wiring and calibration.
-- [Wikipedia: Level sensor](https://en.wikipedia.org/wiki/Level_sensor) — ultrasonic, radar, float, capacitive, and pressure.
-- [Wikipedia: Ultrasonic transducer](https://en.wikipedia.org/wiki/Ultrasonic_transducer) — beam angle, foam, and soft surfaces.
-- The [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once) — the datasheet shelf.
 
 ---
 

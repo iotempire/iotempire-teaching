@@ -37,8 +37,10 @@ A few notes for the session:
   analog capacitive liquid/soil probes, light barriers (photo-interrupters — the
   “light bar” switches), reed/float switches, an M5StickC-S3 IMU, and an optional
   MPR121 capacitive-touch board.
-- You do not have to test every sensor. About 80% coverage is enough to make a
-  good recommendation — and all of them are fun. Pick the ones that fit your tanks.
+- You do not have to test every sensor. Across the class we aim for about 80%
+  coverage — and all of them are fun. Your pod will test a few that fit your tank.
+- Each pod pair will own one tank and test one continuous and one binary principle;
+  we will assemble the four-row decision sheet together.
 - You choose how to visualize your results: a screen, LEDs, the serial plotter, a
   collage of plots, or anything else that makes the tanks legible. Node-RED is
   not required in this module.
@@ -53,7 +55,8 @@ See you in the studio,
 
 ## Sending notes
 
-- Replace `[Instructor names]`; add the date or room if your LMS needs it.
+- Send this today; replace `[Instructor names]` and add the date or room if your LMS needs it.
+- Ask the co-instructor to scrounge the shared materials listed in the Module 4 studio note (trays, towels, ruler, funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper, extra bottles/cups).
 - The first checkpoint is about **15 minutes per pod**; the syllabus owns the rules.
 - The module and this email assume safe simulants only: no real fuel, no real waste water, no glass, no tasting.
 - The sensor menu and the 80% guidance are in [Module 4](../modules/04-liquid-measurement-and-sensor-selection.md).

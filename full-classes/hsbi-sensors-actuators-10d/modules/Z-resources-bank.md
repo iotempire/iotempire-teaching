@@ -94,7 +94,7 @@ uv run python plot_measurements.py
 | 2 | I²C debugging | A short "logic analyzer reads I²C" demonstration | Where do you see the ACK? What does a NACK tell you? |
 | 2 | Build your own scope/analyzer | A browser-based ESP32 oscilloscope or PulseView logic-analyzer demo | What can it capture, and where is its sampling limit? |
 | 3 | Calibration & transfer function | A short sensor-calibration walkthrough | What is the difference between calibration and verification? |
-| 4 | Time-of-flight vs ultrasonic | A comparison of ToF and ultrasonic distance sensing | Which fails on clear water, foam, or a soft target, and why? |
+| 4 | Time-of-flight vs ultrasonic | A comparison of ToF and ultrasonic distance sensing | Which fails on clear water, foam, a slender bottle, or a soft target, and why? |
 | 4 | Liquid-level principles | A short level-sensor overview (float, capacitive, ultrasonic, radar, pressure) | Which principle survives foam, clear water, or a moving tank? |
 | 4 | Load-cell scale | A short HX711 / load-cell calibration demo | What do tare and the calibration factor do? |
 | 4 | Motion/shock with an IMU | A short accelerometer threshold/variance explainer | How can acceleration variance distinguish a docked boat from one underway? |
@@ -149,6 +149,26 @@ uv run python plot_measurements.py
 | TCA9548A I²C mux | `0x70`–`0x77` | Resolves address conflicts |
 
 > **7-bit vs. 8-bit:** the 8-bit form is `7-bit << 1`. If a scan and a library disagree, check this first.
+
+<a id="liquid-level-principles"></a>
+### 📌 Liquid-Level Principles
+
+Use this table to choose a principle, not to memorize it.
+
+| Principle | What it measures | Output | Strengths | Failure modes |
+|---|---|---|---|---|
+| Optical ToF | distance to the surface | continuous | fast, millimetre resolution | clear water, foam, condensation, reflectance |
+| Ultrasonic | distance to the surface | continuous | works on clear water | foam, soft/angled surfaces, slender-bottle echoes, temperature, crosstalk |
+| Weight / load cell | mass | continuous | liquid-independent; foam/clear/dark do not matter | mounting, acceleration/slosh, drift, capacity |
+| Magnetic float + Hall | float position | continuous or threshold | no electronics inside the tank | sticking, magnet orientation, only along the float |
+| Capacitive foil/tape | dielectric through the wall | continuous or threshold | through-wall, no intrusion | drift, humidity, wall thickness, water vs. oil |
+| Analog capacitive probe | dielectric of the medium | continuous | cheap; works in water/oil/soil | not food-safe; corrosion, salinity, temperature drift |
+| Conductive electrodes | conductivity | binary | very simple | corrosion, polarization; only conductive liquids |
+| Reed/float switch | buoyancy | binary | simple, robust | sticking, fouling; discrete only |
+| Light barrier (photo-interrupter) | beam interruption | binary | simple, no contact | alignment, ambient light, fouling |
+| IMU (M5StickC-S3, BMI270) | acceleration / motion | state | labels the sea state; no fusion needed | not a level sensor; vibration, mounting |
+
+> MPR121 is an optional multi-channel capacitive-touch controller; it uses the same dielectric principle as the foil/tape and the analog probe.
 
 <a id="formulas-you-will-use"></a>
 ### 📌 Formulas You Will Use
@@ -213,6 +233,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Distance wrong on dark/shiny/clear targets | Reflectance-dependent principle | Re-characterize; compare with the scale; choose a different principle | 4 |
 | ToF reads wrong on clear water | Clear liquid reflects/scatters poorly; the beam may see the bottom | Use the scale as reference; try ultrasonic; document the failure | 4 |
 | Ultrasonic reading jumps with foam | Foam absorbs/deflects the burst | Remove foam, use another principle, or filter and flag | 4 |
+| Ultrasonic echoes in a slender bottle | Multiple reflections / standing waves | Use a wider tank, angle the sensor, or filter/median; compare with the scale | 4 |
 | Level reading oscillates | Slosh, tilt, or vibration | Log a series; filter/median; add hysteresis; use the IMU to label the state | 4 |
 | HX711 reading drifts or is noisy | Unstable supply, long leads, temperature, mounting | Short leads, stable supply, tare, average, check with known masses | 4 |
 | HX711 not detected / readings saturated | Wiring, gain, or overload | Check E+/E−/A+/A−, common ground, reduce load, verify with a known mass | 4 |

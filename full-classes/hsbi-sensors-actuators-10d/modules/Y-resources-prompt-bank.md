@@ -59,11 +59,11 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 4. Process: *Uncertainty honesty:* Write your uncertainty budget and state `y ± U`. Which contribution dominates, and why?
 
 ## 📌 Module 4 – Liquid Measurement & Sensor Selection
-*Focus: ToF/ultrasonic level, HX711 mass, Hall float, capacitive probe/conductive, light barrier, IMU shock/motion, failure modes, sensor selection.*
+*Focus: binary/threshold/continuous sensing, one tank/two principles, class decision sheet, failure modes, sensor selection.*
 
 1. Technical: *Two ways to measure one tank:* Compare distance vs. mass, including calibration and uncertainty.
 2. Technical: *Principle comparison:* Which principle wins for clear water, dirty water, oil, and bilge water — and why?
-3. Hybrid: *Failure modes:* Show one measurement that fails with foam, clear water, tilt, or an empty/full end stop, and the fix.
+3. Hybrid: *Failure modes:* Show one measurement that fails with clear water, a slender bottle, foam, tilt, or an empty/full end stop, and the fix.
 4. Technical: *Motion:* Show how you used the IMU to distinguish harbor from outside, and how motion affected the level reading.
 5. Project context: *Recommendation:* Defend your Nordwind selection and your local industrial transfer.
 
