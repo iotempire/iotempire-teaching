@@ -9,7 +9,7 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 - **Send the student email today.** The ready-to-send draft is [Module 4 student email](./04-module-4-student-email.md). It lists what students bring, the sensor menu, the visualization freedom, and the portfolio/checkpoint expectation.
 - **Ask the co-instructor to scrounge at home and bring:** trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper, and extra bottles/cups.
 - **Common bring list:** 2–3 clear plastic bottles or large cups, water, optional cooking oil, and scissors/cardboard/tape if they have them; the instructors also scrounge the shared materials above.
-- **Kit check:** 3 HX711 scales + calibration weights; 3 multimeters; known-good HX711 wiring; ToF and ultrasonic modules (check 5 V); Hall sensor + magnet + cork; reed/float switch; light barrier; foil/copper tape; analog capacitive liquid/soil probe; M5StickC-S3 + BMI270.
+- **Kit check:** 3 HX711 scales + one known calibration mass each (e.g., 50 g; a second weight is optional); 3 multimeters; known-good HX711 wiring; ToF and ultrasonic modules (check 5 V); Hall sensor + magnet + cork; reed/float switch; light barrier; foil/copper tape; analog capacitive liquid/soil probe; M5StickC-S3 + BMI270.
 - **Shared decision sheet:** prepare one table; each two-pod group aims for 4–5 rows (the four tanks plus the optional fifth).
 
 ## 2. Room and kit
@@ -17,7 +17,7 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 - **Six pods, three scales:** pair Task Pods; one scale per pair; each two-pod group aims for 4–5 decision-sheet rows; compare across the class.
 - **Six pods, three multimeters:** same pairing as Module 3; one meter per pair.
 - **Per pod:** one ESP32, one ToF sensor, one ultrasonic module, one Hall sensor with a small magnet and cork, foil or copper tape, one reed/float switch (optional), one light barrier (photo-interrupter), one analog capacitive liquid/soil probe, one M5StickC-S3 (StickS3) with its BMI270 IMU where available, and a local display (the StickS3 screen, an OLED, LEDs/buzzer, or the serial plotter).
-- **Shared:** calibration weights for the scales, trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper.
+- **Shared:** one known calibration mass per scale (a second is optional), trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper.
 - **Optional:** an MPR121 capacitive-touch board for pods that want the extra challenge or a final-project part.
 - **Two instructors:** split the room three pods each; one instructor owns the scale-corner check.
 
@@ -33,7 +33,7 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 ## 4. Scales and calibration
 
 - **Three shared scales, one per two pods.** The scale is the bottleneck; do not queue the whole room behind one.
-- **Calibrate with the known weights you have.** At least three known masses, including the empty/tare state. Check linearity and repeatability; record the residuals.
+- **Two readings are enough.** Tare at 0 g, then use one known calibration mass (e.g., 50 g); a third known mass (even your phone's published weight) is an optional linearity check. Re-tare before the final measurement.
 - **Keep the scale dry.** Put it on a dry tray or in a clear bag; tare with the empty tank and the tray.
 - **HX711 wiring:** follow the load-cell label — `E+`, `E−`, `A+`, `A−`, `B+`, `B−`. Share ground with the ESP32, use a stable supply, and check the wiring before powering.
 - **Common issues:** drift from long leads or temperature, saturation from an overloaded cell, and wrong gain/colouring. Verify with a known mass before trusting the reading.

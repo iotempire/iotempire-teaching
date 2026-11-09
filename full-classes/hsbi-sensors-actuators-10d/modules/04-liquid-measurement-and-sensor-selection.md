@@ -87,7 +87,7 @@ For each row, you study:
 
 1. **Pick your tanks and liquid.** Between the two pods, split the four tanks (plus the optional fifth). Build a clear plastic mock tank for the first one; put it on the shared scale if you test weight.
 2. **Test one continuous and one binary principle.** Continuous: ToF, ultrasonic, scale, analog capacitive probe. Binary: Hall float, reed/float, light barrier, capacitive threshold. Record what each measures, what it needs, and one failure. You can combine them later into a hybrid.
-3. **Measure and calibrate.** For a continuous principle, log empty/half/full and convert to level/volume; for a binary principle, find the threshold and add hysteresis. Use the scale calibration record if you test weight.
+3. **Measure and calibrate.** For a continuous principle, log empty/half/full and convert to level/volume; for a binary principle, find the threshold and add hysteresis. Use the scale check if you test weight.
 4. **Fill your rows.** Add your test cards and decision-sheet rows to the shared table. Between the two pods, aim for 4–5 rows; compare with the class.
 5. **Label the sea state.** Mount the M5StickC-S3 on the mock boat/tray; log `in harbor` (still), `moving` (gentle rock), and `rough` (sharp shake). Note how the level reading changes. The BMI270 is a 6-axis IMU; acceleration magnitude + a short window is enough. Add notes in your rows on how the waves affect your reading.
 
@@ -119,16 +119,9 @@ Pick a fictional local facility that measures liquids — a dairy, a brewery, a 
 
 ## Templates
 
-### Scale calibration record
+### Scale check
 
-Use the calibration weights you have. Use at least three known masses, including the empty/tare state. Replace the example masses with the weights in your set.
-
-| Known mass (g) | Raw HX711 reading | Calculated mass (g) | Error (g) | Notes |
-|---:|---:|---:|---:|---|
-| 0 (tare) | | 0 | | empty tank / tray |
-| | | | | |
-| | | | | |
-| | | | | |
+Two readings define the line — 0 g (tare) and one known calibration mass; a third known mass (even your phone's published weight) is an optional check.
 
 ### Tank calibration record
 
