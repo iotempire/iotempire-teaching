@@ -6,6 +6,8 @@
 
 **Course placement:** Day 4 — the liquid-measurement studio. Two sessions; the Day 4 feedback conversation runs at the bench, with the rules and scheduling in the syllabus.
 
+During the class, the instructors will also come around and check your existing portfolios.
+
 ## 🎯 Learning Goals
 
 This module gives you the opportunity to explore liquid-level sensing and achieve competency in sensor selection, tank calibration, and the safety and maintenance constraints of real liquids.
@@ -15,7 +17,7 @@ By the end of this module, you can:
 2. Match a principle to a liquid, a tank, and a failure mode using opacity, foam, conductivity, dielectric constant, density, hygiene, flammability, tank shape, mounting, and motion.
 3. Build and calibrate at least two mock tank measurements; convert raw readings into level and volume; state the uncertainty.
 4. Use a motion/shock sensor to distinguish “in harbor” from “outside” and explain how boat motion affects the tank reading.
-5. Test the failure cases — foam, dirty/clear/dark liquid, tilt/slosh, empty/full — and choose filtering, hysteresis, and alarm logic.
+5. Test the failure cases — foam, dirty/clear/dark liquid, tilt/slosh, empty/full — and choose filtering, hysteresis, and alarm logic. -- ulno: what does this add, can it be merged? Wouldn't it better to think about binary vs. analog sensing - and how to move in between? or is this aboutadding to detect failure cases?
 6. Write a recommendation report for Nordwind and a theory report, and transfer the reasoning to a local industrial story.
 
 
@@ -41,29 +43,24 @@ We first taught it in the IoT class at the **University of Applied Sciences Linz
 
 ## 🛠️ Liquid-Measurement Studio — **Challenging**
 
-*Hardware per pod:* 1× ESP32, breadboard and jumper wires, 1× ToF distance sensor (VL53L0X), 1× ultrasonic module, 1× Hall sensor + small magnet + cork float, foil or copper tape, 1× reed/float switch (optional), 1× light barrier (photo-interrupter) where available, 1× analog capacitive liquid/soil probe where available, 1× M5StickC-S3 (StickS3) with its built-in BMI270 IMU — one per pod where available, otherwise share with the partner pod — and a local display (the M5StickC-S3 screen, an OLED, LEDs/buzzer, or the serial plotter).
+*Hardware per pod:* 1× ESP32, breadboard and jumper wires, 1× ToF distance sensor (VL53L0X), 1× ultrasonic module, 1× Hall sensor + small magnet + cork float, foil or copper tape, 1× reed/float switch (optional), 1× light barrier (photo-interrupter), 1× analog capacitive liquid/soil probe where available, 1× M5StickC-S3 (StickS3) with its built-in BMI270 IMU — one per pod where available, otherwise share with the partner pod — and a local display (the serial plotter of Arduino/your IDE, the M5StickC-S3 screen, an OLED, or just LEDs/buzzer). Node-RED is not required in this module, but can also be used if you like.
 
 **Sensor menu — choose, do not test all.** ToF, ultrasonic, HX711 scale, Hall + magnet float, foil/copper-tape capacitive, analog capacitive liquid/soil probe, light barrier (photo-interrupter; the original "light bar" switch), reed/float switch, MPR121 (optional), M5StickC-S3 IMU. Aim for roughly 80% coverage of the menu — enough for an evidence-based recommendation — and pick the ones that are most fun for your tanks. Say in the report what you skipped and why.
 
-*Shared:* 3× HX711 load-cell scales with calibration weights — one scale per two pods; 3 multimeters for 6 pods; trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper. Students bring three clear plastic bottles: clear water, vegetable oil, and dirty water.
+Check what you have at home: we need trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper. Students bring three clear plastic bottles: clear water, vegetable oil, and dirty water. -- ulno: be explicit and check yourself, communicate today -> needs to go into instructor notes and instructor email
 
-> **If the kit is short:** share the ToF/ultrasonic modules, the analog capacitive probe, and the light barrier like the scales; the divide-and-conquer split still works.
+*Shared:* 3× HX711 load-cell scales with calibration weights — one scale per two pods; 3 multimeters for 6 pods; 
 
-> **◇ Optional extra:** If you have an MPR121 capacitive-touch board and want the extra challenge, use it instead of the ESP32 touch pins; it is a clean I²C controller and a possible final-project part.
+> **If the kit is short:** share the ToF/ultrasonic modules or the scales -- ulno: merge above - duplicate
+
+> **◇ Optional extra:** If you have an MPR121 capacitive-touch board and want the extra challenge, use it instead of the ESP32 touch pins; it is a clean I²C controller and a possible final-project part. -- ulno: move to end - does not belong here
 
 > **Divide and conquer.** Pair with a neighbouring Task Pod. Split the benches — for example, one pod owns distance + IMU, the other owns weight + Hall/capacitive — and share the raw data, calibration records, and picture proofs. **The reports are individual:** cite the shared log, do not copy it.
 
-> **Studio rhythm.** Each session has four modes: **Brief** (read the short concept block), **Bench** (build and measure), **Explain** (a random mini check), and **Log/Swap** (write and exchange). There is no separate Pod Study block; the theory arrives just in time.
+> **Studio rhythm.** Each session has four modes: **Brief** (read the short concept block), **Bench** (build and measure), **Explain** (a random mini check), and **Log/Swap** (write and exchange). 
 
-> **Mini checks are random and short.** The instructor picks a pod and one prompt; answer from your bench or your log.
+> **Finish the practice in class.** The two sessions are for building, measuring, and taking the picture proofs. The reports can be written or finished outside class from the data and photos you already have.
 
-> **Exchange is planned.** Session 1: your partner pod checks your scale calibration. Session 2: a gallery walk with another pod and an instructor; show the prototype, the selection matrix, and the transfer story.
->
-> **Day 4 feedback at the bench.** The instructors will join your pod while you work; keep the log, the prototype, and one failure case handy. The rules and scheduling stay in the syllabus.
-
-> **Finish the practice in class.** The two sessions are for building, measuring, and taking the picture proofs. The reports are written outside class from the data and photos you already have.
->
-> **Visualization is your choice.** Show the tanks however you like: the M5StickC-S3 screen, an OLED, LEDs/buzzer, the Arduino serial plotter, a collage of plots, or another local display. Node-RED is not required in this module; it is available for Module 8 and the final project.
 
 | Session | Focus | Bench | Exchange |
 |---|---|---|---|
@@ -71,7 +68,7 @@ We first taught it in the IoT class at the **University of Applied Sciences Linz
 | **2 — Break and recommend** | Failure modes; filtering; dashboard; reports | Task 1: break it; build the prototype; picture proofs; set up the reports | Gallery walk; instructor review; Task 2 transfer story |
 
 > [!WARNING]
-> **Water, oil, and electronics.** No real fuel and no real waste water; no tasting. Use plastic cups and bottles only — no glass. No hot liquids and no open flame. Keep the ESP32, the scale, and the breadboard dry; use trays and towels; label every bottle; clean up spills; dispose of oil separately, not in the sink. Cooking oil is a qualitative fuel simulant, not diesel.
+> **Water, oil, and electronics.** No real fuel and no real waste water; no tasting. No hot liquids and no open flame. Keep the ESP32, the scale, and the breadboard dry; use trays and towels; label every bottle; clean up spills; dispose of oil separately, not in the sink. Cooking oil is a qualitative fuel simulant, not diesel.
 >
 > **Ultrasonic warning.** Some ultrasonic modules are 5 V devices — check before connecting to 3.3 V logic, and use a level shifter/divider for the echo line.
 
@@ -81,7 +78,7 @@ We first taught it in the IoT class at the **University of Applied Sciences Linz
 
 Nordwind needs a trustworthy local view of four tanks. You cannot test on the real boat, so build a mock tank, characterize the candidate principles, and recommend a sensor set with mounting, calibration, maintenance, and a local display.
 
-### Brief 1 — What does each principle actually measure?
+### Brief 1 — What does each principle actually measure? -- ulno: move concepts to resources at the end, make them recoverable, let students discuss what each can measure and move this one solution to instructors notes - consider merging breif and bench (still starting with brief)
 
 - **Optical ToF:** `d = c·t / 2`; reflectance, ambient light, clear water, condensation.
 - **Ultrasonic:** `d = v·t / 2`; `v ≈ 331 + 0.6·T` m/s; foam, soft/angled surfaces, beam angle, crosstalk.
@@ -102,7 +99,7 @@ Nordwind needs a trustworthy local view of four tanks. You cannot test on the re
 
 ### Brief 2 — Liquids, tanks, and moving surfaces
 
-A tank is a geometry problem and a liquid problem at the same time. Level → volume is a cylinder only for a cylinder; a tapered bottle needs a calibration curve. A tilted tank changes the zero. Empty and full are end stops, not reliable measurements.
+A tank is a geometry problem and a liquid problem at the same time. Level → volume is a cylinder only for a cylinder; a tapered bottle needs a calibration curve (for simplicity still just assume a cylinder). A tilted tank changes the zero. Empty and full are end stops, not analog measurements.
 
 | Tank | Liquid | Decision | What makes it hard |
 |---|---|---|---|
@@ -115,7 +112,7 @@ The boat rolls, pitches, and heels; the liquid surface is never flat. Use the IM
 
 > The original challenge also listed heating/AC water. On *Nordwind* that is the engine coolant/heating loop; treat it as an optional fifth tank in your recommendation if you want the extra case.
 
-### Bench 2 — Try the alternatives
+### Bench 2 — Try the alternatives -- this is completely duplicated and can be folded into the last
 
 1. **Magnet + Hall.** Float a small magnet on a cork; scan the Hall sensor along the outside of the tank. Is the output continuous or only a threshold? Where does the float stick?
 2. **Capacitive / conductive.** Put foil or copper tape on the outside of a cup; detect water through the wall. Compare water with oil. Then try two electrodes inside the cup: water conducts, oil does not. Which version is binary, and which can give a level?
@@ -133,7 +130,7 @@ The boat rolls, pitches, and heels; the liquid surface is never flat. Use the IM
 
 ### Bench 3 — Break it and build the prototype
 
-1. **Break the measurement on purpose.** Try foam, dirty water, clear/dark liquid, tilt/slosh, an empty tank, a full tank, and condensation. Record what fails and what the failure looks like in the data.
+1. **Break the measurement on purpose.** Try foam, dirty water, clear/dark liquid, tilt/slosh, an empty tank, a full tank, and condensation. Record what fails and what the failure looks like in the data. -- uln: what does foam do here?
 2. **Add the fix.** Filter, add hysteresis/debounce, or choose a different principle. Set a local low/high alarm with a clear state.
 3. **Build a local visualization.** Use the M5StickC-S3 screen, an OLED, LEDs/buzzer, the serial plotter, or a collage of plots — whatever makes the tanks legible. Show the four tanks (measured or marked as not measured) and one alarm state.
 4. **Take the picture proofs.** Photograph the build, the wiring, the display, the calibration setup, and one failure case. Add a one-sentence caption saying what each picture proves.
@@ -147,7 +144,7 @@ The boat rolls, pitches, and heels; the liquid surface is never flat. Use the IM
 
 ### Deliverable 2 — Recommendation report for Nordwind
 
-Write this as your own section in `Module04/README.md`. Even when the experiments are shared, the report is individual.
+Write this as your own pod section in `Module04/README.md`. Even when the experiments are shared, the report is individual per pod.
 
 1. The four tanks and the decision each one supports: full/empty, alarm, range.
 2. Criteria and weights: accuracy, range, mounting, maintenance, safety, cost, remote readiness.
@@ -173,17 +170,7 @@ Write this as your own section in `Module04/README.md`. It is the "how everythin
 
 If a Hall current sensor and a small pump or motor are available, measure the current with the pump dry, wet, and blocked. A dry-running pump usually draws less; a blocked pump draws more. Add one sentence to the recommendation report: could current tell you something the level sensor cannot?
 
-### Mini checks and exchange
-
-> **Random mini check.** The instructor picks a pod and one prompt; answer from your bench or your log:
-> - "Show your scale calibration and the residual at the heaviest known mass."
-> - "Which principle survives foam, and which one survives clear water? Show the data."
-> - "What does the IMU add that the level sensor cannot tell you?"
-> - "Which tank decision is binary, and which one needs a volume?"
->
-> **Partner check.** Your partner pod checks your scale calibration and your tank calibration record. Sign each other's record with a one-line "checked by".
->
-> **Instructor bench round.** Show the prototype, the display, and one failure case; the instructor asks one "why" question.
+As we (currently) don't have pumps, read and think about this part and potentially add it to your report.
 
 ## ★ Task 2 — Transfer to a local industrial story
 
@@ -192,22 +179,15 @@ Pick a fictional local facility that measures liquids — a dairy, a brewery, a 
 - Who is the user, what liquid, what decision, and what failure hurts?
 - Which principles from Task 1 transfer, which do not, and why?
 - Sketch the installation and the local display; say what you would verify before trusting it.
-- Present it in the gallery walk and add it as your own section in `Module04/README.md`.
+- Add it as your own section in `Module04/README.md` as pod.
 
 > **Speculate, then check.** The transfer story is allowed to be a hypothesis. Mark what you know from your bench, what you infer, and what you would measure next.
 
 > Task A and Task B are the collaboration wrapper for the two tasks — not extra lab work.
 
-### ★ Task A — Keep the shared study log
+## General notes
 
-One shared `## Study log` section per pair of Task Pods in `Module04/README.md`: calibration records, raw-data links, picture proofs, and the one surprise. Each pod links to it; each student adds one sentence on what they contributed. The reports stay individual.
-
-### ★ Task B — Exchange with a neighbouring pod
-
-- Session 1: the partner pod checks your scale calibration and your tank calibration.
-- Session 2: gallery walk — show the prototype, the selection matrix, and the transfer story; ask one question of another pod.
-- Agree on one learning and one shared artefact (the prototype photo, the selection matrix, or the failure-mode table). Post it in the course channel.
-- Each student adds the agreed learning to their own README, with a link to the shared log.
+Make sure you work together, share results, but get a chance to mostly measure everything. Compare results and techniques. Try to mark you most epic ideas and fails - also for sharing.
 
 ## Templates to fill in and exchange
 
@@ -248,7 +228,6 @@ Rate each principle for each tank. The rating must cite a measurement, not an op
 3. Recommendation report for Nordwind (your own section).
 4. Theory report (your own section).
 5. Transfer story (your own section).
-6. Task B: agreed learning and shared artefact.
 
 *You may prove the same goals another way. The reports are individual even when the experiments are shared; cite the shared log instead of copying it.*
 
