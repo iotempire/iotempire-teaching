@@ -44,20 +44,29 @@ We first taught it in the IoT class at the **University of Applied Sciences Linz
 
 Work in your Task Pod. Pair with a neighbouring Task Pod: one shared `## Study log` per pair, shared data and picture proofs, but **one report per pod**. Every student adds a short contribution note and links the pod report from their portfolio. Compare results; mark your most epic ideas and fails for the gallery walk.
 
-### You bring / we provide
+### We need — look at home
 
-| You bring | We provide | Shared with your partner pod |
-|---|---|---|
-| 2–3 clear plastic bottles or large plastic cups, water, optional cooking oil, scissors/cardboard/tape if you have them | trays, towels, ruler, funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper; the sensors in the menu below | 3 HX711 scales + calibration weights (one per pair), 3 multimeters, and the ToF/ultrasonic modules if the kit is short |
+We are all looking at home for these — instructors and students. Bring what you find; no need to buy anything. It is a small class, and we share what we have.
 
-**Sensor menu — choose, do not test all.** ToF, ultrasonic, HX711 scale, Hall + magnet float, foil/copper-tape capacitive, analog capacitive liquid/soil probe, light barrier (photo-interrupter; the original "light bar" switch), reed/float switch, MPR121 (optional), M5StickC-S3 IMU. Across the class, aim for roughly 80% coverage of the menu; your pod pair contributes **one tank** and at least **one continuous + one binary** principle. Pick the ones that are most fun.
+| We need | Notes |
+|---|---|
+| 2–3 clear plastic bottles or large plastic cups | Any size; lids if you have them |
+| Water | Tap water is fine |
+| Cooking oil (optional) | A small amount; any cooking oil |
+| Trays, towels, ruler, funnel, labels | Look at home; bring what you find |
+| Cardboard, scissors, glue, tape | Look at home; bring what you find |
+| Salt, dish soap, coffee grounds/soil/paper | For the dirty-water and foam simulants |
+
+**Sensor menu** ToF, ultrasonic, Hall + magnet float, foil/copper-tape capacitive, analog capacitive liquid/soil probe, light barrier (photo-interrupter; the original "light bar" switch), reed/float switch, MPR121 (optional), M5StickC-S3 IMU, HX711 scale (shared). With a neighboring pos, aim for roughly 80% coverage of the menu; contribute at least **one tank** and at least **one continuous + one binary** principle.
+
+Some things are shared — the three HX711 scales, the multimeters, and the ToF/ultrasonic modules if the kit is short. It is a small class; we will sort it out in the room.
 
 > [!WARNING]
 > **Water, oil, and electronics.** No real fuel and no real waste water; no tasting. No hot liquids and no open flame. Keep the ESP32, the scale, and the breadboard dry; use trays and towels; label every bottle; clean up spills; dispose of oil separately, not in the sink. Cooking oil is a qualitative fuel simulant, not diesel.
 >
-> **Ultrasonic warning.** Some ultrasonic modules are 5 V devices — check before connecting to 3.3 V logic, and use a level shifter/divider for the echo line.
+> **Ultrasonic warning.** Some ultrasonic modules are 5 V devices — check before connecting to 3.3 V logic, and use a level shifter/divider for the echo line. Talk to the instructor(s) if you are unsure.
 
-### The decision sheet — the one artifact
+### The decision sheet
 
 | Tank | Decision | Mode | Principle (primary / backup) | Evidence | Failure + installation note |
 |---|---|---|---|---|---|
@@ -66,7 +75,7 @@ Work in your Task Pod. Pair with a neighbouring Task Pod: one shared `## Study l
 | Waste water | full alarm | threshold | | | |
 | Bilge | presence alarm | binary | | | |
 
-**Mode** is the key design choice: **binary** (yes/no), **threshold** (a limit with hysteresis), or **continuous** (level/volume). Your pod pair fills one row; the class assembles the four rows. Your pod report uses the class table and cites the owner pod.
+**Mode** is the key design choice: **binary** (yes/no), **threshold** (a limit with hysteresis), or **continuous** (level/volume). Try to fill all rows with a neighboring pod - if things are hard/complicated, share wider in class. -- ulno: isn't hybrid or combination a good choice too?
 
 > The original challenge also listed heating/AC water. On *Nordwind* that is the engine coolant/heating loop; add it as an optional fifth row if you want the extra case.
 
@@ -74,11 +83,13 @@ Work in your Task Pod. Pair with a neighbouring Task Pod: one shared `## Study l
 
 Every sensor is binary, thresholded, or continuous. The tank decision decides which you need. The full principle reference is in the [resource bank](./Z-resources-bank.md#liquid-level-principles); use it when you need it, not as a lecture.
 
-1. **Pick your tank and liquid.** Your instructor assigns one tank per pod pair. Build a clear plastic mock tank; put it on the shared scale if you test weight.
+For each row, you study:
+
+1. **Pick your tank and liquid.** Build a clear plastic mock tank; put it on the shared scale if you test weight.
 2. **Test one continuous and one binary principle.** Continuous: ToF, ultrasonic, scale, analog capacitive probe. Binary: Hall float, reed/float, light barrier, capacitive threshold. Record what each measures, what it needs, and one failure.
 3. **Measure and calibrate.** For a continuous principle, log empty/half/full and convert to level/volume; for a binary principle, find the threshold and add hysteresis. Use the scale calibration record if you test weight.
-4. **Fill your row and share it.** Add your test card and decision-sheet row to the class table. Compare with your partner pod; if you finish early, test a second tank or a second principle.
-5. **Label the sea state.** Mount the M5StickC-S3 on the mock boat/tray; log `in harbor` (still), `moving` (gentle rock), and `rough` (sharp shake). Note how the level reading changes. The BMI270 is a 6-axis IMU; acceleration magnitude + a short window is enough.
+4. **Fill your row.** Add your test card and decision-sheet row to the class table. Compare with your partner pod.
+5. **Label the sea state.** Mount the M5StickC-S3 on the mock boat/tray; log `in harbor` (still), `moving` (gentle rock), and `rough` (sharp shake). Note how the level reading changes. The BMI270 is a 6-axis IMU; acceleration magnitude + a short window is enough. Add notes in your row how waves are effecting your reading.
 
 ### Break and choose
 

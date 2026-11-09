@@ -8,7 +8,7 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 
 - **Send the student email today.** The ready-to-send draft is [Module 4 student email](./04-module-4-student-email.md). It lists what students bring, the sensor menu, the visualization freedom, and the portfolio/checkpoint expectation.
 - **Ask the co-instructor to scrounge at home and bring:** trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper, and extra bottles/cups.
-- **Confirm the student bring list:** 2–3 clear plastic bottles or large cups, water, optional cooking oil, and scissors/cardboard/tape if they have them.
+- **Common bring list:** 2–3 clear plastic bottles or large cups, water, optional cooking oil, and scissors/cardboard/tape if they have them; the instructors also scrounge the shared materials above.
 - **Kit check:** 3 HX711 scales + calibration weights; 3 multimeters; known-good HX711 wiring; ToF and ultrasonic modules (check 5 V); Hall sensor + magnet + cork; reed/float switch; light barrier; foil/copper tape; analog capacitive liquid/soil probe; M5StickC-S3 + BMI270.
 - **Class table:** prepare one shared four-row decision sheet; each pod pair will own one row.
 

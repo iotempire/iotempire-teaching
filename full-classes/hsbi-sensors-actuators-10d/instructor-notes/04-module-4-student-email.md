@@ -13,17 +13,19 @@ Hi everyone,
 
 Next session we start the Module 4 liquid-measurement challenge. You will build
 a mock tank, test a few sensing principles, and recommend what you would put on
-the charter boat Nordwind. Most of the work happens at the bench, so please
-bring a few things from home if you can:
+the charter boat Nordwind. Most of the work happens at the bench. We are all
+looking at home for these — instructors and students — so bring what you find:
 
 - 2–3 clear plastic bottles or large plastic drinking cups (with lids if you have them)
 - some water
 - optionally, a small amount of cooking oil
 - scissors, cardboard, and tape if you have them
+- if you have trays, towels, a ruler, a funnel, labels, salt, dish soap, or
+  coffee grounds/soil/paper, bring them along too — we are sharing what we find
 
-We will also bring a supply of bottles, cardboard, scissors, tape, water, and
-oil, so please do not buy anything special. Plastic only — no glass — and
-please label your bottle with your name.
+No need to buy anything special; if you do not have something, we will share
+what we have. It is a small class, and we work together. Plastic only — no
+glass — and please label your bottle with your name.
 
 Before the session, please polish your portfolio: make sure your Module 1–3
 evidence is committed and easy to find. We will run the first checkpoint during
