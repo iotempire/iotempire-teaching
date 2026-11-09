@@ -238,7 +238,7 @@ The kit is deliberately two-layered, so you can move fast and still meet real ph
 - **Physics path — raw microcontrollers and discrete parts:**
   - ESP32 DevKits, ESP32 Ethernet mini kits, and ESP8266 / Wemos D1 Mini boards, breadboards, jumper wires, resistors, capacitors, diodes.
   - Discrete sensors: LDR, potentiometer, DHT11 (optional comparison), Hall-effect (analog + digital latch), DS18B20 (OneWire, sealed probe), MPU6050 (I²C), ultrasonic, light barrier (photo-interrupter).
-  - Liquid-level parts: clear plastic bottles, foil/copper tape, cork floats, magnets, analog capacitive liquid/soil probes.
+  - Liquid-level parts: clear plastic bottles, cork floats, magnets, analog soil/humidity probes (open/sealed/needle), a binary capacitive water sensor (shared).
   - Actuators: SG90 servo, small DC motor, 28BYJ-48 stepper with ULN2003, H-bridge driver (TB6612 / L298N), 5 V relay, piezo buzzer, high-brightness RGB LEDs, WS2812 / NeoPixel strip.
 - **Instruments:** **three shared digital multimeters** (one per two pods), **three shared HX711 load-cell scales with a known calibration mass (e.g., 50 g) per scale** (one per two pods; a second check weight is optional), USB power meter, thermometer for reference measurements; **no benchtop oscilloscope** — Module 2 builds/selects an ESP32-based scope/logic analyzer (with PulseView/sigrok) that the class uses for the rest of the course.
 - **Broker & infrastructure:** a Mosquitto MQTT broker running on any host in the network — a local OpenWrt travel router, a small Linux/Raspberry Pi host, or a laptop — plus laptops, USB power supplies, and hubs. Node-RED is optional; IoTempower is an optional declarative tool.

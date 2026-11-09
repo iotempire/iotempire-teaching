@@ -57,9 +57,9 @@ We are all looking at home for these — instructors and students. Bring what yo
 | Cardboard, scissors, glue, tape | Look at home; bring what you find |
 | Salt, dish soap, coffee grounds/soil/paper | For the dirty-water and foam simulants |
 
-**Sensor menu** ToF, ultrasonic, Hall + magnet float, foil/copper-tape capacitive, analog capacitive liquid/soil probe, light barrier (photo-interrupter), reed/float switch, MPR121 (optional), M5StickC-S3 IMU, HX711 scale (shared). Across the class, aim for roughly 80% coverage of the menu. With your neighbouring pod, fill **4–5 decision-sheet rows**.
+**Sensor menu** ToF, ultrasonic, Hall + magnet float, analog soil/humidity probe (open, sealed, needle), binary capacitive water sensor (shared), light barrier (photo-interrupter), reed/float switch, MPR121 (optional), M5StickC-S3 IMU, HX711 scale (shared). Across the class, aim for roughly 80% coverage of the menu. With your neighbouring pod, fill **4–5 decision-sheet rows**.
 
-Some things are shared — the three HX711 scales, the multimeters, and the ToF/ultrasonic modules if the kit is short. It is a small class; we will sort it out in the room.
+Some things are shared — the three HX711 scales, the multimeters, the binary capacitive water sensor, and the ToF/ultrasonic modules if the kit is short. It is a small class; we will sort it out in the room.
 
 > [!WARNING]
 > **Water, oil, and electronics.** No real fuel and no real waste water; no tasting ;-). No hot liquids and no open flame. Keep the ESP32, the scale, and the breadboard dry; use trays and towels; clean up spills; dispose of oil separately, not in the sink. Cooking oil is a qualitative fuel simulant, not diesel.
@@ -75,7 +75,7 @@ Some things are shared — the three HX711 scales, the multimeters, and the ToF/
 | Waste water | full alarm | threshold + high failsafe | | | |
 | Bilge | presence alarm | binary / staggered | | | |
 
-**Mode** is the key design choice: **binary** (yes/no), **threshold** (a limit with hysteresis), **continuous** (level/volume), or a **hybrid**. A good hybrid is a continuous reading plus a binary failsafe at the critical limit, or several binary switches at different heights (staggered binary — for example, several capacitive levels). The rows above are examples, not prescriptions. With your neighbouring pod, aim to fill **4–5 rows**; if something is hard, share wider in class.
+**Mode** is the key design choice: **binary** (yes/no), **threshold** (a limit with hysteresis), **continuous** (level/volume), or a **hybrid**. A good hybrid is a continuous reading plus a binary failsafe at the critical limit, or several binary switches at different heights (staggered binary — for example, several float/reed switches). The rows above are examples, not prescriptions. With your neighbouring pod, aim to fill **4–5 rows**; if something is hard, share wider in class.
 
 > The original challenge also listed heating/AC water. On *Nordwind* that is the engine coolant/heating loop; add it as an optional fifth row if you want the extra case.
 
@@ -86,14 +86,14 @@ Every sensor mode is binary, thresholded, continuous, or a hybrid. The tank deci
 For each row, you study:
 
 1. **Pick your tanks and liquid.** Between the two pods, split the four tanks (plus the optional fifth). Build a clear plastic mock tank for the first one; put it on the shared scale if you test weight.
-2. **Test one continuous and one binary principle.** Continuous: ToF, ultrasonic, scale, analog capacitive probe. Binary: Hall float, reed/float, light barrier, capacitive threshold. Record what each measures, what it needs, and one failure. You can combine them later into a hybrid.
+2. **Test one continuous and one binary principle.** Continuous: ToF, ultrasonic, scale, analog soil/humidity probe. Binary: Hall float, reed/float, light barrier, binary capacitive water sensor. Try more than one form of the analog soil/humidity probe (open, sealed, needle); they respond differently. Record what each measures, what it needs, and one failure. You can combine them later into a hybrid.
 3. **Measure and calibrate.** For a continuous principle, log empty/half/full and convert to level/volume; for a binary principle, find the threshold and add hysteresis. Use the scale check if you test weight.
 4. **Fill your rows.** Add your test cards and decision-sheet rows to the shared table. Between the two pods, aim for 4–5 rows; compare with the class.
 5. **Label the sea state.** Mount the M5StickC-S3 on the mock boat/tray; log `in harbor` (still), `moving` (gentle rock), and `rough` (sharp shake). Note how the level reading changes. The BMI270 is a 6-axis IMU; acceleration magnitude + a short window is enough. Add notes in your rows on how the waves affect your reading.
 
 ### Break and choose
 
-1. **Try the failure cases that matter.** Clear drinking water often defeats ToF; the ultrasonic sensor usually works, but a slender bottle can give echoes. Foam is worth trying — non-contact sensors may see the foam, while the scale does not. Also try tilt/slosh, empty/full, and condensation. Record what the failure looks like in the data.
+1. **Try the failure cases that matter.** Clear drinking water often defeats ToF; the ultrasonic sensor usually works, but a slender bottle can give echoes. Foam is worth trying — non-contact sensors may see the foam, while the scale does not. The analog soil/humidity probe is interesting as a concept but tough when water splashes or moves; calibrate it and note the instability. Also try tilt/slosh, empty/full, and condensation. Record what the failure looks like in the data.
 2. **Make the choice robust.** Add a filter, hysteresis, or debounce; decide whether the tank needs binary, threshold, continuous, or a hybrid (continuous + failsafe, or staggered binary). Set a local alarm with a clear state.
 3. **Complete 4–5 rows.** With your neighbouring pod, fill the shared decision sheet. Add a primary, a failsafe/backup principle, the evidence, and one installation note per row.
 4. **Build one demo and take picture proofs.** Use the M5StickC-S3 screen, an OLED, LEDs/buzzer, the serial plotter, or a collage of plots — whatever makes the tanks legible. Photograph the build, wiring, display, calibration, and one failure case; caption what each picture proves.
@@ -140,7 +140,7 @@ Two readings define the line — 0 g (tare) and one known calibration mass; a th
 
 ## ◇ Optional extras
 
-- **MPR121:** If you have an MPR121 capacitive-touch board and want the extra challenge, use it instead of the ESP32 touch pins; it is a clean I²C controller and a possible final-project part. See the [pre-study note](../pre-study.md#3-read-like-a-sensor-engineer).
+- **MPR121 / touch:** If you have an MPR121 capacitive-touch board, use it for touch/proximity; foil or copper tape makes a good touch electrode. This is a side idea, not a liquid-level method. See the [pre-study note](../pre-study.md#3-read-like-a-sensor-engineer).
 - **Pump current:** If a Hall current sensor and a small pump are available, measure the current dry, wet, and blocked. No pump? Read and think about it, and add a sentence to the report.
 - **Remote outlook / Node-RED:** Not required in this module. Describe what you would publish; build it in Module 8 or the final project.
 
@@ -166,7 +166,7 @@ Two readings define the line — 0 g (tare) and one known calibration mass; a th
 - "How do I calibrate an HX711 scale with known masses, and what does tare do to the offset?"
 - "My ToF works on a wall but not on clear water. My ultrasonic works on clear water but echoes in a slender bottle. Explain both and design a test."
 - "How can an IMU distinguish a boat in harbor from a boat underway without sensor fusion?"
-- "Which dielectric property makes capacitive water detection work through a plastic wall?"
+- "How does a binary capacitive water sensor decide that there is water on the other side, and what can make it false-trigger?"
 
 > Treat each answer as a claim to test. Record where the model is wrong, vague, or over-confident.
 

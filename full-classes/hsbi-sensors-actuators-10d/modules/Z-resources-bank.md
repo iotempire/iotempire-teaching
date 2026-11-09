@@ -98,7 +98,7 @@ uv run python plot_measurements.py
 | 4 | Liquid-level principles | A short level-sensor overview (float, capacitive, ultrasonic, radar, pressure) | Which principle survives foam, clear water, or a moving tank? |
 | 4 | Load-cell scale | A short HX711 / load-cell calibration demo | What do tare and the calibration factor do? |
 | 4 | Motion/shock with an IMU | A short accelerometer threshold/variance explainer | How can acceleration variance distinguish a docked boat from one underway? |
-| 4 | Capacitive and light-barrier sensing | A short capacitive-sensing and photo-interrupter explainer | When is the output continuous, and when is it just a switch? |
+| 4 | Capacitive water/soil sensing and light barriers | A short capacitive-sensing and photo-interrupter explainer | When is the output continuous, and when is it just a switch? |
 | 5 | PWM & LED dimming | A "PWM and gamma correction" explainer | Why does a linear ramp look like it "jumps"? |
 | 5 | Addressable LEDs | A WS2812 / NeoPixel overview | Why does each pixel need a driver chip? |
 | 6 | LED animation | An addressable LED animation demo (Adafruit NeoPixel / NeoPixelBus) | How do palettes and HSV simplify effects? |
@@ -117,8 +117,9 @@ uv run python plot_measurements.py
 | HX711 + load cell | Bridge excitation, differential input, gain, tare, calibration | The mass-based level measurement and its uncertainty |
 | M5StickC-S3 / BMI270 datasheet | 6-axis IMU, I²C, accelerometer/gyro ranges | The simple shock/motion detector for harbor vs. outside |
 | Hall sensor (analog/latch) | Magnetic field vs. distance, threshold, hysteresis | The magnetic float and the reed/float switch |
-| Capacitive / float / reed switch datasheets | Dielectric sensing, through-wall, buoyancy, contact rating | The non-distance alternatives and their mounting constraints |
-| Analog capacitive soil/liquid probe | Dielectric sensing, analog output, supply, corrosion/waterproofing | The cheap capacitive probe and its limits |
+| Float / reed switch datasheets | Buoyancy, contact rating, mounting | The simple binary high/low limit |
+| Analog soil/humidity probe (open, sealed, needle) | Dielectric sensing, analog output, supply, corrosion/waterproofing | The cheap analog probe, its forms, and its limits |
+| Binary capacitive water sensor | Threshold output, supply, adjustment, nearby objects | The "water on the other side" switch |
 | Light barrier / photo-interrupter | Beam interruption, output type, ambient light | The binary high/low limit switch |
 | MPU6050 register map | Accel/gyro scales, `0x68`/`0x69`, WHO_AM_I | Optional reference for IMU configuration |
 | LDR (photoresistor) characteristics | Resistance vs. illuminance, spectral response, light history | The analog, nonlinear transfer-function lab |
@@ -161,16 +162,16 @@ Use this table to choose a principle, not to memorize it.
 | Ultrasonic | distance to the surface | continuous | works on clear water | foam, soft/angled surfaces, slender-bottle echoes, temperature, crosstalk |
 | Weight / load cell | mass | continuous | liquid-independent; foam/clear/dark do not matter | mounting, acceleration/slosh, drift, capacity |
 | Magnetic float + Hall | float position | continuous or threshold | no electronics inside the tank | sticking, magnet orientation, only along the float |
-| Capacitive foil/tape | dielectric through the wall | continuous or threshold | through-wall, no intrusion | drift, humidity, wall thickness, water vs. oil |
-| Analog capacitive probe | dielectric of the medium | continuous | cheap; works in water/oil/soil | not food-safe; corrosion, salinity, temperature drift |
+| Analog soil/humidity probe (open, sealed, needle) | dielectric of the medium | continuous | cheap; works in water/soil; several forms behave differently | not food-safe; corrosion, salinity, temperature drift; splashes/movement make level hard |
+| Binary capacitive water sensor | water on the other side / large nearby capacitance | binary | simple presence/threshold | adjustment, nearby objects, splashes, supply |
 | Conductive electrodes | conductivity | binary | very simple | corrosion, polarization; only conductive liquids |
 | Reed/float switch | buoyancy | binary | simple, robust | sticking, fouling; discrete only |
 | Light barrier (photo-interrupter) | beam interruption | binary | simple, no contact | alignment, ambient light, fouling |
 | IMU (M5StickC-S3, BMI270) | acceleration / motion | state | labels the sea state; no fusion needed | not a level sensor; vibration, mounting |
 
-> Hybrid is often the best answer: continuous for the quantity plus a binary failsafe at the critical limit, or several staggered binary switches at different heights (for example, several capacitive levels).
+> Hybrid is often the best answer: continuous for the quantity plus a binary failsafe at the critical limit, or several staggered binary switches at different heights (for example, several float/reed switches).
 
-> MPR121 is an optional multi-channel capacitive-touch controller; it uses the same dielectric principle as the foil/tape and the analog probe.
+> MPR121 is an optional multi-channel capacitive-touch controller for touch/proximity; it is a side idea, not part of the liquid-level path.
 
 <a id="formulas-you-will-use"></a>
 ### 📌 Formulas You Will Use
@@ -239,8 +240,8 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Level reading oscillates | Slosh, tilt, or vibration | Log a series; filter/median; add hysteresis; use the IMU to label the state | 4 |
 | HX711 reading drifts or is noisy | Unstable supply, long leads, temperature, mounting | Short leads, stable supply, tare, average, check with known masses | 4 |
 | HX711 not detected / readings saturated | Wiring, gain, or overload | Check E+/E−/A+/A−, common ground, reduce load, verify with a known mass | 4 |
-| Capacitive sensor triggers without water | Grounding, humidity, baseline drift | Re-baseline, keep the foil flat, avoid stray capacitance | 4 |
-| Capacitive probe reads wet/dry wrongly or drifts | Temperature, salinity, supply, probe coating | Re-baseline, clean, keep the electronics dry; compare with the foil version | 4 |
+| Binary capacitive sensor triggers without water | Adjustment, grounding, nearby objects | Adjust the threshold, keep the sensor dry, check supply and mounting | 4 |
+| Analog soil/humidity probe reads wet/dry wrongly or drifts | Temperature, salinity, supply, probe coating, splashes | Re-baseline, clean, keep the electronics dry; calibrate and compare open/sealed/needle forms | 4 |
 | Light barrier false-triggers | Ambient light, alignment, flag sticking | Shield, align, add hysteresis; test with a card | 4 |
 | Ultrasonic modules interfere | Crosstalk between pods | Stagger firing or shield; keep the beams apart | 4 |
 | Water or oil on the electronics | Spills | Dry tray, towels, keep the ESP32 and scale dry; clean immediately | 4 |
@@ -270,8 +271,9 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | HX711 scale | HX711 Arduino library (bogde/HX711) or a scale library | Tare, calibration factor, raw reads; verify with known masses |
 | M5StickC-S3 IMU/display | M5Unified / M5GFX; BMI270 driver | Use the board support; read acceleration; no fusion needed |
 | Distance sensors | VL53L0X library (Pololu/Adafruit); ultrasonic `pulseIn`/NewPing | Check the 5 V echo level; use a divider |
-| Capacitive touch | ESP32 `touchRead()` | Baseline drift; re-baseline; avoid strapping pins |
-| Analog capacitive probe | ESP32 ADC + calibration | Water/oil/soil; not food-safe; keep the electronics dry |
+| Touch / MPR121 (optional) | ESP32 `touchRead()`; MPR121 library | Side idea for touch/proximity; not a liquid-level method |
+| Analog soil/humidity probe | ESP32 ADC + calibration | Water/soil; not food-safe; splashes/movement make level hard; compare open/sealed/needle forms |
+| Binary capacitive water sensor | `digitalRead` or threshold adjustment | Presence/threshold; nearby objects and splashes can trigger it |
 | Light barrier | `digitalRead` or interrupt | Binary high/low limit; alignment and ambient light |
 | I²C convenience | `Wire` (Arduino core) | Scan, read/write registers |
 | I²C tools (Linux) | `i2c-tools` (`i2cdetect`) | Standard bus scan on a Pi/gateway |

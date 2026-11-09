@@ -24,8 +24,7 @@ looking at home for these — instructors and students — so bring what you fin
   coffee grounds/soil/paper, bring them along too — we are sharing what we find
 
 No need to buy anything special; if you do not have something, we will share
-what we have. It is a small class, and we work together. Plastic only — no
-glass — and please label your bottle with your name.
+what we have. It is a small class, and we work together.
 
 Before the session, please polish your portfolio: make sure your Module 1–3
 evidence is committed and easy to find. We will run the first checkpoint during
@@ -35,10 +34,11 @@ through.
 
 A few notes for the session:
 
-- We will have ToF, ultrasonic, load-cell scales, Hall sensors, foil/copper tape,
-  analog capacitive liquid/soil probes, light barriers (photo-interrupters — the
-  “light bar” switches), reed/float switches, an M5StickC-S3 IMU, and an optional
-  MPR121 capacitive-touch board.
+- We will have ToF, ultrasonic, load-cell scales, Hall sensors, analog
+  soil/humidity probes (open, sealed, and needle forms), a binary capacitive
+  water sensor, light barriers (photo-interrupters — the “light bar” switches),
+  reed/float switches, an M5StickC-S3 IMU, and an optional MPR121 capacitive-touch board.
+- You can try more than one form of the analog soil/humidity probe; they behave differently.
 - You do not have to test every sensor. Across the class we aim for about 80%
   coverage — and all of them are fun. Your pod will test a few that fit your tank.
 - Two pods will work together and aim for 4–5 decision-sheet rows (the four tanks

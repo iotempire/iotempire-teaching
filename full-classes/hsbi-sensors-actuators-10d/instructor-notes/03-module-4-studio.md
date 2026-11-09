@@ -9,15 +9,15 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 - **Send the student email today.** The ready-to-send draft is [Module 4 student email](./04-module-4-student-email.md). It lists what students bring, the sensor menu, the visualization freedom, and the portfolio/checkpoint expectation.
 - **Ask the co-instructor to scrounge at home and bring:** trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper, and extra bottles/cups.
 - **Common bring list:** 2–3 clear plastic bottles or large cups, water, optional cooking oil, and scissors/cardboard/tape if they have them; the instructors also scrounge the shared materials above.
-- **Kit check:** 3 HX711 scales + one known calibration mass each (e.g., 50 g; a second weight is optional); 3 multimeters; known-good HX711 wiring; ToF and ultrasonic modules (check 5 V); Hall sensor + magnet + cork; reed/float switch; light barrier; foil/copper tape; analog capacitive liquid/soil probe; M5StickC-S3 + BMI270.
+- **Kit check:** 3 HX711 scales + one known calibration mass each (e.g., 50 g; a second weight is optional); 3 multimeters; known-good HX711 wiring; ToF and ultrasonic modules (check 5 V); Hall sensor + magnet + cork; reed/float switch; light barrier; analog soil/humidity probes (open, sealed, needle; one per pod); one binary capacitive water sensor (shared); M5StickC-S3 + BMI270.
 - **Shared decision sheet:** prepare one table; each two-pod group aims for 4–5 rows (the four tanks plus the optional fifth).
 
 ## 2. Room and kit
 
 - **Six pods, three scales:** pair Task Pods; one scale per pair; each two-pod group aims for 4–5 decision-sheet rows; compare across the class.
 - **Six pods, three multimeters:** same pairing as Module 3; one meter per pair.
-- **Per pod:** one ESP32, one ToF sensor, one ultrasonic module, one Hall sensor with a small magnet and cork, foil or copper tape, one reed/float switch (optional), one light barrier (photo-interrupter), one analog capacitive liquid/soil probe, one M5StickC-S3 (StickS3) with its BMI270 IMU where available, and a local display (the StickS3 screen, an OLED, LEDs/buzzer, or the serial plotter).
-- **Shared:** one known calibration mass per scale (a second is optional), trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper.
+- **Per pod:** one ESP32, one ToF sensor, one ultrasonic module, one Hall sensor with a small magnet and cork, one reed/float switch (optional), one light barrier (photo-interrupter), one analog soil/humidity probe (the class has open, sealed, and needle forms; compare them), one M5StickC-S3 (StickS3) with its BMI270 IMU where available, and a local display (the StickS3 screen, an OLED, LEDs/buzzer, or the serial plotter).
+- **Shared:** one known calibration mass per scale (a second is optional), one binary capacitive water sensor, trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper.
 - **Optional:** an MPR121 capacitive-touch board for pods that want the extra challenge or a final-project part.
 - **Two instructors:** split the room three pods each; one instructor owns the scale-corner check.
 
@@ -67,14 +67,14 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 
 Use this to steer without handing students the answer. The students should derive it from their tests. The defaults are bench answers, not final boat installations; the report must still justify mounting and maintenance.
 
-Hybrid is often the best answer: continuous for the quantity plus a binary failsafe at the critical limit, or several staggered binary switches at different heights (for example, several capacitive levels).
+Hybrid is often the best answer: continuous for the quantity plus a binary failsafe at the critical limit, or several staggered binary switches at different heights (for example, several float/reed switches). The analog soil/humidity probe is an interesting concept test for dirty water/soil, not a default for drinking water or fuel; splashes and movement make it unstable.
 
 | Tank | Decision | Default mode | Default principle | Likely failure |
 |---|---|---|---|---|
 | Diesel | range / low alarm | continuous + low failsafe | scale or ToF/ultrasonic + float/reed | clear water defeats ToF; slender-bottle echoes for ultrasonic; slosh |
 | Fresh water | level / low alarm | continuous + low failsafe | scale or ultrasonic + float/reed | condensation; clear-water ToF |
-| Waste water | full alarm | threshold + high failsafe | float / light barrier / ultrasonic threshold + high float | foam, fouling |
-| Bilge | presence | binary / staggered | float / light barrier / conductive; several heights if useful | debris, false alarms |
+| Waste water | full alarm | threshold + high failsafe | float / light barrier / binary capacitive water sensor + high float | foam, fouling |
+| Bilge | presence | binary / staggered | float / light barrier / binary capacitive water sensor; several heights if useful | debris, false alarms |
 
 ## 9. Common hiccups
 
@@ -82,12 +82,12 @@ Hybrid is often the best answer: continuous for the quantity plus a binary fails
 - **Ultrasonic echoes in a slender bottle:** multiple reflections make the reading jump; use a wider tank, angle the sensor, or filter/median.
 - **Foam (optional):** non-contact sensors may see the foam; the scale does not. Try it with dish soap if you have it, but do not make it the main failure case.
 - **HX711 drift or saturation:** check the supply, leads, wiring, and load; tare and verify with a known mass.
-- **Capacitive drift:** re-baseline, keep the foil flat, and avoid stray capacitance and strapping pins.
-- **Analog capacitive probe:** not food-safe; keep the electronics dry; it can drift with temperature, salinity, and probe coating.
+- **Analog soil/humidity probe:** not food-safe; keep the electronics dry; splashes and moving water make the level reading unstable; calibrate and compare open/sealed/needle forms.
+- **Binary capacitive water sensor:** adjust the threshold, keep it dry, and check that nearby objects or splashes do not trigger it.
 - **Light barrier:** alignment and ambient light; a floating flag can stick.
 - **Scale queue:** pair pods and rotate; do not let six pods wait for three scales.
 - **Oil and water on the bench:** trays, towels, labels, and a dry side for the electronics. Clean oil before the next liquid.
-- **Report scope:** keep the decision sheet as the spine; the theory explainer should cover only the principles actually used.
+- **Report scope:** keep the decision sheet as the spine; the theory report should cover only the principles actually used.
 - **No Node-RED requirement:** visualization is the pod's choice — screen, OLED, LEDs, serial plotter, or a collage of plots. If they want Node-RED, it belongs to Module 8 or the final project; do not teach the broker twice.
 
 ## 10. Story and photo
