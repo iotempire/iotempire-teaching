@@ -10,11 +10,11 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 - **Ask the co-instructor to scrounge at home and bring:** trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper, and extra bottles/cups.
 - **Common bring list:** 2–3 clear plastic bottles or large cups, water, optional cooking oil, and scissors/cardboard/tape if they have them; the instructors also scrounge the shared materials above.
 - **Kit check:** 3 HX711 scales + calibration weights; 3 multimeters; known-good HX711 wiring; ToF and ultrasonic modules (check 5 V); Hall sensor + magnet + cork; reed/float switch; light barrier; foil/copper tape; analog capacitive liquid/soil probe; M5StickC-S3 + BMI270.
-- **Class table:** prepare one shared four-row decision sheet; each pod pair will own one row.
+- **Shared decision sheet:** prepare one table; each two-pod group aims for 4–5 rows (the four tanks plus the optional fifth).
 
 ## 2. Room and kit
 
-- **Six pods, three scales:** pair Task Pods; one scale per pair; one pod pair owns one tank (one pair may take two). The class assembles the four-row decision sheet.
+- **Six pods, three scales:** pair Task Pods; one scale per pair; each two-pod group aims for 4–5 decision-sheet rows; compare across the class.
 - **Six pods, three multimeters:** same pairing as Module 3; one meter per pair.
 - **Per pod:** one ESP32, one ToF sensor, one ultrasonic module, one Hall sensor with a small magnet and cork, foil or copper tape, one reed/float switch (optional), one light barrier (photo-interrupter), one analog capacitive liquid/soil probe, one M5StickC-S3 (StickS3) with its BMI270 IMU where available, and a local display (the StickS3 screen, an OLED, LEDs/buzzer, or the serial plotter).
 - **Shared:** calibration weights for the scales, trays, towels, a ruler, a funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper.
@@ -48,31 +48,33 @@ Operational setup for Module 4 (Liquid Measurement & Sensor Selection). The stud
 
 ## 6. Divide and conquer
 
-- **Pair two Task Pods.** One tank per pair (one pair may take two); test one continuous and one binary principle; fill the test card and the decision-sheet row.
-- **Class table.** Each pair adds its row; the class assembles the four rows. Aim for roughly 80% coverage of the sensor menu across the class, not per pod.
+- **Pair two Task Pods.** Aim for 4–5 decision-sheet rows; split the tanks and principles; each pod tests at least one continuous and one binary. Fill the test cards and the shared decision sheet.
+- **Shared table.** Each two-pod group aims for 4–5 rows; compare across the class. Aim for roughly 80% coverage of the sensor menu across the teamed up two pods.
 - **Reports are per pod.** Each pod writes its own recommendation and theory report; every student adds a contribution note and links the pod report from their portfolio.
 - **One shared study log per pair of pods.** One pod hosts the `## Study log` section; the other links to it.
 - **Finish the practice in the two sessions.** The reports are written outside class from the data and photos the pods already have.
 
 ## 7. Running the two sessions
 
-- **Session 1 — Explore:** assign tanks; build the mock tank; test one continuous and one binary principle; calibrate; fill the row; run the IMU states; partner calibration check.
-- **Session 2 — Break and choose:** test the failure cases; add filter/hysteresis/debounce; complete the class decision sheet; build the demo; take picture proofs; gallery walk; start the transfer story.
+- **Session 1 — Explore:** split the tanks between the two pods; build mock tanks; test one continuous and one binary principle; calibrate; fill 4–5 rows; run the IMU states; partner calibration check.
+- **Session 2 — Break and choose:** test the failure cases; add filter/hysteresis/debounce; complete the 4–5 rows; build the demo; take picture proofs; gallery walk; start the transfer story.
 - **Mini checks:** draw one prompt at random; ask the pod to answer from the bench or the log. Keep it short.
 - **Day 4 feedback at the bench:** the instructors run the Day 4 feedback conversation while pods are working — move pod to pod, ask one "why" question, and do not stop the room for a presentation. The first checkpoint is about **15 minutes per pod**; ask students to have their portfolio and evidence ready. The rules stay in the syllabus.
 - **Student email:** a ready-to-send draft is in [Module 4 student email](./04-module-4-student-email.md).
-- **Gallery walk:** each pod shows its decision-sheet row, the demo, and the transfer story; another pod asks one question. The instructor checks that the evidence, not the opinion, carries the recommendation.
+- **Gallery walk:** each two-pod group shows its 4–5 decision-sheet rows, the demo, and the transfer story; another pod asks one question. The instructor checks that the evidence, not the opinion, carries the recommendation.
 
 ## 8. Answer key (instructor only)
 
 Use this to steer without handing students the answer. The students should derive it from their tests. The defaults are bench answers, not final boat installations; the report must still justify mounting and maintenance.
 
+Hybrid is often the best answer: continuous for the quantity plus a binary failsafe at the critical limit, or several staggered binary switches at different heights (for example, several capacitive levels).
+
 | Tank | Decision | Default mode | Default principle | Likely failure |
 |---|---|---|---|---|
-| Diesel | range / low alarm | continuous | scale or ToF/ultrasonic | clear water defeats ToF; slender-bottle echoes for ultrasonic; slosh |
-| Fresh water | level / low alarm | continuous | scale or ultrasonic | condensation; clear-water ToF |
-| Waste water | full alarm | threshold | float / light barrier / ultrasonic threshold | foam, fouling |
-| Bilge | presence | binary | float / light barrier / conductive | debris, false alarms |
+| Diesel | range / low alarm | continuous + low failsafe | scale or ToF/ultrasonic + float/reed | clear water defeats ToF; slender-bottle echoes for ultrasonic; slosh |
+| Fresh water | level / low alarm | continuous + low failsafe | scale or ultrasonic + float/reed | condensation; clear-water ToF |
+| Waste water | full alarm | threshold + high failsafe | float / light barrier / ultrasonic threshold + high float | foam, fouling |
+| Bilge | presence | binary / staggered | float / light barrier / conductive; several heights if useful | debris, false alarms |
 
 ## 9. Common hiccups
 

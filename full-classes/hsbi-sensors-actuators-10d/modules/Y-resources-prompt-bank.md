@@ -59,7 +59,7 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 4. Process: *Uncertainty honesty:* Write your uncertainty budget and state `y ± U`. Which contribution dominates, and why?
 
 ## 📌 Module 4 – Liquid Measurement & Sensor Selection
-*Focus: binary/threshold/continuous sensing, one tank/two principles, class decision sheet, failure modes, sensor selection.*
+*Focus: binary/threshold/continuous/hybrid sensing, two pods aim for 4–5 decision-sheet rows, failure modes, sensor selection.*
 
 1. Technical: *Two ways to measure one tank:* Compare distance vs. mass, including calibration and uncertainty.
 2. Technical: *Principle comparison:* Which principle wins for clear water, dirty water, oil, and bilge water — and why?

@@ -13,9 +13,9 @@ During the class, the instructors will also come around and check your existing 
 This module gives you the opportunity to explore liquid-level sensing and achieve competency in sensor selection, tank calibration, and the safety and maintenance constraints of real liquids.
 
 By the end of this module, you can:
-1. Explain the difference between **binary, thresholded, and continuous** sensing, and what each candidate principle actually measures.
+1. Explain the difference between **binary, thresholded, continuous, and hybrid** sensing, and what each candidate principle actually measures.
 2. Match a principle to a tank, liquid, decision, and failure mode using opacity, foam, conductivity, dielectric constant, density, hygiene, flammability, tank shape, mounting, and motion.
-3. Build and calibrate **one continuous and one binary** mock-tank measurement; convert continuous readings into level and volume and state the uncertainty.
+3. Build and calibrate **one continuous and one binary** mock-tank measurement, and combine them into a hybrid where useful; convert continuous readings into level and volume and state the uncertainty.
 4. Use a motion/shock sensor to distinguish “in harbor” from “outside” and explain how boat motion affects the tank reading.
 5. Write a pod recommendation and a short theory report, and transfer the reasoning to a local industrial story.
 
@@ -40,9 +40,9 @@ We first taught it in the IoT class at the **University of Applied Sciences Linz
 
 *Photo from the original challenge; used with permission.*
 
-## 🛠️ Studio — one tank, two principles
+## 🛠️ Studio — two principles, 4–5 rows
 
-Work in your Task Pod. Pair with a neighbouring Task Pod: one shared `## Study log` per pair, shared data and picture proofs, but **one report per pod**. Every student adds a short contribution note and links the pod report from their portfolio. Compare results; mark your most epic ideas and fails for the gallery walk.
+Work in your Task Pod. Pair with a neighbouring Task Pod: one shared `## Study log` per pair, shared data and picture proofs, but **one report per pod**. Between the two pods, aim for **4–5 decision-sheet rows** (the four tanks plus the optional fifth). Every student adds a short contribution note and links the pod report from their portfolio. Compare results; mark your most epic ideas and fails for the gallery walk.
 
 ### We need — look at home
 
@@ -57,45 +57,45 @@ We are all looking at home for these — instructors and students. Bring what yo
 | Cardboard, scissors, glue, tape | Look at home; bring what you find |
 | Salt, dish soap, coffee grounds/soil/paper | For the dirty-water and foam simulants |
 
-**Sensor menu** ToF, ultrasonic, Hall + magnet float, foil/copper-tape capacitive, analog capacitive liquid/soil probe, light barrier (photo-interrupter; the original "light bar" switch), reed/float switch, MPR121 (optional), M5StickC-S3 IMU, HX711 scale (shared). With a neighboring pos, aim for roughly 80% coverage of the menu; contribute at least **one tank** and at least **one continuous + one binary** principle.
+**Sensor menu** ToF, ultrasonic, Hall + magnet float, foil/copper-tape capacitive, analog capacitive liquid/soil probe, light barrier (photo-interrupter), reed/float switch, MPR121 (optional), M5StickC-S3 IMU, HX711 scale (shared). Across the class, aim for roughly 80% coverage of the menu. With your neighbouring pod, fill **4–5 decision-sheet rows**.
 
 Some things are shared — the three HX711 scales, the multimeters, and the ToF/ultrasonic modules if the kit is short. It is a small class; we will sort it out in the room.
 
 > [!WARNING]
-> **Water, oil, and electronics.** No real fuel and no real waste water; no tasting. No hot liquids and no open flame. Keep the ESP32, the scale, and the breadboard dry; use trays and towels; label every bottle; clean up spills; dispose of oil separately, not in the sink. Cooking oil is a qualitative fuel simulant, not diesel.
+> **Water, oil, and electronics.** No real fuel and no real waste water; no tasting ;-). No hot liquids and no open flame. Keep the ESP32, the scale, and the breadboard dry; use trays and towels; clean up spills; dispose of oil separately, not in the sink. Cooking oil is a qualitative fuel simulant, not diesel.
 >
-> **Ultrasonic warning.** Some ultrasonic modules are 5 V devices — check before connecting to 3.3 V logic, and use a level shifter/divider for the echo line. Talk to the instructor(s) if you are unsure.
+> **Ultrasonic warning.** Some ultrasonic modules are 5 V devices — check before connecting to 3.3 V logic, and use a level shifter/voltage divider for the echo line. Talk to the instructor(s) if you are unsure.
 
 ### The decision sheet
 
-| Tank | Decision | Mode | Principle (primary / backup) | Evidence | Failure + installation note |
+| Tank | Decision | Mode | Principle (primary / failsafe / backup) | Evidence | Failure + installation note |
 |---|---|---|---|---|---|
-| Diesel | range / low alarm | continuous | | | |
-| Fresh water | fill level / low alarm | continuous | | | |
-| Waste water | full alarm | threshold | | | |
-| Bilge | presence alarm | binary | | | |
+| Diesel | range / low alarm | continuous + low failsafe | | | |
+| Fresh water | fill level / low alarm | continuous + low failsafe | | | |
+| Waste water | full alarm | threshold + high failsafe | | | |
+| Bilge | presence alarm | binary / staggered | | | |
 
-**Mode** is the key design choice: **binary** (yes/no), **threshold** (a limit with hysteresis), or **continuous** (level/volume). Try to fill all rows with a neighboring pod - if things are hard/complicated, share wider in class. -- ulno: isn't hybrid or combination a good choice too?
+**Mode** is the key design choice: **binary** (yes/no), **threshold** (a limit with hysteresis), **continuous** (level/volume), or a **hybrid**. A good hybrid is a continuous reading plus a binary failsafe at the critical limit, or several binary switches at different heights (staggered binary — for example, several capacitive levels). The rows above are examples, not prescriptions. With your neighbouring pod, aim to fill **4–5 rows**; if something is hard, share wider in class.
 
 > The original challenge also listed heating/AC water. On *Nordwind* that is the engine coolant/heating loop; add it as an optional fifth row if you want the extra case.
 
-### Explore — one tank, two principles
+### Explore — test principles, fill 4–5 rows
 
-Every sensor is binary, thresholded, or continuous. The tank decision decides which you need. The full principle reference is in the [resource bank](./Z-resources-bank.md#liquid-level-principles); use it when you need it, not as a lecture.
+Every sensor mode is binary, thresholded, continuous, or a hybrid. The tank decision decides which you need. The full principle reference is in the [resource bank](./Z-resources-bank.md#liquid-level-principles); use it when you need it, not as a lecture.
 
 For each row, you study:
 
-1. **Pick your tank and liquid.** Build a clear plastic mock tank; put it on the shared scale if you test weight.
-2. **Test one continuous and one binary principle.** Continuous: ToF, ultrasonic, scale, analog capacitive probe. Binary: Hall float, reed/float, light barrier, capacitive threshold. Record what each measures, what it needs, and one failure.
+1. **Pick your tanks and liquid.** Between the two pods, split the four tanks (plus the optional fifth). Build a clear plastic mock tank for the first one; put it on the shared scale if you test weight.
+2. **Test one continuous and one binary principle.** Continuous: ToF, ultrasonic, scale, analog capacitive probe. Binary: Hall float, reed/float, light barrier, capacitive threshold. Record what each measures, what it needs, and one failure. You can combine them later into a hybrid.
 3. **Measure and calibrate.** For a continuous principle, log empty/half/full and convert to level/volume; for a binary principle, find the threshold and add hysteresis. Use the scale calibration record if you test weight.
-4. **Fill your row.** Add your test card and decision-sheet row to the class table. Compare with your partner pod.
-5. **Label the sea state.** Mount the M5StickC-S3 on the mock boat/tray; log `in harbor` (still), `moving` (gentle rock), and `rough` (sharp shake). Note how the level reading changes. The BMI270 is a 6-axis IMU; acceleration magnitude + a short window is enough. Add notes in your row how waves are effecting your reading.
+4. **Fill your rows.** Add your test cards and decision-sheet rows to the shared table. Between the two pods, aim for 4–5 rows; compare with the class.
+5. **Label the sea state.** Mount the M5StickC-S3 on the mock boat/tray; log `in harbor` (still), `moving` (gentle rock), and `rough` (sharp shake). Note how the level reading changes. The BMI270 is a 6-axis IMU; acceleration magnitude + a short window is enough. Add notes in your rows on how the waves affect your reading.
 
 ### Break and choose
 
 1. **Try the failure cases that matter.** Clear drinking water often defeats ToF; the ultrasonic sensor usually works, but a slender bottle can give echoes. Foam is worth trying — non-contact sensors may see the foam, while the scale does not. Also try tilt/slosh, empty/full, and condensation. Record what the failure looks like in the data.
-2. **Make the choice robust.** Add a filter, hysteresis, or debounce; decide whether the tank needs binary, threshold, or continuous. Set a local alarm with a clear state.
-3. **Complete the decision sheet.** Use the class table for all four tanks; mark your pod's row. Add a primary and a backup principle, the evidence, and one installation note.
+2. **Make the choice robust.** Add a filter, hysteresis, or debounce; decide whether the tank needs binary, threshold, continuous, or a hybrid (continuous + failsafe, or staggered binary). Set a local alarm with a clear state.
+3. **Complete 4–5 rows.** With your neighbouring pod, fill the shared decision sheet. Add a primary, a failsafe/backup principle, the evidence, and one installation note per row.
 4. **Build one demo and take picture proofs.** Use the M5StickC-S3 screen, an OLED, LEDs/buzzer, the serial plotter, or a collage of plots — whatever makes the tanks legible. Photograph the build, wiring, display, calibration, and one failure case; caption what each picture proves.
 
 ## ★ Task 2 — Transfer to a local industrial story
@@ -111,7 +111,7 @@ Pick a fictional local facility that measures liquids — a dairy, a brewery, a 
 
 ## ✅ What you hand in
 
-1. **Decision sheet** — the class table with four rows; mark your pod's row. Include mode, principle, evidence, failure + installation note.
+1. **Decision sheet** — 4–5 rows filled with your neighbouring pod. Include mode, primary/failsafe/backup principle, evidence, failure + installation note.
 2. **Test cards** — one per principle your pod tested: what it measures, works/fails, calibration/uncertainty.
 3. **Demo and picture proofs** — one working mock tank, one visualization/alarm, photos with captions, and a code link.
 4. **Pod reports** — one recommendation report and one short theory report per pod. The recommendation is the decision sheet plus a short paragraph per row; the theory report covers how your chosen principles work and how you calibrated and validated them. Every student adds a contribution note and links the pod report from their portfolio.
@@ -153,7 +153,7 @@ Use the calibration weights you have. Use at least three known masses, including
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. Your pod's decision-sheet row and test cards.
+1. Your two-pod decision-sheet rows and test cards.
 2. Demo photos with captions.
 3. Pod report plus your contribution note.
 4. Transfer paragraph.

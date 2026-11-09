@@ -168,6 +168,8 @@ Use this table to choose a principle, not to memorize it.
 | Light barrier (photo-interrupter) | beam interruption | binary | simple, no contact | alignment, ambient light, fouling |
 | IMU (M5StickC-S3, BMI270) | acceleration / motion | state | labels the sea state; no fusion needed | not a level sensor; vibration, mounting |
 
+> Hybrid is often the best answer: continuous for the quantity plus a binary failsafe at the critical limit, or several staggered binary switches at different heights (for example, several capacitive levels).
+
 > MPR121 is an optional multi-channel capacitive-touch controller; it uses the same dielectric principle as the foil/tape and the analog probe.
 
 <a id="formulas-you-will-use"></a>

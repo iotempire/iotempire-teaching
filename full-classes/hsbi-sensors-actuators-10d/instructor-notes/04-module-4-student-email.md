@@ -41,8 +41,9 @@ A few notes for the session:
   MPR121 capacitive-touch board.
 - You do not have to test every sensor. Across the class we aim for about 80%
   coverage — and all of them are fun. Your pod will test a few that fit your tank.
-- Each pod pair will own one tank and test one continuous and one binary principle;
-  we will assemble the four-row decision sheet together.
+- Two pods will work together and aim for 4–5 decision-sheet rows (the four tanks
+  plus the optional fifth); split the tanks and principles. You can combine a
+  continuous reading with a binary failsafe, or use several switches at different heights.
 - You choose how to visualize your results: a screen, LEDs, the serial plotter, a
   collage of plots, or anything else that makes the tanks legible. Node-RED is
   not required in this module.
