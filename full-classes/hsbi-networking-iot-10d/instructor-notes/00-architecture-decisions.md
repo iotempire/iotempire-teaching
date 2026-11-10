@@ -60,16 +60,16 @@ records short; link to the artefact instead of pasting it.
 | [D3](#d3) | Learning goals are the contract; tasks are negotiable | accepted | every module, syllabus |
 | [D4](#d4) | Assessment is a portfolio-to-report pipeline | accepted | syllabus, `00-assessment-and-operations.md` |
 | [D5](#d5) | Stories carry the why; the canon keeps them consistent | accepted | modules, resource bank `#story-canon` |
-| [D6](#d6) | Studio rhythm: warm-up → pod study → share → lab → harvest | accepted | Modules 1–9, resource bank |
-| [D7](#d7) | Capture at the choke point; analyse offline | accepted | Module 1 Task 8, Module 2 Task 5 |
+| [D6](#d6) | Studio rhythm: challenge → practice → theory on demand → gate | provisional | Module 2; rollout pending |
+| [D7](#d7) | Capture at the choke point; analyse offline | accepted | Module 1 Task 8, Module 2 Round 5 |
 | [D8](#d8) | One router per pod, factory to gateway; extroot is the escape hatch | accepted | Module 2, syllabus hardware |
-| [D9](#d9) | Uplinks are plural; the LAN is the constant | provisional | Module 2 Task 3/7 |
+| [D9](#d9) | Uplinks are plural; the LAN is the constant | provisional | Module 2 Round 3/7 |
 | [D10](#d10) | Local broker first; overlay after the LAN works | accepted | Modules 2–3 |
 | [D11](#d11) | Node-RED is a class service today and an own install later; never on the router | provisional | Modules 1, 4; workshop README |
 | [D12](#d12) | Fieldbuses are compressed into one short module | provisional | Module 6 |
 | [D13](#d13) | Each document has exactly one job | accepted | whole class folder |
 | [D14](#d14) | The class is a draft in motion, with a visible boundary | provisional | every module |
-| [D15](#d15) | The class must survive leaving the room | accepted | Module 2 Task 8, Module 3 |
+| [D15](#d15) | The class must survive leaving the room | accepted | Module 2 Round 8, Module 3 |
 | [D16](#d16) | English material, bilingual delivery | accepted | syllabus language section |
 | [D17](#d17) | Sequence the semester: databases → sensors/actuators → networking | accepted | syllabus prerequisites, sibling classes |
 
@@ -125,8 +125,8 @@ tested on the other HSBI classes, and each class changed the library a little.
 
 | Class | What it taught this class | What did **not** travel |
 |---|---|---|
-| [Databases](../../hsbi-databases-10d/README.md) | Local-first defaults; LLM output as a claim to verify; the portfolio → report pipeline; "one job per document"; decided-first task design | SQL content, DuckDB/SQLite, the 11-session structure |
-| [Sensors & Actuators](../../hsbi-sensors-actuators-10d/README.md) | The module rhythm; hardware realism; the draft boundary; characterisation and measurement as evidence | Sensor physics, calibration labs, the sensor chain |
+| [Databases](../../hsbi-databases-10d/README.md) | Local-first defaults; LLM output as a claim to verify; the portfolio → report pipeline; "one job per document"; decided-first task design; the folded-study studio (theory boxes, rounds, nearest-pod gates) | SQL content, DuckDB/SQLite, the 11-session structure |
+| [Sensors & Actuators](../../hsbi-sensors-actuators-10d/README.md) | Rounds with brief/bench/explain; exchange with a neighbour; hardware realism; the draft boundary; characterisation and measurement as evidence | Sensor physics, calibration labs, the sensor chain |
 | [Microcontroller Programming](../../hsbi-MCU-programming-10d/README.md) | Compact block formats; M5Stack/IoTempower hand-over; what a 4-day version looks like | Breadboard and firmware content |
 | This class | Integration capstone: the devices from the other classes become a network | — |
 
@@ -294,31 +294,39 @@ Module 1/2 stories.
 the technology.
 
 <a id="d6"></a>
-### D6 — Studio rhythm: warm-up → pod study → share → lab → harvest
+### D6 — Studio rhythm: challenge → practice → theory on demand → gate
 
-**Status:** accepted.
+**Status:** provisional (Module 2; rollout to Modules 1 and 3–7 pending).
 
-**Context.** 90-minute sessions, a mixed cohort, and no lecture slot that survives
-a broken projector. The Tartu course already used self-study modules; the HSBI
-format needs a repeatable rhythm.
+**Context.** The first version put a pod-study block before the lab. It ate a
+large block of the session and crowded out the practice; the Databases and
+Sensors & Actuators classes moved to folding the theory into the work and got
+better results. The same cohort needs the theory at the point where the task
+makes it relevant.
 
-**Decision.** Warm-up → pod study → share with a neighbouring pod → lab → optional
-harvest. Pod study is self-study with pointers and LLM questions; the instructor
-demos risky steps live and floats. The harvest is an ungraded curiosity swap
-(Module 1).
+**Decision.** Open with a challenge brief, then work in rounds. Each round has a
+short **Theory you need** box read only when the task needs it, and ends with a
+short **gate**: show the artefact to one person at the nearest pod, ask the
+gate question, and swap one question back if they are willing. There is no
+separate pod-study phase and no whole-pod hand-off. A theory box can become a
+study break: read the source, then explain it to one person.
 
 **Consequences.** Class time is for doing; the room teaches itself; a stuck pod
-can switch tasks. The instructor must resist re-lecturing. The harvest is optional
-and never a quiz.
+can switch rounds. The instructor demos risky steps live and floats. The exchange
+is ad hoc and one-to-one, so it does not need the whole pod to stop. The risk is
+that a pod skips the theory and copies steps; the gate question — *what did you
+choose, and what did it cost?* — is the check.
 
-**Alternatives rejected.** Lecture + lab; flipped classroom with videos as the
-only input; a compulsory harvest.
+**Alternatives rejected.** A separate pod-study block; a scheduled whole-pod
+hand-off; lecture + lab; a compulsory harvest.
 
-**Evidence.** Resource bank "Studio rhythm"; Modules 1/2 structure; commit
-`2dee0f7` (topic organisation + Module 1 slides).
+**Evidence.** Module 2 "How this studio works now" and its round table; Databases
+Module 5 "How this studio works now"; Sensors & Actuators Module 3 "Studio
+rhythm"; resource bank "Studio rhythm".
 
-**Revisit if.** The cohort is too large for pod sharing or the timetable collapses
-to one long block.
+**Revisit if.** The rounds lose the theory or the weaker students; then add a short
+optional study block, not a return to the full pod study. Roll out to Modules 1
+and 3–7 when they are next touched.
 
 <a id="d7"></a>
 ### D7 — Capture at the choke point; analyse offline
@@ -341,7 +349,7 @@ design, which also motivates Module 2's topology.
 **Alternatives rejected.** Requiring monitor mode or a second adapter; live GUI
 streaming; phone tethering as the capture point; making Wireshark mandatory.
 
-**Evidence.** Module 1 Task 8; Module 2 Task 5; resource bank
+**Evidence.** Module 1 Task 8; Module 2 Round 5; resource bank
 [`#packet-capture-without-a-second-wifi-card`](../modules/Z-resources-bank.md#packet-capture-without-a-second-wifi-card);
 commit `e7de39e`.
 
@@ -371,7 +379,7 @@ the stick. The pod must agree who carries the router.
 the GL-SFT1200 ("Opal"); one router per two students; SD-card-only extroot;
 running everything from 16 MB.
 
-**Evidence.** Module 2 Tasks 1–2; syllabus hardware; README router-sourcing note;
+**Evidence.** Module 2 Rounds 1–2; syllabus hardware; README router-sourcing note;
 commit `7017adb`.
 
 **Revisit if.** A router with more flash/RAM becomes affordable, or a cohort
@@ -406,7 +414,7 @@ wired outside client. Students verify with
 pod (a DVZ burden); the default `192.168.1.0/24`; calling the B1300 a "wire" — it
 is a Wi-Fi network (`iotempire-b1300-5g`, `192.168.114.0/24`).
 
-**Evidence.** Module 2 Tasks 3/7; instructor decision (DVZ agreement); syllabus.
+**Evidence.** Module 2 Rounds 3/7; instructor decision (DVZ agreement); syllabus.
 
 **Revisit if.** Eduroam blocks the router, the B1300 is retired, or the DVZ
 changes the agreement.
@@ -432,7 +440,7 @@ WAN, pods split), not by a slide.
 **Alternatives rejected.** Cloud broker as the default; Nebula on Day 2 before the
 LAN works; TLS from the start (the certificate ceremony would eat the day).
 
-**Evidence.** Module 2 Task 4; Module 3; Module 4; instructor decision.
+**Evidence.** Module 2 Round 4; Module 3; Module 4; instructor decision.
 
 **Revisit if.** A security review requires TLS, or the campus blocks broker
 traffic — it does not inside the pod LAN.
@@ -554,7 +562,7 @@ remove the boundary per module, not globally.
 **Context.** Pods split after class. Campus Wi-Fi is not available at home.
 Students may have dorm Ethernet or home Wi-Fi; some laptops are locked down.
 
-**Decision.** Every pod takes its router home; Module 2 Task 8 verifies a home
+**Decision.** Every pod takes its router home; Module 2 Round 8 verifies a home
 uplink; Module 3's overlay makes the split pod reachable; the core does not depend
 on campus infrastructure. The B1300 is a classroom fallback, not a take-home
 requirement.
@@ -568,7 +576,7 @@ continuity mechanism.
 **Alternatives rejected.** Campus-only labs; cloud-only services; assuming every
 student has admin rights; a class that stops at the classroom door.
 
-**Evidence.** Module 2 Task 8; Module 3; instructor decision.
+**Evidence.** Module 2 Round 8; Module 3; instructor decision.
 
 **Revisit if.** The university provides a persistent lab network or a VPN for
 every student.
@@ -732,8 +740,8 @@ practised; **delegated** = belongs to a sibling class.
 |---|---|---|---|
 | Fundamentals and application areas of IoT | Module 1; Modules 7–9 | covered | Story-driven continuum, fleet, project. |
 | Name and explain the ISO/OSI layers | Module 1 §1; Module 2 §3; Module 4 warm-up; Module 6 table | covered | OSI is the dictionary, not the spine (D2). |
-| Interfaces between the layers; apply them | Module 1 Task 8; Module 2 Task 5; Module 4 | covered | Measured in captures and MQTT/TCP framing. |
-| Processes between layers; name the data abstraction | Module 1 Task 8; Module 2 Task 5; Module 4 | covered | Encapsulation and overhead arithmetic. |
+| Interfaces between the layers; apply them | Module 1 Task 8; Module 2 Round 5; Module 4 | covered | Measured in captures and MQTT/TCP framing. |
+| Processes between layers; name the data abstraction | Module 1 Task 8; Module 2 Round 5; Module 4 | covered | Encapsulation and overhead arithmetic. |
 | Overview of industrial fieldbuses, protocols, and their place in OSI | Module 6 | reference | No industrial lab (D12). |
 | IoT communication standards (OPC-UA, MQTT, CoAP) | Module 4 (MQTT, CoAP); Module 6 (OPC-UA) | covered | CoAP is a comparison, not a lab. |
 | Evaluate bus technologies and use cases | Module 6 comparison table + discussion; optional lab | partial | No hands-on bus comparison unless hardware is present. |
@@ -790,3 +798,4 @@ For a re-creator with access to the instructor's workspace:
 |---|---|---|
 | 2026-11-10 | First version; provenance, 17 decision records, rejected alternatives, open questions, recreation checklist, handbook coverage map | Ulno + agent |
 | 2026-11-10 | Closed the first-offering questions: Hausarbeit kept, Projektarbeit recommended for the next run; Module 6 evidence confirmed; B1300 isolation default and credential-ownership rule recorded; retakes handled case by case | Ulno + agent |
+| 2026-11-10 | Flipped the Module 2 studio: challenge brief, theory on demand, round gates with one person, no separate pod study; D6 revised, rollout to Modules 1 and 3–7 pending | Ulno + agent |
