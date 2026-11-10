@@ -2,7 +2,7 @@
 
 [← Back to Module 2](./02-local-networking-and-gateways.md) | [Quick module index](./00-index.md) | [Next: Module 4 →](./04-mqtt-and-integration.md)
 
-**Course placement:** Day 3 — the overlay and mesh studio. The core is overlay/remote access (Nebula and Yggdrasil); B.A.T.M.A.N. is an optional stretcher if time and routers allow.
+**Course placement:** Day 3 — the overlay and mesh challenge. The core is Nebula remote access; Yggdrasil and the B.A.T.M.A.N. Layer-2 mesh are stretchers if time, routers, and interest allow.
 
 ## 🎯 Learning Goals
 
@@ -15,82 +15,95 @@ By the end of this module, you can:
 4. Distinguish a Layer-3 overlay (Nebula/Yggdrasil) from a Layer-2 router mesh (B.A.T.M.A.N. advanced) and choose the right tool for local vs. wide-area coverage.
 5. *(Optional stretch)* Configure an **OpenWrt 802.11s + `batman-adv`** mesh across several routers, inspect it with `batctl`, and observe self-healing rerouting under live traffic.
 
-
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
-## 📖 Story — The Exhibition Across the City
+## 🎬 Opening the Challenge
+
+**The day starts with the sculpture, not a slide.** Module 2 gave you a gateway; today you make it reachable without asking anyone to open a port. The opening runs in five quick beats:
+
+1. **Pre-study check-in.** In your pod, show one artefact from Module 2 — the router baseline, a capture, or the port-forward note — and name one question you still have. Park the questions on the board.
+2. **Confirm the pod and the roles.** Rotate: one drives the bundle install, one drives the terminal, one keeps the topology and the notes. Swap after each round.
+3. **Collect the hardware and the bundle.** One OpenWrt router per pod with the **USB stick and extroot from Module 2**, laptops with campus/mobile connectivity, and one **bundle per pod** from the instructor. For the optional mesh, 3–6 routers share a Wi-Fi channel.
+4. **Draw the two networks.** Sketch the underlay (museum firewall, campus, home, mobile) and the overlay (virtual addresses, lighthouse, peers). Mark where the bundle sits and which device is the gateway. You will correct it all day.
+5. **Skim the studio, do not start.** Read the challenge and the round table, then skim the theory boxes and the evidence list. Find **where the cross-NAT test happens** and **where the bundle is a credential**. Then start Round 1.
+
+Before you touch the bundle, answer these three in one sentence each — they are the questions the day will answer:
+
+- Why does a port forward fail when the router is behind CGNAT or a campus firewall?
+- What does an overlay add that a VPN account or a dynamic-DNS service does not?
+- When is a Layer-2 mesh the right tool, and when is it the wrong one?
+
+### Your portfolio entry for today — sections, not files
+
+Everything from today goes into **`Module03/README.md`** as sections. Split something into its own file only when a section outgrows the page.
+
+- `## Overlay plan` — the topology sketch, the tool choice, the overlay addresses, and the lighthouse.
+- `## Study log` — the running log: the theory you actually needed, the commands that surprised you, and the LLM answers you checked. Not an essay, and not a separate study phase.
+- `## Gate log` — one line per gate: who listened, what they asked, what you changed. This is personal.
+- `## Bundle notes` — what the bundle contains, where it is installed, and what you had to do that the bundle did not. **No keys, no certificates, no config with credentials.**
+- `## Remote-access proof` — the ping/ssh/mosquitto output from an external network, and the path you used.
+- `## Mesh notes` — optional: `batctl` output, the failover observations, or the Yggdrasil peer list.
+- `## Story seeds` — optional: the odd bits worth turning into a story later.
+
+*One pod member keeps the shared `## Study log`; the others link to it from their own `Module03/README.md` and add one sentence on what they took from it. The `## Gate log` is yours alone.*
+
+### The bundle contract
+
+The bundle is a credential, and one of you will install it. Agree before you start:
+
+- **One archive per pod.** Never a shared archive: each bundle contains one private key.
+- **The archive is a credential.** Keep it out of Git, chat, screenshots, and the portfolio. Delete it from the download folder after installing.
+- **Two bundles are normal.** A router bundle and a laptop bundle are two separate nodes with two overlay addresses. That is not a mistake.
+- **If it leaks, say so.** The instructor re-signs one certificate; that is cheaper than a password reset for everybody.
+
+## 📖 The Challenge — The Exhibition Across the City
 
 **Lumenwerk Gütersloh GmbH** has installed an interactive light sculpture in a partner museum on the other side of town. Creative director **Mara Voss** needs to update the animation and read the sensor logs without driving over, and the museum's network is behind a campus firewall: no public IP, no inbound ports, no cooperation from the IT department.
 
-Technician **Jonas Feld** tries port forwarding, then a dynamic-DNS service, then gives up. Mara asks the question that motivates today: *"How do we give the sculpture its own private network address without asking anyone to open a hole in their firewall?"* The answer is an overlay — Nebula for a certificate-based peer-to-peer network, Yggdrasil for a cryptographically addressed IPv6 mesh — and, optionally, a Layer-2 mesh when the routers are in the same room.
+Technician **Jonas Feld** tries port forwarding, then a dynamic-DNS service, then gives up. Mara asks the question that motivates today: *"How do we give the sculpture its own private network address without asking anyone to open a hole in their firewall?"*
 
-## 📖 Pod Study: Extending the Network Beyond One Router
+**Your challenge.** Give the sculpture a private address without opening a port, prove you can reach it from outside, and choose the right tool for the room as well as for the city. You are done when you can show:
 
-This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+1. A tool-selection matrix with a justified choice for the wide-area case and the local case.
+2. A Nebula node joined from a class **bundle** — on the router or a laptop.
+3. A cross-NAT proof: `ping`, `ssh`, or `mosquitto_sub` to the overlay address from an external network.
+4. An explanation of the bundle's credential model: which file is the private key, what the CA signed, and what revocation means.
+5. *(Optional stretch)* A B.A.T.M.A.N. mesh with `batctl` evidence and a live failover, a Yggdrasil IPv6 ping, or a scratch CA that signs its own bundle.
 
-### Overlay Networks: Remote Access Without Port Forwarding
+**Constraints.** One router per pod with the extroot from Module 2. 16 MB of flash. One Wi-Fi adapter per laptop. No public IP and no inbound port. The bundle is a credential. The manager UI never runs as root; on OpenWrt it does not run at all.
 
-### Why Traditional Port Forwarding Fails in Modern IoT
-In Module 2, you forwarded ports on your local router. If you did the SSH-tunnel stretcher, you have already built a one-off version of an overlay; the difference is that Nebula gives every node an address and a policy instead of a hand-built tunnel. But in real life:
-- CGNAT (Carrier-Grade NAT) & DS-Lite: Most residential mobile (LTE/5G) and fiber connections no longer provide a public IPv4 address. Multiple households share one public IP.
-- University & Enterprise Firewalls: Campus networks block inbound ports. You cannot expose an MQTT broker or OpenWrt SSH port directly to the world.
-- Dynamic IPs: Home routers change their WAN IP periodically.
+**This story is unfinished on purpose.** The hooks below are starting points, not a script. Pick the ones that match what you actually saw, and add a line of your own — *"and the museum's captive portal ate the UDP hole punch"* is worth more than a perfect diagram. Collect those lines under `## Story seeds` and use them in a gate or the harvest.
 
-### The Solution: Encrypted Overlay Networks
-An overlay network builds a virtual Layer-3 network on top of an existing underlay network (the public Internet):
+## 🧭 How this studio works now
 
-```text
-Underlay (Physical / Internet):
-[Student Laptop at Home] ---> [Home NAT] ---> (Public Internet) <--- [Campus Firewall] <--- [OpenWrt Gateway in Lab]
-                                                       |
-                                            (Direct connection blocked!)
+**The study is folded into the practice.** There is no separate pod-study phase and no scheduled hand-off to another pod. Each round gives you a small thing to do, a short **Theory you need** box you read only when the task makes you want it, and a **gate** at the end. Keep your notes in `Module03/README.md` under `## Study log` — a running log, not an essay.
 
-Overlay Network (Nebula / Yggdrasil):
-[Virtual IP: 10.100.0.5] ================= Encrypted Tunnel ================= [Virtual IP: 10.100.0.1]
-```
+**First: skim, do not start.** Read the challenge and the round table, then skim the theory boxes and the evidence list. You are looking for two things: **where the cross-NAT test happens** and **where the bundle becomes a credential**. Then start Round 1.
 
-### 1. Nebula (Slack / Defined Networking)
-- Architecture: Mutually authenticated peer-to-peer mesh using Noise Protocol cryptography (similar to WireGuard).
-- Lighthouse: A node with a static, public IP that acts as a directory server. It does *not* relay user traffic; it only tells peers each other's current public IP:port so they can perform UDP hole punching to establish direct, peer-to-peer encrypted tunnels.
-- Security: Every node has a cryptographic certificate signed by a private Certificate Authority (CA), defining its fixed overlay IP and firewall rules.
-- **The deployment unit is a node = certificate + private key + config.** In this class you receive those three as a **bundle** (plus an installer and a README). That is the whole credential model: no shared passwords, and revoking one machine is one certificate — which is why an overlay is administratively cheaper than a VPN account for every device.
+**Every round ends with a gate — one person is enough.** Ask someone at the nearest pod if they have a moment; show them the round's artefact and ask the gate question. If they want, let them show you theirs and ask you one question back. **This is a brag, not a quiz**: you are showing what works and inviting one question. Write one line in `## Gate log`: who listened, what they asked, what you changed. If nobody is free, ask someone else or come back later — do not wait.
 
-### 2. Yggdrasil Network
-- Architecture: A fully decentralized, zero-configuration end-to-end encrypted IPv6 mesh network.
-- Cryptographic Addressing: Node IPs are derived directly from a public encryption key (in the `200::/7` range).
-- Self-Healing Tree Routing: Yggdrasil peers establish connections over TCP, TLS, or raw link-local Wi-Fi, forming a global or private spanning-tree metric space. Packets route greedily along the tree even across complex, dynamic topologies.
+**Take a study break when a box is not enough.** Read the linked source, then explain it to one person. Explaining is the test, not reading. You do not need permission; take the break when the task makes you want it.
 
-### Layer-2 Router Mesh: `batman-adv`
+| # | Round | You produce | Gate question for one person |
+|---|---|---|---|
+| 1 | **Pick the tool** | A filled tool matrix and a one-sentence choice for each scope | "Which tool for the sculpture, and which for the room? Why?" |
+| 2 | **Join the overlay** | A node with an overlay address and bundle notes | "What is in the bundle, and which file is the credential?" |
+| 3 | **Cross the NAT** | A ping/ssh/mosquitto proof from an external network | "What did the lighthouse do, and what did it not do?" |
+| ◇ | **Gateway** | A LAN client reaching the overlay through the router | "What did you have to allow?" |
+| ◇ | **Mesh** | `batctl n`/`batctl o` across the room | "What does `bat0` hide from the IP layer?" |
+| ◇ | **Failover** | A stream that survives an intermediate router drop | "How many packets did convergence cost?" |
+| ◇ | **Yggdrasil** | A `200::/7` ping to another pod | "Where does the address come from?" |
+| ◇ | **Be the CA** | A scratch CA and a bundle you signed | "What does revocation mean?" |
 
-> [!NOTE]
-> Optional stretcher territory. Layer-2 mesh is worth understanding conceptually, but the hands-on B.A.T.M.A.N. lab is optional (stretcher): it needs several routers sharing a Wi-Fi channel, and the core of this module is the overlay/remote-access work. Do the mesh lab only if time, routers, and interest allow.
+**The order is a suggestion.** The rounds are a path, not a timetable. If the bundle install fails, switch to another path (router, Windows, Linux) and come back; if you finish early, take a stretcher. **The instructor demos the bundle import and one cross-NAT test live on the beamer** — ask for the demo you need. Rotate roles after each round; everybody should install or test at least one piece. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
-### Why Layer-2 Mesh Instead of IP Routing?
-In traditional networks, extending a network across multiple hops requires Layer-3 routing (OSPF, RIP, BGP) with complex IP subnetting and routing tables on every node. If a link drops, IP routes must recalculate, dropping existing TCP sessions.
+## 🛠️ The Studio: Three Networks — **Challenging**
 
-**B.A.T.M.A.N. (Better Approach To Mobile Adhoc Networking) Advanced:**
-- Operates directly at the Data Link layer (Layer 2) as a Linux kernel module (`kmod-batman-adv`).
-- Emulates a **virtual Ethernet switch (`bat0`)**: to the operating system, DHCP servers, and applications, every device on the mesh appears as if it is plugged into the same physical Ethernet switch!
-- Zero Subnetting Headache: You can run a single flat IPv4 subnet (e.g. `192.168.14.0/24`) across dozens of routers spanning multiple hops.
-- Link Quality Sensing (OGM): Routers continuously send lightweight Originator Messages (OGMs) to determine the best next-hop neighbor based on Transmit Quality (TQ).
+*Hardware:* 1× OpenWrt router per pod (with the **USB stick and extroot** from Module 2) + laptops with a connection to the university/mobile network. For the optional mesh, the class connects 3–6 routers into a shared multi-hop mesh.
 
-```text
-       [Router 1 (Team A)] <--- 802.11s Mesh ---> [Router 2 (Team B)]
-               ^                                           |
-               |                                           |
-       802.11s Mesh                                   802.11s Mesh
-               |                                           |
-               v                                           v
-       [Router 4 (Team D)] <---------------------> [Router 3 (Team C)]
+### ★ Round 1: Pick the tool
 
-  All routers form a unified virtual Layer-2 switch: "bat0"
-  Devices connected to any router share the same broadcast domain!
-```
-
-> [!TIP]
-> Notice how `batman-adv` (Part B) and ESP-NOW (Module 5) share the same superpower: they move routing/adjacency decisions down the stack so that the layers above do not have to care. Keep that pattern in mind — it recurs throughout the course.
-
-### Choosing the Right Tool
+Fill the matrix for the two scopes — **the sculpture across the city** and **the routers in the room** — and write one sentence per choice. Ask an LLM for its comparison, then check it against the table and your own constraints.
 
 | | Port Forwarding | Nebula | Yggdrasil | B.A.T.M.A.N. adv *(optional)* |
 |---|---|---|---|---|
@@ -102,58 +115,31 @@ In traditional networks, extending a network across multiple hops requires Layer
 | Infrastructure needed | Upstream NAT access | Lighthouse (1 node) | At least one reachable peer | Wi-Fi coverage + 802.11s |
 | Best for | Quick one-off demo | Remote access to your gateway | Decentralized class mesh | Multi-hop coverage across rooms |
 
-### Pointers (start here, then keep looking)
+**Theory you need.** In Module 2 you forwarded a port on your local router. In real life that fails for three reasons: **CGNAT/DS-Lite** (many households share one public IPv4 address), **campus/enterprise firewalls** (inbound ports are blocked), and **dynamic WAN addresses** (the target changes). An **overlay** builds a virtual Layer-3 network on top of the underlay:
 
-- Nebula — [Nebula documentation](https://nebula.defined.net/docs/), [GitHub](https://github.com/slackhq/nebula)
-- The class bundles — [nebula-manager](https://github.com/iotempire/nebula-manager), [client bundles & installers](https://github.com/iotempire/nebula-manager/blob/main/docs/bundles.md), and the [bundle cheat sheet in the resource bank](./Z-resources-bank.md#nebula-bundles--the-class-ca)
-- Yggdrasil — [Yggdrasil documentation](https://yggdrasil-network.github.io/)
-- B.A.T.M.A.N. advanced — [OpenWrt batman-adv documentation](https://openwrt.org/docs/guide-user/network/wifi/mesh/batman)
-- NAT traversal — [Wikipedia: NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal), [UDP hole punching](https://en.wikipedia.org/wiki/UDP_hole_punching)
-- The [resource bank's networking snippets](./Z-resources-bank.md#networking-snippets-copypaste)
+```text
+Underlay (physical / Internet):
+[Student laptop at home] ---> [Home NAT] ---> (Public Internet) <--- [Campus firewall] <--- [OpenWrt gateway]
+                                                       |
+                                            (direct connection blocked)
 
-### Questions to ask an LLM (then verify against your network)
+Overlay (Nebula / Yggdrasil):
+[Virtual IP 10.100.0.5] ================= encrypted tunnel ================= [Virtual IP 10.100.0.1]
+```
 
-Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
+**Nebula** is a mutually authenticated peer-to-peer mesh. A **lighthouse** is a node with a stable public address; it is a directory, not a relay: it tells peers each other's current public `ip:port` so they can punch a UDP hole and talk directly. Every node has a certificate signed by a private CA, a fixed overlay IP, and firewall rules. The deployment unit is a **node = certificate + private key + config** — the bundle.
 
-- "Explain why port forwarding fails behind Carrier-Grade NAT and a campus firewall. What does an overlay do differently?"
-- "How does Nebula's lighthouse help two peers behind different NATs establish a direct tunnel? Does the lighthouse relay the traffic?"
-- "How does Yggdrasil derive an IPv6 address from a public key, and what does the spanning-tree routing do when a peer disappears?"
-- "Compare a Layer-3 overlay (Nebula/Yggdrasil) with a Layer-2 mesh (batman-adv). Give one use case where each is the right tool."
-- "What happens if a Nebula certificate or private key leaks? How does the CA isolate the compromise?"
+**Yggdrasil** is a decentralized, zero-configuration encrypted IPv6 mesh. Addresses are derived from public keys in `200::/7`; peers form a self-healing spanning tree over TCP, TLS, or link-local Wi-Fi.
 
-> Run each prompt against your own overlay, and record where the model is wrong, vague, or over-confident.
+**B.A.T.M.A.N. advanced** is a Layer-2 mesh: a Linux kernel module that presents a virtual Ethernet switch (`bat0`) to the OS. Every router in the mesh looks like it is plugged into the same switch, so one flat subnet works across many hops. It is for the room, not the city. *Go deeper: the Nebula, Yggdrasil, and OpenWrt batman-adv docs; the NAT-traversal article.*
 
-### ★ Task A: Study in your pod
+> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them your matrix and ask: *"Which tool for the sculpture, and which for the room? Why?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
 
-Work through the concepts above with your Task Pod and write it up under `## Study log` in `Module03/README.md` — a section, not a file, unless it outgrows the page. **One pod member keeps the shared log; the others link to that section from their own module README and add one sentence on what they took from it.**
+> **Story hook.** *Mara's question.* She does not want a VPN account for every device, and she cannot ask the museum to open a port. She wants the sculpture to have its own address — and to be able to revoke one machine without changing everybody's password.
 
-1. **The references you used** — the source and the one concept you understood best from it.
-2. **Things you googled** — the term, what you found, and the source (URL). One line each.
-3. **Remarkable things** — surprises, "aha"s, and counterexamples from your own overlay.
-4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
-5. **Your two best found overlay/mesh diagrams** — compile down to the best two, with source and what they taught you.
+*Portfolio evidence:* the filled matrix with the two choices and one sentence of justification each.
 
-*Portfolio evidence:* the `## Study log` section (yours, or a link to your pod's shared one).
-
-### ★ Task B: Explain & share with another pod
-
-Pair with a **neighbouring pod**:
-
-1. **Explain to each other** — each pod walks the other through its tool-selection matrix and its remote-access proof; ask questions and fill each other's gaps.
-2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"an overlay gives you an address, not a public hole"*).
-3. **Clean up your documentation** — update the `## Study log` with what you learned from the other pod.
-4. Agree on **one shared artefact** — the best topology diagram, a `ping`/`ssh` proof, or a new decision table the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
-5. Each member adds a short **“Agreed learning (pod discussion)”** note — in the shared log, or in your own module README with a link to it.
-
-*Portfolio evidence:* the cleaned-up `## Study log` (with the **“Agreed learning (pod discussion)”** note) and your pod-pair's shared artefact.
-
-## 🛠️ In-Class Lab: Three Networks — **Challenging**
-
-*Hardware:* 1× OpenWrt router per pod (with the **USB stick and extroot** you set up in Module 2) + laptops with a connection to the university/mobile network. For the optional mesh stretcher, the class connects 3–6 routers into a shared multi-hop mesh.
-
-This module has one ★ Core task (Nebula) and several ◇ Stretchers (B.A.T.M.A.N. mesh, Yggdrasil). Choose the stretchers that fit your time and interest; the core is the overlay/remote-access work.
-
-### ★ Task 1: Deploying Nebula for Team Remote Access
+### ★ Round 2: Join the overlay — the bundle, not a ceremony
 
 **You get a bundle, not a certificate ceremony.** The instructor runs the class CA and one lighthouse; every pod receives a **self-contained bundle** — `<name>.crt`, `<name>.key`, `ca.crt`, `config.yml.template`, `install.sh`, `install.ps1`, `README.txt`. A node is exactly that: a certificate, a key, and a config. The bundle is also the thing you can hand to a machine, which is why a whole class can join in one session.
 
@@ -196,7 +182,7 @@ sleep 2; ssh root@192.168.14.1 'ip -brief addr show nebula1; tail -5 /tmp/nebula
 - The bundle's config already points at `/etc/nebula/…`, so the paths match. If yours does not, edit `pki.ca`, `pki.cert`, and `pki.key` — that is the only config difference between a router and a laptop.
 - **16 MB is tight — and your router already has extroot from Module 2.** Verify `df -h /overlay` shows the stick before you copy the binary. If it does not, do the [extroot recipe](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card) first; the same stick later holds `tshark` and MicroPython.
 - **Firewall:** outbound UDP is open by default. If other nodes must reach *you* first, allow the Nebula UDP port (default `4242`) inbound on WAN.
-- **Survives a reboot?** Not yet — an initscript is the difference between a demo and a gateway. That is a good stretcher (see the note at the end of this task).
+- **Survives a reboot?** Not yet — an initscript is the difference between a demo and a gateway. That is a good stretcher (see Stretch 1).
 
 **Path B — a Windows laptop (needs admin).**
 
@@ -234,64 +220,107 @@ sha256sum -c nebula-manager.sha256 && chmod +x nebula-manager
 
 If you would rather click than type: run `./nebula-manager` and use **Manager Setup ▸ Import client bundle**, then **Diagnostics**. The menu and the CLI do the same things — use whichever you can explain to your pod.
 
-3. **The cross-NAT test.** Now prove that a hole in a firewall was never needed:
-   - Disconnect your laptop from the lab router and use your phone's hotspot or eduroam. Both ends are now behind different firewalls.
-   - Ping your node's overlay IP (from its README — e.g. `10.100.0.10`):
-     ```bash
-     ping 10.100.0.10
-     ssh root@10.100.0.10
-     mosquitto_sub -h 10.100.0.10 -t 'test/#' -v
-     ```
-   - *Success:* secure, direct, bidirectional access to your gateway from a network that would never accept an inbound connection.
+**Theory you need.** The **certificate** proves the node's identity and fixed overlay IP; the **private key** is the secret that makes the certificate usable; the **config** says which lighthouse to ask, which groups to join, and which firewall rules apply. The **CA** signed the certificate; the CA **key** never leaves the instructor's machine. The **lighthouse** is a directory: it tells peers how to reach each other, but it does not relay their traffic. On the router, `nebula1` is the virtual interface; the 16 MB flash is why the binary lives on the extroot stick, not in a package. *Go deeper: the Nebula docs and the bundle cheat sheet in the resource bank.*
 
-4. **(Stretcher) Make the router a gateway.** Joining from the router gives the *router* an overlay address. If the devices **behind** it should reach the overlay too, enable forwarding and give `nebula1` a firewall zone (input `reject`, forward `accept`, masquerading off) — that is the step that turns “my router is on the mesh” into “my substation is on the mesh”. Document what you had to allow.
+> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them `ip -brief addr show nebula1` and your bundle notes, and ask: *"What is in the bundle, and which file is the credential?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
 
-### ◇ Task 2 (Stretcher): Building the Class Mesh with B.A.T.M.A.N. advanced
+*Portfolio evidence:* the bundle notes (what it contains, where it is installed, what you had to do that the bundle did not), the `nebula -test` result, and the overlay address. **No key material, no certificate contents.**
+
+### ★ Round 3: Cross the NAT — prove no hole was needed
+
+Now prove that a hole in a firewall was never needed:
+
+1. Disconnect your laptop from the lab router and use your phone's hotspot or eduroam. Both ends are now behind different firewalls.
+2. Ping your node's overlay IP (from its README — e.g. `10.100.0.10`):
+   ```bash
+   ping 10.100.0.10
+   ssh root@10.100.0.10
+   mosquitto_sub -h 10.100.0.10 -t 'test/#' -v
+   ```
+3. *Success:* secure, direct, bidirectional access to your gateway from a network that would never accept an inbound connection.
+
+**Theory you need.** Both peers are behind NAT, so neither can accept an unsolicited inbound connection. The lighthouse is reachable, so each peer tells it its current public `ip:port`; the peers then send outbound UDP packets to each other at the same time, which creates the NAT mappings in both directions — **UDP hole punching**. Once the mapping exists, traffic is direct and encrypted; the lighthouse is out of the path. That is why the test works from a phone hotspot and why the museum's firewall never needs a rule. *Go deeper: the NAT-traversal and UDP-hole-punching articles.*
+
+> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them the external-network terminal and ask: *"What did the lighthouse do, and what did it not do?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
+
+> **Story hook.** *The museum's firewall never opened.* Mara's laptop is on a hotel Wi-Fi, the sculpture is behind the museum's campus firewall, and the two still talk. The proof is a `ping` and an `ssh` prompt, not a network diagram.
+
+*Portfolio evidence:* a terminal screenshot from the external network with the successful `ping`/`ssh`/`mosquitto_sub`, the path you used, and one sentence on what the bundle did **not** do for you.
+
+### ◇ Stretch 1: Make the router a gateway
+
+Joining from the router gives the *router* an overlay address. If the devices **behind** it should reach the overlay too, enable forwarding and give `nebula1` a firewall zone (input `reject`, forward `accept`, masquerading off) — that is the step that turns "my router is on the mesh" into "my substation is on the mesh".
+
+**Theory you need.** A router with an overlay address is a **node**; a router that forwards between its LAN and the overlay is a **gateway**. Forwarding is a kernel setting plus a firewall zone; the zone must allow forward traffic but not input. Masquerading is off because the overlay address is already routable inside the overlay — you are routing, not hiding behind another NAT. *Go deeper: the OpenWrt firewall and forwarding docs.*
+
+> **Gate — show one person.** Show a LAN client reaching the overlay and ask: *"What did you have to allow?"* Write one line in `## Gate log`.
+
+*Portfolio evidence:* the forwarding/zone configuration and the LAN-client test.
+
+### ◇ Stretch 2: Build the class mesh with B.A.T.M.A.N. advanced
 
 Work in pairs. The classroom becomes a single multi-hop mesh — coordinate mesh IDs and channels with your neighbors!
 
-1. **Install & Enable `batman-adv`:**
-   SSH into your OpenWrt router and install the kernel module and control tool:
+1. **Install & enable `batman-adv`:**
    ```bash
    ssh root@192.168.14.1
    opkg update
    opkg install kmod-batman-adv batctl-default
    lsmod | grep batman
    ```
-2. Configure the 802.11s Wireless Mesh Interface:
-   - Edit `/etc/config/wireless` (or use LuCI under Network → Wireless → Add):
-     ```text
-     config wifi-iface 'mesh0'
-         option device 'radio0'
-         option mode 'mesh'
-         option mesh_id 'hsbi-iot-mesh'
-         option network 'batman_mesh'
-         option encryption 'none'
-     ```
-   - Bind the mesh interface to `bat0` in `/etc/config/network` and bridge it into your LAN:
-     ```text
-     config interface 'batman_mesh'
-         option proto 'batadv'
-         option mesh 'bat0'
+2. **Configure the 802.11s wireless mesh interface.** Edit `/etc/config/wireless` (or use LuCI under Network → Wireless → Add):
+   ```text
+   config wifi-iface 'mesh0'
+       option device 'radio0'
+       option mode 'mesh'
+       option mesh_id 'hsbi-iot-mesh'
+       option network 'batman_mesh'
+       option encryption 'none'
+   ```
+   Bind the mesh interface to `bat0` in `/etc/config/network` and bridge it into your LAN:
+   ```text
+   config interface 'batman_mesh'
+       option proto 'batadv'
+       option mesh 'bat0'
 
-     # Add bat0 to the LAN bridge (br-lan) so wired/Wi-Fi clients join the mesh
-     config device
-         option name 'br-lan'
-         option type 'bridge'
-         list ports 'eth0'
-         list ports 'bat0'
-     ```
-   - Restart networking:
-     ```bash
-     /etc/init.d/network restart
-     ```
-3. **Visualize the Mesh with `batctl`:**
-   Once 3 or more student routers are active:
+   # Add bat0 to the LAN bridge (br-lan) so wired/Wi-Fi clients join the mesh
+   config device
+       option name 'br-lan'
+       option type 'bridge'
+       list ports 'eth0'
+       list ports 'bat0'
+   ```
+   Restart networking:
+   ```bash
+   /etc/init.d/network restart
+   ```
+3. **Visualize the mesh with `batctl`.** Once 3 or more student routers are active:
    - Direct neighbors: `batctl n` — directly reachable 1-hop routers with signal quality and latency.
    - Originator routing table: `batctl o` — all nodes across the multi-hop mesh and the best next-hop MAC address to reach them.
    - Trace multi-hop paths: `batctl traceroute <target_mac>` — watch packets hop across intermediate student routers.
 
-### ◇ Task 3 (Stretcher): The Live Failover Test
+**Theory you need.** `batman-adv` runs at Layer 2 as a kernel module. It presents a virtual Ethernet switch, `bat0`; to the OS, DHCP, and applications, every mesh node looks like it is on the same physical switch. That is why one flat subnet (`192.168.14.0/24`) works across many hops without routing tables on every node. Routers send **Originator Messages (OGMs)** and pick the best next hop by transmit quality (TQ).
+
+```text
+       [Router 1 (Team A)] <--- 802.11s mesh ---> [Router 2 (Team B)]
+               ^                                           |
+               |                                           |
+       802.11s mesh                                   802.11s mesh
+               |                                           |
+               v                                           v
+       [Router 4 (Team D)] <---------------------> [Router 3 (Team C)]
+
+  All routers form a unified virtual Layer-2 switch: "bat0"
+  Devices connected to any router share the same broadcast domain!
+```
+
+`batman-adv` and ESP-NOW (Module 5) share the same superpower: they move routing/adjacency decisions down the stack so the layers above do not have to care. *Go deeper: the OpenWrt batman-adv docs.*
+
+> **Gate — show one person.** Show `batctl n` and `batctl o` and ask: *"What does `bat0` hide from the IP layer?"* Write one line in `## Gate log`.
+
+*Portfolio evidence:* the `batctl n`/`batctl o` output and one sentence on what the flat Layer-2 view buys you.
+
+### ◇ Stretch 3: The live failover test
 
 Because this session runs *before* the MQTT module, we test resilience at the network level — which is exactly where routing decisions are made anyway. We will re-run the same experiment *with* MQTT traffic in the final project studio (Module 8).
 
@@ -302,9 +331,15 @@ Because this session runs *before* the MQTT module, we test resilience at the ne
    - Traffic dynamically re-routes through a different neighbor.
    - Notice that the flat Layer-2 subnet and any TCP sessions it carried survive the reroute without re-addressing.
 
-### ◇ Task 4 (Stretcher): Exploring Decentralized Mesh with Yggdrasil
+**Theory you need.** OGMs are periodic; when they stop, neighbors mark the originator as unreachable and choose the next-best path. Because the mesh presents a flat Layer-2 domain, the IP addresses do not change when the path changes; TCP can retransmit and survive. That is the difference between **rerouting** (Layer 3) and **self-healing at Layer 2**. *Go deeper: the batman-adv docs; re-run the test with MQTT in Module 8.*
 
-Do this task if you finish the core labs early, or as homework/stretcher practice.
+> **Gate — show one person.** Show the stream and the `batctl o` change, and ask: *"How many packets did convergence cost?"* Write one line in `## Gate log`.
+
+*Portfolio evidence:* the failover observations: how many packets were lost, how `batctl o` changed, and whether the TCP session survived.
+
+### ◇ Stretch 4: Exploring decentralized mesh with Yggdrasil
+
+Do this if you finish the core rounds early, or as homework/stretcher practice.
 
 1. Install Yggdrasil on your laptop or OpenWrt router (available via apt, brew, or pre-compiled).
 2. Inspect your cryptographic identity: run `yggdrasil -genconf` and find your assigned IPv6 address.
@@ -321,7 +356,13 @@ Do this task if you finish the core labs early, or as homework/stretcher practic
    ```
 4. End-to-end IPv6 ping: ask another student for their Yggdrasil IPv6 address and `ping -6 200:...` — then reach a simple service (for example an HTTP server or SSH) listening on that Yggdrasil IPv6 socket.
 
-### ◇ Task 5 (Stretcher): Be the CA — run the other side of the bundle
+**Theory you need.** Yggdrasil derives the IPv6 address from the node's public key, so the address **is** the identity; there is no certificate authority and no assignment. Peers connect outbound over TCP, TLS, or link-local Wi-Fi and form a spanning tree; packets route greedily along the tree and the tree re-forms when a peer disappears. That is a different trade from Nebula: no CA and no fixed address assignment, but also no per-node policy from a central authority. *Go deeper: the Yggdrasil docs.*
+
+> **Gate — show one person.** Show the `200::/7` ping and ask: *"Where does the address come from?"* Write one line in `## Gate log`.
+
+*Portfolio evidence:* the `yggdrasilctl getPeers` output and the IPv6 ping to another pod.
+
+### ◇ Stretch 5: Be the CA — run the other side of the bundle
 
 The bundle exists because somebody ran a CA and signed a certificate. Do it yourself once, in a **scratch workspace**, so the bundle stops being magic. Linux laptop or WSL; the manager never needs root for this:
 
@@ -342,21 +383,49 @@ Then answer, in three sentences each:
 
 1. What did the CA actually sign, and which file must never leave your machine?
 2. What does the **bundle** contain that the certificate alone does not — and why does that make the archive a credential?
-3. The instructor revokes one node. What does “revoked” mean here, and why is that cheaper than deleting a VPN account?
+3. The instructor revokes one node. What does "revoked" mean here, and why is that cheaper than deleting a VPN account?
+
+**Theory you need.** The CA signs a certificate that binds a public key to an overlay IP and a group. The **CA private key** is the root of trust and never leaves the machine that runs the CA. A **bundle** packages the certificate, the node's private key, the CA certificate, and a config/installer; the private key is why the archive is a credential. **Revocation** means the node's certificate is no longer trusted (or is re-signed); it is one certificate, not a shared password change. *Go deeper: the nebula-manager certificates and bundles docs.*
+
+> **Gate — show one person.** Show your scratch CA and ask: *"What does revocation mean?"* Write one line in `## Gate log`.
 
 > **Never use this scratch CA for anything real, and never commit `~/keys/lab`.** Delete it when you are done — the exercise is the artifact, not the key.
 
+*Portfolio evidence:* the three answers and the `cert list` output (no keys).
+
+## 🤖 Ask an LLM — then verify
+
+Use these when a theory box is not enough. Treat every answer as a **claim to test**, not a fact, and run it against your own overlay.
+
+- "Explain why port forwarding fails behind Carrier-Grade NAT and a campus firewall. What does an overlay do differently?"
+- "How does Nebula's lighthouse help two peers behind different NATs establish a direct tunnel? Does the lighthouse relay the traffic?"
+- "How does Yggdrasil derive an IPv6 address from a public key, and what does the spanning-tree routing do when a peer disappears?"
+- "Compare a Layer-3 overlay (Nebula/Yggdrasil) with a Layer-2 mesh (batman-adv). Give one use case where each is the right tool."
+- "What happens if a Nebula certificate or private key leaks? How does the CA isolate the compromise?"
+
+Record where the model is wrong, vague, or over-confident in `## Study log`.
+
+## 🔁 Optional: the harvest — collect curiosities, swap lists
+
+> **Optional and ungraded.** The full ritual is in [Module 1](./01-foundations-and-masterclass.md#harvest); run the short version here.
+
+As you work, mark the odd bits: a bundle that installed but never got an address, a lighthouse that was reachable but a peer that was not, a `batctl o` entry that pointed at the wrong neighbor, a Yggdrasil peer that never appeared. Put a `?` in the margin or a line under `## Story seeds`. At the break and at the end, swap lists with one person at another pod: briefly, no explaining, every entry gets a source. Anything two pods collected, or that nobody can place, goes to the course channel. The list is the artefact; the conversation is the point.
+
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. Tool Selection Matrix: Compare Port Forwarding, Nebula, Yggdrasil, and B.A.T.M.A.N. advanced across: central infrastructure required, NAT traversal, encryption model, layer, and suitability for remote vs. local coverage. (Extend the table from Part C with your own observations.)
-2. Remote-Access Proof: Terminal screenshot showing your laptop on an external network (e.g. mobile hotspot) with a successful `ping` and `ssh` session to your OpenWrt router via its Nebula IP (`10.100.0.x`). Say **which path** you used (router / Windows / Linux) and what you had to do that the bundle did not do for you.
-3. *(Optional)* Mesh Routing Artifacts: Capture `batctl n` and `batctl o` output showing your router's multi-hop neighbors, plus a `batctl traceroute` across the room.
-4. *(Optional)* Failover Experiment Report: Describe what happened during the link drop: how many pings/packets were lost before B.A.T.M.A.N. converged on the alternate route?
-5. Deeper question: Why can `batman-adv` give you a flat subnet across the room, while Nebula/Yggdrasil are needed to reach a device across the Internet? Which one would your final project use — and why?
+This is a **suggestion, not a checklist** — the learning goals are the contract. A convincing subset, or a better artefact you design yourself, is worth more than a ticked list.
 
+1. **Tool selection (goals 1 and 4):** the filled matrix with the wide-area and local choices and one sentence of justification each.
+2. **Overlay deployment (goal 2):** the bundle notes, the `nebula -test` result, `ip -brief addr show nebula1`, and the overlay address. **No key material.**
+3. **Remote access (goal 2):** the ping/ssh/mosquitto proof from an external network, the path you used, and what the bundle did not do for you.
+4. **Credential model (goal 2):** one paragraph naming the certificate, the private key, the CA, and what revocation means.
+5. **Optional mesh (goals 4 and 5):** `batctl n`/`batctl o`/`batctl traceroute`, the failover report, or the Yggdrasil peer/ping output.
+6. **Optional CA (goal 2):** the three scratch-CA answers and the `cert list` output.
+7. **The running log and gates:** your `## Study log` with the theory you actually needed, plus `## Gate log` — one line per gate: who listened, what they asked, what you changed.
+8. **Deeper question:** why can `batman-adv` give you a flat subnet across the room, while Nebula/Yggdrasil are needed to reach a device across the Internet? Which one would your final project use — and why?
 
 > [!IMPORTANT]
-> Never commit **bundles**, credentials, private keys, or certificates — an archive containing a `.key` file *is* a credential, even if it is “just” for a class mesh. Where you did not work entirely alone, link your pod mates and sources.
+> Never commit **bundles**, credentials, private keys, or certificates — an archive containing a `.key` file *is* a credential, even if it is "just" for a class mesh. Where you did not work entirely alone, link your pod mates and sources.
 
 ## 📚 If you want to go deeper
 
@@ -365,6 +434,7 @@ Then answer, in three sentences each:
 - [Yggdrasil documentation](https://yggdrasil-network.github.io/) — cryptographic addressing and tree routing.
 - [OpenWrt batman-adv](https://openwrt.org/docs/guide-user/network/wifi/mesh/batman) — the Layer-2 mesh stretcher.
 - [NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal) and [UDP hole punching](https://en.wikipedia.org/wiki/UDP_hole_punching) — why overlays work where port forwarding fails.
+- The [resource bank's Nebula bundle cheat sheet](./Z-resources-bank.md#nebula-bundles--the-class-ca) and [networking snippets](./Z-resources-bank.md#networking-snippets-copypaste).
 
 ---
 

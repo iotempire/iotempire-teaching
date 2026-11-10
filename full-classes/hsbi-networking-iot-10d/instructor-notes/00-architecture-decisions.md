@@ -60,7 +60,7 @@ records short; link to the artefact instead of pasting it.
 | [D3](#d3) | Learning goals are the contract; tasks are negotiable | accepted | every module, syllabus |
 | [D4](#d4) | Assessment is a portfolio-to-report pipeline | accepted | syllabus, `00-assessment-and-operations.md` |
 | [D5](#d5) | Stories carry the why; the canon keeps them consistent | accepted | modules, resource bank `#story-canon` |
-| [D6](#d6) | Studio rhythm: challenge → practice → theory on demand → gate | provisional | Module 2; rollout pending |
+| [D6](#d6) | Studio rhythm: challenge → practice → theory on demand → gate | accepted | Modules 2–7; Module 1 remains the exception |
 | [D7](#d7) | Capture at the choke point; analyse offline | accepted | Module 1 Task 8, Module 2 Round 5 |
 | [D8](#d8) | One router per pod, factory to gateway; extroot is the escape hatch | accepted | Module 2, syllabus hardware |
 | [D9](#d9) | Uplinks are plural; the LAN is the constant | provisional | Module 2 Round 3/7 |
@@ -296,7 +296,7 @@ the technology.
 <a id="d6"></a>
 ### D6 — Studio rhythm: challenge → practice → theory on demand → gate
 
-**Status:** provisional (Module 2; rollout to Modules 1 and 3–7 pending).
+**Status:** accepted for Modules 2–7; Module 1 remains the exception because its Master Class opening is the course introduction.
 
 **Context.** The first version put a pod-study block before the lab. It ate a
 large block of the session and crowded out the practice; the Databases and
@@ -320,13 +320,14 @@ choose, and what did it cost?* — is the check.
 **Alternatives rejected.** A separate pod-study block; a scheduled whole-pod
 hand-off; lecture + lab; a compulsory harvest.
 
-**Evidence.** Module 2 "How this studio works now" and its round table; Databases
-Module 5 "How this studio works now"; Sensors & Actuators Module 3 "Studio
-rhythm"; resource bank "Studio rhythm".
+**Evidence.** Modules 2–7 "How this studio works now" and their round tables;
+Databases Module 5 "How this studio works now"; Sensors & Actuators Module 3
+"Studio rhythm"; resource bank "Studio rhythm".
 
-**Revisit if.** The rounds lose the theory or the weaker students; then add a short
-optional study block, not a return to the full pod study. Roll out to Modules 1
-and 3–7 when they are next touched.
+**Revisit if.** The rounds lose the theory or the weaker students; then add a compact
+optional study block, not a return to the full pod study. Module 1 remains the
+exception because it is the first contact with the format; migrate it only if a
+future cohort needs the same studio rhythm from day one.
 
 <a id="d7"></a>
 ### D7 — Capture at the choke point; analyse offline
@@ -697,9 +698,9 @@ embodies, so the new instructor can see what is load-bearing.
 7. Write the learning goals per module, then add the DRAFT BOUNDARY (D3, D14).
 8. Assign ★/◇; mark long/risky blocks **Challenging**; remove every time estimate
    (D3).
-9. Build the story canon and one story per module; write a hook per task (D5).
-10. Write the studio rhythm into the module template; make pod study the default,
-    not the exception (D6).
+9. Build the story canon and one story per module; write a hook per round (D5).
+10. Write the studio rhythm into the module template; make the challenge-and-rounds
+    format the default and a separate pod study the exception (D6).
 
 **Infrastructure**
 
@@ -799,3 +800,4 @@ For a re-creator with access to the instructor's workspace:
 | 2026-11-10 | First version; provenance, 17 decision records, rejected alternatives, open questions, recreation checklist, handbook coverage map | Ulno + agent |
 | 2026-11-10 | Closed the first-offering questions: Hausarbeit kept, Projektarbeit recommended for the next run; Module 6 evidence confirmed; B1300 isolation default and credential-ownership rule recorded; retakes handled case by case | Ulno + agent |
 | 2026-11-10 | Flipped the Module 2 studio: challenge brief, theory on demand, round gates with one person, no separate pod study; D6 revised, rollout to Modules 1 and 3–7 pending | Ulno + agent |
+| 2026-11-10 | Converted Modules 3–7 to the studio rhythm; D6 accepted for Modules 2–7, Module 1 remains the exception; Module 7 fleet lab aligned with the current IoTempower `system.conf` / `node.conf` / `deploy` workflow | Ulno + agent |
