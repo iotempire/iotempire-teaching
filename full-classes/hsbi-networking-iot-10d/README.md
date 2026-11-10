@@ -65,9 +65,9 @@ The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-templ
 
 ## What you will work with
 
-- **Hardware:** one OpenWrt travel router per two students (Cudy TR1200 with pure upstream OpenWrt; GL.iNet Mango/Shadow as partners), **one USB stick per router** for extended root (Nebula, `tshark`, MicroPython), M5Stack nodes with Grove modules, Ethernet and USB cables, lab switches/access points.
+- **Hardware:** one OpenWrt travel router per Task Pod, 2–3 students (Cudy TR1200 with pure upstream OpenWrt; GL.iNet Mango/Shadow as partners), **one USB stick and mini USB hub per router** for extended root (Nebula, `tshark`, MicroPython) and phone tethering, M5Stack nodes with Grove modules, Ethernet and USB cables, lab switches/access points.
 - **Networking:** OpenWrt + LuCI, `tcpdump` (Wireshark or `tshark` optional — captures are taken on the router or with an ESP32 tap, then read offline), `iperf3`, Nebula, Yggdrasil, optional B.A.T.M.A.N. advanced.
-- **Messaging and integration:** Mosquitto, MQTT Explorer, Node-RED, Python with `paho-mqtt` / IoTknit, optional `pymodbus` / `asyncua`.
+- **Messaging and integration:** Mosquitto, MQTT Explorer, Node-RED (class host or laptop, **not the router**), Python with `paho-mqtt` / IoTknit, MicroPython on the router, optional `pymodbus` / `asyncua`.
 - **Fleet:** [IoTempower](https://github.com/iotempire/iotempower) for declarative nodes and OTA deployment.
 - **Editor and terminal:** VS Code or Zed with the **integrated terminal**; on Windows, set the terminal profile to **Git Bash** (ships with Git for Windows) because the labs use bash.
 - **AI co-pilots:** use them to draft and explain — then verify against a packet capture, a routing table, or a live test. Verification is the graded skill. The hands-on experiment comes first: build the network, observe the failure, then ask AI.

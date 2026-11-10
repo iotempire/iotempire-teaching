@@ -71,7 +71,7 @@ In traditional networks, extending a network across multiple hops requires Layer
 **B.A.T.M.A.N. (Better Approach To Mobile Adhoc Networking) Advanced:**
 - Operates directly at the Data Link layer (Layer 2) as a Linux kernel module (`kmod-batman-adv`).
 - Emulates a **virtual Ethernet switch (`bat0`)**: to the operating system, DHCP servers, and applications, every device on the mesh appears as if it is plugged into the same physical Ethernet switch!
-- Zero Subnetting Headache: You can run a single flat IPv4 subnet (e.g. `192.168.8.0/24`) across dozens of routers spanning multiple hops.
+- Zero Subnetting Headache: You can run a single flat IPv4 subnet (e.g. `192.168.14.0/24`) across dozens of routers spanning multiple hops.
 - Link Quality Sensing (OGM): Routers continuously send lightweight Originator Messages (OGMs) to determine the best next-hop neighbor based on Transmit Quality (TQ).
 
 ```text
@@ -149,7 +149,7 @@ Pair with a **neighbouring pod**:
 
 ## 🛠️ In-Class Lab: Three Networks — **Challenging**
 
-*Hardware:* 1× OpenWrt router per student pair (with the **USB stick** for extended root handed out before this session) + laptops with a connection to the university/mobile network. For the optional mesh stretcher, the class connects 3–6 routers into a shared multi-hop mesh.
+*Hardware:* 1× OpenWrt router per pod (with the **USB stick and extroot** you set up in Module 2) + laptops with a connection to the university/mobile network. For the optional mesh stretcher, the class connects 3–6 routers into a shared multi-hop mesh.
 
 This module has one ★ Core task (Nebula) and several ◇ Stretchers (B.A.T.M.A.N. mesh, Yggdrasil). Choose the stretchers that fit your time and interest; the core is the overlay/remote-access work.
 
@@ -178,23 +178,23 @@ df -h /overlay
 
 # on your laptop: unpack the bundle and push the four files
 unzip <name>-nebula-bundle.zip -d nb && cd nb
-ssh root@192.168.8.1 'mkdir -p /etc/nebula'
-scp <name>.crt <name>.key ca.crt config.yml.template root@192.168.8.1:/etc/nebula/
-ssh root@192.168.8.1 'cd /etc/nebula && [ -f config.yml ] || mv config.yml.template config.yml; chmod 600 *.key'
+ssh root@192.168.14.1 'mkdir -p /etc/nebula'
+scp <name>.crt <name>.key ca.crt config.yml.template root@192.168.14.1:/etc/nebula/
+ssh root@192.168.14.1 'cd /etc/nebula && [ -f config.yml ] || mv config.yml.template config.yml; chmod 600 *.key'
 
 # the static binary must match `uname -m`: download it from
 # https://github.com/slackhq/nebula/releases and copy it over
-scp nebula root@192.168.8.1:/etc/nebula/nebula
-ssh root@192.168.8.1 'chmod +x /etc/nebula/nebula'
+scp nebula root@192.168.14.1:/etc/nebula/nebula
+ssh root@192.168.14.1 'chmod +x /etc/nebula/nebula'
 
 # validate, watch it once in the foreground, then keep it running
-ssh root@192.168.8.1 '/etc/nebula/nebula -test -config /etc/nebula/config.yml'
-ssh root@192.168.8.1 'nohup /etc/nebula/nebula -config /etc/nebula/config.yml >/tmp/nebula.log 2>&1 &'
-sleep 2; ssh root@192.168.8.1 'ip -brief addr show nebula1; tail -5 /tmp/nebula.log'
+ssh root@192.168.14.1 '/etc/nebula/nebula -test -config /etc/nebula/config.yml'
+ssh root@192.168.14.1 'nohup /etc/nebula/nebula -config /etc/nebula/config.yml >/tmp/nebula.log 2>&1 &'
+sleep 2; ssh root@192.168.14.1 'ip -brief addr show nebula1; tail -5 /tmp/nebula.log'
 ```
 
 - The bundle's config already points at `/etc/nebula/…`, so the paths match. If yours does not, edit `pki.ca`, `pki.cert`, and `pki.key` — that is the only config difference between a router and a laptop.
-- **16 MB is tight.** If `scp` fails with `No space left on device`, do the [extroot](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card) first; the same stick later holds `tshark` and MicroPython.
+- **16 MB is tight — and your router already has extroot from Module 2.** Verify `df -h /overlay` shows the stick before you copy the binary. If it does not, do the [extroot recipe](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card) first; the same stick later holds `tshark` and MicroPython.
 - **Firewall:** outbound UDP is open by default. If other nodes must reach *you* first, allow the Nebula UDP port (default `4242`) inbound on WAN.
 - **Survives a reboot?** Not yet — an initscript is the difference between a demo and a gateway. That is a good stretcher (see the note at the end of this task).
 
@@ -253,7 +253,7 @@ Work in pairs. The classroom becomes a single multi-hop mesh — coordinate mesh
 1. **Install & Enable `batman-adv`:**
    SSH into your OpenWrt router and install the kernel module and control tool:
    ```bash
-   ssh root@192.168.8.1
+   ssh root@192.168.14.1
    opkg update
    opkg install kmod-batman-adv batctl-default
    lsmod | grep batman
@@ -311,7 +311,7 @@ Do this task if you finish the core labs early, or as homework/stretcher practic
 3. Peer with the class mesh: add the lab's local Yggdrasil peer address to your `Peers: [...]` config:
    ```json
    Peers: [
-     "tcp://192.168.8.1:9001"
+     "tcp://192.168.14.1:9001"
    ]
    ```
    Start Yggdrasil and inspect it:

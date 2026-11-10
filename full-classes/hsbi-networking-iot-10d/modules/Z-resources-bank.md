@@ -173,38 +173,48 @@ uv run python iot_bridge.py
 
 ```bash
 # On the router: capture (stop with Ctrl-C)
-tcpdump -i br-lan -s 0 -w /tmp/lan.pcap 'arp or udp port 67 or udp port 68'
+tcpdump -i br-lan -s 0 -w /tmp/lan.pcap 'arp or udp port 67 or udp port 68 or udp port 53 or tcp port 1883'
 
 # From your laptop: copy it over and open it
-scp root@192.168.8.1:/tmp/lan.pcap .
+scp root@192.168.14.1:/tmp/lan.pcap .
 wireshark lan.pcap            # or: tshark -r lan.pcap -V | less
 ```
 
 **If Wireshark is not installed** (or you cannot install software), `tcpdump -A` prints the packets as text — enough to prove a DORA exchange or an ARP request/reply, in any SSH client:
 
 ```bash
-ssh root@192.168.8.1 "tcpdump -i br-lan -A -c 20 'arp'"
-ssh root@192.168.8.1 "tcpdump -r /tmp/lan.pcap -A 'udp port 67 or udp port 68'"
+ssh root@192.168.14.1 "tcpdump -i br-lan -A -c 20 'arp'"
+ssh root@192.168.14.1 "tcpdump -r /tmp/lan.pcap -A 'udp port 67 or udp port 68'"
 ```
 
-**Storage: 16 MB of flash.** `tcpdump` and Mosquitto are already on the class image. For anything bigger — Nebula, `tshark`, MicroPython — move the root filesystem to a **USB stick** (the routers have one USB 2.0 port):
+**Storage: 16 MB of flash.** `tcpdump` and Mosquitto are already on the class image. For anything bigger — Nebula, `tshark`, MicroPython — move the root filesystem to a **USB stick** (the routers have one USB 2.0 port). The class hands out a **> 4 GB stick and a mini USB hub**, so the stick and a USB-tethered phone can share that one port. Label the stick with the router ID; it is part of the router, not a spare.
 
 ```bash
 # on the router, once, with the stick plugged in
-opkg update
-opkg install block-mount kmod-fs-ext4 kmod-usb-storage e2fsprogs   # 24.10+: apk add ...
+# 24.10 and newer:
+apk update
+apk add block-mount kmod-fs-ext4 kmod-usb-storage e2fsprogs
+# 23.05 and older:
+# opkg update
+# opkg install block-mount kmod-fs-ext4 kmod-usb-storage e2fsprogs
 # If the stick does not show up at all, the USB controller module is missing too:
-#   opkg install kmod-usb2      (or kmod-usb-ohci on older SoCs), then check `logread`
-mkfs.ext4 /dev/sda1                       # confirm the device name with `logread` after plugging in
+#   apk add kmod-usb2  (or opkg install kmod-usb2 / kmod-usb-ohci), then check `logread`
+# Confirm the device with `logread`, `ls /dev/sd*`, and `block info` before you touch it.
+# If the stick is blank, create one Linux partition first (fdisk /dev/sda), then use /dev/sda1.
+# If the instructor pre-formatted the stick, skip mkfs and go straight to mount.
+mkfs.ext4 /dev/sda1                       # only for a stick you identified and may erase
 mkdir -p /mnt/sda1 && mount /dev/sda1 /mnt/sda1
 cp -a /overlay/. /mnt/sda1/ && umount /mnt/sda1
 block detect > /etc/config/fstab
-uci set fstab.@mount[0].target='/overlay'
+uci show fstab                            # find the mount section for your stick
+uci set fstab.@mount[0].target='/overlay' # adjust the section index if yours is not 0
 uci set fstab.@mount[0].enabled='1'
 uci commit fstab
 reboot
-# after the reboot: df -h should show /overlay on the stick
+# after the reboot: df -h /overlay and mount | grep overlay must show the stick
 ```
+
+> **If the router does not come back after the extroot reboot, remove the stick and boot from the internal overlay.** Inspect `/etc/config/fstab`; OpenWrt failsafe can repair the config. Never delete the internal overlay before the first successful boot from the stick. The stick is not a backup: it is the live root filesystem.
 
 > **Never commit the contents of a USB stick, and do not commit a router backup you did not read.** Document *what* you installed and *how* instead — that is the reproducible part.
 
@@ -215,7 +225,7 @@ reboot
 | Module | Capture | What it shows |
 |---|---|---|
 | 1 | `tcp port 1883` | MQTT publish/subscribe, the header overhead |
-| 2 | `arp`, `udp port 67 or 68` | ARP resolution, DHCP DORA |
+| 2 | `arp`, `udp port 67 or 68`, `udp port 53`, `tcp port 1883` | ARP resolution, DHCP DORA, DNS, MQTT on the LAN |
 | 3 | `-i nebula1` (or `-i tun0`) | overlay traffic inside the tunnel, and its encapsulation outside |
 | 4 | `tcp port 1883` | QoS bits, retained message, Last Will |
 | 5 | ESP32 sniffer | ESP-NOW frames on the air |
@@ -313,6 +323,7 @@ The CA **key** never leaves the instructor's machine; only `ca.crt` and the sign
 - **Retained MQTT messages:** a “live” test may show an old retained value. Clear retained state or publish a fresh value before you draw conclusions.
 - **Throughput/latency measurements:** note the payload size, protocol, channel, and load. A single ping is not a benchmark; use `iperf3` and repeat.
 - **Clock skew:** timestamps from different devices disagree. Compare durations, not absolute times, unless the clocks are synced.
+- **Node-RED is not on the router.** Run it on the class integration host (Optiplex cluster) or a laptop; the router runs Mosquitto and, optionally, small MicroPython services. A MicroPython IoTknit port is planned, not yet supported.
 
 <a id="troubleshooting-quick-drops"></a>
 ## 🧰 Troubleshooting Quick Drops
@@ -351,7 +362,7 @@ Use these as portfolio prompts or in-class hook.
 <a id="instructor-hints"></a>
 ## 🧑‍🏫 Instructor hints
 
-**Before the first studio.** Label every router and node, record which router is the lab uplink, and keep one known-good Ethernet cable and one known-good M5Stack. Test the local Mosquitto broker and Node-RED on the gateway before students arrive. If you use the B.A.T.M.A.N. stretcher, pre-check that the routers have `kmod-batman-adv` and a common Wi-Fi channel.
+**Before the first studio.** Label every router and node, record which router is the lab uplink, and keep one known-good Ethernet cable and one known-good M5Stack. Test the local Mosquitto broker on the gateway and Node-RED on the class integration host or a laptop before students arrive. Node-RED does not run on the router. If you use the B.A.T.M.A.N. stretcher, pre-check that the routers have `kmod-batman-adv` and a common Wi-Fi channel.
 
 **Nebula in one session — bundles, not ceremonies.** Before class, create the class CA and sign **one certificate per pod** for its router (e.g. `pod07-router`, `10.100.0.7/24`, group `students`), plus laptop certs for the students who have admin rights on their own machine. Generate the configs and bundles and hand out **one croc code per pod** (`fleet croc --select group:students`), with the lighthouse already in `static_host_map`; the [bundles chapter](https://github.com/iotempire/nebula-manager/blob/main/docs/bundles.md) is the reference. Two things to prepare: (1) the router path needs a **static `nebula` binary** matching MIPS/ARM — pre-download the right release and keep it on a USB stick or an HTTP folder, because 16 MB of flash will not take a package install; (2) a **re-sign drill** for the pod that loses its key (`cert resign-all` or a single `sign`, then `--certs-only`) — it is a five-minute lesson in why the key *is* the credential. Never put the CA key on a shared drive, and delete the student bundles from the instructor host at the end of the day.
 
@@ -361,9 +372,9 @@ Use these as portfolio prompts or in-class hook.
 
 **Network safety.** Keep every experiment inside the isolated lab router network. Never plug a rogue DHCP server into the campus network. Before any mesh/overlay lab, agree on team IDs, channels, and address ranges; write them on the board.
 
-**Packet capture in the room.** Assume **one Wi-Fi adapter per laptop and no monitor mode**: a laptop cannot see another station's unicast traffic, and Windows rarely supports monitor mode at all. Prepare capture *points*, not sniffers: (a) `tcpdump` on the router — it is on the class image, and `br-lan` covers the LAN; (b) one ESP32 running [`martin-ger/esp32_eth_wifi_bridge`](https://github.com/martin-ger/esp32_eth_wifi_bridge) as a transparent tap that streams pcap over TCP port 19000 (`pcap start`); and (c) one recorded dump per module (`module01.pcap`, `module02.pcap`, …) for pods whose hardware or laptop cannot capture that day. Open every dump yourself before handing it out, and say out loud that analysing a provided dump is full evidence. Hand out the **USB sticks for extroot** before Module 3 — Nebula does not fit into 16 MB of flash — and the [extroot recipe](#packet-capture-without-a-second-wifi-card) is what you walk through with the first pod that hits `No space left on device`.
+**Packet capture in the room.** Assume **one Wi-Fi adapter per laptop and no monitor mode**: a laptop cannot see another station's unicast traffic, and Windows rarely supports monitor mode at all. Prepare capture *points*, not sniffers: (a) `tcpdump` on the router — it is on the class image, and `br-lan` covers the LAN; (b) one ESP32 running [`martin-ger/esp32_eth_wifi_bridge`](https://github.com/martin-ger/esp32_eth_wifi_bridge) as a transparent tap that streams pcap over TCP port 19000 (`pcap start`); and (c) one recorded dump per module (`module01.pcap`, `module02.pcap`, …) for pods whose hardware or laptop cannot capture that day. Open every dump yourself before handing it out, and say out loud that analysing a provided dump is full evidence. Hand out the **USB sticks and mini hubs for extroot** in Module 2 — Nebula does not fit into 16 MB of flash — and walk through the [extroot recipe](#packet-capture-without-a-second-wifi-card) with the first pod that hits it; Module 3 then verifies `/overlay` instead of discovering the problem.
 
-**Potential TODO (not scheduled).** Consider mirroring the Sensors & Actuators Module 2 bus survey — simple pins → UART → RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire, with a pod profile and a class comparison table — as an opening map in [Module 2](../modules/02-local-networking-and-gateways.md). It overlaps with the Modbus/RS-485 material in Module 6; decide whether the survey belongs at the start of the networking arc or stays in Module 6. Revisit after the first offering.
+**Bus and fieldbus coverage.** Low-level buses (UART, I²C, SPI, OneWire) belong to the Sensors & Actuators and Microcontroller Programming courses. Industrial fieldbuses (RS-485/Modbus, CAN, Profinet, TSN) are covered in [Module 6](../modules/06-industrial-protocols-and-bridging.md), including the ISO/OSI mapping and the bus comparison table. Do not duplicate the bus survey in Module 2; revisit it in Module 7/8 only if the project wiring needs it.
 
 **Stories.** The stories in the modules are deliberately separate case studies. Keep new examples consistent with the [story canon](#story-canon-the-recurring-cast), and make a story concrete enough to pitch in a minute: one named person, one place, one moment of pain, something at stake.
 
