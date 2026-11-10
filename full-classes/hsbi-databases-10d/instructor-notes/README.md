@@ -4,6 +4,8 @@ These notes are for whoever teaches this class next. That may be you, with three
 
 Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment live in [`../syllabus.md`](../syllabus.md). Logistics (rooms, dates, announcements) are the LMS's job.
 
+Open improvements for the next run are tracked in **[Future work](./TODO.md)** — add a row when you notice something you cannot fix this term.
+
 ## Five commitments that make the format work
 
 1. **Students work in Task Pods of 2–3 for most of the term.** Default to 3 when the cohort is above ~40; keep a handful of pairs so the checkpoint schedule survives. *You never teach a room of 60 individuals — you teach 20–30 pods.*

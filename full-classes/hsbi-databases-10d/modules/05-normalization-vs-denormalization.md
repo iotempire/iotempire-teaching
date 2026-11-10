@@ -15,8 +15,6 @@ By the end of this module, you can:
 4. **Measure** the trade-off: query latency, write cost, and database size — before and after.
 5. Decide, and *defend*, where a schema should sit on the normalization spectrum for a given workload.
 
-**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
 ## 📖 Story — The Dashboard That Took 40 Seconds
 
 Kortmann's plant now has a machine-health dashboard. Every 30 seconds it asks a hard question: *"for each machine, show its site, its technician's name, and the total cost of parts used in the last 90 days."* Against the normalized schema you repaired in Module 2, that query joins four tables and scans the whole `job_part` history. On the production dataset it takes **40 seconds** — and it blocks the single writer while it runs.
@@ -208,7 +206,7 @@ JOIN part p     ON p.part_no = jp.part_no;
 CREATE INDEX ix_report_machine ON report_jobpart(machine_id);
 ```
 
-Run the same analytical query on both and compare the plans and the wall-clock time:
+**Warm the cache first — this step changes the answer.** Run each query once with `.timer off` and throw the number away: that run loads the pages. Then run the timed block below. Cold-cache measurements are exactly why a pod concludes "denormalization buys nothing": the first scan pays for disk or page-cache misses, and the second engine either inherits a warm cache or pays again. Compare warm with warm, or you are measuring the order of your commands.
 
 ```sql
 .timer on
@@ -236,7 +234,7 @@ GROUP BY machine_id, technician;
 >
 > - **The index on `report_jobpart`.** `SCAN … USING INDEX` walks the whole index and *then* fetches every row from the table. Dropping it is often faster.
 > - **Row width.** `report_jobpart` carries site, technician, price, and date on every row — roughly three times the bytes of `job_part`.
-> - **Warm cache.** At tens of milliseconds the order of measurement decides. Run A and B **interleaved**, three times each, and compare medians.
+> - **Warm cache.** At tens of milliseconds the order of measurement decides. Warm both sides with one untimed run, then alternate A and B three times and compare medians.
 >
 > **Discussion point.** Denormalization pays when the **join** is the expensive part. Here the joins hit 50 machines, 10 parts and 20,000 jobs — all in cache — so the join is cheap and the scan dominates. Make the join expensive (more dimensions, bigger dimensions, data that does not fit in memory) and the picture changes. Your memo has to say *which cost* the denormalized table removes.
 
@@ -400,6 +398,8 @@ Write a short recommendation (5–8 sentences) to the operations lead: which des
 - Markus Winand — *Use The Index, Luke* (indexing and pagination) — [use-the-index-luke.com](https://use-the-index-luke.com/)
 - DuckDB — why columnar and vectorized engines win on aggregations — [duckdb.org/why_duckdb](https://duckdb.org/why_duckdb.html)
 - **Prefer watching?** [Lecture-style videos for this module](./Z-resources-bank.md#watching-instead-of-reading)
+
+**⬆︎ ===== DRAFT BOUNDARY — everything above is settled for this run ===== ⬆︎**
 
 ---
 

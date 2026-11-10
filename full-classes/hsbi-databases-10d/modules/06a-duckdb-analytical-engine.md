@@ -196,22 +196,30 @@ MONTHLY = """SELECT strftime(done_on, '%Y-%m') AS month, machine_id,
 FROM {src} GROUP BY month, machine_id ORDER BY month, machine_id"""
 
 
-def median_ms(fn, runs=3):
-    times = []
-    for _ in range(runs):
-        t0 = time.perf_counter()
-        fn()
-        times.append((time.perf_counter() - t0) * 1000)
-    return statistics.median(times)
+def timed_ms(fn):
+    t0 = time.perf_counter()
+    fn()
+    return (time.perf_counter() - t0) * 1000
 
 
 for name, sql in (("dashboard", DASHBOARD), ("monthly", MONTHLY)):
-    s = median_ms(lambda: sq.execute(sql.format(src="report_history")).fetchall())
-    d = median_ms(lambda: duck.execute(sql.format(src=f"read_parquet('{pq}')")).fetchall())
+    run_sqlite = lambda: sq.execute(sql.format(src="report_history")).fetchall()
+    run_duckdb = lambda: duck.execute(sql.format(src=f"read_parquet('{pq}')")).fetchall()
+
+    run_sqlite()          # warm-up: load the pages, discard the timing
+    run_duckdb()
+
+    sqlite_times, duckdb_times = [], []
+    for _ in range(3):    # interleaved: alternate the engines
+        sqlite_times.append(timed_ms(run_sqlite))
+        duckdb_times.append(timed_ms(run_duckdb))
+
+    s = statistics.median(sqlite_times)
+    d = statistics.median(duckdb_times)
     print(f"{name:10s} sqlite {s:8.1f} ms   duckdb {d:6.1f} ms   {s / d:6.1f}x")
 ```
 
-Run it **interleaved** (the script does), three times, and record the medians.
+Run it. The script **warms both engines with one untimed run**, then alternates SQLite and DuckDB three times and reports the medians. That is the minimum honest measurement — the first run of either engine is a cache warm-up, not a result.
 
 On this machine, with this dataset: the dashboard takes about **600 ms in SQLite** and **7 ms in DuckDB**; the monthly report about **540 ms** and **7 ms**. Your numbers will differ — a slow laptop makes SQLite worse, a warm cache makes both faster. What travels is the **ratio** and the **plan**.
 
@@ -432,9 +440,11 @@ Reference numbers on this dataset: **2.32 MB (snappy) → 1.37 MB (zstd)**, with
 
 ---
 
-## 7 · Homework — the refresh script (intense)
+## 7 · Homework — choose your level
 
-The memo promises a refresh. Make it real, because a promise you cannot run is a slide.
+**Core (everyone, ~20 minutes).** Produce the zstd copy from S3, record the size difference, and add a paragraph to the memo: **how** the refresh runs, and what would break if it silently stopped. Bring the updated memo to Module 6b — the decision record starts from these numbers.
+
+**◇ Intense track (opt in, ~45–60 minutes).** This is the task that turns the memo into a pipeline — the difference between *"we would refresh it"* and *"here is the script"*. Take it if you want the strongest evidence for **goal 5**, or if your final project will need a rebuild step anyway (most will).
 
 Write `Module06a/refresh.py` that:
 
@@ -443,15 +453,13 @@ Write `Module06a/refresh.py` that:
 3. prints one line — rows, checksum, Parquet size, elapsed milliseconds;
 4. is **idempotent**: run it twice and the numbers must match (the bytes may differ; say so).
 
-Then:
+Then run it twice, paste both outputs into `duckdb-notes.md`, and add the harder half to the memo: what `--check` protects you from, and what it does **not** protect you from.
 
-- run it twice and paste both outputs into `duckdb-notes.md`;
-- produce the zstd copy from S3 and record the size difference in your memo;
-- add a paragraph to the memo: **how** the refresh runs, what `--check` protects you from, and — the harder half — what it does **not** protect you from.
+Why it is worth it: a refresh you can run and verify is the difference between a report and a rumour — and it is the smallest honest version of the ingestion pipeline your project needs.
 
-<!-- PREP EMAIL (before Session 7): bring refresh.py, one `--check` output, and the updated memo to Module 6b. The decision record starts from these numbers. -->
+<!-- PREP EMAIL (before Session 7): bring the updated memo; if you took the intense track, also `refresh.py` and one `--check` output, and the decision record starts from those numbers. -->
 
-*Portfolio evidence:* `refresh.py`, two `--check` runs, and the extended memo.
+*Portfolio evidence:* the updated memo (core), plus `refresh.py` and two `--check` runs if you took the intense track.
 
 ---
 
@@ -462,8 +470,8 @@ Then:
 - [ ] `race.py` and the timing table (median of three, interleaved).
 - [ ] One `EXPLAIN ANALYZE` output with the dominating operator marked.
 - [ ] `boundary.py` and the insert/lookup numbers, including the `executemany` variant.
-- [ ] The memo to Lea and Yasmin.
-- [ ] `refresh.py` and two `--check` runs (homework).
+- [ ] The memo to Lea and Yasmin, including the refresh paragraph (core homework).
+- [ ] (Intense track) `refresh.py` and two `--check` runs.
 - [ ] (Stretcher) your notes from S1, S2 or S3 — whichever you took.
 - [ ] `Reflections/ref06a.md` — the logbook entry for this block.
 

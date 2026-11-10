@@ -4,7 +4,7 @@
 
 > **Teaching this course?** The [instructor notes](../instructor-notes/README.md) have a per-session runbook — what to prepare, how to open, what is non-negotiable, what to cut.
 
-> Each module opens with its **learning goals** and a ***DRAFT BOUNDARY*** marking the content still under construction. How learning goals are assessed, and why the tasks are negotiable, is explained once in the [syllabus](../syllabus.md#how-module-points-are-earned-from-your-portfolio).
+> Each module opens with its **learning goals**. A ***DRAFT BOUNDARY*** marks where the provisional part starts: near the top while a module is still being designed, at the **end** once it has been taught and revised. How learning goals are assessed, and why the tasks are negotiable, is explained once in the [syllabus](../syllabus.md#how-module-points-are-earned-from-your-portfolio).
 
 ## Session roadmap (11 sessions + tutorials)
 

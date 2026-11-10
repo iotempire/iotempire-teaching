@@ -15,8 +15,6 @@ By the end of this module, you can:
 4. Express a schema as a **code-first data contract** (Pydantic / SQLAlchemy) that an application can enforce.
 5. Write the **requirements the schema forgot**: the business rules nobody encoded.
 
-**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
 ## 📖 Story — The Maintenance Database With No Diagram
 
 You join a mechatronics team at **Kortmann Kunststofftechnik GmbH**, a plastics injection-molding plant. A tool from 2011 tracks maintenance. It works, so nobody touches it. Then a machine fails and the maintenance planner, **Anke Reuter**, asks a simple question — *"which parts did we replace on this machine in the last year, and how often?"* — and it takes a specialist a whole afternoon, because the schema is a pile of TEXT columns with no relationships.
@@ -347,6 +345,8 @@ Pick **three** — one *good*, one *strange*, one *wrong or confusing* — and s
 - diagrams.net (draw.io) — free ER diagramming — [diagrams.net](https://www.diagrams.net/)
 - Mermaid — `erDiagram` syntax — [mermaid.js.org/syntax/entityRelationshipDiagram.html](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
 - dbdiagram.io — a text-to-ER playground — [dbdiagram.io](https://dbdiagram.io/)
+
+**⬆︎ ===== DRAFT BOUNDARY — everything above is settled for this run ===== ⬆︎**
 
 ---
 

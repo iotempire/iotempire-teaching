@@ -15,8 +15,6 @@ By the end of this module, you can:
 4. Use **DML** correctly — including `UPSERT` (`ON CONFLICT`) for idempotent edge ingestion.
 5. Reason about **access control (DCL)**: who may read or write, and how that maps from server `GRANT`s to an embedded, local-first world.
 
-**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
 ## 📖 Story — Trusting the Edge
 
 Wittkamp's machine-shop telemetry used to run through the cloud, until the plant lost its internet connection for two days and lost two days of data with it. The fix is local-first: an **edge gateway** (a small Linux box or an OpenWrt router) writes readings straight into a SQLite file next to the machines. The data never leaves the plant unless someone decides it should.
@@ -258,6 +256,8 @@ Switch the alarm trigger to `BEFORE INSERT` and observe the difference; or add a
 - SQLite — generated columns — [sqlite.org/gencol.html](https://sqlite.org/gencol.html)
 - SQLite — `UPSERT` and triggers — [sqlite.org/lang_upsert.html](https://www.sqlite.org/lang_upsert.html) · [sqlite.org/lang_createtrigger.html](https://www.sqlite.org/lang_createtrigger.html)
 - SQLite — foreign key support (and why it is off by default) — [sqlite.org/foreignkeys.html](https://www.sqlite.org/foreignkeys.html)
+
+**⬆︎ ===== DRAFT BOUNDARY — everything above is settled for this run ===== ⬆︎**
 
 ---
 

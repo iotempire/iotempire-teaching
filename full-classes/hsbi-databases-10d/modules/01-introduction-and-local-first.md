@@ -513,8 +513,6 @@ This is the habit the whole course is built on.
 
 *Portfolio evidence:* the exact prompt you used, the generated SQL, the `EXPLAIN QUERY PLAN` output, and your verification paragraph.
 
-**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
 ### ◇ Task 8 (Stretcher): Publish your data with Datasette
 
 Turn the database into something a colleague can browse in a browser:
@@ -598,6 +596,8 @@ Run `uvx datasette Module01/telemetry.db -o` and explore the web side properly:
 - Anton Zhiyanov — *SQLite is not a toy database* (2021) — [antonz.org](https://antonz.org/sqlite-is-not-a-toy-database/)
 - **A fun side read:** [Fossil vs Git — the architectural irony](./Z-resources-bank.md#side-reading-fossil-vs-git--the-architectural-irony) — why SQLite's author doesn't use Git, and why that mirrors SQLite-vs-PostgreSQL.
 - More (and the counter-arguments) in the [resource bank](./Z-resources-bank.md#why-local-first-and-why-the-heavy-three-tier-default-is-questioned)
+
+**⬆︎ ===== DRAFT BOUNDARY — everything above is settled for this run ===== ⬆︎**
 
 ---
 

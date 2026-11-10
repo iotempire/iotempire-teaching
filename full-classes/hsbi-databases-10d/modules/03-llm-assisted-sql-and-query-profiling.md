@@ -18,8 +18,6 @@ By the end of this module, you can:
 4. Generate a query with an **LLM**, then **verify** it: correctness, performance, and edge cases.
 5. **Prevent SQL injection** with bound parameters and demonstrate why string concatenation is exploitable.
 
-**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
 ## 📖 Story — "The LLM Wrote It, It Ran, Ship It?"
 
 **Frachtflow**, a logistics startup, runs its order-tracking on a local SQLite file synced from the warehouse. The lead developer, **Nils Bergmann**, confesses the team's workflow: *"when we need a new report, we describe it to Claude, paste the SQL into the code, and if the number looks about right, we ship it."* It worked — until a report for customer service quietly returned the **wrong** list of late orders for a month, and a support agent typed a customer name containing an apostrophe that took the whole order page down.
@@ -390,6 +388,8 @@ Why bother: this course hands you *generated* data all the time (here, in Module
 - Markus Winand — *Use The Index, Luke* — [use-the-index-luke.com](https://use-the-index-luke.com/)
 - OWASP — *SQL Injection Prevention Cheat Sheet* — [cheatsheetseries.owasp.org](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
 - Python — the `sqlite3` module and parameter binding — [docs.python.org/3/library/sqlite3.html](https://docs.python.org/3/library/sqlite3.html)
+
+**⬆︎ ===== DRAFT BOUNDARY — everything above is settled for this run ===== ⬆︎**
 
 ---
 
