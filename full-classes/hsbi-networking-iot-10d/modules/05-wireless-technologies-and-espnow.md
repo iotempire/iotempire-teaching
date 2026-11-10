@@ -38,12 +38,12 @@ Everything from today goes into **`Module05/README.md`** as sections. Split some
 
 - `## Radio decision` — the trade-off matrix and one justified choice per greenhouse job.
 - `## Study log` — the running log: the theory you actually needed, the commands that surprised you, and the LLM answers you checked. Not an essay, and not a separate study phase.
-- `## Gate log` — one line per gate: who listened, what they asked, what you changed. This is personal.
+- `## Discussion log` — one line per discussion: who listened, what they asked, what you changed. This is personal.
 - `## ESP-NOW experiments` — the MACs, the serial send/receive output, and the latency comparison.
 - `## Bridge` — the ESP-NOW → MQTT architecture and the published messages.
 - `## Story seeds` — optional: the odd bits worth turning into a story later.
 
-*One pod member keeps the shared `## Study log`; the others link to it from their own `Module05/README.md` and add one sentence on what they took from it. The `## Gate log` is yours alone.*
+*One pod member keeps the shared `## Study log`; the others link to it from their own `Module05/README.md` and add one sentence on what they took from it. The `## Discussion log` is yours alone.*
 
 ### The radio contract
 
@@ -69,25 +69,27 @@ Operations manager **Tobias Kern** asks the question that drives this module: *"
 
 **Constraints.** 2 M5Stack nodes + 1 router per pod. The bridge node and the router share a Wi-Fi channel. ESP-NOW payloads are small (250 bytes). No association, no DHCP, no TCP on the ESP-NOW path. The 2.4 GHz band is shared with the class; coordinate channels. No personal data on the air.
 
-**This story is unfinished on purpose.** The hooks below are starting points, not a script. Pick the ones that match what you actually saw, and add a line of your own — *"and the button worked until the microwave in the break room turned on"* is worth more than a perfect table. Collect those lines under `## Story seeds` and use them in a gate or the harvest.
+**This story is unfinished on purpose.** The hooks below are starting points, not a script. Pick the ones that match what you actually saw, and add a line of your own — *"and the button worked until the microwave in the break room turned on"* is worth more than a perfect table. Collect those lines under `## Story seeds` and use them in a discussion or the harvest.
 
 ## 🧭 How this studio works now
 
-**The study is folded into the practice.** There is no separate pod-study phase and no scheduled hand-off to another pod. Each round gives you a small thing to do, a short **Theory you need** box you read only when the task makes you want it, and a **gate** at the end. Keep your notes in `Module05/README.md` under `## Study log` — a running log, not an essay.
+**The study is folded into the practice.** There is no separate pod-study phase and no scheduled hand-off to another pod. Each round gives you a small thing to do, a short **Theory you need** box you read only when the task makes you want it, and a **discussion** at the end. Keep your notes in `Module05/README.md` under `## Study log` — a running log, not an essay.
 
 **First: skim, do not start.** Read the challenge and the round table, then skim the theory boxes and the evidence list. You are looking for two things: **where the frame becomes an MQTT message** and **where the latency is measured**. Then start Round 1.
 
-**Every round ends with a gate — one person is enough.** Ask someone at the nearest pod if they have a moment; show them the round's artefact and ask the gate question. If they want, let them show you theirs and ask you one question back. **This is a brag, not a quiz.** Write one line in `## Gate log`: who listened, what they asked, what you changed. If nobody is free, ask someone else or come back later — do not wait.
+**Every round ends with a discussion — one person is enough.** Ask someone at the nearest pod if they have a moment; show them the round's artefact and ask the discussion question. If they want, let them show you theirs and ask you one question back. **This is a brag, not a quiz.** Write one line in `## Discussion log`: who listened, what they asked, what you changed. If nobody is free, ask someone else or come back later — do not wait.
 
 **Take a study break when a box is not enough.** Read the linked source, then explain it to one person. Explaining is the test, not reading. You do not need permission; take the break when the task makes you want it.
 
-| # | Round | You produce | Gate question for one person |
-|---|---|---|---|
-| 1 | **Choose the radio** | A matrix and one justified choice per greenhouse job | "Which radio for the gate, and which for the button? Why?" |
-| 2 | **Send a raw frame** | MACs and serial send/receive output | "What did ESP-NOW skip?" |
-| 3 | **Build the bridge** | An ESP-NOW frame published to MQTT | "Where does the frame become an MQTT message?" |
-| 4 | **Measure the difference** | Button→LED latency over ESP-NOW vs Wi-Fi/MQTT | "What did you measure, and what did it cost?" |
-| ◇ | **Capture the air** | A pcap with one ESP-NOW frame | "Where did reliability go?" |
+The table is the discussion map: the **[Goal](#-learning-goals) · theory box** column names what each discussion checks. The question tests understanding, not task completion.
+
+| # | Round | You produce | [Goal](#-learning-goals) · theory box | Discussion question for one person |
+|---|---|---|---|---|
+| 1 | **Choose the radio** | A matrix and one justified choice per greenhouse job | G1 + G2 · Choose the radio | "Which radio for the gate, and which for the button? Why?" |
+| 2 | **Send a raw frame** | MACs and serial send/receive output | G3 · Send a raw frame | "What did ESP-NOW skip?" |
+| 3 | **Build the bridge** | An ESP-NOW frame published to MQTT | G4 · Build the bridge | "Where does the frame become an MQTT message?" |
+| 4 | **Measure the difference** | Button→LED latency over ESP-NOW vs Wi-Fi/MQTT | G4 · Measure the difference | "What did you measure, and what did it cost?" |
+| ◇ | **Capture the air** | A pcap with one ESP-NOW frame | G3 · Capture the air | "Where did reliability go?" |
 
 **The order is a suggestion.** The rounds are a path, not a timetable. If the bridge node refuses the Wi-Fi channel, fix the channel before you debug the code; if you finish early, take the sniffer stretch. **The instructor demos one ESP-NOW send and one bridge publish live on the beamer** — ask for the demo you need. Rotate roles after each round; everybody should send, receive, and publish at least once. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
@@ -110,7 +112,7 @@ Fill the matrix for the four greenhouse jobs and write one sentence per choice. 
 
 **Do.** Choose a radio for each: soil moisture in a polytunnel, the far gate controller, the coin-cell night button, the indoor temperature node. Write one sentence per choice with the constraint that decided it.
 
-> **Gate — show one person.** Show your matrix and ask: *"Which radio for the gate, and which for the button? Why?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show your matrix and ask: *"Which radio for the gate, and which for the button? Why?"* Write one line in `## Discussion log`.
 
 > **Story hook.** *Tobias's question.* The first proposal used Wi-Fi for everything; the far nodes dropped out, the button drained a coin cell, and the gate took seconds. The radio is a requirements decision, not a religion.
 
@@ -175,7 +177,7 @@ Fill the matrix for the four greenhouse jobs and write one sentence per choice. 
 
 **Theory you need.** Standard Wi-Fi before one byte of sensor data: scan for SSIDs, 802.11 authentication and association, the WPA2/WPA3 four-way handshake, DHCP, and a TCP three-way handshake. That is seconds of radio-on time. ESP-NOW skips the whole stack: it sends **IEEE 802.11 vendor-specific action frames** directly to a peer MAC address at Layer 2, connectionless, with a 250-byte payload. A node can wake from deep sleep, fire a frame, and return to sleep in milliseconds. *Go deeper: the Espressif ESP-NOW docs.*
 
-> **Gate — show one person.** Show the serial send/receive output and ask: *"What did ESP-NOW skip?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show the serial send/receive output and ask: *"What did ESP-NOW skip?"* Write one line in `## Discussion log`.
 
 > **Story hook.** *The button that skipped the network.* The night crew's button does not need an IP address, a DHCP lease, or a TCP connection; it needs to tell the gate "pressed" before the person lets go.
 
@@ -198,7 +200,7 @@ Can a single ESP32 speak ESP-NOW and connect to standard Wi-Fi simultaneously? Y
 
 **Theory you need.** The ESP32 has one 2.4 GHz radio, so the ESP-NOW peer and the Wi-Fi connection must share a channel. The bridge node is the protocol translator: it receives a Layer-2 action frame, parses the struct, serializes it as JSON, and publishes to the broker over TCP. From the broker's point of view, the bridge is just another MQTT client; from the sensor's point of view, there is no network at all. *Go deeper: the ESP-NOW docs and the MQTT cheat sheet.*
 
-> **Gate — show one person.** Show the MQTT message arriving from the bridge and ask: *"Where does the frame become an MQTT message?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show the MQTT message arriving from the bridge and ask: *"Where does the frame become an MQTT message?"* Write one line in `## Discussion log`.
 
 > **Story hook.** *The bridge that speaks both.* The gate controller speaks action frames; the dashboard speaks MQTT. The bridge is the only device that has to know both, and it is the seam where the two worlds meet.
 
@@ -213,7 +215,7 @@ Can a single ESP32 speak ESP-NOW and connect to standard Wi-Fi simultaneously? Y
 
 **Theory you need.** "Latency" here is the time from the physical press to the physical reaction, not the ping time. ESP-NOW is one frame at Layer 2; the Wi-Fi/MQTT path has association state, TCP, the broker, and the return path. Under congestion, the difference is not just milliseconds — it is whether the reaction feels immediate. Measure what you can see (a slow-motion phone video, a logic analyzer, or the serial timestamps) and state the method; an estimate without a method is a guess. *Go deeper: the ESP-NOW docs; repeat the measurement with the class traffic on and off.*
 
-> **Gate — show one person.** Show the two paths and your measurement, and ask: *"What did you measure, and what did it cost?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show the two paths and your measurement, and ask: *"What did you measure, and what did it cost?"* Write one line in `## Discussion log`.
 
 > **Story hook.** *The gate that reacted in milliseconds.* The far gate cannot wait for a TCP retransmission; the night button cannot keep the radio on for a handshake. The difference is the whole reason for the micro-network.
 
@@ -229,7 +231,7 @@ ESP-NOW is connectionless, so there is no broker to look at and no TCP connectio
 
 **Theory you need.** Promiscuous mode puts the radio in monitor mode for the channel; the sniffer sees frames that are not addressed to it, but it will miss some depending on where it sits. There is no ACK, no retransmission, and no broker to tell you a frame was lost; reliability is a decision you add above the frame. A single observer cannot tell a broken link from a badly placed observer. *Go deeper: the [capture recipes](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card) and the sniffer repository.*
 
-> **Gate — show one person.** Show the pcap and ask: *"Where did reliability go?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show the pcap and ask: *"Where did reliability go?"* Write one line in `## Discussion log`.
 
 *Portfolio evidence:* the pcap, the one-frame breakdown, and the reliability answer.
 
@@ -259,7 +261,7 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 2. **Raw frame (goal 3):** the two MACs and the serial send/receive output.
 3. **Bridge (goal 4):** the architecture diagram, the publish line, and the MQTT message arriving from the bridge.
 4. **Latency comparison (goals 2 and 3):** the method, the ESP-NOW number, the Wi-Fi/MQTT number, and what the Wi-Fi path added.
-5. **The running log and gates:** your `## Study log` with the theory you actually needed, plus `## Gate log` — one line per gate.
+5. **The running log and discussions:** your `## Study log` with the theory you actually needed, plus `## Discussion log` — one line per discussion.
 6. **Optional sniffer (goal 3):** the pcap, the one-frame breakdown, and the reliability answer.
 7. **Deeper question:** why is connectionless transmission a game-changer for battery-powered edge buttons and sensors?
 

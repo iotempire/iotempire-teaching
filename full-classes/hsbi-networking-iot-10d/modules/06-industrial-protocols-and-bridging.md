@@ -40,12 +40,12 @@ Everything from today goes into **`Module06/README.md`** as sections. Split some
 
 - `## Bus map` — the OSI placement of Modbus RTU/TCP, OPC-UA, EtherCAT, and TSN, plus the meter/motion choice.
 - `## Study log` — the running log: the video, the discussion answers, and the one LLM claim you checked. Short is fine.
-- `## Gate log` — one line per gate: who listened, what they asked, what you changed. This is personal.
+- `## Discussion log` — one line per discussion: who listened, what they asked, what you changed. This is personal.
 - `## Demo notes` — the RS-485 register you read and the MQTT topic you published, if the hardware was there.
 - `## Bridge` — optional: the simulated Modbus → MQTT bridge and what it translated.
 - `## Story seeds` — optional: the odd bits worth turning into a story later.
 
-*One pod member keeps the shared `## Study log`; the others link to it from their own `Module06/README.md` and add one sentence on what they took from it. The `## Gate log` is yours alone.*
+*One pod member keeps the shared `## Study log`; the others link to it from their own `Module06/README.md` and add one sentence on what they took from it. The `## Discussion log` is yours alone.*
 
 ### The no-factory contract
 
@@ -69,25 +69,27 @@ Automation engineer **Sofia Roth** needs a non-invasive bridge: read the meter's
 
 **Constraints.** No industrial lab. No PLC code changes. No plant data. One video, one discussion, one demo if the hardware is there. The guest slot is a bonus, not a dependency.
 
-**This story is unfinished on purpose.** The hooks below are starting points, not a script. Pick the ones that match what you actually saw, and add a line of your own — *"and the register was signed, so the negative power read as 65,000"* is worth more than a perfect table. Collect those lines under `## Story seeds` and use them in a gate or the harvest.
+**This story is unfinished on purpose.** The hooks below are starting points, not a script. Pick the ones that match what you actually saw, and add a line of your own — *"and the register was signed, so the negative power read as 65,000"* is worth more than a perfect table. Collect those lines under `## Story seeds` and use them in a discussion or the harvest.
 
 ## 🧭 How this studio works now
 
-**The study is folded into the practice.** There is no separate pod-study phase and no scheduled hand-off to another pod. Each round gives you a small thing to do, a short **Theory you need** box you read only when the task makes you want it, and a **gate** at the end. Keep your notes in `Module06/README.md` under `## Study log` — short is fine.
+**The study is folded into the practice.** There is no separate pod-study phase and no scheduled hand-off to another pod. Each round gives you a small thing to do, a short **Theory you need** box you read only when the task makes you want it, and a **discussion** at the end. Keep your notes in `Module06/README.md` under `## Study log` — short is fine.
 
 **First: skim, do not start.** Read the challenge and the round table, then skim the two tables and the evidence list. You are looking for **where the wrapper sits** and **which layers a bus actually occupies**. Then start Round 1.
 
-**Every round ends with a gate — one person is enough.** Ask someone at the nearest pod if they have a moment; show them the round's artefact and ask the gate question. If they want, let them show you theirs and ask you one question back. **This is a brag, not a quiz.** Write one line in `## Gate log`: who listened, what they asked, what you changed. If nobody is free, ask someone else or come back later — do not wait.
+**Every round ends with a discussion — one person is enough.** Ask someone at the nearest pod if they have a moment; show them the round's artefact and ask the discussion question. If they want, let them show you theirs and ask you one question back. **This is a brag, not a quiz.** Write one line in `## Discussion log`: who listened, what they asked, what you changed. If nobody is free, ask someone else or come back later — do not wait.
 
 **Take a study break when a box is not enough.** Read the linked source, then explain it to one person. Explaining is the test, not reading. You do not need permission; take the break when the task makes you want it.
 
-| # | Round | You produce | Gate question for one person |
-|---|---|---|---|
-| 1 | **Place the protocols** | A bus map and the meter/motion choice | "Which layers does Modbus RTU occupy, and which does Modbus TCP borrow?" |
-| 2 | **Watch and discuss** | Your answers to the three questions | "What does Modbus add on top of RS-485?" |
-| 3 | **Touch the bus** | A register read and the topic you published (or the map) | "What does the wrapper add?" |
-| ◇ | **Guest: EtherCAT** | Notes from the guest/test device, or the video contrast | "Why can EtherCAT be deterministic when Modbus TCP is not?" |
-| ◇ | **Simulated bridge** | A Modbus → MQTT wrapper and the topic stream | "What is lost in the translation?" |
+The table is the discussion map: the **[Goal](#-learning-goals) · theory box** column names what each discussion checks. The question tests understanding, not task completion.
+
+| # | Round | You produce | [Goal](#-learning-goals) · theory box | Discussion question for one person |
+|---|---|---|---|---|
+| 1 | **Place the protocols** | A bus map and the meter/motion choice | G2 · Place the protocols | "Which layers does Modbus RTU occupy, and which does Modbus TCP borrow?" |
+| 2 | **Watch and discuss** | Your answers to the three questions | G1 + G3 · Watch and discuss | "What does Modbus add on top of RS-485?" |
+| 3 | **Touch the bus** | A register read and the topic you published (or the map) | G1 + G3 · Touch the bus | "What does the wrapper add?" |
+| ◇ | **Guest: EtherCAT** | Notes from the guest/test device, or the video contrast | G2 · EtherCAT | "Why can EtherCAT be deterministic when Modbus TCP is not?" |
+| ◇ | **Simulated bridge** | A Modbus → MQTT wrapper and the topic stream | G4 · Simulated bridge | "What is lost in the translation?" |
 
 **The order is a suggestion.** The rounds are a path, not a timetable. If the RS-485 hardware is missing, do Round 3 on the register map and move on; if the guest is not there, use the EtherCAT video. **The instructor demos one register read and one publish live if the hardware is present.** The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
@@ -122,7 +124,7 @@ Standard Ethernet and Wi-Fi are best-effort: CSMA/CD and CSMA/CA allow collision
 
 **Do.** Place Modbus RTU, Modbus TCP, OPC-UA, EtherCAT, and TSN on the OSI layers. Then choose one for the energy meter and one for a microsecond motion axis; write one sentence each.
 
-> **Gate — show one person.** Show the bus map and ask: *"Which layers does Modbus RTU occupy, and which does Modbus TCP borrow?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show the bus map and ask: *"Which layers does Modbus RTU occupy, and which does Modbus TCP borrow?"* Write one line in `## Discussion log`.
 
 > **Story hook.** *Sofia's problem.* The meter speaks 1979, the platform speaks MQTT, and the PLC code is certified. The bridge has to respect all three.
 
@@ -145,7 +147,7 @@ If the videos are unavailable, use the Modbus/EtherCAT organization pages and th
 2. Why does EtherCAT process frames differently from Modbus TCP, and what does that buy a motion-control loop?
 3. Where does the wrapper between the fieldbus and MQTT sit — and what do you lose if you remove it?
 
-> **Gate — show one person.** Give your answer to question 1 and ask: *"What does Modbus add on top of RS-485?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Give your answer to question 1 and ask: *"What does Modbus add on top of RS-485?"* Write one line in `## Discussion log`.
 
 > **Story hook.** *The video is the factory tour you cannot take.* You do not need to own a factory to see where the timing and the semantics come from.
 
@@ -164,7 +166,7 @@ If the hardware is not there, the video and the register map are enough. The wra
 
 **Theory you need.** RS-485 is a differential, multi-drop physical layer: two wires, a common ground, and a shared bus. Modbus RTU adds serial framing, a slave address, function codes, and a CRC16; the master polls, the slaves answer only when asked. The register model is the API: coils and discrete inputs are bits, input and holding registers are 16-bit words. A register has no name, unit, or timestamp — the wrapper supplies them. *Go deeper: the Modbus and RS-485 references.*
 
-> **Gate — show one person.** Show the register you read and the topic you published, and ask: *"What does the wrapper add?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show the register you read and the topic you published, and ask: *"What does the wrapper add?"* Write one line in `## Discussion log`.
 
 > **Story hook.** *One register, one topic.* The meter does not know what a topic is; the wrapper is the only place where a number becomes a named measurement.
 
@@ -178,7 +180,7 @@ If we can get a guest lecturer and the test device from upstairs, the slot is: t
 
 **Theory you need.** Standard Ethernet queues frames; a switch introduces variable delay, and TCP retransmits. EtherCAT's master sends a frame that each slave reads and writes **as it passes**, so the cycle time is bounded by the wire, not by store-and-forward queueing. TSN takes a different route: it schedules critical traffic on standard Ethernet with time-aware shapers. Both are answers to the same requirement — bounded latency and low jitter — with different trade-offs. *Go deeper: the TSN and EtherCAT references.*
 
-> **Gate — show one person.** Explain the contrast and ask: *"Why can EtherCAT be deterministic when Modbus TCP is not?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Explain the contrast and ask: *"Why can EtherCAT be deterministic when Modbus TCP is not?"* Write one line in `## Discussion log`.
 
 > **Story hook.** *The test device upstairs.* The guest can show the parts; your job is to explain why the timing matters, not to memorize the rig.
 
@@ -257,7 +259,7 @@ Run the bridge and verify in MQTT Explorer or `mosquitto_sub` that the industria
 
 **Theory you need.** The bridge does three translations: **register → named field** (the register map supplies names, units, and scaling), **polling → publish** (the Modbus master asks; the MQTT client publishes), and **device → topic** (the topic carries the location and the measurement). What is lost? The device's own semantics, its timing guarantees, and its error model. That is why the wrapper is a product decision, not a line of code. *Go deeper: the pymodbus and asyncua docs.*
 
-> **Gate — show one person.** Show the MQTT stream from the simulated meter and ask: *"What is lost in the translation?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show the MQTT stream from the simulated meter and ask: *"What is lost in the translation?"* Write one line in `## Discussion log`.
 
 *Portfolio evidence:* the two scripts, the MQTT stream, and one sentence each on what the wrapper added and what it lost.
 
@@ -287,7 +289,7 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 2. **Real-time answer (goal 2):** why standard Wi-Fi/TCP cannot run a microsecond motion loop, and what TSN/EtherCAT change.
 3. **Discussion answers (goal 3):** the three questions, one short paragraph each.
 4. **Demo notes (goal 3):** the register you read and the topic you published, if the hardware was there; otherwise the register map and the topic you would publish.
-5. **The running log and gates:** your `## Study log` and `## Gate log` — one line per gate.
+5. **The running log and discussions:** your `## Study log` and `## Discussion log` — one line per discussion.
 6. **Optional bridge (goal 4):** the simulated server, the wrapper, the MQTT stream, and what was lost in the translation.
 7. **Optional real RS-485:** the wiring, adapter, register read, and the bridge, if you had the hardware.
 

@@ -39,14 +39,14 @@ Everything from today goes into **`Module02/README.md`** as sections. Split some
 - `## Network plan` — the sketch, the subnet calculation, the SSID/channel, and the pod ID.
 - `## Router baseline` — model, OpenWrt version, LAN/WAN addresses, MACs, SSH access, extroot status, broker status, open ports. **No passwords, no eduroam credentials.**
 - `## Study log` — the running log: the theory you actually needed, the commands that surprised you, and the LLM answers you checked. This is not an essay and not a separate study phase.
-- `## Gate log` — one line per gate: who listened, what they asked, what you changed. This is personal; the shared study log is still one per pod.
+- `## Discussion log` — one line per discussion: who listened, what they asked, what you changed. This is personal; the shared study log is still one per pod.
 - `## Vocabulary tracker` — the Module 2 vocabulary table, copied with two extra columns: `✓` and `Link / evidence`. See the reference at the end for how to fill it.
 - `## Captures` — the pcap or the `tshark`/`tcpdump -A` text, and what each protocol proves.
 - `## NAT and port forwarding` — the rule, the two-sided capture, and the explanation.
 - `## Take it home` — the upstream switch and the evidence that the router still works.
 - `## Story seeds` — optional: the odd bits worth turning into a story later.
 
-*One pod member keeps the shared `## Study log`; the others link to it from their own `Module02/README.md` and add one sentence on what they took from it. The `## Gate log` is yours alone.*
+*One pod member keeps the shared `## Study log`; the others link to it from their own `Module02/README.md` and add one sentence on what they took from it. The `## Discussion log` is yours alone.*
 
 ### The pod router contract
 
@@ -73,29 +73,31 @@ Petra Sommer's question is precise: *"Which address is which, who is allowed to 
 
 **Constraints.** One router per pod. 16 MB of flash. One Wi-Fi adapter per laptop, usually Windows, no monitor mode. No cloud dependency. The eduroam credential is personal and stays off Git, screenshots, and chat.
 
-**This story is unfinished on purpose.** The hooks below are starting points, not a script. Pick the ones that match what you actually saw, and add a line of your own — *"and the phone never got a lease because the AP was still on channel 6"* is worth more than a perfect diagram. Collect those lines under `## Story seeds` and use them in a gate or the harvest.
+**This story is unfinished on purpose.** The hooks below are starting points, not a script. Pick the ones that match what you actually saw, and add a line of your own — *"and the phone never got a lease because the AP was still on channel 6"* is worth more than a perfect diagram. Collect those lines under `## Story seeds` and use them in a discussion or the harvest.
 
 ## 🧭 How this studio works now
 
-**The study is folded into the practice.** There is no separate pod-study phase and no scheduled hand-off to another pod. Each round below gives you a small thing to do, a short **Theory you need** box you read only when the task makes you want it, and a **gate** at the end. Keep your notes in `Module02/README.md` under `## Study log` — a running log, not an essay.
+**The study is folded into the practice.** There is no separate pod-study phase and no scheduled hand-off to another pod. Each round below gives you a small thing to do, a short **Theory you need** box you read only when the task makes you want it, and a **discussion** at the end. Keep your notes in `Module02/README.md` under `## Study log` — a running log, not an essay.
 
 **First: skim, do not start.** Read the challenge, then skim the eight rounds, the theory boxes, and the evidence list. You are looking for two things: **where the capture happens** and **where the router leaves the room**. After that, start Round 1 and work at your pod's pace.
 
-**Every round ends with a gate — one person is enough.** You do not need the whole pod to stop. Ask someone at the nearest pod if they have a moment; show them the round's artefact and ask the gate question. If they want, let them show you theirs and ask you one question back. **This is a brag, not a quiz**: you are showing what works and inviting one question, not asking for permission. Write one line in `## Gate log`: who listened, what they asked, what you changed. If nobody is free, ask someone else or come back later — do not wait.
+**Every round ends with a discussion — one person is enough.** You do not need the whole pod to stop. Ask someone at the nearest pod if they have a moment; show them the round's artefact and ask the discussion question. If they want, let them show you theirs and ask you one question back. **This is a brag, not a quiz**: you are showing what works and inviting one question, not asking for permission. Write one line in `## Discussion log`: who listened, what they asked, what you changed. If nobody is free, ask someone else or come back later — do not wait.
 
 **Take a study break when a box is not enough.** A short break with the linked source, then explain it to one person. Explaining is the test, not reading. You do not need permission; take the break when the task makes you want it. If two of you want the same theory, take it together and bring back one sentence each.
 
-| # | Round | You produce | Gate question for one person |
-|---|---|---|---|
-| 1 | **Flash and own the edge** | A router on upstream OpenWrt; the verified image hash | "What did you flash, in which order, and why over Ethernet?" |
-| 2 | **Give the router room** | `df -h /overlay` showing the USB stick | "What did extroot move, and what happens if the stick is missing at boot?" |
-| 3 | **Join the upstream** | `wwan` with a default route; `ip route get 1.1.1.1` | "Which path did you choose, and what did it cost?" |
-| 4 | **Build the pod LAN** | A client with a lease; a broker from two clients | "Which device gave the phone its address, and how do you know?" |
-| 5 | **Read the choke point** | A pcap with ARP, DHCP, DNS and MQTT | "Show me one packet and tell me what it proves." |
-| 6 | **Tighten and pin** | A subnet table and a static lease outside the pool | "What is the broadcast address of your /26, and why?" |
-| 7 | **Open one door** | An outside subscribe and both sides of the NAT capture | "Why can the outside start the conversation now, and why close the door?" |
-| 8 | **Take it home** | A baseline and a second upstream | "What changed when the upstream changed?" |
-| ◇ | **Stretch** | Two-pod chain, SSH tunnel, or Nebula preview | "What does this prove that the LAN alone did not?" |
+The table is the discussion map: the **[Goal](#-learning-goals) · theory box** column names what each discussion checks. The question tests understanding, not task completion.
+
+| # | Round | You produce | [Goal](#-learning-goals) · theory box | Discussion question for one person |
+|---|---|---|---|---|
+| 1 | **Flash and own the edge** | A router on upstream OpenWrt; the verified image hash | G3 · Flash OpenWrt | "What did you flash, in which order, and why over Ethernet?" |
+| 2 | **Give the router room** | `df -h /overlay` showing the USB stick | G3 · Extroot | "What did extroot move, and what happens if the stick is missing at boot?" |
+| 3 | **Join the upstream** | `wwan` with a default route; `ip route get 1.1.1.1` | G1 + G3 · Uplink | "Which path did you choose, and what did it cost?" |
+| 4 | **Build the pod LAN** | A client with a lease; a broker from two clients | G2 + G3 · Build the pod LAN | "Which device gave the phone its address, and how do you know?" |
+| 5 | **Read the choke point** | A pcap with ARP, DHCP, DNS and MQTT | G2 + G4 · Read the choke point | "Show me one packet and tell me what it proves." |
+| 6 | **Tighten and pin** | A subnet table and a static lease outside the pool | G1 · Tighten the subnet | "What is the broadcast address of your /26, and why?" |
+| 7 | **Open one door** | An outside subscribe and both sides of the NAT capture | G2 · One door | "Why can the outside start the conversation now, and why close the door?" |
+| 8 | **Take it home** | A baseline and a second upstream | G1 + G3 · Handoff | "What changed when the upstream changed?" |
+| ◇ | **Stretch** | Two-pod chain, SSH tunnel, or Nebula preview | G3–G4 · stretch | "What does this prove that the LAN alone did not?" |
 
 **The order is a suggestion.** The rounds are a path, not a timetable. If your pod's eduroam association fails, switch to phone tethering or the `iotempire-b1300-5g` Wi-Fi and come back; if you finish early, take a stretcher. **The instructor demos the risky steps live on the beamer** — flashing, extroot, the eduroam join, and one capture — so ask for the demo you need instead of waiting with a broken step. Rotate roles after each round; everybody should flash or configure at least one piece. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
@@ -131,7 +133,7 @@ Petra Sommer's question is precise: *"Which address is which, who is allowed to 
 
 **Theory you need.** The vendor UI accepts only a Cudy-signed **intermediate** image; that image then accepts the upstream OpenWrt **sysupgrade**. Flashing over Ethernet is deliberate: a failed Wi-Fi flash leaves you no network to fix it. `sysupgrade` writes the kernel and root filesystem; your changes live in the writable **overlay**, which Round 2 moves to the stick. Do not keep settings when you leave the intermediate build — you want a clean upstream baseline. *Go deeper: the OpenWrt installation docs and the Cudy TR1200 device page.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them the router and the verified hash, and ask: *"What did you flash, in which order, and why over Ethernet?"* If they want, let them show you theirs and ask you one question back. This is a brag, not a quiz. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them the router and the verified hash, and ask: *"What did you flash, in which order, and why over Ethernet?"* If they want, let them show you theirs and ask you one question back. This is a brag, not a quiz. Write one line in `## Discussion log`.
 
 > **Story hook.** *The box in the substation.* Malik has done this before, but the label still matters: the wrong image is the difference between a gateway and a paperweight.
 
@@ -151,7 +153,7 @@ The Cudy has 16 MB of flash; the writable overlay is small. Nebula and `tshark` 
 
 **Theory you need.** OpenWrt splits the firmware into a read-only **rootfs** and a writable **overlay**. On a 16 MB device the overlay is tiny, so packages and logs fill it. **Extroot** moves the overlay to the USB stick: the router still boots from internal flash, but `/overlay` — and therefore your packages and most of `/etc` — lives on the stick. The stick is part of the router now; if it is missing at boot, the router falls back to the internal overlay and looks like a different machine. *Go deeper: the extroot recipe in the resource bank.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them `df -h /overlay` and ask: *"What did extroot move, and what happens if the stick is missing at boot?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them `df -h /overlay` and ask: *"What did extroot move, and what happens if the stick is missing at boot?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
 > **Story hook.** *The router's memory is a filing cabinet.* The internal drawer is full; the stick is the new drawer Malik bolts onto the side. If the drawer is missing at boot, the router is not the same router.
 
@@ -205,7 +207,7 @@ nslookup openwrt.org
 
 Eduroam is 802.1X (WPA2-EAP/PEAP/MSCHAPv2), not a captive portal; it needs a full `wpad`, a correct clock, and the HSBI CA. A phone tether is a DHCP client on `usb0`/`eth1`; the class Wi-Fi is a DHCP client on `wwan`. All three end in the same place: a WAN address and a default route. *Go deeper: OpenWrt network basics; RFC 2131.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them `ip route get 1.1.1.1` and ask: *"Which path did you choose, and what did it cost?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them `ip route get 1.1.1.1` and ask: *"Which path did you choose, and what did it cost?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
 > **Story hook.** *The campus port is the only way out.* The substation has no public address; the uplink is a borrowed door. The sensors only speak 2.4 GHz, so the router has to be the translator.
 
@@ -244,7 +246,7 @@ The edge services:
 
 *Go deeper: RFC 1918; RFC 2131; OpenWrt network and firewall docs.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them a client lease and the broker from two clients, and ask: *"Which device gave the phone its address, and how do you know?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them a client lease and the broker from two clients, and ask: *"Which device gave the phone its address, and how do you know?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
 > **Story hook.** *The noticeboard in the basement.* The broker is where the substation's readings land; the laptops and the phone are the people reading them. It works without the cloud — and without a password, which is exactly why it stays inside the LAN.
 
@@ -285,7 +287,7 @@ Capture where every packet must pass: the router. **You do not need a second Wi-
 
 Read the dump offline: `tshark -r`, or `tcpdump -A`. A packet is evidence; a dashboard is a claim. *Go deeper: the capture recipe in the resource bank; RFC 2131; the tcpdump manual.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Open your capture, show them one packet, and ask: *"What does this packet prove?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Open your capture, show them one packet, and ask: *"What does this packet prove?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
 > **Story hook.** *Petra's proof.* She does not want a screenshot of a dashboard; she wants the four packets that show the phone got an address, the router answered ARP, DNS resolved, and the broker received the reading.
 
@@ -303,7 +305,7 @@ Read the dump offline: `tshark -r`, or `tcpdump -A`. A packet is evidence; a das
 
 **Theory you need.** A `/26` has 64 addresses: network `.0`, broadcast `.63`, usable `.1–.62`. A `/28` has 16: network `.0`, broadcast `.15`, usable `.1–.14`. The router keeps `.1`, so the broker address does not change when you tighten the subnet. A **static lease** (DHCP reservation) is not a static IP: the client still asks DHCP, and the router always gives the same address. Put the reservation outside the dynamic pool so the two cannot collide. *Go deeper: RFC 1918; the Practical Networking subnetting series.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them the subnet table and ask: *"What is the broadcast address of your /26, and why?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them the subnet table and ask: *"What is the broadcast address of your /26, and why?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
 > **Story hook.** *The address plan is the substation's floor plan.* A tighter subnet is not a punishment; it is a decision about how many devices the basement will ever hold.
 
@@ -329,7 +331,7 @@ For this test, use the **class `iotempire-b1300-5g` Wi-Fi as the upstream** so t
 
 **Theory you need.** NAT/masquerade lets many private clients share one WAN address. The mapping is stateful: the router remembers which inside client opened which connection, so replies come back. An outside host cannot start a conversation because there is no mapping yet. A **port forward** creates a static mapping: WAN port `11883` → `192.168.14.1:1883`. It is a deliberate hole; capture both sides to see the rewrite. Close it when the test is done. *Go deeper: RFC 3022; the OpenWrt firewall docs.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them the outside subscribe and the two-sided capture, and ask: *"Why can the outside start the conversation now, and why should you close the door?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them the outside subscribe and the two-sided capture, and ask: *"Why can the outside start the conversation now, and why should you close the door?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
 > **Story hook.** *Malik opens exactly one door, writes down why, and closes it again.* The control room can reach the broker now — but only through that one port, and only while the rule exists.
 
@@ -353,7 +355,7 @@ The pod will meet in person between sessions. The router has to survive the trip
 
 **Theory you need.** The LAN is the constant; the WAN is the variable. When the upstream changes, the WAN address and default route change, but `192.168.14.0/24` and the broker stay. Check for an address overlap before you connect: if the upstream also uses `192.168.14.0/24`, change your LAN subnet. The router must survive a new upstream without reconfiguring the pod. *Go deeper: the OpenWrt WWAN and USB-tethering docs.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them the baseline and the home `ip route`, and ask: *"What changed when the upstream changed?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them the baseline and the home `ip route`, and ask: *"What changed when the upstream changed?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
 > **Story hook.** *The substation must survive the trip home.* The control room does not care which café or dorm the router is in; it cares that the same `192.168.14.1` is still there when the pod meets again.
 
@@ -414,7 +416,7 @@ If your extroot, LAN, and broker are solid and you are breezing through, ask the
 
 *Portfolio evidence:* one sentence on what the bundle contains that a certificate alone does not, and the overlay address you received (no key material).
 
-> **Stretch gate — show one person.** Ask someone who has not done the stretcher: *"What does this prove that the LAN alone did not?"* A short moment. If they are curious, show them the capture or the diagram.
+> **Stretch discussion — show one person.** Ask someone who has not done the stretcher: *"What does this prove that the LAN alone did not?"* A short moment. If they are curious, show them the capture or the diagram.
 
 ## 📖 Reference: the vocabulary the module handbook expects
 
@@ -471,7 +473,7 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 2. **The plumbing (goal 2):** a DHCP DORA capture, an ARP request/reply, a DNS query/response, `ip neigh`, the DHCP lease, and the NAT/port-forward analysis with both sides of the capture.
 3. **OpenWrt (goal 3):** the flash evidence (model, OpenWrt version, verified SHA-256, stock → OpenWrt addresses), the extroot `df -h /overlay` before/after, the UCI/firewall excerpts you are willing to publish, the `## Router baseline`, and the `## Take it home` check.
 4. **Capture at the choke point (goal 4):** the pcap or the `tshark`/`tcpdump -A` text, one sentence per protocol, and a note on why the router sees traffic that a laptop cannot.
-5. **The running log and gates:** your `## Study log` with the theory you actually needed and the LLM answers you checked, plus `## Gate log` — one line per gate: who listened, what they asked, what you changed.
+5. **The running log and discussions:** your `## Study log` with the theory you actually needed and the LLM answers you checked, plus `## Discussion log` — one line per discussion: who listened, what they asked, what you changed.
 6. **The handbook vocabulary:** your `## Vocabulary tracker` with the rows you can tick and link today; leave the rest blank until Modules 3–7 give you the evidence.
 7. **Optional:** the two-pod double-NAT diagram, the SSH-tunnel comparison, the Nebula preview note, or your harvest and story-seed list.
 

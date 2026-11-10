@@ -60,7 +60,7 @@ records short; link to the artefact instead of pasting it.
 | [D3](#d3) | Learning goals are the contract; tasks are negotiable | accepted | every module, syllabus |
 | [D4](#d4) | Assessment is a portfolio-to-report pipeline | accepted | syllabus, `00-assessment-and-operations.md` |
 | [D5](#d5) | Stories carry the why; the canon keeps them consistent | accepted | modules, resource bank `#story-canon` |
-| [D6](#d6) | Studio rhythm: challenge → practice → theory on demand → gate | accepted | Modules 2–7; Module 1 remains the exception |
+| [D6](#d6) | Studio rhythm: challenge → practice → theory on demand → discussion | accepted | Modules 2–7; Module 1 remains the exception |
 | [D7](#d7) | Capture at the choke point; analyse offline | accepted | Module 1 Task 8, Module 2 Round 5 |
 | [D8](#d8) | One router per pod, factory to gateway; extroot is the escape hatch | accepted | Module 2, syllabus hardware |
 | [D9](#d9) | Uplinks are plural; the LAN is the constant | provisional | Module 2 Round 3/7 |
@@ -125,7 +125,7 @@ tested on the other HSBI classes, and each class changed the library a little.
 
 | Class | What it taught this class | What did **not** travel |
 |---|---|---|
-| [Databases](../../hsbi-databases-10d/README.md) | Local-first defaults; LLM output as a claim to verify; the portfolio → report pipeline; "one job per document"; decided-first task design; the folded-study studio (theory boxes, rounds, nearest-pod gates) | SQL content, DuckDB/SQLite, the 11-session structure |
+| [Databases](../../hsbi-databases-10d/README.md) | Local-first defaults; LLM output as a claim to verify; the portfolio → report pipeline; "one job per document"; decided-first task design; the folded-study studio (theory boxes, rounds, nearest-pod discussions) | SQL content, DuckDB/SQLite, the 11-session structure |
 | [Sensors & Actuators](../../hsbi-sensors-actuators-10d/README.md) | Rounds with brief/bench/explain; exchange with a neighbour; hardware realism; the draft boundary; characterisation and measurement as evidence | Sensor physics, calibration labs, the sensor chain |
 | [Microcontroller Programming](../../hsbi-MCU-programming-10d/README.md) | Compact block formats; M5Stack/IoTempower hand-over; what a 4-day version looks like | Breadboard and firmware content |
 | This class | Integration capstone: the devices from the other classes become a network | — |
@@ -294,7 +294,7 @@ Module 1/2 stories.
 the technology.
 
 <a id="d6"></a>
-### D6 — Studio rhythm: challenge → practice → theory on demand → gate
+### D6 — Studio rhythm: challenge → practice → theory on demand → discussion
 
 **Status:** accepted for Modules 2–7; Module 1 remains the exception because its Master Class opening is the course introduction.
 
@@ -306,15 +306,17 @@ makes it relevant.
 
 **Decision.** Open with a challenge brief, then work in rounds. Each round has a
 short **Theory you need** box read only when the task needs it, and ends with a
-short **gate**: show the artefact to one person at the nearest pod, ask the
-gate question, and swap one question back if they are willing. There is no
-separate pod-study phase and no whole-pod hand-off. A theory box can become a
-study break: read the source, then explain it to one person.
+short **discussion**: show the artefact to one person at the nearest pod, ask the
+discussion question, and swap one question back if they are willing. The round
+table names the learning goal and the theory box each discussion checks, so the
+question tests understanding rather than completion. There is no separate
+pod-study phase and no whole-pod hand-off. A theory box can become a study break:
+read the source, then explain it to one person.
 
 **Consequences.** Class time is for doing; the room teaches itself; a stuck pod
 can switch rounds. The instructor demos risky steps live and floats. The exchange
 is ad hoc and one-to-one, so it does not need the whole pod to stop. The risk is
-that a pod skips the theory and copies steps; the gate question — *what did you
+that a pod skips the theory and copies steps; the discussion question — *what did you
 choose, and what did it cost?* — is the check.
 
 **Alternatives rejected.** A separate pod-study block; a scheduled whole-pod
@@ -799,5 +801,6 @@ For a re-creator with access to the instructor's workspace:
 |---|---|---|
 | 2026-11-10 | First version; provenance, 17 decision records, rejected alternatives, open questions, recreation checklist, handbook coverage map | Ulno + agent |
 | 2026-11-10 | Closed the first-offering questions: Hausarbeit kept, Projektarbeit recommended for the next run; Module 6 evidence confirmed; B1300 isolation default and credential-ownership rule recorded; retakes handled case by case | Ulno + agent |
-| 2026-11-10 | Flipped the Module 2 studio: challenge brief, theory on demand, round gates with one person, no separate pod study; D6 revised, rollout to Modules 1 and 3–7 pending | Ulno + agent |
+| 2026-11-10 | Flipped the Module 2 studio: challenge brief, theory on demand, round discussions with one person, no separate pod study; D6 revised, rollout to Modules 1 and 3–7 pending | Ulno + agent |
 | 2026-11-10 | Converted Modules 3–7 to the studio rhythm; D6 accepted for Modules 2–7, Module 1 remains the exception; Module 7 fleet lab aligned with the current IoTempower `system.conf` / `node.conf` / `deploy` workflow | Ulno + agent |
+| 2026-11-10 | Renamed the pedagogical gates to discussions in Modules 2–7; each round table now maps its discussion to a learning goal and theory box, following the Databases TODO | Ulno + agent |

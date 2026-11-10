@@ -38,14 +38,14 @@ Everything from today goes into **`Module07/README.md`** as sections. Split some
 
 - `## Fleet plan` — the topology sketch, node names and roles, board types, broker address, topic map, and the canary choice.
 - `## Study log` — the running log: the theory you actually needed, the commands that surprised you, and the LLM answers you checked. This is not an essay and not a separate study phase.
-- `## Gate log` — one line per gate: who listened, what they asked, what you changed. This is personal; the shared study log is still one per pod.
+- `## Discussion log` — one line per discussion: who listened, what they asked, what you changed. This is personal; the shared study log is still one per pod.
 - `## Node definitions` — `system.conf` with secrets redacted, `node.conf`, and `setup.cpp`; one sentence on what IoTempower generated from each definition.
 - `## OTA deployment log` — node name, change, command, timestamp, result, and the first telemetry or behaviour after the reboot.
 - `## Fleet evidence` — the topic tree, one telemetry stream from each node, one command path, and the proof that both nodes have distinct identities.
 - `## Drift and recovery` — what differed from the plan, how you found it, and how you recovered the node.
 - `## Story seeds` — optional: the odd bits worth turning into a story later.
 
-*One pod member keeps the shared `## Study log`; the others link to it from their own `Module07/README.md` and add one sentence on what they took from it. The `## Gate log` is yours alone.*
+*One pod member keeps the shared `## Study log`; the others link to it from their own `Module07/README.md` and add one sentence on what they took from it. The `## Discussion log` is yours alone.*
 
 ### The fleet contract
 
@@ -71,27 +71,29 @@ Field engineer **Malik Yilmaz** has already found the first crack: the inventory
 
 **Constraints.** One router per pod with the Module 2 broker. Two class-supported nodes if the kit has them; if a node is dead, use the instructor's spare and document the substitution. The IoTempower host is a laptop or the class host — never the router. First flash over USB; OTA over the pod LAN. No cloud dependency. Node-RED is optional and never runs on the router. No Wi-Fi passwords, keys, or private config in Git or screenshots.
 
-**This story is unfinished on purpose.** The hooks below are starting points, not a script. Pick the ones that match what you actually saw, and add a line of your own — *"and the second node never came back because we copied its neighbour's name"* is worth more than a perfect diagram. Collect those lines under `## Story seeds` and use them in a gate or the harvest.
+**This story is unfinished on purpose.** The hooks below are starting points, not a script. Pick the ones that match what you actually saw, and add a line of your own — *"and the second node never came back because we copied its neighbour's name"* is worth more than a perfect diagram. Collect those lines under `## Story seeds` and use them in a discussion or the harvest.
 
 ## 🧭 How this studio works now
 
-**The study is folded into the practice.** There is no separate pod-study phase and no scheduled hand-off to another pod. Each round gives you a small thing to do, a compact **Theory you need** box you read only when the task makes you want it, and a **gate** at the end. Keep your notes in `Module07/README.md` under `## Study log` — a running log, not an essay.
+**The study is folded into the practice.** There is no separate pod-study phase and no scheduled hand-off to another pod. Each round gives you a small thing to do, a compact **Theory you need** box you read only when the task makes you want it, and a **discussion** at the end. Keep your notes in `Module07/README.md` under `## Study log` — a running log, not an essay.
 
 **First: skim, do not start.** Read the challenge and the round table, then skim the six rounds, the theory boxes, and the evidence list. You are looking for two things: **where the build happens** and **what proof an OTA update leaves**. Then start Round 1 and work at your pod's pace.
 
-**Every round ends with a gate — one person is enough.** You do not need the whole pod to stop. Ask someone at the nearest pod if they have a moment; show them the round's artefact and ask the gate question. If they want, let them show you theirs and ask you one question back. **This is a brag, not a quiz**: you are showing what works and inviting one question, not asking for permission. Write one line in `## Gate log`: who listened, what they asked, what you changed. If nobody is free, ask someone else or come back later — do not wait.
+**Every round ends with a discussion — one person is enough.** You do not need the whole pod to stop. Ask someone at the nearest pod if they have a moment; show them the round's artefact and ask the discussion question. If they want, let them show you theirs and ask you one question back. **This is a brag, not a quiz**: you are showing what works and inviting one question, not asking for permission. Write one line in `## Discussion log`: who listened, what they asked, what you changed. If nobody is free, ask someone else or come back later — do not wait.
 
 **Take a study break when a box is not enough.** A short break with the linked source, then explain it to one person. Explaining is the test, not reading. You do not need permission; take the break when the task makes you want it. If two of you want the same theory, take it together and bring back one sentence each.
 
-| # | Round | You produce | Gate question for one person |
-|---|---|---|---|
-| 1 | **Inventory the fleet** | A baseline table and a canary choice | "Which node would you update first, and what would make you stop?" |
-| 2 | **Declare the node** | `system.conf`, `node.conf`, `setup.cpp`; a node flashed over USB | "What did you declare, and what did IoTempower generate?" |
-| 3 | **Deploy over the air** | An OTA log and post-update telemetry | "What made OTA possible, and what would break it?" |
-| 4 | **Standardize the namespace** | A topic map and a working command path | "Show me one topic and tell me who owns it." |
-| 5 | **Scale with a canary** | Two nodes updated in order, with a drift report | "What did you change, and how did you know it reached both?" |
-| 6 | **Recover a node** | A recovered node and a symptom-to-recovery log | "What did you lose, and what did you keep?" |
-| ◇ | **Stretch** | Canary rollback, fleet lint, or cross-node automation | "What does this prove that a single update did not?" |
+The table is the discussion map: the **[Goal](#-learning-goals) · theory box** column names what each discussion checks. The question tests understanding, not task completion.
+
+| # | Round | You produce | [Goal](#-learning-goals) · theory box | Discussion question for one person |
+|---|---|---|---|---|
+| 1 | **Inventory the fleet** | A baseline table and a canary choice | G1 · Inventory the fleet | "Which node would you update first, and what would make you stop?" |
+| 2 | **Declare the node** | `system.conf`, `node.conf`, `setup.cpp`; a node flashed over USB | G2 · Declare the node | "What did you declare, and what did IoTempower generate?" |
+| 3 | **Deploy over the air** | An OTA log and post-update telemetry | G3 · Deploy over the air | "What made OTA possible, and what would break it?" |
+| 4 | **Standardize the namespace** | A topic map and a working command path | G4 · Standardize the namespace | "Show me one topic and tell me who owns it." |
+| 5 | **Scale with a canary** | Two nodes updated in order, with a drift report | G4 · Scale with a canary | "What did you change, and how did you know it reached both?" |
+| 6 | **Recover a node** | A recovered node and a symptom-to-recovery log | G4 · Recover a node | "What did you lose, and what did you keep?" |
+| ◇ | **Stretch** | Canary rollback, fleet lint, or cross-node automation | G4 · stretch | "What does this prove that a single update did not?" |
 
 **The order is a suggestion.** The rounds are a path, not a timetable. If the IoTempower host is not ready, start with the inventory and the topic map and come back to the flash; if a board string is wrong, stop and ask instead of guessing. **The instructor demos the risky steps live on the beamer** — the first serial flash, one OTA deploy, and one recovery — so ask for the demo you need instead of waiting with a broken step. Rotate roles after each round; everybody should declare, deploy, or verify at least one piece. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
@@ -141,7 +143,7 @@ Field engineer **Malik Yilmaz** has already found the first crack: the inventory
 
 A fleet is not a pile of prototypes. The source of truth is the node definition, and the deployment log is how you prove what reached which device. *Go deeper: the IoTempower architecture and deployment docs.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them the baseline table and ask: *"Which node would you update first, and what would make you stop?"* If they want, let them show you theirs and ask you one question back. This is a brag, not a quiz. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them the baseline table and ask: *"Which node would you update first, and what would make you stop?"* If they want, let them show you theirs and ask you one question back. This is a brag, not a quiz. Write one line in `## Discussion log`.
 
 > **Story hook.** *The basement inventory.* Petra's spreadsheet has thirty rows; the broker has twenty-eight names. The gap is not a paperwork problem — it is two nodes that will never receive the next threshold.
 
@@ -200,7 +202,7 @@ The first node is built and flashed over USB. You are not writing a Wi-Fi reconn
 
 Declarative does not mean "no code". It means the code you write describes **what is attached**, not the boilerplate that keeps Wi-Fi and MQTT alive. The generated runtime supplies the reconnects, the publishing, and the `<node>/<device>` topic convention. `system.conf` is where the credentials live, which is why it stays out of Git. *Go deeper: the IoTempower quickstart and first-node docs.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them the node folder and the generated header, and ask: *"What did you declare, and what did IoTempower generate?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them the node folder and the generated header, and ask: *"What did you declare, and what did IoTempower generate?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
 > **Story hook.** *The ladder becomes a compiler.* Malik no longer edits a Wi-Fi reconnect loop in a basement; he edits three lines on a laptop and lets the generated runtime do the job it was written for.
 
@@ -234,7 +236,7 @@ Declarative does not mean "no code". It means the code you write describes **wha
 
 OTA is not remote magic and it is not a backup. It removes the cable from the normal path; it does not remove the need for a physical recovery path when the network or the image is wrong. *Go deeper: the IoTempower deployment process and the OTA update concept.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them the OTA log and the post-update message, and ask: *"What made OTA possible, and what would break it?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them the OTA log and the post-update message, and ask: *"What made OTA possible, and what would break it?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
 > **Story hook.** *The node that kept its old name.* The update found the node because it announced an identity. Copy the folder, keep the name, and two basements now answer as one.
 
@@ -267,7 +269,7 @@ OTA is not remote magic and it is not a backup. It removes the cable from the no
 
 **Theory you need.** The topic namespace is the fleet's public API. The first segment is the **node identity**; the next is the **device**; `/set` marks the command direction. A control room can subscribe to `+/temp` only if every node agrees on `temp`; a wildcard cannot repair an inconsistent name. Renaming a node or a device is an API change, not a cosmetic edit. Duplicate node names are worse than ugly names: two devices publish into one namespace and commands reach whichever one happens to be connected. Choose names for the operator who reads them at 3 a.m., not for the folder you happened to create. *Go deeper: the MQTT essentials topic chapter and the IoTempower topic convention.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them one topic and the command that changes an output, and ask: *"Show me one topic and tell me who owns it."* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them one topic and the command that changes an output, and ask: *"Show me one topic and tell me who owns it."* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
 > **Story hook.** *One topic, thirty basements.* The control room does not care which basement a reading came from until the topic tells it. A node that invents `temperature` instead of `temp` disappears from the wall.
 
@@ -287,7 +289,7 @@ OTA is not remote magic and it is not a backup. It removes the cable from the no
 
 **Theory you need.** A fleet rollout is a sequence of decisions, not one command. **Canary** limits the blast radius: one node proves the change before the fleet sees it. **Rolling** updates a few at a time and keeps the service available. **All-at-once** is fast and has no safety net. The deployment command returning success only means the upload was attempted; **observed behaviour** is the proof. A node that is offline during the rollout is not updated, even if the command printed a success for the others. That gap is configuration drift, and the inventory plus the broker is how you find it. *Go deeper: the deployment process and the fleet-management patterns in the IoTempower docs.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them the two deployment results and the drift report, and ask: *"What did you change, and how did you know it reached both?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them the two deployment results and the drift report, and ask: *"What did you change, and how did you know it reached both?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
 > **Story hook.** *The threshold that reached twenty-nine.* The rollout says success, the dashboard shows the new value almost everywhere, and one basement is still reporting the old one. Petra does not want an average; she wants the exception.
 
@@ -315,7 +317,7 @@ OTA is not remote magic and it is not a backup. It removes the cable from the no
 
 OTA is the normal path, not the only path. A fleet you cannot recover physically is a fleet you cannot update safely. *Go deeper: the IoTempower troubleshooting notes and the board's recovery documentation.*
 
-> **Gate — show one person.** Ask someone at the nearest pod if they have a moment. Show them the recovery log and the node publishing again, and ask: *"What did you lose, and what did you keep?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Gate log`.
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them the recovery log and the node publishing again, and ask: *"What did you lose, and what did you keep?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
 > **Story hook.** *The node that came back.* Malik keeps one USB cable in the van. It is not a failure of the fleet; it is the rollback plan that makes the fleet safe to update.
 
@@ -345,7 +347,7 @@ Connect the roles: a button on the sensor node changes the alarm node's LED or d
 
 *Portfolio evidence:* the flow or script, the cross-node action, and the failure observation.
 
-> **Stretch gate — show one person.** Ask someone who has not done the stretcher: *"What does this prove that the basic fleet did not?"* A short moment. If they are curious, show them the rollback or the lint failure.
+> **Stretch discussion — show one person.** Ask someone who has not done the stretcher: *"What does this prove that the basic fleet did not?"* A short moment. If they are curious, show them the rollback or the lint failure.
 
 ## 🤖 Ask an LLM — then verify
 
@@ -374,7 +376,7 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 2. **Declarative model (goal 2):** the redacted `system.conf`, `node.conf`, and `setup.cpp`, plus one paragraph on what IoTempower generated and why the `build/` output is not the source.
 3. **Node deployment (goal 3):** the first serial-flash result, the OTA deployment log, and the post-reboot telemetry or behaviour that proves the update landed.
 4. **Fleet orchestration (goal 4):** the topic map for two roles, a wildcard subscription, a command path that changes an output, a canary rollout, and a recovered node with a distinct identity.
-5. **The running log and gates:** your `## Study log` with the theory you actually needed and the LLM answers you checked, plus `## Gate log` — one line per gate: who listened, what they asked, what you changed.
+5. **The running log and discussions:** your `## Study log` with the theory you actually needed and the LLM answers you checked, plus `## Discussion log` — one line per discussion: who listened, what they asked, what you changed.
 6. **Optional:** the rollback drill, the fleet-lint check, or the cross-node automation, with the failure it exposed.
 
 > [!IMPORTANT]

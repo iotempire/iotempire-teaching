@@ -38,13 +38,13 @@ Everything from today goes into **`Module04/README.md`** as sections. Split some
 
 - `## Topic plan` — the topic hierarchy, wildcards, QoS/retain/LWT decisions, and the command/state split.
 - `## Study log` — the running log: the theory you actually needed, the commands that surprised you, and the LLM answers you checked. Not an essay, and not a separate study phase.
-- `## Gate log` — one line per gate: who listened, what they asked, what you changed. This is personal.
+- `## Discussion log` — one line per discussion: who listened, what they asked, what you changed. This is personal.
 - `## MQTT experiments` — MQTT Explorer evidence, the LWT timing, and the QoS observations.
 - `## Node-RED flow` — the exported flow JSON and the dashboard/command proof.
 - `## Python service` — the `paho-mqtt` script and the mock-to-physical swap.
 - `## Story seeds` — optional: the odd bits worth turning into a story later.
 
-*One pod member keeps the shared `## Study log`; the others link to it from their own `Module04/README.md` and add one sentence on what they took from it. The `## Gate log` is yours alone.*
+*One pod member keeps the shared `## Study log`; the others link to it from their own `Module04/README.md` and add one sentence on what they took from it. The `## Discussion log` is yours alone.*
 
 ### The broker contract
 
@@ -71,26 +71,28 @@ Operations lead **Rosa Klein** asks the question that changes the architecture: 
 
 **Constraints.** The broker runs on the pod router; Node-RED runs on the class host or your laptop, never on the router; no admin rights on a company laptop means the class host. No cloud dependency, no secrets on the broker, no time estimates. The router path is a small MicroPython service, not a Node-RED replacement.
 
-**This story is unfinished on purpose.** The hooks below are starting points, not a script. Pick the ones that match what you actually saw, and add a line of your own — *"and the dashboard showed 21.4 °C for a day because the retained value never expired"* is worth more than a perfect diagram. Collect those lines under `## Story seeds` and use them in a gate or the harvest.
+**This story is unfinished on purpose.** The hooks below are starting points, not a script. Pick the ones that match what you actually saw, and add a line of your own — *"and the dashboard showed 21.4 °C for a day because the retained value never expired"* is worth more than a perfect diagram. Collect those lines under `## Story seeds` and use them in a discussion or the harvest.
 
 ## 🧭 How this studio works now
 
-**The study is folded into the practice.** There is no separate pod-study phase and no scheduled hand-off to another pod. Each round gives you a small thing to do, a short **Theory you need** box you read only when the task makes you want it, and a **gate** at the end. Keep your notes in `Module04/README.md` under `## Study log` — a running log, not an essay.
+**The study is folded into the practice.** There is no separate pod-study phase and no scheduled hand-off to another pod. Each round gives you a small thing to do, a short **Theory you need** box you read only when the task makes you want it, and a **discussion** at the end. Keep your notes in `Module04/README.md` under `## Study log` — a running log, not an essay.
 
 **First: skim, do not start.** Read the challenge and the round table, then skim the theory boxes and the evidence list. You are looking for two things: **where the mock becomes real** and **where the LWT fires**. Then start Round 1.
 
-**Every round ends with a gate — one person is enough.** Ask someone at the nearest pod if they have a moment; show them the round's artefact and ask the gate question. If they want, let them show you theirs and ask you one question back. **This is a brag, not a quiz.** Write one line in `## Gate log`: who listened, what they asked, what you changed. If nobody is free, ask someone else or come back later — do not wait.
+**Every round ends with a discussion — one person is enough.** Ask someone at the nearest pod if they have a moment; show them the round's artefact and ask the discussion question. If they want, let them show you theirs and ask you one question back. **This is a brag, not a quiz.** Write one line in `## Discussion log`: who listened, what they asked, what you changed. If nobody is free, ask someone else or come back later — do not wait.
 
 **Take a study break when a box is not enough.** Read the linked source, then explain it to one person. Explaining is the test, not reading. You do not need permission; take the break when the task makes you want it.
 
-| # | Round | You produce | Gate question for one person |
-|---|---|---|---|
-| 1 | **Place the protocols** | A marked protocol map and the expose/why answers | "Which would you expose, and why?" |
-| 2 | **Design the topic tree** | A hierarchy and the QoS/retain/LWT decisions | "Why does the sensor not need to know who is listening?" |
-| 3 | **Prove QoS, retain, and LWT** | MQTT Explorer evidence and the LWT timing | "What happens when the node dies without `DISCONNECT`?" |
-| 4 | **Build the Node-RED flow** | The exported flow and the dashboard/command proof | "Where does the logic live, and what if Node-RED dies?" |
-| 5 | **Write the Python service** | A `paho-mqtt` service and the mock-to-physical swap | "What changed downstream when the mock became real?" |
-| ◇ | **MicroPython on the router** | A small service on the router | "Why is this a service, not Node-RED?" |
+The table is the discussion map: the **[Goal](#-learning-goals) · theory box** column names what each discussion checks. The question tests understanding, not task completion.
+
+| # | Round | You produce | [Goal](#-learning-goals) · theory box | Discussion question for one person |
+|---|---|---|---|---|
+| 1 | **Place the protocols** | A marked protocol map and the expose/why answers | G1 · Place the protocols | "Which would you expose, and why?" |
+| 2 | **Design the topic tree** | A hierarchy and the QoS/retain/LWT decisions | G1 + G4 · Design the topic tree | "Why does the sensor not need to know who is listening?" |
+| 3 | **Prove QoS, retain, and LWT** | MQTT Explorer evidence and the LWT timing | G1 · QoS, retain, LWT | "What happens when the node dies without `DISCONNECT`?" |
+| 4 | **Build the Node-RED flow** | The exported flow and the dashboard/command proof | G2 · Node-RED flow | "Where does the logic live, and what if Node-RED dies?" |
+| 5 | **Write the Python service** | A `paho-mqtt` service and the mock-to-physical swap | G3 + G4 · Python service | "What changed downstream when the mock became real?" |
+| ◇ | **MicroPython on the router** | A small service on the router | G3 · MicroPython on the router | "Why is this a service, not Node-RED?" |
 
 **The order is a suggestion.** The rounds are a path, not a timetable. If Node-RED is not installed yet, use the class host and come back; if you finish early, take the MicroPython stretch. **The instructor demos one LWT kill and one Node-RED flow live on the beamer** — ask for the demo you need. Rotate roles after each round; everybody should publish, subscribe, and see one LWT at least once. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
@@ -142,7 +144,7 @@ The legacy mail and file protocols are here because the module handbook names th
 2. Why do CoAP, DHCP, and NTP use UDP while MQTT and HTTP use TCP?
 3. Where would SSH or Telnet help you troubleshoot, and why is Telnet still in the table?
 
-> **Gate — show one person.** Show your marked map and ask: *"Which would you expose, and why?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show your marked map and ask: *"Which would you expose, and why?"* Write one line in `## Discussion log`.
 
 > **Story hook.** *Rosa's question.* The sensor should not need to know who is listening. The protocol map is how you decide *where* that decoupling belongs.
 
@@ -192,7 +194,7 @@ Design the warehouse hierarchy before you publish anything. Write the `pod<NN>/.
 
 *Go deeper: MQTT 5.0, HiveMQ MQTT essentials, RFC 7252, and the resource bank's MQTT cheat sheet.*
 
-> **Gate — show one person.** Show your topic tree and ask: *"Why does the sensor not need to know who is listening?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show your topic tree and ask: *"Why does the sensor not need to know who is listening?"* Write one line in `## Discussion log`.
 
 > **Story hook.** *The topic tree is the warehouse floor plan.* If every pod invents its own names, the dashboard cannot aggregate; the broker does not fix a bad naming decision.
 
@@ -213,7 +215,7 @@ Design the warehouse hierarchy before you publish anything. Write the `pod<NN>/.
 
 **Theory you need.** The broker notices a dead client only when the TCP connection or the keep-alive fails; the LWT is published then, not at the moment of power loss. With a retained will, a dashboard that connects later still sees `offline`. QoS 1 can duplicate a message if the `PUBACK` is lost; QoS 2 removes that risk at the cost of a four-way handshake. *Go deeper: MQTT 5.0 and HiveMQ's LWT chapter.*
 
-> **Gate — show one person.** Show the retained `offline` and ask: *"What happens when the node dies without `DISCONNECT`?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show the retained `offline` and ask: *"What happens when the node dies without `DISCONNECT`?"* Write one line in `## Discussion log`.
 
 > **Story hook.** *The node that went silent.* Nils's dashboard kept polling a sensor that had been offline for a day. The LWT is the broker's answer: the last state can tell you it is stale.
 
@@ -238,7 +240,7 @@ Design the warehouse hierarchy before you publish anything. Write the `pod<NN>/.
 
 **Theory you need.** A Node-RED flow is a set of nodes connected by messages: an `mqtt in` node subscribes, a `function` node transforms, an `mqtt out` node publishes, and dashboard nodes render. The logic lives in the flow, not in the sensor; that is the decoupling. If Node-RED dies, the sensor keeps publishing and the broker keeps the retained state — but the dashboard and the command stop. That failure mode is the point of the next round. *Go deeper: the Node-RED docs.*
 
-> **Gate — show one person.** Show the flow and the dashboard and ask: *"Where does the logic live, and what if Node-RED dies?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show the flow and the dashboard and ask: *"Where does the logic live, and what if Node-RED dies?"* Write one line in `## Discussion log`.
 
 > **Story hook.** *The dashboard that kept polling a dead sensor.* The flow can show a gauge, but it cannot invent the truth; the retained LWT is what tells the operator the reading is stale.
 
@@ -297,7 +299,7 @@ Instead of putting all logic in Node-RED, modern production systems often use li
 
 **Theory you need.** `on_connect` runs when the broker accepts the client; `on_message` runs for every subscribed message; `loop_forever()` keeps the network loop alive. The callbacks are the service's contract. Mock and physical nodes are interchangeable because both publish the same topic/payload shape — that is the abstraction, not the hardware. *Go deeper: the `paho-mqtt` docs and the IoTknit repository.*
 
-> **Gate — show one person.** Show the service processing mock and real data and ask: *"What changed downstream when the mock became real?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show the service processing mock and real data and ask: *"What changed downstream when the mock became real?"* Write one line in `## Discussion log`.
 
 > **Story hook.** *The mock that became real.* Nils can test the alarm before the hardware exists, and swap in the real node without touching the dashboard. Rosa cares because the warehouse can be commissioned before every sensor arrives.
 
@@ -309,7 +311,7 @@ The router is a good place for a small integration service: it already runs the 
 
 **Theory you need.** MicroPython has no Node-RED runtime and very little RAM; `umqtt` is a small MQTT client with the same pub/sub model. The router is already the broker and the gateway, so a threshold service there removes a laptop from the loop — but it also makes the router a single point of failure. Say which trade you chose. *Go deeper: the MicroPython `umqtt` docs.*
 
-> **Gate — show one person.** Show the service on the router and ask: *"Why is this a service, not Node-RED?"* Write one line in `## Gate log`.
+> **Discussion — show one person.** Show the service on the router and ask: *"Why is this a service, not Node-RED?"* Write one line in `## Discussion log`.
 
 *Portfolio evidence:* the MicroPython service, the topic it subscribes to, and the alert it publishes.
 
@@ -341,7 +343,7 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 3. **QoS and LWT evidence (goal 1):** the `online` → `offline` retained screenshot, the detection time, and one paragraph on what happens without a `DISCONNECT`.
 4. **Node-RED flow (goal 2):** the exported flow JSON and a screenshot of the gauge plus `devices/cooler/set`.
 5. **Python service (goal 3):** the `paho-mqtt` script and the mock-to-physical swap output.
-6. **The running log and gates:** your `## Study log` with the theory you actually needed, plus `## Gate log` — one line per gate.
+6. **The running log and discussions:** your `## Study log` with the theory you actually needed, plus `## Discussion log` — one line per discussion.
 7. **Protocol choice (goal 1):** one paragraph comparing MQTT, CoAP, and HTTP for the warehouse.
 8. **Optional MicroPython (goal 3):** the router service and the trade-off you chose.
 
