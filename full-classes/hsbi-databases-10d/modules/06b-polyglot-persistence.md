@@ -33,13 +33,13 @@ Your answer is a **one-page engine decision record** — and a defence of it.
 
 ## 🧭 How this studio works
 
-Four benches, one artefact. No lecture and no pod study. Every bench ends with a **gate** to the nearest pod; the decision record is filled in as you go and defended at the end.
+Four benches, one artefact. No lecture and no pod study. Every bench ends with a **discussion** with the nearest pod — two minutes to say what happened and why; the decision record is filled in as you go and defended at the end.
 
 **Rough timing (180 minutes):** recap 10 → **1 JSON** 35 → **2 Key-value** 20 → break 15 → **3 Server** 25 → **4 Record** 30 → defence 30 → harvest 15.
 
 **Keep your notes in `Module06b/engine-notes.md`.**
 
-| # | Bench | You produce | Gate question |
+| # | Bench | You produce | Talk it through |
 |---|---|---|---|
 | 1 | **Metadata** | a JSON column, an expression index, and the plan that proves it | "Why does `->>` give you a `SCAN`?" |
 | 2 | **Session state** | four timings and a choice | "Name one thing SQLite can do that `shelve` cannot." |
@@ -109,7 +109,9 @@ The first plan says `SEARCH device USING INDEX ix_device_vendor`; the second say
 
 > **Theory you need — "NoSQL" does not mean "no schema".** A JSON column with `json_valid`, an expression index on the paths you actually filter, and a documented set of keys **is** a designed schema — just a flexible one. What you gave up is column-level typing and cheap `JOIN`s; what you gained is not migrating a table every time a vendor adds a field.
 
-**Gate.** Show the two plans and explain the difference in one sentence.
+> **Discuss (nearest pod, 2 minutes).**
+> - **Why** is the index ignored for `->>`? Say it in one sentence — that is **goal 1**.
+> - **What if** the vendor field moved into a real column? What do you gain, and what do you lose the next time a vendor adds a field?
 
 ---
 
@@ -161,7 +163,9 @@ Record the four numbers and answer:
 - **Name one thing SQLite can do that `shelve` cannot.** (Hint: a query across sessions — "how many users filtered by city last week?")
 - `shelve`'s backend differs between platforms. Report orders of magnitude, not decimals.
 
-**Gate.** Ask a neighbour to guess your numbers before you show them.
+> **Discuss (nearest pod, 2 minutes).**
+> - **Reads tie, writes do not.** Which number decides your choice, and why?
+> - **Name one query** SQLite can answer across sessions that `shelve` cannot — that is **goal 2**.
 
 ---
 
@@ -179,7 +183,9 @@ Write three observations in `engine-notes.md`: one thing that got **easier**, on
 
 > **Theory you need — CAP in one paragraph.** A distributed system can keep at most two of **consistency**, **availability**, and **partition tolerance**. Since networks partition, real systems choose **CP** (answer correctly or not at all) or **AP** (answer, possibly stale). An embedded database sidesteps the choice by not distributing — a legitimate engineering decision, not a limitation to apologize for. **ACID** is about one transaction's guarantees; **BASE** relaxes consistency for availability at scale. You have now run both sides.
 
-**Gate.** "What got harder, and what got easier?" — one sentence each.
+> **Discuss (nearest pod, 2 minutes).**
+> - **What got harder, and what got easier?** One sentence each.
+> - **Which failure mode** did the server add that an embedded database does not have? That is **goal 5**.
 
 ---
 

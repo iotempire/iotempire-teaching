@@ -33,28 +33,44 @@ In this studio you answer her with a file and a measurement.
 
 ## 🧭 How this studio works
 
-**Starts with the Module 5 gate (15 minutes).** Before anything new: show a neighbouring pod your Module 5 homework — the storage numbers, the rows touched by one site update, and your memo. Two minutes each. If you are missing one, say "not yet" and start Round 1; it does not block you.
+**It starts with a 15-minute recap, not a test.** Your instructor walks through what Module 5 produced — the flat table, the 3NF decomposition, the denormalized report table — and the three numbers you should have measured: storage (**≈4.1 MB normalized vs ≈11.1 MB denormalized**), rows touched by one site update (**1 vs 4,000**), and the surprise that *dropping* the index on the report table made the query faster. Then the bridge: that report table is 200,000 rows and 90 days old, and Lea wants two years.
 
-**Then six rounds.** No lecture. Every round gives you one thing to do, a short **theory box** you read only when the task makes you want it, and a **gate** at the end: show the artefact to the nearest pod and ask them the gate question. Tick the round on the gate board when you pass it.
+If you do not have your own numbers, take the ones on the board and say so in your notes. The recap is input, not evidence — the evidence is what you measure today.
 
-**Rough timing (180 minutes):** gate 15 → story 10 → **1 Build** 20 → **2 Convert** 20 → **3 Race** 25 → break 15 → **4 Plan** 20 → **5 Boundary** 30 → **6 Decide** 15 → buffer 10.
+<!-- PREP EMAIL (before Session 6): finish Module 5 Rounds 5–7 — the storage numbers, the rows touched by one site update, and the memo — and keep Module05/normalize.db. If the database is gone, rebuild it with the Module 5 Setup block (~1 minute). Bring the memo; we use it in the recap. -->
+
+**Then six rounds.** No lecture. Every round gives you one thing to do, a short **theory box** you read only when the task makes you want it, and a **discussion** with the nearest pod at the end: two minutes to say out loud what happened, why it happened, and what you would predict next time. A discussion is **not a checkpoint and not a test** — it is where the round's learning goal turns into words. Tick the round on the board when you have had it.
+
+**Rough timing (180 minutes):** recap 15 → story 10 → **1 Build** 25 → **2 Convert** 20 → **3 Race** 30 → break 15 → **4 Plan** 20 → **5 Boundary** 30 → **6 Decide** 15 = 180. Faster pods take the **stretchers** at the end of this module; slower pods finish the core rounds and do the **homework** in §7.
 
 **Keep your notes in `Module06a/duckdb-notes.md`.** Everything else goes next to your scripts; do not commit the database, the CSV, or the Parquet file.
 
-| # | Round | You produce | Gate question for a neighbour |
+| # | Round | You produce | Talk it through with a neighbour |
 |---|---|---|---|
-| 1 | **Build** | `history.db` with 2,000,000 rows | "Why does the row count match 10 × the old table?" |
-| 2 | **Convert** | `report_history.parquet` + a matching row count | "Is the Parquet the same data, or just the same size?" |
-| 3 | **Race** | a timing table for two queries | "Which run did you trust, and why?" |
-| 4 | **Plan** | an `EXPLAIN ANALYZE` line that explains the gap | "Which operator dominates, and how many rows did it see?" |
-| 5 | **Boundary** | insert/lookup numbers for both engines | "Where is DuckDB the wrong tool — in one sentence?" |
-| 6 | **Decide** | a memo to Lea and Yasmin | "What happens the day the Parquet is stale?" |
+| 1 | **Build** | `history.db` with 2,000,000 rows | "Predict the count before you run. Wrong? Where?" |
+| 2 | **Convert** | `report_history.parquet` + a matching row count | "Same data or just same size — how would you know?" |
+| 3 | **Race** | a timing table for two queries | "What would make SQLite win this race?" |
+| 4 | **Plan** | an `EXPLAIN ANALYZE` line that explains the gap | "Which operator dominates, and why 2M rows?" |
+| 5 | **Boundary** | insert/lookup numbers for both engines | "Where is DuckDB the wrong tool — and what would fix it?" |
+| 6 | **Decide** | a memo to Lea and Yasmin | "What if the copy is a day old?" |
 
 ---
 
-## 1 · Build the history (~20 minutes)
+## 1 · Build the history (~25 minutes)
 
-Module 5 left you with `Module05/normalize.db` and the `report_jobpart` table — 200,000 rows covering 90 days. Lea needs **two years**. Rather than invent a new dataset, stretch the one you have: ten copies of the same 90 days, shifted by a quarter each.
+Module 5 left you with `Module05/normalize.db` and the `report_jobpart` table — 200,000 rows covering 90 days. **We reuse that database on purpose.**
+
+> [!NOTE]
+> **Why not start from a fresh dataset?** Three reasons, and they are the method:
+> - **The comparison must be honest.** Both engines have to answer the *same* question over the *same* rows with the *same* distribution. A new generator would change the data and the engine at the same time, and the measurement would prove nothing.
+> - **The artefact is the story.** `report_jobpart` is exactly the table Yasmin promised Lea in Module 5. The report outgrew *that* table, not a hypothetical one.
+> - **You already paid for it.** The 3NF decomposition and the denormalization were last week's work; rebuilding them here would eat the session and teach nothing new.
+>
+> The only thing we add is **time**.
+
+<!-- PREP EMAIL (before Session 6): keep Module05/normalize.db — you need it at the start of the DuckDB session. If it is gone, rebuild it with the Module 5 Setup block (~1 minute) and bring it. -->
+
+**91 days is one quarter** (13 weeks — 4 × 91 = 364 days, one short of a year). Ten copies therefore give about **two and a half years**, a little more than Lea asked for, so the numbers have room.
 
 ```python
 # Module06a/prepare.py — run with:  uv run python Module06a/prepare.py
@@ -100,10 +116,10 @@ print("csv bytes   :", csv_path.stat().st_size)
 
 Run it. Expect **2,000,000** rows and a CSV of roughly 11 MB.
 
-> [!NOTE]
-> **Why duplicate instead of generating new data?** Because the comparison has to be honest: both engines must answer the *same* question over the *same* rows. Keeping the 90-day pattern and shifting the dates gives you volume without inventing a different distribution. It also makes the check easy: every aggregate over the whole history should be exactly ten times the 90-day value.
-
-**Gate.** Show a neighbour your row count and explain the `k * 91` — what does the 91 do to the dates?
+> **Discuss (nearest pod, 2 minutes).**
+> - **Why** is the row count exactly 10 × 200,000? If you cannot explain that before running, the multiplier is not understood yet — that is **goal 1**.
+> - **What if** you shifted by 90 days instead of 91? Predict the effect on the dates, then change it — it is cheap to try.
+> - **Find one more thing:** `date()` accepts `'+91 days'`; what would `'+1 month'` do differently? (Months are not all the same length — this matters the day you extend the dataset again.)
 
 ---
 
@@ -147,11 +163,14 @@ print(con.execute(f"""SELECT ROUND(SUM(part_price), 2) FROM read_parquet('{parqu
 > **Theory you need — why a file can be faster than a table.**
 > Parquet is **columnar**: values of one column are stored together, compressed per column, with statistics per block. A query that needs four of seven columns reads four. SQLite is **row-oriented**: to get `part_price` it reads whole rows. On an aggregation over millions of rows, the column store moves less data — which is most of the gap you are about to measure. The file is also immutable in practice: you write a new one, you do not update rows in place.
 
-**Gate.** "Same data or just same size?" Show the two checksums, not the row counts.
+> **Discuss (nearest pod, 2 minutes).**
+> - **How would you prove** the Parquet is the same data if `history.db` disappeared? You have the file, a checksum, and a row count — which one would convince you, and which would not?
+> - **Why** is the Parquet roughly 50× smaller than the database? (Hint: columns repeat, and compression loves repetition.) If that sounds interesting, run `SELECT * FROM parquet_metadata('report_history.parquet');` — it is also the door to stretcher S2 at the end of this module.
+> - **This is goal 1** — reproducibility. Could a podmate rebuild your file from your script alone, on a different machine?
 
 ---
 
-## 3 · The race (~25 minutes)
+## 3 · The race (~30 minutes)
 
 ```python
 # Module06a/race.py — run with:  uv run python Module06a/race.py
@@ -199,7 +218,10 @@ On this machine, with this dataset: the dashboard takes about **600 ms in SQLite
 > [!IMPORTANT]
 > **Do not trust a single run.** First runs include file-cache effects; a single timing is a coin flip. Three interleaved runs and a median is the minimum. If your two engines are within 20 %, say so — that is a finding, not a failure.
 
-**Gate.** "Which run did you trust, and why?" If the answer is "the fastest one", do it again.
+> **Discuss (nearest pod, 2 minutes).**
+> - **Was the ratio what you predicted?** If not, name the assumption that was wrong — data size, cache, or number of columns. This is **goal 2**.
+> - **What would make SQLite win this race?** Try it: filter to one day (`WHERE done_on = '2026-02-14'`) or to one machine. A point query on an index can beat a column scan; a full aggregate over 2M rows cannot.
+> - **Find one more thing:** why does the first run of each engine differ from the next two? Run the script twice and compare — the answer is the file cache, and it is why we take a median.
 
 ---
 
@@ -251,7 +273,10 @@ Three things to notice, and they are the whole lesson:
 
 > **Theory you need — two kinds of plan.** `EXPLAIN QUERY PLAN` (SQLite) tells you **how** a table is accessed: `SCAN`, `SEARCH … USING INDEX`, temp B-tree. `EXPLAIN ANALYZE` (DuckDB) actually **runs the query** and reports rows and time per operator. One is a prediction, the other is a measurement. When you need to explain a 90× gap, the measurement is the better witness.
 
-**Gate.** Point at the line that proves the column store read less, and read the row count out loud.
+> **Discuss (nearest pod, 2 minutes).**
+> - **Point at the line** that proves the column store read less, and read the row count out loud. If you cannot find it, you have the output but not yet **goal 3**.
+> - **Why four columns and not seven?** Predict what the plan says if the query were `SELECT *`, then run it. (The row count stays; the projections change.)
+> - **Find one more thing:** SQLite's plan is a *prediction*; DuckDB's `EXPLAIN ANALYZE` is a *measurement* that runs the query. When would you use each — and which one would you show a manager?
 
 ---
 
@@ -311,7 +336,11 @@ Try the fix a thoughtful student will propose: `con.executemany("INSERT INTO s V
 
 > **Theory you need — OLTP vs OLAP in one sentence.** OLTP asks "one row, now, repeatedly" and is dominated by per-statement overhead, locks, and indexes. OLAP asks "all rows, rarely, in bulk" and is dominated by how much data must be moved. SQLite optimizes the first; DuckDB optimizes the second. Most systems need one, not both.
 
-**Gate.** Finish this sentence without hedging: *"For Kortmann, DuckDB is the wrong engine when …"*
+> **Discuss (nearest pod, 2 minutes).**
+> - **Finish the sentence** without hedging: *"For Kortmann, DuckDB is the wrong engine when …"* This is **goal 4** — a number and a boundary, not an opinion.
+> - **Why** does a per-statement cost dominate? What actually happens on each `INSERT` that does not happen in a scan?
+> - **What if** the application batched its writes? `executemany` improves the number but does not close the gap — explain why not, and what would have to change in the *application*, not the engine.
+> - **Find one more thing:** which workload in your own final project sits closest to this boundary? Name it now — it is a design decision you will have to defend in the project discussion.
 
 ---
 
@@ -326,7 +355,103 @@ Write a short memo to **Lea Winter** and **Yasmin Kaya** (6–8 sentences):
 
 *Portfolio evidence:* the memo, referencing your own timing table.
 
-**Gate.** Read the memo aloud to a neighbour. They ask one *"what if the copy is a day old?"* question, and you answer without notes.
+> **Discuss (nearest pod, 3 minutes).**
+> - **Read the memo aloud.** Your neighbour asks one question: *"What if the copy is a day old?"* Answer without notes. This is **goal 5**.
+> - **Who owns the refresh** — a cron job, the shift lead, a script after the shift? What happens when it fails silently, and how would you *detect* that it did?
+> - **Which is worse for Kortmann:** a stale report or a slow one? Defend your answer with your own numbers.
+
+---
+
+## ◇ Stretchers (if you are ahead)
+
+Three optional extensions, 15–25 minutes each. Pick the one that answers a question you actually have.
+
+### ◇ S1 — Let DuckDB read the JSON (15 min)
+
+In Module 6b the vendor metadata will live *inside* SQLite. DuckDB can read it as a file instead:
+
+```python
+# Module06a/json_read.py — run with:  uv run python Module06a/json_read.py
+import json
+from pathlib import Path
+
+import duckdb
+
+here = Path(__file__).parent
+devices = [
+    {"machine_id": "cnc-01", "vendor": "Siemens", "firmware": "4.2"},
+    {"machine_id": "cnc-02", "vendor": "Fanuc", "firmware": "3.9"},
+    {"machine_id": "cnc-03", "vendor": "Siemens", "firmware": "4.0"},
+]
+(here / "devices.json").write_text(json.dumps(devices))
+
+con = duckdb.connect()
+print(con.execute(f"""
+    SELECT d.vendor, r.machine_id, SUM(r.part_price) AS cost
+    FROM read_json_auto('{here / 'devices.json'}') d
+    JOIN read_parquet('{here / 'report_history.parquet'}') r USING (machine_id)
+    GROUP BY d.vendor, r.machine_id ORDER BY cost DESC
+""").fetchall())
+```
+
+**Ask yourself:** which would you rather update — a JSON file, or a JSON column inside the database that already guarantees `json_valid`? You do not have to decide yet; 6b is where it gets settled.
+
+### ◇ S2 — Why analytics might not need an index (20 min)
+
+Look at the Parquet's **row-group statistics** — the columnar cousin of an index:
+
+```sql
+SELECT row_group_id, stats_min, stats_max
+FROM parquet_metadata('Module06a/report_history.parquet')
+WHERE path_in_schema = 'done_on'
+ORDER BY row_group_id LIMIT 5;
+```
+
+Every row group spans the whole date range, because the file was written in job order, not in date order. So the reader cannot skip anything. Now write a sorted copy and look again:
+
+```sql
+COPY (SELECT * FROM read_parquet('Module06a/report_history.parquet') ORDER BY done_on)
+TO 'Module06a/sorted.parquet' (FORMAT parquet);
+
+SELECT row_group_id, stats_min, stats_max
+FROM parquet_metadata('Module06a/sorted.parquet')
+WHERE path_in_schema = 'done_on'
+ORDER BY row_group_id LIMIT 5;
+```
+
+Now each group covers about two months. **The honest result:** at 2M rows the timing barely moves (≈1.2 ms vs ≈1.5 ms for a one-month query); at 200M it decides the query. Statistics only help if you write the data in the order you filter on — the same lesson as an index, without the index.
+
+### ◇ S3 — Compression is a storage trade (15 min)
+
+```sql
+COPY (SELECT * FROM read_parquet('Module06a/report_history.parquet'))
+TO 'Module06a/report_zstd.parquet' (FORMAT parquet, COMPRESSION zstd);
+```
+
+Reference numbers on this dataset: **2.32 MB (snappy) → 1.37 MB (zstd)**, with the same dashboard query time (≈6.9 ms both, warm cache). Smaller file, same speed — until the file stops fitting in memory, and then the smaller one wins. Say that sentence out loud; it is the whole trade.
+
+---
+
+## 7 · Homework — the refresh script (intense)
+
+The memo promises a refresh. Make it real, because a promise you cannot run is a slide.
+
+Write `Module06a/refresh.py` that:
+
+1. rebuilds `report_history.parquet` from `history.db` (reuse the `COPY` from Round 2);
+2. supports `--check`: compare **row count** and `SUM(part_price)` between SQLite and the Parquet, print both, and exit with status 1 on a mismatch;
+3. prints one line — rows, checksum, Parquet size, elapsed milliseconds;
+4. is **idempotent**: run it twice and the numbers must match (the bytes may differ; say so).
+
+Then:
+
+- run it twice and paste both outputs into `duckdb-notes.md`;
+- produce the zstd copy from S3 and record the size difference in your memo;
+- add a paragraph to the memo: **how** the refresh runs, what `--check` protects you from, and — the harder half — what it does **not** protect you from.
+
+<!-- PREP EMAIL (before Session 7): bring refresh.py, one `--check` output, and the updated memo to Module 6b. The decision record starts from these numbers. -->
+
+*Portfolio evidence:* `refresh.py`, two `--check` runs, and the extended memo.
 
 ---
 
@@ -338,6 +463,8 @@ Write a short memo to **Lea Winter** and **Yasmin Kaya** (6–8 sentences):
 - [ ] One `EXPLAIN ANALYZE` output with the dominating operator marked.
 - [ ] `boundary.py` and the insert/lookup numbers, including the `executemany` variant.
 - [ ] The memo to Lea and Yasmin.
+- [ ] `refresh.py` and two `--check` runs (homework).
+- [ ] (Stretcher) your notes from S1, S2 or S3 — whichever you took.
 - [ ] `Reflections/ref06a.md` — the logbook entry for this block.
 
 ## 📚 If you want to go deeper
