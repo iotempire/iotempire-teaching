@@ -440,7 +440,7 @@ Reference numbers on this dataset: **2.32 MB (snappy) → 1.37 MB (zstd)**, with
 
 ---
 
-## 7 · Homework — choose your level
+## 7 · (probably homework) — choose your level
 
 **Core (everyone, ~20 minutes).** Produce the zstd copy from S3, record the size difference, and add a paragraph to the memo: **how** the refresh runs, and what would break if it silently stopped. Bring the updated memo to Module 6b — the decision record starts from these numbers.
 
