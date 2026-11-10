@@ -44,6 +44,15 @@
 - [ ] **Watch the checkpoint split** across Sessions 8–9: ten pods each, or two lanes with the TA?
       Write down which one actually happened and how long each slot took.
 
+## Module 5 — carry-over from this run
+
+Many pods concluded that denormalization “buys nothing” — they were measuring a **cold cache**. The module now warms both sides before timing (two sentences; leave them in), but the instructor's recap board still shows only storage and row counts. Fix that next time:
+
+- [ ] **Re-measure the A/B race warm** on the teaching laptop before Session 5 and put the medians on the recap board next to the storage numbers (≈4.07/11.09 MB) and the row counts (1 vs 4,000). The timing is what students argue about.
+- [ ] **Show cold vs warm side by side** for one query — first run, then second run. It turns “denormalization buys nothing” into “I measured the cache”, which was the most common finding of the first run.
+- [ ] **Update the reference timings** in the private Module 5 solutions file with the warm numbers, so the gate answers and the board agree.
+- [ ] Keep the recap at 15 minutes. If the warm numbers start a discussion, take the time from Round 1 of Module 6a, not from the story.
+
 ## Infrastructure
 
 - [ ] **Keep one deliberately slow PostgreSQL database running** as a reference for “slow”. The
