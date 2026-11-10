@@ -6,6 +6,8 @@ Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment l
 
 Open improvements for the next run are tracked in **[Future work](./TODO.md)** — add a row when you notice something you cannot fix this term.
 
+Prep and expectation emails have a reusable **[template](./email-template.md)** — send it at least three days before a session.
+
 ## Five commitments that make the format work
 
 1. **Students work in Task Pods of 2–3 for most of the term.** Default to 3 when the cohort is above ~40; keep a handful of pairs so the checkpoint schedule survives. *You never teach a room of 60 individuals — you teach 20–30 pods.*

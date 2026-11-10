@@ -71,9 +71,10 @@ Many pods concluded that denormalization “buys nothing” — they were measur
 
 ## Communication
 
-- [ ] **Send prep and expectation emails at least three days before each session.** The module
-      files carry `PREP EMAIL` markers (grep for them); the email should say what to bring, what
-      to finish, and what will happen in the room — not a summary of the content.
+- [ ] **Send prep and expectation emails at least three days before each session.** Use the
+      [email template](./email-template.md); the module files carry `PREP EMAIL` markers for the
+      content. The email should say what to bring, what to finish, and what will happen in the
+      room — not a summary of the content.
 - [ ] **Announce the checkpoint order and the slot length a week ahead**, with the template
       pre-filled. The “book the order” step is the one that always slips.
 - [ ] **Announce the project milestone dates in Session 8**, not week by week — students plan
