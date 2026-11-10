@@ -176,13 +176,13 @@ The hands-on part of today is the **[Mastering IoT Solutions](../../../workshops
 
 **Hardware, per pod:** 1× M5StickC (Plus/Plus2), 1× USB-C cable for power, and 1× Dallas DS18B20 sensor — either the pre-soldered Grove protoboard (default, no wiring) or a bare module with three jumper wires. Optional for fast pods: a Sensirion SCD4x (CO₂).
 
-> **Who owns the machine?** Your Node-RED is a container on the instructor PC, not on your laptop. That is why the workshop needs zero installation — and why the whole room's dashboards share one point of failure. Keep that thought for Task 10.
+> **Who owns the machine?** Your Node-RED runs on the class integration host — the Optiplex cluster when it is ready — or on your own laptop with admin rights. It does **not** run on the router: the router is the gateway and broker, not an application server. If you install Node-RED yourself, use `http://localhost:1880`; the workshop's click path is the same. Keep the shared-host failure mode in mind for Task 10.
 
 | What | Where to find it |
 |---|---|
 | Room Wi-Fi | `iotempire-b1300-5g` for your laptop, `iotempire-b1300` (2.4 GHz) for the sticks — password `iotempire` |
-| Your Node-RED | `http://<instructor-ip>:18nn/` — the exact address and your pod's port are on the board/projector |
-| Login | user `admin`, plus the password on the sticky note at your table |
+| Your Node-RED | the address on the board (`http://<class-host>:18nn/`), or `http://localhost:1880` for your own install |
+| Login | the credentials on the board; for a local install, the ones you set |
 | Broker | `broker.internal` → `192.168.114.1:1883` (classroom router), already configured |
 | Your node | the M5StickC labeled with your pod's two-digit ID — that ID is the first level of every topic |
 
@@ -191,6 +191,8 @@ The hands-on part of today is the **[Mastering IoT Solutions](../../../workshops
 ### ★ Task 3: First contact — hello, Node-RED
 
 Work through **Phase 1 of the [workshop workbook](../../../workshops/mastering-iot-solutions/README.md#phase-1-first-contact--hello-world-in-node-red)** (connect to the room Wi-Fi, open your own Node-RED, inject → debug, “Hello IoT!”).
+
+> **No admin rights, or a locked-down company laptop?** Use the class integration host; do not try to install Node-RED there, and never install it on the router.
 
 > **Story hook.** *The lamp test.* Before Petra trusts any dashboard, she wants one lamp in the control room to light when somebody presses a button in a basement. Cirrus Cloud Systems quoted four weeks and a service contract for exactly this.
 

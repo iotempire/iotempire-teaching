@@ -47,7 +47,7 @@ In classical computer science education, networking is often introduced through 
 Modern IoT is not merely "an Arduino connected to Wi-Fi." It is a heterogeneous computing continuum spanning:
 
 - **Low-power edge nodes:** M5Stack microcontrollers (ESP32-based) communicating locally via Wi-Fi or connectionless ESP-NOW.
-- **Edge gateways and local routers:** OpenWrt travel routers (one router per two students) hosting local services, managing subnets, performing NAT, and routing traffic.
+- **Edge gateways and local routers:** OpenWrt travel routers (one router per Task Pod, 2–3 students) hosting local services, managing subnets, performing NAT, and routing traffic.
 - **Mesh and overlay networks:** Nebula and Yggdrasil providing secure, zero-friction remote access across campus firewalls and home networks without complex port forwarding; plus an optional B.A.T.M.A.N. (batman-adv) stretch for self-healing Layer-2 wireless router meshes.
 - **Application messaging & integration:** MQTT as the central decoupling broker, complemented by visual integration via Node-RED and programmatic event flows in Python (`paho-mqtt` / IoTknit).
 - **Industrial interoperability (overview):** How legacy field buses (Modbus, RS-485) and industrial standards (OPC-UA, real-time Ethernet) would bridge into an open IoT fabric — taught mostly conceptually, since industrial hardware is usually unavailable in the lab.
@@ -75,8 +75,8 @@ By the end of this course, you will be able to:
 2. **Critically assess network models:** Use the ISO/OSI model as an architectural reference while recognizing its real-world limitations in IoT (referencing RFC 3439 *"Layering Considered Harmful"* and RFC 1958).
 3. **Deploy edge gateways & routers:** Configure OpenWrt routers via CLI and LuCI; capture traffic at the choke point with `tcpdump` and read the dump with Wireshark, `tshark`, or as text.
 4. **Build overlay and mesh networks:** Deploy Nebula peer-to-peer overlay tunnels from a per-device **bundle** (on an OpenWrt router or a laptop) and Yggdrasil encrypted IPv6 mesh routing to securely connect distributed IoT nodes from home or behind firewalls; and *(optionally)* configure B.A.T.M.A.N. advanced for ad-hoc, self-healing wireless mesh routing between edge routers.
-5. **Architect publish/subscribe systems:** Design robust topic structures and message flows with MQTT (QoS levels, Retain, Last Will and Testament, TLS).
-6. **Understand multi-protocol integration:** Explain how sensor nodes, actuators, and industrial protocols (OPC-UA, Modbus, RS-485) fit together, and — if hardware or a simulator is available — *(optionally)* bridge them using Node-RED and Python.
+5. **Architect publish/subscribe systems:** Design robust topic structures and message flows with MQTT (QoS levels, Retain, Last Will and Testament, TLS), and compare MQTT with CoAP and HTTP for constrained links.
+6. **Understand multi-protocol integration:** Explain how sensor nodes, actuators, and industrial protocols (OPC-UA, Modbus, RS-485) fit together, map fieldbuses onto the ISO/OSI layers, compare bus technologies for a given use case, and — if hardware or a simulator is available — *(optionally)* bridge them using Node-RED and Python.
 7. **Leverage local wireless standards:** Evaluate trade-offs between Wi-Fi, BLE, LoRaWAN, and connectionless ESP-NOW for latency, range, power, and payload constraints.
 8. **Manage IoT fleets declaratively:** Use IoTempower to manage, configure, and update multiple M5Stack nodes over-the-air.
 9. **Engineer a resilient IoT network:** Design, build, troubleshoot, and document a complete multi-node IoT solution with automated failover and verifiable engineering metrics.
@@ -186,9 +186,9 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 | Editor | **VS Code** or **Zed** | Use the **integrated terminal** and the Git UI; keep the workbook open beside your terminal. |
 | Terminal | **bash** (Git Bash on Windows) | The labs use heredocs, pipes, and `<` redirects; Git Bash ships with Git for Windows. WSL is also fine. |
 | Version control | **Git + GitHub** | Your portfolio is the evidence artifact. Create it from the template with the **[1-click link](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire)** (not a fork), name it exactly `net-iot-hsbi-2026-portfolio`, and invite **`ulno`** as a collaborator. |
-| Routing & capture | **OpenWrt + LuCI**, `tcpdump`, **Wireshark** or `tshark` (optional), `iperf3` | One router per two students. **Capture on the router**, then read the dump — the lab laptops have one Wi-Fi adapter and no monitor mode. |
+| Routing & capture | **OpenWrt + LuCI**, `tcpdump`, **Wireshark** or `tshark` (optional), `iperf3` | One router per Task Pod (2–3 students). **Capture on the router**, then read the dump — the lab laptops have one Wi-Fi adapter and no monitor mode. |
 | Overlays & mesh | **Nebula** (class bundles, [nebula-manager](https://github.com/iotempire/nebula-manager)), **Yggdrasil**, optional **B.A.T.M.A.N. advanced** | Nebula bundles are prepared by the instructor (class CA + one lighthouse); the bundle's own `install.sh` / `install.ps1` needs no extra tooling. Router path: static binary + four files. |
-| Messaging & integration | **Mosquitto**, **MQTT Explorer**, **Node-RED**, **Python 3** (`paho-mqtt`, IoTknit; optional `pymodbus`, `asyncua`) | Local-first broker; Python as the programmatic glue. |
+| Messaging & integration | **Mosquitto**, **MQTT Explorer**, **Node-RED** (class host or laptop, not the router), **Python 3** (`paho-mqtt`, IoTknit; optional `pymodbus`, `asyncua`), **MicroPython** on the router | Local-first broker; Python and MicroPython as the programmatic glue. |
 | Python environment | **`uv`** | Pin Python and libraries with `uv`; commit `pyproject.toml` and `uv.lock`, never `.venv/`. Avoid bare `pip install` in the normal path. |
 | Fleet | **IoTempower** | Declarative node definition and OTA deployment. |
 | AI co-pilots | **ChatGPT / Claude / DeepSeek / local models** | Used to *draft* and explain, never to decide. Verification is the graded skill. |
@@ -206,11 +206,11 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 
 Unlike pure microcontroller classes, our hardware focuses on modular, ready-to-network hardware and real routing infrastructure:
 
-- **Edge routers (1 router per 2 students):**
+- **Edge routers (1 router per Task Pod, 2–3 students):**
   - Primarily the Cudy TR1200 flashed to pure upstream OpenWrt.
   - Partner and fallback models: GL.iNet GL-MT300N-V2 ("Mango") (used by colleagues in Tartu and Regensburg) and GL-AR300M ("Shadow") (to fill gaps).
   - All routers run upstream OpenWrt with LuCI, Mosquitto MQTT broker, `tcpdump`, and `iperf3`; optional `kmod-batman-adv` and mesh tools for the B.A.T.M.A.N. stretcher.
-  - **USB sticks (1 per router, handed out after the first OpenWrt session).** The Cudy has 16 MB of flash and one USB 2.0 port; the stick becomes **extended root** for Nebula, `tshark`, and optional MicroPython. Setup: [extroot recipe](./modules/Z-resources-bank.md#packet-capture-without-a-second-wifi-card).
+  - **USB sticks and mini USB hubs (1 set per router, handed out at the first OpenWrt session).** The Cudy has 16 MB of flash and one USB 2.0 port; the stick becomes **extended root** for Nebula, `tshark`, and optional MicroPython, and the hub lets the stick and a USB-tethered phone share the port. Setup: [extroot recipe](./modules/Z-resources-bank.md#packet-capture-without-a-second-wifi-card).
 - **Modular edge nodes (M5Stack ecosystem):**
   - M5StickC Plus / Plus2 and/or M5Atom Matrix / Lite / S3: ESP32-based devices with built-in displays, buttons, IMU, and Grove I²C/GPIO ports.
   - Eliminates fragile breadboard wiring so lab time is spent on protocols, integration, and packet flow.
@@ -237,11 +237,11 @@ The 10 days correspond to 48 contact hours, with **one module per day**. Session
 |:---:|---|---|
 | 0 | [Pre-Study](./pre-study.md) | Portfolio setup, inspiration video, network mental model, IP and MQTT exploration. |
 | 1 | [Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md) | Class opening and portfolio start, the IoT computing continuum, OSI vs. TCP/IP friction, Master Class live integration (M5StickC + MQTT + Node-RED + dashboard), packet-overhead measurement, system story pitch. |
-| 2 | [Module 2 — Local Networking & OpenWrt Gateways](./modules/02-local-networking-and-gateways.md) | IPv4 subnetting, DHCP, DNS, NAT, routing tables, OpenWrt LuCI/SSH, `tcpdump` at the choke point (Wireshark optional). |
+| 2 | [Module 2 — Local Networking & OpenWrt Gateways](./modules/02-local-networking-and-gateways.md) | IPv4 subnetting, DHCP, DNS, NAT, routing tables, OpenWrt flash/extroot, LuCI/SSH, 2.4 GHz pod LAN, local Mosquitto, `tcpdump` at the choke point (Wireshark optional). |
 | 3 | [Module 3 — Mesh & Overlay Networks](./modules/03-overlay-and-mesh-networks.md) | Nebula overlay from class bundles (router path and laptop path), cross-NAT remote access, Yggdrasil IPv6 mesh; optional B.A.T.M.A.N. Layer-2 mesh stretcher (`batctl`, failover). |
-| 4 | [Module 4 — MQTT Deep Dive & Integration](./modules/04-mqtt-and-integration.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* Topic hierarchy, QoS 0/1/2, Retain, Last Will, MQTT Explorer, Node-RED flows, Python `paho-mqtt` / IoTknit integration. |
+| 4 | [Module 4 — MQTT Deep Dive & Integration](./modules/04-mqtt-and-integration.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* Topic hierarchy, QoS 0/1/2, Retain, Last Will, MQTT Explorer, MQTT vs CoAP/HTTP, Node-RED on the class host/laptop, Python `paho-mqtt` / IoTknit and MicroPython on the router. |
 | 5 | [Module 5 — Wireless Technologies & ESP-NOW](./modules/05-wireless-technologies-and-espnow.md) | Radio spectrum, ISM bands, Wi-Fi vs BLE vs LoRaWAN trade-offs, ESP-NOW connectionless peer-to-peer micro-mesh and gateway bridge. |
-| 6 | [Module 6 — Industrial Protocols & Edge Bridging](./modules/06-industrial-protocols-and-bridging.md) | Conceptual tour: Modbus RTU/TCP, OPC-UA, RS-485, TSN context; optional simulated Python/Node-RED bridge to MQTT. |
+| 6 | [Module 6 — Industrial Protocols & Edge Bridging](./modules/06-industrial-protocols-and-bridging.md) | Conceptual tour: Modbus RTU/TCP, OPC-UA, RS-485, ISO/OSI mapping, bus comparison, TSN context; optional simulated Python/Node-RED bridge to MQTT. |
 | 7 | [Module 7 — Fleet Management & Scaling with IoTempower](./modules/07-fleet-management-and-iotempower.md) | Declarative IoT architecture, multi-node configuration, Over-The-Air (OTA) deployment across M5Stack fleet, topic standardisation. |
 | 8–9 | [Module 8 — Final Project Studio](./modules/08-final-project-studio.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–7), then:* Project kickoff & story, team and requirement mapping, system integration across nodes and network layers, hardening, fault-injection & resilience testing, architecture documentation, peer review dry run. |
 | 10 | [Module 9 — Project Presentation & Technical Report Submission](./modules/09-project-presentation-and-portfolio.md) | Short project presentation of the final technical-report section, live multi-node demonstration, network fault-injection test, technical engineering report hand-in, retrospective. |

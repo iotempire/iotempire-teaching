@@ -6,12 +6,12 @@
 
 ## 🎯 Learning Goals
 
-This module gives you the opportunity to explore decoupled messaging and system integration and achieve competency in **MQTT mechanics (topics, QoS, retain, LWT), Node-RED flows, and Python (`paho-mqtt` / IoTknit) services**.
+This module gives you the opportunity to explore decoupled messaging and system integration and achieve competency in **MQTT mechanics (topics, QoS, retain, LWT), Node-RED flows, and Python (`paho-mqtt` / IoTknit) services**. You also place MQTT against CoAP and HTTP, so the protocol choice is a decision rather than a habit.
 
 By the end of this module, you can:
-1. Deeply understand the MQTT protocol mechanisms: topic hierarchies, QoS levels, retained messages, and Last Will and Testament (LWT).
-2. Build data pipelines, state machines, and dashboards in Node-RED.
-3. Develop event-driven programmatic integration services in **Python using `paho-mqtt` and IoTknit**.
+1. Deeply understand the MQTT protocol mechanisms: topic hierarchies, QoS levels, retained messages, and Last Will and Testament (LWT) — and place MQTT against CoAP and HTTP.
+2. Build data pipelines, state machines, and dashboards in Node-RED on the class integration host or your own laptop.
+3. Develop event-driven programmatic integration services in **Python using `paho-mqtt` and IoTknit** on a laptop, or in **MicroPython on the router** where the service fits.
 4. Experience the power of pub/sub abstraction by swapping simulated/mock devices with physical M5Stack nodes with zero downstream code changes.
 
 
@@ -62,9 +62,25 @@ MQTT (Message Queuing Telemetry Transport) decouples producers and consumers:
 - Retained Messages: The broker stores the last message published with `retain=true`. When a new dashboard or node subscribes, it immediately receives the current state instead of waiting minutes for the next publish.
 - Last Will and Testament (LWT): When a client connects, it gives the broker a "will" message (e.g. topic `devices/m5stick1/status`, payload `offline`, retain `true`). If the device suddenly loses power or drops Wi-Fi, the broker automatically publishes this message.
 
+### The Other IoT Standard: CoAP
+
+MQTT is not the only answer. **CoAP** (Constrained Application Protocol, [RFC 7252](https://www.rfc-editor.org/rfc/rfc7252)) is a UDP-based request/response protocol for constrained devices. It keeps HTTP-like methods (`GET`, `POST`, `PUT`, `DELETE`) but runs over UDP, supports **observe** (server-push) and block-wise transfer, and is common in constrained devices and 6LoWPAN/Thread networks.
+
+| | MQTT | CoAP | HTTP |
+|---|---|---|---|
+| Model | Publish/subscribe via a broker | Request/response (with observe) over UDP | Request/response over TCP |
+| Transport | TCP (or WebSocket) | UDP (or DTLS) | TCP (or TLS) |
+| Coupling | Decoupled by broker and topic | Client addresses a resource URI | Client addresses a resource URI |
+| Typical fit | Telemetry, many subscribers, dashboards | Constrained devices, local resource access | APIs, browsers, humans |
+| Reliability | QoS 0/1/2 | Confirmable messages, retries | TCP |
+| Security | TLS | DTLS/OSCORE | TLS |
+
+**Why this matters for the course.** Your M5Stack node could speak CoAP directly to a local resource, but the class system uses MQTT because the broker decouples the dashboard, the Python service, and the node. The comparison is the skill: choose the protocol for the topology, not the fashion.
+
 ### Pointers (start here, then keep looking)
 
 - MQTT — [mqtt.org](https://mqtt.org/), [MQTT 5.0 specification](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)
+- CoAP — [RFC 7252](https://www.rfc-editor.org/rfc/rfc7252), [coap.technology](https://coap.technology/)
 - A practical guide — [HiveMQ: MQTT essentials](https://www.hivemq.com/mqtt-essentials/)
 - Node-RED — [Node-RED documentation](https://nodered.org/docs/)
 - Python — [`paho-mqtt` documentation](https://eclipse.dev/paho/files/paho.mqtt.python/html/index.html)
@@ -79,6 +95,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 - "Design an MQTT topic hierarchy for a warehouse with several zones, sensors, and actuators. Justify the levels and the command/state split."
 - "Why is a pub/sub broker more maintainable than direct HTTP connections between sensors and dashboards? Give the failure modes of each."
 - "My Python subscriber misses messages when it restarts. Which MQTT features fix this, and what are their limits?"
+- "Compare MQTT and CoAP for a battery-powered sensor behind a lossy link. Which would you choose, and what changes if the dashboard needs the last value on connect?"
 
 > Run each prompt against your own broker and clients, and record where the model is wrong, vague, or over-confident.
 
@@ -109,7 +126,7 @@ Pair with a **neighbouring pod**:
 ## 🛠️ In-Class Lab: Building the Integration Engine — **Challenging**
 
 ### ★ Task 1: Exploring QoS, Retain & LWT with MQTT Explorer
-1. Open MQTT Explorer or `mosquitto_sub` on your laptop, connecting to your OpenWrt broker (`192.168.8.1:1883` or via your Nebula IP).
+1. Open MQTT Explorer or `mosquitto_sub` on your laptop, connecting to your OpenWrt broker (`192.168.14.1:1883` or via your Nebula IP).
 2. Connect an M5Stack node configured with an LWT topic:
    ```text
    Status Topic: devices/m5node-01/status
@@ -121,7 +138,10 @@ Pair with a **neighbouring pod**:
 5. Watch how many seconds pass before the broker detects the missing TCP keep-alive (PINGREQ) and automatically fires the LWT `offline` payload!
 
 ### ★ Task 2: Visual Integration with Node-RED
-1. Open Node-RED on your OpenWrt gateway (`http://192.168.8.1:1880`).
+1. Open your Node-RED — the class integration host (Optiplex cluster) or your own laptop, **not the router**. The address is on the board; a local install is `http://localhost:1880`.
+
+   > **No admin rights?** Use the class host. Do not install Node-RED on a company laptop, and never install it on the router.
+
 2. Build an intelligent thermostat/alarm flow:
    - Input: MQTT subscriber on `devices/+/temp`.
    - Function Node: Parse the JSON payload `{"temp": float, "battery": int}`. If `temp > 28.0`, trigger an alarm state.
@@ -129,19 +149,19 @@ Pair with a **neighbouring pod**:
    - Output 2: Node-RED Dashboard Gauge and Alert notification banner.
 3. Test the flow by publishing simulated values via terminal:
    ```bash
-   mosquitto_pub -h 192.168.8.1 -t "devices/sensor1/temp" -m '{"temp": 29.5, "battery": 92}'
+   mosquitto_pub -h 192.168.14.1 -t "devices/sensor1/temp" -m '{"temp": 29.5, "battery": 92}'
    ```
 4. Verify the dashboard triggers and the control topic receives the command.
 
 ### ★ Task 3: Programmatic Integration with Python & `paho-mqtt` / IoTknit
-Instead of putting all logic in Node-RED, modern production systems often use lightweight Python background services or IoTknit to bridge systems, write to databases, or handle custom business logic. Set up the pinned environment once with `uv add paho-mqtt` (see the [resource bank](./Z-resources-bank.md#python-environment-with-uv-optional)); run scripts with `uv run python <script>.py`.
+Instead of putting all logic in Node-RED, modern production systems often use lightweight Python background services or IoTknit to bridge systems, write to databases, or handle custom business logic. The **laptop path** uses the pinned `uv` environment with `uv add paho-mqtt` (see the [resource bank](./Z-resources-bank.md#python-environment-with-uv-optional)); run scripts with `uv run python <script>.py`.
 
 1. Create a Python script `iot_bridge.py`:
    ```python
    import json
    import paho.mqtt.client as mqtt
 
-   BROKER = "192.168.8.1"  # Or your Nebula IP
+   BROKER = "192.168.14.1"  # Or your Nebula IP
    PORT = 1883
 
    def on_connect(client, userdata, flags, rc):
@@ -181,12 +201,15 @@ Instead of putting all logic in Node-RED, modern production systems often use li
    - Turn on your physical M5Stack node publishing to the same topic structure.
    - Notice how neither Node-RED nor the Python bridge care whether the message originated from a mock script or a real M5Stack device!
 
+**Router path — MicroPython.** The router is a good place for a small integration service: it already runs the broker and sits on the pod LAN. Use MicroPython with `umqtt.simple`/`umqtt.robust`; a MicroPython port of IoTknit is planned but not yet a supported path. The service can subscribe to `devices/+/env`, apply a threshold, and publish `alerts/temperature` without a laptop. Keep it small: the Cudy has 128 MB RAM and 16 MB flash (extroot), so this is a service, not a Node-RED replacement.
+
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. MQTT Architecture Diagram: Diagram your pub/sub flow showing the M5Stack node, OpenWrt broker, Node-RED flow, and Python bridge.
+1. MQTT Architecture Diagram: Diagram your pub/sub flow showing the M5Stack node, OpenWrt broker, Node-RED flow (class host/laptop), and Python or MicroPython bridge.
 2. QoS and LWT Protocol Analysis: In your own words, describe what happens at the network packet level when an MQTT client with LWT drops off the network without sending a `DISCONNECT` packet.
-3. Integration Code & Flow: Commit your Python script and export your Node-RED flow JSON into your portfolio repository.
+3. Integration Code & Flow: Commit your Python script and export your Node-RED flow JSON into your portfolio repository. If you took the router path, include the MicroPython service instead.
 4. Deeper question: Why is decoupling publishers from subscribers essential for scaling an IoT deployment across multiple teams and microservices?
+5. Protocol choice: one paragraph comparing MQTT, CoAP, and HTTP for your system — and why the broker wins here.
 
 
 > [!IMPORTANT]
@@ -198,7 +221,9 @@ Instead of putting all logic in Node-RED, modern production systems often use li
 - [HiveMQ: MQTT essentials](https://www.hivemq.com/mqtt-essentials/) — the readable guide to topics, QoS, retain, and LWT.
 - [Node-RED documentation](https://nodered.org/docs/) — flows, context, and dashboards.
 - [`paho-mqtt` documentation](https://eclipse.dev/paho/files/paho.mqtt.python/html/index.html) — the Python client.
+- [CoAP (RFC 7252)](https://www.rfc-editor.org/rfc/rfc7252) — the constrained-device alternative to MQTT.
 - [IoTknit](https://github.com/iotempire/iotknit) — the IoTempire integration helper used in the lab.
+- [MicroPython `umqtt`](https://github.com/micropython/micropython-lib/tree/master/micropython/umqtt.simple) — the small MQTT client for the router path.
 
 ---
 

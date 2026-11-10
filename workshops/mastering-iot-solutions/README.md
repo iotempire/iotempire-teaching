@@ -22,10 +22,9 @@ Connect your laptop or tablet to the workshop Wi-Fi:
 - **Password:** `iotempire`
 
 ### 2. Open Your Team's Node-RED Instance
-Each team has a private, isolated Node-RED instance running in a container on the instructor's PC. It is reachable only from the workshop network — no cloud and no Tailscale:
-- **URL:** `http://<instructor-ip>:18nn/` — replace `nn` with your pod number, e.g. `1801` for Pod 01. The exact address is on the board/projector.
-- **Username:** `admin`
-- **Password:** on the sticky note at your table.
+Your team's Node-RED instance runs on the class integration host (the Optiplex cluster when it is ready) or on your own laptop with admin rights. It is **not** on the router. It is reachable only from the workshop network — no cloud and no Tailscale:
+- **URL:** the address on the board/projector (`http://<class-host>:18nn/`), or `http://localhost:1880` if you installed it yourself. Replace `nn` with your pod number.
+- **Username / password:** the credentials on the board; for a local install, the ones you set.
 
 ### 3. Your First Flow: Inject -> Debug
 1. Find the **inject** node in the left palette and drag it onto the canvas.
@@ -151,7 +150,7 @@ Now let's build an interactive user interface using **Dashboard 2.0** (`@flowfus
    - Label it `"Room Temperature"`.
 5. Click **Deploy**.
 6. Open your dashboard in another browser tab:
-   `http://<instructor-ip>:18nn/dashboard/`.
+   `http://<class-host>:18nn/dashboard/`.
 7. Pinch the Dallas sensor head with warm fingers and watch the needle rise and the history line chart draw live!
 
 ### 2. Classroom Heatmap (Wildcard Aggregation)

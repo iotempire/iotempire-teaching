@@ -22,7 +22,8 @@ this page is what you prepare before the session.
   fetch from GitHub, and 16 MB of flash will not take a package install.
 - [ ] Run **one router bundle end to end yourself** before class — that is the path
   most pods take, and the one that can eat the session.
-- [ ] USB sticks for extroot handed out **before** this session.
+- [ ] USB sticks for extroot are handed out and set up in **Module 2**; verify
+  `df -h /overlay` shows the stick before this session.
 
 ## Handing out
 

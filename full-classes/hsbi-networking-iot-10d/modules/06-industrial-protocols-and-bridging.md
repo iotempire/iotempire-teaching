@@ -61,8 +61,39 @@ Standard Ethernet and Wi-Fi are best-effort: CSMA/CD and CSMA/CA allow collision
        |
        | JSON over MQTT (Port 1883)
        v
-[OpenWrt Broker / Node-RED / IoTempower Dashboard]
+[OpenWrt Broker]
+       |
+       | MQTT (local clients)
+       v
+[Node-RED (class host/laptop) / IoTempower Dashboard]
 ```
+
+### 4. Fieldbuses in the ISO/OSI Model
+
+The module handbook asks you to place fieldbuses in the ISO/OSI model. The point is not to memorize a stack; it is to see which layers a bus actually occupies.
+
+| Technology | Physical | Data link | Network / transport | Application | What it means in practice |
+|---|---|---|---|---|---|
+| Modbus RTU over RS-485 | RS-485 twisted pair, multi-drop | Modbus serial framing, CRC16 | — | Modbus function codes/registers | One master polls many slaves; no IP, no routing |
+| Modbus TCP | Ethernet | Ethernet MAC | TCP/IP (port 502) | Modbus function codes/registers | Same register model, now routable |
+| OPC-UA | Ethernet/Wi-Fi/TSN | Ethernet/Wi-Fi | TCP/IP or WebSocket; Pub/Sub over UDP/TSN | OPC-UA information model, services, security | The upper layers carry the semantics; the lower layers are transport |
+| CAN / CANopen | Differential bus | CAN arbitration and framing | — (CANopen adds profiles) | CANopen objects | Multi-master, priority arbitration, automotive/machinery |
+| Profinet / EtherCAT | Ethernet | Real-time Ethernet | — (cyclic frames) | Application profile | Deterministic factory control |
+| TSN | Ethernet | IEEE 802.1 time-aware shaping | — | — | Bounded latency for converged IT/OT traffic |
+
+> **How to read the table.** RS-485/Modbus RTU is a fieldbus in the classic sense: physical + data link + application, with no network layer. Modbus TCP keeps the application model and borrows TCP/IP. OPC-UA lives in the upper layers and uses the lower layers as transport. TSN is a Layer-2 mechanism that makes Ethernet deterministic for the layers above.
+
+### 5. Choosing a Bus: What Actually Matters
+
+| Bus / family | Topology and media | Typical speed / range | Determinism | Best fit |
+|---|---|---|---|---|
+| RS-485 / Modbus RTU | Multi-drop twisted pair, half-duplex | 9.6–115.2 kbit/s over long runs; higher over short runs | Polling; predictable but not hard real-time | Meters, PLCs, retrofits over existing wiring |
+| CAN / CANopen | Differential bus, multi-master | Up to 1 Mbit/s, short bus | Priority arbitration; deterministic enough for control | Vehicles, mobile machinery, embedded control |
+| Profinet / EtherCAT | Ethernet, line/ring/star | 100 Mbit/s and up, short cycles | Cyclic real-time; vendor-specific | Factory automation, motion control |
+| TSN | Ethernet, star/ring | 1 Gbit/s and up | Scheduled traffic, bounded latency | Converged IT/OT, time-critical Ethernet |
+| MQTT over TCP/IP | Any IP link | Network-limited | Best-effort; QoS is delivery, not latency | Telemetry, dashboards, cloud/edge integration |
+
+> **The design question.** Choose the bus for the *physical and timing* requirements first, then choose the integration protocol. A factory cell may keep Modbus RTU on the machine and add an MQTT bridge at the edge; that is cheaper and safer than replacing the certified control loop.
 
 ### Pointers (start here, then keep looking)
 
@@ -152,7 +183,7 @@ import time, json
 from pymodbus.client import ModbusTcpClient
 import paho.mqtt.client as mqtt
 
-MQTT_BROKER = "192.168.8.1"
+MQTT_BROKER = "192.168.14.1"
 MODBUS_HOST = "localhost"
 MODBUS_PORT = 5020
 
@@ -192,11 +223,12 @@ Run the bridge and verify in Node-RED or MQTT Explorer that the industrial regis
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. Protocol Translation Matrix *(recommended)*: Compare Modbus TCP, OPC-UA, and MQTT:
+1. Protocol Translation & Bus Map *(recommended)*: Compare Modbus TCP, OPC-UA, and MQTT:
    - Data model (registers vs. objects/tags vs. topic payloads)
    - Read/Write model (polling vs. events/pub-sub)
    - Security features
    - Primary deployment domain
+   - Add the ISO/OSI layers each protocol occupies, and the bus comparison (RS-485, CAN, Profinet/EtherCAT, TSN)
 2. Real-Time Question *(recommended)*: Why cannot standard Wi-Fi or standard TCP/IP be used for microsecond-precise motion control in a factory, and how does TSN address this?
 3. *(Optional)* Bridge Architecture & Code: Include your bridge script and a diagram showing how the edge gateway bridges the factory domain to the IT/IoT domain.
 4. *(Optional stretcher)* Real RS-485/Modbus: If you have an RS-485 device, document reading it (physical layer, wiring, adapter, registers) and bridging it to MQTT.

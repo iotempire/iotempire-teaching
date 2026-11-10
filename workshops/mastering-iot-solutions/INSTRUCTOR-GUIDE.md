@@ -15,9 +15,9 @@ graph LR
 ```
 
 ### Core Didactical Principle: Hardware-First, Zero-Install
-Participants do **not** spend the first hour installing drivers, toolchains, or Python environments.
+Participants do **not** spend the first hour installing drivers, toolchains, or Python environments when they use the class integration host; a local Node-RED install is the fallback, not the default.
 - Microcontrollers (**M5StickC**) are pre-provisioned using [IoTempower](https://iotempower.us).
-- Teams log into pre-configured **Node-RED** containers hosted on the instructor PC.
+- Teams log into pre-configured **Node-RED** instances on the class integration host (the Optiplex cluster) or their own laptops; the instructor PC's containers are one hosting option, not a requirement. Node-RED never runs on the router.
 - Within 10–15 minutes of entering the room, participants are triggering MQTT messages and seeing physical hardware react.
 
 ### Organic Cadence (~90 Minutes Baseline + Open Exploration)
@@ -40,9 +40,9 @@ Avoid rigid time blocks or artificial school bells. Treat the workshop as an **o
     - `iotempire-b1300` (2.4 GHz, for M5StickC nodes and non-5G devices)
     - Password for both: **`iotempire`**
   - *Network Note on Linux Hotspots:* Running a software AP on a laptop for 20+ clients is prone to dropouts under Linux unless using specialized Atheros or older Realtek USB network cards (the only chipsets handling dense multi-client traffic reliably). A dedicated external router avoids Wi-Fi congestion entirely.
-- **1× Instructor PC:**
-  - Runs the 15 Node-RED containers and the IoTempower CLI.
-  - Container engine: **Podman** (rootless) or **Docker**.
+- **1× Class integration host (Optiplex cluster, or the instructor PC as a fallback):**
+  - Runs the Node-RED instances and the IoTempower CLI. Containers are one hosting option; a native Node-RED install is fine.
+  - Container engine, if used: **Podman** (rootless) or **Docker**.
   - The MQTT broker runs on the classroom router (`192.168.114.1:1883`); this PC does not need to run mosquitto for the workshop.
   - **IoTempower** framework installed (`iot` CLI in path, see [iotempower.us](https://iotempower.us)).
   - HDMI connection to projector.
@@ -153,7 +153,7 @@ The parent directory contains **`system.conf`** with the workshop Wi-Fi credenti
      Write it on the board. Do not project `state/access-table.md` or the
      orchestrator's terminal output — both contain the passwords.
      - Wi-Fi: `iotempire-b1300-5g` (password: `iotempire`).
-     - URL: `http://<instructor-ip>:18nn/`.
+     - URL: `http://<class-host>:18nn/`.
      - Login: `admin` / the password on each pod's sticky note.
    - Hand out the pod passwords on sticky notes. Do not project the password
      table or the rule behind it; in past editions, participants used a visible
@@ -203,7 +203,7 @@ The parent directory contains **`system.conf`** with the workshop Wi-Fi credenti
 
 ### Stage 4: Dashboards & Room Aggregation (~25 min)
 1. Teams add **ui-gauge** and **ui-chart** nodes in Node-RED.
-2. Open the dashboard at `http://<instructor-ip>:18nn/dashboard/`.
+2. Open the dashboard at `http://<class-host>:18nn/dashboard/`.
 3. Teams pinch the sensor to watch live temperature rise.
 4. **Classroom Heatmap:**
    - Show the wildcard subscription `+/temp`.
@@ -223,7 +223,7 @@ For fast teams, 3-hour editions, or open labs, encourage teams to pick an explor
 | Symptom | Probable Cause | Action |
 |---|---|---|
 | Stick display stuck at Wi-Fi connect | 2.4 GHz vs 5 GHz mismatch | Ensure router broadcasts 2.4 GHz `iotempire-b1300` (ESP32 does not support 5 GHz Wi-Fi). |
-| Students cannot open the Node-RED URL | Wrong IP or firewall | Give the numeric address: `http://<instructor-ip>:18nn/`; open the Node-RED ports if the orchestrator reported an active firewall. |
+| Students cannot open the Node-RED URL | Wrong IP or firewall | Give the numeric address: `http://<class-host>:18nn/`; open the Node-RED ports if the orchestrator reported an active firewall. |
 | Node-RED shows `Disconnected` on broker | Broker address misconfigured | Use `broker.internal` (mapped by the orchestrator) or `192.168.114.1`, not `127.0.0.1`. |
 | Temperature reads `-127` or `85` | Sensor not connected or wrong pin | Grove protoboard: check it is fully seated (GPIO32). Bare sensor: check the `G26` jumper and `GND`. `-127` means disconnected bus. |
 | Student broke their flow | Accidental deletion | Re-import from [`sample-flows.json`](./instructor-tools/sample-flows.json) via Menu -> Import. |

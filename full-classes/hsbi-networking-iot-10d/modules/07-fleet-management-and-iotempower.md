@@ -124,7 +124,7 @@ Pair with a **neighbouring pod**:
    # Configure Wi-Fi and MQTT broker
    wifi_ssid="IoTempire-Lab"
    wifi_password="class-password"
-   mqtt_broker="192.168.8.1"
+   mqtt_broker="192.168.14.1"
    ```
 
 ### ★ Task 2: Declarative Node Definition for M5Stack
@@ -179,7 +179,7 @@ Now, unplug the USB cable! Power the node from a battery pack or standard USB wa
    - `node1/btn` publishes `pressed` / `released`.
    - `node1/temp` publishes `23.4`.
    - `node2/relay/set` accepts `ON` / `OFF`.
-3. In Node-RED, create a simple integration link:
+3. In your Node-RED (class host or laptop), create a simple integration link:
    - When `node1/btn` is `pressed`, publish `ON` to `node2/relay/set`.
 4. Congratulations: You have built a fully declarative, wirelessly updatable, networked fleet!
 
