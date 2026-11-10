@@ -179,8 +179,9 @@ Now, unplug the USB cable! Power the node from a battery pack or standard USB wa
    - `node1/btn` publishes `pressed` / `released`.
    - `node1/temp` publishes `23.4`.
    - `node2/relay/set` accepts `ON` / `OFF`.
-3. In your Node-RED (class host or laptop), create a simple integration link:
+3. In your Node-RED (class host or laptop) or with `mosquitto_sub`/`mosquitto_pub`, create a simple integration link:
    - When `node1/btn` is `pressed`, publish `ON` to `node2/relay/set`.
+   - No Node-RED? Subscribe to `node1/btn` in one terminal and publish to `node2/relay/set` in another; the logic is the same.
 4. Congratulations: You have built a fully declarative, wirelessly updatable, networked fleet!
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)

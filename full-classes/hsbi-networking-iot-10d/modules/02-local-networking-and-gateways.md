@@ -198,7 +198,7 @@ Pair with a **neighbouring pod**:
 | Local broker | `mosquitto` on `192.168.14.1:1883`, anonymous, no TLS |
 | B1300 fallback / outside | `192.168.114.0/24` |
 
-> **The order is a suggestion.** The tasks are a path, not a timetable. If your pod's eduroam association fails, switch to phone tethering or the B1300 wire and come back; if you finish early, do the two-pod chain or the Nebula preview. **The instructor demos the risky steps live on the beamer** — flashing, extroot, the eduroam join, and one capture — so ask for the demo you need instead of waiting with a broken step. Rotate roles after each task; everybody should flash or configure at least one piece. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
+> **The order is a suggestion.** The tasks are a path, not a timetable. If your pod's eduroam association fails, switch to phone tethering or the B1300 wire and come back; if you finish early, do the two-pod chain, the SSH-tunnel stretcher, or the Nebula preview. **The instructor demos the risky steps live on the beamer** — flashing, extroot, the eduroam join, and one capture — so ask for the demo you need instead of waiting with a broken step. Rotate roles after each task; everybody should flash or configure at least one piece. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
 ### ★ Task 1: Flash OpenWrt — from factory to your router
 
@@ -215,7 +215,7 @@ Pair with a **neighbouring pod**:
 
 ### ★ Task 2: Extroot — give the router room
 
-The Cudy has 16 MB of flash; the writable overlay is small. Nebula and `tshark` will not fit there; the phone-tether drivers may, but the stick gives you room. Move the overlay to the USB stick now, before it becomes an error message. The full recipe lives in the [resource bank](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card); this is the class path.
+The Cudy has 16 MB of flash; the writable overlay is small. Nebula and `tshark` will not fit there; the phone-tether drivers may, but the stick gives you room — including for the MicroPython integration service in Module 4. Move the overlay to the USB stick now, before it becomes an error message. The full recipe lives in the [resource bank](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card); this is the class path.
 
 1. **Insert the stick through the hub.** Check that it is seen: `logread | grep -i usb`, `ls /dev/sd*`, `block info`. Confirm the device name; it is usually `/dev/sda` or `/dev/sda1`.
 2. **Install the storage packages.** On 24.10: `apk update && apk add block-mount kmod-fs-ext4 kmod-usb-storage e2fsprogs`. On 23.05: `opkg update && opkg install block-mount kmod-fs-ext4 kmod-usb-storage e2fsprogs`. If the stick does not show up at all, add `kmod-usb2` (`apk add`/`opkg install`) and check `logread`.
@@ -388,7 +388,41 @@ Connect two routers in series: Router B's LAN feeds Router A's WAN. Use differen
 
 *Portfolio evidence:* the double-NAT diagram, the two captures, and three sentences on what double NAT hides.
 
-### ◇ Task 10 (Stretcher): Nebula preview
+### ◇ Task 10 (Stretcher): SSH tunnels — the poor man's overlay
+
+You already use SSH to administer the router. SSH can also carry other TCP traffic. This is a one-off tunnel, not a mesh; it is the bridge between today's port forwarding and tomorrow's overlay. The full cheat sheet is in the [resource bank](./Z-resources-bank.md#ssh--tunneling).
+
+1. **Local forward.** On your laptop, forward a local port to the broker through the router:
+   ```bash
+   ssh -L 1883:192.168.14.1:1883 root@192.168.14.1
+   ```
+   In another terminal: `mosquitto_sub -h localhost -p 1883 -t '#' -v`. The broker is now on `localhost:1883` on your laptop.
+2. **Remote forward.** If your laptop can reach the router but the class host cannot, open a door from the router to the class host:
+   ```bash
+   ssh -R 11883:192.168.14.1:1883 <user>@<class-host>
+   ```
+   On the class host: `mosquitto_sub -h localhost -p 11883 -t '#' -v`. The connection is initiated from the router; no inbound port on the router is needed.
+3. **Dynamic forward.** `ssh -D 1080 <user>@<class-host>` gives you a SOCKS proxy on `localhost:1080`; point a browser or `curl --socks5 localhost:1080` at it. Useful for a quick encrypted path, not for a fleet.
+4. **Jump host.** `ssh -J root@192.168.14.1 <user>@<inner-host>` reaches a device behind the router without a separate tunnel command.
+5. **Make it repeatable.** Put the forward in `~/.ssh/config`:
+   ```text
+   Host pod
+       HostName 192.168.14.1
+       User root
+       LocalForward 1883 192.168.14.1:1883
+       ServerAliveInterval 30
+   ```
+6. **Harden it.** Use keys, not passwords; `PermitRootLogin prohibit-password`; keep `AllowTcpForwarding yes`; `GatewayPorts no`; and use `PermitOpen` to limit destinations. On the router, edit `/etc/ssh/sshd_config` and restart the SSH service.
+7. **Compare with Nebula.** SSH is TCP-only, one tunnel per session, hand-built, and has no peer discovery. Nebula gives every node an address and a policy, carries UDP, and survives NAT changes. What does the SSH tunnel give you that port forwarding does not? What does it still lack?
+
+> **Story hook.** *The door that opens from the inside.* The router can call out to the class host; the class host cannot call in. `ssh -R` is the door Malik can open without asking the campus firewall.
+
+> [!TIP]
+> A local forward binds to `localhost` by default. Do not add `-g` or set `GatewayPorts` unless you really want other machines to reach the forwarded port; an open broker is exactly the door we closed in Task 7.
+
+*Portfolio evidence:* a terminal screenshot of the tunnel and the MQTT message, plus a short table comparing SSH tunneling, port forwarding, and Nebula.
+
+### ◇ Task 11 (Stretcher): Nebula preview
 
 If your extroot, LAN, and broker are solid and you are breezing through, ask the instructor for your Module 3 bundle. Read its `README.txt`, find the lighthouse in `static_host_map`, and — only if the instructor hands you a bundle — follow **Module 3 Task 1** on your router. Bring the result to Day 3; Module 3 will still explain the why, the cross-NAT test, and the certificate model. This is a preview, not a replacement: do not commit the bundle, the key, or the config.
 
@@ -410,7 +444,7 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 2. **The plumbing (goal 2):** a DHCP DORA capture, an ARP request/reply, a DNS query/response, `ip neigh`, the DHCP lease, and the NAT/port-forward analysis with both sides of the capture.
 3. **OpenWrt (goal 3):** the flash evidence (model, OpenWrt version, verified SHA-256, stock → OpenWrt addresses), the extroot `df -h /overlay` before/after, the UCI/firewall excerpts you are willing to publish, the `## Router baseline`, and the `## Take it home` check.
 4. **Capture at the choke point (goal 4):** the pcap or the `tshark`/`tcpdump -A` text, one sentence per protocol, and a note on why the router sees traffic that a laptop cannot.
-5. **Optional:** the two-pod double-NAT diagram, the Nebula preview note, or your harvest and story-seed list.
+5. **Optional:** the two-pod double-NAT diagram, the SSH-tunnel comparison, the Nebula preview note, or your harvest and story-seed list.
 
 > [!IMPORTANT]
 > Never commit router passwords, eduroam credentials, Wi-Fi keys, private keys, configuration backups, or captures containing other people's traffic. Redact MAC addresses, serial numbers, and public IPs before you publish. The eduroam credential is a personal credential; remove it or reset the router at the end of the course.

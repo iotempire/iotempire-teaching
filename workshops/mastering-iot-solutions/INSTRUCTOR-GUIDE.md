@@ -15,9 +15,9 @@ graph LR
 ```
 
 ### Core Didactical Principle: Hardware-First, Zero-Install
-Participants do **not** spend the first hour installing drivers, toolchains, or Python environments when they use the class integration host; a local Node-RED install is the fallback, not the default.
+The Master Class runs on the classroom Node-RED fleet: participants do **not** spend the first hour installing drivers, toolchains, or Python environments. This is the fast path for Day 1 only; Module 4 hands over to student-owned Node-RED.
 - Microcontrollers (**M5StickC**) are pre-provisioned using [IoTempower](https://iotempower.us).
-- Teams log into pre-configured **Node-RED** instances on the class integration host (the Optiplex cluster) or their own laptops; the instructor PC's containers are one hosting option, not a requirement. Node-RED never runs on the router.
+- Teams log into the pre-provisioned **Node-RED** containers started by `classroom-nodered.sh` on the class host. This is the Master Class fast path; Module 4 hands over to student-owned Node-RED on the class host or a laptop. Node-RED never runs on the router.
 - Within 10–15 minutes of entering the room, participants are triggering MQTT messages and seeing physical hardware react.
 
 ### Organic Cadence (~90 Minutes Baseline + Open Exploration)
@@ -41,8 +41,8 @@ Avoid rigid time blocks or artificial school bells. Treat the workshop as an **o
     - Password for both: **`iotempire`**
   - *Network Note on Linux Hotspots:* Running a software AP on a laptop for 20+ clients is prone to dropouts under Linux unless using specialized Atheros or older Realtek USB network cards (the only chipsets handling dense multi-client traffic reliably). A dedicated external router avoids Wi-Fi congestion entirely.
 - **1× Class integration host (Optiplex cluster, or the instructor PC as a fallback):**
-  - Runs the Node-RED instances and the IoTempower CLI. Containers are one hosting option; a native Node-RED install is fine.
-  - Container engine, if used: **Podman** (rootless) or **Docker**.
+  - Runs `classroom-nodered.sh` (the Master Class fleet) and the IoTempower CLI.
+  - Container engine for the fleet: **Podman** (rootless) or **Docker**.
   - The MQTT broker runs on the classroom router (`192.168.114.1:1883`); this PC does not need to run mosquitto for the workshop.
   - **IoTempower** framework installed (`iot` CLI in path, see [iotempower.us](https://iotempower.us)).
   - HDMI connection to projector.
@@ -94,6 +94,8 @@ The parent directory contains **`system.conf`** with the workshop Wi-Fi credenti
    Repeat for each stick (`02`, `03`, ...). Once initially flashed and connected to Wi-Fi, **all future firmware updates are done Over-The-Air (OTA) without USB!**
 
 ### Launching the Broker and Node-RED Containers
+
+This is the Master Class path. Later modules use student-owned Node-RED; do not plan the course around the classroom fleet.
 
 1. **Verify the MQTT broker (it runs on the classroom router).**
    The B1300 is the broker for the room; the instructor PC does not run

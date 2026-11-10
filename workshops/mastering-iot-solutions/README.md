@@ -22,9 +22,9 @@ Connect your laptop or tablet to the workshop Wi-Fi:
 - **Password:** `iotempire`
 
 ### 2. Open Your Team's Node-RED Instance
-Your team's Node-RED instance runs on the class integration host (the Optiplex cluster when it is ready) or on your own laptop with admin rights. It is **not** on the router. It is reachable only from the workshop network — no cloud and no Tailscale:
-- **URL:** the address on the board/projector (`http://<class-host>:18nn/`), or `http://localhost:1880` if you installed it yourself. Replace `nn` with your pod number.
-- **Username / password:** the credentials on the board; for a local install, the ones you set.
+For the Master Class, your team gets one of the pre-provisioned Node-RED containers started by `classroom-nodered.sh` on the class host. It is today's fast path — later you will install and use your own Node-RED. It is **not** on the router. It is reachable only from the workshop network — no cloud and no Tailscale:
+- **URL:** the address on the board/projector (`http://<class-host>:18nn/`). Replace `nn` with your pod number.
+- **Username / password:** the credentials on the board; the container fleet uses the class password.
 
 ### 3. Your First Flow: Inject -> Debug
 1. Find the **inject** node in the left palette and drag it onto the canvas.

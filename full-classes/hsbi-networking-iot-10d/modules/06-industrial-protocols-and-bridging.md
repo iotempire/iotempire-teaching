@@ -3,9 +3,9 @@
 [← Back to Module 5](./05-wireless-technologies-and-espnow.md) | [Quick module index](./00-index.md) | [Next: Module 7 →](./07-fleet-management-and-iotempower.md)
 
 > [!NOTE]
-> Mostly conceptual — industrial hardware is usually unavailable. We normally do not have industrial gear (PLCs, Modbus meters, OPC-UA servers) in the lab, so this module is primarily a conceptual tour. Hands-on work is optional and mostly simulated; real RS-485 devices (if we have any) are the closest genuine Modbus experience. Learn what these protocols *are* and how they would bridge into IoT — you are not expected to own a factory.
+> **Short and dry on purpose.** We do not have an industrial lab. The module is one video, one discussion, one RS-485/Modbus demo if the hardware is there, and an EtherCAT guest slot if we can get one. The rest of the page is a reference map for the handbook, not a lecture. You are not expected to own a factory.
 
-**Course placement:** Day 6 — the industrial-interoperability studio. Mostly conceptual; the bridge lab is optional and simulated.
+**Course placement:** Day 6 — a short industrial-interoperability briefing: watch, discuss, one RS-485/Modbus demo, an EtherCAT guest slot, and an optional Python wrapper.
 
 ## 🎯 Learning Goals
 
@@ -15,7 +15,7 @@ By the end of this module, you can:
 1. Explain why Modbus and OPC-UA dominate industrial automation, factory floors, and energy grids.
 2. Describe the principles of deterministic industrial networking, field buses (RS-485, CAN, Profinet), and Time-Sensitive Networking (TSN).
 3. Contrast the register/tag-based industrial paradigm with the topic-based pub/sub model of modern IoT.
-4. *(Optional)* Build a simulated Industrial-to-IoT Edge Bridge in Python or Node-RED that translates Modbus/OPC-UA into MQTT telemetry.
+4. *(Optional)* Build a small Modbus-to-MQTT wrapper in Python that translates a register into MQTT telemetry.
 
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
@@ -24,11 +24,26 @@ By the end of this module, you can:
 
 **Brinkmann Maschinenbau GmbH** has a working test rig and a problem that will be familiar to anyone who has walked into a factory: the energy meter on the rig speaks Modbus RTU over RS-485, the PLC speaks Modbus TCP, the company's new monitoring platform speaks MQTT with JSON, and nobody wants to touch the certified PLC code.
 
-Automation engineer **Sofia Roth** needs a non-invasive bridge: read the meter's registers, map them to meaningful names and units, and publish them into the local IoT fabric without changing the machine. She also needs to explain why a microsecond-precise motion loop cannot run over ordinary Wi-Fi. Today you learn the industrial vocabulary — Modbus, OPC-UA, RS-485, TSN — and build a simulated bridge that translates a register world into a topic world.
+Automation engineer **Sofia Roth** needs a non-invasive bridge: read the meter's registers, map them to meaningful names and units, and publish them into the local IoT fabric without changing the machine. She also needs to explain why a microsecond-precise motion loop cannot run over ordinary Wi-Fi. Today you learn the industrial vocabulary — Modbus, OPC-UA, RS-485, TSN — and see the wrapper that translates a register world into a topic world.
+
+## 🎬 Watch & Discuss — the quick path
+
+This module is deliberately short and dry. Watch one video, discuss the three questions, and use the rest of the page as a reference map.
+
+- **Modbus, the essential one** — [RealPars: What is Modbus and How does it Work?](https://www.youtube.com/watch?v=txi2p5_OjKU) — RTU over RS-485, the register model, master/slave.
+- **EtherCAT, the interesting contrast** — [RealPars: What is EtherCAT?](https://www.youtube.com/watch?v=tYAl2jkaB8Q) — the Ethernet fieldbus, on-the-fly processing, deterministic cycles.
+- **Two-minute vocabulary** — [Fieldbus Explained in 2 Minutes](https://www.youtube.com/watch?v=G-M3YmkMcZk) — if you want the terms before the longer videos.
+
+**Discuss in your pod:**
+1. What does Modbus add on top of RS-485, and what does it still not give you?
+2. Why does EtherCAT process frames differently from Modbus TCP, and what does that buy a motion-control loop?
+3. Where does the wrapper between the fieldbus and MQTT sit — and what do you lose if you remove it?
+
+If the videos are unavailable, use the Modbus/EtherCAT organization pages and the diagrams below; the discussion is the point.
 
 ## 📖 Pod Study: Industrial Communication vs. Modern IoT
 
-This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint. **The video and the discussion are the quick path; the sections below are a reference map.**
 
 ### 1. The Legacy Factory Floor: Modbus (RTU & TCP)
 Developed in 1979 by Modicon, Modbus is still the most ubiquitous protocol in industrial sensors, PLCs, solar inverters, and power meters:
@@ -65,7 +80,7 @@ Standard Ethernet and Wi-Fi are best-effort: CSMA/CD and CSMA/CA allow collision
        |
        | MQTT (local clients)
        v
-[Node-RED (class host/laptop) / IoTempower Dashboard]
+[Node-RED (if available) / MQTT Explorer / IoTempower Dashboard]
 ```
 
 ### 4. Fieldbuses in the ISO/OSI Model
@@ -116,15 +131,31 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 > Run each prompt against a simulator, and record where the model is wrong, vague, or over-confident.
 
+## 🛠️ RS-485/Modbus in the Room — a short demo, not a lab
+
+If we have an RS-485 device and a USB-RS485 adapter, we do this together:
+
+1. Wire A, B, and GND; add termination only if the bus needs it; keep a common ground.
+2. Read one holding register with the vendor tool, `pymodbus`, or a small script.
+3. Publish that register as `factory/meter/power` with `mosquitto_pub` or a ten-line Python script.
+4. Discuss: **Modbus turns RS-485 into a bus; the wrapper turns a register into a topic.** If you can wire one RS-485 device, you can read Modbus; the wrapper is the part you will actually build.
+
+If the hardware is not there, the video and the register map are enough. The wrapper is the transferable skill.
+
+## 🏭 EtherCAT and the Test Device — guest slot
+
+EtherCAT is the useful counterexample: it keeps Ethernet's physical layer but processes frames **on the fly**, so one frame can visit many devices in a single cycle. That is why it can be deterministic at microsecond scale while Modbus TCP is not.
+
+If we can get a guest lecturer and the test device from upstairs, the slot is: the guest explains the device's parts and the EtherCAT topology, then you build your own small setup in the project studio. If not, use the EtherCAT video and the comparison table. The exam does not require you to own a test rig.
+
 ### ★ Task A: Study in your pod
 
-Work through the concepts above with your Task Pod and write it up under `## Study log` in `Module06/README.md` — a section, not a file, unless it outgrows the page. **One pod member keeps the shared log; the others link to that section from their own module README and add one sentence on what they took from it.**
+This is a short briefing, so keep the log short. Write it under `## Study log` in `Module06/README.md` — a section, not a file, unless it outgrows the page. **One pod member keeps the shared log; the others link to that section from their own module README and add one sentence on what they took from it.**
 
-1. **The references you used** — the source and the one concept you understood best from it.
-2. **Things you googled** — the term, what you found, and the source (URL). One line each.
-3. **Remarkable things** — surprises, "aha"s, and counterexamples from the industrial world.
-4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
-5. **Your two best found protocol/architecture diagrams** — compile down to the best two, with source and what they taught you.
+1. **The video you watched** (or the source you read) and the one concept you understood best from it.
+2. **Your answers to the three discussion questions** — one short paragraph each.
+3. **The one-page bus map** — place Modbus RTU, Modbus TCP, OPC-UA, EtherCAT, and TSN on the OSI layers; say which you would choose for a meter and for a motion axis, and why.
+4. **Optional:** one LLM claim you checked and where it was wrong.
 
 *Portfolio evidence:* the `## Study log` section (yours, or a link to your pod's shared one).
 
@@ -132,7 +163,7 @@ Work through the concepts above with your Task Pod and write it up under `## Stu
 
 Pair with a **neighbouring pod**:
 
-1. **Explain to each other** — each pod walks the other through its protocol-translation matrix and its bridge design; ask questions and fill each other's gaps.
+1. **Explain to each other** — each pod walks the other through its bus map and its wrapper sketch; ask questions and fill each other's gaps.
 2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"a register is not a variable; the bridge supplies the semantics"*).
 3. **Clean up your documentation** — update the `## Study log` with what you learned from the other pod.
 4. Agree on **one shared artefact** — the best translation matrix, a bridge diagram, or a simulated capture the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
@@ -142,7 +173,7 @@ Pair with a **neighbouring pod**:
 
 ## 🛠️ Optional Lab: Bridging Industry to the Cloud (simulated) — **Challenging (optional lab)**
 
-*No tedious C++ compilation on microcontrollers — and no industrial hardware required.* These are stretcher tasks: we implement clean, educational edge bridging on the gateway/laptop using Python and Node-RED, mostly against simulated Modbus/OPC-UA servers. If you have a real RS-485 device (for example a Modbus RTU meter) and a USB-RS485 adapter, that is the closest genuine experience and a strong Excellence Stretcher candidate.
+*No tedious C++ compilation on microcontrollers — and no industrial hardware required.* This is one optional stretcher: a small Python wrapper on a laptop, against a simulated Modbus server. There is no Node-RED dependency. If you have a real RS-485 device (for example a Modbus RTU meter) and a USB-RS485 adapter, that is the closest genuine experience and a strong Excellence Stretcher candidate.
 
 ### ◇ Task 1 (Stretcher): Simulating an Industrial Modbus Power Meter
 
@@ -209,17 +240,7 @@ while True:
     time.sleep(2)
 ```
 
-Run the bridge and verify in Node-RED or MQTT Explorer that the industrial registers now appear as real-time MQTT streams!
-
-### ◇ Task 3 (Stretcher): OPC-UA Integration in Node-RED
-*Alternatively or in addition, explore OPC-UA:*
-
-1. In Node-RED, install the OPC-UA palette: `node-red-contrib-opcua`.
-2. Connect to an OPC-UA demo server (e.g. `opc.tcp://opcuaserver.com:48010` or a local Python `asyncua` server).
-3. Browse the Address Space hierarchy:
-   `Root -> Objects -> Server -> ServerStatus -> CurrentTime`.
-4. Create an inject/read node in Node-RED that subscribes to variable changes and outputs them to the Node-RED UI dashboard.
-5. Create a reverse flow: A button on the Node-RED dashboard writes a setpoint value into an OPC-UA Variable Node!
+Run the bridge and verify in MQTT Explorer or `mosquitto_sub` that the industrial registers now appear as real-time MQTT streams!
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 

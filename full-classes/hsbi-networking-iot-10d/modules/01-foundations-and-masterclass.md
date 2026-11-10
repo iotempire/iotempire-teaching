@@ -172,17 +172,17 @@ Pair with a **neighbouring pod**:
 
 The hands-on part of today is the **[Mastering IoT Solutions](../../../workshops/mastering-iot-solutions/README.md)** workshop, which has its own workbook with the exact, click-by-click steps. **That workbook is the authoritative procedure** — follow it in order (Phases 1–5, then the open-ended explorations). This module does not repeat the steps; it gives you the story, the learning goal each phase proves, and the evidence to keep.
 
-> **The order is a suggestion.** The phases are a path, not a timetable. Take a different route if your pod can still prove the goals: stuck on wiring? do a flow task first. Finished the dashboard early? go back and measure the overhead. **The instructor demos pieces live in Node-RED** — ask for the demo you need instead of waiting for it — and write down what you changed and why. The checkpoint question is always *“what did you choose, and what did it cost you?”*
+> **The order is a suggestion.** The phases are a path, not a timetable. Take a different route if your pod can still prove the goals: stuck on wiring? do a flow task first. Finished the dashboard early? go back and measure the overhead. **When the class host is ready, the instructor can demo pieces live in Node-RED** — ask for the demo you need; if it is not available, the workbook and the sample flows are enough. Write down what you changed and why. The checkpoint question is always *“what did you choose, and what did it cost you?”*
 
 **Hardware, per pod:** 1× M5StickC (Plus/Plus2), 1× USB-C cable for power, and 1× Dallas DS18B20 sensor — either the pre-soldered Grove protoboard (default, no wiring) or a bare module with three jumper wires. Optional for fast pods: a Sensirion SCD4x (CO₂).
 
-> **Who owns the machine?** Your Node-RED runs on the class integration host — the Optiplex cluster when it is ready — or on your own laptop with admin rights. It does **not** run on the router: the router is the gateway and broker, not an application server. If you install Node-RED yourself, use `http://localhost:1880`; the workshop's click path is the same. Keep the shared-host failure mode in mind for Task 10.
+> **Who owns the machine?** For the Master Class, your Node-RED is one of the pre-provisioned containers from `classroom-nodered.sh` on the class host. It is today's fast path — not your project environment. By Module 4 you will install and use **your own** Node-RED on the class host or your laptop. It does **not** run on the router: the router is the gateway and broker, not an application server. Keep the shared-host failure mode in mind for Task 10.
 
 | What | Where to find it |
 |---|---|
 | Room Wi-Fi | `iotempire-b1300-5g` for your laptop, `iotempire-b1300` (2.4 GHz) for the sticks — password `iotempire` |
-| Your Node-RED | the address on the board (`http://<class-host>:18nn/`), or `http://localhost:1880` for your own install |
-| Login | the credentials on the board; for a local install, the ones you set |
+| Your Node-RED | the Master Class fleet on the class host — exact address and pod port on the board (`http://<class-host>:18nn/`) |
+| Login | the credentials on the board; the containers use the class password |
 | Broker | `broker.internal` → `192.168.114.1:1883` (classroom router), already configured |
 | Your node | the M5StickC labeled with your pod's two-digit ID — that ID is the first level of every topic |
 
@@ -190,9 +190,9 @@ The hands-on part of today is the **[Mastering IoT Solutions](../../../workshops
 
 ### ★ Task 3: First contact — hello, Node-RED
 
-Work through **Phase 1 of the [workshop workbook](../../../workshops/mastering-iot-solutions/README.md#phase-1-first-contact--hello-world-in-node-red)** (connect to the room Wi-Fi, open your own Node-RED, inject → debug, “Hello IoT!”).
+Work through **Phase 1 of the [workshop workbook](../../../workshops/mastering-iot-solutions/README.md#phase-1-first-contact--hello-world-in-node-red)** (connect to the room Wi-Fi, open your pod's Node-RED from the Master Class fleet, inject → debug, “Hello IoT!”).
 
-> **No admin rights, or a locked-down company laptop?** Use the class integration host; do not try to install Node-RED there, and never install it on the router.
+> **No admin rights, or a locked-down company laptop?** The Master Class container fleet handles this; for your own Node-RED later, use the class host. Never install Node-RED on the router.
 
 > **Story hook.** *The lamp test.* Before Petra trusts any dashboard, she wants one lamp in the control room to light when somebody presses a button in a basement. Cirrus Cloud Systems quoted four weeks and a service contract for exactly this.
 
@@ -214,7 +214,7 @@ Work through **Phase 2** (listen to `<id>/home`, toggle the onboard LED via `<id
 
 Build **Phase 3**: your button press toggles your **neighbour's** LED (`<neighbour-id>/led/set` — the pod sitting next to you; the last pod wraps around to the first). Then pull the chain once with the whole room.
 
-The instructor will bring **one link of the chain up live on the beamer** first, so you can see what “working” looks like before you build it. Then the shape is yours: a single chain, a ring, or two chains racing each other. A different shape is a different lesson — document what you chose and what it changed.
+If the class host is ready, the instructor may bring **one link of the chain up live on the beamer** first, so you can see what “working” looks like before you build it; otherwise build it from the workbook. Then the shape is yours: a single chain, a ring, or two chains racing each other. A different shape is a different lesson — document what you chose and what it changed.
 
 > **Story hook.** *The alarm relay chain.* When one substation overheats it rings the next one, and the last one rings the first — a ring built out of a star, because nobody wanted to buy a ring. Petra's question afterwards is the important one: *“What happens when pod 07 goes for coffee?”*
 
@@ -226,7 +226,7 @@ The instructor will bring **one link of the chain up live on the beamer** first,
 
 Connect the **Dallas DS18B20** and run **Phase 4**. If your pod has the pre-soldered Grove protoboard, plug it into the Grove port — the sensor is on **GPIO32**, and the instructor uncomments `ds18b20(temp, 32);`. If you only have the bare sensor, wire DATA to `G26` and the instructor uses `ds18b20(temp, 26);`. Either way the deploy goes **over the air**. Subscribe to `<id>/temp`.
 
-The instructor will **deploy one stick on the beamer** so the room sees the reboot before anyone waits for their own. If you are stuck at the wiring, swap to another task and come back — the deploy can wait, and half the room is usually ahead of you anyway.
+If the class host and deployment are ready, the instructor may **deploy one stick on the beamer** so the room sees the reboot before anyone waits for their own; otherwise follow the workbook. If you are stuck at the wiring, swap to another task and come back — the deploy can wait, and half the room is usually ahead of you anyway.
 
 > **Story hook.** *Somebody leaned on the pipe.* Pinch the sensor between your fingers and watch the control room believe there is a burst pipe. Then pull the data jumper: the reading becomes `-127`. The sensor is not lying — the wire is. Malik has learned to ask *which* link failed: the physics, the wiring, the firmware, or the dashboard.
 
@@ -241,7 +241,7 @@ The instructor will **deploy one stick on the beamer** so the room sees the rebo
 
 Build **Phase 5**: a gauge and a chart from `<id>/temp`, then a **wildcard** subscription `+/temp` that turns the whole room into one multi-line chart. Pinch your sensor and find yourself in the crowd.
 
-The instructor will show a **gauge and the `+/temp` chart live** and then hand the canvas over. Your dashboard does not have to look like the demo: a traffic light, a table, or one very large number are all valid, as long as a stranger can read them without you talking.
+If the class host is ready, the instructor may show a **gauge and the `+/temp` chart live** and then hand the canvas over; otherwise build them from the workbook. Your dashboard does not have to look like the demo: a traffic light, a table, or one very large number are all valid, as long as a stranger can read them without you talking.
 
 > **Story hook.** *The room is the district.* Every stick is a substation; the wildcard chart is Petra's control room; and the coldest corner is the one nobody has visited. She does not need a cloud for this. She needs the topics to be named consistently — which is a decision you just made, whether you noticed or not.
 

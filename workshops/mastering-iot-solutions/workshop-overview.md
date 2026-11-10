@@ -24,7 +24,7 @@ It serves a **dual purpose**:
 ### Hardware-First, Zero-Install
 Participants do not spend their first hour installing drivers, cross-compilers, or IDEs. Instead:
 - Microcontrollers (**M5StickC**) are pre-provisioned.
-- Isolated **Node-RED** instances run on the class integration host (the Optiplex cluster) or a student laptop; containers are one hosting option. Node-RED does not run on the router.
+- For the Master Class, isolated **Node-RED** instances run via `classroom-nodered.sh` on the class host; later students run their own Node-RED. Node-RED does not run on the router.
 - Participants only need a standard web browser on their laptop or tablet.
 
 ### Organic Flow (~90 Minutes Baseline + Open Exploration)

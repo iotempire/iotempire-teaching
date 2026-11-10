@@ -187,8 +187,8 @@ Can a single ESP32 speak ESP-NOW and connect to standard Wi-Fi simultaneously? Y
 3. When Node B receives an incoming ESP-NOW frame from Node A:
    - Extract the payload.
    - Forward it to your OpenWrt Mosquitto broker via MQTT (`client.publish("espnow/sensor/data", jsonPayload)`).
-4. Verify the flow in Node-RED:
-   `M5 Sensor (ESP-NOW) -> M5 Bridge Node (Wi-Fi) -> OpenWrt Broker -> Node-RED Dashboard (class host/laptop)`.
+4. Verify the flow in Node-RED (if available) or MQTT Explorer:
+   `M5 Sensor (ESP-NOW) -> M5 Bridge Node (Wi-Fi) -> OpenWrt Broker -> Node-RED Dashboard (if available) or MQTT Explorer`.
 
 ### ★ Task 3: Latency & Interference Shootout
 1. Trigger a physical button press on Node A that controls an LED on Node B via ESP-NOW.

@@ -156,6 +156,54 @@ uv run python iot_bridge.py
   sudo apt install avahi-daemon avahi-utils
   ```
 
+<a id="ssh--tunneling"></a>
+### 📌 SSH & tunneling
+
+**Keys first.** Generate once, copy the public key to the router, then use the key for every login:
+
+```bash
+ssh-keygen -t ed25519 -C "pod07-laptop"
+ssh-copy-id root@192.168.14.1
+ssh root@192.168.14.1          # no password prompt now
+```
+
+**The three forwards.**
+
+```bash
+# Local: put the router's broker on your laptop's localhost:1883
+ssh -L 1883:192.168.14.1:1883 root@192.168.14.1
+
+# Remote: let the class host reach the router's broker on its localhost:11883
+ssh -R 11883:192.168.14.1:1883 <user>@<class-host>
+
+# Dynamic: a SOCKS proxy on localhost:1080
+ssh -D 1080 <user>@<class-host>
+```
+
+**Jump host and config.** `ssh -J root@192.168.14.1 <user>@<inner-host>` reaches a device behind the router. Put the repeatable version in `~/.ssh/config`:
+
+```text
+Host pod
+    HostName 192.168.14.1
+    User root
+    LocalForward 1883 192.168.14.1:1883
+    ServerAliveInterval 30
+```
+
+**Harden the router's SSH.** Keys only, no root password login, and no forwarding to arbitrary destinations:
+
+```text
+PermitRootLogin prohibit-password
+PasswordAuthentication no
+AllowTcpForwarding yes
+GatewayPorts no
+PermitOpen 192.168.14.1:1883
+```
+
+Restart the SSH service after editing `/etc/ssh/sshd_config` and keep a second session open until the new one works.
+
+> **Telnet is the warning, not the tool.** Telnet sends everything — including passwords — in plaintext. Use SSH. A local forward binds to `localhost` by default; `-g` or `GatewayPorts` opens it to other machines, which is usually the opposite of what you want.
+
 <a id="packet-capture-without-a-second-wifi-card"></a>
 ### 📌 Packet capture without a second Wi-Fi card
 
@@ -323,7 +371,7 @@ The CA **key** never leaves the instructor's machine; only `ca.crt` and the sign
 - **Retained MQTT messages:** a “live” test may show an old retained value. Clear retained state or publish a fresh value before you draw conclusions.
 - **Throughput/latency measurements:** note the payload size, protocol, channel, and load. A single ping is not a benchmark; use `iperf3` and repeat.
 - **Clock skew:** timestamps from different devices disagree. Compare durations, not absolute times, unless the clocks are synced.
-- **Node-RED is not on the router.** Run it on the class integration host (Optiplex cluster) or a laptop; the router runs Mosquitto and, optionally, small MicroPython services. A MicroPython IoTknit port is planned, not yet supported.
+- **Node-RED is not on the router.** Module 1 uses the `classroom-nodered.sh` fleet on the class host; Module 4 onward uses your own Node-RED install on the class host or a laptop. The router runs Mosquitto and, optionally, small MicroPython services. A MicroPython IoTknit port is planned, not yet supported.
 
 <a id="troubleshooting-quick-drops"></a>
 ## 🧰 Troubleshooting Quick Drops
@@ -362,7 +410,7 @@ Use these as portfolio prompts or in-class hook.
 <a id="instructor-hints"></a>
 ## 🧑‍🏫 Instructor hints
 
-**Before the first studio.** Label every router and node, record which router is the lab uplink, and keep one known-good Ethernet cable and one known-good M5Stack. Test the local Mosquitto broker on the gateway and Node-RED on the class integration host or a laptop before students arrive. Node-RED does not run on the router. If you use the B.A.T.M.A.N. stretcher, pre-check that the routers have `kmod-batman-adv` and a common Wi-Fi channel.
+**Before the first studio.** Label every router and node, record which router is the lab uplink, and keep one known-good Ethernet cable and one known-good M5Stack. Test the local Mosquitto broker on the gateway and the `classroom-nodered.sh` fleet for the Master Class; from Module 4, students run their own Node-RED on the class host or a laptop. Node-RED does not run on the router. If you use the B.A.T.M.A.N. stretcher, pre-check that the routers have `kmod-batman-adv` and a common Wi-Fi channel.
 
 **Nebula in one session — bundles, not ceremonies.** Before class, create the class CA and sign **one certificate per pod** for its router (e.g. `pod07-router`, `10.100.0.7/24`, group `students`), plus laptop certs for the students who have admin rights on their own machine. Generate the configs and bundles and hand out **one croc code per pod** (`fleet croc --select group:students`), with the lighthouse already in `static_host_map`; the [bundles chapter](https://github.com/iotempire/nebula-manager/blob/main/docs/bundles.md) is the reference. Two things to prepare: (1) the router path needs a **static `nebula` binary** matching MIPS/ARM — pre-download the right release and keep it on a USB stick or an HTTP folder, because 16 MB of flash will not take a package install; (2) a **re-sign drill** for the pod that loses its key (`cert resign-all` or a single `sign`, then `--certs-only`) — it is a five-minute lesson in why the key *is* the credential. Never put the CA key on a shared drive, and delete the student bundles from the instructor host at the end of the day.
 
@@ -375,6 +423,8 @@ Use these as portfolio prompts or in-class hook.
 **Packet capture in the room.** Assume **one Wi-Fi adapter per laptop and no monitor mode**: a laptop cannot see another station's unicast traffic, and Windows rarely supports monitor mode at all. Prepare capture *points*, not sniffers: (a) `tcpdump` on the router — it is on the class image, and `br-lan` covers the LAN; (b) one ESP32 running [`martin-ger/esp32_eth_wifi_bridge`](https://github.com/martin-ger/esp32_eth_wifi_bridge) as a transparent tap that streams pcap over TCP port 19000 (`pcap start`); and (c) one recorded dump per module (`module01.pcap`, `module02.pcap`, …) for pods whose hardware or laptop cannot capture that day. Open every dump yourself before handing it out, and say out loud that analysing a provided dump is full evidence. Hand out the **USB sticks and mini hubs for extroot** in Module 2 — Nebula does not fit into 16 MB of flash — and walk through the [extroot recipe](#packet-capture-without-a-second-wifi-card) with the first pod that hits it; Module 3 then verifies `/overlay` instead of discovering the problem.
 
 **Bus and fieldbus coverage.** Low-level buses (UART, I²C, SPI, OneWire) belong to the Sensors & Actuators and Microcontroller Programming courses. Industrial fieldbuses (RS-485/Modbus, CAN, Profinet, TSN) are covered in [Module 6](../modules/06-industrial-protocols-and-bridging.md), including the ISO/OSI mapping and the bus comparison table. Do not duplicate the bus survey in Module 2; revisit it in Module 7/8 only if the project wiring needs it.
+
+**Module 6 (fieldbuses) — keep it short.** One video, one discussion, the RS-485/Modbus demo if the hardware is there, and the EtherCAT guest slot. The OSI/bus tables are reference; do not turn this into an industrial lab. A guest lecturer with the test device upstairs is a strong optional slot, not a dependency.
 
 **Stories.** The stories in the modules are deliberately separate case studies. Keep new examples consistent with the [story canon](#story-canon-the-recurring-cast), and make a story concrete enough to pitch in a minute: one named person, one place, one moment of pain, something at stake.
 

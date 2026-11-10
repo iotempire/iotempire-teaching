@@ -31,7 +31,7 @@ This is **self/pod study, not a lecture.** Work through the concepts below with 
 ### Overlay Networks: Remote Access Without Port Forwarding
 
 ### Why Traditional Port Forwarding Fails in Modern IoT
-In Module 2, you forwarded ports on your local router. But in real life:
+In Module 2, you forwarded ports on your local router. If you did the SSH-tunnel stretcher, you have already built a one-off version of an overlay; the difference is that Nebula gives every node an address and a policy instead of a hand-built tunnel. But in real life:
 - CGNAT (Carrier-Grade NAT) & DS-Lite: Most residential mobile (LTE/5G) and fiber connections no longer provide a public IPv4 address. Multiple households share one public IP.
 - University & Enterprise Firewalls: Campus networks block inbound ports. You cannot expose an MQTT broker or OpenWrt SSH port directly to the world.
 - Dynamic IPs: Home routers change their WAN IP periodically.

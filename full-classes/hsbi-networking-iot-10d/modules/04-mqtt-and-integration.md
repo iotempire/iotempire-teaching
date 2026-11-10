@@ -10,7 +10,7 @@ This module gives you the opportunity to explore decoupled messaging and system 
 
 By the end of this module, you can:
 1. Deeply understand the MQTT protocol mechanisms: topic hierarchies, QoS levels, retained messages, and Last Will and Testament (LWT) — and place MQTT against CoAP and HTTP.
-2. Build data pipelines, state machines, and dashboards in Node-RED on the class integration host or your own laptop.
+2. Build data pipelines, state machines, and dashboards in **your own Node-RED** on the class host or your laptop.
 3. Develop event-driven programmatic integration services in **Python using `paho-mqtt` and IoTknit** on a laptop, or in **MicroPython on the router** where the service fits.
 4. Experience the power of pub/sub abstraction by swapping simulated/mock devices with physical M5Stack nodes with zero downstream code changes.
 
@@ -25,7 +25,49 @@ Operations lead **Rosa Klein** asks the question that changes the architecture: 
 
 ## 📖 Pod Study: The Architecture of Decoupled Messaging
 
-This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint.
+This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can defend in the checkpoint. We start with a protocol map, so you can see where MQTT, CoAP, HTTP, SSH, and the legacy protocols sit.
+
+### Protocol Warm-Up: Who Lives Where?
+
+The OSI model is the reference dictionary; TCP/IP is what the operating system actually implements. Layers 5–7 of OSI collapse into the TCP/IP **Application** layer.
+
+| OSI layer | TCP/IP layer | What lives there | Examples |
+|---|---|---|---|
+| 7 — Application | Application | Protocols that do useful work | DNS, DHCP, NTP, HTTP, SSH, Telnet, SMTP, POP3, FTP, MQTT, CoAP, OPC-UA, Modbus TCP |
+| 6 — Presentation | Application | Encoding, encryption, compression | TLS, JSON, CBOR, Protobuf |
+| 5 — Session | Application | Session setup, teardown, resumption | SSH session, TLS session, MQTT session |
+| 4 — Transport | Transport | Process-to-process delivery | TCP, UDP, QUIC |
+| 3 — Network | Internet | Addressing and routing | IPv4, IPv6, ICMP |
+| 2 — Data link | Link | Frames on the local medium | Ethernet, Wi-Fi, ARP |
+| 1 — Physical | Link | Bits on the wire or in the air | Twisted pair, fiber, 2.4/5 GHz radio |
+
+All of these are TCP/IP **Application**-layer protocols; the port/transport column shows what they sit on.
+
+| Protocol | Port / transport | OSI | Security / note |
+|---|---|---|---|
+| DNS | 53 UDP/TCP | 7 | Plaintext; DoT/DoH encrypt it |
+| DHCP | 67/68 UDP | 7 | Plaintext; LAN only |
+| NTP | 123 UDP | 7 | Plaintext; NTS exists |
+| HTTP | 80 TCP | 7 | Plaintext |
+| HTTPS | 443 TCP | 7 | TLS |
+| SSH | 22 TCP | 7 (5/6 via encryption) | Encrypted; also your tunnel tool (Module 2) |
+| Telnet | 23 TCP | 7 | Plaintext — do not use |
+| SMTP | 25/587 TCP | 7 | STARTTLS/TLS; legacy mail |
+| POP3 | 110 TCP | 7 | STARTTLS/TLS; legacy mail |
+| FTP | 20/21 TCP | 7 | Plaintext; SFTP/FTPS are the alternatives |
+| MQTT | 1883 TCP / 8883 TLS | 7 | TLS optional; broker |
+| CoAP | 5683 UDP / 5684 DTLS | 7 | DTLS/OSCORE |
+| OPC-UA | 4840 TCP | 7 | Security built in |
+| Modbus TCP | 502 TCP | 7 | No security |
+| SNMP | 161/162 UDP | 7 | v3 adds security |
+| TFTP | 69 UDP | 7 | No security; trivial file transfer |
+
+The legacy mail and file protocols are here because the module handbook names them; they are not part of the lab. The point is the layer and the security posture, not the product.
+
+**Discuss in your pod:**
+1. Which of these would you expose to the internet without a wrapper, and why?
+2. Why do CoAP, DHCP, and NTP use UDP while MQTT and HTTP use TCP?
+3. Where would SSH or Telnet help you troubleshoot, and why is Telnet still in the table?
 
 ### Why MQTT Over Request/Response (HTTP)?
 Traditional web architectures rely on client-server request/response over HTTP:
@@ -138,7 +180,7 @@ Pair with a **neighbouring pod**:
 5. Watch how many seconds pass before the broker detects the missing TCP keep-alive (PINGREQ) and automatically fires the LWT `offline` payload!
 
 ### ★ Task 2: Visual Integration with Node-RED
-1. Open your Node-RED — the class integration host (Optiplex cluster) or your own laptop, **not the router**. The address is on the board; a local install is `http://localhost:1880`.
+1. Open **your own** Node-RED — installed by you on the class host (Optiplex cluster) or your laptop, **not the router**. The Day-1 `classroom-nodered.sh` fleet is over; this is your instance. The address is on the board; a local install is `http://localhost:1880`.
 
    > **No admin rights?** Use the class host. Do not install Node-RED on a company laptop, and never install it on the router.
 
