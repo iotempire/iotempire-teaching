@@ -21,6 +21,11 @@
   through the syllabus's **Excellence Stretcher** clause, not through bonus points.
 - **Presentation:** the final session presents the last section of the report. That is
   part of the submitted report materials, not a separate examination.
+- **Future offering:** the class is project-based, so **Projektarbeit** is the better
+  Prüfungsform; recommend the change to the Prüfungsausschuss. The current Hausarbeit
+  works, and the portfolio converts to the report without a separate project. The
+  20-point learning-goal assessment does not change either way. The rationale is in
+  the [architecture decisions](./00-architecture-decisions.md#d4).
 - The full statement — including the grade scale — lives **only** in the
   [syllabus](../syllabus.md). This page is the operational view, not a second source.
 

@@ -11,7 +11,7 @@ This module gives you the opportunity to explore TCP/IP at the network edge and 
 By the end of this module, you can:
 1. Configure IPv4 addressing, CIDR subnetting, default gateways, and routing tables.
 2. Inspect and diagnose the core IP plumbing services: ARP, DHCP (DORA), DNS, and NAT.
-3. Flash, configure, administer, and secure an OpenWrt edge router via SSH and the LuCI web interface — from factory firmware to a working pod LAN with a WAN uplink (eduroam, phone tether, or lab wire).
+3. Flash, configure, administer, and secure an OpenWrt edge router via SSH and the LuCI web interface — from factory firmware to a working pod LAN with a WAN uplink (eduroam, phone tether, or the class Wi-Fi).
 4. Capture traffic at the choke point with `tcpdump` on the router, and read the dump with Wireshark, `tshark`, or as text — without needing a second network adapter.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
@@ -23,7 +23,7 @@ By the end of this module, you can:
 1. **Pre-study check-in.** In your pod, show one artefact from Module 0 or Module 1 — the packet-path sketch, the `traceroute`, or the MQTT screenshot — and name one question you still have. Park the questions on the board.
 2. **Confirm the pod and the roles.** You will rotate: one drives LuCI, one drives the terminal, one keeps the network map and photos. Swap after each task. After the OpenWrt flash, the router stays at `192.168.1.1` until Task 4; use that address for the first three tasks.
 3. **Collect the hardware.** One Cudy TR1200 v1 with factory firmware, one USB stick (> 4 GB), one mini USB hub, two laptops, one phone, Ethernet cables, and one M5StickC (optional client). Label the router and the stick with your pod ID.
-4. **Draw the network you are about to build.** Before you touch the router, sketch the upstream (eduroam 5 GHz, phone tether, or the class B1300 wire), the router's WAN and LAN sides, the 2.4 GHz AP, and at least one client. You will correct the sketch all day; that is the point.
+4. **Draw the network you are about to build.** Before you touch the router, sketch the upstream (eduroam 5 GHz, phone tether, or the class `iotempire-b1300-5g` Wi-Fi), the router's WAN and LAN sides, the 2.4 GHz AP, and at least one client. You will correct the sketch all day; that is the point.
 
 ### Your portfolio entry for today — sections, not files
 
@@ -32,6 +32,7 @@ Everything from today goes into **`Module02/README.md`** as sections. Split some
 - `## Network plan` — the sketch, the subnet calculation, the SSID/channel, and the pod ID.
 - `## Router baseline` — model, OpenWrt version, LAN/WAN addresses, MACs, SSH access, extroot status, broker status, open ports. **No passwords, no eduroam credentials.**
 - `## Study log` — the pod study below (Task A) and your *Agreed learning* note (Task B).
+- `## Vocabulary tracker` — the Module 2 vocabulary table, copied with two extra columns: `✓` and `Link / evidence`. See §3 for how to fill it.
 - `## Captures` — the pcap or the `tshark`/`tcpdump -A` text, and what each protocol proves.
 - `## NAT and port forwarding` — the rule, the two-sided capture, and the explanation.
 - `## Take it home` — the upstream switch and the evidence that the router still works.
@@ -43,9 +44,9 @@ Everything from today goes into **`Module02/README.md`** as sections. Split some
 
 The router is a shared piece of infrastructure, and one of you will put a personal eduroam credential on it. Agree before you start:
 
-- **Whose eduroam account?** That person consents; the credential is stored on the router; the pod does not publish the config, a backup, or a screenshot that contains it. Remove the credential or reset the router at the end of the course.
-- **Who carries the router?** The router and its USB stick travel together. The stick is part of the router; label it and keep it in.
-- **Which upstream?** Prefer eduroam on 5 GHz. If that fails, use phone USB tethering or the class B1300 wire. The learning goal is the same; the path is negotiable.
+- **Whose eduroam account?** That person consents; the credential is stored on the router; the pod does not publish the config, a backup, or a screenshot that contains it. **The credential owner is the router owner for the course.** Remove the credential or reset the router at the end of the course.
+- **Who carries the router?** The router and its USB stick travel together. The stick is part of the router; label it and keep it in. If the router moves to another pod member, remove the eduroam credential first; never hand over a router with someone else's login.
+- **Which upstream?** Prefer eduroam on 5 GHz. If that fails, use phone USB tethering or the class `iotempire-b1300-5g` Wi-Fi. The learning goal is the same; the path is negotiable.
 
 ## 📖 Story — The Substation Behind the Router
 
@@ -113,20 +114,29 @@ The module handbook names classic networking terms that you will meet in the lab
 | TCP vs. UDP; flow control | Reliable stream vs. datagram; receiver window vs. congestion | MQTT/TCP, CoAP/UDP; Module 4 |
 | Session / presentation / application | Session setup and teardown, data format, application protocol | MQTT session, JSON/TLS, DNS/DHCP/NTP/SSH/HTTP; SMTP/POP3/FTP are the same layer, not used in the lab |
 
+### Make the table yours — the vocabulary tracker
+
+Copy this table into `Module02/README.md` under `## Vocabulary tracker` and add two columns: **✓** and **Link / evidence**. The header becomes `| Term | Meaning | Where you meet it | ✓ | Link / evidence |`.
+
+- **✓** — you can explain the term in your own words *and* you have seen it in your own network or a capture. Leave it blank until then.
+- **Link / evidence** — a link to your `## Captures` section, a screenshot, a command output, or the task where you met it. A tick without a link is a claim you cannot prove; a blank row is a question you have not answered yet.
+
+You can already tick and link some rows in this module: transmission media (Tasks 3/4), MAC addressing/ARP (Task 5), collision/broadcast domain (Tasks 4/5), routing/default gateway (Task 3), classful addressing vs. CIDR (Task 6), broadcast/fragmentation (Tasks 4/5), TCP vs. UDP and flow control (Task 5, then Module 4), and session/presentation/application (Task 5, then Module 4). The rest is your map for Modules 3–7. Revisit the tracker at each checkpoint; it doubles as an outline for the learning-goal argumentation.
+
 ### 4. The Router as a Travel Gateway
 
 Your Cudy has two radios, and that is the key to today's topology:
 
 | Radio / port | Role | Interface | Firewall zone |
 |---|---|---|---|
-| `radio1` — 5 GHz | Wi-Fi **client** to eduroam (or home Wi-Fi) | `wwan` | `wan` |
+| `radio1` — 5 GHz | Wi-Fi **client** to eduroam, home Wi-Fi, or `iotempire-b1300-5g` | `wwan` | `wan` |
 | `radio0` — 2.4 GHz | Wi-Fi **access point** for the pod | `br-lan` | `lan` |
-| Ethernet WAN | backup uplink (class B1300 wire) | `wan` | `wan` |
+| Ethernet WAN | optional wired uplink (if the venue provides one) | `wan` | `wan` |
 | Ethernet LAN | wired pod client | `br-lan` | `lan` |
 
 - **Consume 5 GHz, broadcast 2.4 GHz.** The uplink radio joins the campus network; the other radio serves the sensors and laptops. If the upstream is 2.4 GHz only, the STA and AP share one radio — it works, but throughput and latency suffer.
 - **Eduroam is 802.1X, not a captive portal.** OpenWrt needs a full `wpad` variant (`wpad-mbedtls` or another full build), not `wpad-basic`; it cannot do EAP. It also needs a correct clock and the HSBI CA. The Cudy's 5 GHz radio does not support DFS channels; check the channel if the scan does not show the SSID.
-- **Phone tethering** uses the USB port and a `usb0`/`eth1` interface; it needs the matching `kmod-usb-net-*` driver. **Ethernet WAN** is the boring, reliable fallback.
+- **Phone tethering** uses the USB port and a `usb0`/`eth1` interface; it needs the matching `kmod-usb-net-*` driver. **Ethernet WAN** is an optional wired uplink: use it when the venue provides a cable, and do not go looking for one otherwise.
 - **At home**, the same router must work on a home Wi-Fi, a phone hotspot, or a dorm Ethernet port. Check for an address overlap before you connect: if the upstream also uses `192.168.14.0/24`, change your LAN subnet.
 
 ### Pointers (start here, then keep looking)
@@ -179,7 +189,7 @@ Pair with a **neighbouring pod**:
 
 ## 🛠️ In-Class Lab: From Factory Router to Pod Gateway — **Challenging**
 
-*Hardware per pod:* 1× Cudy TR1200 v1 with factory firmware, 1× USB stick (> 4 GB) + mini USB hub, 2× laptops, 1× phone, Ethernet cables, 1× M5StickC (optional client), and access to eduroam, phone tethering, or the class B1300 wire.
+*Hardware per pod:* 1× Cudy TR1200 v1 with factory firmware, 1× USB stick (> 4 GB) + mini USB hub, 2× laptops, 1× phone, Ethernet cables, 1× M5StickC (optional client), and access to eduroam, phone tethering, or the class `iotempire-b1300-5g` Wi-Fi.
 
 | What | Notes |
 |---|---|
@@ -188,7 +198,7 @@ Pair with a **neighbouring pod**:
 | 2 laptops | one wired on the LAN port, one on 2.4 GHz Wi-Fi |
 | Phone | fresh DHCP client, or USB-tethered upstream |
 | M5StickC | optional client; re-point its Wi-Fi to your pod SSID |
-| Class B1300 | `192.168.114.0/24`, fallback WAN and the "outside" client for the port-forward test |
+| Class B1300 Wi-Fi | `iotempire-b1300-5g` / `iotempire-b1300`, `192.168.114.0/24`, fallback WAN and the "outside" client for the port-forward test |
 
 | Address / service | Value |
 |---|---|
@@ -196,9 +206,9 @@ Pair with a **neighbouring pod**:
 | Intermediate OpenWrt | `http://192.168.1.1` |
 | Class LAN | `192.168.14.0/24`, router `192.168.14.1` |
 | Local broker | `mosquitto` on `192.168.14.1:1883`, anonymous, no TLS |
-| B1300 fallback / outside | `192.168.114.0/24` |
+| Class Wi-Fi fallback / outside | `iotempire-b1300-5g`, `192.168.114.0/24` |
 
-> **The order is a suggestion.** The tasks are a path, not a timetable. If your pod's eduroam association fails, switch to phone tethering or the B1300 wire and come back; if you finish early, do the two-pod chain, the SSH-tunnel stretcher, or the Nebula preview. **The instructor demos the risky steps live on the beamer** — flashing, extroot, the eduroam join, and one capture — so ask for the demo you need instead of waiting with a broken step. Rotate roles after each task; everybody should flash or configure at least one piece. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
+> **The order is a suggestion.** The tasks are a path, not a timetable. If your pod's eduroam association fails, switch to phone tethering or the `iotempire-b1300-5g` Wi-Fi and come back; if you finish early, do the two-pod chain, the SSH-tunnel stretcher, or the Nebula preview. **The instructor demos the risky steps live on the beamer** — flashing, extroot, the eduroam join, and one capture — so ask for the demo you need instead of waiting with a broken step. Rotate roles after each task; everybody should flash or configure at least one piece. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
 ### ★ Task 1: Flash OpenWrt — from factory to your router
 
@@ -234,7 +244,7 @@ The Cudy has 16 MB of flash; the writable overlay is small. Nebula and `tshark` 
 
 ### ★ Task 3: Uplink — consume eduroam on 5 GHz, or tether
 
-Pick the upstream that fits your pod. **Prefer eduroam on 5 GHz**; phone USB tethering is the second path; the class B1300 wire is the reliable fallback. All three end in the same place: a WAN interface with a default route — the Wi-Fi and tether paths call it `wwan`, the wire path calls it `wan`.
+Pick the upstream that fits your pod. **Prefer eduroam on 5 GHz**; phone USB tethering is the second path; the class `iotempire-b1300-5g` Wi-Fi is the reliable fallback. All three end in the same place: a WAN interface with a default route — all three call it `wwan`.
 
 **Path A — eduroam on 5 GHz (default).**
 
@@ -251,15 +261,15 @@ Pick the upstream that fits your pod. **Prefer eduroam on 5 GHz**; phone USB tet
 3. Create a `wwan` interface on that device as a DHCP client and put it in the `wan` zone.
 4. If the phone is not detected through the hub, try a powered hub or the phone's Wi-Fi hotspot instead.
 
-**Path C — class B1300 wire.**
+**Path C — the class `iotempire-b1300-5g` Wi-Fi.**
 
-1. Connect the Cudy's WAN port to a LAN port on the B1300 (or the class DHCP WAN port).
-2. Use the Ethernet `wan` interface as a DHCP client. This is also the upstream for the port-forward test in Task 7.
+1. In LuCI, **Network → Wireless → Scan** on `radio1` and join `iotempire-b1300-5g` (password `iotempire`). Assign the connection to `wwan` and the `wan` zone, as in Path A. If eduroam is already using `radio1`, switch the STA to the class SSID for this fallback; you do not need both at once.
+2. If the 5 GHz SSID is not visible, use `iotempire-b1300` (2.4 GHz) on `radio0`; the STA and AP then share that radio, so expect lower throughput. Verify DHCP and the default route. This is also the upstream for the port-forward test in Task 7.
 
 **Verify any path:**
 
 ```bash
-ubus call network.interface.wwan status   # use 'wan' for the B1300 wire path
+ubus call network.interface.wwan status   # 'wan' only if you added an optional Ethernet uplink
 ip route
 ip route get 1.1.1.1
 ping -c 3 1.1.1.1
@@ -338,11 +348,11 @@ Capture where every packet must pass: the router. **You do not need a second Wi-
 
 ### ★ Task 7: One door — port forwarding and NAT
 
-For this test, use the **B1300 as the upstream** so the "outside" client is deterministic. Eduroam often isolates clients, which would make a successful forward look broken.
+For this test, use the **class `iotempire-b1300-5g` Wi-Fi as the upstream** so the "outside" client is deterministic. Eduroam often isolates clients, which would make a successful forward look broken.
 
-1. Connect the Cudy's WAN port to a LAN port on the B1300 (or use the class wire). The Cudy's WAN gets a `192.168.114.x` address; the Cudy's LAN stays `192.168.14.0/24`. For this test, disable the Wi-Fi `wwan` or give the Ethernet WAN a lower metric, so the default route actually uses the B1300.
+1. Join the Cudy's `wwan` to `iotempire-b1300-5g` (or use the instructor's wired uplink if you enable client isolation as an experiment). The Cudy's WAN gets a `192.168.114.x` address; the Cudy's LAN stays `192.168.14.0/24`. For this test, disable the eduroam STA or make the class SSID the active uplink, so the default route actually uses it.
 2. Create a port forward in LuCI (**Network → Firewall → Port Forwards**): WAN port `11883` → `192.168.14.1:1883` (TCP). Give it a name you will remember.
-3. **Test from outside.** On a laptop connected to the B1300's LAN, subscribe through the Cudy's WAN address:
+3. **Test from outside.** On a laptop connected to `iotempire-b1300-5g`, subscribe through the Cudy's WAN address:
    ```bash
    mosquitto_sub -h <cudy-wan-ip> -p 11883 -t '#' -v
    ```
@@ -357,6 +367,9 @@ For this test, use the **B1300 as the upstream** so the "outside" client is dete
 > **Story hook.** *Malik opens exactly one door, writes down why, and closes it again.* The control room can reach the broker now — but only through that one port, and only while the rule exists.
 
 > [!NOTE]
+> The class B1300 does not isolate wireless clients by default, so the outside laptop can subscribe directly. If you enable client isolation as an experiment, use the instructor's wired outside client; the forward itself is unchanged.
+
+> [!NOTE]
 > If your normal uplink is eduroam, switch back to it after this task and verify the router still works. The port-forward test is a controlled lab experiment, not the production path; Module 3 replaces the fragile door with an overlay.
 
 *Portfolio evidence:* the forward rule, both sides of the capture, and a short explanation of the address/port rewrite. Say why eduroam would have made this test unreliable.
@@ -368,7 +381,7 @@ The pod will meet in person between sessions. The router has to survive the trip
 1. **Write the baseline.** Model, OpenWrt version, LAN/WAN addresses, router MAC, SSH access, extroot status, Mosquitto status, open ports, and clock. No passwords; no eduroam credential.
 2. **Switch the upstream.** At home or in the dorm, connect the router to a home Wi-Fi (STA), a phone tether, or an Ethernet port; reuse the Task 3 paths with the new upstream. Verify DHCP, DNS, NAT, and the broker from a laptop. If the upstream uses `192.168.14.0/24`, change your LAN subnet first — this is the overlap lesson.
 3. **Record what changed.** Which path did you use? What broke? What did you have to change? Add it to `## Take it home`.
-4. **Agree the pod handover.** Who carries the router? Who owns the eduroam credential? How do you hand it over without publishing it? Remove the credential or reset the router at the end of the course.
+4. **Agree the pod handover.** The student who provided the eduroam credential owns and carries the router. If the router moves to another pod member, remove the credential first; never hand over a router with someone else's login. Remove the credential or reset the router at the end of the course.
 5. **Prepare for Module 3.** Confirm `/overlay` is on the stick, the clock is correct, SSH works, and you know your router's LAN address. A Nebula bundle is a credential: it arrives tomorrow, and it never goes into Git.
 
 > **Story hook.** *The substation must survive the trip home.* The control room does not care which café or dorm the router is in; it cares that the same `192.168.14.1` is still there when the pod meets again.
@@ -444,7 +457,8 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 2. **The plumbing (goal 2):** a DHCP DORA capture, an ARP request/reply, a DNS query/response, `ip neigh`, the DHCP lease, and the NAT/port-forward analysis with both sides of the capture.
 3. **OpenWrt (goal 3):** the flash evidence (model, OpenWrt version, verified SHA-256, stock → OpenWrt addresses), the extroot `df -h /overlay` before/after, the UCI/firewall excerpts you are willing to publish, the `## Router baseline`, and the `## Take it home` check.
 4. **Capture at the choke point (goal 4):** the pcap or the `tshark`/`tcpdump -A` text, one sentence per protocol, and a note on why the router sees traffic that a laptop cannot.
-5. **Optional:** the two-pod double-NAT diagram, the SSH-tunnel comparison, the Nebula preview note, or your harvest and story-seed list.
+5. **The handbook vocabulary:** your `## Vocabulary tracker` with the rows you can tick and link today; leave the rest blank until Modules 3–7 give you the evidence.
+6. **Optional:** the two-pod double-NAT diagram, the SSH-tunnel comparison, the Nebula preview note, or your harvest and story-seed list.
 
 > [!IMPORTANT]
 > Never commit router passwords, eduroam credentials, Wi-Fi keys, private keys, configuration backups, or captures containing other people's traffic. Redact MAC addresses, serial numbers, and public IPs before you publish. The eduroam credential is a personal credential; remove it or reset the router at the end of the course.

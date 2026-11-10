@@ -9,6 +9,7 @@ Prüfungsausschuss.
 
 | Note | What is inside |
 |---|---|
+| [Architecture decisions](./00-architecture-decisions.md) | Why the class is shaped this way: provenance, decision records with alternatives and reversal triggers, rejected ideas, open questions, recreation checklist, module-handbook coverage |
 | [Assessment & operations](./00-assessment-and-operations.md) | Assessment form, milestone plan, submission hygiene, group accountability and sign-off template, re-examination, privacy, AI assistance |
 | [Nebula session](./nebula-session.md) | Preparing the lighthouse, class CA, bundles, handout, in-session recovery, cleanup |
 | [Collecting portfolios](./portfolios.md) | The one-click template link, the invite rule, bulk-accepting invitations and cloning repositories |
