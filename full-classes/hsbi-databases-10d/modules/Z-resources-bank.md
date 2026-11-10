@@ -73,13 +73,14 @@ import duckdb
 con = duckdb.connect()                          # in-process, no server
 # Read a Parquet file directly (no import step):
 con.execute("SELECT machine_id, SUM(cost) FROM 'jobpart.parquet' GROUP BY 1").fetchall()
-# Attach a SQLite file as if it were native (and export it to Parquet):
-con.execute("INSTALL sqlite")
-con.execute("LOAD sqlite")
-con.execute("ATTACH 'edge.db' AS edge (TYPE sqlite)")
-con.execute("SELECT COUNT(*) FROM edge.reading").fetchall()
-con.execute("COPY (SELECT * FROM edge.reading) TO 'readings.parquet' (FORMAT parquet)")
+# CSV -> Parquet, no database server and no downloaded extension:
+con.execute("COPY (SELECT * FROM read_csv_auto('report.csv', header = true)) "
+            "TO 'report.parquet' (FORMAT parquet)")
+# See where the time goes (this actually runs the query):
+con.execute("EXPLAIN ANALYZE SELECT ... FROM 'report.parquet'")
 ```
+
+> **Do not use `INSTALL sqlite` / `sqlite_scanner` in this course.** It downloads an extension into `~/.duckdb` on first use, which fails behind proxies and on locked-down or read-only home directories. Export CSV from Python's `sqlite3` and let DuckDB read the CSV — same result, zero downloads.
 
 ### CLI — SQLite & Datasette
 
@@ -315,9 +316,9 @@ The module stories share a small cast of named (fictional) organizations and peo
 
 | Module(s) | Organization | People | Place |
 |---|---|---|---|
-| 1, 4, 6 | **Wittkamp Zerspanung GmbH** — a small machine shop (CNC milling) | **Kai Lehmann** (plant manager) | Gütersloh |
-| 1, 6 | **Cirrus Cloud Systems** — the vendor pitching the three-tier cloud stack | — | — |
-| 2, 5 | **Kortmann Kunststofftechnik GmbH** — a plastics injection-molding plant | **Anke Reuter** (maintenance planner), **Yasmin Kaya** (operations lead) | — |
+| 1, 4 | **Wittkamp Zerspanung GmbH** — a small machine shop (CNC milling) | **Kai Lehmann** (plant manager) | Gütersloh |
+| 1 | **Cirrus Cloud Systems** — the vendor pitching the three-tier cloud stack | — | — |
+| 2, 5, 6a, 6b | **Kortmann Kunststofftechnik GmbH** — a plastics injection-molding plant | **Anke Reuter** (maintenance planner), **Yasmin Kaya** (operations lead), **Lea Winter** (controlling) | — |
 | 3 | **Frachtflow** — a logistics startup | **Nils Bergmann** (lead developer) | — |
 | 7 (worked example) | **Füllwerk Gütersloh** — a bottling plant | **Marta** (night shift) | Gütersloh |
 
@@ -331,6 +332,9 @@ The module stories share a small cast of named (fictional) organizations and peo
 | `json_extract` returns the whole text | Path typo, or a single path returning a scalar in older builds | Check the path; use `meta ->> '$.key'` for a scalar. |
 | A query with `NOT IN (subquery)` returns nothing | The subquery contains a `NULL` | Filter the `NULL`s or use `NOT EXISTS`. |
 | Very slow ingest of many rows | One `INSERT` per row, commit per row | Wrap in a transaction; use `executemany`. |
+| DuckDB `INSTALL sqlite` fails / hangs | It downloads an extension into `~/.duckdb`; blocked by proxy or read-only home | Do not use it. Export CSV with Python, then `read_csv_auto(...) -> COPY ... TO parquet`. |
+| DuckDB: `No function matches +(DATE, BIGINT)` | `range()` yields `BIGINT` | Cast: `CAST(k * 91 AS INTEGER)`. |
+| `strftime` works in one engine but not the other | SQLite accepts both argument orders; DuckDB needs `strftime(date, format)` | Use `strftime(done_on, '%Y-%m')` — valid in both. |
 | `database is locked` | Another writer holds the file; SQLite allows one writer | Enable WAL, shorten transactions, or serialize writers. |
 | Wrong numbers after a join | Fan-out: a 1:n join multiplied rows before aggregation | Aggregate in a subquery first, then join. |
 
@@ -402,7 +406,7 @@ The claim that a full three-tier frontend/backend/cloud stack is overkill for a 
 - SQLite — *Appropriate Uses For SQLite* — [sqlite.org/whentouse.html](https://www.sqlite.org/whentouse.html)
 - DuckDB — *Why DuckDB* — [duckdb.org/why_duckdb.html](https://duckdb.org/why_duckdb.html)
 - Simon Willison — *Datasette* — [simonwillison.net](https://simonwillison.net/2021/Jul/22/small-data/) · [datasette.io](https://datasette.io/)
-- **Nushell** — a table-native shell: pipelines over structured data that read SQLite/CSV/JSON directly (see Module 6, Task 5) — [nushell.sh](https://www.nushell.sh/)
+- **Nushell** — a table-native shell: pipelines over structured data that read SQLite/CSV/JSON directly (see the Nushell pointer in Module 6b) — [nushell.sh](https://www.nushell.sh/)
 - Local-first community — [localfirst.fm](https://localfirst.fm/)
 
 ### Real-world case studies (single-binary, embedded)

@@ -1,6 +1,6 @@
 # Study formats — design notes and options
 
-**Status: living document, written during the first run (WS 2026/27).** Module 5 is the first outing of the **stage-and-gate** format. Let the class run before changing Module 6 — fill in *Observations* first, then decide.
+**Status: living document, written during the first run (WS 2026/27).** Module 5 is the first outing of the **stage-and-gate** format. Module 6 followed: it was **split into two stage-and-gate studios (6a DuckDB, 6b polyglot)** rather than a study plus a lab. Fill in *Observations* for both before redesigning again.
 
 This is not student-facing. It is the memory of *why* the format changed and what else we considered.
 
@@ -12,7 +12,7 @@ In Modules 2–4 the pod study was scheduled for 15–30 minutes and took **60�
 2. **Split the work** — divide-and-conquer with one-minute updates (Module 3).
 3. **Remove the phase** — put the theory inside the exercises (Module 5).
 
-Modules 2–4 use (1)+(2). Module 5 uses (3). Module 6 is still to be decided.
+Modules 2–4 use (1)+(2). Module 5 uses (3). **Module 6 now uses (3) as well — split into 6a (DuckDB) and 6b (polyglot), one session each, with the theory pushed into the rounds.**
 
 ## The formats tried so far
 
@@ -143,17 +143,17 @@ One page of definitions, then the whole session is lab. The card is the only rea
 
 **Verdict:** _pending_
 
-## Revisit checklist for Module 6
+## Revisit checklist for Modules 6a and 6b
 
-Do this *after* a session or two has run, not before:
+Module 6 was split into two stage-and-gate studios mid-run, after Module 5 showed the format could carry a session. Do this *after* the two sessions have run:
 
-1. Read the observations above. If the rounds worked, adopt B for Module 6 (it is small: three tasks, one card sort).
-2. If the rounds worked but the room spread too far, keep B and add **one** whole-room checkpoint after the card sort.
+1. Read the observations above. If the rounds worked, keep the split. If 6a ran long, move Round 5 (the boundary) to homework — do not shrink the race.
+2. If the rounds worked but the room spread too far, add **one** whole-room checkpoint after Round 3 of 6a.
 3. If the gates were gamed, switch the gate to a **question the neighbour asks from a fixed list** (see the [feedback-round manual](./feedback-rounds.md)).
 4. If students skipped the theory boxes, move one box *before* its round instead of inside it — a single change, not a redesign.
-5. If the format failed, fall back to A (study as reference) with the 20 + 10 estimate, and note why.
+5. If 6b had too many benches, cut to two (JSON + decision record) and move key-value and the server to reading.
 
-> **Do not redesign Module 6 on a hunch.** One data point (Module 5) is enough to adjust, not enough to rebuild. Change one dial at a time and write down what happened.
+> **Do not redesign on a hunch.** One data point (Module 5) is enough to adjust, not enough to rebuild. Change one dial at a time and write down what happened.
 
 ## Open questions
 
@@ -161,4 +161,4 @@ Do this *after* a session or two has run, not before:
 - Is the 15-minute skim real, or do pods start at Round 1 and never look ahead?
 - Do the theory boxes get read *when needed*, or only when a gate fails?
 - What is the minimum viable primer? (Currently: why, skim, gate rule, round table.)
-- Can the same pattern carry a **tool-heavy** module (Module 6 with DuckDB), or does it need the live walkthrough (K) first?
+- Can the same pattern carry a **tool-heavy** module (6a with DuckDB), or does it need the live walkthrough (K) first? *Being observed now.*

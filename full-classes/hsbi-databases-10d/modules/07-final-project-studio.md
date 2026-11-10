@@ -41,7 +41,21 @@ That paragraph already implies entities (line, stop event, cause), a cardinality
 
 **Where this comes from.** Starting from concrete scenarios instead of class diagrams is *[Story Driven Modeling](https://en.wikipedia.org/wiki/Story-driven_modeling)* — Norbisrath, Zündorf & Jubeh, **Story Driven Modeling** (CreateSpace, 2013, ISBN 978-1483949253). It is why we begin with a named person and a moment of pain rather than an entity list.
 
+## 📖 Read before the kickoff: systems that broke the classic stack
+
+Ten minutes at the start of Session 8. For years the "serious" way to build a networked app was a frontend, a backend, a client/server database, a cache, and often a broker. A growing set of real systems throw that away:
+
+- **[GoToSocial](https://gotosocial.org)** — an ActivityPub/Fediverse server written in Go, API-compatible with Mastodon. Where Mastodon runs PostgreSQL + Redis + Sidekiq + a web frontend, GoToSocial ships as a **single binary** and uses **SQLite by default** (Postgres optional), in roughly 250–350 MiB of RAM. Its [database docs](https://docs.gotosocial.org/en/latest/configuration/database) call SQLite *"great for small instances and single-board computers"*.
+- **[Chatto](https://www.hmans.dev/blog/chatto)** — an open-source Slack/Teams alternative that is a **single executable serving its own web frontend**: "no reverse proxy, no external database — just one process." Its embedded store is **NATS JetStream**, not SQLite — the architecture is the same bet with a different engine, which is itself a good discussion point.
+
+Ask, for each: **what did it remove, what did it trade away, and what did it gain?** Then: *which of these shapes fits your project — and which must-haves from Module 8 are harder in it?* One sentence per team in `docs/requirements.md` is enough; this is context for the architecture choice, not a book report.
+
+> [!NOTE]
+> **Why here and not in Module 6b?** Because this is the decision your project is about to make. Two single-binary systems are the strongest argument that "embedded by default" is a real engineering position, not a course gimmick — and they make the opposite choice visible too.
+
 ## 🛠️ Session 8 — Story, Plan, and the First Slice
+
+> **Checkpoint 2, part 1 runs alongside this session.** Ten pods give a ten-minute feedback round while the rest of the room works; the TA helps between slots. Nothing is graded in it — see the [syllabus](../syllabus.md#how-module-points-are-earned-from-your-portfolio).
 
 ### ★ Step 1: Story and Project Team charter
 
@@ -97,6 +111,8 @@ myproject/
 
 ### ★ Step 4: Benchmark and harden (first half)
 
+> **Performance clinic (30 minutes, Session 9).** Each team brings its slowest query. Three are profiled on the projector: `EXPLAIN QUERY PLAN`, the index that fixes it (or does not), and the before/after timing. This is the must-have most teams leave to the last week — rehearse it now, while there is still time to change the schema.
+
 1. Add at least one index and **prove its effect** with `EXPLAIN QUERY PLAN` and a timing on a non-trivial row count. Save the evidence under `docs/benchmarks/`.
 2. Run the **injection self-test**: search your code for any f-string or `%`-formatted SQL and replace it with bound parameters. Paste a deliberately malicious input into every user-facing field and confirm the app survives.
 3. Add the trigger or generated column that enforces your domain rule, and demonstrate it firing (and rejecting) something.
@@ -145,4 +161,4 @@ A project repository alone is not enough: the project assessment includes an **i
 
 ---
 
-[← Previous: Module 6](./06-polyglot-embedded-persistence.md) | [Back to front page](../README.md) | [Next: Module 8 — Final Project Specification →](./08-final-project.md)
+[← Previous: Module 6b](./06b-polyglot-persistence.md) | [Back to front page](../README.md) | [Next: Module 8 — Final Project Specification →](./08-final-project.md)

@@ -107,8 +107,8 @@ Assessment is the official form **project work** (*Projektarbeit*) fixed by the 
 
 | Component | Points | How it is earned |
 |---|---|---|
-| Core technologies and lab challenges (Modules 1–6) | **11** | **1 point for Module 1, 2 points for each of Modules 2–6.** I record a module's points when your portfolio shows you reached that module's learning goals. |
-| Reflections & engineering decision log | **4** | One short logbook entry per teaching block — four blocks, one point each. |
+| Core technologies and lab challenges (Modules 1–6) | **11** | **1 point for Module 1, 2 points for each of Modules 2–6.** Module 6 is taught as two studios (6a DuckDB, 6b polyglot); together they are the 2 points. I record a module's points when your portfolio shows you reached that module's learning goals. |
+| Reflections & engineering decision log | **4** | One short logbook entry per teaching block — four blocks, one point each. Module 6 has two studios, so it gets two entries (`ref06a`, `ref06b`) inside one block. |
 | Final project | **5** | **3 points for the work** — your **story**, your **architecture** (schema, ingestion, query, interface), and your **plan** — and **2 points for the project presentation and individual project discussion** in week 11. |
 | **Total** | **20** | Pass at **14 / 20** (~70 %). |
 
@@ -125,6 +125,8 @@ There is no exam to pass module by module. For each of Modules 1–6 I look for 
 
 **Checkpoints are feedback, not assessment.** We meet for about ten minutes with your **Task Pod** (two or three people), look at what you have, and talk about what is missing. Nothing is decided in that conversation. If a module's goals are not visible yet, the answer is **"not yet"**, and you show them later. Missing a checkpoint costs you feedback, not points.
 
+**Checkpoint 2 is spread over Sessions 8 and 9** — ten pods per session, while the rest of the room works on the project. Part 1 looks at Modules 4–5, part 2 at Modules 6a–6b. Ten minutes per pod, in person; the TA helps teams between slots.
+
 **Each round opens with a peer practice.** Your pod presents to a neighbouring pod, then they present to you — **12 minutes each way**, with a three-minute switch to write feedback notes. You start by opening your **own portfolio** on your own device, so the other pod can check that it is yours and that you can edit, commit, and link in it. Then each of you shows **one artefact** that proves a learning goal, and the pod shows **one reflection** it is proud of.
 
 **If you are ill on the day.** Tell your pod and me — this is not a problem to solve alone. You can **join the round by video call**, your pod can **record it** and share the recording, and if something about *your* contribution is missing from what they show, **send me a short message** so it is on the record. If it needs a real conversation, **book a 15-minute slot in my office hour**. None of this changes your points; it only changes how much feedback you get.
@@ -139,7 +141,7 @@ Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one w
 
 ### Reflection format
 
-For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). The template includes the **AI-verification** question. The log is an **engineering decision log**: what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals.
+For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). Module 6 has two studios and gets two entries (`ref06a`, `ref06b`); they belong to the same block. The template includes the **AI-verification** question. The log is an **engineering decision log**: what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals.
 
 ### Grade Scale
 
@@ -158,7 +160,7 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 | Environment manager | **`uv`** (Astral) | Installs a fixed Python plus all libraries and CLI tools in one step — the same commands on Windows, macOS, and Linux. Set up in Module 1. |
 | Language | **Python 3.14** | The glue for every lab; `sqlite3` is in the standard library. Install and pin it with `uv python install 3.14`. |
 | Transactional DB | **SQLite 3.38+** | JSON1 built in; use `STRICT` tables and generated columns. Ships as the `sqlite3` CLI and the Python `sqlite3` module. |
-| Analytical DB | **DuckDB** | In-process columnar engine; reads Parquet/CSV directly and can attach a SQLite file. |
+| Analytical DB | **DuckDB** | In-process columnar engine; reads Parquet/CSV directly. Export from SQLite through CSV — do not rely on the downloadable SQLite extension. |
 | Exploration & publishing | **Datasette** + **sqlite-utils** | One command turns a `.db` into an explorable site and JSON API. Datasette Lite runs in the browser. |
 | Editor | **VSCode** or **Zed** | With an SQLite/DuckDB extension for browsing and SQL execution. |
 | Version control | **Git + GitHub** | Your portfolio is the assessment artifact. |
@@ -169,7 +171,7 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 
 ## 11-Session Course Schedule
 
-The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6), and the final-project arc (Modules 7–8). Sessions 1–7 are taught studios, with Modules 5–6 spread over three weeks; Sessions 8–10 are project studios; Session 11 is demo and project discussion. Optional **TA-led tutorial sessions** (times announced via the LMS) add catch-up, deeper practice, and project support.
+The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6b), and the final-project arc (Modules 7–8). Sessions 1–7 are taught studios; Sessions 8–10 are project studios, with **Checkpoint 2 spread across Sessions 8 and 9** while the teams work; Session 11 is demo and project discussion. Optional **TA-led tutorial sessions** (times announced via the LMS) add catch-up, deeper practice, and project support.
 
 The full roadmap — with a one-line summary and learning goals for every studio — is in the [module index](./modules/00-index.md).
 
@@ -182,10 +184,10 @@ The full roadmap — with a one-line summary and learning goals for every studio
 | 3 | [Module 3 — LLM-Assisted SQL & Query Profiling](./modules/03-llm-assisted-sql-and-query-profiling.md) | Generate complex SQL with an LLM, then read `EXPLAIN QUERY PLAN`, test parameterization, benchmark an index, and drill injection. |
 | 4 | [Module 4 — Data Integrity, Constraints & Edge Triggers](./modules/04-integrity-constraints-and-triggers.md) **+ Checkpoint 1 (feedback)** | *Peer-pod feedback round first (Modules 1–3), then:* `CHECK`/`UNIQUE`/`FK`, `STRICT` tables, generated columns, and a trigger that enforces edge telemetry rules. |
 | 5 | [Module 5 — Normalization vs. Denormalization](./modules/05-normalization-vs-denormalization.md) | Normalize to 3NF, denormalize on purpose, and measure read/write/storage trade-offs in SQLite. |
-| 6 | Modules 5–6 — finish the normalization benchmark, start polyglot persistence | Complete the Module 5 benchmark table, then JSON documents in SQLite. |
-| 7 | [Module 6 — Polyglot & Embedded Persistence](./modules/06-polyglot-embedded-persistence.md) **+ Checkpoint 2 (feedback)** | DuckDB analytics over Parquet/CSV, a key-value comparison, and a feedback round on Modules 4–6. |
-| 8 | [Module 7 — Project Studio — story, architecture, plan](./modules/07-final-project-studio.md) | Teams merge; story, one-page plan with your own dates, first vertical slice. |
-| 9 | [Module 7 — Project Studio — build & integrate](./modules/07-final-project-studio.md) | Build the slice out: ingestion, headline query, interface. |
+| 6 | [Module 6a — The Analytical Engine (DuckDB)](./modules/06a-duckdb-analytical-engine.md) | Stretch the report to 2M rows, move it to Parquet, race DuckDB against SQLite, and find the boundary where it loses. |
+| 7 | [Module 6b — Polyglot Persistence & the Decision](./modules/06b-polyglot-persistence.md) | JSON documents in SQLite, a key-value comparison, a real server as the control group, and a one-page engine decision record. |
+| 8 | [Module 7 — Project Studio — story, architecture, plan](./modules/07-final-project-studio.md) **+ Checkpoint 2, part 1** | Teams merge; story, one-page plan with your own dates, first vertical slice. Feedback rounds run for half the pods while the rest work. |
+| 9 | [Module 7 — Project Studio — build & integrate](./modules/07-final-project-studio.md) **+ Checkpoint 2, part 2** | Build the slice out: ingestion, headline query, interface. The remaining pods get their feedback round. |
 | 10 | [Module 7 — Project Studio — harden, review, rehearse](./modules/07-final-project-studio.md) | Constraints, parameterization, index proof, peer review, timed rehearsal. |
 | 11 | [Module 8 — Live Demos & Project Discussions](./modules/08-final-project.md) | 15-minute Project Team demo + individual project discussion; retrospective. |
 

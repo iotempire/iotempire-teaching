@@ -41,7 +41,7 @@ And this class is always in flux — that is a feature, not a bug. No course is 
 ## How the course is organized
 
 - **11 four-hour studio sessions (44 contact hours)**, plus optional tutorial sessions (times announced via the LMS).
-- **Modules 1–6:** one technical module per session — the local-first paradigm, legacy schema audits and data contracts, LLM-assisted SQL and query profiling, integrity and edge triggers, normalization benchmarking, and polyglot embedded persistence.
+- **Modules 1–6:** one technical module per session — the local-first paradigm, legacy schema audits and data contracts, LLM-assisted SQL and query profiling, integrity and edge triggers, normalization benchmarking, then the analytical engine (DuckDB) and polyglot persistence.
 - **Modules 7–8:** the final-project arc — a story-driven, local-first database application, built, documented, and presented in a merged **Project Team** of 4–6 (two Task Pods).
 
 The full module list, one-line summaries, and the session roadmap live in the **[module index](./modules/00-index.md)**.

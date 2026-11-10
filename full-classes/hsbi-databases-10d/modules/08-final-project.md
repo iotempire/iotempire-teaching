@@ -42,7 +42,7 @@ These are the requirements every project must meet. They are deliberately mapped
 | 7 | **Reachable interface** — the data is shown through something a human uses (Datasette, a CLI, a small app, or a dashboard), and the app recovers gracefully from a missing/corrupt row | The story has to reach the person it is for | Modules 6–7 |
 
 > [!NOTE]
-> **Stretchers (optional, Excellence Stretcher candidates).** A normalized-read vs. denormalized-read comparison (Module 5); a DuckDB analytics view over a Parquet export (Module 6); a key-value or JSON component with a measured justification (Module 6); an accepted upstream pull request (any module).
+> **Stretchers (optional, Excellence Stretcher candidates).** A normalized-read vs. denormalized-read comparison (Module 5); a DuckDB analytics view over a Parquet export (Module 6a); a key-value or JSON component with a measured justification (Module 6b); an accepted upstream pull request (any module).
 
 ## 📄 Documentation — 5 Pages, Concise
 

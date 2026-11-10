@@ -1,6 +1,6 @@
 # Module 5 — Normalization vs. Denormalization Benchmarking Studio
 
-[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 6 →](./06-polyglot-embedded-persistence.md)
+[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 6a →](./06a-duckdb-analytical-engine.md)
 
 **Course placement:** Session 5. This module covers the legacy *Relational Model* and *Normalization (1NF–3NF)* chapters — reframed as an empirical performance-and-storage trade-off you measure yourself.
 
@@ -31,7 +31,7 @@ The operations lead, **Yasmin Kaya**, offers the classic shortcut: *"just copy t
 
 **Rough timing — Rounds 1–4 fill the two blocks of 90.** skim 15 → **1 See it** 25 → **2 Break it** 20 → **3 Build it** 50 → **4 Race it** 70 = 180 minutes. The break falls somewhere inside Round 3; take it when the build is running.
 
-**Rounds 5–7 are homework.** If your pod is faster, start Round 5 in class; if you are slower, finish Round 4 at home — but do not skip it. Bring the homework rounds to the next session and gate them there (or post the artefact in the channel and ask).
+**Rounds 5–7 are homework.** If your pod is faster, start Round 5 in class; if you are slower, finish Round 4 at home — but do not skip it. **Bring the homework rounds to Session 6:** the first 15 minutes of Module 6a are the Module 5 gate. No artefact? Say "not yet" and start the DuckDB studio — it does not block you.
 
 **Every round ends with a gate.** Show the round's artefact to the **nearest pod** and ask them the gate question. Two minutes, no instructor, no schedule. Tick the round on the gate board (or in your notes) when you have passed it. If a neighbour cannot answer your question, that is a better use of five minutes than reading the box again.
 
@@ -46,7 +46,7 @@ The operations lead, **Yasmin Kaya**, offers the classic shortcut: *"just copy t
 | 7 | **Harvest** | your curiosities, swapped | “I collected these — which did you find?” |
 
 > [!NOTE]
-> **This format is an experiment — like everything in this class.** You have been through four pod studies by now, so you know what they cost. If the rounds work better (or worse), say so: what was confusing, what was missing, what you would cut. Your feedback decides whether Module 6 keeps this shape or goes back to a study phase. Two minutes in the harvest, or a message in `#sql-questions`, is enough — and it counts as a contribution.
+> **This format is an experiment — like everything in this class.** You have been through four pod studies by now, so you know what they cost. If the rounds work better (or worse), say so: what was confusing, what was missing, what you would cut. Your feedback decides whether Modules 6a and 6b keep this shape or go back to a study phase. Two minutes in the harvest, or a message in `#sql-questions`, is enough — and it counts as a contribution.
 
 ---
 
@@ -303,8 +303,8 @@ Normalization minimizes redundancy and anomalies; denormalization trades redunda
 | **Denormalized — accidental** | Module 2's `parts_used = 'P-1001,P-1002'` | a list of parts per job | “one column instead of a junction table” |
 | **Denormalized — mild** | Module 1's `readings` — the machine name on every reading | machine name per row | no join to a machine table |
 | **Denormalized — deliberate** | This module's `report_jobpart`; your final project | site, technician, price on every fact row | one table for the dashboard |
-| **Semi-structured** | Module 6's `device.meta` JSON | vendor fields per device | schema flexibility |
-| **Star schema** | analytics in general; Module 6's Parquet export | dimensions copied into the fact table | fast aggregates |
+| **Semi-structured** | Module 6b's `device.meta` JSON | vendor fields per device | schema flexibility |
+| **Star schema** | analytics in general; Module 6a's Parquet export | dimensions copied into the fact table | fast aggregates |
 
 **The star schema is the standard analytics denormalization.** A fact table stores keys and measures; dimensions store the descriptive attributes once:
 
@@ -374,7 +374,7 @@ Write a short recommendation (5–8 sentences) to the operations lead: which des
 
 **Collect curiosities, swap lists — no explaining.** Scan the material you just worked through and mark the bits that looked strange, hard, or worth arguing about: the `CROSS JOIN` that turns 20,000 × 10 into 200,000 rows, `printf('%.2f', …)` storing money as *text*, the `dbstat` numbers, the plan for the report table, the `DISTINCT` assumption. Bring them to the nearest pod: *“I collected these — which did you find?”* Anything nobody can place goes to `#sql-questions` with the module number.
 
-**◇ Stretcher — push the frontier.** Load the same data into DuckDB and run the dashboard query there. Capture wall-clock time and note whether the columnar engine removes the need for the denormalized table entirely. This is the bridge into Module 6.
+**◇ Stretcher — push the frontier.** Load the same data into DuckDB and run the dashboard query there. Capture wall-clock time and note whether the columnar engine removes the need for the denormalized table entirely. This is the bridge into Module 6a.
 
 ---
 
@@ -403,4 +403,4 @@ Write a short recommendation (5–8 sentences) to the operations lead: which des
 
 ---
 
-[← Previous: Module 4](./04-integrity-constraints-and-triggers.md) | [Back to front page](../README.md) | [Next: Module 6 →](./06-polyglot-embedded-persistence.md)
+[← Previous: Module 4](./04-integrity-constraints-and-triggers.md) | [Back to front page](../README.md) | [Next: Module 6a →](./06a-duckdb-analytical-engine.md)
