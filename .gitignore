@@ -9,3 +9,4 @@ untracked/
 
 # Generated slide decks — rebuild with slides/render-slides.sh, never commit them
 **/slides/*.pdf
+**/assessment/
