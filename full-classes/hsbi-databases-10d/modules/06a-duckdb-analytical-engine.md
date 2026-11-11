@@ -221,13 +221,14 @@ for name, sql in (("dashboard", DASHBOARD), ("monthly", MONTHLY)):
 
 Run it. The script **warms both engines with one untimed run**, then alternates SQLite and DuckDB three times and reports the medians. That is the minimum honest measurement — the first run of either engine is a cache warm-up, not a result.
 
-On this machine, with this dataset: the dashboard takes about **600 ms in SQLite** and **7 ms in DuckDB**; the monthly report about **540 ms** and **7 ms**. Your numbers will differ — a slow laptop makes SQLite worse, a warm cache makes both faster. What travels is the **ratio** and the **plan**.
+On this machine, with this dataset: the dashboard takes about **600 ms in SQLite** and **6 ms in DuckDB** (≈100×); the monthly report about **540 ms** and **15–18 ms** (≈30–40×). **The monthly ratio is lower for an interesting reason:** `strftime(done_on, '%Y-%m')` runs once per row, and that per-row work now dominates DuckDB's 6 ms scan. SQLite's 540 ms scan hides it. Your numbers will differ — a slow laptop makes SQLite worse, a warm cache makes both faster. What travels is the **ratio** and the **plan**.
 
 > [!IMPORTANT]
 > **Do not trust a single run.** First runs include file-cache effects; a single timing is a coin flip. Three interleaved runs and a median is the minimum. If your two engines are within 20 %, say so — that is a finding, not a failure.
 
 > **Discuss (nearest pod, 2 minutes).**
 > - **Was the ratio what you predicted?** If not, name the assumption that was wrong — data size, cache, or number of columns. This is **goal 2**.
+> - **Why is the monthly ratio lower?** `strftime` is per-row work; the scan is no longer the bottleneck. Try `date_trunc('month', done_on)` in DuckDB — the ratio improves, the result is identical. Same query shape, different function, different number.
 > - **What would make SQLite win this race?** Try it: filter to one day (`WHERE done_on = '2026-02-14'`) or to one machine. A point query on an index can beat a column scan; a full aggregate over 2M rows cannot.
 > - **Find one more thing:** why does the first run of each engine differ from the next two? Run the script twice and compare — the answer is the file cache, and it is why we take a median.
 
