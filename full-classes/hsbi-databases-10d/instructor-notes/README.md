@@ -4,9 +4,19 @@ These notes are for whoever teaches this class next. That may be you, with three
 
 Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment live in [`../syllabus.md`](../syllabus.md). Logistics (rooms, dates, announcements) are the LMS's job.
 
-Open improvements for the next run are tracked in **[Future work](./TODO.md)** — add a row when you notice something you cannot fix this term.
+| Note | What is inside |
+|---|---|
+| [Architecture decisions](./00-architecture-decisions.md) | Why the class is shaped this way: provenance, decision records with alternatives and reversal triggers, rejected ideas, open questions, recreation checklist, module-handbook coverage |
+| [Future work](./TODO.md) | Actionable leftovers for the next run, a discrepancy watch against the architecture log and the sibling classes, and the shared partial-grades thought |
+| [Assessment & operations](./00-assessment-and-operations.md) | Assessment form, milestone plan, submission hygiene, group sign-off, re-examination, privacy, AI declaration |
+| [Study formats](./study-formats.md) | The catalogue of pod-study and stage-and-gate variants, and the observations we still owe |
+| [Feedback rounds](./feedback-rounds.md) | The 10-minute script, the 145-minute run sheet, and the fill-in [template](./feedback-template.md) |
+| [Email template](./email-template.md) | Prep and expectation mail — send it at least three days before a session |
+| [PostgreSQL tunnel](./postgres-tunnel.sh) | The optional server contrast: Podman, Cloudflare tunnel, quick mode without a domain |
 
-Prep and expectation emails have a reusable **[template](./email-template.md)** — send it at least three days before a session.
+Add a row to **[Future work](./TODO.md)** when you notice something you cannot fix this term. The
+Networking class inherits patterns from this class; what it is copying is written down in its
+[gift file](../../hsbi-networking-iot-10d/instructor-notes/from-databases.md).
 
 ## Five commitments that make the format work
 
