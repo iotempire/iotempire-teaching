@@ -174,13 +174,15 @@ print(con.execute(f"""SELECT ROUND(SUM(part_price), 2) FROM read_parquet('{parqu
 
 ```python
 # Module06a/race.py — run with:  uv run python Module06a/race.py
-"""Same two queries, two engines, interleaved, median of three."""
+"""Same two queries, two engines, interleaved, median of RUNS runs."""
 import sqlite3
 import statistics
 import time
 from pathlib import Path
 
 import duckdb
+
+RUNS = 5        # odd on purpose: the median is then a real run. Try 3, 7, 9.
 
 here = Path(__file__).parent
 sq = sqlite3.connect(here / "history.db")
@@ -202,6 +204,10 @@ def timed_ms(fn):
     return (time.perf_counter() - t0) * 1000
 
 
+def spread(times):
+    return f"{min(times):.1f}-{max(times):.1f}"
+
+
 for name, sql in (("dashboard", DASHBOARD), ("monthly", MONTHLY)):
     run_sqlite = lambda: sq.execute(sql.format(src="report_history")).fetchall()
     run_duckdb = lambda: duck.execute(sql.format(src=f"read_parquet('{pq}')")).fetchall()
@@ -210,21 +216,24 @@ for name, sql in (("dashboard", DASHBOARD), ("monthly", MONTHLY)):
     run_duckdb()
 
     sqlite_times, duckdb_times = [], []
-    for _ in range(3):    # interleaved: alternate the engines
+    for _ in range(RUNS):  # interleaved: alternate the engines
         sqlite_times.append(timed_ms(run_sqlite))
         duckdb_times.append(timed_ms(run_duckdb))
 
     s = statistics.median(sqlite_times)
     d = statistics.median(duckdb_times)
-    print(f"{name:10s} sqlite {s:8.1f} ms   duckdb {d:6.1f} ms   {s / d:6.1f}x")
+    print(f"{name:10s} sqlite {s:7.1f} ms [{spread(sqlite_times)}]"
+          f"   duckdb {d:6.1f} ms [{spread(duckdb_times)}]   {s / d:6.1f}x")
 ```
 
-Run it. The script **warms both engines with one untimed run**, then alternates SQLite and DuckDB three times and reports the medians. That is the minimum honest measurement — the first run of either engine is a cache warm-up, not a result.
+Run it. The script **warms both engines with one untimed run**, then alternates SQLite and DuckDB **`RUNS` times** and reports the median plus the min–max spread. `RUNS = 5` is the default; 3 is the minimum, and 7–11 (odd) is what you would use if you had to publish the number.
 
-On this machine, with this dataset: the dashboard takes about **600 ms in SQLite** and **6 ms in DuckDB** (≈100×); the monthly report about **540 ms** and **15–18 ms** (≈30–40×). **The monthly ratio is lower for an interesting reason:** `strftime(done_on, '%Y-%m')` runs once per row, and that per-row work now dominates DuckDB's 6 ms scan. SQLite's 540 ms scan hides it. Your numbers will differ — a slow laptop makes SQLite worse, a warm cache makes both faster. What travels is the **ratio** and the **plan**.
+> **Why the median, and why an odd count?** The distribution has a slow tail — one cache miss or CPU hiccup drags the mean. The median ignores that tail: with three runs it is simply the middle one, so nothing is averaged and one outlier on each side is discarded. With an **even** count Python would average the two middle values; that is why `RUNS` is odd. The `[min–max]` spread is printed next to it so you can see how noisy your machine is. If the spread is wide, the median is the number to trust — and the first run of either engine is a cache warm-up, not a result.
+
+On this machine, with this dataset: the dashboard takes about **600 ms in SQLite** and **6 ms in DuckDB** (≈100×); the monthly report about **540 ms** and **9–18 ms** (≈30–60×). **The monthly ratio is lower for an interesting reason:** `strftime(done_on, '%Y-%m')` runs once per row, and that per-row work now dominates DuckDB's 6 ms scan. SQLite's 540 ms scan hides it. Your numbers will differ — a slow laptop makes SQLite worse, a warm cache makes both faster. What travels is the **ratio** and the **plan**.
 
 > [!IMPORTANT]
-> **Do not trust a single run.** First runs include file-cache effects; a single timing is a coin flip. Three interleaved runs and a median is the minimum. If your two engines are within 20 %, say so — that is a finding, not a failure.
+> **Do not trust a single run.** First runs include file-cache effects; a single timing is a coin flip. Five interleaved runs and a median is the default; three is the minimum. If your two engines are within 20 %, say so — that is a finding, not a failure.
 
 > **Discuss (nearest pod, 2 minutes).**
 > - **Was the ratio what you predicted?** If not, name the assumption that was wrong — data size, cache, or number of columns. This is **goal 2**.
@@ -468,7 +477,7 @@ Why it is worth it: a refresh you can run and verify is the difference between a
 
 - [ ] `prepare.py`, `to_parquet.py`, and the matching row counts/checksums for both sides.
 - [ ] The Parquet file size next to the SQLite file size.
-- [ ] `race.py` and the timing table (median of three, interleaved).
+- [ ] `race.py` and the timing table (median of RUNS, interleaved, with the min–max spread).
 - [ ] One `EXPLAIN ANALYZE` output with the dominating operator marked.
 - [ ] `boundary.py` and the insert/lookup numbers, including the `executemany` variant.
 - [ ] The memo to Lea and Yasmin, including the refresh paragraph (core homework).
