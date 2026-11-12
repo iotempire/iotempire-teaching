@@ -45,6 +45,10 @@ the architecture log first.
 - [ ] **Intersperse theory and practice more** (D7). Modules 2–4 still run as *study → lab*; the
       stage-and-gate format in Modules 5, 6a and 6b works better. Convert one module per term,
       not all at once, and write down what changed.
+- [ ] **Remove the remaining board assumptions.** The room has no board. In the instructor notes for
+      Modules 2, 4 and 5 (and anywhere else the text says “write it on the board”), replace it with
+      terminal output, a projected document, or a saved file. Module 6a now uses
+      `scratch/warmup-portfolio/06a-recap-output.txt`; use that as the pattern.
 - [ ] **Rename all remaining “gates” to “discussions”** — **blocked**, see discrepancy 2 and
       ADR §4. If the question closes as “discussion”, link each one explicitly to the module's
       **learning goal** and the **theory box** it tests. Modules 5, 6a and 6b already do this in

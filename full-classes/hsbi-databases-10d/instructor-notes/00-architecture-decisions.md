@@ -305,7 +305,7 @@ the lab. The same happened in the first Module 5 attempt.
 box read only when the task demands it, and a two-minute **discussion** with the nearest pod. The
 instructor walks and listens; no lecture. The format spreads to 6a/6b.
 
-**Consequences.** The room runs at different speeds on purpose; a progress board replaces
+**Consequences.** The room runs at different speeds on purpose; a shared progress list replaces
 synchronisation. The theory is discovered, not pre-loaded. Some students will skip the box and learn
 from the gate discussion instead — acceptable.
 
@@ -416,7 +416,7 @@ showed the measured rounds fit one. The leftover homework (Rounds 5–7) would o
 
 **Decision.** Module 5 is **one session** (Rounds 1–4); Rounds 5–7 are homework. Session 6 opens
 with a **15-minute instructor recap** of the numbers and findings, not a student gate. Students
-without homework take the board numbers and note that they copied them.
+without homework take the generated recap numbers and note that they copied them.
 
 **Consequences.** The recap starts the next session with shared numbers and identifies the cold-cache
 surprise; it costs 15 minutes of Module 6a. The gate-as-test ritual is removed.
