@@ -20,13 +20,13 @@ By the end of this module, you can:
 
 **The day starts with the challenge, not a slide.** Module 1 gave you the continuum; today you make the edge real. The opening runs in five quick beats:
 
-1. **Pre-study check-in.** In your pod, show one artefact from Module 0 or Module 1 — the packet-path sketch, the `traceroute`, or the MQTT screenshot — and name one question you still have. Park the questions on the board.
-2. **Confirm the pod and the roles.** You will rotate: one drives LuCI, one drives the terminal, one keeps the network map and photos. Swap after each round. After the OpenWrt flash, the router stays at `192.168.1.1` until Round 4; use that address for the first three rounds.
-3. **Collect the hardware.** One Cudy TR1200 v1 with factory firmware, one USB stick (> 4 GB), one mini USB hub, two laptops, one phone, Ethernet cables, and one M5StickC (optional client). Label the router and the stick with your pod ID.
-4. **Draw the network you are about to build.** Before you touch the router, sketch the upstream (eduroam 5 GHz, phone tether, or the class `iotempire-b1300-5g` Wi-Fi), the router's WAN and LAN sides, the 2.4 GHz AP, and at least one client. You will correct the sketch all day; that is the point.
+1. **Pre-study check-in.** In your pod, show each other one artefact from Module 0 or Module 1 — the packet-path sketch, the `traceroute`, or the MQTT screenshot — and name one question you still have.
+2. **Confirm the pod and the roles.** You will rotate the roles: one drives LuCI, one drives the terminal, one keeps the network map and photos. Swap often (at least after each round). After the OpenWrt flash, the router stays at `192.168.1.1` until Round 4; use that address for the first three rounds.
+3. **Collect the hardware.** One Cudy TR1200 v1 with factory firmware, one USB stick (> 4 GB), one mini USB hub (we will set this up later), Ethernet cables, and one M5StickC (optional client). Label the router and the stick with your pod ID. Make sure you have two laptops, one phone, and paper and pen for drawing and refining the architecture — how it all plays together.
+4. **Draw the network you are about to build.** Before you touch the router, draft the architecture you will build and network together (eduroam 5 GHz, phone tether, or the class `iotempire-b1300-5g` Wi-Fi), the router's WAN and LAN sides, the 2.4 GHz AP, and at least one client. You will correct the sketch all day; that is the point.
 5. **Skim the studio, do not start.** Read the challenge and the round table below, then skim the theory boxes and the evidence list. You are looking for two things: **where the capture happens** and **where the router leaves the room**. Then start Round 1.
 
-Before you touch the router, answer these three in one sentence each — they are the questions the day will answer:
+Before you touch the router, answer these three in one sentence each — they are the questions the day will answer (this is a draft answer; you can and should refine it later. Do not delete your first answer — prefix new answers with “update” and add a note at the end: “we changed this because we learned that …”):
 
 - What must a client have before it can send a packet to `1.1.1.1` through your router?
 - Why does the router need a WAN address *and* a LAN address? Which one does the laptop see?
@@ -46,15 +46,15 @@ Everything from today goes into **`Module02/README.md`** as sections. Split some
 - `## Take it home` — the upstream switch and the evidence that the router still works.
 - `## Story seeds` — optional: the odd bits worth turning into a story later.
 
-*One pod member keeps the shared `## Study log`; the others link to it from their own `Module02/README.md` and add one sentence on what they took from it. The `## Discussion log` is yours alone.*
+*One pod member keeps the shared `## Study log`; the others link to it from their own `Module02/README.md` and add one sentence on what they took from it. The `## Discussion log` is yours alone.* If you switch roles, cross-link your logs.
 
 ### The pod router contract
 
 The router is a shared piece of infrastructure, and one of you will put a personal eduroam credential on it. Agree before you start:
 
-- **Whose eduroam account?** That person consents; the credential is stored on the router; the pod does not publish the config, a backup, or a screenshot that contains it. **The credential owner is the router owner for the course.** Remove the credential or reset the router at the end of the course.
+- **Whose eduroam account?** That person consents; the credential is stored on the router; the pod does not publish the config, a backup, or a screenshot that contains it. **The credential owner is the router owner for the course.** Remove the credential or reset the router at the end of the course. Do not put the credential into the portfolio. The person who provides the eduroam credential also sets the router admin password; we advise against sharing it. If you do share the admin password, everyone agrees not to look up the eduroam password of the person who added it.
 - **Who carries the router?** The router and its USB stick travel together. The stick is part of the router; label it and keep it in. If the router moves to another pod member, remove the eduroam credential first; never hand over a router with someone else's login.
-- **Which upstream?** Prefer eduroam on 5 GHz. If that fails, use phone USB tethering or the class `iotempire-b1300-5g` Wi-Fi. The learning goal is the same; the path is negotiable.
+- **Which upstream?** Prefer eduroam on 5 GHz. If that fails (or you don't want to add your credentials into the router), use phone USB tethering or as a last resort the class `iotempire-b1300-5g` Wi-Fi. The learning goal is the same; the path is negotiable.
 
 ## 📖 The Challenge — The Substation Behind the Router
 
@@ -65,27 +65,29 @@ Petra Sommer's question is precise: *"Which address is which, who is allowed to 
 **Your challenge.** Take one boxed Cudy from factory firmware to a pod gateway that survives leaving the room. You are done when you can show all six:
 
 1. A router on upstream OpenWrt with its writable overlay on the USB stick.
-2. A `wwan` with a default route, over eduroam, a phone tether, or the class Wi-Fi.
+2. A `wwan` with a default route, over eduroam, a phone tether, or — only in special circumstances — the class Wi-Fi.
 3. A `192.168.14.0/24` LAN with DHCP, DNS, NAT, and a local broker that two clients can use.
 4. A capture at the choke point that shows ARP, DHCP, DNS, and MQTT.
 5. A tighter subnet, one pinned client, and one port forward that works from outside — then closes.
 6. A router that still works on a different upstream at home, with the credential owner and the handover agreed.
 
-**Constraints.** One router per pod. 16 MB of flash. One Wi-Fi adapter per laptop, usually Windows, no monitor mode. No cloud dependency. The eduroam credential is personal and stays off Git, screenshots, and chat.
+**Constraints.** One router per pod. 16 MB of flash. One Wi-Fi adapter per laptop, usually Windows, no monitor mode. No cloud dependency. The eduroam credential and the router admin password are personal and stay off Git, screenshots, and chat; your Wi-Fi credentials may appear in your personal portfolio only if it is not public.
 
-**This story is unfinished on purpose.** The hooks below are starting points, not a script. Pick the ones that match what you actually saw, and add a line of your own — *"and the phone never got a lease because the AP was still on channel 6"* is worth more than a perfect diagram. Collect those lines under `## Story seeds` and use them in a discussion or the harvest.
+**There will be story hooks coming up.** Feel free to add your own story-hook extensions that define scenarios where things go wrong — especially when you struggle or explore at a point. Collect those lines under `## Story seeds` and use them in a discussion or the harvest.
 
 ## 🧭 How this studio works now
 
-**The study is folded into the practice.** There is no separate pod-study phase and no scheduled hand-off to another pod. Each round below gives you a small thing to do, a short **Theory you need** box you read only when the task makes you want it, and a **discussion** at the end. Keep your notes in `Module02/README.md` under `## Study log` — a running log, not an essay.
+Read this section as a guide: you can alternate freely among the rounds — you are driving your own study in this class.
 
-**First: skim, do not start.** Read the challenge, then skim the eight rounds, the theory boxes, and the evidence list. You are looking for two things: **where the capture happens** and **where the router leaves the room**. After that, start Round 1 and work at your pod's pace.
+**Your knowledge and theory acquisition (study) is folded into the practice.** There is no separate pod-study phase and no scheduled hand-off to another pod. Each round below gives you a small thing to do, a short **Theory you need** box you read only when the task makes you want it, and a **discussion** at the end. Keep your notes in `Module02/README.md` under `## Study log` — a running log, not an essay.
 
-**Every round ends with a discussion — one person is enough.** You do not need the whole pod to stop. Ask someone at the nearest pod if they have a moment; show them the round's artefact and ask the discussion question. If they want, let them show you theirs and ask you one question back. **This is a brag, not a quiz**: you are showing what works and inviting one question, not asking for permission. Write one line in `## Discussion log`: who listened, what they asked, what you changed. If nobody is free, ask someone else or come back later — do not wait.
+**First: skim (meaning read), do not start.** Read the challenge, then skim the nine rounds, the theory boxes, and the evidence list. You are looking for two things: **where the capture happens** and **where the router leaves the room**. After that, start Round 1 and work at your pod's pace.
 
-**Take a study break when a box is not enough.** A short break with the linked source, then explain it to one person. Explaining is the test, not reading. You do not need permission; take the break when the task makes you want it. If two of you want the same theory, take it together and bring back one sentence each.
+**Every round ends with a discussion.** You do not need the whole pod to stop. Ask someone at the nearest pod if they have a moment; show them the round's artefact and ask the discussion question. If they want, let them show you theirs and ask you one question back. **This is a brag, not a quiz**: you are showing what works and inviting one question, not asking for permission. Write one line in `## Discussion log`: who listened, what they asked, what you changed. If nobody is free, ask someone else or come back later — do not wait; just record the question or the artefact you wanted to show off.
 
-The table is the discussion map: the **[Goal](#-learning-goals) · theory box** column names what each discussion checks. The question tests understanding, not task completion.
+**Take a study break when the theory box is not enough.** A short break with the linked source, then explain it to one person. Explaining is the test, not reading. You do not need permission; take the break when the task makes you want it. If two of you want the same theory, take it together and bring back one sentence each. Feel free to use this option often, and try to relate it to the learning goals stated at the beginning (going back to the OSI seven layers or the TCP/IP layers is a welcome connection and strengthens your module requirements).
+
+For guidance, the table below is the discussion map: the **[Goal](#-learning-goals) · theory box** column names what each discussion checks. The question tests understanding, not task completion.
 
 | # | Round | You produce | [Goal](#-learning-goals) · theory box | Discussion question for one person |
 |---|---|---|---|---|
@@ -97,13 +99,12 @@ The table is the discussion map: the **[Goal](#-learning-goals) · theory box** 
 | 6 | **Tighten and pin** | A subnet table and a static lease outside the pool | G1 · Tighten the subnet | "What is the broadcast address of your /26, and why?" |
 | 7 | **Open one door** | An outside subscribe and both sides of the NAT capture | G2 · One door | "Why can the outside start the conversation now, and why close the door?" |
 | 8 | **Take it home** | A baseline and a second upstream | G1 + G3 · Handoff | "What changed when the upstream changed?" |
+| 9 | **Why OpenWrt?** | A short argument for or against upstream OpenWrt, with one device-table example | G3 · Why OpenWrt | "What does upstream OpenWrt buy you that the vendor UI does not — and what does it cost?" |
 | ◇ | **Stretch** | Two-pod chain, SSH tunnel, or Nebula preview | G3–G4 · stretch | "What does this prove that the LAN alone did not?" |
 
 **The order is a suggestion.** The rounds are a path, not a timetable. If your pod's eduroam association fails, switch to phone tethering or the `iotempire-b1300-5g` Wi-Fi and come back; if you finish early, take a stretcher. **The instructor demos the risky steps live on the beamer** — flashing, extroot, the eduroam join, and one capture — so ask for the demo you need instead of waiting with a broken step. Rotate roles after each round; everybody should flash or configure at least one piece. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
 ## 🛠️ The Studio: From Factory Router to Pod Gateway — **Challenging**
-
-*Hardware per pod:* 1× Cudy TR1200 v1 with factory firmware, 1× USB stick (> 4 GB) + mini USB hub, 2× laptops, 1× phone, Ethernet cables, 1× M5StickC (optional client), and access to eduroam, phone tethering, or the class `iotempire-b1300-5g` Wi-Fi.
 
 | What | Notes |
 |---|---|
@@ -125,7 +126,7 @@ The table is the discussion map: the **[Goal](#-learning-goals) · theory box** 
 ### ★ Round 1: Flash OpenWrt — from factory to your router
 
 1. **Verify the hardware.** The label must say **TR1200 v1**. Do not cross-flash a different revision or model.
-2. **Get the two images.** The Cudy-signed **intermediate** image (the stock UI only accepts that), and the current stable OpenWrt **sysupgrade** image for `cudy_tr1200-v1` that the instructor names. Do not use a snapshot. Verify the SHA-256 of the OpenWrt image.
+2. **Get the two images.** The Cudy-signed **intermediate** image (the stock UI only accepts that), and the current stable OpenWrt **sysupgrade** image for `cudy_tr1200-v1` that the instructor names. Do not use a snapshot. Verify the SHA-256 of the OpenWrt image. Your instructors may have provided additional resources in the LMS; check there as well and compare them with this manual. The two should complement each other — if they contradict, that is a curiosity worth recording, not a reason to guess.
 3. **Connect by Ethernet.** Laptop to the router's LAN port, open `http://192.168.10.1`, and flash the intermediate image. Wait until the router has rebooted; do not interrupt power. If the laptop keeps its old `192.168.10.x` lease, renew DHCP or set a temporary static address such as `192.168.1.2`.
 4. **Replace the intermediate build.** Reconnect to `http://192.168.1.1`, flash the OpenWrt sysupgrade image, and **do not keep settings**. Set a strong root password.
 5. **Verify the result.** `ubus call system board`, `uname -a`, `df -h /overlay`, and `ssh root@192.168.1.1` — the router keeps the OpenWrt default until Round 4 moves it to `192.168.14.1`.
@@ -143,15 +144,17 @@ The table is the discussion map: the **[Goal](#-learning-goals) · theory box** 
 
 The Cudy has 16 MB of flash; the writable overlay is small. Nebula and `tshark` will not fit there; the phone-tether drivers may, but the stick gives you room — including for the MicroPython integration service in Module 4. Move the overlay to the USB stick now, before it becomes an error message. The full recipe lives in the [resource bank](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card); this is the class path.
 
+You might have to format the stick first. Your instructor can help or may have provided a script in the LMS to do it on the router.
+
 1. **Insert the stick through the hub.** Check that it is seen: `logread | grep -i usb`, `ls /dev/sd*`, `block info`. Confirm the device name; it is usually `/dev/sda` or `/dev/sda1`.
-2. **Install the storage packages.** On 24.10: `apk update && apk add block-mount kmod-fs-ext4 kmod-usb-storage e2fsprogs`. On 23.05: `opkg update && opkg install block-mount kmod-fs-ext4 kmod-usb-storage e2fsprogs`. If the stick does not show up at all, add `kmod-usb2` (`apk add`/`opkg install`) and check `logread`.
+2. **Install the storage packages.** On 25.12: `apk update && apk add block-mount kmod-fs-ext4 kmod-usb-storage e2fsprogs`. On 24.10 or 23.05: `opkg update && opkg install block-mount kmod-fs-ext4 kmod-usb-storage e2fsprogs`. If the stick does not show up at all, add `kmod-usb2` (`apk add`/`opkg install`) and check `logread`.
 3. **Prepare the filesystem.** If your instructor pre-formatted the stick, verify it with `block info` and skip the format. Otherwise create one Linux partition and `mkfs.ext4 /dev/sda1`. **Never format a device you have not identified.**
 4. **Copy the overlay.** `mkdir -p /mnt/sda1 && mount /dev/sda1 /mnt/sda1`, then `cp -a /overlay/. /mnt/sda1/`, then `umount /mnt/sda1`.
 5. **Point the boot at the stick.** `block detect > /etc/config/fstab`, find the stick's mount section with `uci show fstab`, set its target to `/overlay` and `enabled='1'`, then `uci commit fstab`.
 6. **Reboot and prove it.** `df -h /overlay` must show the stick; `mount | grep overlay` must show it too. Install a small package and reboot again to prove it survives.
 7. **Label the stick.** It is part of the router now. Do not swap it with another pod's stick; the overlay will not match.
 
-**Theory you need.** OpenWrt splits the firmware into a read-only **rootfs** and a writable **overlay**. On a 16 MB device the overlay is tiny, so packages and logs fill it. **Extroot** moves the overlay to the USB stick: the router still boots from internal flash, but `/overlay` — and therefore your packages and most of `/etc` — lives on the stick. The stick is part of the router now; if it is missing at boot, the router falls back to the internal overlay and looks like a different machine. *Go deeper: the extroot recipe in the resource bank.*
+**Theory you need.** OpenWrt splits the firmware into a read-only **rootfs** and a writable **overlay**. On a 16 MB device the overlay is tiny, so packages and logs fill it. **Extroot** moves the overlay to the USB stick: the router still boots from internal flash, but `/overlay` — and therefore your packages and most of `/etc` — lives on the stick. The stick is part of the router now; if it is missing at boot, the router falls back to the internal overlay and looks like a different machine. *Go deeper: the [extroot recipe](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card) in the resource bank.*
 
 > **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them `df -h /overlay` and ask: *"What did extroot move, and what happens if the stick is missing at boot?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
@@ -169,7 +172,7 @@ Pick the upstream that fits your pod. **Prefer eduroam on 5 GHz**; phone USB tet
 **Path A — eduroam on 5 GHz (default).**
 
 1. In LuCI, **Network → Wireless → Scan** on `radio1` (the 5 GHz radio). Join the eduroam SSID and create a new interface named `wwan`.
-2. Set the security to **WPA2-EAP** with **PEAP** and **MSCHAPv2**; enter the student's identity and password; select the HSBI CA certificate and the correct authentication server/domain. A full `wpad` variant is required (`wpad-mbedtls` or another full build); `wpad-basic` cannot do EAP. If it is missing, install it now (`apk update && apk add wpad-mbedtls` on 24.10, or `opkg update && opkg install wpad` on 23.05; use the full variant for your build); remove `wpad-basic-mbedtls` (or `wpad-basic`) first if your package manager asks. That is one reason extroot comes before this round.
+2. Set the security to **WPA2-EAP** with **PEAP** and **MSCHAPv2**; enter the student's identity and password; select the HSBI CA certificate and the correct authentication server/domain. A full `wpad` variant is required (`wpad-mbedtls` or another full build); `wpad-basic` cannot do EAP. If it is missing, install it now (`apk update && apk add wpad-mbedtls` on 25.12, or `opkg update && opkg install wpad` on 24.10/23.05; use the full variant for your build); remove `wpad-basic-mbedtls` (or `wpad-basic`) first if your package manager asks. That is one reason extroot comes before this round.
 3. Put `wwan` in the `wan` firewall zone, as a DHCP client.
 4. Check the clock (`date`) before you debug the certificate. A wrong clock makes every certificate look invalid. Check `logread -e wpa_supplicant` and `ubus call network.interface.wwan status`.
 5. If the SSID is missing, check the channel: the Cudy's 5 GHz radio does not support DFS. If the association still fails, fall back to Path B or C and come back later.
@@ -205,7 +208,7 @@ nslookup openwrt.org
 | Ethernet WAN | optional wired uplink (if the venue provides one) | `wan` | `wan` |
 | Ethernet LAN | wired pod client | `br-lan` | `lan` |
 
-Eduroam is 802.1X (WPA2-EAP/PEAP/MSCHAPv2), not a captive portal; it needs a full `wpad`, a correct clock, and the HSBI CA. A phone tether is a DHCP client on `usb0`/`eth1`; the class Wi-Fi is a DHCP client on `wwan`. All three end in the same place: a WAN address and a default route. *Go deeper: OpenWrt network basics; RFC 2131.*
+eduroam is 802.1X (WPA2-EAP/PEAP/MSCHAPv2), not a captive portal; it needs a full `wpad`, a correct clock, and the HSBI CA. A phone tether is a DHCP client on `usb0`/`eth1`; the class Wi-Fi is a DHCP client on `wwan`. All three end in the same place: a WAN address and a default route. *Go deeper: OpenWrt network basics; RFC 2131.*
 
 > **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them `ip route get 1.1.1.1` and ask: *"Which path did you choose, and what did it cost?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
@@ -223,7 +226,7 @@ Eduroam is 802.1X (WPA2-EAP/PEAP/MSCHAPv2), not a captive portal; it needs a ful
 3. **Broadcast on 2.4 GHz.** Create an AP on `radio0` with your `pod<NN>` SSID, WPA2-PSK, country DE, 20 MHz, and the `lan` network. Disable or rename the default OpenWrt APs you are not using, so only your pod SSID is visible. Pick a channel that is not crowded; the class is a shared RF environment.
 4. **Check the firewall.** The `lan` zone accepts input and forwards; the `wan` zone masquerades. Verify with `uci show firewall` and `ip route`.
 5. **Join clients.** Connect one laptop by Ethernet and one laptop or phone over 2.4 GHz. Verify `ip addr`, `ip route`, `ip neigh`, and `logread -e dnsmasq`. The M5StickC can join too if you re-point its Wi-Fi credentials; the phone is the faster fresh client.
-6. **Run the local broker.** The class image should already have Mosquitto; if not, `apk update && apk add mosquitto` (24.10) or `opkg update && opkg install mosquitto` (23.05). Over SSH, edit (or create) `/etc/mosquitto/mosquitto.conf` with this deliberately open lab configuration:
+6. **Install and run the local broker.** The class image does not include Mosquitto by default. Install it (`apk update && apk add mosquitto` on 25.12, or `opkg update && opkg install mosquitto` on 24.10/23.05), then edit (or create) `/etc/mosquitto/mosquitto.conf` with this deliberately open lab configuration:
 
    ```text
    listener 1883 0.0.0.0
@@ -259,7 +262,7 @@ The edge services:
 
 Capture where every packet must pass: the router. **You do not need a second Wi-Fi adapter, and you do not need Wireshark to prove anything** — but a dump is easier to read in a GUI, so the pattern is always: capture on the router → copy the file → open it. The recipes live in the [resource bank](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card).
 
-1. Install `tcpdump` if it is not already there: `apk update && apk add tcpdump` (24.10) or `opkg update && opkg install tcpdump` (23.05).
+1. Install `tcpdump` if it is not already there: `apk update && apk add tcpdump` on 25.12, or `opkg update && opkg install tcpdump` on 24.10/23.05.
 2. Capture on the LAN bridge:
    ```bash
    ssh root@192.168.14.1 "tcpdump -i br-lan -s 0 -w /tmp/pod.pcap 'arp or udp port 67 or udp port 68 or udp port 53 or tcp port 1883'"
@@ -313,7 +316,7 @@ Read the dump offline: `tshark -r`, or `tcpdump -A`. A packet is evidence; a das
 
 ### ★ Round 7: One door — port forwarding and NAT
 
-For this test, use the **class `iotempire-b1300-5g` Wi-Fi as the upstream** so the "outside" client is deterministic. Eduroam often isolates clients, which would make a successful forward look broken.
+For this test, use the **class `iotempire-b1300-5g` Wi-Fi as the upstream** so the "outside" client is deterministic. eduroam often isolates clients, which would make a successful forward look broken.
 
 1. Join the Cudy's `wwan` to `iotempire-b1300-5g` (or use the instructor's wired uplink if you enable client isolation as an experiment). The Cudy's WAN gets a `192.168.114.x` address; the Cudy's LAN stays `192.168.14.0/24`. For this test, disable the eduroam STA or make the class SSID the active uplink, so the default route actually uses it.
 2. Create a port forward in LuCI (**Network → Firewall → Port Forwards**): WAN port `11883` → `192.168.14.1:1883` (TCP). Give it a name you will remember.
@@ -360,6 +363,23 @@ The pod will meet in person between sessions. The router has to survive the trip
 > **Story hook.** *The substation must survive the trip home.* The control room does not care which café or dorm the router is in; it cares that the same `192.168.14.1` is still there when the pod meets again.
 
 *Portfolio evidence:* the baseline table, the take-home `ip route`/`ping`/`mosquitto_sub` output, and one sentence on the upstream change.
+
+### ★ Round 9: Why OpenWrt? — the router you can own
+
+This is a discussion round, not a build round; it can continue after class.
+
+1. **Read the short history.** OpenWrt started in January 2004 from Linksys WRT54G GPL sources, forked as LEDE in 2016, and merged back in 2018. Read [OpenWrt's version history](https://openwrt.org/about/history) and find one release or device story that explains why the project exists.
+2. **Trace the lineage.** The Cudy TR1200 ships a vendor firmware but has an upstream OpenWrt path; some AVM FRITZ!Box models can run OpenWrt, while FRITZ!OS itself is AVM's own firmware. Check the [OpenWrt Table of Hardware](https://openwrt.org/toh/start) and the [TR1200 device page](https://openwrt.org/toh/cudy/tr1200). Pick one device and note its install method, supported release, and warnings.
+3. **Argue the trade.** Upstream OpenWrt gives you current security updates, the package repository, a real CLI, and configuration you can reproduce. It also costs you vendor support, warranty comfort, and sometimes a feature the vendor added. Write three sentences: would you run upstream OpenWrt on a router you depend on, and under what conditions?
+4. **Connect it to the lab.** You have just flashed, extrooted, and administered this router. Which of those steps would be impossible or much harder on a locked vendor firmware? Which vendor feature would you miss?
+
+**Theory you need.** OpenWrt is a Linux distribution for embedded routers, not a single vendor's firmware. It keeps a read-only root filesystem and a writable **overlay**, exposes **UCI** for configuration, and offers **LuCI** and a package manager (OpenWrt 24.10 and older use `opkg`; 25.12 and newer use `apk`). The project began in 2004; the **LEDE** fork (2016) merged back in 2018. Its value is not "more features" in the abstract; it is **control and reproducibility** — you can inspect, script, patch, and keep a device alive after the vendor stops. The trade is real: vendor firmware may integrate hardware better, and flashing can void support. *Go deeper: the OpenWrt history, the Table of Hardware, and the TR1200 device page.*
+
+> **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them your three-sentence argument and the device-table entry, and ask: *"What does upstream OpenWrt buy you that the vendor UI does not — and what does it cost?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
+
+> **Story hook.** *The box that outlives its vendor.* Petra's substation router is old enough that the vendor has stopped caring. The community device page is the reason it can still be patched — if someone is willing to do the work.
+
+*Portfolio evidence:* a `## Study log` note with the device-table entry and your three-sentence argument for or against upstream OpenWrt.
 
 ### ◇ Stretch 1: Two pods, one wire
 
@@ -410,7 +430,7 @@ You already use SSH to administer the router. SSH can also carry other TCP traff
 
 ### ◇ Stretch 3: Nebula preview
 
-If your extroot, LAN, and broker are solid and you are breezing through, ask the instructor for your Module 3 bundle. Read its `README.txt`, find the lighthouse in `static_host_map`, and — only if the instructor hands you a bundle — follow **Module 3 Task 1** on your router. Bring the result to Day 3; Module 3 will still explain the why, the cross-NAT test, and the certificate model. This is a preview, not a replacement: do not commit the bundle, the key, or the config.
+If your extroot, LAN, and broker are solid and you are breezing through, ask the instructor for your Module 3 bundle. Read its `README.txt`, find the lighthouse in `static_host_map`, and — only if the instructor hands you a bundle — follow **Module 3 Round 2** on your router. Bring the result to Day 3; Module 3 will still explain the why, the cross-NAT test, and the certificate model. This is a preview, not a replacement: do not commit the bundle, the key, or the config.
 
 > **Story hook.** *The key to the substation.* Tomorrow's bundle is the key; today you only check that the door has room for it.
 
@@ -425,12 +445,12 @@ The module handbook names classic networking terms that you will meet in the lab
 - **✓** — you can explain the term in your own words *and* you have seen it in your own network or a capture. Leave it blank until then.
 - **Link / evidence** — a link to your `## Captures` section, a screenshot, a command output, or the round where you met it. A tick without a link is a claim you cannot prove; a blank row is a question you have not answered yet.
 
-You can already tick and link some rows in this module: transmission media (Rounds 3/4), MAC addressing/ARP (Round 5), collision/broadcast domain (Rounds 4/5), routing/default gateway (Round 3), classful addressing vs. CIDR (Round 6), broadcast/fragmentation (Rounds 4/5), TCP vs. UDP and flow control (Round 5, then Module 4), and session/presentation/application (Round 5, then Module 4). The rest is your map for Modules 3–7. Revisit the tracker at each checkpoint; it doubles as an outline for the learning-goal argumentation.
+You can already tick and link some rows in this module: transmission media (Rounds 3/4), MAC addressing/ARP (Round 5), collision/broadcast domain (Rounds 4/5), routing/default gateway (Round 3), classful addressing vs. CIDR (Round 6), broadcast/fragmentation (Rounds 4/5), TCP vs. UDP and flow control (Round 5, then Module 4), and session/presentation/application (Round 5, then Module 4). The rest is your map for Modules 3–7. Revisit the tracker when you review your portfolio; it doubles as an outline for the learning-goal argumentation.
 
 | Term | Meaning | Where you meet it |
 |---|---|---|
 | Transmission media | Copper twisted pair, fiber, radio | Ethernet LAN port, 2.4/5 GHz Wi-Fi, RS-485 in Module 6 |
-| Line codes / modulation | How bits become symbols on the medium (NRZ, Manchester, OFDM) | Module 5 radio; the lab measures behavior, not the code |
+| Line codes / modulation | How bits become symbols on the medium (NRZ, Manchester, OFDM) | Module 5 radio; the lab measures behaviour, not the code |
 | Serial vs. parallel | Bits one after another on one wire vs. several wires at once | RS-485/UART vs. parallel buses; Module 6 |
 | Synchronous vs. asynchronous | A shared clock vs. start/stop framing | Wi-Fi/ESP-NOW vs. UART/RS-485; Modules 5/6 |
 | Simplex / half-duplex / full-duplex | One way / both ways one at a time / both ways at once | RS-485 half-duplex, Ethernet full-duplex, Wi-Fi shared medium |
@@ -471,7 +491,7 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 
 1. **Addressing and routing (goal 1):** the `## Network plan`, the subnet table with network/broadcast/usable ranges, `ip route`, `ip route get 1.1.1.1`, and the before/after LAN configuration.
 2. **The plumbing (goal 2):** a DHCP DORA capture, an ARP request/reply, a DNS query/response, `ip neigh`, the DHCP lease, and the NAT/port-forward analysis with both sides of the capture.
-3. **OpenWrt (goal 3):** the flash evidence (model, OpenWrt version, verified SHA-256, stock → OpenWrt addresses), the extroot `df -h /overlay` before/after, the UCI/firewall excerpts you are willing to publish, the `## Router baseline`, and the `## Take it home` check.
+3. **OpenWrt (goal 3):** the flash evidence (model, OpenWrt version, verified SHA-256, stock → OpenWrt addresses), the extroot `df -h /overlay` before/after, the UCI/firewall excerpts you are willing to publish, the `## Router baseline`, the `## Take it home` check, and the Round 9 argument for or against upstream OpenWrt.
 4. **Capture at the choke point (goal 4):** the pcap or the `tshark`/`tcpdump -A` text, one sentence per protocol, and a note on why the router sees traffic that a laptop cannot.
 5. **The running log and discussions:** your `## Study log` with the theory you actually needed and the LLM answers you checked, plus `## Discussion log` — one line per discussion: who listened, what they asked, what you changed.
 6. **The handbook vocabulary:** your `## Vocabulary tracker` with the rows you can tick and link today; leave the rest blank until Modules 3–7 give you the evidence.

@@ -16,7 +16,6 @@ By the end of this module, you can:
 5. Critically analyze the ISO/OSI 7-layer model against real TCP/IP in IoT systems (referencing RFC 3439 and RFC 1958), and quantify header overhead from a capture taken at the edge — the router, an ESP32 tap, or a provided dump — stating every assumption.
 6. Craft a system story that is concrete enough to pitch, spanning the computing continuum with named stakeholders, devices, and interfaces — and name the weakest link in it.
 
-**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ## 🎬 Opening the Class (plain-Markdown slides)
 
@@ -323,6 +322,8 @@ Why bother: network faults hide in the odd bits — a stale ARP entry, a route t
 
 > [!IMPORTANT]
 > Never commit secrets or credentials you were given for infrastructure you do not own, and never commit captures containing other people's traffic. Where you did not work entirely alone, link your pod mates and sources.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ## 📚 If you want to go deeper
 
