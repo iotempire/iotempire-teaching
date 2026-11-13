@@ -373,7 +373,29 @@ This is a discussion round, not a build round; it can continue after class.
 3. **Argue the trade.** Upstream OpenWrt gives you current security updates, the package repository, a real CLI, and configuration you can reproduce. It also costs you vendor support, warranty comfort, and sometimes a feature the vendor added. Write three sentences: would you run upstream OpenWrt on a router you depend on, and under what conditions?
 4. **Connect it to the lab.** You have just flashed, extrooted, and administered this router. Which of those steps would be impossible or much harder on a locked vendor firmware? Which vendor feature would you miss?
 
-**Theory you need.** OpenWrt is a Linux distribution for embedded routers, not a single vendor's firmware. It keeps a read-only root filesystem and a writable **overlay**, exposes **UCI** for configuration, and offers **LuCI** and a package manager (OpenWrt 24.10 and older use `opkg`; 25.12 and newer use `apk`). The project began in 2004; the **LEDE** fork (2016) merged back in 2018. Its value is not "more features" in the abstract; it is **control and reproducibility** — you can inspect, script, patch, and keep a device alive after the vendor stops. The trade is real: vendor firmware may integrate hardware better, and flashing can void support. *Go deeper: the OpenWrt history, the Table of Hardware, and the TR1200 device page.*
+> [!NOTE]
+> **Myth check: “The FRITZ!Box is based on OpenWrt.”** It is not. **FRITZ!OS** is a Linux-based firmware that mixes open-source components with proprietary AVM code. Some FRITZ!Box models can run OpenWrt, but that is a replacement port, not the base of FRITZ!OS.
+
+**Discussion input — pick one or two.**
+
+- **The German love affair.** AVM says almost every second German household uses a FRITZ!Box, and the box earned that place with long update support, local management, and an all-in-one design ([20 years of FRITZ!Box](https://en.avm.de/about-avm/press/press-releases/2024/03/20-years-of-fritzbox-the-heart-of-the-digital-home-is-celebrating-its-birthday)). Is the affection for the product, the brand, or the support promise — and what happens when one of those changes?
+- **Sovereignty is more than a postcode.** FRITZ! products are developed in Berlin and produced in Europe ([about FRITZ!](https://en.avm.de/about-avm/who-we-are)). That is a real supply-chain choice. But sovereignty also means: can you inspect the firmware, fork it, repair it, and keep the device alive without the vendor? FRITZ!OS gives integration and support; OpenWrt gives source and control. You rarely get both.
+- **The ownership question.** In 2024 the founders brought in **Imker Capital Partners** as a long-term investor and kept a minority stake ([succession press release](https://about.fritz.com/en/press/press-releases/2024/07/fritzbox-manufacturer-avm-organizes-succession)); the company now presents itself as FRITZ! (formerly AVM). Does ownership change the incentives? What would you watch: update length, local features, cloud dependence, or support quality?
+- **Giving back vs. complying.** AVM publishes source for the open-source parts of FRITZ!OS, but a 2025 LGPL dispute found the source incomplete until legal pressure ([The Register](https://www.theregister.com/2025/01/10/german_router_maker_avm_lgpl/)). Is that “giving back” or “complying late”? What would good open-source citizenship look like for a router vendor — upstream patches, funded maintainers, documented recovery, a published end-of-support date?
+- **The enshittification watchlist.** Cory Doctorow's term describes a product degrading after users are locked in. For a router, the early warning signs would be mandatory accounts or cloud features, a crippled local UI, subscription-only functions, ads, shorter update windows, telemetry, or a locked bootloader. Is FRITZ!OS there? Not proven — but what would you watch? ([Enshittification](https://en.wikipedia.org/wiki/Enshittification))
+
+**A comparison to argue with.**
+
+| Question | FRITZ!OS | OpenWrt |
+|---|---|---|
+| Who can inspect the code? | Open-source parts published; proprietary core | Open source |
+| Who ships updates? | The vendor | You and the community |
+| Who supports it? | The vendor | Community and yourself |
+| Local control | Strong UI, limited CLI | Full CLI and package manager |
+| Hardware | AVM devices | Broad device table |
+| Failure mode | Vendor policy or ownership change | Your maintenance burden |
+
+**Theory you need.** OpenWrt is a Linux distribution for embedded routers, not a single vendor's firmware. It keeps a read-only root filesystem and a writable **overlay**, exposes **UCI** for configuration, and offers **LuCI** and a package manager (OpenWrt 24.10 and older use `opkg`; 25.12 and newer use `apk`). The project began in 2004; the **LEDE** fork (2016) merged back in 2018. Its value is not "more features" in the abstract; it is **control and reproducibility** — you can inspect, script, patch, and keep a device alive after the vendor stops. The trade is real: vendor firmware may integrate hardware better, and flashing can void support. On a FRITZ!Box, OpenWrt can replace FRITZ!OS on some models, but it does not inherit AVM's DECT/telephony integration; you gain control and lose vendor integration. *Go deeper: the OpenWrt history, the Table of Hardware, and the TR1200 device page.*
 
 > **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them your three-sentence argument and the device-table entry, and ask: *"What does upstream OpenWrt buy you that the vendor UI does not — and what does it cost?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
