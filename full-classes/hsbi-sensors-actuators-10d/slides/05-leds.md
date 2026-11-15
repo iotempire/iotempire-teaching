@@ -1,20 +1,12 @@
-# Module 5 — LEDs: from Vf to a Shareable Strip
+# The Wall That Browned Out
 
-### Day 5 · Two sessions: one LED → RGB → addressable WS2812B
+**Lumenwerk Gütersloh GmbH** is building a light wall for the Stadtmuseum's new exhibition. Curator **Aylin Demir** wants a warm, continuous glow that follows visitors along a 5-metre corridor. The prototype is beautiful for ten minutes — then the strip dims, the controller resets, and one section turns an unhealthy shade of pink.
 
-*Light is the actuator you will use most — drive it correctly.*
+Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED strip from the microcontroller's 5 V pin and treated “brightness” as a single number. Aylin's question is practical: *"How much current does this wall actually need, and how do we drive it so it survives an opening night?"* Today: LED physics, current limiting, PWM and gamma, RGB mixing, addressable strips, and a power budget you measure.
 
-<!-- Note: This deck is the waiting-time material. Show it while the AI scaffolds the project or a build runs; stop when the build finishes. -->
+> Light is the actuator you will use most in this course. Today: how to drive it correctly — safely, dimmably, in color, and addressably.
 
----
-
-# The wall that browned out
-
-- A 30-LED strip powered from the 5 V pin
-- Beautiful for ten minutes — then dim, reset, pink
-- The question: how much current, and how do we drive it?
-
-<!-- Note: Lumenwerk / Aylin Demir / Jonas Feld. The story is the power budget, not the library. -->
+<!-- Note: Module 5 · LEDs & Light as Output — two sessions: one LED → RGB → addressable strip. Open here. Tell the story slowly; the motto is the promise for the session. Do not start with the agenda. The story is the power budget, not the library. -->
 
 ---
 
