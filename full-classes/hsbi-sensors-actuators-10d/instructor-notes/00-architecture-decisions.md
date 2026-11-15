@@ -52,6 +52,7 @@ The status vocabulary is deliberately small:
 | [D17](#d17) | The class is a draft in motion; ADR and TODO are its memory | accepted | every module; this file; TODO |
 | [D18](#d18) | Handbook examples that are not on the bench are reading homework | accepted | Modules 7, 8; resource bank |
 | [D19](#d19) | Module 5 is evaluated: guided walkthrough, then challenge | provisional | Module 5; Module 5 studio |
+| [D20](#d20) | A teaching day is 180 minutes: two 90-minute blocks | accepted | every module; instructor run sheets |
 
 ## 1. Provenance — how this class came to be
 
@@ -78,7 +79,7 @@ Dates are design events, not every commit; Git history is the authority.
 
 ### 1.3 The constraints that shaped the class
 
-- **10 days / 48 contact hours / 5 ECTS / 150 h**, one module per day; most modules use two sessions, Module 3 uses three.
+- **10 days / 48 contact hours / 5 ECTS / 150 h**, one module per day; a normal day is **two 90-minute blocks (180 minutes)**, Module 3 uses three, and some days run longer.
 - **Six pods / twelve students.** Three shared multimeters, three shared HX711 scales, one shared binary capacitive water sensor. Sharing is normal, not an exception.
 - **Hardware reality:** LDR, potentiometer, DHT11, DS18B20 sealed probes, ToF, ultrasonic, Hall, light barrier, reed/float, analog soil/humidity probes (open/sealed/needle), one binary capacitive water sensor, M5StickC-S3 with BMI270, ESP32 boards. **No NTC in the kit.** **No benchtop oscilloscope** — Module 2 builds/selects an ESP32 scope/analyzer.
 - **Assessment:** the module handbook fixes the Kombinationsprüfung; the syllabus owns the form, points, checkpoints, grade scale, and policies. Modules never restate them.
@@ -413,6 +414,23 @@ Dates are design events, not every commit; Git history is the authority.
 
 **Revisit if.** The evaluation format changes, or the challenge produces weaker evidence than the old task ladder.
 
+<a id="d20"></a>
+### D20 — A teaching day is 180 minutes: two 90-minute blocks
+
+**Status:** accepted.
+
+**Context.** The timetable gives 48 contact hours over 10 days, and the syllabus describes a block as 2 × 45-minute class hours. In practice a normal teaching day is **two 90-minute blocks (180 minutes)**, with the break between them. Run sheets that plan only 90 minutes leave half the day unplanned and make modules look overfull.
+
+**Decision.** Plan every module in **180-minute days**: two 90-minute blocks. “Two sessions” means two blocks, not two 45-minute hours. Module 3 uses three blocks; Modules 7–9 and Day 10 run longer. Module bodies carry no time estimates; the run sheets in the instructor notes use the 180-minute unit.
+
+**Consequences.** More room for the guided walkthrough and the challenge; older run sheets must be checked for a 90-minute assumption. The syllabus wording (“2 × 45 min”) stays, because one 90-minute block is two 45-minute class hours.
+
+**Alternatives rejected.** Planning 90-minute days; adding a third block; leaving the unit implicit.
+
+**Evidence.** [Syllabus](../syllabus.md); [Module 5 studio](./05-module-5-studio.md); [TODO](./TODO.md).
+
+**Revisit if.** The timetable changes or a day is split differently.
+
 ## 3. Deliberately rejected or retired
 
 | Idea | Why it is not in the current path | Where it survives |
@@ -511,3 +529,4 @@ The authoritative wording is in the [syllabus](../syllabus.md). This table is a 
 - **2026-11-15** — First version, written before the next architectural change. Reconstructed from the current modules, the first offering, the instructor notes, and the sibling ADRs. It is a baseline, not a final history; update the records and keep the old reasoning visible.
 - **2026-11-15** — Handbook check and reading gaps. Q1 resolved against the module handbook; D8 accepted; D18 added (reading homework for triangulation, gyroscope, pressure, fluid power, thermal, unconventional); Q2 reopened with the *Leistungsnachweis* interpretation; Q13/Q14 recorded; Modules 7–8 and the liquid-level table updated.
 - **2026-11-15** — Module 5 format. D19 added: the evaluated session runs as a guided walkthrough, then an open challenge; the old task ladder becomes the appendix; the challenge deliverable is an AI-drafted, verified, shareable repo. The TODO records the all-classes “one challenge plus hints appendix” and AI-first patterns.
+- **2026-11-15** — Planning unit. D20 added: a teaching day is two 90-minute blocks (180 minutes); Module 5's run sheet and the constraints table now use that unit.

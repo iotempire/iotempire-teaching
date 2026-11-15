@@ -64,6 +64,7 @@ Set your identity once: `git config --global user.name "Your Name"` and `git con
 > Keep your portfolio **public** (or at least readable by the instructor) and build it up with **many small commits**, each message saying what changed — a clean `git log` is itself part of the evidence.
 
 <a id="python-environment-with-uv-optional"></a>
+<a id="python-environment-with-uv"></a>
 ## 🐍 Python environment with `uv` (optional)
 
 You do **not** need Python for the core Arduino/MQTT labs. If you write an integration script (for example a `paho-mqtt` logger or a measurement plotter), use a pinned `uv` environment instead of bare `pip install`:
@@ -83,6 +84,118 @@ uv run python plot_measurements.py
 ```
 
 > Commit `pyproject.toml` and `uv.lock`; never commit `.venv/`. The lab scripts are reproducible when a reviewer can run `uv sync` and re-create your plots.
+
+<a id="platformio-cli--zedvscode-setup"></a>
+## 📌 PlatformIO CLI + Zed/VS Code (Module 5 setup)
+
+One `pio` CLI for both editors. Install it once with `uv`; do not let an editor download a second Python environment.
+
+```sh
+uv tool install --with pip platformio
+uv tool update-shell      # restart the shell, or re-source your profile
+pio --version             # an existing pio on PATH is also fine
+```
+
+**Project skeleton.**
+
+```sh
+mkdir led-lab && cd led-lab
+pio project init --board mhetesp32minikit
+```
+
+```ini
+[env:mhetesp32minikit]
+platform = espressif32
+board = mhetesp32minikit
+framework = arduino
+monitor_speed = 115200
+monitor_echo = yes
+monitor_filters = send_on_enter
+lib_deps = makuna/NeoPixelBus
+```
+
+**No serial port?**
+
+| OS | Fix |
+|---|---|
+| Linux | `sudo usermod -aG dialout "$USER"` (or `uucp`), log out and back in; install the [PlatformIO udev rules](https://docs.platformio.org/en/latest/core/installation/udev-rules.html) |
+| Windows | install the CP210x or CH340 USB-to-UART driver; check Device Manager |
+| macOS | install the CP210x or CH340 driver; check `ls /dev/cu.*` |
+
+**Zed (instructor demos).** `.zed/tasks.json`:
+
+```json
+[
+  { "label": "PIO: Build", "command": "pio", "args": ["run"] },
+  { "label": "PIO: Upload & Monitor", "command": "sh", "args": ["-c", "pio run -t upload && pio device monitor"] },
+  { "label": "PIO: Serial Monitor", "command": "pio", "args": ["device", "monitor"] },
+  { "label": "PIO: Refresh IntelliSense", "command": "pio", "args": ["run", "-t", "compiledb"] }
+]
+```
+
+For one “Upload & Monitor” task, use `sh -c 'pio run -t upload && pio device monitor'` (Git Bash on Windows). `.zed/settings.json`:
+
+```json
+{
+  "lsp": {
+    "clangd": {
+      "binary": {
+        "arguments": ["--query-driver=~/.platformio/packages/**/bin/*"]
+      }
+    }
+  }
+}
+```
+
+`.clangd` removes Xtensa flags clangd does not understand:
+
+```yaml
+CompileFlags:
+  Remove:
+    - -mlongcalls
+    - -mdisable-hardware-atomics
+    - -fstrict-volatile-bitfields
+    - -fno-tree-switch-conversion
+    - -fno-shrink-wrap
+```
+
+**VS Code (optional).** `.vscode/extensions.json`:
+
+```json
+{ "recommendations": ["platformio.platformio-ide"] }
+```
+
+`.vscode/settings.json`:
+
+```json
+{ "platformio-ide.useBuiltinPIOCore": false }
+```
+
+**One AI context file.** `AGENTS.md` at the project root, no separate `CLAUDE.md`; Copilot and Claude agents then load the same rules. Template in [Module 5](./05-leds-and-light-output.md#agentsmd).
+
+**Ignore build output.** `.gitignore`:
+
+```gitignore
+.pio/
+compile_commands.json
+```
+
+**Scaffold from an empty folder.** Prompt the agent:
+
+<details>
+<summary>Starter prompt (copy)</summary>
+
+You are setting up a PlatformIO project in this empty folder for an MH-ET LIVE ESP32 MiniKit.
+
+1. Check `pio --version`; if it is missing, install it with `uv tool install --with pip platformio`.
+2. Run `pio project init --board mhetesp32minikit`.
+3. Create `.zed/tasks.json`, `.zed/settings.json`, `.clangd`, `.gitignore`, `.vscode/extensions.json`, `.vscode/settings.json`, and `AGENTS.md`.
+4. Add `lib_deps = makuna/NeoPixelBus` to `platformio.ini`, then write `src/main.cpp` for an 8× WS2812B strip on GPIO 16 using `NeoPixelBusLg<NeoGrbFeature, NeoEsp32I2s1Ws2812xMethod>`, `SetLuminance(80)`, and a 115200 serial REPL (`index R G B`, `clear`).
+5. Run `pio run -t compiledb && pio run`; fix errors and report what you changed.
+
+Do not invent pins, libraries, or current limits. If a fact is not in this prompt, ask.
+
+</details>
 
 ## 🎥 Pre-Class and In-Class Videos by Module
 

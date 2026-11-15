@@ -5,74 +5,127 @@
 ## Why this session is guided
 
 Module 5 is the session observed for the teaching evaluation. The evaluation format expects a
-lecture-style segment, while the module outcomes are hands-on. The compromise is a **guided
-walkthrough**: you drive, the students type along on their own laptops, and questions are welcome at
-any point. Then the strip is handed over for the challenge.
+lecture-style segment and an AI-first approach, while the module outcomes are hands-on. The
+compromise is a **guided setup and walkthrough**: you drive, the students follow on their own
+laptops, and the AI agents do the scaffolding while you show the theory slides. Then the benches take
+over.
 
 Do not turn it into a slide lecture. The walkthrough is the lecture-style segment, but it stays
-interactive: students predict, measure, and call out results. The learning evidence is still the
-challenge. Confirm the current evaluation format with quality management before the visit; if the
-observer needs a different shape, adapt the run sheet, not the learning goals.
+interactive: students predict, measure, and call out results. The learning evidence is the lab and
+the repo.
 
-## Toolchain: Arduino IDE is the common path
+## The day is 180 minutes (two 90-minute blocks)
 
-Most students have Arduino IDE 2 from Module 1; many do not have PlatformIO, and a PlatformIO install can eat the whole ramp-up on a lab network. The guided session uses the **Arduino IDE** so that everyone can follow the clicks. The same sketch is a PlatformIO project in the module appendix for students who already use it; do not make PlatformIO a requirement.
+A normal teaching day is **two 90-minute blocks**, not one (D20). The break sits between them.
 
-- Test the Arduino IDE path on a lab laptop: board profile, port, library, upload, Serial Monitor.
-- On Windows, have the CP210x/CH340 driver ready; a missing port is the most common first-light failure.
-- Keep one pre-flashed board and strip as a fallback.
-- If you demo from Zed/PlatformIO because you are faster there, show the Arduino IDE steps on the handout; students follow the clicks, not your CLI.
-
-## Run sheet (90 minutes)
+### Session 1 — setup, theory, Stage A
 
 | Time | Segment | What happens |
 |---|---|---|
-| 0–15 | Ramp-up | Arduino IDE: board, port, library, upload, Serial Monitor; the optional PlatformIO path; `help` output |
-| 15–45 | Single RGB LED | 220 Ω default, three measured channel currents, three PWM channels, six colors, linear vs. gamma fade |
-| 45–60 | 8-LED strip | 5 V/GND/data wiring, one pixel by index, `walk`, the USB power arithmetic |
-| 60–65 | AI-first + repo | one prompt in VS Code/Zed, verify one claim, commit and push, copy the repo link |
-| 65–85 | Challenge | pods design an animation, fill the power table, commit the repo; you circulate and ask for one choice |
-| 85–90 | Outlook | Module 6 animation/panels, Module 7 motors; collect the power tables |
+| 0–10 | Start the scaffold | prompt the AI from an empty folder; it installs/uses `pio`, creates the project, editors, `AGENTS.md` |
+| 10–30 | Theory slides | forward voltage and voltage capping, resistor computation, PWM, gamma |
+| 30–35 | Build check | `pio run`, fix the scaffold, open the serial monitor |
+| 35–80 | Stage A | wire the RGB LED, `R G B` over serial, measure the three channel currents |
+| 80–90 | Commit | Stage A in the portfolio repo; preview Stage B |
 
-- If the room is slow, cut the gamma comparison, **not** the strip bring-up. First light is the
-  non-negotiable.
-- If the room is fast, let pods start the challenge during the strip segment.
-- Keep the last five minutes for the outlook; do not let the challenge run silently to the bell.
+### Session 2 — theory, Stage B, Stage C
+
+| Time | Segment | What happens |
+|---|---|---|
+| 0–10 | Rewire + recap | remove the Stage A red channel; DIN to GPIO 16; 5 V/GND |
+| 10–25 | Theory slides | WS2812B single-wire signal, DMA/RMT, power budget |
+| 25–65 | Stage B | NeoPixelBus, `index R G B`, `clear`, `SetLuminance(80)`, measure |
+| 65–85 | Stage C | one or two extensions, AI-assisted |
+| 85–90 | Share + outlook | commit, repo link, Module 6/7 |
+
+- If the room is slow, cut **Stage C**, never Stage A or Stage B.
+- The AI agents are the built-in waiting time: show the slides while they scaffold, and stop when
+  the build finishes.
+- If the room is fast, start Stage C earlier and let pods compare animations.
+
+## Toolchain: one `pio`, Zed for demos, VS Code optional
+
+The project is plain PlatformIO; Zed and VS Code open the same folder. Test the setup on a lab
+laptop before the session.
+
+- **Install once:** `uv tool install --with pip platformio && uv tool update-shell`; an existing
+  `pio` on `PATH` is fine. Do not let VS Code download a second Python environment
+  (`"platformio-ide.useBuiltinPIOCore": false`).
+- **Board:** `pio project init --board mhetesp32minikit`. The MH-ET LIVE ESP32 MiniKit is
+  `mhetesp32minikit`; do not silently substitute `esp32dev`.
+- **Serial port:** Linux needs `dialout` (or `uucp`) membership and the PlatformIO udev rules;
+  Windows/macOS need the CP210x or CH340 driver if no port appears.
+- **Editor parity:** the Zed tasks, `.zed/settings.json`, `.clangd`, and the VS Code snippets are in
+  the [resource bank](../modules/Z-resources-bank.md#platformio-cli--zedvscode-setup).
+- **AI context:** one `AGENTS.md` at the project root, no `CLAUDE.md`. Pinout, library, CLI, USB
+  power rules. The template is in [Module 5](../modules/05-leds-and-light-output.md#agentsmd).
+
+## AI models and credits (as of this offering)
+
+Model names and credit rules change; verify in the tool before the session.
+
+- **GitHub Copilot Education (students):** inline tab completions (`edit_predictions` in Zed) are
+  unlimited and do not consume the 200 monthly AI credits. For chat/agent tasks, VS Code uses
+  `Auto` routing automatically; in Zed (native Copilot or the Copilot ACP agent), select a
+  lightweight model — `GPT-6 Luna`, `Gemini 3.8 Flash`, or `Claude Haiku 5.5` — to conserve credits
+  across the semester.
+- **Claude Pro/Max (students and instructor):** use **Claude Haiku 5.5** (`claude-haiku-5-5`) in Zed
+  (native Copilot or the ACP Claude agent) and in VS Code (Claude Code) for low-latency, low-credit
+  live coding.
+
+## AI-first and the shareable project
+
+The evaluation expects AI-first teaching. Make it visible in the lab, not as a separate AI lecture.
+
+- **Five-minute demo at the start.** Open the portfolio repo in Zed, ask an AI for a README or an
+  extension, verify one claim on the strip, commit and push, copy the repo link. That is the whole
+  loop: prompt → draft → verify → commit.
+- **Students do the same.** The deliverable is the repo (`Module05/`), not a screenshot. AI drafts;
+  they verify; they commit.
+- **Verification is the assessed skill.** Pin, LED count, color order, library, baud, current. If the
+  AI's arithmetic disagrees with the meter, the meter wins.
+- **GitHub Education.** Point to the Student Developer Pack and Copilot at education.github.com and
+  to the course template; do not do live sign-ups in class.
+- **If the room is slow.** The demo still happens; the repo and README become homework. Do not skip
+  the verification step.
 
 ## Before the session
 
-- **Arduino IDE path (default).** A `led_lab` folder with `led_lab.ino` from the module appendix, the
-  ESP32 board core and **Adafruit NeoPixel** installed, tested on a lab laptop, not only on yours.
-  Prepare a short RGB example sketch as well; the appendix sketch is the strip example.
-- **PlatformIO path (optional).** The same sketch as a PlatformIO project for students who already
-  use it; test it once, but do not require it.
-- **Boards and cables.** One board per student or pair, known-good USB cables, one spare board, one
+- **CLI baseline.** `uv` and `pio` on the lab laptops, the ESP32 platform cached, and one
+  known-good `led-lab` project. Test `pio run -t compiledb && pio run` on a lab machine.
+- **Boards and cables.** One MiniKit per student or pair, known-good USB cables, one spare board, one
   known-good strip and supply for triage.
-- **Parts.** RGB LEDs, **220 Ω** resistors for the three channels (the safe default), 330 Ω for the
-  data line, a few 100 Ω/180 Ω for comparison, 8-LED WS2812 strips, breadboards, jumpers, USB power
-  meters.
-- **Fallbacks.** Pre-flash one board and strip; a student who cannot upload can still follow the
-  serial REPL on the known-good board and fix the toolchain during the challenge.
-- **USB ports.** Check the lab machines: a 500 mA port and a 1 A port behave differently with the
-  strip and the ESP32 on the same port. Bring a powered hub or a USB charger if the machines are
-  weak.
-- **Visible goals.** Put the learning goals and the challenge on the screen at the start; the
-  observer should see them, and students should know where the session is going.
+- **Parts.** Common-cathode RGB LEDs, 220 Ω resistors (three per LED), 8-LED WS2812B strips,
+  breadboards, jumpers, USB power meters. A few 100 Ω/180 Ω resistors for comparison.
+- **Stage A/B conflict.** Stage A uses GPIO 16 for red; Stage B uses GPIO 16 for DIN. Plan the rewire
+  and say it out loud; do not let a pod wire both at once.
 - **Repo ready.** The course template and `gh` login work on the lab laptop; have a short link or QR
   code to the template and a known-good repo to demo. If GitHub is down, commit locally and push
   later.
+- **Slides ready.** Render `slides/05-leds.md` and keep the PDF open for the waiting time.
+- **Visible goals.** Put the learning goals and the two stages on the screen at the start.
 
-## Why 220 Ω is fine
+## Stage A prep
 
-Students will ask why the module starts with 220 Ω when the calculation gives 180 Ω or 33 Ω. Answer:
-220 Ω is a conservative default that keeps every channel in the few-mA range and protects the GPIO;
-the precise values target a current and are very sensitive to `Vf`. Measure the three channels and
-show the imbalance — red much higher than blue. That is a better lesson than three different
-resistors. If a student wants a balanced white, adjust PWM first, not the resistors.
+- Common-cathode RGB LED through three 220 Ω resistors: R=GPIO16, G=GPIO17, B=GPIO18, common to GND.
+  The sketch has `#define COMMON_ANODE false`; set it to `true` for a common-anode part.
+- `analogWrite()` works through LEDC in the current Arduino-ESP32 core; older cores need
+  `ledcAttach()`/`ledcWrite()`. Check the core version on the lab image.
+- Measure each channel current with the meter in series, or measure the resistor voltage and use
+  `I = U/R`. Red will be much higher than blue; that is the lesson.
 
-If the LED is common-anode on 5 V, the same 220 Ω gives 8–14 mA per channel and all three are
-bright. If it is common-cathode on 3.3 V, blue may be dim; that is the `Vf` sensitivity, not a wiring
-fault.
+## Stage B prep
+
+- 8× WS2812B, 5 V and GND from the MiniKit USB rail, DIN to GPIO 16, common ground. A ~330 Ω data
+  resistor is optional on a short strip; keep it as a reliability option, not a blocker.
+- **Library:** `makuna/NeoPixelBus`, `NeoPixelBusLg<NeoGrbFeature, NeoEsp32I2s1Ws2812xMethod>`.
+  Explain the choice: Wi-Fi/BLE radio interrupts corrupt software-timed output; NeoPixelBus uses the
+  hardware I²S1 DMA/RMT path.
+- **Guardrail:** `strip.SetLuminance(80)` in `setup()`. Full white on 8 LEDs is 480 mA; luminance 80
+  keeps the real animation well below that.
+- **GPIO 16 rewire:** unplug the Stage A red channel before wiring the strip.
+- **Power:** 8 × 60 mA = 480 mA; USB 2.0 = 500 mA; the ESP32 adds 100–250 mA. Use a 1 A+ port, a
+  powered hub, or a separate supply with a common ground.
 
 ## The 8-LED USB arithmetic (say it out loud)
 
@@ -87,37 +140,36 @@ fault.
 
 ## What to demo, what to hand over
 
-- **Demo:** the 220 Ω default, the three measured channel currents, one channel, six colors, gamma,
-  one pixel by index, `walk`, the current measurement, and one AI prompt plus the commit/push.
-- **Hand over:** the animation, the palette, the input (serial, button, sensor), and the scaling
-  argument for 30/60/144 LEDs.
-- **Do not demo a finished animation.** The challenge is to design one; a demo becomes the answer.
-
-## AI-first and the shareable project
-
-The evaluation expects AI-first teaching. Make it visible in the challenge, not as a separate AI
-lecture.
-
-- **Five-minute demo at the start of the challenge.** Open the portfolio repo in VS Code or Zed, ask
-  an AI for a README or an animation variant, verify one claim on the strip, commit and push, copy
-  the repo link. That is the whole loop: prompt → draft → verify → commit.
-- **Students do the same.** The challenge deliverable is the repo, not a screenshot. AI drafts; they
-  verify; they commit.
-- **Verification is the assessed skill.** Pin, LED count, color order, library, baud, current. If the
-  AI's arithmetic disagrees with the meter, the meter wins.
-- **GitHub Education.** Point to the Student Developer Pack and Copilot at education.github.com and
-  to the course template; do not do live sign-ups in class.
-- **If the room is slow.** The demo still happens; the repo and README become homework. Do not skip
-  the verification step.
+- **Demo:** the 220 Ω default, the three measured channel currents, the `R G B` REPL, the
+  `index R G B`/`clear` REPL, `SetLuminance(80)`, the current measurement, and one AI prompt plus
+  the commit/push.
+- **Hand over:** the Stage C extension, the palette, the input (serial, button, sensor), and the
+  scaling argument for 30/60/144 LEDs.
+- **Do not demo a finished animation.** The extension is to design one; a demo becomes the answer.
 
 ## Evaluation visit — practical notes
 
-- Start with the goals and the challenge, not with slides.
-- Ask for predictions before running: “What current for 8 LEDs?”, “What changes at 9?”
-- Walk the room during the challenge; ask each pod to explain **one** choice (why this palette, why
-  this timing, why this supply).
-- The observer should see: clear goals, structured input, every student working, and evidence being
-  produced. That is the hybrid. Add one AI prompt, one verification on the strip, and one commit.
+- Start with the goals and the two stages, not with slides.
+- Ask for predictions before running: “What current for 8 LEDs?”, “What changes at 9?”, “Why is blue
+  dimmer than red at the same resistor?”
+- Walk the room during the stages; ask each pod to explain **one** choice (why this luminance, why
+  this library, why this supply).
+- The observer should see: clear goals, structured input, every student working, one AI prompt, one
+  verification on the strip, and one commit. That is the hybrid.
+
+## If the AI is slow: the slides
+
+The theory deck is [`slides/05-leds.md`](../slides/05-leds.md). Use it while the agents scaffold or
+when a build is slow:
+
+- forward voltage and voltage capping (why a blue LED is hard on 3.3 V),
+- resistor computation and the 220 Ω default,
+- PWM duty cycle, frequency, and gamma,
+- the WS2812B signal: 24 bits per pixel, GRB, 800 kHz NRZ, reset/latch,
+- hardware DMA/RMT versus software timing under Wi-Fi,
+- the 480 mA power budget and `SetLuminance(80)`.
+
+Stop when the build finishes; the slides are the waiting-time material, not a second lecture.
 
 ## The capacitor: theory vs classroom
 
