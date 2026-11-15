@@ -48,9 +48,7 @@ not the PlatformIO IDE extension. Install it once with uv:
 - If you want Copilot with the education credits, apply for GitHub
   Education / the Student Developer Pack here:
   https://education.github.com/
-  It is optional and can be added later.
-- If your approval is still pending, use the assistant you already have;
-  we will connect it in the editor during the session.
+- If your approval is still pending, use the assistant you already have.
 - If you live in the terminal: opencode (https://opencode.ai/) is a good
   command-line agent and a fine alternative. It is optional.
 
@@ -62,12 +60,7 @@ resistors, PWM, a serial "R G B" REPL). Stage B is an 8-LED WS2812B strip
 the project with an AI agent, verify it on the hardware, and commit a
 shareable repo.
 
-We provide the LEDs, strips, resistors, and boards. If you already have
-your MiniKit, bring it; either way, bring your laptop, a USB cable, and
-your GitHub account.
-
-If an install fights you, come 10 minutes early or post in the Discord; we
-will fix it together.
+If an install fights you, in the Discord; we will try fixing it together.
 
 See you on Day 5,
 [Instructor names]
