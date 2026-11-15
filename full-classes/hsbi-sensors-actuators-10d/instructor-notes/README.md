@@ -15,7 +15,7 @@ Prüfungsausschuss.
 | [General teaching hints](./01-general-teaching-hints.md) | First-studio kit check, Task Pods and feedback rounds, studio rhythm, stories, demo day, slides |
 | [Module 3 studio](./02-module-3-studio.md) | LDR/potentiometer/DS18B20 setup, multimeter pairing, water prep, fall field transect, DHT11 comparison, running the three rounds |
 | [Module 4 studio](./03-module-4-studio.md) | HX711 scale sharing and calibration, liquid/materials prep, IMU shock/motion, divide-and-conquer pairing, running the two sessions |
-| [Module 5 studio](./05-module-5-studio.md) | WS2812 strip/supply prep, the bulk-capacitor theory-vs-classroom rule, level shifter, 1000-LED power distribution |
+| [Module 5 studio](./05-module-5-studio.md) | Guided-walkthrough run sheet for the evaluated session, Arduino IDE/PlatformIO prep, AI-first shareable repo, the 220 Ω default, the 8-LED USB budget, WS2812 strip/supply prep, the bulk-capacitor theory-vs-classroom rule, level shifter |
 | [Module 4 student email](./04-module-4-student-email.md) | Ready-to-send email draft: what to bring, sensor menu, 80% guidance, portfolio polish, and first-checkpoint timing |
 | [Alternative Module 4](./alternatives/04-distance-motion-and-environment-sensors.md) | The earlier distance/motion/environment version, kept for instructors who prefer that route |
 

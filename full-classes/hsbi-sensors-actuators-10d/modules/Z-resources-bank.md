@@ -161,6 +161,7 @@ Use this table to choose a principle, not to memorize it.
 | Optical ToF | distance to the surface | continuous | fast, millimetre resolution | clear water, foam, condensation, reflectance |
 | Ultrasonic | distance to the surface | continuous | works on clear water | foam, soft/angled surfaces, slender-bottle echoes, temperature, crosstalk |
 | Weight / load cell | mass | continuous | liquid-independent; foam/clear/dark do not matter | mounting, acceleration/slosh, drift, capacity |
+| Hydrostatic pressure (submersible transmitter) | pressure at the tank bottom → level | continuous | works in opaque, dirty, foamy liquids; industrial standard (4–20 mA) | density changes (fuel vs. water), sealed/vented tank, clogged port, sensor offset |
 | Magnetic float + Hall | float position | continuous or threshold | no electronics inside the tank | sticking, magnet orientation, only along the float |
 | Analog soil/humidity probe (open, sealed, needle) | dielectric of the medium | continuous | cheap; works in water/soil; several forms behave differently | not food-safe; corrosion, salinity, temperature drift; splashes/movement make level hard |
 | Binary capacitive water sensor | water on the other side / large nearby capacitance | binary | simple presence/threshold | adjustment, nearby objects, splashes, supply |
@@ -212,6 +213,7 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | ESP32 scope/logic analyzer | I²C/OneWire transactions, PWM duty, slow analog signals; built/selected in Module 2 |
 | Reference thermometer / lux meter | A reference for your characterization labs |
 
+<a id="ws2812-resistor-bulk-capacitor-level-shifter"></a>
 ### 📌 WS2812: resistor, bulk capacitor, level shifter
 
 These are three different jobs — and none is a magic requirement:

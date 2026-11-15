@@ -40,7 +40,7 @@ The status vocabulary is deliberately small:
 | [D5](#d5) | Stories carry the why; the canon keeps them consistent | accepted | Modules 3, 4; resource bank canon |
 | [D6](#d6) | Studio rhythm: just-in-time briefs in Modules 3–4 | accepted | Modules 3, 4; general hints |
 | [D7](#d7) | Module 3 uses the sensors we have; the NTC is story-only | accepted | Module 3; Module 3 studio |
-| [D8](#d8) | Module 4 is the Nordwind liquid challenge, not a sensor catalogue | provisional | Module 4; alternative module |
+| [D8](#d8) | Module 4 is the Nordwind liquid challenge, not a sensor catalogue | accepted | Module 4; alternative module |
 | [D9](#d9) | Binary/threshold/continuous/hybrid is the Module 4 spine | provisional | Module 4; Module 4 studio; email |
 | [D10](#d10) | Module 4 uses the real sensor set; no DIY foil capacitive sensor | accepted | Module 4; resource bank; syllabus |
 | [D11](#d11) | Scale calibration is two readings plus an optional check | accepted | Module 4 templates; studio note |
@@ -50,6 +50,8 @@ The status vocabulary is deliberately small:
 | [D15](#d15) | The old Module 4 is an instructor alternative | accepted | `alternatives/`; instructor notes |
 | [D16](#d16) | English material, bilingual delivery; local-first systems | accepted | syllabus; README |
 | [D17](#d17) | The class is a draft in motion; ADR and TODO are its memory | accepted | every module; this file; TODO |
+| [D18](#d18) | Handbook examples that are not on the bench are reading homework | accepted | Modules 7, 8; resource bank |
+| [D19](#d19) | Module 5 is evaluated: guided walkthrough, then challenge | provisional | Module 5; Module 5 studio |
 
 ## 1. Provenance — how this class came to be
 
@@ -146,6 +148,8 @@ Dates are design events, not every commit; Git history is the authority.
 
 **Decision.** Modules never restate assessment rules. They link to the syllabus and list suggested portfolio evidence. Points, checkpoints, tiers, grade scale, and the reflection format live only in the syllabus; the operational view lives in `00-assessment-and-operations.md`.
 
+**Working interpretation (2026-11-15, provisional).** The individual portfolio — the learning-goal evidence plus the checkpoint record — is the *Leistungsnachweis*; the portfolio report and the project presentation are the two parts of the *Modulprüfung*. This is not confirmed with the Prüfungsausschuss (Q2). Do not encode it as a rule in a module; if it hardens, it belongs in the syllabus.
+
 **Consequences.** One source of truth; modules stay readable; students must open the syllabus. Any assessment change is a syllabus change, not a module edit.
 
 **Alternatives rejected.** Per-module points; task-completion grading; an oral exam; a separate module-level logbook.
@@ -208,19 +212,21 @@ Dates are design events, not every commit; Git history is the authority.
 <a id="d8"></a>
 ### D8 — Module 4 is the Nordwind liquid challenge, not a sensor catalogue
 
-**Status:** provisional.
+**Status:** accepted.
 
 **Context.** The old Module 4 was dense and step-heavy: ToF, ultrasonic, IR, IMU fusion, Hall current, environment sensors, a people counter, and a long Pod Study. Students could not name the overall goal. The original Tartu boat challenge — fuel, fresh water, waste water, bilge; distance, weight, switches — was a better story and a better trade study.
 
 **Decision.** Replace Module 4 with the **Nordwind** liquid-measurement challenge. Candidate principles are ToF, ultrasonic, Hall + float, HX711 scale, analog soil/humidity probe, the binary capacitive water sensor, light barrier/reed/float, and the M5StickC-S3 IMU. The old distance/motion/environment module is archived as an instructor alternative; it is not in the student path.
 
-**Consequences.** The Module 4 learning goals change, so the module handbook must be checked (Q1). The old module remains available for instructors who prefer it. The new module is one story, not a catalogue.
+**Handbook check (2026-11-15).** The handbook lists sensor principles as examples (*"z.B."*), not as a fixed catalogue, and permits the Kombinationsprüfung; the liquid challenge covers position, distance, and force directly (Q1 resolved).
+
+**Consequences.** The Module 4 learning goals changed; the handbook check passed (Q1 resolved). The old module remains available for instructors who prefer it. The new module is one story, not a catalogue.
 
 **Alternatives rejected.** Keeping the old Module 4; merging both; dropping distance/motion entirely; copying the Databases or Networking content.
 
 **Evidence.** [Module 4](../modules/04-liquid-measurement-and-sensor-selection.md); [alternative Module 4](./alternatives/04-distance-motion-and-environment-sensors.md); [module index](../modules/00-index.md); [syllabus](../syllabus.md).
 
-**Revisit if.** The handbook fixes the old distance/motion/environment goals, or the liquid challenge does not fit the cohort.
+**Revisit if.** The handbook text changes, or the liquid challenge does not fit the cohort.
 
 <a id="d9"></a>
 ### D9 — Binary/threshold/continuous/hybrid is the Module 4 spine
@@ -350,7 +356,7 @@ Dates are design events, not every commit; Git history is the authority.
 
 **Decision.** Written material is English; German may be spoken; German technical terms in parentheses are fine. The core stack is local: ESP32/M5Stack, local MQTT broker, optional Node-RED, optional IoTempower. No cloud dependency.
 
-**Consequences.** No translation burden; German questions are welcome. The local-first design makes the class portable and privacy-preserving.
+**Consequences.** No translation burden; German questions are welcome. The local-first design makes the class portable and privacy-preserving. The handbook lists the language as *deutsch*; the workbook is English by design — a recorded deviation (Q14), not an oversight.
 
 **Alternatives rejected.** German-only material; cloud-first stack; vendor lock-in.
 
@@ -375,6 +381,38 @@ Dates are design events, not every commit; Git history is the authority.
 
 **Revisit if.** The class stabilizes or the record-keeping becomes heavier than the design work.
 
+<a id="d18"></a>
+### D18 — Handbook examples that are not on the bench are reading homework
+
+**Status:** accepted.
+
+**Context.** The handbook names triangulation and the gyroscope among its sensor examples, and thermal, fluid-power, and unconventional actuators among its families. The kit has no triangulation sensor, no pressure transmitter, no Peltier for every pod, and no hydraulic rig. Buying them would not survive a budget, and adding bench tasks would crowd Modules 4 and 7, which have just found their one-goal shape.
+
+**Decision.** Cover the missing examples as **reading homework in the module that owns the theme**, with a small comparable artefact: Module 7 adds fluid power, thermal, and unconventional actuation plus a five-family comparison table; Module 8 adds hydrostatic pressure, triangulation, and the gyroscope, tied to the final project. The resource bank carries the reference rows and formulas. No new hardware, no new core bench task.
+
+**Consequences.** The handbook examples are addressed at "explain and compare" depth, not "build"; the evidence is a study-log paragraph and one table, not a measurement. Students who want the bench can take it into the final project. The reading must stay short, or it becomes a lecture.
+
+**Alternatives rejected.** Buying triangulation or pressure hardware; adding a new lab module; leaving the syllabus examples uncovered; turning the reading into a graded quiz.
+
+**Evidence.** [Module 7](../modules/07-motors-and-motion-actuators.md); [Module 8](../modules/08-sensor-to-system-and-integration.md); [liquid-level principles](../modules/Z-resources-bank.md#liquid-level-principles).
+
+<a id="d19"></a>
+### D19 — Module 5 is evaluated: guided walkthrough, then challenge
+
+**Status:** provisional.
+
+**Context.** Module 5 is the session observed for the teaching evaluation. The evaluation format expects a lecture-style segment and an AI-first approach, while the module outcomes are hands-on. A pure lecture would not produce the evidence; a pure lab would not fit the observation. The class is also the first test of the “one open challenge plus a hints appendix” idea.
+
+**Decision.** Run Module 5 as a guided walkthrough — ramp-up, single RGB LED, 8-LED strip — with students following on their own laptops, then hand the strip over for an open challenge with a comparable artefact (animation, power table, and a shareable repo). The repo is drafted with AI and verified on the strip: prompt → draft → verify → commit. The old task ladder becomes the appendix: reference sketch, background, failure modes, pointers. The module body keeps the goals, the story, the walkthrough, the challenge, and the share step.
+
+**Consequences.** Less free exploration at the start; the walkthrough must stay short and interactive, or it eats the challenge. The learning evidence is the challenge, not the walkthrough. AI-first is visible in the challenge, not as a separate lecture; the repo makes the artifact shareable. The format is evaluation-driven and may not survive the visit.
+
+**Alternatives rejected.** A pure lecture (fails the hands-on outcomes); a pure lab (does not fit the observation); slides-only (students watch instead of building).
+
+**Evidence.** [Module 5](../modules/05-leds-and-light-output.md); [Module 5 studio](./05-module-5-studio.md); the TODO structural idea.
+
+**Revisit if.** The evaluation format changes, or the challenge produces weaker evidence than the old task ladder.
+
 ## 3. Deliberately rejected or retired
 
 | Idea | Why it is not in the current path | Where it survives |
@@ -395,6 +433,10 @@ Dates are design events, not every commit; Git history is the authority.
 | Copying Databases or Networking content | The siblings share structure, not subject matter | Sibling ADRs as references |
 | Deleting the old Module 4 | Some instructors may prefer it | Archived alternative |
 | Buying NTCs or more hardware before testing the room | The kit is sufficient for the current design | TODO hardware check |
+| Triangulation, gyroscope, and hydrostatic pressure as bench labs | No hardware; the gyro adds little to the harbor/outside decision | Reading homework in Module 8; D18 |
+| Thermal, fluid-power, and unconventional actuators as bench labs | No Peltier per pod, no hydraulic rig; would crowd Module 7 | Reading plus the five-family table in Module 7; D18 |
+| A pure lecture for Module 5 | The outcomes are hands-on; a lecture would not produce the evidence | Guided walkthrough then challenge (D19) |
+| A pure lab for Module 5 | The evaluation format expects a lecture-style segment | Guided walkthrough then challenge (D19) |
 | DHT11 as the primary frost sensor | ±2 °C is too wide for a 2 °C decision | Optional comparison |
 | Water in bags / boiling water | The probe is sealed; the connector is not | Module 3 safety note |
 | One binary capacitive sensor per pod | There is one unit | Shared sensor; D12 |
@@ -404,8 +446,7 @@ Dates are design events, not every commit; Git history is the authority.
 
 | # | Question | Why it matters | Owner |
 |---|---|---|---|
-| Q1 | **Does the module handbook allow the liquid-measurement focus in Module 4?** If it fixes the old distance/motion/environment wording, use the archived alternative or a thin overlay. | This is a learning-goal change, not only a task rewrite. | D8; Appendix A |
-| Q2 | **Reports: per pod or per student?** Module 4 says one report per pod plus a contribution note; the portfolio/module handbook may require individual reports. | Affects how the module and assessment evidence are written. | D9, D13 |
+| Q2 | **Reports: per pod or per student, and what is the Leistungsnachweis?** Working interpretation (2026-11-15, unconfirmed): the individual portfolio with its checkpoint evidence is the *Leistungsnachweis*; the portfolio report and the project presentation are the two parts of the *Modulprüfung*. Still open: whether the Module 4 pod report satisfies the individual portfolio, and what the Prüfungsausschuss actually counts. | Affects the module text, the report ownership, and the portfolio evidence. | D4, D9, D13 |
 | Q3 | **How do three pod pairs fill 4–5 rows?** One pair may take two tanks; the class table must stay comparable. | The workload and the jigsaw need a stable assignment. | D9, D12 |
 | Q4 | **Is one shared binary capacitive sensor enough?** Does it need a rotation, or should it become a per-pod item? | It is a single unit; the module marks it shared. | D10, D12 |
 | Q5 | **What is the analog soil/humidity probe's role?** Concept test, optional principle, or a recommended sensor for waste/bilge? It is not food-safe and is unstable in splashes. | Students may over-trust it for drinking water or fuel. | D10 |
@@ -416,6 +457,12 @@ Dates are design events, not every commit; Git history is the authority.
 | Q10 | **Is the collaboration wrapper enough without Task A/B headings?** Module 4 keeps the shared study log and exchange but not the Task A/B sections. | The workbook convention may expect the headings. | D6, D14 |
 | Q11 | **How many M5StickC-S3 units are available, and is the BMI270 library stable?** | The IMU/display path depends on it. | D10 |
 | Q12 | **Is environment sensing covered enough?** The new Module 4 no longer has BME280/DHT22 as a core lab; Module 3 covers T/RH, and the final project can use environment sensors. | The handbook outcome 3 includes environment sensing. | D8, Appendix A |
+| Q13 | **Which semester is the module in?** The handbook says *5. Semester*; the syllabus says *6th semester*. | Students read both; it affects prerequisites and cohort expectations. | D1; syllabus |
+| Q14 | **Language of record.** The handbook says *Sprache: deutsch*; the class is taught and written in English and German. | If the Prüfungsausschuss treats the handbook line as binding, the material language needs a documented exception. | D16 |
+
+**Resolved.**
+
+- **Q1 — Module 4 handbook coverage (2026-11-15).** The module handbook 3350 lists sensor principles as examples (*"z.B. Positions- und Abstandssensoren, Time-of-Flight, Gyroskop, Triangulation"*), not as a fixed catalogue, and permits the *Kombinationsprüfung*. The liquid challenge covers position, distance, and force directly; triangulation, gyroscope, and hydrostatic pressure are now reading homework in Module 8 (D18). D8 moves to **accepted**.
 
 ## 5. Recreation checklist
 
@@ -443,7 +490,7 @@ The authoritative wording is in the [syllabus](../syllabus.md). This table is a 
 | 7. Drive actuators safely | Modules 5–7 | Current limits, power budget, drivers, flyback |
 | 8. Build and evaluate systems | Modules 8–10 | MQTT, optional Node-RED, closed loop, final project |
 
-> **Module 4 handbook check (Q1).** The liquid challenge covers distance (ToF/ultrasonic), motion (IMU), force (load cell), magnetic (Hall), and liquid-level selection. If the handbook requires a dedicated environment lab or the old distance/motion/environment wording, use the archived alternative or add the thin overlay described in Q1.
+> **Module 4 handbook check (resolved 2026-11-15).** The handbook lists examples (*"z.B."*), not a fixed catalogue. The liquid challenge covers distance (ToF/ultrasonic), position (float/reed/Hall), motion (IMU), and force (load cell). Triangulation, gyroscope, and hydrostatic pressure are reading homework in Module 8 (D18). Revisit only if the handbook text changes.
 
 ## Appendix B — Where the source material lives
 
@@ -462,3 +509,5 @@ The authoritative wording is in the [syllabus](../syllabus.md). This table is a 
 ## Appendix C — Change log of this document
 
 - **2026-11-15** — First version, written before the next architectural change. Reconstructed from the current modules, the first offering, the instructor notes, and the sibling ADRs. It is a baseline, not a final history; update the records and keep the old reasoning visible.
+- **2026-11-15** — Handbook check and reading gaps. Q1 resolved against the module handbook; D8 accepted; D18 added (reading homework for triangulation, gyroscope, pressure, fluid power, thermal, unconventional); Q2 reopened with the *Leistungsnachweis* interpretation; Q13/Q14 recorded; Modules 7–8 and the liquid-level table updated.
+- **2026-11-15** — Module 5 format. D19 added: the evaluated session runs as a guided walkthrough, then an open challenge; the old task ladder becomes the appendix; the challenge deliverable is an AI-drafted, verified, shareable repo. The TODO records the all-classes “one challenge plus hints appendix” and AI-first patterns.

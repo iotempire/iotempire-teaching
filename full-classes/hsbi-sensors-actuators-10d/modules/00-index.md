@@ -26,7 +26,7 @@
 
 | Legacy emphasis | This course's emphasis | Reason |
 |---|---|---|
-| A lecture catalogue of sensor and actuator principles | Pod study + mini exercises around real hardware | You learn what you can wire, measure, and debug — not what you can recite. |
+| A lecture catalogue of sensor and actuator principles | Guided studios, pod study, and challenges around real hardware | You learn what you can wire, measure, and debug — not what you can recite. |
 | A library example as the goal | Scan the bus, read the register, then trust the library | Understanding the device is the difference between "it works" and "I can fix it." |
 | A single lucky reading | Characterization, calibration, and stated uncertainty | A number without conditions and error bars is not a measurement. |
 | Actuators as pins that go high | Drivers, current, power budgets, and safety | Logic pins command; they do not power motors, strips, or relays. |

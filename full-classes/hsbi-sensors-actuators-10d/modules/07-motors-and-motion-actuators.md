@@ -35,14 +35,17 @@ This is **self/pod study, not a lecture.** Work through the concepts below with 
 
 The classical taxonomy (from the module handbook) is still the right map:
 
-| Type | Examples | Where you meet it here |
-|---|---|---|
-| Mechanical | Electric motors, hydraulic/pneumatic cylinders, valves, pumps, fans | Servo, DC motor, stepper, (pump/valve as stretcher) |
-| Thermal | Heaters, Peltier coolers | Stretcher: Peltier element, power/heat measurement |
-| Optical | Lamps, dimming, shading | Modules 5–6: LEDs and animation |
-| Unconventional | Piezo, electrostrictive, magnetostrictive, shape-memory | Buzzer/Piezo, discussed as context |
+| Family | Examples | Strength | Limitation | Where you meet it here |
+|---|---|---|---|---|
+| Mechanical — electric | DC motor, servo, stepper, solenoid | Precise, clean, efficient at small scale | Needs a driver; stall current; a DC motor has no position sense | Tasks 1–4 |
+| Mechanical — fluid | Hydraulic and pneumatic cylinders, valves, pumps, fans | Very high force density; a hydraulic load can hold without power | Pump/compressor, leaks, springy pneumatics, stored pressure | Reading below; pump/valve stretcher |
+| Thermal | Resistive heater, Peltier cooler | Simple, no moving parts, even heat | Slow; cooling has a COP well below 1; the hot side needs a heatsink | Stretcher: Peltier |
+| Optical | LED, dimmer, blinds, electrochromic glass | Fast, precise, no wear | Nonlinear perception, heat, driver | Modules 5–6 (LEDs, dimming); shading as reading |
+| Unconventional | Piezo, electrostrictive, magnetostrictive, shape memory | High force at a tiny stroke, or high frequency | Small stroke, hysteresis, high drive voltage, fatigue | Reading below; buzzer and ultrasonic transducer |
 
 Choosing an actuator is a requirements question: how much force/torque, how fast, how precise, how often, and at what power?
+
+Optical actuation is not only “LED on”: dimming (PWM, or phase-cut for mains lamps), shading (blinds, electrochromic glass), and projection all change light deliberately. Perceived brightness is nonlinear, which is why Module 5 applies gamma. The three sections after the stepper are **reading homework** — you will not drive them today, but you must be able to compare them.
 
 ### Brushed DC Motors
 
@@ -73,12 +76,27 @@ A stepper moves in discrete steps (e.g. 28BYJ-48 with ULN2003 driver) — ideal 
 > [!WARNING]
 > Motor safety rules. Never power a motor, servo, or pump from the MCU's pins or 3.3 V rail. Use a motor supply sized for stall current, keep a common ground, add decoupling, and disconnect power before rewiring.
 
+### Fluid Power: Hydraulics and Pneumatics
+
+Hydraulics pushes incompressible oil; pneumatics pushes compressed air. Both buy force density: a small cylinder moves a heavy load slowly, and a hydraulic load can hold position with the pump off. The price is infrastructure — pump or compressor, reservoir, filtration, hoses, and valves (directional for on/off, proportional for throttling). Pneumatics is fast and cheap but springy, so intermediate positions are hard to hold; hydraulics is stiff and precise but leaks and stores energy. The bilge pump and the fuel valve from Module 4 are fluid-power components you would rather monitor than guess at. Never deadhead a pump — give it a relief path — and remember that stored pressure is dangerous after the power is off.
+
+### Thermal Actuators: Heating and Cooling
+
+A resistive heater turns electrical energy into heat at a coefficient of performance (COP) of 1 by definition: every watt becomes heat. A Peltier element is a heat pump — it moves heat from the cold side to the hot side, so it can cool below ambient — but its COP is typically well below 1, and the hot side needs a heatsink or it stops working. Thermal systems are slow: a thermal resistance and heat capacity give a time constant `τ = R_th · C_th`, and on/off control overshoots without hysteresis. Cooling is harder than heating because you must move heat, not create cold. That makes enclosure cooling a system problem, not a component choice.
+
+### Unconventional Actuators: Piezo, Magnetostrictive, Shape Memory
+
+These trade stroke for force or bandwidth. A piezo element moves only micrometres, but at high force and high frequency, driven by tens to hundreds of volts; it shows hysteresis, so position control needs feedback or charge control. The same effect in reverse is your buzzer and the ultrasonic transducer from Module 4. Magnetostrictive materials strain in a magnetic field, and shape-memory alloys change shape with temperature — strong, slow, and subject to fatigue. In all of them the drive electronics, not the actuator, dominate the design.
+
 ### Pointers (start here, then keep looking)
 
 - Servos — [Wikipedia: Servomotor](https://en.wikipedia.org/wiki/Servomotor), and the SG90 datasheet (pulse widths, stall current)
 - Brushed DC motors and H-bridges — [Wikipedia: Brushed DC electric motor](https://en.wikipedia.org/wiki/Brushed_DC_electric_motor), [H-bridge](https://en.wikipedia.org/wiki/H-bridge)
 - Steppers — [Wikipedia: Stepper motor](https://en.wikipedia.org/wiki/Stepper_motor), and the 28BYJ-48/ULN2003 datasheet
 - Driver selection — the TB6612/L298N datasheets in the [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once)
+- Fluid power — [Hydraulic machinery](https://en.wikipedia.org/wiki/Hydraulic_machinery), [Pneumatics](https://en.wikipedia.org/wiki/Pneumatics)
+- Thermal — [Thermoelectric cooling](https://en.wikipedia.org/wiki/Thermoelectric_cooling)
+- Unconventional — [Piezoelectric actuator](https://en.wikipedia.org/wiki/Piezoelectric_actuator), [Magnetostriction](https://en.wikipedia.org/wiki/Magnetostriction), [Shape-memory alloy](https://en.wikipedia.org/wiki/Shape-memory_alloy)
 - Safety — the [resource bank's formulas and power guidance](./Z-resources-bank.md#power--instrumentation)
 
 ### Questions to ask an LLM (then verify against your hardware)
@@ -90,6 +108,9 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 - "Why does a motor need a flyback path, and what happens to an H-bridge without one?"
 - "Explain servo pulse widths at 50 Hz and how to command an angle without blocking the loop."
 - "My stepper loses steps when the load jams. What are the mechanical and electrical causes, and how would I detect a stall?"
+- "When would you choose a pneumatic cylinder over a geared DC motor for a gate? Compare force, speed control, cost, and safety."
+- "Why is a Peltier cooler's COP usually below 1 while a heater's is 1? What does that mean for a battery-powered enclosure?"
+- "Why does a piezo actuator need a special driver, and why does its hysteresis matter for positioning?"
 
 > Run each prompt against your own actuators, and record where the model is wrong, vague, or over-confident.
 
@@ -102,6 +123,7 @@ Work through the concepts above with your Task Pod and write it up under `## Stu
 3. **Remarkable things** — surprises, "aha"s, and counterexamples from your own measurements.
 4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
 5. **Your two best found actuator-selection tables or driver diagrams** — compile down to the best two, with source and what they taught you.
+6. **The families you did not drive** — one short paragraph each for fluid power, thermal, and unconventional actuation: what it is for, what it costs, and one failure mode.
 
 *Portfolio evidence:* the `## Study log` section (yours, or a link to your pod's shared one).
 
@@ -163,7 +185,8 @@ Join a sensor to a motor with real control logic:
 3. Stepper evidence: full/half-step sequence, commanded vs. measured rotation.
 4. Sensor→motor logic: the control rule, the hysteresis, and the safety interlock.
 5. Actuator choice table: for three tasks (pointer gauge, wheel, precise dial), pick servo/DC/stepper and justify by torque, precision, and control complexity.
-6. Deeper question: Why is "the motor turns" not enough information to design a supply or driver?
+6. Five-family comparison: one row per family (electric, fluid, thermal, optical, unconventional) with principle, typical use, strength, limitation, and one failure mode — from the reading, no hardware needed.
+7. Deeper question: Why is "the motor turns" not enough information to design a supply or driver?
 
 
 > [!IMPORTANT]
@@ -175,6 +198,9 @@ Join a sensor to a motor with real control logic:
 - [Brushed DC electric motor](https://en.wikipedia.org/wiki/Brushed_DC_electric_motor) and [H-bridge](https://en.wikipedia.org/wiki/H-bridge) — speed, direction, and flyback.
 - [Stepper motor](https://en.wikipedia.org/wiki/Stepper_motor) — full-step, half-step, holding torque, and lost steps.
 - The TB6612/L298N datasheets — linked from the [resource bank](./Z-resources-bank.md#datasheets--standards-to-read-once).
+- [Hydraulic machinery](https://en.wikipedia.org/wiki/Hydraulic_machinery) and [pneumatics](https://en.wikipedia.org/wiki/Pneumatics) — force density, valves, and why compressed air is springy.
+- [Thermoelectric cooling](https://en.wikipedia.org/wiki/Thermoelectric_cooling) — why a Peltier moves heat instead of making cold.
+- [Piezoelectric actuator](https://en.wikipedia.org/wiki/Piezoelectric_actuator), [magnetostriction](https://en.wikipedia.org/wiki/Magnetostriction), and [shape-memory alloy](https://en.wikipedia.org/wiki/Shape-memory_alloy) — the unconventional families.
 - The [resource bank's power guidance](./Z-resources-bank.md#power--instrumentation) — measuring current safely.
 
 ---

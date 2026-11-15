@@ -4,7 +4,7 @@
 
 > Light is the actuator you will use most in this course. Today: how to drive it correctly — safely, dimmably, in color, and addressably.
 
-**Course placement:** Day 5 — the light-output studio. You size the resistor, dim with PWM, mix color, and bring up a strip.
+**Course placement:** Day 5 — the light-output session. It starts as a guided walkthrough (the instructor drives, you follow along on your laptop), then the strip is yours.
 
 ## 🎯 Learning Goals
 
@@ -14,9 +14,8 @@ By the end of this module, you can:
 1. Explain LED physics and dimension a current-limiting resistor correctly.
 2. Use PWM to dim an LED and explain duty cycle, frequency, and gamma.
 3. Mix colors on an RGB LED and describe additive mixing.
-4. Bring up an addressable WS2812 (NeoPixel) strip and explain how the data reaches every pixel.
-5. Compute and measure the power budget of a strip and explain why it cannot be powered from a GPIO pin.
-
+4. Address individual pixels on a WS2812 strip and explain how the data reaches every pixel.
+5. Compute and measure a strip's power budget, and decide what a USB supply can and cannot power.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
@@ -26,62 +25,232 @@ By the end of this module, you can:
 
 Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED strip from the microcontroller's 5 V pin and treated “brightness” as a single number. Aylin's question is practical: *"How much current does this wall actually need, and how do we drive it so it survives an opening night?"* Today: LED physics, current limiting, PWM and gamma, RGB mixing, addressable strips, and a power budget you measure.
 
-## 📖 Pod Study: Light as an Actuator
+## 🎬 How today runs
 
-This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can explain in the checkpoint.
+Today is a **guided session with a challenge at the end**: we build together first, then you take over.
 
-### LED Physics and Current Limiting
+1. **Ramp-up.** Open the prepared sketch in the Arduino IDE (or the PlatformIO project if you already use it), select the board and port, upload, and open the Serial Monitor. By the end of this step, your board is flashed and the monitor answers commands.
+2. **Follow along.** The instructor builds the RGB example, then the 8-LED strip, one step at a time. You follow the same steps. Stop and ask at any point; we go at the speed of the room.
+3. **Your challenge.** The strip and a power budget are yours. You choose the animation, the colors, and the method. The hints are in the appendix — use them when you are stuck, not before. You make it shareable: AI drafts the README or an animation variant, you verify it on the strip and commit.
 
-A light-emitting diode is a diode: it conducts in one direction above its forward voltage `Vf`, and its brightness is roughly proportional to current, not voltage. `Vf` depends on color (red ≈ 1.9 V, green/blue/white ≈ 3.0–3.4 V).
+The guided part is deliberately step-by-step so that nobody loses the session to a toolchain fight. The challenge is deliberately open: there is no required sequence, only evidence. **Where this goes next:** Module 6 scales the animation (palettes, sound, installations, LED panels); Module 7 applies the same driver and power thinking to motors.
 
-You must limit the current with a series resistor:
+## 🧭 Ramp-up: from the sketch to a flashing board
 
-```text
-R = (Vs − Vf) / I
+**You need:** the ESP32 Ethernet mini kit, a USB cable, and the prepared `led_lab` sketch folder (your instructor shares it). The common path is the **Arduino IDE 2**, because most of you already have it from Module 1. If you already use PlatformIO, the same sketch builds there — the optional path is in Appendix A.
 
-Example: 3.3 V supply, white LED (Vf ≈ 3.2 V), target I = 10 mA
-R = (3.3 − 3.2) / 0.010 = 10 Ω   →  choose the next higher standard value
+1. Open `led_lab.ino` in the Arduino IDE.
+2. Select the board: **Tools → Board → esp32 → ESP32 Dev Module** (or the profile your instructor names for the mini kit).
+3. Select the port: **Tools → Port**. On Windows, install the CP210x/CH340 driver if no port appears.
+4. Install the library once: **Library Manager → “Adafruit NeoPixel” → Install**.
+5. Upload with the arrow button, then open the **Serial Monitor** at **115200 baud**.
+
+- Close the Serial Monitor before uploading if the port is busy.
+- The sketch prints the command help when it starts. Nothing else is needed.
+
+**If you already use PlatformIO/VS Code:** open the same folder as a PlatformIO project and run `pio run -t upload`, then `pio device monitor`. The `platformio.ini` and the file layout are in Appendix A.
+
+**Done when:** the monitor prints the command help.
+
+## 🧭 Follow along 1: one RGB LED
+
+1. **Start with 220 Ω on each channel.** It is the safe practitioner default: a red LED (`Vf ≈ 1.9 V`) on 3.3 V draws about 6 mA; green and blue draw less because their `Vf` is higher. Everything lights, and nothing is near the GPIO limit. If your RGB LED is common-anode on 5 V, the same 220 Ω gives 8–14 mA per channel.
+2. **Measure the three currents.** Put the meter in series with each channel (or measure the voltage across the resistor and use `I = U/R`). Red will be much higher than blue. That is the lesson: one resistor value does not give equal currents, because `Vf` depends on color.
+3. **Compute only if you need a target.** `R = (Vs − Vf) / I`. The result is very sensitive to `Vf` near the 3.3 V rail: a 33 Ω resistor on a red LED would draw ~42 mA, over the comfortable GPIO current. That is why 220 Ω is the safe default.
+4. **Wire one channel first.** RGB LED with a series resistor per channel; common cathode to GND, or common anode to the 5 V rail — check your part.
+5. **PWM.** Attach three PWM channels and sweep the duty from 0 to 255. Note the frequency and resolution of your core's API, and confirm there is no visible flicker.
+6. **Mix.** Produce red, green, blue, yellow, cyan, magenta, and white. Compare with a color picker; note how good “white” is.
+7. **Gamma.** Fade linearly, then with `out = 255 · (in/255)^2.2`. Which looks smooth, and which steps at the bright end?
+
+**Done when:** the LED shows six recognizable colors and a fade without a visible step near the top.
+
+> PWM calls differ between ESP32 core versions (`ledcSetup`/`ledcAttachPin` vs. `ledcAttach`). Check the docs for your installed core; do not copy an old tutorial.
+
+## 🧭 Follow along 2: the 8-LED strip
+
+1. **Wire it.** 5 V and GND from the board's 5 V pin (USB) or a separate USB supply, data through the ~330 Ω resistor to the GPIO, and a common ground. Never power the strip from a GPIO or the 3.3 V pin. No bulk capacitor is required today; the optional parts are in the [resource bank](./Z-resources-bank.md#ws2812-resistor-bulk-capacitor-level-shifter).
+2. **Light one pixel by index.** In the monitor: `3 255 0 0` lights pixel 3 red; `5 0 0 255` lights pixel 5 blue; `all 0 0 0` clears.
+3. **Walk the pixel.** `walk 1` moves one lit pixel down the strip. That is addressing: the sketch writes a color per index, and the strip shifts the values down the line.
+4. **Compute the budget.** 8 LEDs × 60 mA = **480 mA** at full white. USB 2.0 gives 500 mA, USB 3 gives 900 mA, and a USB charger often 1.5–3 A. The ESP32 itself draws 100–250 mA with Wi-Fi. So 8 LEDs fit a 1 A port together with the ESP32. On a 500 mA port the strip alone is already at 480 mA, and the ESP32 pushes it over — use a 1 A+ port, a powered hub, or a separate supply. Set `b 255`, measure the worst case with the USB power meter, then return to a comfortable brightness.
+5. **Scale it.** 30 LEDs → 1.8 A; 60 → 3.6 A; 144 → 8.6 A. The data line still works at those counts; the power does not. That is the wall in the story.
+
+**Done when:** you can light any single pixel by index, run a walk, and state the supply current for 8, 30, and 60 LEDs.
+
+> **Why 8 LEDs?** Eight is the largest count that stays inside a standard USB port's budget for the strip alone (9 × 60 mA = 540 mA). The arithmetic is the point: the LED count is a power decision, not a data decision.
+
+## 🎯 Your challenge
+
+**The strip is yours.** Make the 8 pixels do something you would show someone — a mood, a small animation, a reaction, a tiny game. Then prove it scales.
+
+The method is yours. These are the evidence requirements, not steps:
+
+- **Address pixels individually.** At least one effect uses the index, not just “all red”.
+- **Design the animation yourself.** Changing the palette, timing, or logic of a library demo is design; running the demo unchanged is not.
+- **Make the fade look right** with gamma or a brightness cap, and keep the current sane.
+- **Measure and compute the power** for your animation, then for 30, 60, and 144 LEDs. State which supply you would use and why.
+- **One paragraph of rationale:** what it is, why these colors and timing, and what you would change at 144 LEDs.
+
+Tools: Adafruit NeoPixel, NeoPixelBus, or FastLED. Input: serial REPL, a button, or a sensor from Module 4. If you finish early, add a second effect and a mode switch, or make the animation react to a distance sensor.
+
+Three example projects, if you want one:
+- **Mood lamp:** slow color drift, one hue at a time.
+- **Pixel runner:** a comet with a fading tail, speed controlled by serial.
+- **Wave:** a distance sensor from Module 4 pushes a light band along the strip.
+
+## 🔗 Share it (AI-first)
+
+The challenge is not finished on your laptop. Your `Module05/` folder in the portfolio repo is the shareable project: code, README, photo/video, power table. Build in the Arduino IDE; do the repo and AI work in VS Code or Zed.
+
+1. **Open the portfolio repo** in VS Code or Zed. The Source Control panel (or `gh`) commits and pushes; the [Git primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) has the workflow.
+2. **Let an AI draft the README.** Give it the wiring, the REPL commands, and the power table; ask for a short README with a wiring table, the library, how to run the REPL, and the measured currents.
+3. **Verify before you commit.** Check the pin, the LED count, the color order (GRB), the library, the baud rate, and the measured current. The AI's arithmetic is a claim, not a measurement.
+4. **Let an AI draft one animation variant.** Ask for a different palette or timing, run it, keep what works, and note what you changed.
+5. **Commit and share.** Commit code, README, and the power table; copy the repo link into the Discord and your study log. No secrets, no build output, no binaries.
+
+The AI is the drafting tool; verification is the skill. If you want a standalone repo instead of the portfolio folder, `gh repo create led-lab --public --source=. --push` works.
+
+> **GitHub Education.** If you want Copilot or the Student Developer Pack, apply at [education.github.com](https://education.github.com/); it is optional for this session. The course template is [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template).
+
+## ★ Task A: Log your challenge
+
+Write under `## Study log` in `Module05/README.md` — a section, not a file. One pod member keeps the shared log; the others link to it and add one sentence.
+
+1. What you built, with the repo link and a photo or short video.
+2. The power table: measured vs. computed for 8, 30, 60, and 144 LEDs.
+3. Two things that failed and what fixed them.
+4. One claim you verified against the datasheet or the meter — and where an LLM was wrong.
+
+*Portfolio evidence:* the `## Study log` section.
+
+## ★ Task B: Exchange with a neighbouring pod
+
+Pair with a neighbouring pod:
+
+1. Show each other the animation and the power table.
+2. Agree on the 3–5 most noteworthy points and one learning you jointly stand behind.
+3. Agree on one shared artefact — the best animation clip, power table, or wiring photo — and post it in the course Discord with one sentence on why.
+4. Add the “Agreed learning (pod discussion)” note to the shared log.
+
+## ✅ Suggested portfolio evidence (proofs of the learning goals)
+
+1. Working demo: repo link with the code and README, plus a video or photos of the animation.
+2. Wiring photo and the resistor calculation (predicted vs. measured current).
+3. Power table: measured vs. computed for 8, 30, 60, and 144 LEDs, and the supply decision.
+4. Design rationale paragraph.
+5. Deeper question: Why does an addressable strip need a power budget *and* a data-level consideration, while a single indicator LED needs neither?
+
+> You may prove the same goals another way. The evidence is the point, not the task list.
+
+## 📎 Appendix A — Reference sketch: Arduino IDE and PlatformIO
+
+The follow-along uses this sketch. It is also your fallback if you fall behind.
+
+**Arduino IDE:** save it as `led_lab/led_lab.ino` (the folder and file name must match). The sketch uses 8 LEDs on GPIO 18 — change both numbers to match your wiring. The code is the same:
+
+```cpp
+#include <Adafruit_NeoPixel.h>
+
+Adafruit_NeoPixel strip(8, 18, NEO_GRB + NEO_KHZ800);  // 8 LEDs, data on GPIO 18
+
+void help() {
+  Serial.println("<i> <r> <g> <b> | all <r> <g> <b> | walk <n> | b <0-255> | off");
+}
+
+void setup() {
+  Serial.begin(115200);
+  strip.begin();
+  strip.setBrightness(64);      // start well below full current
+  strip.show();
+  help();
+}
+
+void loop() {
+  if (!Serial.available()) return;
+  String cmd = Serial.readStringUntil('\n');
+  cmd.trim();
+
+  if (cmd == "help") { help(); return; }
+  if (cmd == "off") { strip.clear(); strip.show(); return; }
+
+  if (cmd.startsWith("b ")) {
+    strip.setBrightness(constrain(cmd.substring(2).toInt(), 0, 255));
+    strip.show();
+    return;
+  }
+  if (cmd.startsWith("all ")) {
+    int r, g, b;
+    if (sscanf(cmd.c_str(), "all %d %d %d", &r, &g, &b) == 3) {
+      for (int i = 0; i < strip.numPixels(); i++)
+        strip.setPixelColor(i, strip.Color(r, g, b));
+      strip.show();
+    }
+    return;
+  }
+  if (cmd.startsWith("walk ")) {
+    int n = cmd.substring(5).toInt();
+    for (int k = 0; k < n; k++)
+      for (int i = 0; i < strip.numPixels(); i++) {
+        strip.clear();
+        strip.setPixelColor(i, strip.Color(255, 120, 0));
+        strip.show();
+        delay(80);              // a demo; Module 6 does this non-blocking
+      }
+    return;
+  }
+
+  int i, r, g, b;
+  if (sscanf(cmd.c_str(), "%d %d %d %d", &i, &r, &g, &b) == 4) {
+    strip.setPixelColor(i, strip.Color(r, g, b));
+    strip.show();
+    return;
+  }
+  Serial.println("?");
+}
 ```
 
-Practical ESP32/ESP8266 limits and rules:
+**PlatformIO/VS Code (optional):** put the same code in `src/main.cpp` and add this `platformio.ini`:
 
-- Keep each GPIO well below its absolute maximum (ESP32 sources only ~12 mA comfortably; never drive a load from a pin).
-- A GPIO drives one indicator LED; for several or for high brightness, use a transistor/MOSFET or a dedicated LED driver.
-- Never connect an LED across a pin and ground without a resistor "just to test" — that is how diodes (and pins) die.
+```ini
+[env:esp32dev]
+platform = espressif32
+board = esp32dev
+framework = arduino
+monitor_speed = 115200
+lib_deps = adafruit/Adafruit NeoPixel
+```
 
-### PWM: Dimming Without Losing Light
+Commands: `<index> <r> <g> <b>` (for example `3 255 0 0`), `all <r> <g> <b>`, `walk <n>`, `b <0-255>`, `off`, `help`.
 
-Pulse-width modulation switches the output on and off fast. The duty cycle is the fraction of time it is on; the average current (and perceived brightness) follows it.
+## 📎 Appendix B — The background you need
 
-- Frequency: too low (< 100 Hz) causes visible flicker; LEDs are usually driven at 1–20 kHz. (Servos need ~50 Hz — a reminder that "PWM" means different things in different contexts.)
-- Resolution: the duty cycle steps define dimming resolution. On the ESP32, the LEDC peripheral provides many independent PWM channels; on the ESP8266, `analogWrite` gives 10-bit resolution.
-- Gamma: human brightness perception is non-linear, so a linear duty ramp looks like it "jumps" at the bright end. Applying a gamma correction (roughly `out ≈ in^2.2`, or a lookup table) makes fades look smooth.
+**LED physics.** A diode conducts above its forward voltage `Vf`, and brightness follows current, not voltage. `Vf` depends on color (red ≈ 1.9 V, green/blue/white ≈ 3.0–3.4 V). Limit the current with `R = (Vs − Vf) / I`, and choose the next higher standard value. A **220 Ω** resistor on each channel is a safe default for a 3.3 V GPIO; compute only when you need a target current. ESP32 GPIOs source ~12 mA comfortably; use one indicator LED per pin, and a transistor/MOSFET or driver for more. Never connect an LED across a pin without a resistor.
 
-> [!NOTE]
-> PWM APIs differ across Arduino cores and versions. The exact calls (`ledcSetup`/`ledcAttachPin` vs. `ledcAttach`, `analogWriteRange`, etc.) change between ESP32 core versions — check the documentation for *your* installed core rather than copying an old tutorial.
+**PWM and gamma.** Duty cycle is the on-fraction; average current and brightness follow it. Below ~100 Hz you see flicker; LEDs usually run at 1–20 kHz. A linear duty ramp looks like it jumps at the bright end; apply gamma (`out ≈ in^2.2`) or a lookup table. PWM calls differ by core — check yours.
 
-### RGB LEDs
+**RGB.** Three diodes in one package; set each channel with its own PWM duty. Additive mixing: red + green = yellow, all three = white. Common-anode and common-cathode parts swap polarity.
 
-An RGB LED is three diodes (red, green, blue) in one package. Set each channel with its own PWM duty, and the eye mixes additive colors: red + green = yellow, all three = white. Common-anode and common-cathode variants swap the polarity — check your part.
+**Addressable WS2812.** A driver chip in every LED; one data line carries 24-bit values, and each pixel takes the first value it sees and regenerates the rest. Data level: the input needs ~0.7 × VDD (≈3.5 V), so a 3.3 V pin is out of spec — a short strip often works, a level shifter is the reliable fix. Power: up to ~60 mA per LED at full white; the MCU's 5 V pin cannot supply a strip. The data resistor, bulk capacitor, and level shifter are three different jobs — see the [resource bank](./Z-resources-bank.md#ws2812-resistor-bulk-capacitor-level-shifter).
 
-### Addressable LEDs (WS2812 / NeoPixel)
+**Libraries.** Adafruit NeoPixel for the first bring-up; NeoPixelBus for robust or multi-strip work with Wi-Fi; FastLED as a reference for palettes and HSV. With Wi-Fi/MQTT running, prefer NeoPixelBus.
 
-An addressable strip has a driver chip inside every LED. A single data line carries a stream of 24-bit color values; each pixel takes the first value it "sees", then regenerates the rest down the line. That is why one pin can control hundreds of independently colored LEDs.
+## 📎 Appendix C — Failure modes and fixes
 
-Requirements and traps:
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| No light at all | polarity, missing resistor, wrong pin, no common ground | check the LED polarity and the pin; measure `Vf` |
+| Only the first pixel lights | data direction (DIN/DOUT), wrong index, wrong LED count | check the strip orientation and `numPixels` |
+| Wrong colors | color order (RGB vs. GRB) | change `NEO_GRB`/`NEO_RGB` |
+| Flicker or random resets | data level, long wires, supply droop, Wi-Fi interrupts | 330 Ω data resistor, level shifter, shorter wires, separate supply, NeoPixelBus |
+| Strip browns out at high brightness | current budget, weak USB port | lower brightness, 1 A+ supply, measure with the USB meter |
+| Upload fails or the port is busy | monitor holds the port, wrong board | close the monitor, `pio device list`, check `board` |
 
-- Data level: WS2812's input is specified at ~0.7 × VDD (≈3.5 V at 5 V), so a 3.3 V ESP32 is **out of spec**. It often works with a short strip, but a level shifter is the reliable fix. A ~300–500 Ω series resistor in the data line damps ringing and limits current into the first pixel; it is cheap insurance, not a functional requirement.
-- Supply transients: each pixel switches its LED current, so the strip draws current in bursts. A **bulk** electrolytic (≈100–1000 µF) across 5 V/GND near the strip can supply those bursts and reduce droop and glitches. It is a **margin, not a mandatory part**: a short strip on a good, short-wired supply often runs without one. If you add one, use a **10 V or 16 V** rating (not 6.3 V), observe polarity, and expect inrush. A reverse-connected electrolytic can explode — if you are unsure, leave it out for this lab.
-- Power: each LED can draw up to ~60 mA at full white. A 30-LED strip can need ~1.8 A. The microcontroller's 5 V pin cannot provide this — use a separate 5 V supply with a common ground.
-- Power injection: long strips drop voltage along the copper; inject 5 V at both ends (and sometimes the middle). The data line can address ~1000 LEDs (≈30 ms per frame), but 1000 LEDs at full white need ~60 A and multiple injection points — the data line is not the power line.
-- Frame timing: WS2812 is timing-sensitive; interrupts or Wi-Fi activity can occasionally glitch a frame.
+More in the [resource bank's troubleshooting table](./Z-resources-bank.md#troubleshooting-quick-drops).
 
-Use **Adafruit NeoPixel** for the first bring-up: it is simple and well documented. Use **NeoPixelBus** when you need a more robust driver for larger strips, multiple strips, or concurrent Wi-Fi/MQTT. **FastLED** remains a useful reference — especially for palettes and HSV — but it is not our default.
+> **Bulk capacitor.** Optional today. If you add one: 10–16 V rating, correct polarity, power off while wiring. A reverse-connected electrolytic can explode. Decoupling (0.1 µF at an IC) is a different job.
 
-> [!WARNING]
-> **Library choice matters on ESP32.** With Wi-Fi/MQTT running, prefer **NeoPixelBus** for addressable strips; FastLED can suffer interrupt-related instability in that combination. Adafruit NeoPixel is fine for small, simple strips. If you use FastLED, treat it as a reference and test it under your actual network load.
+## 📎 Appendix D — Pointers and LLM prompts
 
-### Pointers (start here, then keep looking)
+**Pointers**
 
 - LED basics and resistors — [Wikipedia: Light-emitting diode](https://en.wikipedia.org/wiki/Light-emitting_diode), [LED circuit](https://en.wikipedia.org/wiki/LED_circuit)
 - PWM and gamma — [Wikipedia: Pulse-width modulation](https://en.wikipedia.org/wiki/Pulse-width_modulation), [Gamma correction](https://en.wikipedia.org/wiki/Gamma_correction)
@@ -90,98 +259,20 @@ Use **Adafruit NeoPixel** for the first bring-up: it is simple and well document
 - Power budgets — the [Adafruit NeoPixel Überguide](https://learn.adafruit.com/adafruit-neopixel-uberguide/powering-neopixels)
 - The [resource bank](./Z-resources-bank.md#formulas-you-will-use) has the formulas and the common-address table.
 
-### Questions to ask an LLM (then verify against your hardware)
+**Questions to ask an LLM (then verify against your hardware)**
 
 Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
 
 - "I have a 3.3 V supply and a white LED with Vf ≈ 3.2 V. Compute a resistor for 10 mA and explain why the result is so sensitive to Vf."
 - "Explain PWM duty cycle, frequency, and resolution. Why does a linear duty ramp look like it jumps at the bright end, and what does gamma correction change?"
 - "A 30-LED WS2812 strip draws up to 60 mA per LED at full white. Compute the supply current and explain why the MCU's 5 V pin cannot provide it."
-- "What do the data-line resistor, a **bulk** capacitor across the supply, and a level shifter each protect against in a WS2812 installation — and under what conditions are they unnecessary?"
+- "What do the data-line resistor, a bulk capacitor across the supply, and a level shifter each protect against in a WS2812 installation — and under what conditions are they unnecessary?"
 - "Compare a common-anode and a common-cathode RGB LED. How does the wiring and the PWM polarity change?"
+- "Scaffold an Arduino/PlatformIO project for an ESP32 with 8 WS2812 LEDs on GPIO 18 and a serial REPL with `<index> <r> <g> <b>`, `all`, `walk`, `b`, and `off`. Include `platformio.ini`, the sketch, and a README with wiring, the library, and a power table. I will verify the pin, LED count, color order, and current on my strip."
 
 > A good answer distinguishes **bulk** capacitance (supply transients) from **decoupling** (high-frequency noise at an IC) and says when each is optional.
 
 > Run each prompt against your own circuit, and record where the model is wrong, vague, or over-confident.
-
-### ★ Task A: Study in your pod
-
-Work through the concepts above with your Task Pod and write it up under `## Study log` in `Module05/README.md` — a section, not a file, unless it outgrows the page. **One pod member keeps the shared log; the others link to that section from their own module README and add one sentence on what they took from it.**
-
-1. **The references you used** — the source and the one concept you understood best from it.
-2. **Things you googled** — the term, what you found, and the source (URL). One line each.
-3. **Remarkable things** — surprises, "aha"s, and counterexamples from your own measurements.
-4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
-5. **Your two best found LED/power diagrams** — compile down to the best two, with source and what they taught you.
-
-*Portfolio evidence:* the `## Study log` section (yours, or a link to your pod's shared one).
-
-### ★ Task B: Explain & share with another pod
-
-Pair with a **neighbouring pod**:
-
-1. **Explain to each other** — each pod walks the other through its resistor calculation, power budget, and strip wiring; ask questions and fill each other's gaps.
-2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"a GPIO commands; it does not power"*).
-3. **Clean up your documentation** — update the `## Study log` with what you learned from the other pod.
-4. Agree on **one shared artefact** — the best power-budget table, a wiring photo, or a new diagram the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
-5. Each member adds a short **“Agreed learning (pod discussion)”** note — in the shared log, or in your own module README with a link to it.
-
-*Portfolio evidence:* the cleaned-up `## Study log` (with the **“Agreed learning (pod discussion)”** note) and your pod-pair's shared artefact.
-
-## 🛠️ In-Class Lab: Drive the Light — **Challenging**
-
-*Hardware:* breadboard, 2 LEDs + resistors, RGB LED, WS2812 strip, separate 5 V supply, USB power meter, multimeter.
-
-> [!WARNING]
-> Power off before rewiring. For the strip: connect 5 V, GND, and data correctly, and share ground with the MCU. Wrong polarity kills the strip instantly. **Do not add a bulk capacitor unless you are sure of its polarity and voltage rating** — a reverse-connected electrolytic can explode. For this lab, the separate supply, short wires, and the 330 Ω data resistor are enough; bulk capacitance is an optional reliability test, not a requirement.
-
-### ★ Task 1: Size and Verify a Resistor
-
-1. Pick an LED and compute the resistor for a target current (e.g. 10 mA) at 3.3 V. Install the next higher standard value.
-2. Power it and measure the actual forward voltage and current with a multimeter.
-3. Compute the real current from the measured values and compare with your target. Explain any difference.
-
-### ★ Task 2: PWM Fade with Gamma
-
-1. Fade the LED up and down using PWM.
-2. First with a linear duty ramp, then with a gamma-corrected ramp. Watch both closely: which looks smooth, and which appears to "jump" near the top?
-3. Note your PWM frequency and resolution, and confirm there is no visible flicker.
-
-### ★ Task 3: RGB Mixing
-
-1. Drive the red, green, and blue channels of the RGB LED with independent PWM values.
-2. Produce at least six colors (red, green, blue, yellow, cyan, magenta) and "white" by balancing the channels.
-3. Compare the mixed result with a color wheel/picker. Note how accurate "white" is with three channels.
-
-### ★ Task 4: Addressable Strip First Light
-
-1. Wire the WS2812 strip: 5 V and GND from the separate supply, data through the ~330 Ω resistor to a GPIO, and a common ground between MCU and supply.
-2. With **Adafruit NeoPixel** (or **NeoPixelBus** for a more robust driver), light a single pixel, then a color wipe, then a rainbow.
-3. Change the number of LEDs and the brightness and observe the effects. Note the first-pixel (start-of-strip) orientation.
-
-### ★ Task 5: Power Budget — Compute and Measure
-
-1. Compute the worst case: `N LEDs × 60 mA` at full white. Choose a power supply that can actually deliver it.
-2. Measure the real current with the USB power meter for: all-off, one LED at medium, all LEDs full white.
-3. Compare measurement with your calculation and explain the difference (color/white composition, brightness setting, per-LED variation).
-4. State clearly why the microcontroller's 5 V pin is not an option here.
-
-### ◇ Task 6 (Stretcher): Signal Integrity and Reliability
-
-Deliberately introduce problems and record the symptoms: remove the data-line resistor, use a long/unshielded data wire, drive a longer strip from one injection point only. **If you added a correctly rated bulk capacitor**, remove it and compare — on a short, well-powered strip you may see no difference; on a long one you may see droop or resets. Document which glitches appear and which change restores reliable operation.
-
-## ✅ Suggested portfolio evidence (proofs of the learning goals)
-
-1. Resistor calculation and measurement: predicted vs. measured forward voltage and current.
-2. PWM notes: your frequency, resolution, and a short statement of why gamma correction matters.
-3. RGB evidence: photo/notes of the six colors and how well "white" worked.
-4. Strip artifacts: a short video or photos of the color wipe and rainbow, plus your wiring.
-5. Power budget table: calculated vs. measured current in the three states, and the supply you selected.
-6. Deeper question: Why does an addressable strip need a power budget *and* a level-shifter/data consideration, while a single indicator LED needs neither?
-
-
-> [!IMPORTANT]
-> Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.
 
 ## 📚 If you want to go deeper
 

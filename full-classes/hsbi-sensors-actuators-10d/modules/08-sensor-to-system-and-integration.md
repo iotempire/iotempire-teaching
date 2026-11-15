@@ -85,6 +85,14 @@ Design for these — you will test some of them today and during the final proje
 - The broker restarts → do publisher and controller reconnect and resubscribe?
 - The network drops → does local behavior continue, and does the system re-sync when it returns?
 
+### Sensor Principles You Did Not Put on the Bench
+
+Module 4 gave you distance and level by ToF, ultrasound, a scale, and switches. Three principles were not on that bench. Read them now, because the final project may need one.
+
+- **Hydrostatic pressure.** A column of liquid produces `p = ρ · g · h` at the bottom. Measure the pressure at the lowest point and you get level without line of sight — it works in opaque, dirty, and foamy liquids, which is why it is the default in real tanks. The catch is density: diesel (≈830 kg/m³) and water (1000 kg/m³) give different pressures at the same height, so a water-calibrated level reads about 17 % **low** in diesel. A sealed tank also needs a vent or a differential sensor, or the gas pressure above the liquid biases the reading. Industrial transmitters send 4–20 mA — live zero, so 4 mA is empty and 3 mA means a broken wire.
+- **Triangulation.** An IR emitter and a position-sensitive detector measure the *angle* of the reflected spot; the fixed baseline between them gives the distance. It is cheap and fast, but the target decides: black, mirror-like, or transparent surfaces return too little or the wrong light, and resolution falls with distance. Unlike the ToF clear-water problem, this failure is about the surface, not the medium.
+- **Gyroscope.** A gyro measures angular *rate* (deg/s), not angle. Integrate the rate and the angle drifts, because a small bias accumulates; the accelerometer gives an absolute reference but is noisy. That is why real systems fuse the two. Your BMI270 in Module 4 used the accelerometer half; the gyro is the other half.
+
 ### Pointers (start here, then keep looking)
 
 - MQTT essentials — [mqtt.org](https://mqtt.org/), [HiveMQ: MQTT essentials](https://www.hivemq.com/mqtt-essentials/)
@@ -93,6 +101,9 @@ Design for these — you will test some of them today and during the final proje
 - Node-RED — [Node-RED documentation](https://nodered.org/docs/), dashboard nodes
 - Optional declarative path — [IoTempower documentation](https://github.com/iotempire/iotempower) — nodes, devices, filters, `iot deploy`
 - Control loops — [Wikipedia: Control theory](https://en.wikipedia.org/wiki/Control_theory), [PID controller](https://en.wikipedia.org/wiki/Proportional%E2%80%93integral%E2%80%93derivative_controller)
+- Pressure and current loops — [Pressure sensor](https://en.wikipedia.org/wiki/Pressure_sensor), [Current loop](https://en.wikipedia.org/wiki/Current_loop)
+- Distance principles — [Laser rangefinder](https://en.wikipedia.org/wiki/Laser_rangefinder) (triangulation versus time of flight)
+- IMU and fusion — [Inertial measurement unit](https://en.wikipedia.org/wiki/Inertial_measurement_unit), [Sensor fusion](https://en.wikipedia.org/wiki/Sensor_fusion)
 - Reliability patterns — the [resource bank's troubleshooting table](./Z-resources-bank.md#troubleshooting-quick-drops)
 
 ### Questions to ask an LLM (then verify against your system)
@@ -104,6 +115,9 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 - "Explain on/off control with hysteresis versus proportional control. Give me a temperature example and the trade-offs."
 - "My Node-RED rule and my manual dashboard control fight each other. What arbitration patterns are used in real systems?"
 - "List the failure modes of an MQTT sensor/actuator node and the smallest recovery behavior for each."
+- "Compare hydrostatic pressure, ToF, ultrasonic, and a scale for a diesel tank. Which survives dirty fuel, foam, and a sealed tank, and which fails first?"
+- "Why does a 4–20 mA loop use 4 mA as zero, and what does a 3 mA reading tell you?"
+- "Why does integrating a gyro drift, and how does an accelerometer correct it?"
 
 > Run each prompt against your own system, and record where the model is wrong, vague, or over-confident.
 
@@ -116,6 +130,7 @@ Work through the concepts above with your Task Pod and write it up under `## Stu
 3. **Remarkable things** — surprises, "aha"s, and counterexamples from your own system.
 4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
 5. **Your two best found integration diagrams or topic hierarchies** — compile down to the best two, with source and what they taught you.
+6. **Three principles you did not bench-test** — one line each for hydrostatic pressure, triangulation, and the gyroscope: what it measures, one failure mode, and when you would choose it.
 
 *Portfolio evidence:* the `## Study log` section (yours, or a link to your pod's shared one).
 
@@ -204,6 +219,9 @@ Either:
 - [Node-RED documentation](https://nodered.org/docs/) — flows, dashboards, and context.
 - [Control theory](https://en.wikipedia.org/wiki/Control_theory) and [PID controller](https://en.wikipedia.org/wiki/Proportional%E2%80%93integral%E2%80%93derivative_controller) — from on/off to proportional control.
 - [IoTempower](https://github.com/iotempire/iotempower) — optional declarative nodes, filters, and OTA deployment.
+- [Pressure sensor](https://en.wikipedia.org/wiki/Pressure_sensor) and [current loop](https://en.wikipedia.org/wiki/Current_loop) — hydrostatic level and the 4–20 mA interface.
+- [Laser rangefinder](https://en.wikipedia.org/wiki/Laser_rangefinder) — triangulation next to time of flight.
+- [Inertial measurement unit](https://en.wikipedia.org/wiki/Inertial_measurement_unit) and [sensor fusion](https://en.wikipedia.org/wiki/Sensor_fusion) — why the gyro needs the accelerometer.
 - The [resource bank's troubleshooting table](./Z-resources-bank.md#troubleshooting-quick-drops) — the failures you will actually see.
 
 ---
