@@ -11,7 +11,7 @@ The course runs over **10 working days / 48 contact hours**, with **one module p
 - **[Pre-study guide](./pre-study.md)** — Module 0: start here before Day 1.
 - **[Prompt bank](./modules/Y-resources-prompt-bank.md)** — reflection prompts and LLM-verification drills.
 - **[Resource bank](./modules/Z-resources-bank.md)** — cheat sheets, datasheets, Git/GitHub primer, story canon, and troubleshooting.
-- **[Instructor notes](./instructor-notes/)** — course operations, teaching hints, module studio notes, and alternative modules.
+- **[Instructor notes](./instructor-notes/)** — course operations, teaching hints, module studio notes, and alternative modules — plus the [architecture decisions](./instructor-notes/00-architecture-decisions.md) and the [TODO backlog](./instructor-notes/TODO.md) for the next run.
 
 ## Why this course looks different
 
@@ -72,7 +72,7 @@ The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-templ
 
 The workbook is meant to be reused and adapted. It relies on open hardware and open-source software; the labs are self-contained and run on a local network; and each module keeps its learning goals separate from the (draft) tasks, so you can swap exercises without breaking the course. Fork it, translate it, and change the stories to your own context — and please keep the attribution to IoTempower and Ulrich Norbisrath. Feedback and pull requests are welcome.
 
-Teaching hints — running the studio, module-specific setup, and hardware-kit tips — live in [`instructor-notes/`](./instructor-notes/); the story canon and technical reference stay in the [resource bank](./modules/Z-resources-bank.md#story-canon-the-recurring-cast). **Course operations** — the Kombinationsprüfung mapping, milestone plan, group sign-off template, re-examination guidance, and privacy rules — live in [`instructor-notes/`](./instructor-notes/), in the open so students can see how the course is run. Session 1 has a plain-Markdown slide deck — [`slides/01-introduction.md`](./slides/01-introduction.md) — that opens in any Markdown viewer and renders to a 16:9 PDF with **pandoc + Typst** ([`slides/render-slides.sh`](./slides/render-slides.sh)), presented fullscreen in **Okular**. Slides are separated by a `---` line; there is no notebook runtime and no build step.
+Teaching hints — running the studio, module-specific setup, and hardware-kit tips — live in [`instructor-notes/`](./instructor-notes/); the story canon and technical reference stay in the [resource bank](./modules/Z-resources-bank.md#story-canon-the-recurring-cast). **Course operations** — the Kombinationsprüfung mapping, milestone plan, group sign-off template, re-examination guidance, and privacy rules — live in [`instructor-notes/`](./instructor-notes/), in the open so students can see how the course is run. If you want to rebuild or adapt the class, start with the [architecture decisions](./instructor-notes/00-architecture-decisions.md): it records why the course is shaped this way, what was rejected, and what to prepare; the [TODO](./instructor-notes/TODO.md) lists what the next run still owes. Session 1 has a plain-Markdown slide deck — [`slides/01-introduction.md`](./slides/01-introduction.md) — that opens in any Markdown viewer and renders to a 16:9 PDF with **pandoc + Typst** ([`slides/render-slides.sh`](./slides/render-slides.sh)), presented fullscreen in **Okular**. Slides are separated by a `---` line; there is no notebook runtime and no build step.
 
 ## Navigation & resources
 

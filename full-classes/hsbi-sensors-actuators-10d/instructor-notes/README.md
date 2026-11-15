@@ -9,6 +9,8 @@ Prüfungsausschuss.
 
 | Note | What is inside |
 |---|---|
+| [Architecture decisions](./00-architecture-decisions.md) | Why the class is shaped this way: provenance, decision records with alternatives and reversal triggers, rejected ideas, open questions, recreation checklist, module-handbook coverage |
+| [Future work](./TODO.md) | Actionable leftovers for the next run, a discrepancy watch against the architecture log, the module files, and the sibling classes, and the observations we still owe |
 | [Assessment & operations](./00-assessment-and-operations.md) | Kombinationsprüfung mapping, milestone plan, submission hygiene, group accountability and sign-off template, re-examination, privacy, AI assistance |
 | [General teaching hints](./01-general-teaching-hints.md) | First-studio kit check, Task Pods and feedback rounds, studio rhythm, stories, demo day, slides |
 | [Module 3 studio](./02-module-3-studio.md) | LDR/potentiometer/DS18B20 setup, multimeter pairing, water prep, fall field transect, DHT11 comparison, running the three rounds |
@@ -18,3 +20,5 @@ Prüfungsausschuss.
 | [Alternative Module 4](./alternatives/04-distance-motion-and-environment-sensors.md) | The earlier distance/motion/environment version, kept for instructors who prefer that route |
 
 Technical reference material for students lives in the [resource bank](../modules/Z-resources-bank.md); this folder holds teaching and course-operation notes.
+
+Add a row to **[Future work](./TODO.md)** when you notice something you cannot fix this term. A choice that constrains future material belongs in the [architecture log](./00-architecture-decisions.md), not in the TODO.
