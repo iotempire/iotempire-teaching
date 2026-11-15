@@ -4,7 +4,7 @@
 
 > Light is the actuator you will use most in this course. Today: how to drive it correctly — safely, dimmably, in color, and addressably.
 
-**Course placement:** Day 5 — two 90-minute sessions. Session 1 is the toolchain, the theory interlude, and the discrete RGB LED. Session 2 is the 8-LED WS2812B strip and the extensions. The instructor drives the setup; after that it is hands-on.
+**Course placement:** Day 5 — two 90-minute sessions. Session 1 is first light and the discrete RGB LED; Session 2 is the 8-LED WS2812B strip and the optional extensions. Stage 1 is manual; Stages 2 and 3 are AI-scaffolded projects. The instructor drives the setup; after that it is hands-on.
 
 ## 🎯 Learning Goals
 
@@ -28,31 +28,29 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 ## 🗓️ How the two sessions run
 
-**Session 1 — guided tutorial: one LED, then RGB.**
+**Session 1 — first light, then the RGB project.**
 
-- **Stage 1a:** one red or yellow LED on GPIO 16, a 220 Ω resistor, and a PWM fade. No AI, no project scaffold — just first light.
+- **Stage 1:** one red or yellow LED on GPIO 16, a 220 Ω resistor, and a PWM fade. No AI, no project scaffold — just first light.
 - **Theory slides:** forward voltage and voltage capping, resistor computation, PWM, and gamma — now explaining what you just saw.
-- **Stage 1b:** the RGB LED, `R G B` over serial, and the three channel currents.
-- Commit Stage 1 to the portfolio repo.
+- **Stage 2:** create `stage2-rgb/`, paste the Stage 2 prompt, and let the agent scaffold the RGB REPL. Wire it, measure the three channel currents, and check the agent's draft against the meter and the datasheet.
+- Commit both stages to the portfolio repo.
 
-**Session 2 — two project folders.**
+**Session 2 — the addressable strip.**
 
-- **Stage 2:** create `stage2-strip/`, paste the Stage 2 prompt, wire the 8-LED strip, and deploy. The theory slides cover the WS2812B signal, DMA/RMT, and the power budget while the agent scaffolds.
-- **Stage 3:** create `stage3-project/`, paste the Stage 3 prompt (the placeholder), and build one or two extensions.
-- Commit both projects and share the repo.
+- **Stage 3:** create `stage3-strip/`, paste the Stage 3 prompt, wire the 8-LED strip, and deploy. The theory slides cover the WS2812B signal, DMA/RMT, and the power budget while the agent scaffolds.
+- **Extensions:** if you finish early, pick one or two from the `◇` list.
+- Commit the project and share the repo.
 
 The theory slides are [`slides/05-leds.md`](../slides/05-leds.md). They are the theory interlude — the instructor may also leave them up while the AI scaffolds or a build runs. The module body carries no timings; the run sheet is in the instructor notes.
 
-## 🔌 Stage 1 — guided tutorial: one LED, then RGB
-
-### Stage 1a — one LED, one PWM
+## 🔌 Stage 1 — one LED, no AI
 
 **Hardware.** A red or yellow 5 mm LED: anode (long leg) → **220 Ω** → **GPIO 16**; cathode (short leg, flat side) → **GND**. Do not use blue or green here — their forward voltage is close to 3.3 V, so 220 Ω leaves almost no current and the LED looks broken.
 
 **Arduino IDE.** Select the board (`ESP32 Dev Module`, or the profile your instructor names for the MiniKit) and the port. Save it as `stage1-led/stage1-led.ino`, paste the code, and upload it. It fades the LED up and down; no library is needed.
 
 ```cpp
-// Stage 1a — one LED, PWM fade on GPIO 16
+// Stage 1 — one LED, PWM fade on GPIO 16
 // PlatformIO: uncomment the next line. Arduino IDE includes it automatically.
 // #include <Arduino.h>
 
@@ -99,23 +97,9 @@ pio run -t upload -t monitor
 
 **Done when:** the LED fades smoothly from off to full and back, and you can say what duty cycle means. This stage is deliberately manual: first light, no scaffold.
 
-### Stage 1b — discrete RGB LED
-
-**Hardware.** Common-cathode RGB LED through **three 220 Ω resistors**: red → GPIO 16, green → GPIO 17, blue → GPIO 18, common cathode → GND. The code has a `#define COMMON_ANODE false` toggle; if your part is common anode, connect the common pin to 3.3 V (or 5 V) and set the toggle to `true` — the PWM values invert.
-
-**Firmware.** At **115200 baud**, read space- or comma-separated `R G B` values in `0–255`, clamp them, apply them with `analogWrite()`, echo the applied tuple, and reject malformed input. The reference sketch is in [Appendix A](#appendix-a); Stage 1 is manual, so use it directly.
-
-> `analogWrite()` on the ESP32 works through the LEDC peripheral in the current Arduino-ESP32 core. If you are on an older core, use `ledcAttach()`/`ledcWrite()` instead; check your core version before copying an old tutorial.
-
-**Measure as you go.** Put the meter in series with each channel (or measure the voltage across the resistor and use `I = U/R`). Red will draw much more than blue at the same resistor value, because the forward voltages differ. That imbalance is the lesson, not a fault.
-
-**Why 220 Ω is the default.** It is a safe, conservative value: red draws about 6 mA on 3.3 V, green less, blue much less; everything lights, and nothing is near the GPIO limit. You only need the precise calculation when you want a target current, a balanced white, or when a low-`Vf` LED with a small resistor would exceed the pin's comfort range. The full arithmetic is in [Appendix C](#appendix-c).
-
-**Done when:** the LED shows the colors you type, and you can state the measured current for red, green, and blue.
-
 ## 🧰 Setup — the CLI, the folder, the prompt
 
-Stage 1 is manual. **Stage 2 and Stage 3 each get their own folder** — `stage2-strip/` and `stage3-project/` — so both projects go into your portfolio separately. A project is just a folder: create it with `mkdir`, your file manager, or your editor, open it, and let the agent scaffold it.
+Stage 1 is manual. **Stage 2 and Stage 3 each get their own folder** — `stage2-rgb/` and `stage3-strip/` — so both projects go into your portfolio separately. A project is just a folder: create it with `mkdir`, your file manager, or your editor, open it, and let the agent scaffold it.
 
 1. **Install the CLI once** (skip if `pio --version` already works):
 
@@ -127,15 +111,15 @@ Stage 1 is manual. **Stage 2 and Stage 3 each get their own folder** — `stage2
 
    No `uv`? [Install it first](./Z-resources-bank.md#python-environment-with-uv); an existing `pio` on `PATH` is also fine.
 
-2. **Create the folder** and open it in Zed or VS Code. For Stage 2: `mkdir stage2-strip`. Do not reuse the Stage 1 folder.
-3. **Paste the stage prompt** into your AI agent. It initializes PlatformIO, writes `platformio.ini`, the editor configs, `AGENTS.md`, and `src/main.cpp`, and runs `pio run -t compiledb && pio run`.
+2. **Create the folder** and open it in Zed or VS Code. For Stage 2: `mkdir stage2-rgb`. Do not reuse the Stage 1 folder.
+3. **Paste the stage prompt** into your AI agent. It initializes PlatformIO, writes `platformio.ini`, `AGENTS.md`, and `src/main.cpp`, and runs `pio run -t compiledb && pio run`.
 4. **Wire, deploy, measure.** `pio run -t upload`, then `pio device monitor` (or the editor task).
-5. **Repeat** with a new `stage3-project` folder and the Stage 3 prompt.
+5. **Repeat** with a new `stage3-strip` folder and the Stage 3 prompt.
 
-No serial port? Linux needs your user in `dialout` (or `uucp`) and the PlatformIO udev rules; Windows and macOS need the CP210x or CH340 driver. The table is in the [resource bank](./Z-resources-bank.md#platformio-cli--zedvscode-setup). The `AGENTS.md` template is in [Appendix F](#agentsmd); the editor snippets are in the [resource bank](./Z-resources-bank.md#platformio-cli--zedvscode-setup).
+No serial port? Linux needs your user in `dialout` (or `uucp`) and the PlatformIO udev rules; Windows and macOS need the CP210x or CH340 driver. The table is in the [resource bank](./Z-resources-bank.md#platformio-cli--zedvscode-setup). The `AGENTS.md` template is in [Appendix D](#agentsmd); the editor snippets are in the [resource bank](./Z-resources-bank.md#platformio-cli--zedvscode-setup).
 
 <a id="stage-2-prompt"></a>
-### Stage 2 prompt — 8× WS2812B strip project
+### Stage 2 prompt — discrete RGB LED project
 
 <details>
 <summary>Copy this prompt into your AI agent</summary>
@@ -145,16 +129,16 @@ Initialize a PlatformIO Arduino project in this empty folder for `board = mhetes
 
 Create a short `AGENTS.md` documenting the board (`mhetesp32minikit`), wiring (discrete RGB LED via 220 Ω resistors on GPIO 16=R, 17=G, 18=B), and to run `pio run -t compiledb` after dependency changes.
 
-In `src/main.cpp`, drive the RGB LED with `analogWrite()` (include a `COMMON_ANODE` flag, default `false`). Read `R G B` integers (0–255) over Serial, clamp and apply them, echo back the values, and print an error on invalid input. Verify with `pio run -t compiledb && pio run`.
+In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it automatically), then drive the RGB LED with `analogWrite()` (include a `COMMON_ANODE` flag, default `false`). Read `R G B` integers (0–255) over Serial, clamp and apply them, echo back the values, and print an error on invalid input. Verify with `pio run -t compiledb && pio run`.
 ```
 
 </details>
 
 <a id="stage-3-prompt"></a>
-### Stage 3 prompt — extension project
+### Stage 3 prompt — 8× WS2812B strip project
 
 <details>
-<summary>Replace this placeholder with the final Stage 3 prompt</summary>
+<summary>Copy this prompt into your AI agent</summary>
 
 ```text
 Initialize a PlatformIO Arduino project in this empty folder for `board = mhetesp32minikit` (using `pio` on PATH, or installing it via `uv tool install --with pip platformio`). Configure `platformio.ini` with `lib_deps = makuna/NeoPixelBus`, `monitor_speed = 115200`, `monitor_echo = yes`, and `monitor_filters = send_on_enter`.
@@ -165,30 +149,42 @@ Create a short `AGENTS.md` documenting:
 - Library: Always use `NeoPixelBus` (`NeoPixelBusLg`) for hardware DMA/RMT output—never `FastLED`
 - Power limit: Keep `SetLuminance(80)` or lower so 8 LEDs stay within the 500 mA USB budget
 
-In `src/main.cpp`, use `NeoPixelBusLg<NeoGrbFeature, NeoWs2812xMethod>` with `SetLuminance(80)` to control the 8 LEDs over Serial: accept `index R G B` (`index` 0–7, `R/G/B` 0–255) and `clear`, validate bounds, echo updates, and verify with `pio run -t compiledb && pio run`.
+In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it automatically), then use `NeoPixelBusLg<NeoGrbFeature, NeoEsp32I2s1Ws2812xMethod>` with `SetLuminance(80)` to control the 8 LEDs over Serial: accept `index R G B` (`index` 0–7, `R/G/B` 0–255) and `clear`, validate bounds, echo updates, and verify with `pio run -t compiledb && pio run`.
 ```
 
 </details>
 
-## 🌈 Stage 2 — 8× WS2812B strip
+## 🌈 Stage 2 — discrete RGB LED
 
-**Project.** Create `stage2-strip/`, open it, and paste the Stage 2 prompt above. The agent generates the project and firmware; the reference sketch is in [Appendix B](#appendix-b) if you prefer to read or rebuild it by hand.
+**Project.** Create `stage2-rgb/`, open it, and paste the Stage 2 prompt above. The agent generates the project and the `R G B` REPL; your job is to wire it, run it, and verify the colour order, the pinout, and the currents.
 
-**Hardware.** An 8-LED WS2812B strip powered from the MiniKit's **5 V (VCC)** and **GND**, data to **GPIO 16 (DIN)**, over USB. Prefer a USB 3.0 or USB-C port; a USB 2.0 port is the tight case. Stage 2 **reuses GPIO 16**: unplug the Stage 1b red channel first. A ~330 Ω series resistor in the data line is cheap insurance on a short strip; it is optional here (see [Appendix C](#appendix-c)).
+**Hardware.** Common-cathode RGB LED through **three 220 Ω resistors**: red → GPIO 16, green → GPIO 17, blue → GPIO 18, common cathode → GND. The code has a `#define COMMON_ANODE false` toggle; if your part is common anode, connect the common pin to 3.3 V (or 5 V) and set the toggle to `true` — the PWM values invert.
+
+**Firmware.** At **115200 baud**, read space- or comma-separated `R G B` values in `0–255`, clamp them, apply them with `analogWrite()`, echo the applied tuple, and reject malformed input. Check that the agent wrote exactly that; if you prefer to read or rebuild it by hand, the reference sketch is in the [instructor backup sketches](../instructor-notes/07-module-5-backup-sketches.md).
+
+> `analogWrite()` on the ESP32 works through the LEDC peripheral in the current Arduino-ESP32 core. If you are on an older core, use `ledcAttach()`/`ledcWrite()` instead; check your core version before copying an old tutorial.
+
+**Measure as you go.** Put the meter in series with each channel (or measure the voltage across the resistor and use `I = U/R`). Red will draw much more than blue at the same resistor value, because the forward voltages differ. That imbalance is the lesson, not a fault.
+
+**Why 220 Ω is the default.** It is a safe, conservative value: red draws about 6 mA on 3.3 V, green less, blue much less; everything lights, and nothing is near the GPIO limit. You only need the precise calculation when you want a target current, a balanced white, or when a low-`Vf` LED with a small resistor would exceed the pin's comfort range. The full arithmetic is in [Appendix A](#appendix-a).
+
+**Done when:** the LED shows the colors you type, and you can state the measured current for red, green, and blue.
+
+## ✨ Stage 3 — 8× WS2812B strip
+
+**Project.** Create `stage3-strip/`, open it, and paste the Stage 3 prompt above. The strip is the starting point; the extensions below are optional.
+
+**Hardware.** An 8-LED WS2812B strip powered from the MiniKit's **5 V (VCC)** and **GND**, data to **GPIO 16 (DIN)**, over USB. Prefer a USB 3.0 or USB-C port; a USB 2.0 port is the tight case. Stage 3 **reuses GPIO 16**: unplug the Stage 2 red channel first. A ~330 Ω series resistor in the data line is cheap insurance on a short strip; it is optional here (see [Appendix A](#appendix-a)).
 
 **Library.** Use **NeoPixelBus** with `NeoPixelBusLg<NeoGrbFeature, NeoEsp32I2s1Ws2812xMethod>`. On the ESP32, Wi-Fi and BLE generate high-priority radio interrupts; a software-timed or naive bit-banged strip can glitch. NeoPixelBus offloads the 800 kHz NRZ waveform to the hardware I²S1 DMA/RMT path, so the frame survives the radio. **Do not default to FastLED** on this board — encode that rule in `AGENTS.md`.
 
 **Power.** Each LED can draw up to ~60 mA at full white: 8 × 60 mA = **480 mA**. A USB 2.0 port supplies 500 mA; USB 3 supplies 900 mA; a USB-C port on a modern laptop or a USB charger usually supplies 1.5–3 A (check the port or charger). The ESP32 itself draws 100–250 mA with Wi-Fi. So 8 LEDs plus the ESP32 fit comfortably on USB 3.0/USB-C. On a 500 mA USB 2.0 port the strip alone is already at 480 mA and the ESP32 pushes it over — keep that as the constraint: use a 1 A+ port, a USB 3.0/USB-C port, or a separate supply with a common ground. `strip.SetLuminance(80)` is the guardrail: it caps the brightness and keeps the real animation well below the full-white bound.
 
-**Firmware.** At **115200 baud**, parse `index R G B` with `index` in `0..7` and `R/G/B` in `0..255`, plus `clear` (`strip.ClearTo(RgbColor(0))`). Validate the index and the color values, and echo the applied update. The reference sketch is in [Appendix B](#appendix-b).
+**Firmware.** At **115200 baud**, parse `index R G B` with `index` in `0..7` and `R/G/B` in `0..255`, plus `clear` (`strip.ClearTo(RgbColor(0))`). Validate the index and the color values, and echo the applied update. If you build it without the agent, the reference sketch is in the [instructor backup sketches](../instructor-notes/07-module-5-backup-sketches.md).
 
 **Done when:** you can light any single pixel by index, clear the strip, and state the supply current for 8, 30, and 60 LEDs.
 
-## 🚀 Stage 3 — extension project
-
-**Project.** Create `stage3-project/`, open it, and paste the Stage 3 prompt above . The strip is the starting point; build one or two of the extensions below.
-
-Pick one or two; each is a small, AI-assisted iteration on the working strip.
+**◇ Optional extensions — if you finish early.** One is enough; two is fast. Each is a small, AI-assisted iteration on the working strip.
 
 1. **Non-blocking animations.** Add `all R G B` and `rainbow` modes with `HslColor` sweeps and `millis()` timing (or `NeoPixelAnimator`) without blocking serial input.
 2. **Perceptual linearity.** Compare linear NeoPixelBus output with `NeoPixelBusLg`'s gamma-corrected luminance curve (`NeoGammaTableMethod`). At which step size does the eye stop seeing a difference?
@@ -196,7 +192,7 @@ Pick one or two; each is a small, AI-assisted iteration on the working strip.
 
 ## 🔗 Share it (AI-first)
 
-The challenge is not finished on your laptop. Your `Module05/` folder in the portfolio repo holds `stage1-led/`, `stage2-strip/`, and `stage3-project/`, plus the README, `AGENTS.md`, photo/video, and power table.
+The challenge is not finished on your laptop. Your `Module05/` folder in the portfolio repo holds `stage1-led/`, `stage2-rgb/`, and `stage3-strip/`, plus the README, `AGENTS.md`, photo/video, and power table.
 
 1. **Open the portfolio repo** in Zed or VS Code. The Source Control panel (or `gh`) commits and pushes; the [Git primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) has the workflow.
 2. **Let an AI draft the README.** Give it the wiring, the REPL commands, and the power table; ask for a short README with a wiring table, the library, how to run the REPL, and the measured currents.
@@ -204,7 +200,7 @@ The challenge is not finished on your laptop. Your `Module05/` folder in the por
 4. **Let an AI draft one extension** (Stage 3). Run it, keep what works, and note what you changed.
 5. **Commit and share.** Commit code, README, `AGENTS.md`, and the power table; copy the repo link into the Discord and your study log. No secrets, no `.pio/`, no `compile_commands.json`, no binaries.
 
-The AI is the drafting tool; verification is the skill. If you want a standalone repo instead of the portfolio folder, `gh repo create stage2-strip --public --source=. --push` works.
+The AI is the drafting tool; verification is the skill. If you want a standalone repo instead of the portfolio folder, `gh repo create stage3-strip --public --source=. --push` works.
 
 > **AI assistant and GitHub Education.** Use whatever you already have — Claude, DeepSeek, ChatGPT, Copilot — in Zed or VS Code. If you want Copilot with education credits, apply at [education.github.com](https://education.github.com/); it is optional. The course template is [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template).
 
@@ -214,9 +210,9 @@ The AI is the drafting tool; verification is the skill. If you want a standalone
 
 Write under `## Study log` in `Module05/README.md` — a section, not a file. One pod member keeps the shared log; the others link to it and add one sentence.
 
-1. Stage 1a: the fade and a one-sentence explanation of duty cycle.
-2. Stage 1b: the measured red/green/blue currents, and whether your part is common cathode or anode.
-3. Stage 2: the `index R G B`/`clear` demo, your luminance setting, and the measured current.
+1. Stage 1: the fade and a one-sentence explanation of duty cycle.
+2. Stage 2: the measured red/green/blue currents, and whether your part is common cathode or anode.
+3. Stage 3: the `index R G B`/`clear` demo, your luminance setting, and the measured current.
 4. The power table: measured vs. computed for 8, 30, 60, and 144 LEDs.
 5. One AI claim you verified against the datasheet or the meter — and where the agent was wrong.
 
@@ -226,7 +222,7 @@ Write under `## Study log` in `Module05/README.md` — a section, not a file. On
 
 Pair with a neighbouring pod:
 
-1. Show each other the Stage 1a fade, the Stage 1b/2 builds, and the power table.
+1. Show each other the Stage 1 fade, the Stage 2/3 builds, and the power table.
 2. Compare your AI prompts: what did the agents get wrong, and what did you have to fix?
 3. Agree on the 3–5 most noteworthy points and one learning you jointly stand behind.
 4. Agree on one shared artefact — the best animation clip, power table, or wiring photo — and post it in the course Discord with one sentence on why.
@@ -234,116 +230,18 @@ Pair with a neighbouring pod:
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. Stage 1a demo: the fade and a one-sentence duty-cycle explanation.
-2. Stage 1b demo: the serial `R G B` interaction and the measured channel currents.
-3. Stage 2 demo: repo link with the code, README, and `AGENTS.md`, plus a video or photos of `index R G B` and `clear`.
+1. Stage 1 demo: the fade and a one-sentence duty-cycle explanation.
+2. Stage 2 demo: the serial `R G B` interaction and the measured channel currents.
+3. Stage 3 demo: repo link with the code, README, and `AGENTS.md`, plus a video or photos of `index R G B` and `clear`.
 4. Power table: measured vs. computed for 8, 30, 60, and 144 LEDs, and the supply decision.
 5. AI verification note: what the agent drafted, what you checked, and what was wrong.
-6. One Stage 3 extension, or a design rationale for the animation you chose.
+6. One optional extension, or a design rationale for the animation you chose.
 7. Deeper question: Why does an addressable strip need a power budget *and* a data-level consideration, while a single indicator LED needs neither?
 
 > You may prove the same goals another way. The evidence is the point, not the task list.
 
 <a id="appendix-a"></a>
-## 📎 Appendix A — Stage 1b reference sketch (RGB LED)
-
-Common-cathode by default; set `COMMON_ANODE` to `true` if your part is common anode. The serial parser accepts `255 0 0`, `255,0,0`, and rejects trailing junk.
-
-```cpp
-// Stage 1b — discrete RGB LED, common cathode by default.
-// PlatformIO: uncomment the next line. Arduino IDE includes it automatically.
-// #include <Arduino.h>
-
-#define COMMON_ANODE false
-
-const int R_PIN = 16;
-const int G_PIN = 17;
-const int B_PIN = 18;
-
-int clamp8(int v) { return v < 0 ? 0 : (v > 255 ? 255 : v); }
-
-void apply(int r, int g, int b) {
-  r = clamp8(r); g = clamp8(g); b = clamp8(b);
-  int lr = r, lg = g, lb = b;              // echo the logical values
-  if (COMMON_ANODE) { r = 255 - r; g = 255 - g; b = 255 - b; }
-  analogWrite(R_PIN, r);
-  analogWrite(G_PIN, g);
-  analogWrite(B_PIN, b);
-  Serial.printf("RGB(%d,%d,%d)\n", lr, lg, lb);
-}
-
-void setup() {
-  Serial.begin(115200);
-  Serial.println("RGB: <r> <g> <b> (0-255), space or comma separated");
-}
-
-void loop() {
-  if (!Serial.available()) return;
-  String line = Serial.readStringUntil('\n');
-  line.trim();
-
-  int r, g, b; char extra;
-  int n = sscanf(line.c_str(), "%d,%d,%d%c", &r, &g, &b, &extra);
-  if (n != 3) n = sscanf(line.c_str(), "%d %d %d%c", &r, &g, &b, &extra);
-
-  if (n == 3) apply(r, g, b);
-  else Serial.println("? RGB: <r> <g> <b> (0-255)");
-}
-```
-
-<a id="appendix-b"></a>
-## 📎 Appendix B — Stage 2 reference sketch (WS2812B)
-
-8 LEDs on GPIO 16, `SetLuminance(80)`, `index R G B` and `clear`. The color order is GRB; change the feature if your strip differs.
-
-```cpp
-// PlatformIO: uncomment the next line. Arduino IDE includes it automatically.
-// #include <Arduino.h>
-#include <NeoPixelBus.h>
-
-const uint16_t LED_COUNT = 8;
-const uint16_t DATA_PIN = 16;
-
-NeoPixelBusLg<NeoGrbFeature, NeoEsp32I2s1Ws2812xMethod> strip(LED_COUNT, DATA_PIN);
-
-int clamp8(int v) { return v < 0 ? 0 : (v > 255 ? 255 : v); }
-
-void setup() {
-  Serial.begin(115200);
-  strip.Begin();
-  strip.SetLuminance(80);          // power guardrail, not full white
-  strip.ClearTo(RgbColor(0));
-  strip.Show();
-  Serial.println("pixel: <index 0-7> <r> <g> <b> | clear");
-}
-
-void loop() {
-  if (!Serial.available()) return;
-  String line = Serial.readStringUntil('\n');
-  line.trim();
-
-  if (line == "clear") {
-    strip.ClearTo(RgbColor(0));
-    strip.Show();
-    Serial.println("cleared");
-    return;
-  }
-
-  int i, r, g, b; char extra;
-  if (sscanf(line.c_str(), "%d %d %d %d%c", &i, &r, &g, &b, &extra) == 4
-      && i >= 0 && i < LED_COUNT) {
-    r = clamp8(r); g = clamp8(g); b = clamp8(b);
-    strip.SetPixelColor(i, RgbColor(r, g, b));
-    strip.Show();
-    Serial.printf("pixel %d = RGB(%d,%d,%d)\n", i, r, g, b);
-  } else {
-    Serial.println("? pixel: <index 0-7> <r> <g> <b> | clear");
-  }
-}
-```
-
-<a id="appendix-c"></a>
-## 📎 Appendix C — Background and failure modes
+## 📎 Appendix A — Background and failure modes
 
 **Forward voltage and voltage capping.** An LED is a diode: above its forward voltage `Vf` it conducts, and brightness follows current, not voltage. `Vf` depends on color (red ≈ 1.9 V, green ≈ 2.1 V, blue/white ≈ 3.0–3.4 V). The LED effectively caps the voltage across itself at `Vf`; the series resistor takes the difference `Vs − Vf`. On a 3.3 V pin, a blue LED with `Vf ≈ 3.2 V` leaves only 0.1 V across the resistor — tiny changes in `Vf` change the current enormously. That is why the same 220 Ω gives a bright red and a dim blue.
 
@@ -367,15 +265,15 @@ void loop() {
 
 > **Bulk capacitor.** Optional. If you add one: 10–16 V rating, correct polarity, power off while wiring. A reverse-connected electrolytic can explode. Decoupling (0.1 µF at an IC) is a different job.
 
-<a id="appendix-d"></a>
-## 📎 Appendix D — Doing it by example, without AI
+<a id="appendix-b"></a>
+## 📎 Appendix B — Doing it by example, without AI
 
 You do not have to use an AI. The scaffold is a convenience; the same project can be built by hand. This is the classic route — and the reference for what the agent was supposed to do.
 
 **Classic examples to start from**
 
 - **One LED / PWM:** the Arduino [Fade example](https://docs.arduino.cc/built-in-examples/basics/Fade/) (`File → Examples → 01.Basics → Fade`) uses `analogWrite`. On ESP32 core 3.x it works as written; on older cores use the [ESP32 `AnalogOut` LEDC examples](https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples), and mind the `ledcSetup`/`ledcAttach` API change.
-- **RGB LED:** there is no single stock example; wire three PWM channels and apply the `Fade` logic per channel. The [Stage 1b sketch](#appendix-a) is the reference.
+- **RGB LED:** there is no single stock example; wire three PWM channels and apply the `Fade` logic per channel. The working reference sketch is in the [instructor backup sketches](../instructor-notes/07-module-5-backup-sketches.md).
 - **NeoPixelBus:** the library ships [examples](https://github.com/Makuna/NeoPixelBus/tree/master/examples). After `pio project init` and `lib_deps = makuna/NeoPixelBus`, they are under `.pio/libdeps/mhetesp32minikit/NeoPixelBus/examples/`. Start with `NeoPixelTest`, then adapt to `NeoPixelBusLg` with `NeoEsp32I2s1Ws2812xMethod`.
 - **Adafruit NeoPixel:** [`strandtest` and `simple`](https://github.com/adafruit/Adafruit_NeoPixel/tree/master/examples) are the classic first-strip examples; use them to compare, not as the course default.
 - **FastLED:** [`blink` and `DemoReel100`](https://github.com/FastLED/FastLED/tree/master/examples) are the classic patterns; reference only on this board.
@@ -386,7 +284,7 @@ You do not have to use an AI. The scaffold is a convenience; the same project ca
 2. `pio project init --board mhetesp32minikit`.
 3. Write `platformio.ini` (board, framework, `monitor_speed`, `lib_deps` for the strip).
 4. Add `.gitignore` (`.pio/`, `compile_commands.json`).
-5. Write `src/main.cpp` from the [Stage 1b](#appendix-a) or [Stage 2](#appendix-b) sketch, starting with `#include <Arduino.h>`; keep the pinout and power rules in the [AGENTS.md template](#agentsmd).
+5. Write `src/main.cpp` from the [backup sketches](../instructor-notes/07-module-5-backup-sketches.md), starting with `#include <Arduino.h>`; keep the pinout and power rules in the [AGENTS.md template](#agentsmd).
 6. `pio run`, `pio run -t upload`, `pio device monitor`.
 7. Commit code, README, and measurements to `Module05/`.
 
@@ -394,8 +292,8 @@ The editor extras (Zed tasks, clangd, VS Code settings) are optional for the bui
 
 **Why this path exists.** The AI is a drafting tool, not a requirement. The evidence is the working hardware and the measurements. If you build it by hand, document the same things: the pinout, the library, the current, and what failed.
 
-<a id="appendix-e"></a>
-## 📎 Appendix E — Pointers and LLM prompts
+<a id="appendix-c"></a>
+## 📎 Appendix C — Pointers and LLM prompts
 
 **Pointers**
 
@@ -419,8 +317,9 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 > Run each prompt against your own circuit, and record where the model is wrong, vague, or over-confident.
 
+<a id="appendix-d"></a>
 <a id="agentsmd"></a>
-## 📎 Appendix F — `AGENTS.md` template
+## 📎 Appendix D — `AGENTS.md` template
 
 One `AGENTS.md` at the project root, **not** a separate `CLAUDE.md`, so Copilot and Claude agents load the same rules. A working template:
 
@@ -428,13 +327,13 @@ One `AGENTS.md` at the project root, **not** a separate `CLAUDE.md`, so Copilot 
 # AGENTS.md — LED lab
 
 - Board: MH-ET LIVE ESP32 MiniKit (`mhetesp32minikit`), PlatformIO CLI (`pio`).
-- Stage 1a: single red/yellow LED, 220 Ω, GPIO 16 (PWM fade).
-- Stage 1b: common-cathode RGB LED, 220 Ω per channel, R=GPIO16, G=GPIO17, B=GPIO18.
-- Stage 2: 8× WS2812B, DIN=GPIO16, 5 V from the MiniKit USB rail, common ground.
+- Stage 1: single red/yellow LED, 220 Ω, GPIO 16 (PWM fade).
+- Stage 2: common-cathode RGB LED, 220 Ω per channel, R=GPIO16, G=GPIO17, B=GPIO18.
+- Stage 3: 8× WS2812B, DIN=GPIO16, 5 V from the MiniKit USB rail, common ground.
 - Library: `makuna/NeoPixelBus`, `NeoPixelBusLg<NeoGrbFeature, NeoEsp32I2s1Ws2812xMethod>`.
   Do not default to FastLED.
 - `strip.SetLuminance(80)`. 8 LEDs × 60 mA = 480 mA; stay inside the USB budget.
-- Serial: 115200. Stage 1b: `R G B`; Stage 2: `index R G B` and `clear`.
+- Serial: 115200. Stage 2: `R G B`; Stage 3: `index R G B` and `clear`.
   Echo applied values; validate input and index bounds.
 - PlatformIO `src/main.cpp` needs `#include <Arduino.h>`; the Arduino IDE includes it automatically.
 - Never power the strip from a GPIO or the 3.3 V pin.

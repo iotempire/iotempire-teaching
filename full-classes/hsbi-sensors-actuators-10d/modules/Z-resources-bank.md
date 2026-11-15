@@ -180,7 +180,7 @@ CompileFlags:
 compile_commands.json
 ```
 
-**Scaffold with a prompt.** Use the stage-specific prompts in [Module 5](./05-leds-and-light-output.md#stage-2-prompt) (Stage 2 strip) and [Module 5](./05-leds-and-light-output.md#stage-3-prompt) (Stage 3 extension). The snippets above are what the agent should generate.
+**Scaffold with a prompt.** Use the stage-specific prompts in [Module 5](./05-leds-and-light-output.md#stage-2-prompt) (Stage 2 RGB LED) and [Module 5](./05-leds-and-light-output.md#stage-3-prompt) (Stage 3 strip). The snippets above are what the agent should generate.
 
 ## 🎥 Pre-Class and In-Class Videos by Module
 

@@ -14,10 +14,10 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 **Build the circuit → load the code → deploy to the ESP32 MiniKit.**
 
-**Stage 1a — one LED**
+**Stage 1 — one LED**
 
 - Anode → 220 Ω → GPIO 16; cathode → GND
-- Load the Stage 1a fade; deploy; watch it fade
+- Load the Stage 1 fade; deploy; watch it fade
 - Measure the current at full duty
 
 <!-- Note: Story first, then hands on. Stop the deck here for Stage 1; resume at “An LED is a diode” after first light. -->
@@ -86,7 +86,7 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 - `out = 255 · (in/255)^2.2`
 - `NeoPixelBusLg` applies a gamma table
 
-<!-- Note: Ask which fade looked smooth in Stage 2. -->
+<!-- Note: Ask which fade looked smooth in Stage 1. -->
 
 ---
 
@@ -103,20 +103,20 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 # Wiring at a glance
 
-**Stage 1a — one LED**
+**Stage 1 — one LED**
 
 - Anode → 220 Ω → GPIO 16; cathode → GND
 - Red or yellow; blue/green stay dim at 220 Ω
 
-**Stage 1b — discrete RGB LED**
+**Stage 2 — discrete RGB LED**
 
 - R → GPIO 16, G → GPIO 17, B → GPIO 18
 - 220 Ω per channel; common → GND (3.3 V for common anode)
 
-**Stage 2 — 8× WS2812B**
+**Stage 3 — 8× WS2812B**
 
 - DIN → GPIO 16, 5 V → 5 V, GND → GND
-- Stage 2 reuses GPIO 16: unplug Stage 1a/1b first
+- Stage 3 reuses GPIO 16: unplug Stage 1/2 first
 
 <!-- Note: Say the GPIO 16 conflict out loud before handing out the strips. -->
 
@@ -124,15 +124,15 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 # Now back to the workbook
 
-**Build the circuit → load the code → deploy to the ESP32 MiniKit.**
+**Create `stage2-rgb` → paste the Stage 2 prompt → wire → deploy.**
 
-**Stage 1b — RGB LED**
+**Stage 2 — RGB LED**
 
 - R → GPIO 16, G → GPIO 17, B → GPIO 18; 220 Ω each; common → GND
-- Load the Stage 1b `R G B` sketch; deploy
+- Let the agent scaffold the `R G B` REPL, then verify it on the LED
 - Type `255 0 0`, `0 255 0`, `0 0 255`
 
-<!-- Note: Stop the deck here. Hands on for Stage 2. -->
+<!-- Note: Stop the deck here. Hands on for Stage 2; the agent scaffolds while you watch over shoulders. -->
 
 ---
 
@@ -174,8 +174,8 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 # Talking to it: the REPL
 
-- Stage 1b: `R G B` (0–255)
-- Stage 2: `index R G B`, `clear`
+- Stage 2: `R G B` (0–255)
+- Stage 3: `index R G B`, `clear`
 - Echo the applied values
 - Validate bounds and malformed input
 
@@ -185,12 +185,12 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 # Now back to the workbook
 
-**Build the circuit → load the code → deploy to the ESP32 MiniKit.**
+**Create `stage3-strip` → paste the Stage 3 prompt → wire → deploy.**
 
-**Stage 2 — 8× WS2812B**
+**Stage 3 — 8× WS2812B**
 
 - 5 V and GND from the MiniKit; DIN → GPIO 16; common ground
-- Load the NeoPixelBus sketch with `SetLuminance(80)`; deploy
+- Let the agent scaffold the strip with `SetLuminance(80)`, then verify it
 - Type `3 255 0 0`, then `clear`
 
 <!-- Note: Stop the deck here. Hands on for Stage 3. -->
@@ -210,31 +210,31 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 # Now back to the workbook
 
-**Create `stage3-project` → paste the Stage 3 prompt → build the extension.**
+**Optional: one `◇` extension in the `stage3-strip` project.**
 
 - Non-blocking animation
 - Perceptual gamma
 - Sensor-to-actuator bridge
 
-<!-- Note: Stage 3 is the open project; use the prompt you prepared. -->
+<!-- Note: Extensions are for pods that finish early; keep the scope at one. -->
 
 ---
 
 # Today's build
 
-- **Session 1:** Stage 1a — one LED, PWM; Stage 1b — RGB, Vf
-- **Session 2:** Stage 2 — 8× WS2812B, DMA, power; Stage 3 — extension project
+- **Session 1:** Stage 1 — one LED, PWM; Stage 2 — RGB, Vf
+- **Session 2:** Stage 3 — 8× WS2812B, DMA, power; optional extension
 - Share the repo
 
-<!-- Note: Three builds, one repo. Stage 2 rewires GPIO 16 from red to DIN. -->
+<!-- Note: Three builds, one repo. Stage 3 rewires GPIO 16 from red to DIN. -->
 
 ---
 
 # Your turn
 
-- Build Stage 1a, then 1b to first light
-- Then the 8-LED strip
-- Pick one Stage 3 extension
+- Build Stage 1, then Stage 2, to first light
+- Then the 8-LED strip in Stage 3
+- Pick one `◇` extension if you finish early
 - Measure, verify, commit
 
 <!-- Note: Circulate; ask for one choice per pod. -->
