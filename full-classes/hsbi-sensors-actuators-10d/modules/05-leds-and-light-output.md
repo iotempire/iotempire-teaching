@@ -111,11 +111,11 @@ One `AGENTS.md` at the project root, **not** a separate `CLAUDE.md`, so Copilot 
 
 ## 🌈 Stage B — 8× WS2812B strip
 
-**Hardware.** An 8-LED WS2812B strip powered from the MiniKit's **5 V (VCC)** and **GND**, data to **GPIO 16 (DIN)**, over USB. Stage B **reuses GPIO 16**: unplug the Stage A red channel first. A ~330 Ω series resistor in the data line is cheap insurance on a short strip; it is optional here (see [Appendix C](#appendix-c)).
+**Hardware.** An 8-LED WS2812B strip powered from the MiniKit's **5 V (VCC)** and **GND**, data to **GPIO 16 (DIN)**, over USB. Prefer a USB 3.0 or USB-C port; a USB 2.0 port is the tight case. Stage B **reuses GPIO 16**: unplug the Stage A red channel first. A ~330 Ω series resistor in the data line is cheap insurance on a short strip; it is optional here (see [Appendix C](#appendix-c)).
 
 **Library.** Use **NeoPixelBus** with `NeoPixelBusLg<NeoGrbFeature, NeoEsp32I2s1Ws2812xMethod>`. On the ESP32, Wi-Fi and BLE generate high-priority radio interrupts; a software-timed or naive bit-banged strip can glitch. NeoPixelBus offloads the 800 kHz NRZ waveform to the hardware I²S1 DMA/RMT path, so the frame survives the radio. **Do not default to FastLED** on this board — encode that rule in `AGENTS.md`.
 
-**Power.** Each LED can draw up to ~60 mA at full white: 8 × 60 mA = **480 mA**. A USB 2.0 port supplies 500 mA, USB 3 supplies 900 mA, and a USB charger often 1.5–3 A. The ESP32 itself draws 100–250 mA with Wi-Fi. On a 500 mA port the strip alone is already at 480 mA and the ESP32 pushes it over; use a 1 A+ port or a separate supply with a common ground. `strip.SetLuminance(80)` is the guardrail: it caps the brightness and keeps the real animation well below the full-white bound.
+**Power.** Each LED can draw up to ~60 mA at full white: 8 × 60 mA = **480 mA**. A USB 2.0 port supplies 500 mA; USB 3 supplies 900 mA; a USB-C port on a modern laptop or a USB charger usually supplies 1.5–3 A (check the port or charger). The ESP32 itself draws 100–250 mA with Wi-Fi. So 8 LEDs plus the ESP32 fit comfortably on USB 3.0/USB-C. On a 500 mA USB 2.0 port the strip alone is already at 480 mA and the ESP32 pushes it over — keep that as the constraint: use a 1 A+ port, a USB 3.0/USB-C port, or a separate supply with a common ground. `strip.SetLuminance(80)` is the guardrail: it caps the brightness and keeps the real animation well below the full-white bound.
 
 **Firmware.** At **115200 baud**, parse `index R G B` with `index` in `0..7` and `R/G/B` in `0..255`, plus `clear` (`strip.ClearTo(RgbColor(0))`). Validate the index and the color values, and echo the applied update. The reference sketch is in [Appendix B](#appendix-b).
 

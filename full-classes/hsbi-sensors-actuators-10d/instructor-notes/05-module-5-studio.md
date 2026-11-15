@@ -128,7 +128,9 @@ The evaluation expects AI-first teaching. Make it visible in the lab, not as a s
 - **Guardrail:** `strip.SetLuminance(80)` in `setup()`. Full white on 8 LEDs is 480 mA; luminance 80
   keeps the real animation well below that.
 - **GPIO 16 rewire:** unplug the Stage A red channel before wiring the strip.
-- **Power:** 8 × 60 mA = 480 mA; USB 2.0 = 500 mA; the ESP32 adds 100–250 mA. Use a 1 A+ port, a
+- **Power:** 8 × 60 mA = 480 mA; USB 2.0 = 500 mA; the ESP32 adds 100–250 mA. Most students will
+  have a USB 3.0 or USB-C port (900 mA–3 A; check the port/charger), so the pair fits comfortably.
+  Keep the USB 2.0 500 mA case as the constraint and the teaching example; use a 1 A+ port, a
   powered hub, or a separate supply with a common ground.
 
 ## The 8-LED USB arithmetic (say it out loud)
@@ -136,9 +138,13 @@ The evaluation expects AI-first teaching. Make it visible in the lab, not as a s
 - 8 LEDs × 60 mA = **480 mA** at full white — the strip alone, inside a 500 mA USB 2.0 port by
   20 mA.
 - 9 LEDs would be 540 mA, over that port. That is why the class uses 8.
-- USB 2.0 = 500 mA, USB 3 = 900 mA, a USB charger = 1.5–3 A. The ESP32 adds 100–250 mA with Wi-Fi.
+- USB 2.0 = 500 mA, USB 3 = 900 mA, a USB-C port or USB charger = 1.5–3 A (check the port). The
+  ESP32 adds 100–250 mA with Wi-Fi.
+- Most students will have a USB 3.0 or USB-C port, where 8 LEDs **and** the ESP32 fit comfortably.
+  Keep the USB 2.0 500 mA case as the constraint and the teaching example.
 - So: strip alone on a 500 mA port is tight but plausible; strip **and** ESP32 on one 500 mA port
-  is over. Use a 1 A+ port, a powered hub, or a separate USB supply with a common ground.
+  is over. Use a 1 A+ port, a USB 3.0/USB-C port, a powered hub, or a separate USB supply with a
+  common ground.
 - Measure it. Cheap strips vary, brightness setting changes the current, and a meter shows the
   difference between “full white” and a real animation.
 

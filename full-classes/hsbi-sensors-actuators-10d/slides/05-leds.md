@@ -138,11 +138,12 @@
 
 - 60 mA per LED at full white
 - 8 × 60 = **480 mA**
-- USB 2.0 500 mA; USB 3 900 mA
+- USB 2.0 500 mA; USB 3 900 mA; USB-C 1.5–3 A
 - The ESP32 adds 100–250 mA with Wi-Fi
+- 8 LEDs + ESP32 fit USB 3/USB-C; USB 2.0 is the tight case
 - `SetLuminance(80)` is the guardrail
 
-<!-- Note: 9 LEDs would be 540 mA — over a 500 mA port. That is why 8. -->
+<!-- Note: 9 LEDs would be 540 mA — over a 500 mA port. That is why 8. Most laptops are USB 3/USB-C, but keep the USB 2.0 case as the constraint. -->
 
 ---
 
