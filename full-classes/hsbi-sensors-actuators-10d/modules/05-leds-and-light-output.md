@@ -53,11 +53,15 @@ The theory slides are [`slides/05-leds.md`](../slides/05-leds.md). They are the 
 
 ```cpp
 // Stage 1 — one LED, PWM fade on GPIO 16
-const int LED_PIN = 16;
+// PlatformIO: uncomment the next line. Arduino IDE includes it automatically.
+// #include <Arduino.h>
+
+const int LED_PIN = 16; // for the lazy ones, you can also use 2 for the inverted blue onboard led.
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("Stage 1: PWM fade on GPIO 16");
+  Serial.print("Stage 1: PWM fade on GPIO ");
+  Serial.println(LED_PIN);
 }
 
 void loop() {
@@ -90,6 +94,8 @@ pio run -t upload -t monitor
 ```
 
 > `analogWrite()` uses the LEDC peripheral on the current Arduino-ESP32 core. On an older core, use `ledcAttach()`/`ledcWrite()`.
+
+> **If `Serial`, `analogWrite`, or `delay` are undeclared in PlatformIO**, uncomment `#include <Arduino.h>` at the top of `src/main.cpp`. PlatformIO compiles `.cpp` files as C++ and does not auto-include it; the Arduino IDE does.
 
 **Done when:** the LED fades smoothly from off to full and back, and you can say what duty cycle means. This stage is deliberately manual: first light, no scaffold.
 
@@ -142,6 +148,7 @@ One `AGENTS.md` at the project root, **not** a separate `CLAUDE.md`, so Copilot 
 - `strip.SetLuminance(80)`. 8 LEDs × 60 mA = 480 mA; stay inside the USB budget.
 - Serial: 115200. Stage 2: `R G B`; Stage 3: `index R G B` and `clear`.
   Echo applied values; validate input and index bounds.
+- PlatformIO `src/main.cpp` needs `#include <Arduino.h>`; the Arduino IDE includes it automatically.
 - Never power the strip from a GPIO or the 3.3 V pin.
 ```
 
@@ -236,6 +243,9 @@ Common-cathode by default; set `COMMON_ANODE` to `true` if your part is common a
 
 ```cpp
 // Stage 2 — discrete RGB LED, common cathode by default.
+// PlatformIO: uncomment the next line. Arduino IDE includes it automatically.
+// #include <Arduino.h>
+
 #define COMMON_ANODE false
 
 const int R_PIN = 16;
@@ -279,6 +289,8 @@ void loop() {
 8 LEDs on GPIO 16, `SetLuminance(80)`, `index R G B` and `clear`. The color order is GRB; change the feature if your strip differs.
 
 ```cpp
+// PlatformIO: uncomment the next line. Arduino IDE includes it automatically.
+// #include <Arduino.h>
 #include <NeoPixelBus.h>
 
 const uint16_t LED_COUNT = 8;
@@ -366,7 +378,7 @@ You do not have to use an AI. The scaffold is a convenience; the same project ca
 2. `pio project init --board mhetesp32minikit`.
 3. Write `platformio.ini` (board, framework, `monitor_speed`, `lib_deps` for the strip).
 4. Add `.gitignore` (`.pio/`, `compile_commands.json`).
-5. Write `src/main.cpp` from the [Stage 2](#appendix-a) or [Stage 3](#appendix-b) sketch; keep the pinout and power rules in `AGENTS.md`.
+5. Write `src/main.cpp` from the [Stage 2](#appendix-a) or [Stage 3](#appendix-b) sketch, starting with `#include <Arduino.h>`; keep the pinout and power rules in `AGENTS.md`.
 6. `pio run`, `pio run -t upload`, `pio device monitor`.
 7. Commit code, README, and measurements to `Module05/`.
 

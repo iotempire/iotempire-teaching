@@ -59,6 +59,9 @@ laptop before the session.
   the [resource bank](../modules/Z-resources-bank.md#platformio-cli--zedvscode-setup).
 - **AI context:** one `AGENTS.md` at the project root, no `CLAUDE.md`. Pinout, library, CLI, USB
   power rules. The template is in [Module 5](../modules/05-leds-and-light-output.md#agentsmd).
+- **`Arduino.h` gotcha:** PlatformIO `.cpp` files do not auto-include `Arduino.h`; if `Serial`,
+  `analogWrite`, or `delay` are undeclared, uncomment `#include <Arduino.h>` at the top of
+  `src/main.cpp`. The Arduino IDE includes it for you. This is the most common first-build error.
 
 ## AI assistants and credits (as of this offering)
 
