@@ -212,6 +212,18 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | ESP32 scope/logic analyzer | I²C/OneWire transactions, PWM duty, slow analog signals; built/selected in Module 2 |
 | Reference thermometer / lux meter | A reference for your characterization labs |
 
+### 📌 WS2812: resistor, bulk capacitor, level shifter
+
+These are three different jobs — and none is a magic requirement:
+
+| Part | What it does | When it is unnecessary / risky |
+|---|---|---|
+| ~330–500 Ω series resistor in the data line | damps ringing and limits current into the first pixel's DIN | a short, clean data wire often works without it; it is cheap insurance |
+| Bulk electrolytic (≈100–1000 µF) across 5 V/GND | reservoir for the strip's current bursts; reduces supply droop | a short strip on a good, short-wired supply often runs fine without it; reverse polarity or a 6.3 V rating can explode |
+| Level shifter (3.3 V → 5 V) | meets the WS2812 input spec (~0.7 × VDD ≈ 3.5 V) | a short strip may work at 3.3 V, but it is out of spec — not guaranteed |
+
+**Decoupling ≠ bulk.** A 0.1 µF ceramic next to an IC is decoupling (high-frequency noise); a 1000 µF electrolytic across the strip supply is bulk (current bursts). Do not call the bulk capacitor a decoupling capacitor. If you add an electrolytic, use **10 V or 16 V**, observe polarity, and expect inrush. If you are unsure, omit it for a short lab strip.
+
 ## 🧰 Tool gotchas
 
 - **Pasting into a REPL or serial monitor** executes line by line, and some boards reset when the serial port opens. Put multi-line code in a file, save it, then flash/upload. Close the serial monitor before flashing if the port is busy.
@@ -247,7 +259,8 @@ WS2812 power:        I ≈ N_LED · 0.06 A  (full white, worst case)
 | Water or oil on the electronics | Spills | Dry tray, towels, keep the ESP32 and scale dry; clean immediately | 4 |
 | LED dims other parts of the circuit | Drawing too much from the pin/rail | Use a driver/transistor, separate supply | 5 |
 | RGB "white" looks wrong | Channel imbalance / common anode mixup | Rebalance channels; check anode/cathode | 5 |
-| WS2812 flickers or shows wrong colors | Data level, grounding, or power | Level shifter, common ground, data resistor, decoupling cap, power injection | 5 |
+| WS2812 flickers or shows wrong colors | Data level, grounding, or power | Level shifter, common ground, data resistor, power injection; bulk capacitor only if correctly rated and needed | 5 |
+| Electrolytic capacitor gets hot or explodes | Reverse polarity or voltage rating too low | Power off; replace with ≥10 V, correct polarity — or omit it for a short strip | 5 |
 | Animation stutters | Blocking `delay()` in the loop | Use `millis()`-based timing | 6 |
 | Servo jitters or the MCU resets | Servo powered from the MCU rail | Power the servo separately, common ground | 7 |
 | Motor does not turn / driver hot | Undersized supply/driver, stall | Size for stall current; check H-bridge wiring and PWM enable | 7 |

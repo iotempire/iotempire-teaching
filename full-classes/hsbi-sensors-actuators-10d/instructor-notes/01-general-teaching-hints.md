@@ -32,5 +32,6 @@ Session 1 has a plain-Markdown deck — [`slides/01-introduction.md`](../slides/
 
 - [Module 3 studio](./02-module-3-studio.md) — LDR/potentiometer/DS18B20 setup, multimeter pairing, water prep, fall field transect, DHT11 comparison, running the three rounds.
 - [Module 4 studio](./03-module-4-studio.md) — three HX711 scales, liquid/materials prep, IMU shock/motion, divide-and-conquer pairing, running the two sessions.
+- [Module 5 studio](./05-module-5-studio.md) — WS2812 strip/supply prep, capacitor safety, level shifter, 1000-LED power distribution.
 
 [All instructor notes](./README.md) · [Syllabus](../syllabus.md) · [Module index](../modules/00-index.md)

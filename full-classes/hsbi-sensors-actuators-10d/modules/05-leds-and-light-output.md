@@ -70,9 +70,10 @@ An addressable strip has a driver chip inside every LED. A single data line carr
 
 Requirements and traps:
 
-- Data level: WS2812 expects ~5 V logic. A 3.3 V ESP32 usually works with a short strip, but a level shifter (or powering the strip from a level close to 3.3 V with a suitable type) makes it reliable. A ~300–500 Ω resistor in the data line and a large capacitor (~1000 µF) across the strip's 5 V/GND reduce glitches.
+- Data level: WS2812's input is specified at ~0.7 × VDD (≈3.5 V at 5 V), so a 3.3 V ESP32 is **out of spec**. It often works with a short strip, but a level shifter is the reliable fix. A ~300–500 Ω series resistor in the data line damps ringing and limits current into the first pixel; it is cheap insurance, not a functional requirement.
+- Supply transients: each pixel switches its LED current, so the strip draws current in bursts. A **bulk** electrolytic (≈100–1000 µF) across 5 V/GND near the strip can supply those bursts and reduce droop and glitches. It is a **margin, not a mandatory part**: a short strip on a good, short-wired supply often runs without one. If you add one, use a **10 V or 16 V** rating (not 6.3 V), observe polarity, and expect inrush. A reverse-connected electrolytic can explode — if you are unsure, leave it out for this lab.
 - Power: each LED can draw up to ~60 mA at full white. A 30-LED strip can need ~1.8 A. The microcontroller's 5 V pin cannot provide this — use a separate 5 V supply with a common ground.
-- Power injection: long strips drop voltage along the copper; inject 5 V at both ends (and sometimes the middle).
+- Power injection: long strips drop voltage along the copper; inject 5 V at both ends (and sometimes the middle). The data line can address ~1000 LEDs (≈30 ms per frame), but 1000 LEDs at full white need ~60 A and multiple injection points — the data line is not the power line.
 - Frame timing: WS2812 is timing-sensitive; interrupts or Wi-Fi activity can occasionally glitch a frame.
 
 Use **Adafruit NeoPixel** for the first bring-up: it is simple and well documented. Use **NeoPixelBus** when you need a more robust driver for larger strips, multiple strips, or concurrent Wi-Fi/MQTT. **FastLED** remains a useful reference — especially for palettes and HSV — but it is not our default.
@@ -96,8 +97,10 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 - "I have a 3.3 V supply and a white LED with Vf ≈ 3.2 V. Compute a resistor for 10 mA and explain why the result is so sensitive to Vf."
 - "Explain PWM duty cycle, frequency, and resolution. Why does a linear duty ramp look like it jumps at the bright end, and what does gamma correction change?"
 - "A 30-LED WS2812 strip draws up to 60 mA per LED at full white. Compute the supply current and explain why the MCU's 5 V pin cannot provide it."
-- "What do the data-line resistor, the decoupling capacitor, and a level shifter each protect against in a WS2812 installation?"
+- "What do the data-line resistor, a **bulk** capacitor across the supply, and a level shifter each protect against in a WS2812 installation — and under what conditions are they unnecessary?"
 - "Compare a common-anode and a common-cathode RGB LED. How does the wiring and the PWM polarity change?"
+
+> A good answer distinguishes **bulk** capacitance (supply transients) from **decoupling** (high-frequency noise at an IC) and says when each is optional.
 
 > Run each prompt against your own circuit, and record where the model is wrong, vague, or over-confident.
 
@@ -130,7 +133,7 @@ Pair with a **neighbouring pod**:
 *Hardware:* breadboard, 2 LEDs + resistors, RGB LED, WS2812 strip, separate 5 V supply, USB power meter, multimeter.
 
 > [!WARNING]
-> Power off before rewiring. For the strip: connect 5 V, GND, and data correctly, share ground with the MCU, and add the decoupling capacitor before powering on. Wrong polarity kills the strip instantly.
+> Power off before rewiring. For the strip: connect 5 V, GND, and data correctly, and share ground with the MCU. Wrong polarity kills the strip instantly. **Do not add a bulk capacitor unless you are sure of its polarity and voltage rating** — a reverse-connected electrolytic can explode. For this lab, the separate supply, short wires, and the 330 Ω data resistor are enough; bulk capacitance is an optional reliability test, not a requirement.
 
 ### ★ Task 1: Size and Verify a Resistor
 
@@ -165,7 +168,7 @@ Pair with a **neighbouring pod**:
 
 ### ◇ Task 6 (Stretcher): Signal Integrity and Reliability
 
-Deliberately introduce problems and record the symptoms: remove the data-line resistor, remove the decoupling capacitor, use a long/unshielded data wire, drive a longer strip from one injection point only. Document which glitches appear and which fix restores reliable operation.
+Deliberately introduce problems and record the symptoms: remove the data-line resistor, use a long/unshielded data wire, drive a longer strip from one injection point only. **If you added a correctly rated bulk capacitor**, remove it and compare — on a short, well-powered strip you may see no difference; on a long one you may see droop or resets. Document which glitches appear and which change restores reliable operation.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
