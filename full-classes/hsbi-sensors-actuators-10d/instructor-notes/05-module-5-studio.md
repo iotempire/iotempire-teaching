@@ -18,30 +18,29 @@ the repo.
 
 A normal teaching day is **two 90-minute blocks**, not one (D20). The break sits between them.
 
-### Session 1 — first light, theory, Stage 2
+### Session 1 — first light, theory, Stage 1b
 
 | Time | Segment | What happens |
 |---|---|---|
-| 0–10 | Stage 1: one LED | 220 Ω, GPIO 16, `analogWrite` fade; first light, no AI |
+| 0–10 | Stage 1a: one LED | 220 Ω, GPIO 16, `analogWrite` fade; first light, no AI |
 | 10–25 | Theory slides | forward voltage and voltage capping, resistor computation, PWM, gamma — grounded in the fade |
-| 25–35 | AI scaffold | prompt the AI in the `led-lab` folder; it installs/uses `pio`, completes the project and editors, writes `AGENTS.md` |
-| 35–80 | Stage 2 | wire the RGB LED, `R G B` over serial, measure the three channel currents |
-| 80–90 | Commit | Stage 2 in the portfolio repo; preview Stage 3 |
+| 25–80 | Stage 1b | wire the RGB LED, `R G B` over serial, measure the three channel currents |
+| 80–90 | Commit | Stage 1 in the portfolio repo; preview the two projects |
 
-### Session 2 — theory, Stage 3, Stage 4
+### Session 2 — two project folders
 
 | Time | Segment | What happens |
 |---|---|---|
-| 0–10 | Rewire + recap | remove the Stage 2 red channel; DIN to GPIO 16; 5 V/GND |
+| 0–10 | Stage 2 prompt | create `stage2-strip/`, paste the Stage 2 prompt; the agent scaffolds while you start the slides |
 | 10–25 | Theory slides | WS2812B single-wire signal, DMA/RMT, power budget |
-| 25–65 | Stage 3 | NeoPixelBus, `index R G B`, `clear`, `SetLuminance(80)`, measure |
-| 65–85 | Stage 4 | one or two extensions, AI-assisted |
+| 25–65 | Stage 2 | wire the strip, deploy, `index R G B`, `clear`, `SetLuminance(80)`, measure |
+| 65–85 | Stage 3 | create `stage3-project/`, paste the Stage 3 prompt, build one or two extensions |
 | 85–90 | Share + outlook | commit, repo link, Module 6/7 |
 
-- If the room is slow, cut **Stage 4**, never Stages 1–3.
+- If the room is slow, cut **Stage 3**, never Stages 1a, 1b, or 2.
 - The AI agents are the built-in waiting time: show the slides while they scaffold, and stop when
   the build finishes.
-- If the room is fast, start Stage 4 earlier and let pods compare animations.
+- If the room is fast, start Stage 3 earlier and let pods compare animations.
 
 ## Toolchain: one `pio`, Zed for demos, VS Code optional
 
@@ -97,39 +96,39 @@ The evaluation expects AI-first teaching. Make it visible in the lab, not as a s
 
 ## Before the session
 
-- **Send the prep email.** At least two days before Day 5, send the [Module 5 student email](./06-module-5-student-email.md): `pio` via `uv`, an AI assistant (Copilot via GitHub Education, Claude, DeepSeek, or `opencode`; GitHub Education optional). The first session opens with the install check.
+- **Send the prep email.** At least two days before Day 5, send the [Module 5 student email](./06-module-5-student-email.md): `pio` via `uv`, an AI assistant (Copilot via GitHub Education, Claude, DeepSeek, or `opencode`; GitHub Education optional). Session 2 opens with the project setup; have the CLI ready.
 - **CLI baseline.** `uv` and `pio` on the lab laptops, the ESP32 platform cached, and one
-  known-good `led-lab` project. Test `pio run -t compiledb && pio run` on a lab machine.
+  known-good `stage2-strip` project. Test `pio run -t compiledb && pio run` on a lab machine.
 - **Boards and cables.** One MiniKit per student or pair, known-good USB cables, one spare board, one
   known-good strip and supply for triage.
-- **Parts.** Red/yellow 5 mm LEDs, common-cathode RGB LEDs, 220 Ω resistors (one for Stage 1, three
+- **Parts.** Red/yellow 5 mm LEDs, common-cathode RGB LEDs, 220 Ω resistors (one for Stage 1a, three
   per RGB LED), 8-LED WS2812B strips, breadboards, jumpers, USB power meters. A few 100 Ω/180 Ω
   resistors for comparison.
-- **GPIO 16 progression.** Stage 1 uses GPIO 16 for the single LED; Stage 2 uses 16/17/18 for the
-  RGB channels; Stage 3 uses GPIO 16 for DIN. Plan the rewires and say them out loud; do not let a
+- **GPIO 16 progression.** Stage 1a uses GPIO 16 for the single LED; Stage 1b uses 16/17/18 for the
+  RGB channels; Stage 2 uses GPIO 16 for DIN. Plan the rewires and say them out loud; do not let a
   pod wire two stages at once.
 - **Repo ready.** The course template and `gh` login work on the lab laptop; have a short link or QR
   code to the template and a known-good repo to demo. If GitHub is down, commit locally and push
   later.
 - **Slides ready.** Render `slides/05-leds.md` and keep the PDF open for the waiting time.
-- **Visible goals.** Put the learning goals and the four stages on the screen at the start.
+- **Visible goals.** Put the learning goals and the stages on the screen at the start.
 
-## Stage 1 prep
+## Stage 1a prep
 
 - A red or yellow 5 mm LED per student/pair, a 220 Ω resistor, jumper wires. Anode (long leg) →
   220 Ω → GPIO 16; cathode (short leg, flat) → GND.
-- The Stage 1 sketch is in the module; it uses `analogWrite()` and no library.
+- The Stage 1a sketch is in the module; it uses `analogWrite()` and no library.
 - `analogWrite()` works through LEDC in the current Arduino-ESP32 core; older cores need
   `ledcAttach()`/`ledcWrite()`. Check the core version on the lab image.
 
-## Stage 2 prep
+## Stage 1b prep
 
 - Common-cathode RGB LED through three 220 Ω resistors: R=GPIO16, G=GPIO17, B=GPIO18, common to GND.
   The sketch has `#define COMMON_ANODE false`; set it to `true` for a common-anode part.
 - Measure each channel current with the meter in series, or measure the resistor voltage and use
   `I = U/R`. Red will be much higher than blue; that is the lesson.
 
-## Stage 3 prep
+## Stage 2 prep
 
 - 8× WS2812B, 5 V and GND from the MiniKit USB rail, DIN to GPIO 16, common ground. A ~330 Ω data
   resistor is optional on a short strip; keep it as a reliability option, not a blocker.
@@ -138,11 +137,18 @@ The evaluation expects AI-first teaching. Make it visible in the lab, not as a s
   hardware I²S1 DMA/RMT path.
 - **Guardrail:** `strip.SetLuminance(80)` in `setup()`. Full white on 8 LEDs is 480 mA; luminance 80
   keeps the real animation well below that.
-- **GPIO 16 rewire:** unplug the Stage 2 red channel before wiring the strip.
+- **GPIO 16 rewire:** unplug the Stage 1b red channel before wiring the strip.
 - **Power:** 8 × 60 mA = 480 mA; USB 2.0 = 500 mA; the ESP32 adds 100–250 mA. Most students will
   have a USB 3.0 or USB-C port (900 mA–3 A; check the port/charger), so the pair fits comfortably.
   Keep the USB 2.0 500 mA case as the constraint and the teaching example; use a 1 A+ port, a
   powered hub, or a separate supply with a common ground.
+
+## Stage 3 prep
+
+- Replace the `PROMPT HERE` in the module with the final Stage 3 prompt before class.
+- Decide which extension(s) pods should aim for; the three suggested are non-blocking animations,
+  perceptual gamma, and the sensor-to-actuator bridge.
+- Keep the scope small: one extension is enough; two is fast.
 
 ## The 8-LED USB arithmetic (say it out loud)
 
@@ -161,10 +167,10 @@ The evaluation expects AI-first teaching. Make it visible in the lab, not as a s
 
 ## What to demo, what to hand over
 
-- **Demo:** the Stage 1 fade, the 220 Ω default, the Stage 2 three measured channel currents, the
-  `R G B` REPL, the Stage 3 `index R G B`/`clear` REPL, `SetLuminance(80)`, the current measurement,
+- **Demo:** the Stage 1a fade, the 220 Ω default, the Stage 1b three measured channel currents, the
+  `R G B` REPL, the Stage 2 `index R G B`/`clear` REPL, `SetLuminance(80)`, the current measurement,
   and one AI prompt plus the commit/push.
-- **Hand over:** the Stage 4 extension, the palette, the input (serial, button, sensor), and the
+- **Hand over:** the Stage 3 extension, the palette, the input (serial, button, sensor), and the
   scaling argument for 30/60/144 LEDs.
 - **Do not demo a finished animation.** The extension is to design one; a demo becomes the answer.
 

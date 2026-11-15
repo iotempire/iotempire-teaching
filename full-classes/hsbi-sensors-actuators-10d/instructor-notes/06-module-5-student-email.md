@@ -11,9 +11,10 @@ Subject: Module 5 prep — have "pio" and your AI assistant ready
 
 Hi everyone,
 
-Before Day 5 (LEDs) we have two 90-minute blocks, and we want the first
-minutes for first light, not for installs. Please prepare two things on
-your laptop before the session.
+Before Day 5 (LEDs) we have two 90-minute blocks. Session 1 is first light;
+Session 2 is the project work, and we want its first minutes for the build,
+not for installs. Please prepare two things on your laptop before the
+session.
 
 1) A working PlatformIO CLI in your editor terminal (about 10–15 minutes)
 
@@ -54,11 +55,12 @@ not the PlatformIO IDE extension. Install it once with uv:
 
 What we will do
 
-Two sessions: Stage 1 is a single LED with PWM. Stage 2 is a discrete RGB
-LED (forward voltage, 220 ohm resistors, PWM, a serial "R G B" REPL).
-Stage 3 is an 8-LED WS2812B strip (NeoPixelBus, "index R G B" and "clear",
-the USB power budget). We scaffold the project with an AI agent, verify it
-on the hardware, and commit a shareable repo.
+Two sessions: Stage 1 is the guided LED tutorial — one LED with PWM, then
+a discrete RGB LED (forward voltage, 220 ohm resistors, a serial "R G B"
+REPL). Stage 2 is an 8-LED WS2812B strip (NeoPixelBus, "index R G B" and
+"clear", the USB power budget). Stage 3 is an extension project. We
+scaffold Stages 2 and 3 with an AI agent, verify on the hardware, and
+commit shareable repos.
 
 If an install fights you, come 10 minutes early or post in the Discord; we will try fixing it together.
 
@@ -68,8 +70,8 @@ See you on Day 5,
 
 ## Sending notes
 
-- Send this **at least two days before Day 5**; the first session opens with the install check.
-  Replace `[Instructor names]` and add the date or room if your LMS needs it.
+- Send this **at least two days before Day 5**; Session 2 opens with the project setup. Replace
+  `[Instructor names]` and add the date or room if your LMS needs it.
 - The exact commands, the Zed/VS Code snippets, the serial-port fixes, and the scaffold prompt are
   in the [resource bank](../modules/Z-resources-bank.md#platformio-cli--zedvscode-setup). Do not
   paste the whole reference into the email.
@@ -77,7 +79,7 @@ See you on Day 5,
   the editor is enough. GitHub Education is an optional route to Copilot credits, not a requirement;
   the prompt → draft → verify → commit loop is the point, not a specific vendor.
 - **If the lab network blocks installs**, ask students to bring a hotspot, or prepare the lab laptops
-  with `uv`/`pio` and the ESP32 platform cached. Have one known-good `led-lab` project and one
+  with `uv`/`pio` and the ESP32 platform cached. Have one known-good `stage2-strip` project and one
   pre-flashed board.
 - **Check the board ID once:** `pio project init --board mhetesp32minikit`. If the PlatformIO
   registry disagrees, fix the email and the module before sending.

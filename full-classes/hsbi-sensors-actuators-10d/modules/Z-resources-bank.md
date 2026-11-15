@@ -99,7 +99,7 @@ pio --version             # an existing pio on PATH is also fine
 **Project skeleton.**
 
 ```sh
-mkdir led-lab && cd led-lab
+mkdir my-project && cd my-project
 pio project init --board mhetesp32minikit
 ```
 
@@ -180,22 +180,7 @@ CompileFlags:
 compile_commands.json
 ```
 
-**Scaffold from an empty folder.** Prompt the agent:
-
-<details>
-<summary>Starter prompt (copy)</summary>
-
-You are setting up a PlatformIO project in this empty folder for an MH-ET LIVE ESP32 MiniKit.
-
-1. Check `pio --version`; if it is missing, install it with `uv tool install --with pip platformio`.
-2. Run `pio project init --board mhetesp32minikit`.
-3. Create `.zed/tasks.json`, `.zed/settings.json`, `.clangd`, `.gitignore`, `.vscode/extensions.json`, `.vscode/settings.json`, and `AGENTS.md`.
-4. Add `lib_deps = makuna/NeoPixelBus` to `platformio.ini`, then write `src/main.cpp` for an 8× WS2812B strip on GPIO 16. Start the file with `#include <Arduino.h>` (PlatformIO does not auto-include it). Use `NeoPixelBusLg<NeoGrbFeature, NeoEsp32I2s1Ws2812xMethod>`, `SetLuminance(80)`, and a 115200 serial REPL (`index R G B`, `clear`).
-5. Run `pio run -t compiledb && pio run`; fix errors and report what you changed.
-
-Do not invent pins, libraries, or current limits. If a fact is not in this prompt, ask.
-
-</details>
+**Scaffold with a prompt.** Use the stage-specific prompts in [Module 5](./05-leds-and-light-output.md#stage-2-prompt) (Stage 2 strip) and [Module 5](./05-leds-and-light-output.md#stage-3-prompt) (Stage 3 extension). The snippets above are what the agent should generate.
 
 ## 🎥 Pre-Class and In-Class Videos by Module
 
