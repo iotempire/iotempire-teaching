@@ -10,6 +10,7 @@ Prüfungsausschuss.
 | Note | What is inside |
 |---|---|
 | [Architecture decisions](./00-architecture-decisions.md) | Why the class is shaped this way: provenance, decision records with alternatives and reversal triggers, rejected ideas, open questions, recreation checklist, module-handbook coverage |
+| [TODO](./TODO.md) | The next-run backlog, led by the main design debt: relieve the class from AI over-specification and bloat so discovery, engagement, and own research have room |
 | [From Databases](./from-databases.md) | A gift from the Databases class at the end of its first run: six things to copy first, a TODO backlog, what not to copy, and the questions the two classes should close together |
 | [Assessment & operations](./00-assessment-and-operations.md) | Assessment form, milestone plan, submission hygiene, group accountability and sign-off template, re-examination, privacy, AI assistance |
 | [Nebula session](./nebula-session.md) | Preparing the lighthouse, class CA, bundles, handout, in-session recovery, cleanup |

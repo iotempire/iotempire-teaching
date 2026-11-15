@@ -13,6 +13,8 @@ Cheat sheets, troubleshooting, datasets, and extended reading. Everything here r
 curl -LsSf https://astral.sh/uv/install.sh | sh
 # Windows (PowerShell):
 #   powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+# Windows: make Python default to UTF-8 (one-time; open a new terminal afterwards):
+#   setx PYTHONUTF8 1
 
 uv python install 3.14           # download + manage a fixed Python (3.14 = tested with this stack)
 uv python pin 3.14               # pin it for this project (.python-version)
@@ -373,6 +375,55 @@ SELECT * FROM job_search WHERE technician LIKE '%ei%';
 
 > [!TIP]
 > Two habits generalise beyond this question: read the plan before reaching for a new index type, and measure on realistic row counts. An index that helps at 100,000 rows can lose to a scan at four.
+
+### Why does DuckDB say my CSV is not UTF-8, and how do I make Python write UTF-8 on Windows?
+
+`read_csv_auto` expects **UTF-8** by default. A CSV written with `open(..., "w")` on Windows uses the ANSI code page (often **Windows-1252 / cp1252**), so `ü` becomes the single byte `0xFC` — invalid UTF-8. Linux and macOS usually default to UTF-8, which is why only some students see this.
+
+Fix the **writer**, not the reader:
+
+```python
+with csv_path.open("w", encoding="utf-8", newline="") as f:
+    ...
+```
+
+For an existing broken file, rerun the generator after that change, or convert it once:
+
+```python
+from pathlib import Path
+
+p = Path("Module06a/report_jobpart.csv")
+text = p.read_bytes().decode("cp1252")
+p.write_text(text, encoding="utf-8", newline="")
+```
+
+To make Python default to UTF-8 on Windows, set the environment variable once and open a **new** terminal:
+
+```powershell
+setx PYTHONUTF8 1          # persistent for your user; new terminals only
+```
+
+For one session: `$env:PYTHONUTF8 = "1"` (PowerShell) or `export PYTHONUTF8=1` (Git Bash). You can also run `uv run python -X utf8 ...`. Check it with:
+
+```python
+import locale, sys
+print(locale.getpreferredencoding(False), sys.flags.utf8_mode)
+```
+
+`chcp 65001` changes the console code page (display), not the encoding of files Python writes. `PYTHONIOENCODING=utf-8` affects stdin/stdout/stderr, not `open()`. Explicit `encoding="utf-8"` is still the most portable fix.
+
+> [!WARNING]
+> **Do not use `encoding='latin-1'` in DuckDB as the permanent fix.** Latin-1 and cp1252 agree on `ü` but differ in the `0x80–0x9F` range (curly quotes, euro sign, …), so it can silently mis-decode. Use it only to inspect a broken file.
+
+### DuckDB says `Referenced table "r" not found` — what happened?
+
+The query uses `r.column`, but the table expression has no alias. Add one:
+
+```sql
+FROM read_csv_auto('report_jobpart.csv', header = true, encoding = 'utf-8') AS r
+```
+
+or drop the `r.` prefix from the column names. The module's `FROM read_csv_auto(...) r` already provides the alias; the error appears when that part is lost while editing.
 
 ## Suggested practice datasets
 

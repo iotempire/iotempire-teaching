@@ -395,7 +395,7 @@ step = 3                                        # one reading every 3 s per mach
 points = days * 24 * 60 * 60 // step            # 57,600 points x 3 machines
 
 out = Path(__file__).with_name("telemetry.csv")
-with out.open("w", newline="") as f:
+with out.open("w", encoding="utf-8", newline="") as f:
     w = csv.writer(f)
     w.writerow(["ts", "machine", "temp_c", "vib_rms", "spindle_load"])
     for i in range(points):

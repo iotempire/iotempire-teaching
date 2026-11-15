@@ -104,7 +104,7 @@ conn.execute(f"""
          SELECT k FROM n)""")
 conn.commit()
 
-with csv_path.open("w", newline="") as f:
+with csv_path.open("w", encoding="utf-8", newline="") as f:
     writer = csv.writer(f)
     writer.writerow(["job_id", "machine_id", "site", "technician",
                      "part_no", "part_price", "done_on"])
@@ -115,6 +115,13 @@ print("csv bytes   :", csv_path.stat().st_size)
 ```
 
 Run it. Expect **2,000,000** rows and a CSV of roughly 11 MB.
+
+> [!WARNING]
+> **Windows: write UTF-8 explicitly.** Without `encoding="utf-8"`, Python uses the Windows ANSI
+> code page (often **cp1252**), so `ü` is written as byte `0xFC` — invalid UTF-8. DuckDB then fails
+> with *“Invalid unicode (byte sequence mismatch) detected. This file is not utf-8 encoded.”* Rerun
+> `prepare.py` after this change; do **not** “fix” it with `encoding='latin-1'` in DuckDB, which only
+> happens to work for `ü` and mis-decodes other cp1252 characters.
 
 > **Discuss (nearest pod, 2 minutes).**
 > - **Why** is the row count exactly 10 × 200,000? If you cannot explain that before running, the multiplier is not understood yet — that is **goal 1**.
@@ -141,7 +148,7 @@ con.execute(f"""
       SELECT r.job_id + k * 1000000 AS job_id, r.machine_id, r.site,
              r.technician, r.part_no, r.part_price,
              CAST(r.done_on AS DATE) + CAST(k * 91 AS INTEGER) AS done_on
-      FROM read_csv_auto('{csv_path}', header = true) r,
+      FROM read_csv_auto('{csv_path}', header = true, encoding = 'utf-8') r,
            range(0, 10) t(k)
     ) TO '{parquet}' (FORMAT parquet)
 """)
@@ -150,6 +157,10 @@ print("parquet rows:", con.execute(
     f"SELECT COUNT(*) FROM read_parquet('{parquet}')").fetchone()[0])
 print("parquet MB  :", round(parquet.stat().st_size / 1e6, 2))
 ```
+
+> **The `r` is the alias.** `read_csv_auto(...) r` names the table expression `r`; `r.job_id`
+> only works because of it. If you rewrite the query, add `AS r` or drop the `r.` prefix — otherwise
+> DuckDB raises *“Binder Error: Referenced table `r` not found!”*.
 
 Check both sides agree before you time anything:
 
@@ -401,7 +412,7 @@ devices = [
     {"machine_id": "cnc-02", "vendor": "Fanuc", "firmware": "3.9"},
     {"machine_id": "cnc-03", "vendor": "Siemens", "firmware": "4.0"},
 ]
-(here / "devices.json").write_text(json.dumps(devices))
+(here / "devices.json").write_text(json.dumps(devices), encoding="utf-8")
 
 con = duckdb.connect()
 print(con.execute(f"""
