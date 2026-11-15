@@ -141,9 +141,9 @@ The challenge is not finished on your laptop. Your `Module05/` folder in the por
 
 The AI is the drafting tool; verification is the skill. If you want a standalone repo instead of the portfolio folder, `gh repo create led-lab --public --source=. --push` works.
 
-> **GitHub Education.** If you want Copilot or the Student Developer Pack, apply at [education.github.com](https://education.github.com/); it is optional for this session. The course template is [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template).
+> **AI assistant and GitHub Education.** Use whatever you already have — Claude, DeepSeek, ChatGPT, Copilot — in Zed or VS Code. If you want Copilot with education credits, apply at [education.github.com](https://education.github.com/); it is optional. The course template is [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template).
 
-> **Credits.** Inline completions are unlimited on Copilot Education; chat and agent tasks consume credits. Use a lightweight model for the scaffold and save the heavy model for the one hard bug.
+> **Credits.** Copilot Education gives unlimited inline completions but limited chat/agent credits; other plans have their own limits. Use a lightweight model for the scaffold and save the heavy model for the one hard bug.
 
 ## ★ Task A: Log the two stages
 

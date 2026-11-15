@@ -17,6 +17,7 @@ Prüfungsausschuss.
 | [Module 4 studio](./03-module-4-studio.md) | HX711 scale sharing and calibration, liquid/materials prep, IMU shock/motion, divide-and-conquer pairing, running the two sessions |
 | [Module 5 studio](./05-module-5-studio.md) | 180-minute run sheet (two 90-minute blocks), `uv`/`pio` + Zed/VS Code setup, AI models/credits, AI-first shareable repo, Stage A/B prep, the 220 Ω default, the 8-LED USB budget, WS2812 strip/supply prep, the bulk-capacitor theory-vs-classroom rule, level shifter |
 | [Module 4 student email](./04-module-4-student-email.md) | Ready-to-send email draft: what to bring, sensor menu, 80% guidance, portfolio polish, and first-checkpoint timing |
+| [Module 5 student email](./06-module-5-student-email.md) | Ready-to-send prep draft: `pio` via `uv`, an AI assistant in the editor (GitHub Education optional; Claude/DeepSeek welcome), `opencode` option, and a stuck-student table |
 | [Alternative Module 4](./alternatives/04-distance-motion-and-environment-sensors.md) | The earlier distance/motion/environment version, kept for instructors who prefer that route |
 
 Technical reference material for students lives in the [resource bank](../modules/Z-resources-bank.md); this folder holds teaching and course-operation notes.

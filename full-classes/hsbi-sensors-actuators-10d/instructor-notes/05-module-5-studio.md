@@ -60,10 +60,12 @@ laptop before the session.
 - **AI context:** one `AGENTS.md` at the project root, no `CLAUDE.md`. Pinout, library, CLI, USB
   power rules. The template is in [Module 5](../modules/05-leds-and-light-output.md#agentsmd).
 
-## AI models and credits (as of this offering)
+## AI assistants and credits (as of this offering)
 
 Model names and credit rules change; verify in the tool before the session.
 
+- **Existing assistant (Claude, DeepSeek, ChatGPT, ...):** if it is already set up in the editor, that
+  is enough. Do not force a switch to Copilot; the workflow matters, not the vendor.
 - **GitHub Copilot Education (students):** inline tab completions (`edit_predictions` in Zed) are
   unlimited and do not consume the 200 monthly AI credits. For chat/agent tasks, VS Code uses
   `Auto` routing automatically; in Zed (native Copilot or the Copilot ACP agent), select a
@@ -84,13 +86,15 @@ The evaluation expects AI-first teaching. Make it visible in the lab, not as a s
   they verify; they commit.
 - **Verification is the assessed skill.** Pin, LED count, color order, library, baud, current. If the
   AI's arithmetic disagrees with the meter, the meter wins.
-- **GitHub Education.** Point to the Student Developer Pack and Copilot at education.github.com and
-  to the course template; do not do live sign-ups in class.
+- **GitHub Education is optional.** Point to the Student Developer Pack and Copilot at
+  education.github.com and to the course template as an option; if students already use Claude,
+  DeepSeek, or another assistant, that is enough. Do not do live sign-ups in class.
 - **If the room is slow.** The demo still happens; the repo and README become homework. Do not skip
   the verification step.
 
 ## Before the session
 
+- **Send the prep email.** At least two days before Day 5, send the [Module 5 student email](./06-module-5-student-email.md): `pio` via `uv`, an AI assistant (Copilot via GitHub Education, Claude, DeepSeek, or `opencode`; GitHub Education optional). The first session opens with the install check.
 - **CLI baseline.** `uv` and `pio` on the lab laptops, the ESP32 platform cached, and one
   known-good `led-lab` project. Test `pio run -t compiledb && pio run` on a lab machine.
 - **Boards and cables.** One MiniKit per student or pair, known-good USB cables, one spare board, one

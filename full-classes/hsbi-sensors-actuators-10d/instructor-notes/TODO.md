@@ -103,6 +103,8 @@ Proposals, not decisions. Prototype them as outlines before touching the module 
 
 ## Communication
 
+- [ ] **Check before every module whether a prep email is needed.** Some modules need nothing; Module 4 (materials) and Module 5 (toolchain, GitHub Education, AI access) do. If yes, add the draft to this folder and send it at least two days before.
+- [ ] **Send the Module 5 prep email before Day 5.** `pio` via `uv` in the editor terminal, an AI assistant signed in (Copilot via GitHub Education, Claude, DeepSeek, or `opencode`; GitHub Education optional) ([draft](./06-module-5-student-email.md)).
 - [ ] **Send the student email** with the bring list, the sensor menu, the visualization freedom, and the portfolio/checkpoint expectation (D13).
 - [ ] **Ask the co-instructor to scrounge** the shared materials: trays, towels, ruler, funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper, extra bottles/cups (D12).
 - [ ] **Remind students to polish their portfolios** before the first checkpoint; the checkpoint verifies Modules 1–3 at the bench.
