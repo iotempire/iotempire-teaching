@@ -135,9 +135,8 @@ The evaluation expects AI-first teaching. Make it visible in the lab, not as a s
 
 - 8× WS2812B, 5 V and GND from the MiniKit USB rail, DIN to GPIO 16, common ground. A ~330 Ω data
   resistor is optional on a short strip; keep it as a reliability option, not a blocker.
-- **Library:** `makuna/NeoPixelBus`, `NeoPixelBusLg<NeoGrbFeature, NeoEsp32I2s1Ws2812xMethod>`.
-  Explain the choice: Wi-Fi/BLE radio interrupts corrupt software-timed output; NeoPixelBus uses the
-  hardware I²S1 DMA/RMT path.
+- **Library:** `makuna/NeoPixelBus` with an ESP32 I2S/RMT hardware method. Explain the choice:
+  Wi-Fi/BLE radio interrupts corrupt software-timed output; NeoPixelBus uses a hardware DMA/RMT path.
 - **Guardrail:** `strip.SetLuminance(80)` in `setup()`. Full white on 8 LEDs is 480 mA; luminance 80
   keeps the real animation well below that.
 - **GPIO 16 rewire:** unplug the Stage 2 red channel before wiring the strip.
@@ -145,6 +144,9 @@ The evaluation expects AI-first teaching. Make it visible in the lab, not as a s
   have a USB 3.0 or USB-C port (900 mA–3 A; check the port/charger), so the pair fits comfortably.
   Keep the USB 2.0 500 mA case as the constraint and the teaching example; use a 1 A+ port, a
   powered hub, or a separate supply with a common ground.
+- **Method choice:** the prompt asks for an ESP32 I2S/RMT method rather than one fixed type. Check
+  the agent's pick against the [NeoPixelBus ESP32 methods wiki](https://github.com/Makuna/NeoPixelBus/wiki/ESP32-NeoMethods);
+  if it builds and runs stably on the MiniKit, keep it and have the pod state it in the README.
 - Decide which extension(s) pods should aim for; the three suggested are non-blocking animations,
   perceptual gamma, and the sensor-to-actuator bridge.
 - Keep the scope small: one extension is enough; two is fast.

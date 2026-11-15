@@ -65,6 +65,8 @@ const uint16_t LED_COUNT = 8;
 const uint16_t DATA_PIN = 16;
 
 NeoPixelBusLg<NeoGrbFeature, NeoEsp32I2s1Ws2812xMethod> strip(LED_COUNT, DATA_PIN);
+// One working method for the MiniKit. If it does not build on your core version,
+// pick another ESP32 I2S/RMT method: https://github.com/Makuna/NeoPixelBus/wiki/ESP32-NeoMethods
 
 int clamp8(int v) { return v < 0 ? 0 : (v > 255 ? 255 : v); }
 

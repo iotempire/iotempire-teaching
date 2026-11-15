@@ -151,7 +151,7 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 # Timing is the hard part
 
 - Wi-Fi/BLE interrupts corrupt software-timed output
-- Hardware I²S1 DMA/RMT generates the waveform
+- Hardware I²S/RMT DMA generates the waveform
 - **NeoPixelBus, not FastLED**, on this board
 - `AGENTS.md` carries the rule for the AI
 

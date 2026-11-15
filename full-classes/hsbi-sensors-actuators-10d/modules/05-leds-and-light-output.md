@@ -125,11 +125,11 @@ No serial port? Linux needs your user in `dialout` (or `uucp`) and the PlatformI
 <summary>Copy this prompt into your AI agent</summary>
 
 ```text
-Initialize a PlatformIO Arduino project in this empty folder for `board = mhetesp32minikit` (using `pio` on PATH, or installing it via `uv tool install --with pip platformio`). Configure `platformio.ini` with `monitor_speed = 115200`, `monitor_echo = yes`, and `monitor_filters = send_on_enter`.
+Initialize a PlatformIO Arduino project in this empty folder for `board = mhetesp32minikit` (using `pio` on PATH, or installing it via `uv tool install --with pip platformio`). Configure `platformio.ini` with `monitor_speed = 115200`, `monitor_echo = yes`, and `monitor_filters = send_on_enter`. Add a `.gitignore` for `.pio/` and `compile_commands.json`.
 
 Create a short `AGENTS.md` documenting the board (`mhetesp32minikit`), wiring (discrete RGB LED via 220 Ω resistors on GPIO 16=R, 17=G, 18=B), and to run `pio run -t compiledb` after dependency changes.
 
-In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it automatically), then drive the RGB LED with `analogWrite()` (include a `COMMON_ANODE` flag, default `false`). Read `R G B` integers (0–255) over Serial, clamp and apply them, echo back the values, and print an error on invalid input. Verify with `pio run -t compiledb && pio run`.
+In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it automatically), then drive the RGB LED with `analogWrite()` (include a `COMMON_ANODE` flag, default `false`). Read `R G B` integers (0–255) over Serial, clamp and apply them, echo back the values, and print an error on invalid input. Add a short `README.md` with the wiring, the REPL commands, and how to build, upload, and open the monitor. Verify with `pio run -t compiledb && pio run`.
 ```
 
 </details>
@@ -141,15 +141,15 @@ In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it
 <summary>Copy this prompt into your AI agent</summary>
 
 ```text
-Initialize a PlatformIO Arduino project in this empty folder for `board = mhetesp32minikit` (using `pio` on PATH, or installing it via `uv tool install --with pip platformio`). Configure `platformio.ini` with `lib_deps = makuna/NeoPixelBus`, `monitor_speed = 115200`, `monitor_echo = yes`, and `monitor_filters = send_on_enter`.
+Initialize a PlatformIO Arduino project in this empty folder for `board = mhetesp32minikit` (using `pio` on PATH, or installing it via `uv tool install --with pip platformio`). Configure `platformio.ini` with `lib_deps = makuna/NeoPixelBus`, `monitor_speed = 115200`, `monitor_echo = yes`, and `monitor_filters = send_on_enter`. Add a `.gitignore` for `.pio/` and `compile_commands.json`.
 
 Create a short `AGENTS.md` documenting:
 - Board: `mhetesp32minikit` (ESP32)
 - Wiring: 8-LED WS2812B strip powered from 5V USB and GND, data on GPIO 16
-- Library: Always use `NeoPixelBus` (`NeoPixelBusLg`) for hardware DMA/RMT output—never `FastLED`
+- Library: Always use `NeoPixelBus` with an ESP32 method that offloads the waveform to hardware (I2S or RMT) — never `FastLED`
 - Power limit: Keep `SetLuminance(80)` or lower so 8 LEDs stay within the 500 mA USB budget
 
-In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it automatically), then use `NeoPixelBusLg<NeoGrbFeature, NeoEsp32I2s1Ws2812xMethod>` with `SetLuminance(80)` to control the 8 LEDs over Serial: accept `index R G B` (`index` 0–7, `R/G/B` 0–255) and `clear`, validate bounds, echo updates, and verify with `pio run -t compiledb && pio run`.
+In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it automatically), then use `NeoPixelBus` with `NeoGrbFeature` and an ESP32 method that fits this board and keeps Wi-Fi/BLE usable: choose the I2S or RMT hardware method appropriate for the MH-ET LIVE ESP32 MiniKit and the installed Arduino-ESP32 core, and state in the README which method and channel you chose and why. Consult the NeoPixelBus ESP32 methods documentation (https://github.com/Makuna/NeoPixelBus/wiki/ESP32-NeoMethods). Apply `SetLuminance(80)` and control the 8 LEDs over Serial: accept `index R G B` (`index` 0–7, `R/G/B` 0–255) and `clear`, validate bounds, echo updates. Add a short `README.md` with the wiring, the chosen method and channel, the REPL commands, and the power note. Verify with `pio run -t compiledb && pio run`.
 ```
 
 </details>
@@ -176,18 +176,18 @@ In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it
 
 **Hardware.** An 8-LED WS2812B strip powered from the MiniKit's **5 V (VCC)** and **GND**, data to **GPIO 16 (DIN)**, over USB. Prefer a USB 3.0 or USB-C port; a USB 2.0 port is the tight case. Stage 3 **reuses GPIO 16**: unplug the Stage 2 red channel first. A ~330 Ω series resistor in the data line is cheap insurance on a short strip; it is optional here (see [Appendix A](#appendix-a)).
 
-**Library.** Use **NeoPixelBus** with `NeoPixelBusLg<NeoGrbFeature, NeoEsp32I2s1Ws2812xMethod>`. On the ESP32, Wi-Fi and BLE generate high-priority radio interrupts; a software-timed or naive bit-banged strip can glitch. NeoPixelBus offloads the 800 kHz NRZ waveform to the hardware I²S1 DMA/RMT path, so the frame survives the radio. **Do not default to FastLED** on this board — encode that rule in `AGENTS.md`.
+**Library.** Use **NeoPixelBus** with `NeoGrbFeature` and an ESP32 method that puts the waveform on hardware (I²S or RMT). On the ESP32, Wi-Fi and BLE generate high-priority radio interrupts; a software-timed or naive bit-banged strip can glitch. NeoPixelBus offloads the 800 kHz NRZ waveform to the DMA/RMT path, so the frame survives the radio. Which exact method and channel fits depends on the board and the Arduino-ESP32 core: the agent chooses one, you check it against the [NeoPixelBus ESP32 methods documentation](https://github.com/Makuna/NeoPixelBus/wiki/ESP32-NeoMethods). If it does not compile or the strip glitches, refine the prompt — not the wiring. **Do not default to FastLED** on this board — encode that rule in `AGENTS.md`.
 
 **Power.** Each LED can draw up to ~60 mA at full white: 8 × 60 mA = **480 mA**. A USB 2.0 port supplies 500 mA; USB 3 supplies 900 mA; a USB-C port on a modern laptop or a USB charger usually supplies 1.5–3 A (check the port or charger). The ESP32 itself draws 100–250 mA with Wi-Fi. So 8 LEDs plus the ESP32 fit comfortably on USB 3.0/USB-C. On a 500 mA USB 2.0 port the strip alone is already at 480 mA and the ESP32 pushes it over — keep that as the constraint: use a 1 A+ port, a USB 3.0/USB-C port, or a separate supply with a common ground. `strip.SetLuminance(80)` is the guardrail: it caps the brightness and keeps the real animation well below the full-white bound.
 
 **Firmware.** At **115200 baud**, parse `index R G B` with `index` in `0..7` and `R/G/B` in `0..255`, plus `clear` (`strip.ClearTo(RgbColor(0))`). Validate the index and the color values, and echo the applied update. If you build it without the agent, the reference sketch is in the [instructor backup sketches](../instructor-notes/07-module-5-backup-sketches.md).
 
-**Done when:** you can light any single pixel by index, clear the strip, and state the supply current for 8, 30, and 60 LEDs.
+**Done when:** you can light any single pixel by index, clear the strip, name the driver method and channel you used, and state the supply current for 8, 30, and 60 LEDs.
 
 **◇ Optional extensions — if you finish early.** One is enough; two is fast. Each is a small, AI-assisted iteration on the working strip.
 
 1. **Non-blocking animations.** Add `all R G B` and `rainbow` modes with `HslColor` sweeps and `millis()` timing (or `NeoPixelAnimator`) without blocking serial input.
-2. **Perceptual linearity.** Compare linear NeoPixelBus output with `NeoPixelBusLg`'s gamma-corrected luminance curve (`NeoGammaTableMethod`). At which step size does the eye stop seeing a difference?
+2. **Perceptual linearity.** Compare a linear ramp with a gamma-corrected one — `NeoPixelBusLg` with `NeoGammaTableMethod` applies the gamma table for you. At which step size does the eye stop seeing a difference?
 3. **Sensor-to-actuator bridge.** Connect an analog sensor on **GPIO 34 (ADC1)** from an earlier module and map its calibrated reading to the active pixel index, an `HslColor` hue, or `SetLuminance()`.
 
 ## 🔗 Share it (AI-first)
@@ -195,7 +195,7 @@ In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it
 The challenge is not finished on your laptop. Your `Module05/` folder in the portfolio repo holds `stage1-led/`, `stage2-rgb/`, and `stage3-strip/`, plus the README, `AGENTS.md`, photo/video, and power table.
 
 1. **Open the portfolio repo** in Zed or VS Code. The Source Control panel (or `gh`) commits and pushes; the [Git primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) has the workflow.
-2. **Let an AI draft the README.** Give it the wiring, the REPL commands, and the power table; ask for a short README with a wiring table, the library, how to run the REPL, and the measured currents.
+2. **Finish the README.** The scaffold already drafted one; give the AI the wiring, the REPL commands, and the power table, and ask it to complete the README with a wiring table, the library and method, how to run the REPL, and the measured currents.
 3. **Verify before you commit.** Check the pin, the LED count, the color order (GRB), the library, the baud rate, and the measured current. The AI's arithmetic is a claim, not a measurement.
 4. **Let an AI draft one extension** (Stage 3). Run it, keep what works, and note what you changed.
 5. **Commit and share.** Commit code, README, `AGENTS.md`, and the power table; copy the repo link into the Discord and your study log. No secrets, no `.pio/`, no `compile_commands.json`, no binaries.
@@ -251,7 +251,7 @@ Pair with a neighbouring pod:
 
 **RGB.** Three diodes in one package; set each channel with its own PWM duty. Additive mixing: red + green = yellow, all three = white. Common-anode and common-cathode parts swap polarity; the code's `COMMON_ANODE` toggle handles the inversion.
 
-**WS2812B.** A driver chip in every LED; one data line carries 24-bit values (GRB), and each pixel takes the first value it sees and regenerates the rest. The protocol is 800 kHz NRZ with a reset/latch gap; timing is tight. On the ESP32, Wi-Fi/BLE interrupts can corrupt software-timed output, which is why NeoPixelBus uses the hardware I²S1 DMA/RMT path. The data line is not the power line: 8 LEDs at full white are 480 mA, 30 are 1.8 A, 144 are 8.6 A.
+**WS2812B.** A driver chip in every LED; one data line carries 24-bit values (GRB), and each pixel takes the first value it sees and regenerates the rest. The protocol is 800 kHz NRZ with a reset/latch gap; timing is tight. On the ESP32, Wi-Fi/BLE interrupts can corrupt software-timed output, which is why NeoPixelBus uses a hardware I²S/RMT path. The data line is not the power line: 8 LEDs at full white are 480 mA, 30 are 1.8 A, 144 are 8.6 A.
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
@@ -299,7 +299,7 @@ The editor extras (Zed tasks, clangd, VS Code settings) are optional for the bui
 
 - LED basics and resistors — [Wikipedia: Light-emitting diode](https://en.wikipedia.org/wiki/Light-emitting_diode), [LED circuit](https://en.wikipedia.org/wiki/LED_circuit)
 - PWM and gamma — [Wikipedia: Pulse-width modulation](https://en.wikipedia.org/wiki/Pulse-width_modulation), [Gamma correction](https://en.wikipedia.org/wiki/Gamma_correction)
-- Addressable LEDs — the [WS2812B datasheet](https://cdn-shop.adafruit.com/datasheets/WS2812B.pdf), [NeoPixelBus](https://github.com/Makuna/NeoPixelBus)
+- Addressable LEDs — the [WS2812B datasheet](https://cdn-shop.adafruit.com/datasheets/WS2812B.pdf), [NeoPixelBus](https://github.com/Makuna/NeoPixelBus) and its [ESP32 method and channel guide](https://github.com/Makuna/NeoPixelBus/wiki/ESP32-NeoMethods)
 - Power budgets — the [Adafruit NeoPixel Überguide](https://learn.adafruit.com/adafruit-neopixel-uberguide/powering-neopixels)
 - Setup and editor tasks — the [resource bank](./Z-resources-bank.md#platformio-cli--zedvscode-setup)
 - Formulas — the [resource bank](./Z-resources-bank.md#formulas-you-will-use)
@@ -330,7 +330,7 @@ One `AGENTS.md` at the project root, **not** a separate `CLAUDE.md`, so Copilot 
 - Stage 1: single red/yellow LED, 220 Ω, GPIO 16 (PWM fade).
 - Stage 2: common-cathode RGB LED, 220 Ω per channel, R=GPIO16, G=GPIO17, B=GPIO18.
 - Stage 3: 8× WS2812B, DIN=GPIO16, 5 V from the MiniKit USB rail, common ground.
-- Library: `makuna/NeoPixelBus`, `NeoPixelBusLg<NeoGrbFeature, NeoEsp32I2s1Ws2812xMethod>`.
+- Library: `makuna/NeoPixelBus`, an ESP32 hardware method (e.g. `NeoEsp32I2s1Ws2812xMethod`).
   Do not default to FastLED.
 - `strip.SetLuminance(80)`. 8 LEDs × 60 mA = 480 mA; stay inside the USB budget.
 - Serial: 115200. Stage 2: `R G B`; Stage 3: `index R G B` and `clear`.
