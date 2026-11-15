@@ -10,6 +10,20 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 ---
 
+# Now back to the workbook
+
+**Build the circuit → load the code → deploy to the ESP32 MiniKit.**
+
+**Stage 1 — one LED**
+
+- Anode → 220 Ω → GPIO 16; cathode → GND
+- Load the Stage 1 fade; deploy; watch it fade
+- Measure the current at full duty
+
+<!-- Note: Story first, then hands on. Stop the deck here for Stage 1; resume at “An LED is a diode” after first light. -->
+
+---
+
 # An LED is a diode
 
 - Conducts above its forward voltage `Vf`
@@ -108,6 +122,20 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 ---
 
+# Now back to the workbook
+
+**Build the circuit → load the code → deploy to the ESP32 MiniKit.**
+
+**Stage 2 — RGB LED**
+
+- R → GPIO 16, G → GPIO 17, B → GPIO 18; 220 Ω each; common → GND
+- Load the Stage 2 `R G B` sketch; deploy
+- Type `255 0 0`, `0 255 0`, `0 0 255`
+
+<!-- Note: Stop the deck here. Hands on for Stage 2. -->
+
+---
+
 # WS2812B: one wire, many pixels
 
 - A driver chip in every LED
@@ -152,6 +180,20 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 - Validate bounds and malformed input
 
 <!-- Note: The REPL makes the strip inspectable; it is also the demo artifact. -->
+
+---
+
+# Now back to the workbook
+
+**Build the circuit → load the code → deploy to the ESP32 MiniKit.**
+
+**Stage 3 — 8× WS2812B**
+
+- 5 V and GND from the MiniKit; DIN → GPIO 16; common ground
+- Load the NeoPixelBus sketch with `SetLuminance(80)`; deploy
+- Type `3 255 0 0`, then `clear`
+
+<!-- Note: Stop the deck here. Hands on for Stage 3. -->
 
 ---
 
