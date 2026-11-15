@@ -54,13 +54,13 @@ not the PlatformIO IDE extension. Install it once with uv:
 
 What we will do
 
-Two sessions: Stage A is a discrete RGB LED (forward voltage, 220 ohm
-resistors, PWM, a serial "R G B" REPL). Stage B is an 8-LED WS2812B strip
-(NeoPixelBus, "index R G B" and "clear", the USB power budget). We scaffold
-the project with an AI agent, verify it on the hardware, and commit a
-shareable repo.
+Two sessions: Stage 1 is a single LED with PWM. Stage 2 is a discrete RGB
+LED (forward voltage, 220 ohm resistors, PWM, a serial "R G B" REPL).
+Stage 3 is an 8-LED WS2812B strip (NeoPixelBus, "index R G B" and "clear",
+the USB power budget). We scaffold the project with an AI agent, verify it
+on the hardware, and commit a shareable repo.
 
-If an install fights you, in the Discord; we will try fixing it together.
+If an install fights you, come 10 minutes early or post in the Discord; we will try fixing it together.
 
 See you on Day 5,
 [Instructor names]

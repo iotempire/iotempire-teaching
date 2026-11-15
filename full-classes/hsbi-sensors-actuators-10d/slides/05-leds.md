@@ -1,6 +1,6 @@
 # Module 5 — LEDs: from Vf to a Shareable Strip
 
-### Day 5 · Two sessions: discrete RGB → addressable WS2812B
+### Day 5 · Two sessions: one LED → RGB → addressable WS2812B
 
 *Light is the actuator you will use most — drive it correctly.*
 
@@ -80,7 +80,7 @@
 - `out = 255 · (in/255)^2.2`
 - `NeoPixelBusLg` applies a gamma table
 
-<!-- Note: Ask which fade looked smooth in Stage A. -->
+<!-- Note: Ask which fade looked smooth in Stage 2. -->
 
 ---
 
@@ -97,15 +97,20 @@
 
 # Wiring at a glance
 
-**Stage A — discrete RGB LED**
+**Stage 1 — one LED**
+
+- Anode → 220 Ω → GPIO 16; cathode → GND
+- Red or yellow; blue/green stay dim at 220 Ω
+
+**Stage 2 — discrete RGB LED**
 
 - R → GPIO 16, G → GPIO 17, B → GPIO 18
 - 220 Ω per channel; common → GND (3.3 V for common anode)
 
-**Stage B — 8× WS2812B**
+**Stage 3 — 8× WS2812B**
 
 - DIN → GPIO 16, 5 V → 5 V, GND → GND
-- Stage B reuses GPIO 16: unplug the Stage A red channel first
+- Stage 3 reuses GPIO 16: unplug Stage 1/2 first
 
 <!-- Note: Say the GPIO 16 conflict out loud before handing out the strips. -->
 
@@ -149,8 +154,8 @@
 
 # Talking to it: the REPL
 
-- Stage A: `R G B` (0–255)
-- Stage B: `index R G B`, `clear`
+- Stage 2: `R G B` (0–255)
+- Stage 3: `index R G B`, `clear`
 - Echo the applied values
 - Validate bounds and malformed input
 
@@ -171,20 +176,20 @@
 
 # Today's build
 
-- **Session 1:** Stage A — discrete RGB, Vf, PWM
-- **Session 2:** Stage B — 8× WS2812B, DMA, power
-- **Stage C:** non-blocking, gamma, sensor bridge
+- **Session 1:** Stage 1 — one LED, PWM; Stage 2 — RGB, Vf
+- **Session 2:** Stage 3 — 8× WS2812B, DMA, power
+- **Stage 4:** non-blocking, gamma, sensor bridge
 - Share the repo
 
-<!-- Note: Two stages, one repo. Stage B rewires GPIO 16 from red to DIN. -->
+<!-- Note: Three builds, one repo. Stage 3 rewires GPIO 16 from red to DIN. -->
 
 ---
 
 # Your turn
 
-- Build Stage A to first light
+- Build Stage 1, then Stage 2 to first light
 - Then the 8-LED strip
-- Pick one Stage C extension
+- Pick one Stage 4 extension
 - Measure, verify, commit
 
 <!-- Note: Circulate; ask for one choice per pod. -->
