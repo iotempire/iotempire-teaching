@@ -9,7 +9,7 @@
 ```text
 Subject: Module 5 prep — have "pio" and your AI assistant ready
 
-Hi everyone,
+Dear students,
 
 Before Day 5, please install the PlatformIO CLI and sign in to your AI
 assistant in your editor. Day 5 is as usual two 90-minute blocks, and we want
@@ -17,7 +17,7 @@ that time for building, not for installs.
 
 1) PlatformIO CLI in your editor terminal
 
-If PlatformIO is already installed and "pio --version" works in your
+If PlatformIO is already installed and "pio --version" and works in your
 terminal, skip to 2). Otherwise install it once with uv:
 
     uv tool install --with pip platformio
@@ -30,12 +30,14 @@ terminal, skip to 2). Otherwise install it once with uv:
   for new shells: restart the terminal, then check "pio --version". If it
   still fails, the tool is at ~/.local/bin/pio (Linux/macOS) or
   %USERPROFILE%\.local\bin\pio.exe (Windows).
-- No serial port? Linux: add yourself to "dialout" (or "uucp") and
-  install the PlatformIO udev rules. Windows: install the CP210x or
-  CH340 driver. macOS: install the driver; if the port stays invisible,
-  your user also needs the "admin" and "wheel" groups (exact commands
-  are in the module). Verify that "pio device list" shows a connected
-  board.
+- Verify the serial port: run "pio device list". It should list the
+  board. If it does not:
+  - Linux: add yourself to "dialout" (or "uucp") and install the
+    PlatformIO udev rules, then log out and back in.
+  - Windows: install the CP210x or CH340 driver and check Device Manager.
+  - macOS: install the driver; if the port stays invisible, add your
+    user to the "admin" and "wheel" groups (exact commands are in the
+    module), then log out and back in.
 
 2) Your AI assistant, signed in and ready
 
