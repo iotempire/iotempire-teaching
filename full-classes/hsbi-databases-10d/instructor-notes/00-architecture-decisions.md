@@ -44,7 +44,8 @@ routine edits (Git log). If a sentence would fit better in one of those, it is i
 re-introduce a rejected alternative because it looks simpler in isolation; the reasons are in §3. Do
 not move assessment text out of the syllabus. Do not add points, tiers or a separate "reflection
 logbook" to a module. When you change a decision, update its record and status; do not silently
-rewrite history.
+rewrite history. Never commit, amend, rebase, tag, or push — leave the change in the working tree
+for the instructor to review (D20).
 
 **Maintenance rule.** Add a record when a choice constrains future material, when you reject a
 plausible alternative, or when a first-offering improvisation becomes the pattern. Keep records
@@ -73,6 +74,7 @@ short; link to the artefact instead of pasting it.
 | [D17](#d17) | English material, bilingual delivery | accepted | syllabus language section |
 | [D18](#d18) | Attendance is thin; online pods are the fallback | provisional | syllabus, email template |
 | [D19](#d19) | Prep and expectation emails, three days ahead | accepted | `email-template.md` |
+| [D20](#d20) | Commits are instructor-only; agents never commit | accepted | every file; this log |
 
 ## 1. Provenance — how this class came to be
 
@@ -579,6 +581,24 @@ a template to maintain.
 
 **Revisit if.** The LMS can carry the same information reliably.
 
+<a id="d20"></a>
+### D20 — Commits are instructor-only; agents never commit
+
+**Status:** accepted.
+
+**Context.** The Git history is the review surface. A commit made without the instructor reading the diff hides the change, mixes unrelated edits, and removes the single-file revert. The failure mode has occurred in this repository: a change reached the Git history without the instructor reviewing the diff, and from then on it could no longer be reviewed as a diff or reverted piecewise. The sibling logs record the same rule: [Sensors D22](../../hsbi-sensors-actuators-10d/instructor-notes/00-architecture-decisions.md#d22) and [Networking D18](../../hsbi-networking-iot-10d/instructor-notes/00-architecture-decisions.md#d18).
+
+**Decision.** No agent and no collaborator runs `git commit`, `git commit --amend`, `git rebase`, `git tag`, `git reset`, or `git push` unless the instructor explicitly asks for it in the current conversation. Agents leave every change in the working tree; the instructor reviews the diff and commits. When a commit is explicitly requested, scope it to the files named in that request and do not fold in other work.
+
+**Consequences.** The working tree may carry uncommitted changes between sessions; that is intended, not a mistake to clean up. Editors and tooling must not auto-commit in this folder. A clean tree is a sign that someone committed, not that the work is finished.
+
+**Alternatives rejected.** Commit at the end of every task (removes the review gate); commit but never push (the local commit still hides the diff); commit only documentation (same problem, smaller file set); describe the diff in chat instead (a summary is not a review).
+
+**Evidence.** The rule is repeated in the “For an agent” paragraph above; module and instructor-note edits stay in the working tree until the instructor commits them.
+
+**Revisit if.** The instructor delegates a defined batch of commits (for example a scripted migration), or an automation account is explicitly authorised to commit on its own branch.
+
+
 ## 3. Deliberately rejected or retired
 
 | Idea | Why it was rejected / retired |
@@ -677,3 +697,4 @@ lives now.
 | Date | Change |
 |---|---|
 | 2026-11-11 | First version: provenance, 19 decisions, rejected list, open questions, recreation checklist, handbook map. |
+| 2026-11-16 | D20 added: commits are instructor-only; agents leave changes uncommitted for review. Same rule as Sensors D22 and Networking D18. | Ulno + agent |

@@ -44,7 +44,8 @@ your task. Do not re-introduce a rejected alternative because it looks simpler i
 isolation; the reasons are in §3. Do not move assessment text out of the syllabus.
 Do not add time estimates, points, tiers or a "reflection logbook" to a module.
 When you change a decision, update its record and status; do not silently rewrite
-history.
+history. Never commit, amend, rebase, tag, or push — leave the change in the working tree
+for the instructor to review (D18).
 
 **Maintenance rule.** A decision log that is only written once is a museum. Add a
 record when a choice constrains future material, when you reject a plausible
@@ -72,6 +73,7 @@ records short; link to the artefact instead of pasting it.
 | [D15](#d15) | The class must survive leaving the room | accepted | Module 2 Round 8, Module 3 |
 | [D16](#d16) | English material, bilingual delivery | accepted | syllabus language section |
 | [D17](#d17) | Sequence the semester: databases → sensors/actuators → networking | accepted | syllabus prerequisites, sibling classes |
+| [D18](#d18) | Commits are instructor-only; agents never commit | accepted | every file; this log |
 
 ## 1. Provenance — how this class came to be
 
@@ -633,6 +635,24 @@ decision.
 **Revisit if.** The timetable reorders the modules. Then adjust the prerequisites,
 not the goals.
 
+<a id="d18"></a>
+### D18 — Commits are instructor-only; agents never commit
+
+**Status:** accepted.
+
+**Context.** The Git history is the review surface. A commit made without the instructor reading the diff hides the change, mixes unrelated edits, and removes the single-file revert. The failure mode has occurred in this repository: a change reached the Git history without the instructor reviewing the diff, and from then on it could no longer be reviewed as a diff or reverted piecewise. The sibling logs record the same rule: [Sensors D22](../../hsbi-sensors-actuators-10d/instructor-notes/00-architecture-decisions.md#d22) and [Databases D20](../../hsbi-databases-10d/instructor-notes/00-architecture-decisions.md#d20).
+
+**Decision.** No agent and no collaborator runs `git commit`, `git commit --amend`, `git rebase`, `git tag`, `git reset`, or `git push` unless the instructor explicitly asks for it in the current conversation. Agents leave every change in the working tree; the instructor reviews the diff and commits. When a commit is explicitly requested, scope it to the files named in that request and do not fold in other work.
+
+**Consequences.** The working tree may carry uncommitted changes between sessions; that is intended, not a mistake to clean up. Editors and tooling must not auto-commit in this folder. A clean tree is a sign that someone committed, not that the work is finished.
+
+**Alternatives rejected.** Commit at the end of every task (removes the review gate); commit but never push (the local commit still hides the diff); commit only documentation (same problem, smaller file set); describe the diff in chat instead (a summary is not a review).
+
+**Evidence.** The rule is repeated in the “For an agent” paragraph above; module and instructor-note edits stay in the working tree until the instructor commits them.
+
+**Revisit if.** The instructor delegates a defined batch of commits (for example a scripted migration), or an automation account is explicitly authorised to commit on its own branch.
+
+
 ## 3. Deliberately rejected or retired
 
 These are not "bad ideas we never had". They are alternatives that looked
@@ -804,3 +824,4 @@ For a re-creator with access to the instructor's workspace:
 | 2026-11-10 | Flipped the Module 2 studio: challenge brief, theory on demand, round discussions with one person, no separate pod study; D6 revised, rollout to Modules 1 and 3–7 pending | Ulno + agent |
 | 2026-11-10 | Converted Modules 3–7 to the studio rhythm; D6 accepted for Modules 2–7, Module 1 remains the exception; Module 7 fleet lab aligned with the current IoTempower `system.conf` / `node.conf` / `deploy` workflow | Ulno + agent |
 | 2026-11-10 | Renamed the pedagogical gates to discussions in Modules 2–7; each round table now maps its discussion to a learning goal and theory box, following the Databases TODO | Ulno + agent |
+| 2026-11-16 | D18 added: commits are instructor-only; agents leave changes uncommitted for review. Same rule as Sensors D22 and Databases D20. | Ulno + agent |

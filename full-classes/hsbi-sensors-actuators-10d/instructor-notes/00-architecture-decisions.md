@@ -25,7 +25,7 @@ The status vocabulary is deliberately small:
 
 **What belongs here.** Forces that constrain future material; a decision and what it costs; alternatives that looked plausible; the trigger that would reverse the decision; links to the artefact. **What does not.** Task steps (module), point values and checkpoints (syllabus), operational checklists (`00-assessment-and-operations.md`), troubleshooting recipes (resource bank), routine edits (Git log). If a sentence would fit better in one of those, it is in the wrong document.
 
-**For an agent.** Read §1 and the decision index, then only the records that touch your task. Do not re-introduce a rejected alternative because it looks simpler in isolation; the reasons are in §3. Do not move assessment text out of the syllabus. Do not add points, tiers, or a separate "reflection logbook" to a module. When you change a decision, update its record and status; do not silently rewrite history.
+**For an agent.** Read §1 and the decision index, then only the records that touch your task. Do not re-introduce a rejected alternative because it looks simpler in isolation; the reasons are in §3. Do not move assessment text out of the syllabus. Do not add points, tiers, or a separate "reflection logbook" to a module. When you change a decision, update its record and status; do not silently rewrite history. Never commit, amend, rebase, tag, or push — leave the change in the working tree for the instructor to review (D22).
 
 **Maintenance rule.** Add a record when a choice constrains future material, when you reject a plausible alternative, or when a first-offering improvisation becomes the pattern. Keep records short; link to the artefact instead of pasting it.
 
@@ -54,6 +54,7 @@ The status vocabulary is deliberately small:
 | [D19](#d19) | Module 5 is evaluated: guided walkthrough, then challenge | provisional | Module 5; Module 5 studio |
 | [D20](#d20) | A teaching day is 180 minutes: two 90-minute blocks | accepted | every module; instructor run sheets |
 | [D21](#d21) | One vocabulary: Task, Subtask, Evidence | accepted | every module; syllabus; sibling workbooks |
+| [D22](#d22) | Commits are instructor-only; agents never commit | accepted | every file; this log |
 
 ## 1. Provenance — how this class came to be
 
@@ -459,6 +460,24 @@ Dates are design events, not every commit; Git history is the authority.
 **Revisit if.** The “one challenge plus hints appendix” architecture lands and tasks stop being the right container, or students treat the task list as boxes to tick rather than evidence to build.
 
 
+<a id="d22"></a>
+### D22 — Commits are instructor-only; agents never commit
+
+**Status:** accepted.
+
+**Context.** The Git history is the review surface. A commit made without the instructor reading the diff hides the change, mixes unrelated edits, and removes the single-file revert. The failure mode has occurred in this repository: a change reached the Git history without the instructor reviewing the diff, and from then on it could no longer be reviewed as a diff or reverted piecewise. The sibling logs record the same rule: [Databases D20](../../hsbi-databases-10d/instructor-notes/00-architecture-decisions.md#d20) and [Networking D18](../../hsbi-networking-iot-10d/instructor-notes/00-architecture-decisions.md#d18).
+
+**Decision.** No agent and no collaborator runs `git commit`, `git commit --amend`, `git rebase`, `git tag`, `git reset`, or `git push` unless the instructor explicitly asks for it in the current conversation. Agents leave every change in the working tree; the instructor reviews the diff and commits. When a commit is explicitly requested, scope it to the files named in that request and do not fold in other work.
+
+**Consequences.** The working tree may carry uncommitted changes between sessions; that is intended, not a mistake to clean up. Editors and tooling must not auto-commit in this folder. A clean tree is a sign that someone committed, not that the work is finished.
+
+**Alternatives rejected.** Commit at the end of every task (removes the review gate); commit but never push (the local commit still hides the diff); commit only documentation (same problem, smaller file set); describe the diff in chat instead (a summary is not a review).
+
+**Evidence.** The rule is repeated in the “For an agent” paragraph above; module and instructor-note edits stay in the working tree until the instructor commits them.
+
+**Revisit if.** The instructor delegates a defined batch of commits (for example a scripted migration), or an automation account is explicitly authorised to commit on its own branch.
+
+
 ## 3. Deliberately rejected or retired
 
 | Idea | Why it is not in the current path | Where it survives |
@@ -560,4 +579,5 @@ The authoritative wording is in the [syllabus](../syllabus.md). This table is a 
 - **2026-11-15** — Handbook check and reading gaps. Q1 resolved against the module handbook; D8 accepted; D18 added (reading homework for triangulation, gyroscope, pressure, fluid power, thermal, unconventional); Q2 reopened with the *Leistungsnachweis* interpretation; Q13/Q14 recorded; Modules 7–8 and the liquid-level table updated.
 - **2026-11-15** — Module 5 format. D19 added: the evaluated session runs as a guided walkthrough, then an open challenge; the old task ladder becomes the appendix; the challenge deliverable is an AI-drafted, verified, shareable repo. The TODO records the all-classes “one challenge plus hints appendix” and AI-first patterns.
 - **2026-11-15** — Planning unit. D20 added: a teaching day is two 90-minute blocks (180 minutes); Module 5's run sheet and the constraints table now use that unit.
+- **2026-11-16** — Review gate. D22 added: no agent or collaborator commits, amends, rebases, tags, or pushes without an explicit instruction; changes stay in the working tree for the instructor's review. The same rule is recorded in Databases (D20) and Networking (D18).
 - **2026-11-16** — Vocabulary. D21 added: every module uses Task → Subtask → Evidence; Module 5 refactored as the reference (Tasks 1–5, `Proves:`/`Produces:`, standing `★ Log it`, closing exchange task); Modules 1–4 carry bracketed task numbers until their refactor; the sibling workbooks get the same TODO. Q10 resolved.
