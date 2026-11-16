@@ -4,7 +4,7 @@
 
 > Light is the actuator you will use most in this course. Today: how to drive it correctly — safely, dimmably, in color, and addressably.
 
-**Course placement:** Day 5 — two sessions. Session 1 is Stage 1 and Stage 2; Session 2 is Stage 3 and the optional extensions. The theory slides are [`slides/05-leds.md`](../slides/05-leds.md) — the interlude between builds, and the instructor may leave them up while an agent scaffolds. The run sheet is in the instructor notes.
+**Course placement:** Day 5 — two sessions. Session 1 is Tasks 1–2; Session 2 is Task 3, the optional extensions, and the closing Tasks 4–5. The theory slides are [`slides/05-leds.md`](../slides/05-leds.md) — the interlude between builds, and the instructor may leave them up while an agent scaffolds. The run sheet is in the instructor notes.
 
 ## 🎯 Learning Goals
 
@@ -36,18 +36,20 @@ uv tool update-shell          # restart the shell
 pio --version                 # an existing pio on PATH is also fine
 ```
 
-No `uv`? [Install it first](./Z-resources-bank.md#python-environment-with-uv). Each stage below gets its **own folder** — `stage1-led/`, `stage2-rgb/`, `stage3-strip/` — so every build goes into your portfolio separately. A project is just a folder: create it and open it in your editor.
+No `uv`? [Install it first](./Z-resources-bank.md#python-environment-with-uv). Each task below gets its **own folder** — `task1-led/`, `task2-rgb/`, `task3-strip/` — so every build goes into your portfolio separately. A project is just a folder: create it and open it in your editor.
 
 No serial port? Linux needs your user in `dialout` (or `uucp`) and the PlatformIO udev rules; Windows and macOS need the CP210x or CH340 driver. The table is in the [resource bank](./Z-resources-bank.md#platformio-cli--zedvscode-setup).
 
-## 🔌 Stage 1 — one LED, no AI
+## 🔌 ★ Task 1 — one LED, no AI
+
+**Proves:** Goals 1 and 2 · **Produces:** `task1-led/` with the fading LED.
 
 **Hardware.** A red or yellow 5 mm LED: anode (long leg) → **220 Ω** → **GPIO 16**; cathode (short leg, flat side) → **GND**. Do not use blue or green here — their forward voltage is close to 3.3 V, so 220 Ω leaves almost no current and the LED looks broken.
 
-**Arduino IDE.** Select the board (`ESP32 Dev Module`, or the profile your instructor names for the MiniKit) and the port. Save it as `stage1-led/stage1-led.ino`, paste the code, and upload it. It fades the LED up and down; no library is needed.
+**Arduino IDE.** Select the board (`ESP32 Dev Module`, or the profile your instructor names for the MiniKit) and the port. Save it as `task1-led/task1-led.ino`, paste the code, and upload it. It fades the LED up and down; no library is needed.
 
 ```cpp
-// Stage 1 — one LED, PWM fade on GPIO 16
+// Task 1 — one LED, PWM fade on GPIO 16
 // PlatformIO: uncomment the next line. Arduino IDE includes it automatically.
 // #include <Arduino.h>
 
@@ -55,7 +57,7 @@ const int LED_PIN = 16; // for the lazy ones, you can also use 2 for the inverte
 
 void setup() {
   Serial.begin(115200);
-  Serial.print("Stage 1: PWM fade on GPIO ");
+  Serial.print("Task 1: PWM fade on GPIO ");
   Serial.println(LED_PIN);
 }
 
@@ -71,7 +73,7 @@ void loop() {
 }
 ```
 
-**PlatformIO.** Create `stage1-led/`, open it, and run `pio project init --board mhetesp32minikit`. Then put the same code in `src/main.cpp` with this `platformio.ini`:
+**PlatformIO.** Create `task1-led/`, open it, and run `pio project init --board mhetesp32minikit`. Then put the same code in `src/main.cpp` with this `platformio.ini`:
 
 ```ini
 [env:mhetesp32minikit]
@@ -96,16 +98,18 @@ pio run -t upload -t monitor
 
 **★ Log it.** Under `## Study log` in `Module05/README.md`, one sentence on what the fade does and what duty cycle means. One pod member keeps the shared log; the others link to it and add one sentence.
 
-## 🌈 Stage 2 — RGB LED project
+## 🌈 ★ Task 2 — RGB LED project
 
-**1. Create the folder.** `stage2-rgb/`, opened in Zed or VS Code — a new folder, not the Stage 1 one.
+**Proves:** Goals 1, 3, and 4 · **Produces:** `task2-rgb/` with the serial `R G B` REPL.
+
+**1. Create the folder.** `task2-rgb/`, opened in Zed or VS Code — a new folder, not the Task 1 one.
 
 **2. Paste the prompt** into your AI agent. It scaffolds PlatformIO, `AGENTS.md`, the firmware, the README, and the `.gitignore`.
 
-<a id="stage-2-prompt"></a>
+<a id="task-2-prompt"></a>
 
 <details>
-<summary>Stage 2 prompt — copy this into your AI agent</summary>
+<summary>Task 2 prompt — copy this into your AI agent</summary>
 
 ```text
 Initialize a PlatformIO Arduino project in this empty folder for `board = mhetesp32minikit` (using `pio` on PATH, or installing it via `uv tool install --with pip platformio`). Configure `platformio.ini` with `monitor_speed = 115200`, `monitor_echo = yes`, and `monitor_filters = send_on_enter`. Add a `.gitignore` for `.pio/` and `compile_commands.json`.
@@ -127,16 +131,18 @@ In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it
 
 **★ Log it.** In the same `## Study log`: the measured red, green, and blue currents, whether your part is common cathode or anode, and one sentence on what the agent got wrong (if anything).
 
-## ✨ Stage 3 — WS2812B strip project
+## ✨ ★ Task 3 — WS2812B strip project
 
-**1. Create the folder.** `stage3-strip/`, opened in Zed or VS Code.
+**Proves:** Goals 4, 5, and 6 · **Produces:** `task3-strip/` with the addressable strip and the power table.
+
+**1. Create the folder.** `task3-strip/`, opened in Zed or VS Code.
 
 **2. Paste the prompt** into your AI agent. It scaffolds the project, picks an ESP32 driver method for the board, and writes the firmware and the README.
 
-<a id="stage-3-prompt"></a>
+<a id="task-3-prompt"></a>
 
 <details>
-<summary>Stage 3 prompt — copy this into your AI agent</summary>
+<summary>Task 3 prompt — copy this into your AI agent</summary>
 
 ```text
 Initialize a PlatformIO Arduino project in this empty folder for `board = mhetesp32minikit` (using `pio` on PATH, or installing it via `uv tool install --with pip platformio`). Configure `platformio.ini` with `lib_deps = makuna/NeoPixelBus`, `monitor_speed = 115200`, `monitor_echo = yes`, and `monitor_filters = send_on_enter`. Add a `.gitignore` for `.pio/` and `compile_commands.json`.
@@ -152,7 +158,7 @@ In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it
 
 </details>
 
-**3. Wire the strip.** 8-LED WS2812B on the MiniKit's **5 V (VCC)** and **GND**, data to **GPIO 16 (DIN)**, over USB. Stage 3 **reuses GPIO 16**: unplug the Stage 2 red channel first. A ~330 Ω series resistor in the data line is optional insurance on a short strip.
+**3. Wire the strip.** 8-LED WS2812B on the MiniKit's **5 V (VCC)** and **GND**, data to **GPIO 16 (DIN)**, over USB. Task 3 **reuses GPIO 16**: unplug the Task 2 red channel first. A ~330 Ω series resistor in the data line is optional insurance on a short strip.
 
 **4. Verify and budget.** At **115200**, light any pixel with `index R G B` (`0..7`), clear the strip, and check that the index and values are validated and echoed. Then the power: each LED can draw up to ~60 mA at full white, so 8 × 60 mA = **480 mA** — the strip alone sits inside a USB 2.0 port's 500 mA, but the ESP32 adds 100–250 mA with Wi-Fi and pushes it over. USB 3 supplies 900 mA, a USB-C port or charger usually 1.5–3 A. `strip.SetLuminance(80)` is the guardrail.
 
@@ -168,32 +174,37 @@ In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it
 
 **★ Log it.** In the same `## Study log`: the `index R G B`/`clear` demo, your `SetLuminance` value, the measured current, and the power table — measured vs. computed for 8, 30, 60, and 144 LEDs.
 
-**★ Exchange with a neighbouring pod.** When all three stages work:
+## 🔗 ★ Task 4 — Share the repo (AI-first)
 
-1. Show each other the Stage 1 fade, the Stage 2/3 builds, and the power table.
-2. Compare your prompts: what did the agents get wrong, and what did you have to fix? Include one AI claim you verified against the datasheet or the meter.
-3. Agree on the 3–5 most noteworthy points and one learning you jointly stand behind; one of you writes the “Agreed learning (pod discussion)” note into the shared log.
-4. Pick one shared artefact — the best animation clip, power table, or wiring photo — and post it in the course Discord with one sentence on why.
+**Proves:** Goal 4 · **Produces:** the committed `Module05/` repo and its README.
 
-## 🔗 Share it (AI-first)
-
-The challenge is not finished on your laptop. Your `Module05/` folder in the portfolio repo holds `stage1-led/`, `stage2-rgb/`, and `stage3-strip/`, plus the README, `AGENTS.md`, photo/video, and power table.
+The challenge is not finished on your laptop. Your `Module05/` folder in the portfolio repo holds `task1-led/`, `task2-rgb/`, and `task3-strip/`, plus the README, `AGENTS.md`, photo/video, and power table.
 
 1. **Open the portfolio repo** in Zed or VS Code. The Source Control panel (or `gh`) commits and pushes; the [Git primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) has the workflow.
 2. **Finish the README.** The scaffold already drafted one; give the AI the wiring, the REPL commands, and the power table, and ask it to complete the README with a wiring table, the library and method, how to run the REPL, and the measured currents.
 3. **Verify before you commit.** Check the pin, the LED count, the color order (GRB), the library, the baud rate, and the measured current. The AI's arithmetic is a claim, not a measurement.
 4. **Commit and share.** Commit code, README, `AGENTS.md`, and the power table; copy the repo link into the Discord and your study log. No secrets, no `.pio/`, no `compile_commands.json`, no binaries.
 
-The AI is the drafting tool; verification is the skill. If you want a standalone repo instead of the portfolio folder, `gh repo create stage3-strip --public --source=. --push` works.
+The AI is the drafting tool; verification is the skill. If you want a standalone repo instead of the portfolio folder, `gh repo create task3-strip --public --source=. --push` works.
 
 > **AI assistant and GitHub Education.** Use whatever you already have — Claude, DeepSeek, ChatGPT, Copilot — in Zed or VS Code. If you want Copilot with education credits, apply at [education.github.com](https://education.github.com/); it is optional. The course template is [iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template).
 
 > **Credits.** Copilot Education gives unlimited inline completions but limited chat/agent credits; other plans have their own limits. Use a lightweight model for the scaffold and save the heavy model for the one hard bug.
 
+## ★ Task 5 — Exchange and evidence
+
+**Proves:** Goals 1–6 · **Produces:** the agreed learning in your shared log, one shared artefact, and the evidence list below.
+
+1. Show each other the Task 1 fade, the Task 2/3 builds, and the power table.
+2. Compare your prompts: what did the agents get wrong, and what did you have to fix? Include one AI claim you verified against the datasheet or the meter.
+3. Agree on the 3–5 most noteworthy points and one learning you jointly stand behind; one of you writes the “Agreed learning (pod discussion)” note into the shared log.
+4. Pick one shared artefact — the best animation clip, power table, or wiring photo — and post it in the course Discord with one sentence on why.
+5. Check the evidence list below and fill the gaps.
+
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. `## Study log` in `Module05/README.md` with the three stage entries and the AI claim you checked.
-2. The three project folders (`stage1-led/`, `stage2-rgb/`, `stage3-strip/`) with code, README, and `AGENTS.md`.
+1. `## Study log` in `Module05/README.md` with the three task entries and the AI claim you checked.
+2. The three project folders (`task1-led/`, `task2-rgb/`, `task3-strip/`) with code, README, and `AGENTS.md`.
 3. Photos or video of the fade, the RGB REPL, and `index R G B`/`clear`.
 4. The power table: measured vs. computed for 8, 30, 60, and 144 LEDs, and the supply decision.
 5. One optional extension, or a design rationale for the animation you chose.
@@ -288,13 +299,13 @@ One `AGENTS.md` at the project root, **not** a separate `CLAUDE.md`, so Copilot 
 # AGENTS.md — LED lab
 
 - Board: MH-ET LIVE ESP32 MiniKit (`mhetesp32minikit`), PlatformIO CLI (`pio`).
-- Stage 1: single red/yellow LED, 220 Ω, GPIO 16 (PWM fade).
-- Stage 2: common-cathode RGB LED, 220 Ω per channel, R=GPIO16, G=GPIO17, B=GPIO18.
-- Stage 3: 8× WS2812B, DIN=GPIO16, 5 V from the MiniKit USB rail, common ground.
+- Task 1: single red/yellow LED, 220 Ω, GPIO 16 (PWM fade).
+- Task 2: common-cathode RGB LED, 220 Ω per channel, R=GPIO16, G=GPIO17, B=GPIO18.
+- Task 3: 8× WS2812B, DIN=GPIO16, 5 V from the MiniKit USB rail, common ground.
 - Library: `makuna/NeoPixelBus`, an ESP32 hardware method (e.g. `NeoEsp32I2s1Ws2812xMethod`).
   Do not default to FastLED.
 - `strip.SetLuminance(80)`. 8 LEDs × 60 mA = 480 mA; stay inside the USB budget.
-- Serial: 115200. Stage 2: `R G B`; Stage 3: `index R G B` and `clear`.
+- Serial: 115200. Task 2: `R G B`; Task 3: `index R G B` and `clear`.
   Echo applied values; validate input and index bounds.
 - PlatformIO `src/main.cpp` needs `#include <Arduino.h>`; the Arduino IDE includes it automatically.
 - Never power the strip from a GPIO or the 3.3 V pin.

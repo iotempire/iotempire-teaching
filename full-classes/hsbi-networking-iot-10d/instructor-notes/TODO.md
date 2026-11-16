@@ -63,6 +63,17 @@
 - [ ] **Keep the safety net visible.** The de-bloated version may leave more room for failure, but
       flashing, extroot, credential handling, and recovery must remain explicit and demonstrable.
 
+## Shared vocabulary with Sensors
+
+- [ ] **Adopt Task → Subtask → Evidence when the modules are next revised.** The Sensors workbook
+      settled the student-facing naming in
+      [ADR D21](../../hsbi-sensors-actuators-10d/instructor-notes/00-architecture-decisions.md#d21):
+      every main divider is `Task N — <outcome>` with `Proves:`/`Produces:`, subtasks are short
+      unnumbered moves (max four), every task ends with a standing `★ Log it`, and the module
+      closes with an exchange/evidence task. “Stage”, “Round”, and “Studio” retire as activity
+      names. Do not rename by hand mid-run; fold it into the next module revision so students meet
+      one vocabulary across the three workbooks.
+
 ## Deliberately not in this TODO
 
 - A Module 2 rewrite during the run. Module 3 is next; the redesign waits.

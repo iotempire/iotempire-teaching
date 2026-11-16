@@ -55,11 +55,11 @@ not the PlatformIO IDE extension. Install it once with uv:
 
 What we will do
 
-Two sessions: Stage 1 is the guided LED tutorial — one LED with PWM
-(forward voltage, 220 ohm resistors). Stage 2 is the discrete RGB LED
-with a serial "R G B" REPL. Stage 3 is an 8-LED WS2812B strip
+Two sessions: Task 1 is the guided LED tutorial — one LED with PWM
+(forward voltage, 220 ohm resistors). Task 2 is the discrete RGB LED
+with a serial "R G B" REPL. Task 3 is an 8-LED WS2812B strip
 (NeoPixelBus, "index R G B" and "clear", the USB power budget). We
-scaffold Stages 2 and 3 with an AI agent, verify on the hardware, and
+scaffold Tasks 2 and 3 with an AI agent, verify on the hardware, and
 commit shareable repos.
 
 If an install fights you, come 10 minutes early or post in the Discord; we will try fixing it together.
@@ -79,7 +79,7 @@ See you on Day 5,
   the editor is enough. GitHub Education is an optional route to Copilot credits, not a requirement;
   the prompt → draft → verify → commit loop is the point, not a specific vendor.
 - **If the lab network blocks installs**, ask students to bring a hotspot, or prepare the lab laptops
-  with `uv`/`pio` and the ESP32 platform cached. Have one known-good `stage2-rgb` project and one
+  with `uv`/`pio` and the ESP32 platform cached. Have one known-good `task2-rgb` project and one
   pre-flashed board.
 - **Check the board ID once:** `pio project init --board mhetesp32minikit`. If the PlatformIO
   registry disagrees, fix the email and the module before sending.

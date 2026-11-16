@@ -129,6 +129,17 @@ instructor's recap board still shows only storage and row counts. Fix that next 
 - [ ] **Announce the project milestone dates in Session 8**, not week by week (D14) — students
       plan better when the whole arc is visible, and the course promised them their own dates.
 
+## Shared vocabulary with Sensors
+
+- [ ] **Adopt Task → Subtask → Evidence when the modules are next revised.** The Sensors workbook
+      settled the student-facing naming in
+      [ADR D21](../../hsbi-sensors-actuators-10d/instructor-notes/00-architecture-decisions.md#d21):
+      every main divider is `Task N — <outcome>` with `Proves:`/`Produces:`, subtasks are short
+      unnumbered moves (max four), every task ends with a standing `★ Log it`, and the module
+      closes with an exchange/evidence task. “Stage”, “Round”, and “Studio” retire as activity
+      names. Do not rename by hand mid-run; fold it into the next module revision so students meet
+      one vocabulary across the three workbooks.
+
 ## Observations, not decisions
 
 These came out of the first run and were not resolved. Anything that becomes a decision moves to

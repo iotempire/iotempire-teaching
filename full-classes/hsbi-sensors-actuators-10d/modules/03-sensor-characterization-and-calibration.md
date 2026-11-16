@@ -28,7 +28,7 @@ Elif replaced the NTC with a **DS18B20** on a long sealed cable, so the probe ca
 
 Elif does not need a prettier plot. She needs a number she can act on: *"How wrong is each reading, and can I trust it at the threshold?"* Today you characterize, calibrate, and state the uncertainty for both sensors — take the sealed probes outside to find the cold pockets before tonight, and use a **potentiometer** as the stable "known input" that lets you check the measurement chain itself.
 
-## 🛠️ Characterization Studio — **Challenging**
+## 🛠️ Characterization Studio — **Challenging** (Tasks 1–3)
 
 *Hardware per pod:* 1× ESP32 (or ESP8266), breadboard and jumper wires, 1× LDR + 10 kΩ resistor, 1× 10 kΩ potentiometer, 1× DHT11 (optional comparison), 2–3× DS18B20 sealed probes on long cables (OneWire) plus a 4.7 kΩ pull-up, two cups for ice water and warm water.
 
@@ -53,7 +53,7 @@ Elif does not need a prettier plot. She needs a number she can act on: *"How wro
 | **2 — Calibrate and challenge** | Calibration, validation, uncertainty | Task 3 (three calibrations) + Task 4 (hysteresis/repeatability) | Peer validation of your third point |
 | **3 — Filter and decide** | Noise, filters, latency | Task 5 (noise/filtering) + Task 6 (stretcher) | Agreed learning and one shared artefact |
 
-### Round 1 — Characterize: What Does the Number Mean?
+### Round 1 — Characterize: What Does the Number Mean? (Task 1)
 
 > **Divide the work.** Each pod has its own LDR, potentiometer, and DS18B20s. In a pod of three, one member can own the LDR, one the DS18B20 bus, and one the potentiometer/dead-band check; in a pair, take the LDR first and the DS18B20 second. Compare at the end: which sensor tells you more about the chain, and which tells you more about the world?
 
@@ -186,7 +186,7 @@ The DHT11 is the sensor everyone has — and a good lesson in why it is the wron
 >
 > **Instructor bench round.** Show your LDR plot, your DS18B20 setup, and your field transect row; the instructor will ask one "why" question.
 
-### Round 2 — Calibrate and Challenge
+### Round 2 — Calibrate and Challenge (Task 2)
 
 #### Brief: Calibration and uncertainty
 
@@ -286,7 +286,7 @@ Checked by (neighbouring pod): <name / initials / date>
 >
 > **Instructor bench round.** Show your calibration table and your validation point, and name one systematic and one random error. The instructor will ask one "why" question.
 
-### Round 3 — Filter and Decide
+### Round 3 — Filter and Decide (Task 3)
 
 #### Brief: Data quality and filtering
 

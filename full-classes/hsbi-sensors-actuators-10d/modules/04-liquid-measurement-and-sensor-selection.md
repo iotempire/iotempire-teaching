@@ -40,7 +40,7 @@ We first taught it in the IoT class at the **University of Applied Sciences Linz
 
 *Photo from the original challenge; used with permission.*
 
-## 🛠️ Studio — two principles, 4–5 rows
+## 🛠️ Studio — two principles, 4–5 rows (Task 1)
 
 Work in your Task Pod. Pair with a neighbouring Task Pod: one shared `## Study log` per pair, shared data and picture proofs, but **one report per pod**. Between the two pods, aim for **4–5 decision-sheet rows** (the four tanks plus the optional fifth). Every student adds a short contribution note and links the pod report from their portfolio. Compare results; mark your most epic ideas and fails for the gallery walk.
 

@@ -1,17 +1,17 @@
 # Module 5 — Backup Sketches (Instructor)
 
-> **Instructor backup.** Use these only if the AI agents or the editor tooling are unavailable during the session, and as the answer key when a pod asks “what should the agent have produced?”. They are **not** part of the student path — [Module 5](../modules/05-leds-and-light-output.md) sends students to the two stage prompts instead.
+> **Instructor backup.** Use these only if the AI agents or the editor tooling are unavailable during the session, and as the answer key when a pod asks “what should the agent have produced?”. They are **not** part of the student path — [Module 5](../modules/05-leds-and-light-output.md) sends students to the two task prompts instead.
 
 [Module 5](../modules/05-leds-and-light-output.md) · [Module 5 studio](./05-module-5-studio.md) · [All instructor notes](./README.md)
 
 Both sketches assume the MH-ET LIVE ESP32 MiniKit (`mhetesp32minikit`) and `monitor_speed = 115200`. Uncomment `#include <Arduino.h>` for PlatformIO; the Arduino IDE includes it automatically.
 
-## Stage 2 — discrete RGB LED
+## Task 2 — discrete RGB LED
 
 Common-cathode by default; set `COMMON_ANODE` to `true` if your part is common anode. The serial parser accepts `255 0 0`, `255,0,0`, and rejects trailing junk. Wiring: R=GPIO16, G=GPIO17, B=GPIO18, 220 Ω per channel, common to GND (or 3.3 V for common anode).
 
 ```cpp
-// Stage 2 — discrete RGB LED, common cathode by default.
+// Task 2 — discrete RGB LED, common cathode by default.
 // PlatformIO: uncomment the next line. Arduino IDE includes it automatically.
 // #include <Arduino.h>
 
@@ -52,9 +52,9 @@ void loop() {
 }
 ```
 
-## Stage 3 — 8× WS2812B strip
+## Task 3 — 8× WS2812B strip
 
-8 LEDs on GPIO 16, `SetLuminance(80)`, `index R G B` and `clear`. The color order is GRB; change the feature if your strip differs. Wiring: 5 V and GND from the MiniKit USB rail, DIN to GPIO 16, common ground. Stage 3 reuses GPIO 16 — unplug the Stage 2 red channel first.
+8 LEDs on GPIO 16, `SetLuminance(80)`, `index R G B` and `clear`. The color order is GRB; change the feature if your strip differs. Wiring: 5 V and GND from the MiniKit USB rail, DIN to GPIO 16, common ground. Task 3 reuses GPIO 16 — unplug the Task 2 red channel first.
 
 ```cpp
 // PlatformIO: uncomment the next line. Arduino IDE includes it automatically.

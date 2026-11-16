@@ -53,6 +53,7 @@ The status vocabulary is deliberately small:
 | [D18](#d18) | Handbook examples that are not on the bench are reading homework | accepted | Modules 7, 8; resource bank |
 | [D19](#d19) | Module 5 is evaluated: guided walkthrough, then challenge | provisional | Module 5; Module 5 studio |
 | [D20](#d20) | A teaching day is 180 minutes: two 90-minute blocks | accepted | every module; instructor run sheets |
+| [D21](#d21) | One vocabulary: Task, Subtask, Evidence | accepted | every module; syllabus; sibling workbooks |
 
 ## 1. Provenance — how this class came to be
 
@@ -431,6 +432,33 @@ Dates are design events, not every commit; Git history is the authority.
 
 **Revisit if.** The timetable changes or a day is split differently.
 
+<a id="d21"></a>
+### D21 — One vocabulary: Task, Subtask, Evidence
+
+**Status:** accepted.
+
+**Context.** The modules had grown four names for the same level of work: `Task` (Modules 1, 2, 6–8), `Round` (Module 3), `Studio` (Module 4), and `Stage` (Module 5). The syllabus — the single source of truth — already says “task” throughout (“the tasks are studio starters”, “the task list is a guide”, “Tasks are marked ★ Core or ◇ Stretcher”). Students had to relearn the map in every module, and the cross-cutting log and exchange (formerly Task A/B) looked like sections of their own instead of actions inside the work.
+
+**Decision.** Every module uses **Task → Subtask → Evidence** and nothing else at those levels:
+
+- The main divider is `### ★ Task N — <outcome>`; every task states `Proves:` (the learning goals it evidences) and `Produces:` (the artefact).
+- Subtasks are the short, unnumbered bold moves inside a task (`1. Create the folder.`); cap them at four, sequence only, and never give a subtask its own evidence. Number them only when the run sheet or an evidence item must point at one.
+- Every task ends with the same standing line, **★ Log it** — or the task is the module's closing exchange.
+- The module closes with a final task for the pod exchange and the evidence check; the `## ✅ Suggested portfolio evidence` section stays and maps back to the goals.
+- `Session` remains the time unit (one 90-minute block). `Task Pod` and `Project Team` keep their names. `Stage`, `Round`, and `Studio` retire as student-facing activity names; `Studio` survives only as a heading word where the block is one open challenge (Module 4), not as a level in the vocabulary.
+- Tasks remain tiered (`★`/`◇`) and negotiable; the vocabulary changes the label, not the contract.
+
+**Why Task.** It is the syllabus's word, so the three documents now agree; it is the word students already met in most modules; it makes “Task Pod” and “Task” coherent; and it keeps the evidence chain visible — a task proves a goal, the portfolio evidences the task. The nuance lost by dropping Stage/Round (escalation vs. repetition) moves into the task title: “Task 2 — RGB LED project”, “Task 1 — Characterize”.
+
+**Consequences.** Module 5 is the reference implementation (Tasks 1–5). Modules 1–4 keep their current wording for this run, with bracketed task numbers on their main dividers; their full refactor and the same convention in the Databases and Networking workbooks are TODOs for the next offering.
+
+**Alternatives rejected.** Keeping Stage/Round/Studio with a glossary (three words to learn, and the syllabus would still say “task”); one flat task list without subtasks (long tasks become unreadable); numbered subtasks everywhere (cross-reference drift and a checklist feel).
+
+**Evidence.** [Module 5](../modules/05-leds-and-light-output.md); [Module 5 studio](./05-module-5-studio.md); [TODO](./TODO.md).
+
+**Revisit if.** The “one challenge plus hints appendix” architecture lands and tasks stop being the right container, or students treat the task list as boxes to tick rather than evidence to build.
+
+
 ## 3. Deliberately rejected or retired
 
 | Idea | Why it is not in the current path | Where it survives |
@@ -455,6 +483,7 @@ Dates are design events, not every commit; Git history is the authority.
 | Thermal, fluid-power, and unconventional actuators as bench labs | No Peltier per pod, no hydraulic rig; would crowd Module 7 | Reading plus the five-family table in Module 7; D18 |
 | A pure lecture for Module 5 | The outcomes are hands-on; a lecture would not produce the evidence | Guided walkthrough then challenge (D19) |
 | A pure lab for Module 5 | The evaluation format expects a lecture-style segment | Guided walkthrough then challenge (D19) |
+| Stage/Round/Studio as activity names | Four words for one level; the syllabus already says “task”; students relearned the map each module | Task → Subtask → Evidence (D21) |
 | DHT11 as the primary frost sensor | ±2 °C is too wide for a 2 °C decision | Optional comparison |
 | Water in bags / boiling water | The probe is sealed; the connector is not | Module 3 safety note |
 | One binary capacitive sensor per pod | There is one unit | Shared sensor; D12 |
@@ -472,7 +501,6 @@ Dates are design events, not every commit; Git history is the authority.
 | Q7 | **Does the bench checkpoint fit two sessions?** The email says about 15 minutes per pod; the module carries no time estimate. | The room needs a rotation and two instructors. | D13 |
 | Q8 | **Is Node-RED clearly optional in Module 4?** The global README/syllabus mention it; the module does not require it. | Students may think they need it before Module 8. | D10, D14 |
 | Q9 | **Is the old Module 4 archive still useful?** Does anyone teach it, and do its links/story canon stay valid? | It is instructor-facing maintenance. | D15 |
-| Q10 | **Is the collaboration wrapper enough without Task A/B headings?** Modules 4 and 5 keep the shared study log and exchange but not the Task A/B sections; Module 5 embeds them in the stages. | The workbook convention may expect the headings. | D6, D14 |
 | Q11 | **How many M5StickC-S3 units are available, and is the BMI270 library stable?** | The IMU/display path depends on it. | D10 |
 | Q12 | **Is environment sensing covered enough?** The new Module 4 no longer has BME280/DHT22 as a core lab; Module 3 covers T/RH, and the final project can use environment sensors. | The handbook outcome 3 includes environment sensing. | D8, Appendix A |
 | Q13 | **Which semester is the module in?** The handbook says *5. Semester*; the syllabus says *6th semester*. | Students read both; it affects prerequisites and cohort expectations. | D1; syllabus |
@@ -481,6 +509,8 @@ Dates are design events, not every commit; Git history is the authority.
 **Resolved.**
 
 - **Q1 — Module 4 handbook coverage (2026-11-15).** The module handbook 3350 lists sensor principles as examples (*"z.B. Positions- und Abstandssensoren, Time-of-Flight, Gyroskop, Triangulation"*), not as a fixed catalogue, and permits the *Kombinationsprüfung*. The liquid challenge covers position, distance, and force directly; triangulation, gyroscope, and hydrostatic pressure are now reading homework in Module 8 (D18). D8 moves to **accepted**.
+
+- **Q10 — the collaboration wrapper (2026-11-16).** Resolved by D21: the study log is a standing `★ Log it` line inside every task, and each module closes with an exchange/evidence task; the letter tasks A/B retire. Modules 1–4 migrate at their next revision; this run only gains bracketed task numbers on their main dividers.
 
 ## 5. Recreation checklist
 
@@ -530,3 +560,4 @@ The authoritative wording is in the [syllabus](../syllabus.md). This table is a 
 - **2026-11-15** — Handbook check and reading gaps. Q1 resolved against the module handbook; D8 accepted; D18 added (reading homework for triangulation, gyroscope, pressure, fluid power, thermal, unconventional); Q2 reopened with the *Leistungsnachweis* interpretation; Q13/Q14 recorded; Modules 7–8 and the liquid-level table updated.
 - **2026-11-15** — Module 5 format. D19 added: the evaluated session runs as a guided walkthrough, then an open challenge; the old task ladder becomes the appendix; the challenge deliverable is an AI-drafted, verified, shareable repo. The TODO records the all-classes “one challenge plus hints appendix” and AI-first patterns.
 - **2026-11-15** — Planning unit. D20 added: a teaching day is two 90-minute blocks (180 minutes); Module 5's run sheet and the constraints table now use that unit.
+- **2026-11-16** — Vocabulary. D21 added: every module uses Task → Subtask → Evidence; Module 5 refactored as the reference (Tasks 1–5, `Proves:`/`Produces:`, standing `★ Log it`, closing exchange task); Modules 1–4 carry bracketed task numbers until their refactor; the sibling workbooks get the same TODO. Q10 resolved.

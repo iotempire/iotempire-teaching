@@ -14,13 +14,13 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 **Build the circuit → load the code → deploy to the ESP32 MiniKit.**
 
-**Stage 1 — one LED**
+**Task 1 — one LED**
 
 - Anode → 220 Ω → GPIO 16; cathode → GND
-- Load the Stage 1 fade; deploy; watch it fade
+- Load the Task 1 fade; deploy; watch it fade
 - Measure the current at full duty
 
-<!-- Note: Story first, then hands on. Stop the deck here for Stage 1; resume at “An LED is a diode” after first light. -->
+<!-- Note: Story first, then hands on. Stop the deck here for Task 1; resume at “An LED is a diode” after first light. -->
 
 ---
 
@@ -86,7 +86,7 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 - `out = 255 · (in/255)^2.2`
 - `NeoPixelBusLg` applies a gamma table
 
-<!-- Note: Ask which fade looked smooth in Stage 1. -->
+<!-- Note: Ask which fade looked smooth in Task 1. -->
 
 ---
 
@@ -103,20 +103,20 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 # Wiring at a glance
 
-**Stage 1 — one LED**
+**Task 1 — one LED**
 
 - Anode → 220 Ω → GPIO 16; cathode → GND
 - Red or yellow; blue/green stay dim at 220 Ω
 
-**Stage 2 — discrete RGB LED**
+**Task 2 — discrete RGB LED**
 
 - R → GPIO 16, G → GPIO 17, B → GPIO 18
 - 220 Ω per channel; common → GND (3.3 V for common anode)
 
-**Stage 3 — 8× WS2812B**
+**Task 3 — 8× WS2812B**
 
 - DIN → GPIO 16, 5 V → 5 V, GND → GND
-- Stage 3 reuses GPIO 16: unplug Stage 1/2 first
+- Task 3 reuses GPIO 16: unplug Tasks 1/2 first
 
 <!-- Note: Say the GPIO 16 conflict out loud before handing out the strips. -->
 
@@ -124,15 +124,15 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 # Now back to the workbook
 
-**Create `stage2-rgb` → paste the Stage 2 prompt → wire → deploy.**
+**Create `task2-rgb` → paste the Task 2 prompt → wire → deploy.**
 
-**Stage 2 — RGB LED**
+**Task 2 — RGB LED**
 
 - R → GPIO 16, G → GPIO 17, B → GPIO 18; 220 Ω each; common → GND
 - Let the agent scaffold the `R G B` REPL, then verify it on the LED
 - Type `255 0 0`, `0 255 0`, `0 0 255`
 
-<!-- Note: Stop the deck here. Hands on for Stage 2; the agent scaffolds while you watch over shoulders. -->
+<!-- Note: Stop the deck here. Hands on for Task 2; the agent scaffolds while you watch over shoulders. -->
 
 ---
 
@@ -174,8 +174,8 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 # Talking to it: the REPL
 
-- Stage 2: `R G B` (0–255)
-- Stage 3: `index R G B`, `clear`
+- Task 2: `R G B` (0–255)
+- Task 3: `index R G B`, `clear`
 - Echo the applied values
 - Validate bounds and malformed input
 
@@ -185,15 +185,15 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 # Now back to the workbook
 
-**Create `stage3-strip` → paste the Stage 3 prompt → wire → deploy.**
+**Create `task3-strip` → paste the Task 3 prompt → wire → deploy.**
 
-**Stage 3 — 8× WS2812B**
+**Task 3 — 8× WS2812B**
 
 - 5 V and GND from the MiniKit; DIN → GPIO 16; common ground
 - Let the agent scaffold the strip with `SetLuminance(80)`, then verify it
 - Type `3 255 0 0`, then `clear`
 
-<!-- Note: Stop the deck here. Hands on for Stage 3. -->
+<!-- Note: Stop the deck here. Hands on for Task 3. -->
 
 ---
 
@@ -210,7 +210,7 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 # Now back to the workbook
 
-**Optional: one `◇` extension in the `stage3-strip` project.**
+**Optional: one `◇` extension in the `task3-strip` project.**
 
 - Non-blocking animation
 - Perceptual gamma
@@ -222,18 +222,18 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 # Today's build
 
-- **Session 1:** Stage 1 — one LED, PWM; Stage 2 — RGB, Vf
-- **Session 2:** Stage 3 — 8× WS2812B, DMA, power; optional extension
+- **Session 1:** Task 1 — one LED, PWM; Task 2 — RGB, Vf
+- **Session 2:** Task 3 — 8× WS2812B, DMA, power; optional extension
 - Share the repo
 
-<!-- Note: Three builds, one repo. Stage 3 rewires GPIO 16 from red to DIN. -->
+<!-- Note: Three builds, one repo. Task 3 rewires GPIO 16 from red to DIN. -->
 
 ---
 
 # Your turn
 
-- Build Stage 1, then Stage 2, to first light
-- Then the 8-LED strip in Stage 3
+- Build Task 1, then Task 2, to first light
+- Then the 8-LED strip in Task 3
 - Pick one `◇` extension if you finish early
 - Measure, verify, commit
 
