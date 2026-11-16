@@ -2,188 +2,135 @@
 
 [← Back to Module 5](./05-leds-and-light-output.md) | [Quick module index](./00-index.md) | [Next: Module 7 →](./07-motors-and-motion-actuators.md)
 
-> Today the light comes alive. Static colors become animation, and animation becomes an interaction: the strip reacts to a hand or to music. This directly seeds the "interactive LED installations" and "music-synchronized fountains" example projects.
+> A panel is not a bigger strip. It is a display: 1024 pixels, a scan rate, and a power budget you have to measure.
 
-**Course placement:** Day 6 — the animation and interaction studio. Static colors become motion, and motion becomes an interaction.
+**Course placement:** Day 6 — two sessions. Session 1 is the panel and its power budget; Session 2 is breathing, sound, and the exchange. Work in your Task Pod. The appendices are optional: read them in any order, or replace them with your own research.
 
 ## 🎯 Learning Goals
 
-This module gives you the opportunity to explore interactive and animated lighting and achieve competency in non-blocking animation, palettes and blending, and sensor- and sound-reactive installations.
+This module gives you the opportunity to explore a real LED display and achieve competency in driving a scanned matrix, measuring its power ceiling, animating without blocking, and fusing sound (and optionally motion) into the light.
 
 By the end of this module, you can:
-1. Structure animation as a non-blocking, time-based state machine (no `delay()` in the main loop).
-2. Build recognizable patterns and use palettes/HSV and blending instead of hard-coded RGB values.
-3. Fuse a sensor input with the animation so the installation reacts to the world.
-4. Read a simple audio signal and drive LEDs from its envelope (and, as a stretch, a beat).
-5. Reason about the practical constraints of a real installation: power, heat, mounting, and safety.
-
+1. Drive a 32×32 HUB75 RGB panel from a microcontroller: wiring, library, and a stable test pattern.
+2. Measure the panel’s current at several brightness levels and choose a maximum luminance that leaves margin on the 5 V 4 A supply.
+3. Build a non-blocking breathing animation with `millis()` and one parameter that controls speed and depth.
+4. Fuse a microphone signal — and, if you want, the IMU — into the animation so it reacts without flicker.
+5. Justify the architecture — one microcontroller or two — from pin count, memory, timing, and library constraints.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ## 📖 Story — The Exhibition That Had to Breathe
 
-**Lumenwerk Gütersloh GmbH** has one week before the Stadtmuseum opening. Curator **Aylin Demir** wants the light wall to *breathe*: a slow pulse when the room is empty, a faster wave when visitors approach, and a bright ripple when the room gets loud. Creative director **Mara Voss** has the concept; technician **Jonas Feld** has a strip, a distance sensor, and a microphone.
+**Lumenwerk Gütersloh GmbH** has one week before the Stadtmuseum opening. Curator **Aylin Demir** wants the light wall to *breathe*: a slow pulse when the room is empty, a faster wave when visitors approach, and a bright ripple when the room gets loud. Creative director **Mara Voss** has replaced the prototype strip with a 32×32 RGB panel; technician **Jonas Feld** has the panel, a 5 V 4 A supply, and an M5StickC-S3 with a microphone.
 
-The prototype works on the bench — until the animation freezes whenever the distance sensor updates, and the “breathing” looks like a stutter. The problem is not the LED library. It is the loop: `delay()` blocks everything. Today you build a non-blocking, time-based animation engine, map sensor and sound input onto it, and think like an installer: power, heat, mounting, and what happens when a cable fails at 19:55 on opening night.
+The first test is beautiful — until Jonas sets the panel to full white and the supply sags. The second problem is quieter: the panel needs thirteen control pins, the Stick has a microphone and an IMU, and the animation must keep running while the audio is sampled. Aylin’s question is practical: *“Can one board do both jobs, or does this installation need two — and how bright can we actually run it?”*
 
-## 📖 Pod Study: Animation as a Time-Based State Machine
+## 🧰 What you have
 
-This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can explain in the checkpoint.
+| Part | What it gives you |
+|---|---|
+| 32×32 HUB75 RGB panel, 5 mm pitch ([Adafruit 2026](https://www.adafruit.com/product/2026)) | 1024 RGB pixels, 5 V logic, up to 4 A at full white, 13 control signals |
+| 5 V 4 A power supply | The panel’s supply — not the microcontroller’s USB port |
+| M5StickC-S3 | ESP32-S3, 8 MB PSRAM, BMI270 IMU, ES8311 codec with MEMS microphone and speaker |
+| ESP32 MiniKit(s), jumpers, breadboard, level shifter | A second controller if you need one, and the wiring between them |
+| Multimeter (shared), phone camera | Current measurements and the video for your portfolio |
 
-### Animation as a Time-Based State Machine
+Meters are shared; ask your instructor which panels and supplies are per pod, and plan the pass-around with your neighbouring pod.
 
-The naive way (`delay(50)` between frames) blocks everything: the node cannot read sensors, talk MQTT, or react. The professional way:
+## 🔌 ★ Task 1 — Light the panel, find the ceiling
 
-```text
-loop():
-  now = millis()
-  read inputs (non-blocking)
-  if (now - last_frame >= frame_interval) { advance_animation(); render(); last_frame = now; }
-  service other tasks (MQTT, buttons, safety)
-```
+**Proves:** Goals 1, 2, and 5 · **Produces:** a working panel, a power table, and a one-sentence architecture decision.
 
-Key concepts:
+1. **Choose the architecture.** One microcontroller or two? Count the panel’s thirteen signals, check which pins your board actually exposes, and check what the driver library needs. Write the decision in one sentence before you wire anything.
+2. **Wire it.** HUB75 ribbon to the panel, 5 V and GND from the 4 A supply, common ground with the microcontroller. Do not power the panel from USB or from a GPIO. Add level shifting if your panel or wiring is unhappy at 3.3 V.
+3. **Bring it up.** Run a test pattern at low brightness first. Confirm orientation, color order, and that the whole 32×32 area is addressed.
+4. **Measure the ceiling.** Measure current at several brightness levels — for example 25 %, 50 %, 75 %, and 100 % white — and find the highest setting that stays stable with margin on the 4 A supply. Watch the panel voltage, not only the current.
+5. **★ Log it.** In `## Study log` in `Module06/README.md`: the architecture decision and why, the wiring, the max luminance you trust, and the measured current at each step.
 
-- Frame rate / interval: choose it per effect (a slow breath vs. a fast chase). Keep the *render* independent of the *update* timing.
-- Fractional progress: animate on a normalized `0..1` parameter and map to whatever you display, so an effect can be slowed, reversed, or driven by a sensor.
-- Determinism: the same animation code should run for a strip of 8 or 300 LEDs — compute positions from an index, never hard-code pixel numbers.
+**Done when:** the panel shows a stable test pattern, you can state the maximum brightness you trust on the 4 A supply, and you can defend one controller versus two.
 
-### Patterns, Palettes, and Color Spaces
+## ✨ ★ Task 2 — Breathe, then listen
 
-- Patterns: solid, breathing, wipe, chase/runner, rainbow, sparkle/confetti, theater-chase. A few well-parameterized patterns compose into many effects.
-- HSB/HSV (hue, saturation, brightness) is more intuitive than RGB for animation — sweep hue for a rainbow, modulate brightness for breathing. Adafruit NeoPixel and NeoPixelBus provide HSV/HSB color helpers; FastLED's palettes are a useful reference if you want more.
-- Blending and fading: cross-fade between patterns, or "trail" decays (`pixel = max(pixel*decay, new)`) to create motion blur.
+**Proves:** Goals 3 and 4 · **Produces:** a breathing mode, a sound-reactive mode, a video, and a mapping note.
 
-> [!NOTE]
-> For installations that also run Wi-Fi/MQTT, prefer **NeoPixelBus**. **Adafruit NeoPixel** is the simple choice for small strips; **FastLED** is a reference, not the default. See [Module 5](./05-leds-and-light-output.md) for the library guidance.
-- Mapping: decide how abstract time/positions map to the physical strip (left-to-right? around a ring? radial?), then keep the mapping in one place.
+1. **Breathe.** Build a `millis()`-based breathing effect — no `delay()` in the loop — with one normalized parameter that controls speed and depth. The loop must stay responsive while it runs.
+2. **Listen.** Use the Stick’s microphone (M5Unified) or an analog sound sensor: sample fast, compute a short-term envelope (peak or RMS), and map it to brightness or hue. Add automatic gain control so quiet and loud rooms both work.
+3. **◇ Optional — motion.** Use the BMI270 IMU for tilt or shake as a second input. Only if you want it; the sound path is the required one.
+4. **Test and record.** Quiet and loud, still and moving. Note latency, flicker, and what you changed to make it stable.
+5. **★ Log it.** In the same log: the envelope you computed, the mapping you chose, the IMU input if used, and what still flickers.
 
-### Reading Sound
+**Done when:** the panel breathes smoothly while the loop stays responsive, and the sound mode reacts visibly without constant re-tuning.
 
-Two common approaches:
+## ★ Task 3 — Exchange and evidence
 
-- Analog microphone / sound sensor (or an electret mic + amplifier): read the signal on an analog pin, compute a short-term envelope (e.g. peak or RMS over a window). Drive brightness/color from the envelope — this alone gives a convincing "music-reactive" effect.
-- MSGEQ7 / spectrum analyzer: gives a few frequency bands (bass/mid/treble). Map bands to zones of the strip for a classic equalizer look.
-- Beat detection (stretch): a simple approach is to track a running average of the envelope and trigger when the current value exceeds it by a factor — enough to flash on beats without a full DSP.
+**Proves:** Goals 1–5 · **Produces:** the agreed learning in your shared log, one shared artefact, and the evidence list below.
 
-> Mind the sampling rate. The envelope is only meaningful if you sample the audio much faster than the effect updates (Nyquist, Module 1). Decouple the fast audio sampling from the slower visual frame update.
-
-### Building an Installation
-
-Technical success is not the same as a good installation. Plan for:
-
-- Power: re-check the Module 5 budget — animations at full white draw the worst case, and long shows add heat.
-- Heat and lifetime: a strip at full brightness in a sealed enclosure gets hot; limit brightness or add airflow.
-- Optics/mounting: diffusers, spacing, and viewing distance change the perceived result dramatically.
-- Robustness: strain relief on wires, a stable 5 V supply, and a plan for what happens if the sensor or the network drops.
-- Safety: keep mains and high-voltage far away from breadboards; if an installation uses a pump, motor, or mains-driven element, keep it physically and electrically separated from the logic.
-
-### Pointers (start here, then keep looking)
-
-- Non-blocking timing — [Arduino: `millis()`](https://docs.arduino.cc/language-reference/en/functions/time/millis/) and the [Blink Without Delay](https://docs.arduino.cc/built-in-examples/digital/BlinkWithoutDelay/) example
-- Patterns and palettes — [Adafruit NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel) and [NeoPixelBus](https://github.com/Makuna/NeoPixelBus); [FastLED](https://fastled.io/) as a palette/HSV reference
-- Color spaces — [Wikipedia: HSL and HSV](https://en.wikipedia.org/wiki/HSL_and_HSV)
-- Sound envelopes — [Wikipedia: Envelope (music)](https://en.wikipedia.org/wiki/Envelope_(music)), [Root mean square](https://en.wikipedia.org/wiki/Root_mean_square)
-- Installation practice — the [Adafruit NeoPixel Überguide](https://learn.adafruit.com/adafruit-neopixel-uberguide) and the [resource bank](./Z-resources-bank.md#troubleshooting-quick-drops)
-
-### Questions to ask an LLM (then verify against your hardware)
-
-Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
-
-- "Refactor a `delay()`-based LED animation into a non-blocking `millis()` loop. Show the state variables and the frame timing."
-- "Explain HSV vs. RGB for animation. Give me a single-parameter hue sweep and a brightness breath with Adafruit NeoPixel or NeoPixelBus."
-- "How do I compute a short-term audio envelope (peak or RMS) on an ESP32, and how do I decouple the fast audio sampling from the slower LED frame rate?"
-- "My sensor-triggered animation flickers at the threshold. Explain hysteresis and show a small state machine that fixes it."
-- "List the practical constraints of a two-hour LED installation: power, heat, mounting, strain relief, and failure behavior."
-
-> Run each prompt against your own installation, and record where the model is wrong, vague, or over-confident.
-
-### ★ Task A: Study in your pod
-
-Work through the concepts above with your Task Pod and write it up under `## Study log` in `Module06/README.md` — a section, not a file, unless it outgrows the page. **One pod member keeps the shared log; the others link to that section from their own module README and add one sentence on what they took from it.**
-
-1. **The references you used** — the source and the one concept you understood best from it.
-2. **Things you googled** — the term, what you found, and the source (URL). One line each.
-3. **Remarkable things** — surprises, "aha"s, and counterexamples from your own animation tests.
-4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
-5. **Your two best found animation or installation examples** — compile down to the best two, with source and what they taught you.
-
-*Portfolio evidence:* the `## Study log` section (yours, or a link to your pod's shared one).
-
-### ★ Task B: Explain & share with another pod
-
-Pair with a **neighbouring pod**:
-
-1. **Explain to each other** — each pod walks the other through its animation architecture and its interaction mapping; ask questions and fill each other's gaps.
-2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"render timing and update timing are different problems"*).
-3. **Clean up your documentation** — update the `## Study log` with what you learned from the other pod.
-4. Agree on **one shared artefact** — a short video, a state-machine sketch, or a new effect the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
-5. Each member adds a short **“Agreed learning (pod discussion)”** note — in the shared log, or in your own module README with a link to it.
-
-*Portfolio evidence:* the cleaned-up `## Study log` (with the **“Agreed learning (pod discussion)”** note) and your pod-pair's shared artefact.
-
-## 🛠️ In-Class Lab: Make It Move — **Challenging**
-
-*Hardware:* WS2812 strip + separate 5 V supply, ESP32/ESP8266, a distance sensor from Module 4, a simple analog sound sensor (or microphone module).
-
-### ★ Task 1: A Non-Blocking Animation Engine
-
-1. Write a loop that renders at a fixed interval using `millis()` — **no `delay()`** in the drawing path.
-2. Implement at least two patterns (e.g. a breathing effect and a color wipe) and switch between them without restarting the sketch.
-3. While the animation runs, print a counter on the serial console every second to prove the loop is not blocked.
-
-### ★ Task 2: Palettes, Hue, and Blending
-
-1. Re-implement one pattern using HSV so a single "speed/phase" parameter drives the hue.
-2. Add a palette and a smooth cross-fade or trail decay between frames.
-3. Make the frame interval and the effect speed parameters you can change live. Note how the same code now supports slow and fast effects.
-
-### ★ Task 3: Sensor → Animation
-
-Fuse Module 4 with today:
-
-1. Read the distance sensor (ToF or ultrasonic).
-2. Map distance to an animation parameter — e.g. closer = brighter/faster, or position along the strip.
-3. Implement a threshold reaction (e.g. a "wave" when someone approaches) with hysteresis so it does not flicker at the boundary.
-4. Test by moving your hand and record the interaction.
-
-*This is the "interactive LED installation" seed project.*
-
-### ★ Task 4: Sound-Reactive LEDs
-
-1. Sample the audio signal fast in the loop and compute a short-term envelope (peak or RMS).
-2. Map the envelope to brightness and/or hue. Confirm the strip visibly responds to speech/music.
-3. Add automatic gain control (normalize to a recent maximum) so it works in both quiet and loud rooms. Note why this matters for a real installation.
-
-### ◇ Task 5 (Stretcher): Toward the Music-Synchronized Fountain
-
-Combine a "water" actuator with the light show:
-
-1. Use a servo or a small pump/valve as the water element (mock it with a servo arm or an LED if a pump is not available).
-2. Drive both the strip and the actuator from the same envelope/beat signal so they move together — the announcement's "music-synchronized fountain" in miniature.
-3. Note the latency between audio and visible action, and how you would reduce it.
+1. Show each other the panel, the power table, and the breathing and sound modes.
+2. Compare architectures: who used one controller, who used two, and what broke in each case?
+3. Agree on the 3–5 most noteworthy points and one learning you jointly stand behind; one of you writes the “Agreed learning (pod discussion)” note into the shared log.
+4. Pick one shared artefact — the best video, the power table, or a wiring photo — and post it in the course Discord with one sentence on why.
+5. Check the evidence list below and fill the gaps.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. Animation engine: your `millis()`-based loop structure and why it beats `delay()`.
-2. Effects: short videos/photos of at least three effects (one HSV, one blended, one sensor-triggered).
-3. Interaction: the mapping you chose (distance/sound → animation), plus the hysteresis you used.
-4. Sound notes: how you computed the envelope, and what changed when you added gain control.
-5. Installation constraints: a short paragraph on power, heat, mounting, and failure behavior for your effect.
-6. Deeper question: What is the difference between an animation that *looks* good and an installation that *survives* a two-hour show?
+1. `## Study log` in `Module06/README.md` with the two task entries and the architecture decision.
+2. Panel wiring: a photo or diagram, the pin mapping, and the library you used.
+3. Power table: brightness versus measured current, the maximum stable luminance, and the supply margin.
+4. Video: the breathing effect and the sound reaction (plus the IMU input if you used it).
+5. One paragraph on the installation constraints: heat, mounting, and what happens when a cable or the sound input fails.
+6. Deeper question: why is a scanned panel a different engineering problem from a WS2812B strip?
 
+> You may prove the same goals another way. The evidence is the point, not the task list.
 
-> [!IMPORTANT]
-> Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.
+## 📎 Appendix A — Hints and resources (read in any order)
+
+**Panel facts.** The 32×32 panel is a HUB75 display: 1024 RGB LEDs, 5 V logic, thirteen signals (six data: R1/G1/B1/R2/G2/B2; seven control: A/B/C/D, CLK, LAT, OE — some panels also expose E). It is scanned, so the whole image is not lit at once. Adafruit rates the panel at up to 4 A with all LEDs on; typical animations draw less. Product: [Adafruit 2026](https://www.adafruit.com/product/2026); background: [RGB LED matrix basics](https://learn.adafruit.com/32x16-32x32-rgb-led-matrix).
+
+**Power.** Use the 4 A supply for the panel, with a common ground to the controller, short thick wires, and a bulk capacitor across 5 V/GND if the image flickers on bright frames. Full white is the worst case and leaves no margin on a 4 A supply; that is why you measure and cap the brightness. Never power the panel from USB, a GPIO, or the 3.3 V rail. Panels get warm at high brightness — do not cover them.
+
+**Driver.** The usual ESP32 choice is [`ESP32-HUB75-MatrixPanel-DMA`](https://github.com/mrfaptastic/ESP32-HUB75-MatrixPanel-DMA) (PlatformIO: `mrfaptastic/ESP32-HUB75-MatrixPanel-DMA`); it uses DMA, supports double buffering, and ships examples. `Adafruit_Protomatter` is an alternative. The library defines the pin mapping; check that your board exposes every pin it needs. The panel expects 5 V logic; 3.3 V often works, a level shifter (for example a 74HCT245) is the safe choice.
+
+**One controller or two?** Count the thirteen signals against the pins your board exposes, then add the pins the microphone, IMU, and display already use. On a small board the honest answer is often a second ESP32 that only drives the panel, with the Stick sending brightness, hue, or level over serial, I2C, or ESP-NOW. There is no single right answer; there is an answer you can defend.
+
+**M5StickC-S3.** ESP32-S3 with 8 MB PSRAM, BMI270 IMU, and an ES8311 codec with a MEMS microphone and speaker. Use [M5Unified](https://github.com/m5stack/M5Unified) for the microphone and IMU; the microphone is an I2S codec, not a bare analog pin. The Stick’s exposed header and Grove port are limited — that is part of the architecture decision.
+
+**Non-blocking animation.** Keep the render interval and the update interval separate, animate a normalized `0..1` parameter, and never `delay()` in the loop. The pattern is the same as in [Module 5](./05-leds-and-light-output.md).
+
+**Sound envelope.** Sample in blocks, compute peak or RMS over a short window, and decouple the fast audio sampling from the slower frame rate. Automatic gain control normalizes to a recent maximum, so the effect survives both a whisper and a loud room.
+
+**Installation.** Plan for heat, mounting, a diffuser, strain relief on the ribbon and power wires, and a defined behavior when the sensor or the network drops. An installation that looks good for a minute is not the same as one that survives an evening.
+
+## 📎 Appendix B — Ideas and prompts when you are stuck
+
+Read in any order, take what helps, and replace the rest with your own research. Cite what you use.
+
+**Immediate experiments**
+
+- Solid colors, a gradient, a moving bar, and a plasma — the four test patterns that expose wiring, orientation, and refresh problems.
+- Change the gamma and the brightness steps; compare what the eye sees with what the meter reads.
+- Rotate or mirror the image in software; the panel’s orientation is a mapping choice, not a wiring fact.
+- Map the microphone level to rows (a VU meter), to hue, or to a peak-hold bar.
+- Use the IMU: tilt maps to direction, a shake triggers sparkle.
+- If you use two controllers, define a tiny protocol (`LEVEL 0..100`, `HUE 0..255`) before you write code.
+
+**Questions to ask an LLM (then verify on the panel)**
+
+- “Scaffold a PlatformIO project for a 32×32 HUB75 panel on an ESP32-S3 with the HUB75 DMA library: test pattern, brightness control, and a non-blocking loop.”
+- “Count the pins a HUB75 panel needs and compare them with the exposed GPIOs of the M5StickC-S3. Propose a one-controller and a two-controller architecture, with the trade-offs.”
+- “Given measured currents at 25/50/75/100 % white, estimate the maximum safe brightness for a 5 V 4 A supply and the margin I should keep.”
+- “Write a `millis()`-based breathing effect for a 32×32 panel with one speed/depth parameter. No `delay()`.”
+- “Compute a short-term RMS envelope from an I2S microphone and map it to brightness with automatic gain control.”
+- “Explain HUB75 scan and refresh, and why a phone camera may show flicker that the eye does not.”
+
+> Run each prompt against your own panel, and record where the model is wrong, vague, or over-confident.
 
 ## 📚 If you want to go deeper
 
+- [Adafruit 32×32 panel](https://www.adafruit.com/product/2026) and [RGB LED matrix basics](https://learn.adafruit.com/32x16-32x32-rgb-led-matrix) — wiring, power, and scan.
+- [`ESP32-HUB75-MatrixPanel-DMA`](https://github.com/mrfaptastic/ESP32-HUB75-MatrixPanel-DMA) — DMA driver, examples, and pin mapping.
+- [M5Unified](https://github.com/m5stack/M5Unified) — microphone, IMU, and display on the Stick.
 - [Arduino: `millis()`](https://docs.arduino.cc/language-reference/en/functions/time/millis/) and [Blink Without Delay](https://docs.arduino.cc/built-in-examples/digital/BlinkWithoutDelay/) — the non-blocking pattern.
-- [Adafruit NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel) and [NeoPixelBus](https://github.com/Makuna/NeoPixelBus) — simple bring-up and robust multi-strip driving.
-- [FastLED](https://fastled.io/) — reference for palettes, HSV, and blending.
-- [Wikipedia: HSL and HSV](https://en.wikipedia.org/wiki/HSL_and_HSV) — why hue is easier than RGB for animation.
 - [Envelope (music)](https://en.wikipedia.org/wiki/Envelope_(music)) and [Root mean square](https://en.wikipedia.org/wiki/Root_mean_square) — the sound features you can compute on a microcontroller.
-- [Adafruit NeoPixel Überguide](https://learn.adafruit.com/adafruit-neopixel-uberguide) — power, heat, and installation practice.
 
 ---
 
