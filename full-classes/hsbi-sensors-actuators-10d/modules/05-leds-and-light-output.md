@@ -26,6 +26,10 @@ By the end of this module, you can:
 
 Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED strip from the microcontroller's 5 V pin and treated “brightness” as a single number. Aylin's question is practical: *"How much current does this wall actually need, and how do we drive it so it survives an opening night?"* Today: LED physics, current limiting, PWM and gamma, RGB mixing, addressable strips, and a power budget you measure.
 
+## 🧭 How to follow along
+
+In Tasks 1–3 the instructor may build at the front instead of leaving you to work from the text. **Follow along** means: do the same steps on your own machine, ask questions when something is unclear, and report problems and curiosities as they happen — that dialog is part of the learning, not an interruption. The instructor will usually be too fast, so say so and slow the pace down until you can follow. If you prefer to work from the text at your own speed, that is fine too; each task is written to stand alone.
+
 ## 🧰 One-time setup
 
 Install the CLI once — skip this if `pio --version` already works:
@@ -43,6 +47,8 @@ No serial port? Linux needs your user in `dialout` (or `uucp`) and the PlatformI
 ## 🔌 ★ Task 1 — one LED, no AI
 
 **Proves:** Goals 1 and 2 · **Produces:** `task1-led/` with the fading LED.
+
+> **Follow along** if the instructor presents this at the front.
 
 **Hardware.** A red or yellow 5 mm LED: anode (long leg) → **220 Ω** → **GPIO 16**; cathode (short leg, flat side) → **GND**. Do not use blue or green here — their forward voltage is close to 3.3 V, so 220 Ω leaves almost no current and the LED looks broken.
 
@@ -102,6 +108,8 @@ pio run -t upload -t monitor
 
 **Proves:** Goals 1, 3, and 4 · **Produces:** `task2-rgb/` with the serial `R G B` REPL.
 
+> **Follow along** if the instructor presents this at the front.
+
 **1. Create the folder.** `task2-rgb/`, opened in Zed or VS Code — a new folder, not the Task 1 one.
 
 **2. Paste the prompt** into your AI agent. It scaffolds PlatformIO, `AGENTS.md`, the firmware, the README, and the `.gitignore`.
@@ -134,6 +142,8 @@ In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it
 ## ✨ ★ Task 3 — WS2812B strip project
 
 **Proves:** Goals 4, 5, and 6 · **Produces:** `task3-strip/` with the addressable strip and the power table.
+
+> **Follow along** if the instructor presents this at the front.
 
 **1. Create the folder.** `task3-strip/`, opened in Zed or VS Code.
 
