@@ -120,7 +120,9 @@ lib_deps = makuna/NeoPixelBus
 |---|---|
 | Linux | `sudo usermod -aG dialout "$USER"` (or `uucp`), log out and back in; install the [PlatformIO udev rules](https://docs.platformio.org/en/latest/core/installation/udev-rules.html) |
 | Windows | install the CP210x or CH340 USB-to-UART driver; check Device Manager |
-| macOS | install the CP210x or CH340 driver; check `ls /dev/cu.*` |
+| macOS | install the CP210x or CH340 driver; check `ls /dev/cu.*`. If the port stays invisible, add your user to `admin` and `wheel`: `sudo dseditgroup -o edit -a "$USER" -t user admin` and `sudo dseditgroup -o edit -a "$USER" -t user wheel`, then log out and back in. The [IoTempower helper](https://github.com/iotempire/iotempower/blob/master/bin/iot_add_serial_permissions) automates this. |
+
+> **macOS groups.** `wheel` is privileged. Add it only for the serial workaround and remove it again with `sudo dseditgroup -o edit -d "$USER" -t user wheel`. If you prefer not to change groups, `sudo chmod 666 /dev/cu.usbserial-*` works until the next replug or reboot.
 
 **Zed (instructor demos).** `.zed/tasks.json`:
 

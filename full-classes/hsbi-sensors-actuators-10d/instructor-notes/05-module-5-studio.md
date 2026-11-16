@@ -54,7 +54,8 @@ laptop before the session.
 - **Board:** `pio project init --board mhetesp32minikit`. The MH-ET LIVE ESP32 MiniKit is
   `mhetesp32minikit`; do not silently substitute `esp32dev`.
 - **Serial port:** Linux needs `dialout` (or `uucp`) membership and the PlatformIO udev rules;
-  Windows/macOS need the CP210x or CH340 driver if no port appears.
+  Windows needs the CP210x or CH340 driver; macOS needs the driver and, if the port stays
+  invisible, `admin` and `wheel` membership (the resource bank has the exact commands).
 - **Editor parity:** the Zed tasks, `.zed/settings.json`, `.clangd`, and the VS Code snippets are in
   the [resource bank](../modules/Z-resources-bank.md#platformio-cli--zedvscode-setup).
 - **AI context:** one `AGENTS.md` at the project root, no `CLAUDE.md`. Pinout, library, CLI, USB

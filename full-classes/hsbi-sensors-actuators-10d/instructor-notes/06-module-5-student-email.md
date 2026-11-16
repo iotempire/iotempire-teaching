@@ -1,6 +1,6 @@
 # Module 5 — Student Email Draft
 
-> **Instructor-facing draft.** Copy the email below, replace the placeholders, and send it through the LMS at least **two days before Day 5**. The student-facing module is [Module 5](../modules/05-leds-and-light-output.md); the schedule and assessment rules stay in the [syllabus](../syllabus.md).
+> **Instructor-facing draft.** Copy the email below, replace the placeholders, and send it at least **two days before Day 5**. The student-facing module is [Module 5](../modules/05-leds-and-light-output.md); assessment rules stay in the [syllabus](../syllabus.md).
 
 [All instructor notes](./README.md) · [Syllabus](../syllabus.md) · [Module index](../modules/00-index.md)
 
@@ -11,15 +11,14 @@ Subject: Module 5 prep — have "pio" and your AI assistant ready
 
 Hi everyone,
 
-Before Day 5 (LEDs) we have two 90-minute blocks. Session 1 is first
-light and the first project; Session 2 is the addressable strip. We
-want the first project's minutes for the build, not for installs.
-Please prepare two things on your laptop before the session.
+Before Day 5, please install the PlatformIO CLI and sign in to your AI
+assistant in your editor. Day 5 is as usual two 90-minute blocks, and we want
+that time for building, not for installs.
 
-1) A working PlatformIO CLI in your editor terminal (about 10–15 minutes)
+1) PlatformIO CLI in your editor terminal
 
-We use the "pio" command from the integrated terminal in Zed or VS Code,
-not the PlatformIO IDE extension. Install it once with uv:
+If PlatformIO is already installed and "pio --version" works in your
+terminal, skip to 2). Otherwise install it once with uv:
 
     uv tool install --with pip platformio
     uv tool update-shell
@@ -27,42 +26,29 @@ not the PlatformIO IDE extension. Install it once with uv:
 
 - No uv yet? Install it first:
   https://docs.astral.sh/uv/getting-started/installation/
-- Already have a working "pio" on your PATH, or prefer another install?
-  That is fine. The check is the same: open the integrated terminal in
-  Zed or VS Code and run "pio --version" there.
-- If you use the VS Code PlatformIO extension anyway, set
-  "platformio-ide.useBuiltinPIOCore": false so it reuses the CLI instead
-  of downloading a second Python environment.
-- The board is the MH-ET LIVE ESP32 MiniKit (PlatformIO board
-  "mhetesp32minikit"). You do not need to create the project yet; we do
-  that together.
+- "uv tool update-shell" adds the tool directory to your PATH, but only
+  for new shells: restart the terminal, then check "pio --version". If it
+  still fails, the tool is at ~/.local/bin/pio (Linux/macOS) or
+  %USERPROFILE%\.local\bin\pio.exe (Windows).
 - No serial port? Linux: add yourself to "dialout" (or "uucp") and
-  install the PlatformIO udev rules. Windows/macOS: install the CP210x or
-  CH340 USB-to-UART driver. "pio device list" should show the board.
+  install the PlatformIO udev rules. Windows: install the CP210x or
+  CH340 driver. macOS: install the driver; if the port stays invisible,
+  your user also needs the "admin" and "wheel" groups (exact commands
+  are in the module). Verify that "pio device list" shows a connected
+  board.
 
-2) An AI assistant in your editor (GitHub Education is optional)
+2) Your AI assistant, signed in and ready
 
-- If you already use Claude, DeepSeek, ChatGPT, Copilot, or another
-  assistant, sign it in and have it ready in Zed or VS Code. If it is
-  only a web page, bring it anyway; we will connect an editor agent or
-  opencode. You do not need GitHub Education for this session.
-- If you want Copilot with the education credits, apply for GitHub
-  Education / the Student Developer Pack here:
-  https://education.github.com/
-- If your approval is still pending, use the assistant you already have.
-- If you live in the terminal: opencode (https://opencode.ai/) is a good
-  command-line agent and a fine alternative. It is optional.
+Use whatever you already have (Claude, DeepSeek, ChatGPT, Copilot) in
+Zed or VS Code. If you want Copilot with education credits:
+https://education.github.com/
+Terminal people can use opencode: https://opencode.ai/ .
 
-What we will do
+What we build: one LED, then an RGB LED, then an 8-LED WS2812B strip,
+described in the module:
+https://github.com/iotempire/iotempire-teaching/blob/main/full-classes/hsbi-sensors-actuators-10d/modules/05-leds-and-light-output.md
 
-Two sessions: Task 1 is the guided LED tutorial — one LED with PWM
-(forward voltage, 220 ohm resistors). Task 2 is the discrete RGB LED
-with a serial "R G B" REPL. Task 3 is an 8-LED WS2812B strip
-(NeoPixelBus, "index R G B" and "clear", the USB power budget). We
-scaffold Tasks 2 and 3 with an AI agent, verify on the hardware, and
-commit shareable repos.
-
-If an install fights you, come 10 minutes early or post in the Discord; we will try fixing it together.
+If an install fights you, let us know on Discord in advance.
 
 See you on Day 5,
 [Instructor names]
@@ -70,34 +56,19 @@ See you on Day 5,
 
 ## Sending notes
 
-- Send this **at least two days before Day 5**; Session 1 reaches the first project scaffold. Replace
-  `[Instructor names]` and add the date or room if your LMS needs it.
-- The exact commands, the Zed/VS Code snippets, the serial-port fixes, and the scaffold prompt are
-  in the [resource bank](../modules/Z-resources-bank.md#platformio-cli--zedvscode-setup). Do not
-  paste the whole reference into the email.
-- **Do not block on GitHub Education.** Claude, DeepSeek, ChatGPT, Copilot, or another assistant in
-  the editor is enough. GitHub Education is an optional route to Copilot credits, not a requirement;
-  the prompt → draft → verify → commit loop is the point, not a specific vendor.
-- **If the lab network blocks installs**, ask students to bring a hotspot, or prepare the lab laptops
-  with `uv`/`pio` and the ESP32 platform cached. Have one known-good `task2-rgb` project and one
-  pre-flashed board.
-- **Check the board ID once:** `pio project init --board mhetesp32minikit`. If the PlatformIO
-  registry disagrees, fix the email and the module before sending.
-- **opencode is optional.** It is a recommendation for command-line users, not a course
-  requirement.
-- **Reminder to self:** before every module, check whether a prep email is needed. Some modules need
-  nothing; Module 4 (materials) and Module 5 (toolchain, GitHub Education, AI access) do. The TODO
-  carries the general check.
+- **At least two days before Day 5**; replace `[Instructor names]` and add date or room if the LMS needs it.
+- **Do not paste the reference.** The full commands, editor snippets, and serial-port fixes stay in the [resource bank](../modules/Z-resources-bank.md#platformio-cli--zedvscode-setup); the module link is enough for the content.
+- **No vendor lock-in.** Claude, DeepSeek, ChatGPT, Copilot, or `opencode` is fine; GitHub Education is optional. Check the board ID once: `pio project init --board mhetesp32minikit`.
+- **If the lab network blocks installs**, ask for a hotspot or prepare the lab laptops with `uv`/`pio` and the ESP32 platform cached; keep one known-good `task2-rgb` project and one pre-flashed board.
+- **Reminder to self:** check before every module whether a prep email is needed; Module 4 (materials) and Module 5 (toolchain, AI access) need one.
 
 ## If a student gets stuck
 
 | Symptom | What to tell them |
 |---|---|
 | `uv: command not found` | Install `uv` from the link above, then reopen the terminal. |
-| `pio: command not found` after install | Run `uv tool update-shell`, restart the terminal, or call the full path (`~/.local/bin/pio`). |
-| `pio device list` is empty | Linux: `dialout`/`uucp` + udev rules; Windows/macOS: CP210x/CH340 driver; try another USB cable. |
-| Copilot/GitHub Education is still pending | Use Claude, DeepSeek, or another assistant; GitHub Education is optional. opencode is a CLI alternative. |
-| No GitHub account yet | Create one; the Education application can follow after the session. |
-| PlatformIO wants to download a second core in VS Code | Set `"platformio-ide.useBuiltinPIOCore": false`. |
+| `pio: command not found` after install | Run `uv tool update-shell`, restart the terminal, or call the full path: `~/.local/bin/pio` (Linux/macOS) or `%USERPROFILE%\.local\bin\pio.exe` (Windows). |
+| `pio device list` is empty | Linux: `dialout`/`uucp` + udev rules; Windows: CP210x/CH340 driver; macOS: driver + `admin`/`wheel` groups (resource bank); try another USB cable. |
+| PlatformIO wants a second core in VS Code | Set `"platformio-ide.useBuiltinPIOCore": false`. |
 
 [All instructor notes](./README.md) · [Syllabus](../syllabus.md) · [Module index](../modules/00-index.md)

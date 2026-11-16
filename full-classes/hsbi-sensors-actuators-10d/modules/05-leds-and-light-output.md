@@ -38,7 +38,7 @@ pio --version                 # an existing pio on PATH is also fine
 
 No `uv`? [Install it first](./Z-resources-bank.md#python-environment-with-uv). Each task below gets its **own folder** — `task1-led/`, `task2-rgb/`, `task3-strip/` — so every build goes into your portfolio separately. A project is just a folder: create it and open it in your editor.
 
-No serial port? Linux needs your user in `dialout` (or `uucp`) and the PlatformIO udev rules; Windows and macOS need the CP210x or CH340 driver. The table is in the [resource bank](./Z-resources-bank.md#platformio-cli--zedvscode-setup).
+No serial port? Linux needs your user in `dialout` (or `uucp`) and the PlatformIO udev rules; Windows needs the CP210x or CH340 driver; macOS needs the driver and, if the port stays invisible, `admin` and `wheel` membership. The table is in the [resource bank](./Z-resources-bank.md#platformio-cli--zedvscode-setup).
 
 ## 🔌 ★ Task 1 — one LED, no AI
 
