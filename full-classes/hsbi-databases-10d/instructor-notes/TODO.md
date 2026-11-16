@@ -64,7 +64,12 @@ the architecture log first.
       table, the reflection-format section, and the `Reflections/refNN.md` evidence in every module
       (eleven entries for eleven sessions). The Sensors class made the change in 2026-11: nine
       entries for nine days, still 4 points.
-
+- [ ] **Adopt the intermediate German grades (1.3, 1.7, 2.3).** The grade-scale table bands points
+      (14–15 = 4.0, 16–17 = 3.0, 18–19 = 2.0, 20 = 1.0) and never awards 1.3, 1.7, or 2.3. The
+      Sensors class uses the fine 20-point table (20 = 1.0, 19 = 1.3, 18 = 1.7, 17 = 2.0,
+      16 = 2.3, 15 = 3.0, 14 = 4.0, below 14 = 5.0) plus a documented 2.7 case for an overall 3.0
+      with an exceptionally shaped portfolio. Change the syllabus only — assessment is
+      examination-law territory (D5).
 - [ ] **Intersperse theory and practice more** (D7). Modules 2–4 still run as *study → lab*; the
       stage-and-gate format in Modules 5, 6a and 6b works better. Convert one module per term,
       not all at once, and write down what changed.
