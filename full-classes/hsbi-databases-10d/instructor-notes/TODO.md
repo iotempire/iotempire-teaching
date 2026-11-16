@@ -40,6 +40,14 @@ the architecture log first.
 - [ ] **Refresh the numbers** in the module stories (D3) — M5 4.07/11.09 MB, M6a 2M rows and the
       warm timings — if you change the datasets or the SQLite/DuckDB versions.
 
+- [ ] **Fix the broken case-study anchor in Module 1.** `modules/01-introduction-and-local-first.md`
+      links to `./07-final-project-studio.md#read-before-the-kickoff-systems-that-broke-the-classic-stack`,
+      but the emoji heading (`## 📖 Read before the kickoff…`) does not produce that slug. Add an
+      explicit `<a id="read-before-the-kickoff-systems-that-broke-the-classic-stack"></a>` above the
+      heading in Module 7 (stable across heading edits) or correct the link. Found by the
+      link/anchor checker during the 2026-11-16 vocabulary pass; not fixed then because it belongs
+      to this class.
+
 ## Format and pedagogy
 
 - [ ] **Intersperse theory and practice more** (D7). Modules 2–4 still run as *study → lab*; the
