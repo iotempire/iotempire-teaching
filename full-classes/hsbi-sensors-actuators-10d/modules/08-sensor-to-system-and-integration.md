@@ -1,228 +1,159 @@
-# Module 8 – From Sensor to System: MQTT & Integration
+# Module 8 – From Sensor to System: Boundary, Local Loop & Optional MQTT
 
 [← Back to Module 7](./07-motors-and-motion-actuators.md) | [Quick module index](./00-index.md) | [Next: Module 9 →](./09-final-project-studio.md)
 
-> A characterized sensor and a working actuator are still not a product. Today they become a deployed system: the node publishes over MQTT to a Mosquitto broker running anywhere on the local network, a dashboard shows and controls it, and the loop closes. IoTempower is an optional declarative path you can explore.
+> A sensor and an actuator become a system when you can say what stays on the node, what the user sees, and what the network is allowed to change. The local loop must survive the network.
 
-**Course placement:** Day 8 — the integration studio, after Checkpoint 2 (Modules 4–6). A characterized sensor and a working actuator become a deployed system.
+**Course placement:** Day 8 — one block, after Checkpoint 3 (Modules 7–8), before the project kickoff. This is a clinic, not a catalogue: you define the system boundary and close the local loop, and you may add MQTT if you take the networked track.
 
 ## 🎯 Learning Goals
 
-This module gives you the opportunity to explore embedded-to-system integration and achieve competency in direct MQTT communication, topic design, filtering, Node-RED integration, and closed-loop control. Declarative IoTempower deployment is offered as an optional comparison.
-
 By the end of this module, you can:
-1. Publish sensor data and subscribe to actuator commands over MQTT from the node.
-2. Design a clean, documented topic structure and handle reconnect, QoS, retain, and last-will behavior.
-3. Implement at least one filter (average, median, or cutoff) in firmware and explain its latency trade-off.
-4. Build a Node-RED dashboard and one closed-loop / rule-based behavior.
-5. Inject faults (sensor disconnect, actuator stall, broker restart) and show graceful recovery.
-6. *(Optional)* Compare your implementation with a declarative IoTempower node.
-
+1. Define the system boundary: what runs on the node, what the local UI shows, and what a network interface would expose.
+2. Close a local control loop with one filter and a defined safe state.
+3. Test sensor disconnect, actuator stall, and noise — and, on the networked track, a broker restart.
+4. Write a System Boundary Document: protocol, payloads or topics, broker, security, and failure behavior.
+5. *(Optional)* Implement MQTT publish/subscribe and a dashboard or CLI.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ## 📖 Story — The Greenhouse That Kept Its Own Weather
 
-**Klimapark GmbH** has a working greenhouse and a new problem: the frost alarm, the vent fan, and the irrigation valve each run on their own controller, and none of them share a state. Operations manager **Tobias Kern** wants one dashboard and one rule: if the air temperature drops below 2 °C, close the vent, start the fan, and open the heater valve; if the sensor dies, fail safe and tell him.
+**Klimapark GmbH** has a working greenhouse and a new problem: the frost alarm, the vent fan, and the irrigation valve each run on their own controller, and none of them share a state. Operations manager **Tobias Kern** wants one view and one rule: if the air temperature drops below 2 °C, close the vent, start the fan, and open the heater valve; if the sensor dies, fail safe and tell him.
 
-Agronomist **Dr. Elif Kaya** adds the constraint that matters: *“The plants do not care whether the broker is reachable — the local loop has to keep working.”* Today you publish the sensor over MQTT, subscribe to actuator commands, process the signal with a filter in firmware, build a Node-RED dashboard, close the loop, and inject the faults that will happen in a real greenhouse. If you are curious, you can also compare this with a declarative IoTempower node — but that is an optional exploration.
+Agronomist **Dr. Elif Kaya** adds the constraint that matters: *“The plants do not care whether the broker is reachable — the local loop has to keep working.”* That sentence is the module. You can build the greenhouse as a self-contained node with a local display and a documented network boundary (Track A), or add MQTT and a dashboard (Track B). Both are valid; both must keep the local loop alive.
 
-## 📖 Pod Study: From Node to System
+## 🔀 Two tracks
 
-This is **self/pod study, not a lecture.** Work through the concepts below with your Task Pod, look things up, ask an LLM, and keep notes — the goal is a shared mental model you can explain in the checkpoint.
+- **Track A — self-contained (default).** The node senses, filters, controls the actuator, and shows or logs the data. You write the System Boundary Document.
+- **Track B — networked (optional).** Add MQTT publish/subscribe and a dashboard or CLI, and test a broker restart.
 
-### Talking MQTT from the Node
+The final project uses the same split; choose the track you want to defend there.
 
-The baseline is deliberately small: a **Mosquitto broker running anywhere in the network** and a node that speaks MQTT directly. There is no gateway in between.
+## 🛠️ The clinic
 
-- **Publish telemetry:** the node sends a reading to a topic such as `sensors/<yourname>/module08/temperature`. Any subscriber — `mosquitto_sub`, MQTT Explorer, Node-RED, or another node — can receive it.
-- **Subscribe to commands:** the node listens on a command topic such as `sensors/<yourname>/module08/fan/set` and drives its actuator when a message arrives.
-- **Choose a topic hierarchy and keep it stable:** for example `<site>/<node>/<device>` for telemetry and `<site>/<node>/<device>/set` for commands. Document it.
-- **Know four MQTT details:** QoS (0/1/2 delivery guarantees), retain (last value kept for new subscribers), last will and testament (LWT, so a dead node is visible), and client-ID uniqueness (two clients with the same ID disconnect each other).
-- **Handle disconnects:** Wi-Fi and brokers restart. Reconnect in `loop()`, resubscribe after reconnect, and keep the local control loop alive when the broker is unreachable.
+### ★ Task 1 — Draw the boundary, close the local loop
 
-Client options: `PubSubClient` on Arduino/ESP, `paho-mqtt` in Python, or `mosquitto_pub`/`mosquitto_sub` for testing from the shell.
+**Proves:** Goals 1, 2, and 4 · **Produces:** a working local loop and the first System Boundary Document.
 
-### Optional: Declarative Deployment with IoTempower
+1. **Choose your track** and write one sentence why.
+2. **Draw the boundary.** One sensor, one actuator, a local rule, and a local UI or log. Mark what must keep working when the network is gone.
+3. **Close the loop.** Read the sensor, apply one filter (average, median, or cutoff), apply a rule with hysteresis, drive the actuator, and define the safe state on startup and on sensor failure.
+4. **Write the System Boundary Document** (template in Appendix A), or the topic map if you are on Track B.
+5. **★ Log it.** In `## Study log` in `Module08/README.md`: the boundary, the filter and rule, the safe state, and the track choice.
 
-If you want to see how a framework removes the boilerplate above, IoTempower offers a declarative alternative. It is **optional** — every learning goal in this module can be met with the direct MQTT path.
+**Done when:** the local loop keeps working with the network off, and the boundary document says what the network would change.
 
-- You declare which devices are connected (sensor, actuator, display, bus), and the framework generates a robust runtime.
-- You get a standardized MQTT topic scheme for free (`<node>/<device>` for telemetry, `<node>/<device>/set` for commands).
-- You get Over-The-Air (OTA) updates once a node is provisioned: change the declaration, then `iot deploy` — no USB cable, ideal for a device already mounted in an installation.
+### ★ Task 2 — Break it on purpose
 
-### Filters: Processing in Firmware (or Declaratively)
+**Proves:** Goal 3 · **Produces:** a short fault log with observed behavior.
 
-Sensor data usually needs conditioning before it is useful. Implement the basic filters in your sketch, and only move them into a framework if you choose the optional IoTempower path:
+1. **Sensor disconnect:** unplug the I²C sensor. Does the node stay alive, report a fault, and enter the safe state?
+2. **Actuator stall:** block the motor or servo. Does current or timing reveal it, and does the interlock react?
+3. **Noise:** add a motor, longer wires, or a light source. Does the filter or hysteresis cope?
+4. **Track B only — broker restart:** restart Mosquitto. Do node and dashboard reconnect and resubscribe?
+5. **★ Log it.** One line per test: what you broke, what happened, what you changed.
 
-- average / median — noise and spike suppression (Module 3 and Module 1),
-- mapping/scaling — raw code → physical units, or → a custom range,
-- cutoff / outlier gate — discard values outside a valid band before averaging,
-- smoothing / thresholds / on-off — turning a stream into decisions.
+**Done when:** each test has an observed result, including “it did not recover” — that is a finding, not a failure.
 
-This is where the measurement theory of Module 3 becomes an operational choice — and where you should document *why* you chose a given filter and window.
+### ◇ Task 3 — MQTT and a dashboard (Track B)
 
-> **TODO: consider studying** software hysteresis and dead-zone filters here as explicit stream-to-decision filters (not only as control-loop behavior), and link back to the RC/software low- and high-pass work in Modules 1 and 3.
+**Proves:** Goal 5 · **Produces:** working topics, a dashboard or CLI view, and a topic map.
 
-> [!TIP]
-> If you use IoTempower (optional), it also provides built-in `average`, `median`, smoothing, and mapping filters. Comparing your firmware filter with a declared filter is a good stretcher exercise.
+1. Start a broker on any host, publish the sensor value, and subscribe to a command topic.
+2. Add reconnect, resubscription, and a last-will message so a dead node is visible.
+3. Build a Node-RED dashboard or a small CLI view with one rule, and document how manual and automatic control are arbitrated.
+4. **★ Log it.** The topic map, the reconnect behavior, and the dashboard link.
 
-### Integration and Control
+### ★ Task 4 — Exchange and evidence
 
-- MQTT topics publish data and receive commands; the broker decouples sensor nodes, dashboard, and actuators in a local-first stack.
-- Node-RED turns a stream into a dashboard gauge/chart, a rule, or a control command.
-- Closed-loop control makes the system *act on what it measures*. Start simple:
-  - On/off control with hysteresis (a dead band) — the robust default (e.g. fan on above 30 °C, off below 28 °C).
-  - Proportional (P) adds an output proportional to the error; PI removes steady-state error. Tune cautiously and document the behavior.
-- Safety and interlocks belong here: a maximum duty cycle, a timeout that stops a motor if commands stop arriving, and a defined state on startup.
+**Proves:** Goals 1–5 · **Produces:** the agreed learning in your shared log, one shared artefact, and the evidence list below.
 
-### Failure Modes to Expect
-
-Design for these — you will test some of them today and during the final project:
-
-- An I²C sensor stops answering (NACK) → does the node keep running, retry, and report "sensor fault"?
-- An actuator is blocked or disconnected → does current/behavior reveal it, and does the logic fail safe?
-- The broker restarts → do publisher and controller reconnect and resubscribe?
-- The network drops → does local behavior continue, and does the system re-sync when it returns?
-
-### Sensor Principles You Did Not Put on the Bench
-
-Module 4 gave you distance and level by ToF, ultrasound, a scale, and switches. Three principles were not on that bench. Read them now, because the final project may need one.
-
-- **Hydrostatic pressure.** A column of liquid produces `p = ρ · g · h` at the bottom. Measure the pressure at the lowest point and you get level without line of sight — it works in opaque, dirty, and foamy liquids, which is why it is the default in real tanks. The catch is density: diesel (≈830 kg/m³) and water (1000 kg/m³) give different pressures at the same height, so a water-calibrated level reads about 17 % **low** in diesel. A sealed tank also needs a vent or a differential sensor, or the gas pressure above the liquid biases the reading. Industrial transmitters send 4–20 mA — live zero, so 4 mA is empty and 3 mA means a broken wire.
-- **Triangulation.** An IR emitter and a position-sensitive detector measure the *angle* of the reflected spot; the fixed baseline between them gives the distance. It is cheap and fast, but the target decides: black, mirror-like, or transparent surfaces return too little or the wrong light, and resolution falls with distance. Unlike the ToF clear-water problem, this failure is about the surface, not the medium.
-- **Gyroscope.** A gyro measures angular *rate* (deg/s), not angle. Integrate the rate and the angle drifts, because a small bias accumulates; the accelerometer gives an absolute reference but is noisy. That is why real systems fuse the two. Your BMI270 in Module 4 used the accelerometer half; the gyro is the other half.
-
-### Pointers (start here, then keep looking)
-
-- MQTT essentials — [mqtt.org](https://mqtt.org/), [HiveMQ: MQTT essentials](https://www.hivemq.com/mqtt-essentials/)
-- Broker — [Mosquitto documentation](https://mosquitto.org/documentation/) (run it on any host in the network)
-- Arduino client — [PubSubClient](https://github.com/knolleary/pubsubclient) library
-- Node-RED — [Node-RED documentation](https://nodered.org/docs/), dashboard nodes
-- Optional declarative path — [IoTempower documentation](https://github.com/iotempire/iotempower) — nodes, devices, filters, `iot deploy`
-- Control loops — [Wikipedia: Control theory](https://en.wikipedia.org/wiki/Control_theory), [PID controller](https://en.wikipedia.org/wiki/Proportional%E2%80%93integral%E2%80%93derivative_controller)
-- Pressure and current loops — [Pressure sensor](https://en.wikipedia.org/wiki/Pressure_sensor), [Current loop](https://en.wikipedia.org/wiki/Current_loop)
-- Distance principles — [Laser rangefinder](https://en.wikipedia.org/wiki/Laser_rangefinder) (triangulation versus time of flight)
-- IMU and fusion — [Inertial measurement unit](https://en.wikipedia.org/wiki/Inertial_measurement_unit), [Sensor fusion](https://en.wikipedia.org/wiki/Sensor_fusion)
-- Reliability patterns — the [resource bank's troubleshooting table](./Z-resources-bank.md#troubleshooting-quick-drops)
-
-### Questions to ask an LLM (then verify against your system)
-
-Ask your co-pilot — but treat every answer as a **claim to test**, not a fact. Good starting prompts:
-
-- "Write a minimal `PubSubClient` sketch that publishes a sensor value and subscribes to a command topic. What reconnect, resubscribe, and last-will handling should I add?"
-- "Design an MQTT topic hierarchy for a greenhouse with several nodes, sensors, and actuators. Justify the levels and the command/state split."
-- "Explain on/off control with hysteresis versus proportional control. Give me a temperature example and the trade-offs."
-- "My Node-RED rule and my manual dashboard control fight each other. What arbitration patterns are used in real systems?"
-- "List the failure modes of an MQTT sensor/actuator node and the smallest recovery behavior for each."
-- "Compare hydrostatic pressure, ToF, ultrasonic, and a scale for a diesel tank. Which survives dirty fuel, foam, and a sealed tank, and which fails first?"
-- "Why does a 4–20 mA loop use 4 mA as zero, and what does a 3 mA reading tell you?"
-- "Why does integrating a gyro drift, and how does an accelerometer correct it?"
-
-> Run each prompt against your own system, and record where the model is wrong, vague, or over-confident.
-
-### ★ Task A: Study in your pod
-
-Work through the concepts above with your Task Pod and write it up under `## Study log` in `Module08/README.md` — a section, not a file, unless it outgrows the page. **One pod member keeps the shared log; the others link to that section from their own module README and add one sentence on what they took from it.**
-
-1. **The references you used** — the source and the one concept you understood best from it.
-2. **Things you googled** — the term, what you found, and the source (URL). One line each.
-3. **Remarkable things** — surprises, "aha"s, and counterexamples from your own system.
-4. **LLM Q&A** — for each prompt: the prompt, a 2–3 line summary, and **how you verified it** (and where it was wrong).
-5. **Your two best found integration diagrams or topic hierarchies** — compile down to the best two, with source and what they taught you.
-6. **Three principles you did not bench-test** — one line each for hydrostatic pressure, triangulation, and the gyroscope: what it measures, one failure mode, and when you would choose it.
-
-*Portfolio evidence:* the `## Study log` section (yours, or a link to your pod's shared one).
-
-### ★ Task B: Explain & share with another pod
-
-Pair with a **neighbouring pod**:
-
-1. **Explain to each other** — each pod walks the other through its node definition, topic hierarchy, and control rule; ask questions and fill each other's gaps.
-2. Agree on the **3–5 most noteworthy points** and the **learning you jointly stand behind** (e.g. *"the local loop must survive a broker restart"*).
-3. **Clean up your documentation** — update the `## Study log` with what you learned from the other pod.
-4. Agree on **one shared artefact** — the best dashboard screenshot, topic diagram, or failure-mode table the two pods make together — and **post it in the course Discord**, with a one-sentence note on why you chose it.
-5. Each member adds a short **“Agreed learning (pod discussion)”** note — in the shared log, or in your own module README with a link to it.
-
-*Portfolio evidence:* the cleaned-up `## Study log` (with the **“Agreed learning (pod discussion)”** note) and your pod-pair's shared artefact.
-
-## 🛠️ In-Class Lab: Close the Loop — **Challenging**
-
-*Hardware:* 1× M5Stack node and/or a raw ESP board (ESP32 DevKit, ESP32 Ethernet mini kit, or Wemos D1 Mini) with a sensor (e.g. environment or ToF) and an actuator (relay/fan mock, LED, or servo), plus a Mosquitto broker on any host in the network (router, Raspberry Pi, or laptop) and optional Node-RED.
-
-> [!WARNING]
-> Power off before rewiring, and re-check that any motor/relay/LED load has its own supply and a common ground (Module 7).
-
-### ★ Task 1: Publish a Sensor and Command an Actuator over MQTT
-
-1. Start a Mosquitto broker on any host in the network (or use the one provided by the course) and note its IP address.
-2. In your sketch, publish the sensor reading to a telemetry topic, for example `sensors/<yourname>/module08/temperature`.
-3. Subscribe to a command topic, for example `sensors/<yourname>/module08/fan/set`, and drive an actuator (relay, LED, servo, or buzzer) when a message arrives.
-4. Verify both directions from the shell:
-   ```sh
-   mosquitto_sub -h <broker-ip> -t 'sensors/<yourname>/module08/#' -v
-   mosquitto_pub -h <broker-ip> -t 'sensors/<yourname>/module08/fan/set' -m '1'
-   ```
-5. Add reconnect and resubscribe handling, and document your topic hierarchy.
-
-> [!NOTE]
-> **Optional comparison:** if you also want to try the declarative path, create a fresh IoTempower system with the same sensor and actuator, for example `temperature(temp, "ENV");` and `relay(fan, "RELAY", "D1");`, flash once, and compare the generated topics with your own. This is an exploration, not a requirement.
-
-### ★ Task 2: Process the Signal with a Filter
-
-1. Implement an average or median filter (or a cutoff/outlier gate) in your sketch and observe the reduction in jitter.
-2. Compare the raw and filtered values on the same dashboard or serial plot. State the window size you chose and why.
-3. Note the added latency and whether it matters for your intended behavior.
-
-> If you use IoTempower (optional), you can alternatively declare the same filter and compare both implementations.
-
-### ★ Task 3: Dashboard and Rule
-
-1. In Node-RED, build a dashboard showing the measured value (gauge + chart) and a control for the actuator.
-2. Add at least one rule: a threshold with hysteresis that automatically drives the actuator (e.g. fan on/off, warning LED, servo position).
-3. Verify that manual control and the automatic rule do not fight each other (document how you arbitrate them).
-
-### ★ Task 4: Reconnect, Optional OTA, and Inject Faults
-
-1. Restart the broker and the Wi-Fi connection; verify that the node reconnects and resubscribes automatically.
-2. *(Optional)* Try an over-the-air update — `ArduinoOTA` in your sketch, or `iot deploy` if you are exploring IoTempower.
-3. Inject faults and record the system's behavior:
-   - Sensor fault: unplug the I²C sensor; does the node keep running and report a fault?
-   - Actuator stall: block a motor/servo; observe current/behavior and any timeout.
-   - Broker restart: restart Mosquitto; do the node and the dashboard reconnect and resubscribe?
-4. Document each recovery (or missing recovery) — these are the seeds of the final project's resilience test.
-
-### ◇ Task 5 (Stretcher): A Smarter Loop or a Data Log
-
-Either:
-
-- implement a simple P (or PI) controller for your actuator and record the step response (overshoot, settling time), comparing it with plain on/off control; or
-- log the sensor stream to a local database (SQLite/InfluxDB) and plot a longer trend in Node-RED.
+1. Show each other the local loop, the boundary document, and the fault log.
+2. Compare tracks: what did the network add, and what did it complicate?
+3. Agree on the 3–5 most noteworthy points and one learning you jointly stand behind; write the “Agreed learning (pod discussion)” note into the shared log.
+4. Pick one shared artefact — the boundary document, the fault log, or the dashboard — and post it in the course Discord with one sentence on why.
+5. Check the evidence list below and fill the gaps.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. Firmware (sketch or IoTempower node definition, if used) plus the exact MQTT topics produced and consumed.
-2. Filter evidence: raw vs. filtered data and the filter/window you chose, with rationale.
-3. Dashboard assets: screenshot of the dashboard and the exported Node-RED flow JSON (or a CLI/subscriber capture if you did not use Node-RED).
-4. Control rule: the hysteresis/control logic and how manual vs. automatic control is arbitrated.
-5. Fault-injection report: the three faults and the observed recovery.
-6. Deeper question: Which parts of a sensor/actuator product belong on the node, and which belong in the integration layer? Justify one split.
+1. `## Study log` in `Module08/README.md` with the boundary, the local loop, and the track choice.
+2. Local-loop code and wiring: sensor, filter, rule, actuator, safe state.
+3. System Boundary Document (Track A) or topic map + dashboard capture (Track B).
+4. Fault log: sensor disconnect, actuator stall, noise, and (Track B) broker restart.
+5. One paragraph: what must stay on the node, and why.
+6. Deeper question: if the network is optional, what still makes this a *system* rather than a lab circuit?
 
+> You may prove the same goals another way. The evidence is the point, not the task list.
 
-> [!IMPORTANT]
-> Never commit secrets, credentials, or personal data. Where you did not work entirely alone, link your pod mates and sources.
+## 📎 Appendix A — System Boundary Document template
+
+```text
+System Boundary — <project name>
+
+Node:                 <board, sensors, actuator, power>
+Local loop:           sensor -> filter -> rule -> actuator
+Safe state:           <startup, sensor failure, actuator stall>
+Local UI / logging:   <display, serial, SD, plot>
+
+Network interface (planned or implemented):
+  Protocol:           <MQTT / serial / BLE / Wi-Fi / none>
+  Endpoint:           <broker or peer>
+  Topics / payloads:  <telemetry, commands, units, rate>
+  Security:           <credentials, network, exposure>
+  Failure behavior:   <what stays local, what reconnects>
+
+What must stay local if the network drops: <...>
+What the network is allowed to change:     <...>
+```
+
+## 📎 Appendix B — MQTT quick start (Track B only)
+
+- **Publish/subscribe:** the node publishes telemetry and subscribes to a command topic; the broker decouples the node, the dashboard, and other clients.
+- **Topics:** keep a stable hierarchy, for example `<site>/<node>/<device>` for telemetry and `<site>/<node>/<device>/set` for commands. Document it.
+- **Four details:** QoS (0/1/2), retain (last value for new subscribers), last will and testament (a dead node becomes visible), and unique client IDs (duplicates disconnect each other).
+- **Reconnect:** Wi-Fi and brokers restart. Reconnect in `loop()`, resubscribe, and keep the local loop alive while the broker is unreachable.
+- **Clients:** `PubSubClient` on Arduino/ESP, `paho-mqtt` in Python, or `mosquitto_pub`/`mosquitto_sub` for testing.
+- **Dashboard:** Node-RED is the usual choice; a plain MQTT subscriber or a small Python service is equally valid.
+- **IoTempower:** an optional declarative alternative that generates the topic scheme and supports OTA. It is an exploration, not a requirement.
+- **Security:** no credentials or personal data in the repository; use a local broker and document the exposure.
+
+## 📎 Appendix C — Reading homework: three principles not on the bench
+
+Module 4 gave you distance and level by ToF, ultrasound, a scale, and switches. Three handbook principles were not on that bench. Read them; the final project may need one.
+
+- **Hydrostatic pressure.** A column of liquid produces `p = ρ · g · h` at the bottom. Measure the pressure at the lowest point and you get level without line of sight — it works in opaque, dirty, and foamy liquids, which is why it is the default in real tanks. The catch is density: diesel (≈830 kg/m³) and water (1000 kg/m³) give different pressures at the same height, so a water-calibrated level reads about 17 % low in diesel. A sealed tank needs a vent or a differential sensor. Industrial transmitters send 4–20 mA — live zero, so 4 mA is empty and 3 mA means a broken wire.
+- **Triangulation.** An IR emitter and a position-sensitive detector measure the angle of the reflected spot; the fixed baseline gives the distance. Cheap and fast, but the target decides: black, mirror-like, or transparent surfaces return too little or the wrong light, and resolution falls with distance.
+- **Gyroscope.** A gyro measures angular rate (deg/s), not angle. Integrate the rate and the angle drifts because a small bias accumulates; the accelerometer gives an absolute but noisy reference. Real systems fuse the two. Your BMI270 used the accelerometer half in Module 4; the gyro is the other half.
+
+## 📎 Appendix D — Pointers and prompts
+
+**Pointers**
+
+- MQTT — [mqtt.org](https://mqtt.org/), [HiveMQ: MQTT essentials](https://www.hivemq.com/mqtt-essentials/)
+- Broker — [Mosquitto documentation](https://mosquitto.org/documentation/)
+- Arduino client — [PubSubClient](https://github.com/knolleary/pubsubclient)
+- Dashboard — [Node-RED documentation](https://nodered.org/docs/)
+- Optional declarative path — [IoTempower](https://github.com/iotempire/iotempower)
+- Control — [Wikipedia: Control theory](https://en.wikipedia.org/wiki/Control_theory)
+- Reading homework — [Pressure sensor](https://en.wikipedia.org/wiki/Pressure_sensor), [Laser rangefinder](https://en.wikipedia.org/wiki/Laser_rangefinder), [Inertial measurement unit](https://en.wikipedia.org/wiki/Inertial_measurement_unit)
+
+**Questions to ask an LLM (then verify against your system)**
+
+- “Given this sensor and actuator, propose a local control loop with hysteresis and a safe state. What must stay local if the network drops?”
+- “Review this System Boundary Document: which fields are missing, and which failure behavior is untestable?”
+- “Write a minimal `PubSubClient` sketch with publish, subscribe, reconnect, and last-will handling for this greenhouse.”
+- “What does a broker restart do to a node that also runs a local control loop, and how do I test it without stopping the greenhouse?”
+- “Compare hydrostatic pressure, ToF, ultrasonic, and a scale for a diesel tank. Which survives dirty fuel, foam, and a sealed tank?”
+
+> Run each prompt against your own system, and record where the model is wrong, vague, or over-confident.
 
 ## 📚 If you want to go deeper
 
-- [mqtt.org](https://mqtt.org/), [HiveMQ: MQTT essentials](https://www.hivemq.com/mqtt-essentials/), and [Mosquitto documentation](https://mosquitto.org/documentation/) — topics, QoS, retain, LWT, and running a broker.
-- [PubSubClient](https://github.com/knolleary/pubsubclient) — the Arduino MQTT client used in the baseline labs.
-- [Node-RED documentation](https://nodered.org/docs/) — flows, dashboards, and context.
-- [Control theory](https://en.wikipedia.org/wiki/Control_theory) and [PID controller](https://en.wikipedia.org/wiki/Proportional%E2%80%93integral%E2%80%93derivative_controller) — from on/off to proportional control.
-- [IoTempower](https://github.com/iotempire/iotempower) — optional declarative nodes, filters, and OTA deployment.
-- [Pressure sensor](https://en.wikipedia.org/wiki/Pressure_sensor) and [current loop](https://en.wikipedia.org/wiki/Current_loop) — hydrostatic level and the 4–20 mA interface.
-- [Laser rangefinder](https://en.wikipedia.org/wiki/Laser_rangefinder) — triangulation next to time of flight.
-- [Inertial measurement unit](https://en.wikipedia.org/wiki/Inertial_measurement_unit) and [sensor fusion](https://en.wikipedia.org/wiki/Sensor_fusion) — why the gyro needs the accelerometer.
-- The [resource bank's troubleshooting table](./Z-resources-bank.md#troubleshooting-quick-drops) — the failures you will actually see.
+- [Wikipedia: Systems architecture](https://en.wikipedia.org/wiki/Systems_architecture) — layers, interfaces, and trade-offs.
+- [Wikipedia: Fault injection](https://en.wikipedia.org/wiki/Fault_injection) — how to prove resilience.
+- [Wikipedia: Control theory](https://en.wikipedia.org/wiki/Control_theory) — the local loop in the wider picture.
+- [Module 9](./09-final-project-studio.md) — the project uses the same two tracks.
 
 ---
 

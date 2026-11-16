@@ -53,6 +53,13 @@ Proposals, not decisions. Prototype them as outlines before touching the module 
 - [ ] **Roll out Task → Subtask → Evidence to Modules 1–4.** Module 5 is the reference (D21). Next run: rewrite each main divider as `Task N — <outcome>`, add `Proves:`/`Produces:`, make the log a standing `★ Log it` line, fold the letter tasks (A/B) into a closing exchange task, and drop Studio/Round as activity names. Do the same in the Databases and Networking workbooks, whose TODOs point back here.
 - [ ] **Make AI-first explicit in every challenge.** The evaluation expects AI-first teaching; Module 5 uses the loop prompt → draft → verify → commit, with the repo as the deliverable. Decide the pattern for the other modules: what the AI drafts, what must be verified on hardware, and what is committed (D14, D17, D19).
 
+## Timetable change (D23)
+
+- [ ] **Keep contact hours in school-hour units.** 48 school hours = 36 clock hours (16 Übung + 16 Praktikum + 16 betreutes Selbststudium). Publish the annual 90/180-minute slot pattern from the LMS; do not derive a fixed block count from the day table. The 22-block/44-hour/33-clock-hour model was a miscount (a 90-minute slot is two 45-minute school hours).
+- [ ] **Announce the two project tracks and the video artifact in the first session.** Track A (self-contained + System Boundary Document) is the default; Track B (MQTT + dashboard) is optional. The 5–10 minute video is the assessed artifact, not the live walkthrough.
+- [ ] **Update `00-assessment-and-operations.md` and the run sheets** to the 9-day timetable, CP2 on Day 7, CP3 on Day 8, and the Day 9 3 × 30 format.
+- [ ] **Review the 2.7 note after the first run.** It is an instructor judgment for an overall 3.0 with an exceptionally shaped portfolio; if it is used, record the case and decide whether it belongs in the table.
+
 ## Module 3 carry-over
 
 - [ ] **Keep the NTC in the story, not the kit.** The failed prototype explains the problem; the LDR, DS18B20 sealed probe, and potentiometer are the bench (D7).

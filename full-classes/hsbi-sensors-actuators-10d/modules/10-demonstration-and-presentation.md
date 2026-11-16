@@ -1,18 +1,18 @@
-# Module 10 – Project Presentation & Submitted Artifacts
+# Module 10 – Project Video & Feedback Walkthrough
 
 [← Back to Module 9](./09-final-project-studio.md) | [Quick module index](./00-index.md)
 
-**Course placement:** Day 10 — the final session. You present the **submitted project documentation, slide deck, and demo artifacts**. This is an artifact presentation, **not a separate oral examination**: no co-examiner and no minutes are required.
+> The last session is not a stage exam. It is the rehearsal before the take: you walk us through the system, we push back, and then you record the version you submit.
+
+**Course placement:** Day 9 afternoon, 12:30–14:00. Three Project Teams, 30 minutes each: 15–20 minutes presentation, with the rest of the slot for instructor and peer feedback. The assessed artifacts are the **submitted video, slide deck, and documentation**, not the live performance.
 
 ## 🎯 Learning Goals
 
-This module gives you the opportunity to explore engineering communication and artifact-based presentation and achieve competency in presenting a characterized sensor/actuator system, explaining your measurements and design decisions, and submitting a coherent portfolio.
-
 By the end of this module, you can:
-1. Present the submitted slide deck and demo artifacts for your sensor/actuator system.
-2. Explain your measurement and characterization decisions, your actuator choices, and your resilience design from the submitted evidence.
-3. Complete the portfolio submission and artifact walkthrough.
-4. Reflect on your journey from an ADC code to a documented, characterized system.
+1. Walk a technical audience through a characterized sensor/actuator system in 15–20 minutes.
+2. Explain the story, architecture, one measurement with uncertainty, and one failure from your submitted evidence.
+3. Give and take specific feedback that improves another team's system and your own video.
+4. Record a 5–10 minute video that stands on its own as the assessed artifact.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
@@ -20,64 +20,66 @@ By the end of this module, you can:
 
 It is the opening night at the Stadtmuseum. **Aylin Demir** is watching the corridor; **Mara Voss** is standing by the controller; **Jonas Feld** has a USB cable and a fallback recording. The light wall is supposed to breathe, wake on approach, and survive a guest unplugging the wrong thing. Nobody cares how elegant the sketch is if the wall goes dark at 19:55.
 
-Your final presentation is that moment in miniature. You have a short slot: first show the system measuring and acting using your submitted demo artifacts, then walk through the decisions documented in your report. The instructor will test one fault on the system or the artifacts. The story gives you the *why*; the characterization and the fault-injection log give you the *how do you know?*
+Your walkthrough is that moment in miniature: show the system measuring and acting, then explain the decisions that are documented in your report. The story gives the *why*; the characterization and the fault-injection log give the *how do you know?*
 
-## 🛠️ In-Class Presentation & Artifact Walkthrough
+## 🗓️ The day
 
-*The format, timing, and submission rules are set in the [syllabus](../syllabus.md#final-project-requirements-5-points); this page is the working presentation script.*
+| Time | What happens |
+|---|---|
+| 08:30–10:30 | Final build and freeze: finish the system, the measurements, and the slides. |
+| 10:30–11:30 | Practice round: run the walkthrough, fix what does not work, time yourselves. |
+| 11:30–12:30 | Break — use it if you still need a rehearsal, but the practice slot is 10:30–11:30. |
+| 12:30–14:00 | Three teams, 30 minutes each: 15–20 minutes presentation, feedback fills the rest of the slot. |
+| After class | Record the 5–10 minute video and submit it with the slide deck and documentation. |
 
-### Presentation Script Guidelines
+The live session is deliberately a **feedback rehearsal**. Nothing in it is graded. The video is recorded afterwards, with the feedback incorporated, and that video is the assessed artifact.
 
-1. **System Story & Problem Context:** Who uses this system? What real-world quantity does it measure, and what does it move?
-2. **Architecture & Measurement Explanation:** Show the physical nodes, the I²C bus and addresses, the second sensor, the actuator and its driver/supply. Explain your sensor principles and your transfer function/calibration. State resolution and uncertainty. Explain your actuator choice by torque/speed/precision and control complexity.
-3. **Artifact Demonstration:** Measure a real quantity and show it on the dashboard. Make the actuator respond (or show the animation/installation reacting to a sensor). Show one characterization result (e.g. the error table before/after calibration).
-4. **Fault-Injection Evidence:** Use the submitted fault-injection log or demo artifact to show how the system fails gracefully, reports the fault, or recovers after a sensor disconnect, an actuator stall, or a broker restart.
-5. **Portfolio Artifact Walkthrough:** Open the final section of the portfolio report and show where the evidence lives — architecture, captures, measurements, fault-injection results, and the reflection that ties the project together. Say what you would do next with another week.
+## 🛠️ The 15–20 minute walkthrough
 
-## 📋 Where the Rubric Lives
+Keep it to five slides:
 
-The final project is assessed according to the [syllabus](../syllabus.md#final-project-requirements-5-points), and the rubric lives **only** there. This page is the working presentation script and artifact checklist; if the two ever disagree, the syllabus wins.
+1. **Story and user.** One named person, one problem, one decision the system supports.
+2. **Architecture.** Sensors with buses and addresses, actuator with driver and supply, the node, and the integration layer — local control or optional MQTT.
+3. **One measurement.** The transfer function or calibration, resolution, and uncertainty. Show the table or plot.
+4. **One failure.** A fault-injection result: sensor disconnect, actuator stall, noise, or (Track B) broker restart. What did the system do?
+5. **One improvement.** What you would change with another day, and why.
+
+Then demonstrate live: measure a real quantity, make the actuator respond, and repeat the demo if the first try fails. Several attempts are expected, not embarrassing.
+
+## 🎥 The submitted video (5–10 minutes)
+
+Record after the feedback round. It should stand alone for someone who was not in the room:
+
+- 30 seconds: the story and the user.
+- 2–3 minutes: the system working, with the measurement visible.
+- 2–3 minutes: the architecture and the characterization, with the numbers on screen.
+- 1–2 minutes: the failure test and the recovery, plus one improvement.
+
+A phone camera and a screen recording are enough. Upload the video with the slide deck and the documentation; the links go into the portfolio.
+
+## 📋 Where the rubric lives
+
+The final project is assessed according to the [syllabus](../syllabus.md#final-project-requirements-5-points), and the rubric lives **only** there. This page is the working script and checklist; if the two ever disagree, the syllabus wins.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-- [ ] Module 0: Pre-study notes, Wokwi simulation screenshot(s), datasheet notes, project abstract, and answers to the guiding questions.
-- [ ] Module 1: Chain diagram, basic-electronics/button/debounce evidence, serial log and plot, ADC table (raw range, steps, step size), LDR/filter comparison, vocabulary definitions.
-- [ ] Module 2: Scope decision and test captures, I²C scan output, addresses mapped to modules, raw-register reconstruction, address-conflict report.
-- [ ] Module 3: Transfer-function plot, calibration table, hysteresis/repeatability numbers, noise/filtering table, uncertainty statement.
-- [ ] Module 4: ToF characterization table, distance-sensor comparison, people-counter state machine, IMU tilt/drift/fusion results.
-- [ ] Module 5: Resistor calculation vs. measurement, PWM/gamma notes, RGB evidence, strip artifacts, power-budget table.
-- [ ] Module 6: Animation engine structure, effect videos/photos, sensor/sound interaction, installation-constraints note.
-- [ ] Module 7: Servo evidence and currents, H-bridge truth table and stall current, stepper results, sensor→motor logic.
-- [ ] Module 8: MQTT publishing/command sketch or optional IoTempower node definition, topic map, filter evidence, Node-RED flow export and dashboard, fault-injection report.
-- [ ] Modules 9 & 10: Final project architecture diagram, characterization and evaluation reports, fault-injection log, submitted slide deck and demo artifacts, and final retrospective.
-- [ ] Reflection logbook entries for the teaching blocks, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md) in `Reflections/`.
-- [ ] Where you did not work entirely alone: links to pod mates, sources, and borrowed code.
+- [ ] The submitted 5–10 minute video.
+- [ ] The slide deck used in the walkthrough and the video.
+- [ ] The project documentation: architecture, system boundary, characterization, evaluation, fault-injection log.
+- [ ] The feedback you received and one sentence per change you made in the video.
+- [ ] Reflection logbook entry for Day 9.
+- [ ] Where you did not work entirely alone: links to pod mates and sources.
 
 > [!IMPORTANT]
-> Never commit large binaries, `.venv/`, credentials, private keys, or personal data. Commit the scripts and configuration that rebuild your evidence.
+> Never commit large binaries, credentials, private keys, or personal data. Link the video from your portfolio instead.
 
 ## 🎓 Course Retrospective & What's Next
 
-Congratulations on completing Sensors and Actuators!
+After the three walkthroughs:
 
-You have developed practical mastery of:
-- From physics to numbers: measurement technique, the digital signal chain, and honest uncertainty.
-- The bus, understood: I²C wiring, addressing, register maps — the skill that makes every modern sensor approachable.
-- Characterized sensing: transfer functions, calibration, hysteresis, and filtering you can explain from evidence.
-- Actuation: LEDs and LED animation, servos, DC motors, and steppers, driven safely and correctly.
-- Systems: sensors and actuators integrated through direct MQTT and Node-RED (and, optionally, deployed declaratively with IoTempower).
-
-### Next Steps:
-- Optionally continue with the IoTempire ecosystem: [iotempire.net](https://iotempire.net/) and [github.com/iotempire/iotempower](https://github.com/iotempire/iotempower).
-- Extend your final project toward the announcement's larger ideas: a flow sensor with light barriers, a Hall-effect power monitor, an interactive LED installation, or a music-synchronized fountain.
-- If you continue into a bachelor thesis or project, your characterization and evaluation documentation is exactly the material that turns a prototype into a credible engineering result.
-
-## 📚 If you want to go deeper
-
-- [Wikipedia: Story-driven modeling](https://en.wikipedia.org/wiki/Story-driven_modeling) — the method behind the project stories.
-- [Wikipedia: Fault injection](https://en.wikipedia.org/wiki/Fault_injection) — the resilience evidence you present.
-- [Wikipedia: Technical presentation](https://en.wikipedia.org/wiki/Technical_presentation) — structure, evidence, and time discipline.
-- The [general teaching hints](../instructor-notes/01-general-teaching-hints.md#demo-day) — how the artifact presentation is run.
+- **What survives contact with a real room?** Which choices held, which broke, and what would you do differently?
+- **What did you learn that is not in a datasheet?** Wiring, timing, heat, noise, people.
+- **Where next?** Final project, a Stretcher, the sibling IoT classes, or your own build.
 
 ---
 

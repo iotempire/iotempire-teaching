@@ -2,7 +2,7 @@
 
 [← Course workbook](../README.md) | [Pre-study guide](../pre-study.md) | [Syllabus](../syllabus.md) | [Instructor notes](../instructor-notes/)
 
-## Session roadmap (10 days, one module per day)
+## Session roadmap (9 teaching days, one module per day)
 
 | Module | Day | Modern studio | Hands-on focus |
 |:---:|:---:|---|---|
@@ -13,10 +13,10 @@
 | [Module 4](./04-liquid-measurement-and-sensor-selection.md) | Day 4 | Liquid Measurement & Sensor Selection **+ Checkpoint 1** | Binary/threshold/continuous/hybrid sensing, two pods aim for 4–5 decision-sheet rows, failure modes, IMU shock/motion; pod recommendation and theory reports. |
 | [Module 5](./05-leds-and-light-output.md) | Day 5 | LEDs & Light as Output | Single-LED PWM, RGB mixing, addressable WS2812B, power budget, AI-scaffolded RGB and strip projects. |
 | [Module 6](./06-led-animation-sound-and-installations.md) | Day 6 | LED Animation, Sound & Interactive Installations | 32×32 HUB75 panel bring-up and power ceiling, non-blocking breathing, microphone and optional IMU interaction, one- vs two-controller architecture. |
-| [Module 7](./07-motors-and-motion-actuators.md) | Day 7 | Motors & Motion Actuators | Servo position, DC motor with H-bridge, stepper steps, current and stall, sensor→motor logic. |
-| [Module 8](./08-sensor-to-system-and-integration.md) | Day 8 | From Sensor to System: MQTT & Integration **+ Checkpoint 2** | Direct MQTT publishing and commands, filters in firmware, Node-RED dashboard, closed-loop control, fault injection; optional IoTempower comparison. |
-| [Module 9](./09-final-project-studio.md) | Days 9–10 | Final Project Studio | Kickoff and story, build and integrate, characterization and evaluation, peer review; **checkpoint 3** (Modules 7–8). |
-| [Module 10](./10-demonstration-and-presentation.md) | Day 10 | Project Presentation & Submitted Artifacts | Artifact-based presentation of the submitted slide deck and demo artifacts, measurement and fault-injection evidence, portfolio walkthrough. |
+| [Module 7](./07-motors-and-motion-actuators.md) | Day 7 | Motors & Motion Actuators **+ Checkpoint 2** | Servo position, DC motor with H-bridge, stepper steps, current and stall, sensor→motor logic; reading on the remaining actuator families. |
+| [Module 8](./08-sensor-to-system-and-integration.md) | Day 8 | From Sensor to System: Boundary, Local Loop & Optional MQTT **+ Checkpoint 3** | System boundary and interface specification, local control loop with filter and safe state, fault tests; optional MQTT/dashboard; project kickoff. |
+| [Module 9](./09-final-project-studio.md) | Days 8–9 | Final Project Studio | Two tracks (self-contained or networked), kickoff and requirements, build and integrate, characterization and evaluation, fault injection, peer review, video plan. |
+| [Module 10](./10-demonstration-and-presentation.md) | Day 9 | Project Video & Feedback Walkthrough | Three 30-minute team walkthroughs (15–20 presentation + 10–15 feedback), 5–10 minute assessed video recorded after class, retrospective. |
 | [Session 1 slides](../slides/01-introduction.md) | Day 1 | Supplementary | Plain-Markdown intro deck: whoami, first portfolio notes, course contract, pre-study rehash, and hand-over to the Module 1 tasks. |
 | [Prompt bank](./Y-resources-prompt-bank.md) | — | Supplementary | Reflection prompts, LLM-verification drills, quick references. |
 | [Resource bank](./Z-resources-bank.md) | — | Supplementary | Datasheets, cheat sheets, Git/GitHub primer, story canon, troubleshooting. |

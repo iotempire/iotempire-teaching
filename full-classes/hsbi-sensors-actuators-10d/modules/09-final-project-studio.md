@@ -2,7 +2,7 @@
 
 [← Back to Module 8](./08-sensor-to-system-and-integration.md) | [Quick module index](./00-index.md) | [Next: Module 10 →](./10-demonstration-and-presentation.md)
 
-**Course placement:** Days 9–10 — the final project studio: ideation, requirement mapping, building, characterization, hardening, and rehearsal. The exact split depends on the timetable and group progress; the schedule deliberately reserves buffer time here so slower labs do not eat into the project.
+**Course placement:** Days 8–9 — the final project studio: ideation, requirement mapping, building, characterization, hardening, and rehearsal. Day 8 starts after the Module 8 clinic; Day 9 ends with the feedback walkthrough (Module 10).
 
 ## 🎯 Learning Goals
 
@@ -10,23 +10,33 @@ This module gives you the opportunity to explore sensor/actuator system engineer
 
 By the end of this module, you can:
 1. Turn a stakeholder story into a concrete sensor/actuator architecture with explicit requirements.
-2. Build and integrate a working sensor/actuator system on the local-first stack.
+2. Build and integrate a working sensor/actuator system with a local control loop, and optionally with MQTT/dashboard.
 3. Characterize and evaluate the system: transfer function, resolution/uncertainty, actuator performance, and at least one system metric.
 4. Perform fault injection and show that the system degrades gracefully.
 5. Conduct a structured peer review and dry run of your demonstration.
+6. Define the system boundary: what runs on the node, what the local UI shows, and what a network interface would expose.
 
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ## 📖 Story — The Project Fair
 
-The last three days are a small project fair. Three stakeholders bring three real problems into the room:
+The last two days are a small project fair. Three stakeholders bring three real problems into the room:
 
 - **Aylin Demir**, curator at the Stadtmuseum, wants an interactive exhibit that reacts to visitors without a visible computer.
 - **Dr. Elif Kaya**, agronomist at Klimapark, wants a frost alarm and a vent/heater loop that keeps working when the network does not.
 - **Hendrik Brinkmann**, workshop lead at Brinkmann Maschinenbau, wants a part counter and a safe gate actuator for a test rig.
 
 Your **Project Team** — two Task Pods merged into 4–6 people — picks one story (or brings a stakeholder of your own), turns it into requirements, and builds a characterized sensor/actuator system. The story is the spine; the must-haves and the learning goals are the contract. By the end of the studio you have a working system, a measurement file, a short report, and a demo you can explain from the submitted artifacts.
+
+## 🔀 Two project tracks
+
+Choose one track and write the choice into your kickoff:
+
+- **Track A — self-contained (default).** The node senses, filters, controls an actuator locally, and shows or logs the data. You write a **System Boundary Document** (1–2 pages): the interface it would expose — topics/payloads or serial/BLE/Wi-Fi, broker, security, failure behavior.
+- **Track B — networked (optional).** Add MQTT publish/subscribe and a dashboard or CLI, and test a broker restart.
+
+Both tracks carry the same 5 points and the same sensing, characterization, actuation, and reliability must-haves.
 
 ## 📖 Studio Briefing: From Story to System
 
@@ -57,7 +67,7 @@ The project is a short engineering sprint, not a single lab:
 ```text
 [Kickoff]        Story, team, requirements, first architecture sketch
     |
-[Build]          Sensors on the bus, actuator, firmware, MQTT integration
+[Build]          Sensors on the bus, actuator, firmware, local loop (optional MQTT)
     |
 [Characterize]   Transfer function / calibration, actuator performance, metrics
     |
@@ -65,7 +75,7 @@ The project is a short engineering sprint, not a single lab:
     |
 [Rehearse]       Peer dry run against the must-haves
     |
-[Present]        Module 10: artifact presentation + portfolio walkthrough
+[Present]        Module 10: feedback walkthrough, then the submitted video
 ```
 
 Sessions are open-ended by design. If you finish a milestone early, harden the system, take more measurements, or help a neighboring Project Team (a strong candidate for an **Excellence Stretcher**).
@@ -83,9 +93,9 @@ Sessions are open-ended by design. If you finish a milestone early, harden the s
                            |
 [Actuator]           motor/servo/LED installation with its own driver & supply
                            |
-[Node]               ESP32/ESP8266 or M5Stack, publishing directly over MQTT
+[Node]               ESP32/ESP8266 or M5Stack with a local control loop
                            |
-[Integration]        MQTT topics + Node-RED dashboard + one control rule
+[Integration]        local UI/logging + System Boundary Document, or MQTT + dashboard
                            |
 [Evaluation]         transfer function, resolution, latency, current, robustness
 =========================================================================
@@ -102,7 +112,8 @@ A strong project uses each layer it includes deliberately and can explain the ch
 1. Craft a story around a real stakeholder (a person with a name and a problem). Start from your pre-study abstract and refine it. It must be playable and pitchable.
 2. Pitch to a neighboring Project Team and note their questions.
 3. Merge two Task Pods into a **Project Team of 4–6** and document individual roles and contributions in each portfolio. If a team wants to continue an earlier project of their own instead of starting fresh, agree on this with the instructor — it is a possibility, not the default.
-4. Map requirements onto the final-project must-haves (see the syllabus): which sensors (with which bus/addresses), which actuator, which characterization you will perform, which integration, which resilience test.
+4. Map requirements onto the final-project must-haves (see the syllabus): which sensors (with which bus/addresses), which actuator, which characterization you will perform, which resilience tests, and which track (A self-contained or B networked).
+5. Write the first version of the **System Boundary Document** (Track A) or the topic map (Track B).
 
 ### ★ Task 2: Build and Integrate (milestones across sessions)
 
@@ -111,8 +122,9 @@ Verify your system against the must-haves:
 1. Two sensors, at least one I²C, both identified by address in your documentation.
 2. One actuator that physically acts — motor/servo/stepper or an addressable LED installation.
 3. One filter implemented in firmware (average, median, or cutoff); optional: compare it with an IoTempower filter.
-4. Node-RED dashboard (or an equivalent MQTT subscriber/control UI) with display and control, plus one closed-loop/rule-based behavior.
+4. A local display/serial UI (Track A) or Node-RED dashboard / MQTT subscriber (Track B) with display and control, plus one closed-loop/rule-based behavior.
 5. Safety and interlocks: a defined safe state and at least one limit (max duty, timeout, or limit switch).
+6. System boundary: the document (Track A) or the implemented topic map (Track B).
 
 ### ★ Task 3: Characterize and Evaluate
 
@@ -130,30 +142,33 @@ Intentionally break things and document the recovery:
 - Test A (sensor fault): disconnect the I²C sensor. Does the node stay alive and report a fault?
 - Test B (noise/interference): introduce noise (motor running, longer wires, a light source) and show how your filtering/characterization copes.
 - Test C (actuator limit): block the motor/servo. Does current rise, and does your interlock/timeout react safely?
-- Test D (broker restart): restart Mosquitto. Do node and dashboard reconnect and resubscribe?
+- Test D (Track B only, broker restart): restart Mosquitto. Do node and dashboard reconnect and resubscribe?
 
 ### ★ Task 5: Peer Review & Dry Run Rehearsal
 
-Pair with another Project Team for a reciprocal dry run:
+Pair with another Project Team for a reciprocal dry run and a video-plan review:
 
 #### Presenting Project Team:
 1. Story: problem, users, and value.
 2. Architecture: sensors (bus/addresses), actuator, drivers, data path.
 3. Live demo: measure a real quantity and make the actuator respond; show one characterization result.
+4. Video plan: who records, what is on screen, and when the final version will be taken.
 
 #### Reviewing Project Team:
 - Measurement quality: is the characterization credible, with units, conditions, and uncertainty?
 - Robustness: what happens under the fault-injection tests?
 - Evidence: are wiring, addresses, transfer functions, and metrics documented in the portfolio?
+- Interface: does the System Boundary Document (or topic map) match what the system actually does?
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
 1. Kickoff story and the requirement-to-must-have mapping.
-2. System architecture diagram: sensors (with bus/addresses), conditioning, actuator + driver, node, data path.
+2. System architecture diagram: sensors (with bus/addresses), conditioning, actuator + driver, node, data path, and the system boundary (Track A) or topic map (Track B).
 3. Characterization report: transfer function/calibration, resolution, uncertainty.
 4. Evaluation report: actuator performance and at least one system metric.
-5. Fault-injection log for the four tests.
-6. Peer feedback log and the concrete changes you will make before the final presentation.
+5. Fault-injection log for three tests (Track A) or four (Track B).
+6. Peer feedback log and the concrete changes you will make before recording the video.
+7. The submitted 5–10 minute video, slide deck, and final documentation.
 
 
 > [!IMPORTANT]
@@ -169,4 +184,4 @@ Pair with another Project Team for a reciprocal dry run:
 
 ---
 
-[← Previous: Module 8](./08-sensor-to-system-and-integration.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 10 — Project Presentation & Submitted Artifacts →](./10-demonstration-and-presentation.md)
+[← Previous: Module 8](./08-sensor-to-system-and-integration.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 10 — Project Video & Feedback Walkthrough →](./10-demonstration-and-presentation.md)

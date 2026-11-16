@@ -1,4 +1,4 @@
-# Sensors and Actuators (Sensorik und Aktorik) — 10-Day Edition
+# Sensors and Actuators (Sensorik und Aktorik) — 9-Day Edition
 
 ### Day 1 · Introduction, Pre-Study Rehash & Basic Electronics
 
@@ -53,7 +53,7 @@
 # Class logistics (short version)
 
 - **No separate exercise sheets — but expect at least ~6 hours/week of self-study** to finish labs, portfolio, reflections, and project work
-- **10 working days / 48 contact hours, one module per day**; session lengths vary (typically two sessions of 2 × 45 min, with longer blocks on some days).
+- **9 teaching days / 48 school hours (≈36 clock hours), one module per day**; 90- and 180-minute slots; the exact annual pattern is in the LMS.
 - **You work in small Task Pods of two or three** (two by default; three in a large cohort). For the **final project, two pods merge into a Project Team (4–6)**.
 - In-class exercises are initially **individual**
 - **Ongoing feedback** in the lab — talk to us!

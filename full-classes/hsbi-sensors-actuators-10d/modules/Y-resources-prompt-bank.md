@@ -107,10 +107,10 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 3. Project Context: *Architecture split:* Which processing lives on the node and which in the integration layer — and why?
 4. Process: *Peer review value:* What blind spot did your review team find, and how did you fix it before the presentation?
 
-## 📌 Module 10 – Project Presentation & Submitted Artifacts
-*Focus: submitted slide deck, demo artifacts, portfolio walkthrough, retrospective.*
+## 📌 Module 10 – Project Video & Feedback Walkthrough
+*Focus: feedback walkthrough, recorded video, portfolio, retrospective.*
 
-1. Technical: *The live demo:* Summarize how your system performed, including the fault-injection challenge.
+1. Technical: *The walkthrough demo:* Summarize how your system performed, including the fault-injection challenge.
 2. Technical: *What I measured:* Which single measurement from this course are you most confident in, and why?
 3. Personal Retrospective: *The biggest "Aha!" moment:* From an ADC code to a characterized system — what changed in how you think about sensors?
 4. Looking Ahead: How will you use characterization and actuator skills in your next project, thesis, or job?

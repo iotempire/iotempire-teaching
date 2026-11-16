@@ -55,6 +55,7 @@ The status vocabulary is deliberately small:
 | [D20](#d20) | A teaching day is 180 minutes: two 90-minute blocks | accepted | every module; instructor run sheets |
 | [D21](#d21) | One vocabulary: Task, Subtask, Evidence | accepted | every module; syllabus; sibling workbooks |
 | [D22](#d22) | Commits are instructor-only; agents never commit | accepted | every file; this log |
+| [D23](#d23) | Nine-day timetable, two project tracks, and a video artifact | accepted | syllabus; Modules 8–10; index |
 
 ## 1. Provenance — how this class came to be
 
@@ -81,7 +82,7 @@ Dates are design events, not every commit; Git history is the authority.
 
 ### 1.3 The constraints that shaped the class
 
-- **10 days / 48 contact hours / 5 ECTS / 150 h**, one module per day; a normal day is **two 90-minute blocks (180 minutes)**, Module 3 uses three, and some days run longer.
+- **9 days / 48 school hours (≈36 clock hours) / 5 ECTS / 150 h**, one module per day; a normal day is two 90-minute slots, Module 3 uses three, and Days 7–9 add 180-minute slots (D23).
 - **Six pods / twelve students.** Three shared multimeters, three shared HX711 scales, one shared binary capacitive water sensor. Sharing is normal, not an exception.
 - **Hardware reality:** LDR, potentiometer, DHT11, DS18B20 sealed probes, ToF, ultrasonic, Hall, light barrier, reed/float, analog soil/humidity probes (open/sealed/needle), one binary capacitive water sensor, M5StickC-S3 with BMI270, ESP32 boards. **No NTC in the kit.** **No benchtop oscilloscope** — Module 2 builds/selects an ESP32 scope/analyzer.
 - **Assessment:** the module handbook fixes the Kombinationsprüfung; the syllabus owns the form, points, checkpoints, grade scale, and policies. Modules never restate them.
@@ -421,9 +422,9 @@ Dates are design events, not every commit; Git history is the authority.
 
 **Status:** accepted.
 
-**Context.** The timetable gives 48 contact hours over 10 days, and the syllabus describes a block as 2 × 45-minute class hours. In practice a normal teaching day is **two 90-minute blocks (180 minutes)**, with the break between them. Run sheets that plan only 90 minutes leave half the day unplanned and make modules look overfull.
+**Context.** The timetable gives 48 school hours (≈36 clock hours) over 9 days, and the syllabus describes a block as 2 × 45-minute class hours. In practice a normal teaching day is **two 90-minute blocks (180 minutes)**, with the break between them. Run sheets that plan only 90 minutes leave half the day unplanned and make modules look overfull.
 
-**Decision.** Plan every module in **180-minute days**: two 90-minute blocks. “Two sessions” means two blocks, not two 45-minute hours. Module 3 uses three blocks; Modules 7–9 and Day 10 run longer. Module bodies carry no time estimates; the run sheets in the instructor notes use the 180-minute unit.
+**Decision.** Plan a normal module in **180-minute days**: two 90-minute blocks. “Two sessions” means two blocks, not two 45-minute hours. The current timetable gives one to three slots per day (90 or 180 minutes) and no Day 10 — see D23. Module bodies carry no time estimates; the run sheets in the instructor notes use the block unit.
 
 **Consequences.** More room for the guided walkthrough and the challenge; older run sheets must be checked for a 90-minute assumption. The syllabus wording (“2 × 45 min”) stays, because one 90-minute block is two 45-minute class hours.
 
@@ -476,6 +477,30 @@ Dates are design events, not every commit; Git history is the authority.
 **Evidence.** The operative rules live in the repository [`AGENTS.md`](../../../AGENTS.md); this record keeps the rationale. Module and instructor-note edits stay in the working tree until the instructor commits them.
 
 **Revisit if.** The instructor delegates a defined batch of commits (for example a scripted migration), or an automation account is explicitly authorised to commit on its own branch.
+
+<a id="d23"></a>
+### D23 — Nine-day timetable, two project tracks, and a video artifact
+
+**Status:** accepted.
+
+**Context.** The timetable changed after the first planning pass: Days 5–6 have two 90-minute slots, Days 7–9 are longer, and there is no Day 10. The WS 2026/27 calendar has 20 slots over 9 dates: 16 × 90 min + 4 × 180 min = **48 school hours = 36 clock hours**, exactly the handbook’s 16 Übung + 16 Praktikum + 16 betreutes Selbststudium. An earlier count of 22 blocks (44 school hours, 33 clock hours) was a unit and block miscount — a 90-minute slot is two 45-minute school hours — and is corrected here. At the same time the syllabus made MQTT mandatory in the final project, although this is the sensors/actuators class and the Networking & IoT class owns the network stack. The combination left the project too little time and forced a networking module into a schedule that no longer had room for it.
+
+**Decision.**
+
+- **Timetable:** 9 teaching days, **48 school hours (≈36 clock hours)**, 90- and 180-minute slots. The annual pattern varies over 8–10 days and is published in the LMS; student-facing text uses school hours, not a fixed block count. No Day 10.
+- **Checkpoints:** CP2 moves to the start of Day 7 (Modules 4–6); CP3 moves to the start of Day 8 (Modules 7–8). Day 9 stays free for the project.
+- **Project tracks:** Track A (default) is self-contained — local control loop, local UI/logging, and a **System Boundary Document** describing the network interface it would expose. Track B (optional) implements MQTT and a dashboard, and tests a broker restart. Both carry the same 5 points and the same sensing, characterization, actuation, and reliability must-haves.
+- **Module 8** becomes a one-block clinic: boundary, local loop, filter, fault behavior; MQTT and dashboard are `◇` (Track B).
+- **Final session:** Day 9, 08:30–10:30 build and freeze, 10:30–11:30 practice, 11:30–12:30 break, 12:30–14:00 three teams × 30 minutes (15–20 presentation, feedback fills the slot). The live walkthrough is a **feedback rehearsal**; the assessed artifacts are the submitted 5–10 minute video, slide deck, and documentation. The video is recorded after the rehearsal.
+- **Grade table:** 20 = 1.0, 19 = 1.3, 18 = 1.7, 17 = 2.0, 16 = 2.3, 15 = 3.0, 14 = 4.0, below 14 = 5.0. A 2.7 is not a table row; the instructor may award it for an overall 3.0 performance with an exceptionally well-shaped portfolio.
+
+**Consequences.** The syllabus, Modules 8–10, and the index are rewritten to match. The schedule is expressed in school hours, and the annual slot pattern comes from the LMS; the day table is a planning abstraction, not a contract. The two tracks must be announced in the first session, and the video requirement must be in the project brief from the start.
+
+**Alternatives rejected.** Keeping MQTT mandatory (duplicates the Networking class and costs project time); a 10-minute stage talk per team (nervous, weak evidence, no room for retries); assessing the live presentation (contradicts the artifact-based Kombinationsprüfung and the syllabus); lowering the pass mark to fit a full German grade scale (the 14-point pass stays); publishing a fixed block count and converting it to clock hours (caused the 22-block/44-hour/33-clock-hour miscount).
+
+**Evidence.** [Syllabus](../syllabus.md); [Module 8](../modules/08-sensor-to-system-and-integration.md); [Module 9](../modules/09-final-project-studio.md); [Module 10](../modules/10-demonstration-and-presentation.md); [index](../modules/00-index.md).
+
+**Revisit if.** The timetable returns to 10 days; the Prüfungsausschuss rejects the contact-hour deviation; or a cohort wants the networked track as the default.
 
 
 ## 3. Deliberately rejected or retired
@@ -580,4 +605,5 @@ The authoritative wording is in the [syllabus](../syllabus.md). This table is a 
 - **2026-11-15** — Module 5 format. D19 added: the evaluated session runs as a guided walkthrough, then an open challenge; the old task ladder becomes the appendix; the challenge deliverable is an AI-drafted, verified, shareable repo. The TODO records the all-classes “one challenge plus hints appendix” and AI-first patterns.
 - **2026-11-15** — Planning unit. D20 added: a teaching day is two 90-minute blocks (180 minutes); Module 5's run sheet and the constraints table now use that unit.
 - **2026-11-16** — Review gate. D22 added: no agent or collaborator commits, amends, rebases, tags, or pushes without an explicit instruction; changes stay in the working tree for the instructor's review. The same rule is recorded in Databases (D20) and Networking (D18).
+- **2026-11-16** — Timetable and project. D23 added: 9 teaching days, 48 school hours (≈36 clock hours) in 90/180-minute slots, CP2/CP3 moved, two project tracks with optional MQTT, Module 8 as a clinic, Day 9 feedback rehearsal plus a 5–10 minute assessed video, grade table B. D20 amended for the longer Days 7–9.
 - **2026-11-16** — Vocabulary. D21 added: every module uses Task → Subtask → Evidence; Module 5 refactored as the reference (Tasks 1–5, `Proves:`/`Produces:`, standing `★ Log it`, closing exchange task); Modules 1–4 carry bracketed task numbers until their refactor; the sibling workbooks get the same TODO. Q10 resolved.

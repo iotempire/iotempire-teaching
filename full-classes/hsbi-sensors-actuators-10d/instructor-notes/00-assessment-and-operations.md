@@ -14,12 +14,13 @@
 - **Part 1 — written portfolio documentation (75% / 15 points):** 11 points core
   technologies and lab challenges + 4 points reflection and engineering decision log.
 - **Part 2 — project documentation and presentation materials (25% / 5 points):**
-  3 points code and system documentation + 2 points slide deck and demo artifacts.
+  3 points code and system documentation + 2 points video, slide deck, and demo artifacts.
 - **Pass mark:** 14/20. **No other point categories** — mastery recovery runs through
   the syllabus's **Excellence Stretcher** clause.
 - **The presentation is artifact-based.** Part 2 is assessed from what was submitted:
-  documentation, code/system artifacts, slide deck, demo artifacts. The final session
-  is an **artifact presentation, not an oral examination**.
+  documentation, code/system artifacts, video, slide deck, and demo artifacts. The final session
+  is a **feedback rehearsal, not an oral examination**; the video is recorded after it and
+  submitted as the assessed artifact.
 - The full statement — including the grade scale — lives **only** in the
   [syllabus](../syllabus.md).
 
@@ -32,10 +33,10 @@ weeks before the cut-off. The LMS submission record is the receipt.
 |---|---|---|---|
 | M1 — portfolio skeleton | Portfolio created from the template, instructor added, Module 0/1 evidence and first reflection committed | End of week 1, 23:59 | Written reminder via the LMS, with the remaining dates |
 | M2 — Part 1 foundations | Modules 1–3 evidence + reflection 1 | Start of day 4 | Feedback at the checkpoint; no points decision |
-| M3 — Part 1 core | Modules 4–6 evidence + reflections 2–3 | Start of day 8 | Written reminder; the evidence must exist before the final cut-off |
-| M4 — Part 1 final | Complete written portfolio documentation (Modules 0–8 + four reflections) | At least 24 h before day 10 | See §5 — this is an examination-law question, not a judgement call |
-| M5 — Part 2 code/system docs | Project repository, code, wiring/architecture, characterization, measurement evidence | At least 24 h before day 10 | See §5 |
-| M6 — Part 2 slide deck/demo artifacts | Slide deck and demo artifacts for the artifact presentation | At least 24 h before day 10 | See §5 |
+| M3 — Part 1 core | Modules 4–6 evidence + reflections 2–3 | Start of day 7 | Written reminder; the evidence must exist before the final cut-off |
+| M4 — Part 1 final | Complete written portfolio documentation (Modules 0–8 + four reflections) | Before day 9 | See §5 — this is an examination-law question, not a judgement call |
+| M5 — Part 2 code/system docs | Project repository, code, wiring/architecture, system boundary, characterization, measurement evidence | Before day 9 | See §5 |
+| M6 — Part 2 video, slide deck/demo artifacts | 5–10 minute video, slide deck, and demo artifacts for the walkthrough | Before day 9 | See §5 |
 
 > **Do not invent informal extensions.** Documented illness and force majeure follow
 > the RPO/SPO procedure; anything else is a decision for the Prüfungsausschuss.
@@ -43,7 +44,7 @@ weeks before the cut-off. The LMS submission record is the receipt.
 ## 3. Submission hygiene
 
 - Require a Git commit hash, a repository URL, and the LMS receipt for Part 1.
-- Keep a separate Part 2 submission record for documentation, slide deck, and demo
+- Keep a separate Part 2 submission record for documentation, video, slide deck, and demo
   artifacts.
 - Do not grade email attachments or links that are not reachable at the cut-off.
 - Keep the submitted commit hash and a local clone for the record.
@@ -63,7 +64,7 @@ record that too. Document non-contribution early in the LMS, not at the presenta
 
 ### Contributor sign-off
 
-| Member | Report sections | Sensors / actuators | Code / firmware | Measurements | Slides / demo artifacts | Date / signature |
+| Member | Report sections | Sensors / actuators | Code / firmware | Measurements | Video / slides / demo artifacts | Date / signature |
 |---|---|---|---|---|---|---|
 |  |  |  |  |  |  |  |
 |  |  |  |  |  |  |  |
@@ -79,7 +80,7 @@ record that too. Document non-contribution early in the LMS, not at the presenta
   admissibility rule with the Prüfungsamt before you state it.
 - Ask for a one-page **new-scope proposal** before the retake and keep it with the
   examination record.
-- Never convert the artifact presentation into an ad-hoc oral examination to
+- Never convert the feedback walkthrough into an ad-hoc oral examination to
   compensate for missing artifacts.
 
 ## 6. Records, communication, privacy
@@ -101,8 +102,8 @@ never a placeholder that hides it.
 
 - [ ] Dates entered in the LMS and repeated two weeks before each cut-off.
 - [ ] Part 1 and Part 2 cut-off rules stated in writing, with the RPO/SPO as reference.
-- [ ] Artifact-presentation rule stated in writing: assessed from the submitted artifacts.
+- [ ] Artifact rule stated in writing: assessed from the submitted video, slides, and documentation; the live session is feedback.
 - [ ] Retake-scope rule confirmed with the Prüfungsamt.
-- [ ] Contributor sign-off collected before the artifact presentation.
+- [ ] Contributor sign-off collected before the feedback walkthrough.
 - [ ] Late and missing cases documented and escalated via the LMS.
 - [ ] No informal extra-point promises.

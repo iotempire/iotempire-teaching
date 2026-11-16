@@ -49,13 +49,13 @@ Instead of memorizing a catalogue of principles, you will:
 - **Understand the bus before the device.** Most modern sensors hang on I²C, and the first real skill is understanding *addresses*, register maps, pull-ups, and how several devices share one pair of wires. We go to the bus early — a scanner is more educational than a library.
 - **Characterize what you measure.** You will determine real transfer functions, linearity, hysteresis, resolution, and uncertainty for sensors you can hold, and you will calibrate and filter them.
 - **Build real sensor and actuator systems.** Distance and motion sensing (ToF, ultrasonic, IMU), current sensing (Hall), environment sensing, and modern actuators: servo and other motors, relays, and above all LEDs and LED animation — from a single PWM fade to an interactive, sound-reactive installation.
-- **Connect it to a system.** Your sensor/actuator node publishes directly over MQTT to a Mosquitto broker running anywhere on the local network, with an optional Node-RED dashboard and a closed control loop. IoTempower is available as an optional declarative path to explore.
+- **Define its system boundary.** Your sensor/actuator node runs a local control loop and logs its data; you document the interface it would expose — MQTT topics, payloads, broker, and failure behavior — and you may implement that networked track if you want. IoTempower remains an optional declarative path.
 - **Prove every claim.** A number without units, conditions, and uncertainty is not a measurement. A demonstration without a characterization is not engineering.
 
 This gives you both: the measurement competence that a sensor engineer needs, and the practical, documented system-building habits of modern IoT work. You will measure with a multimeter and a data sheet *and* flash, deploy, and animate.
 
 > [!IMPORTANT]
-> Local-first, buildable, documented. The course is designed around hardware you actually have: M5Stack nodes with Grove modules for the fast path, and raw ESP32/ESP8266 plus breadboard parts when physics matters. Cloud services are optional; everything core runs on the local network.
+> Local-first, buildable, documented. The course is designed around hardware you actually have: M5Stack nodes with Grove modules for the fast path, and raw ESP32/ESP8266 plus breadboard parts when physics matters. Cloud services are optional; the core system runs locally, and the network layer is a documented or implemented extension.
 
 ### How We Teach — Challenge- and Project-Based, In Person, and Always in Flux
 
@@ -80,21 +80,21 @@ By the end of this course, you will be able to (mapped to the module-handbook co
 5. **Characterize and calibrate sensors**: determine the transfer function, assess linearity, hysteresis, repeatability, and resolution, apply calibration and filtering, and state the measurement uncertainty.
 6. **Use buses competently**: wire, scan, and debug an I²C bus, handle device addresses and register maps, distinguish I²C from SPI, UART, OneWire, and direct GPIO/PWM, and select/use a low-cost ESP32 scope or logic analyzer to observe those signals.
 7. **Drive actuators safely**: implement PWM brightness and LED animation (RGB, addressable WS2812), control servos, DC motors, and steppers with suitable drivers, respecting voltage, current, and thermal limits.
-8. **Build and evaluate sensor/actuator systems**: design an embedded node that senses and acts, integrate it via MQTT and optionally Node-RED (with IoTempower as an optional declarative alternative), and document performance (resolution, latency, power, robustness).
+8. **Build and evaluate sensor/actuator systems**: design an embedded node that senses and acts, define its system boundary — local control, logging, and the network interface it would expose — optionally implement that interface via MQTT/Node-RED (IoTempower as an optional alternative), and document performance (resolution, latency, power, robustness).
 
 ## Course Load & Credits
 
-- Format: 10 working days, **one module per day**, **48 contact hours** (45-minute class hours). Sessions are typically 2 × 45 min (90 min); most modules use two sessions, Module 3 uses three, and Modules 7–9 and Day 10 run longer.
+- Format: **9 teaching days**, one module per day, **48 school hours (45-minute units) ≈ 36 clock hours**, delivered as 16 Übung + 16 Praktikum + 16 betreutes Selbststudium in 90- and 180-minute slots. The exact slot pattern changes each year (8–10 days); the LMS publishes the binding times.
 - Target Audience: Bachelor students in *Digitale Technologien* (6th semester, Campus Gütersloh).
 - Module Number: 3350 (*Sensorik und Aktorik*), **5 ECTS**.
 - Total Workload: **150 hours**.
-  - In-person lab and seminar contact: **48 hours**.
+  - In-person lab and seminar contact: **48 school hours ≈ 36 clock hours** (16 Übung + 16 Praktikum + 16 betreutes Selbststudium).
   - Module 0 preparation: plan for about **10 hours** (the compulsory core is a few hours; a deep dive can grow toward 40 hours).
-  - Self-study, portfolio documentation, reflection, and final project: the remaining **~60–90 hours**, depending on how much preparation you bring.
+  - Self-study, portfolio documentation, reflection, and final project: the remaining **~100 hours**, depending on how much preparation you bring.
 - **Weekly rhythm:** outside the studio, plan for **at least 6 hours per week** — roughly 2–3 hours right after each session to finish and document the lab, 2 hours of reading/datasheet/AI verification, and 2–3 hours of portfolio, reflection, or project work.
 
 > [!NOTE]
-> **Where the 150 hours come from.** 5 ECTS means a 150-hour workload. The 48 in-person hours are the studio — the place where we start, discuss, debug, and demo. The rest is deliberate self-study: finishing labs, reading datasheets, verifying AI suggestions, writing portfolio evidence and reflections, and building the final project. That is roughly **6–9 hours per week** across the semester. It is normal for a 5-ECTS course, not a sign that you are behind.
+> **Where the 150 hours come from.** 5 ECTS means a 150-hour workload. The 48 school hours (36 clock hours) are the studio — the place where we start, discuss, debug, and demo. The rest is deliberate self-study: finishing labs, reading datasheets, verifying AI suggestions, writing portfolio evidence and reflections, and building the final project. That is roughly **6–9 hours per week** across the semester. It is normal for a 5-ECTS course, not a sign that you are behind.
 
 ### Self-study, homework, and when tasks run longer
 
@@ -121,7 +121,7 @@ Self-study is also where the course becomes yours: follow a datasheet further th
 
 - **Formal:** none beyond course registration.
 - **Content:** mathematical and technical fundamentals (basic algebra, physical units, basic electronics) help; ability to work with Git, a terminal, and a markup language is expected, as in the other IoT courses.
-- **Standalone elective:** *Sensorik und Aktorik* is a 6th-semester elective (Wahlmodul) that stands on its own — it neither requires nor continues a specific earlier module. It concentrates on the *physical* side of IoT — what a sensor really measures and how an actuator really moves — and introduces the small amount of local-first infrastructure it uses (a node, a local MQTT broker, Node-RED) within the course itself.
+- **Standalone elective:** *Sensorik und Aktorik* is a 6th-semester elective (Wahlmodul) that stands on its own — it neither requires nor continues a specific earlier module. It concentrates on the *physical* side of IoT — what a sensor really measures and how an actuator really moves — and can introduce the small amount of local-first infrastructure it uses (a node, an optional local MQTT broker, Node-RED); the self-contained track is the default, the networked track is optional.
 - **Building on an earlier project (optional, by agreement):** the final project is self-contained by default. If you would like to continue an earlier project of your own, that is very welcome — just talk to the instructor, and we will agree on the scope and on how the sensors/actuators part is deepened.
 
 <a id="assessment-kombinationsprüfung-20-points"></a>
@@ -136,19 +136,19 @@ You build and maintain one personal **GitHub portfolio**. The small tasks in eac
 | Component | Points | Details |
 |---|---|---|
 | Module 0 + Modules 1–8 — core technologies and lab challenges | 11 points | Portfolio setup, the technical labs, code, measurements, wiring, characterization, and functional artifacts that prove each module's learning goals. Module 0 is normally completed before Day 1; in a cohort that needs more setup time it can run as the first in-class module (same 1 point, same evidence). |
-| Individual reflection and engineering decision log | 4 points | One logbook entry for each teaching block (Days 1–3, 4–6, 7–8, 9–10): what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals. |
+| Individual reflection and engineering decision log | 4 points | One logbook entry for each teaching block (Days 1–3, 4–6, 7–9): what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals. |
 | **Part 1 total** | **15 points** | **75% of the assessment.** |
 
 ### Part 2 — Project Documentation & Presentation Materials (25% / 5 points)
 
 | Component | Points | Details |
 |---|---|---|
-| Code and system documentation | 3 points | Working sensor/actuator system, characterization and uncertainty, architecture and wiring, bus/address documentation, reproducible build, and clean Git history. |
-| Slide deck / demo artifacts | 2 points | The submitted slide deck and demo artifacts: story, architecture, measurement evidence, fault-injection evidence, and the artifact walkthrough. |
+| Code and system documentation | 3 points | Working sensor/actuator system, characterization and uncertainty, architecture and wiring, bus/address documentation, system boundary (network or local), reproducible build, and clean Git history. |
+| Video, slide deck / demo artifacts | 2 points | The submitted 5–10 minute video, slide deck, and demo artifacts: story, architecture, measurement evidence, fault-injection evidence, and the artifact walkthrough. The live session is a feedback rehearsal, not the assessed artefact. |
 | **Part 2 total** | **5 points** | **25% of the assessment.** |
 
 > [!IMPORTANT]
-> **The presentation is artifact-based, not an oral examination.** Part 2 is assessed from the **submitted project documentation, code/system artifacts, slide deck, and demo artifacts**. The final session is a presentation of those submitted artifacts — not a separate oral examination (*mündliche Prüfung*) — so no co-examiner (*Beisitzer*) or minutes are required.
+> **The presentation is artifact-based, not an oral examination.** Part 2 is assessed from the **submitted project documentation, code/system artifacts, video, slide deck, and demo artifacts**. The final session is a **feedback rehearsal** of those artifacts — not a separate oral examination (*mündliche Prüfung*) — so no co-examiner (*Beisitzer*) or minutes are required. The video is recorded after the rehearsal and submitted as the assessed artefact.
 
 > [!IMPORTANT]
 > **Total = 15 + 5 = 20 points.** Pass at **14 / 20** (~70%). There are no additional point categories outside the fixed 20-point scale.
@@ -163,8 +163,8 @@ All deliverables are evaluated on the fixed 20-point scale. If you are tracking 
 You do not submit and grade every task. Module points are earned through the **written portfolio evidence** that proves the learning goals. A short **feedback checkpoint** — **10–12 minutes, including questions and feedback** — tells you whether that evidence is convincing before the portfolio is submitted. Checkpoints are **formative**, not a separate examination; the graded artefact for Part 1 is the written portfolio documentation. Checkpoints are done **with your Task Pod, in person**, and cover a few modules at a time:
 
 - **Checkpoint 1 — start of Day 4 (Modules 1–3).** For a larger cohort this runs as a **30-minute 2-pod practice round**: two pods pair up; each pod walks the other through its portfolio evidence, and the other pod gives free-style feedback and questions checking how well the goals are documented. The instructor joins the feedback and notes where the written evidence still needs work. In a small cohort, use the same slot for individual pod checkpoints.
-- **Checkpoint 2 — start of Day 8 (Modules 4–6).**
-- **Checkpoint 3 — start of Day 9 project studio (Modules 7–8)**, or folded into the final project presentation by agreement with the instructor.
+- **Checkpoint 2 — start of Day 7 (Modules 4–6).**
+- **Checkpoint 3 — start of Day 8 (Modules 7–8)**, before the project block; it may be folded into the project feedback by agreement with the instructor.
 
 Dates and slots are confirmed through the LMS.
 
@@ -201,10 +201,15 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 | Points (0–20) | German Grade | Status |
 |---|---|---|
 | 0–13 | Nicht bestanden (5.0) | Fail |
-| 14–15 | Ausreichend (4.0) | Passed |
-| 16–17 | Befriedigend (3.0) | Satisfactory |
-| 18–19 | Gut (2.0) | Good |
+| 14 | Ausreichend (4.0) | Passed |
+| 15 | Befriedigend (3.0) | Satisfactory |
+| 16 | Gut (2.3) | Good |
+| 17 | Gut (2.0) | Good |
+| 18 | Gut (1.7) | Good |
+| 19 | Sehr gut (1.3) | Very Good |
 | 20 | Sehr gut (1.0) | Very Good |
+
+> A **2.7** is not a table row: the instructor may award it for an overall 3.0 performance with an exceptionally well-shaped portfolio. It is announced in the first session.
 
 ## Tools & Environment
 
@@ -246,9 +251,9 @@ The kit is deliberately two-layered, so you can move fast and still meet real ph
 > [!WARNING]
 > **Electrical safety.** All microcontrollers here are 3.3 V logic. Never power motors, relays, strips, or locks directly from a GPIO pin. Always share a common ground between logic and load supplies, and never connect 5 V or 12 V to a 3.3 V pin. Disconnect power before rewiring.
 
-## 10-Day Course Schedule
+## 9-Day Course Schedule
 
-The 10 days correspond to 48 contact hours, with **one module per day**. Session lengths vary slightly: most modules use two sessions of 2 × 45 min, Module 3 uses three, and some days run longer. Modules 1–8 deliver the technical foundations; the final-project arc (Modules 9–10) spans the remaining studio sessions so there is genuine build, characterization, and rehearsal time.
+The module is planned as **48 school hours (≈36 clock hours)** over **9 teaching days**, one module per day. The day table is a planning abstraction: a day may hold two, three, or four 90- or 180-minute slots, and the LMS publishes the binding times. Modules 1–8 deliver the technical foundations; the final-project arc (Modules 9–10) spans Days 8–9 so there is genuine build, rehearsal, and feedback time.
 
 > Indicative plan. The day-by-day mapping below is a planning draft and may shift — including during the semester — as we refine this class together. The learning objectives and the final project matter more than the exact day a topic lands on.
 
@@ -260,14 +265,14 @@ The 10 days correspond to 48 contact hours, with **one module per day**. Session
 | 3 | [Module 3 — Sensor Characterization, Calibration & Data Quality](./modules/03-sensor-characterization-and-calibration.md) | Transfer function, linearity, hysteresis, calibration, filtering, uncertainty of an LDR/DS18B20 and the ADC chain. |
 | 4 | [Module 4 — Liquid Measurement & Sensor Selection](./modules/04-liquid-measurement-and-sensor-selection.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* liquid-level sensing for a charter boat — binary/threshold/continuous/hybrid sensing, two pods aim for 4–5 decision-sheet rows, failure cases, IMU shock/motion; pod recommendation and theory reports. |
 | 5 | [Module 5 — LEDs & Light as Output](./modules/05-leds-and-light-output.md) | LED current limiting, PWM and gamma, RGB mixing, first addressable strip and power budget. |
-| 6 | [Module 6 — LED Animation, Sound & Interactive Installations](./modules/06-led-animation-sound-and-installations.md) | Non-blocking animation patterns, palettes, sensor-triggered and sound-reactive installations. |
-| 7 | [Module 7 — Motors & Motion Actuators](./modules/07-motors-and-motion-actuators.md) | Servo control, DC motor speed/direction with an H-bridge, stepper stepping, current measurement. |
-| 8 | [Module 8 — From Sensor to System: MQTT & Integration](./modules/08-sensor-to-system-and-integration.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–6), then:* MQTT publishing and commands, filtering in firmware, Node-RED dashboard, a closed control loop, fault injection; optional IoTempower comparison. |
-| 9 | [Module 9 — Final Project Studio](./modules/09-final-project-studio.md) | Project kickoff and story, requirement mapping, building and integrating the sensor/actuator system; checkpoint 3 (Modules 7–8). |
-| 10 | [Module 9 — Final Project Studio (continued)](./modules/09-final-project-studio.md) + [Module 10 — Project Presentation & Submitted Artifacts](./modules/10-demonstration-and-presentation.md) | Characterization, evaluation, fault injection, documentation, peer review dry run; artifact-based presentation of the submitted slide deck and demo artifacts, portfolio walkthrough, retrospective. |
+| 6 | [Module 6 — LED Animation, Sound & Interactive Installations](./modules/06-led-animation-sound-and-installations.md) | 32×32 HUB75 panel bring-up and power ceiling, non-blocking breathing, microphone and optional IMU interaction, one- vs two-controller architecture. |
+| 7 | [Module 7 — Motors & Motion Actuators](./modules/07-motors-and-motion-actuators.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–6), then:* servo control, DC motor speed/direction with an H-bridge, stepper stepping, current measurement; the remaining actuator families from the handbook as reading and a short lecture. |
+| 8 | [Module 8 — From Sensor to System: Boundary, Local Loop & Optional MQTT](./modules/08-sensor-to-system-and-integration.md) **+ Checkpoint 3 + Project kickoff** | *Checkpoint 3 first (Modules 7–8), then:* system boundary and interface specification, local orchestration/filter/fault behavior; MQTT and dashboard as the optional networked track; project kickoff and first build. |
+| 9 | [Module 9 — Final Project Studio](./modules/09-final-project-studio.md) + [Module 10 — Project Video & Feedback Walkthrough](./modules/10-demonstration-and-presentation.md) | Final build and freeze; practice round; three teams in 3 × 30-minute slots (15–20 presentation, feedback fills the slot); video recorded after class and submitted as the assessed artefact; retrospective and portfolio polish. |
+
 
 > [!TIP]
-> **Buffer and pacing:** Days 9–10 form the final-project block. Part of it is deliberately loose and can absorb spill-over from earlier labs, be released as flexible/wiggle time, or be used for stretcher tasks and peer mentoring. Announce the concrete use of each part in the LMS as the course progresses.
+> **Day 9 run sheet:** 08:30–10:30 final build and freeze; 10:30–11:30 practice round; 11:30–12:30 break; 12:30–14:00 the three 30-minute walkthroughs. Teams record the 5–10 minute final video after class and submit it with the slides and documentation.
 
 <a id="final-project-requirements-5-points"></a>
 ## Final Project Requirements (5 Points)
@@ -279,22 +284,22 @@ The final project is a sensor/actuator system built by **Project Teams of 4–6 
 1. **Sensing with real characterization:** At least two sensors, including at least one I²C device, with the transfer function or calibration of at least one sensor determined from your own measurements, plus a stated uncertainty and resolution.
 2. **Actuation:** At least one actuator that physically acts — a motor/servo/stepper, or an addressable LED installation — demonstrated under program control.
 3. **The bus is understood, not hidden:** Evidence that you scanned/identified your I²C device(s), can name the address(es), and read or reasoned about at least one register/raw value.
-4. **Embedded integration:** The node publishes sensor values and subscribes to actuator commands over MQTT, with documented topics and at least one filter for processing. Deploying via IoTempower is welcome as an optional alternative but is not required.
-5. **System layer:** A Node-RED dashboard, plain MQTT subscriber/CLI, or Python service that displays the measured data and can control at least one actuator, including one closed-loop or rule-based behavior (e.g. threshold control, on/off control, animation tied to a sensor).
+4. **Integration layer:** Either (A) a local control loop with a local UI/logging and a **System Boundary Document** specifying the network interface it would expose (topics/payloads or serial/BLE/Wi-Fi, broker, security, failure behavior), or (B) the implemented MQTT path with documented topics and at least one filter. Deploying via IoTempower is welcome as an optional alternative but is not required.
+5. **System layer:** A local display/serial UI (Track A) or a Node-RED dashboard / MQTT subscriber / Python service (Track B) that displays the measured data and can control at least one actuator, including one closed-loop or rule-based behavior (e.g. threshold control, on/off control, animation tied to a sensor).
 6. **Evaluation:** Documented measurement and performance evidence — e.g. resolution, latency, sampling rate, current consumption, or robustness to noise/interference.
-7. **Reliability:** The system recovers gracefully from a sensor disconnect, an I²C device that fails to answer, an actuator stall, or a broker restart (tested during the demo).
+7. **Reliability:** The system recovers gracefully from a sensor disconnect, an I²C device that fails to answer, and an actuator stall (Track A); Track B also tests a broker restart.
 
 ### Assessment Criteria:
 
-- **Code and system documentation (3 points):** Working sensor/actuator system, credible characterization and uncertainty, architecture and wiring, bus/address documentation, reproducible build, and clean Git history.
-- **Slide deck / demo artifacts (2 points):** The submitted slide deck and demo artifacts show the story, architecture, measurement evidence, fault-injection evidence, and an artifact walkthrough. All claims must be traceable to the portfolio, code, or measurements.
+- **Code and system documentation (3 points):** Working sensor/actuator system, credible characterization and uncertainty, architecture and wiring, bus/address documentation, system boundary and interface specification (network or local), reproducible build, and clean Git history.
+- **Video, slide deck / demo artifacts (2 points):** The submitted video, slide deck, and demo artifacts show the story, architecture, measurement evidence, fault-injection evidence, and an artifact walkthrough. The live session is a feedback rehearsal, not the assessed artifact. All claims must be traceable to the portfolio, code, or measurements.
 
 #### Detailed rubric
 
 | Criterion | Points | Excellent (full) | Sufficient (partial) | Weak / missing |
 |---|---:|---|---|---|
-| **Code and system documentation** | 3.0 | Meets all must-haves; two sensors (≥1 I²C, addresses documented), one actuator demonstrated under control, credible transfer function/calibration with resolution and uncertainty, correct addressing/register handling, clear wiring/system diagram, firmware plus at least one filter, MQTT topics, reproducible build, and clean Git history. | Documentation present and mostly complete; one gap (e.g. weak characterization or an undocumented address). | Hand-loaded data, no measured characterization, missing integrity, or non-reproducible build. |
-| **Slide deck / demo artifacts** | 2.0 | The submitted slide deck and demo artifacts clearly show the story, architecture, measurement evidence, fault-injection evidence, and an artifact walkthrough; every claim is traceable to the portfolio or code. | Artifacts present but one section is thin, or the walkthrough is uneven across the team. | Artifacts missing, or they fail to show the measured quantity, the actuation, or the evidence behind the claims. |
+| **Code and system documentation** | 3.0 | Meets all must-haves; two sensors (≥1 I²C, addresses documented), one actuator demonstrated under control, credible transfer function/calibration with resolution and uncertainty, correct addressing/register handling, clear wiring/system diagram, system boundary and interface specification (network or local), firmware plus at least one filter, reproducible build, and clean Git history. | Documentation present and mostly complete; one gap (e.g. weak characterization or an undocumented address). | Hand-loaded data, no measured characterization, missing integrity, or non-reproducible build. |
+| **Video, slide deck / demo artifacts** | 2.0 | The submitted video, slide deck, and demo artifacts clearly show the story, architecture, measurement evidence, fault-injection evidence, and an artifact walkthrough; every claim is traceable to the portfolio or code. | Artifacts present but one section is thin, or the walkthrough is uneven across the team. | Artifacts missing, or they fail to show the measured quantity, the actuation, or the evidence behind the claims. |
 
 See the full [final project specification](./modules/10-demonstration-and-presentation.md) for the artifact checklist and presentation script.
 
