@@ -94,6 +94,8 @@ pio run -t upload -t monitor
 
 **Done when:** the LED fades smoothly from off to full and back, and you can say what duty cycle means.
 
+**★ Log it.** Under `## Study log` in `Module05/README.md`, one sentence on what the fade does and what duty cycle means. One pod member keeps the shared log; the others link to it and add one sentence.
+
 ## 🌈 Stage 2 — RGB LED project
 
 **1. Create the folder.** `stage2-rgb/`, opened in Zed or VS Code — a new folder, not the Stage 1 one.
@@ -122,6 +124,8 @@ In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it
 **Done when:** the LED shows the colors you type, and you can state the measured current for red, green, and blue.
 
 **Why 220 Ω is the default.** It is a safe, conservative value: red draws about 6 mA on 3.3 V, green less, blue much less; everything lights, and nothing is near the GPIO limit. You only need the precise calculation when you want a target current, a balanced white, or when a low-`Vf` LED with a small resistor would exceed the pin's comfort range. The full arithmetic is in [Appendix A](#appendix-a).
+
+**★ Log it.** In the same `## Study log`: the measured red, green, and blue currents, whether your part is common cathode or anode, and one sentence on what the agent got wrong (if anything).
 
 ## ✨ Stage 3 — WS2812B strip project
 
@@ -162,6 +166,15 @@ In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it
 2. **Perceptual linearity.** Compare a linear ramp with a gamma-corrected one — `NeoPixelBusLg` with `NeoGammaTableMethod` applies the gamma table for you. At which step size does the eye stop seeing a difference?
 3. **Sensor-to-actuator bridge.** Connect an analog sensor on **GPIO 34 (ADC1)** from an earlier module and map its calibrated reading to the active pixel index, an `HslColor` hue, or `SetLuminance()`.
 
+**★ Log it.** In the same `## Study log`: the `index R G B`/`clear` demo, your `SetLuminance` value, the measured current, and the power table — measured vs. computed for 8, 30, 60, and 144 LEDs.
+
+**★ Exchange with a neighbouring pod.** When all three stages work:
+
+1. Show each other the Stage 1 fade, the Stage 2/3 builds, and the power table.
+2. Compare your prompts: what did the agents get wrong, and what did you have to fix? Include one AI claim you verified against the datasheet or the meter.
+3. Agree on the 3–5 most noteworthy points and one learning you jointly stand behind; one of you writes the “Agreed learning (pod discussion)” note into the shared log.
+4. Pick one shared artefact — the best animation clip, power table, or wiring photo — and post it in the course Discord with one sentence on why.
+
 ## 🔗 Share it (AI-first)
 
 The challenge is not finished on your laptop. Your `Module05/` folder in the portfolio repo holds `stage1-led/`, `stage2-rgb/`, and `stage3-strip/`, plus the README, `AGENTS.md`, photo/video, and power table.
@@ -169,8 +182,7 @@ The challenge is not finished on your laptop. Your `Module05/` folder in the por
 1. **Open the portfolio repo** in Zed or VS Code. The Source Control panel (or `gh`) commits and pushes; the [Git primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) has the workflow.
 2. **Finish the README.** The scaffold already drafted one; give the AI the wiring, the REPL commands, and the power table, and ask it to complete the README with a wiring table, the library and method, how to run the REPL, and the measured currents.
 3. **Verify before you commit.** Check the pin, the LED count, the color order (GRB), the library, the baud rate, and the measured current. The AI's arithmetic is a claim, not a measurement.
-4. **Let an AI draft one extension** (Stage 3). Run it, keep what works, and note what you changed.
-5. **Commit and share.** Commit code, README, `AGENTS.md`, and the power table; copy the repo link into the Discord and your study log. No secrets, no `.pio/`, no `compile_commands.json`, no binaries.
+4. **Commit and share.** Commit code, README, `AGENTS.md`, and the power table; copy the repo link into the Discord and your study log. No secrets, no `.pio/`, no `compile_commands.json`, no binaries.
 
 The AI is the drafting tool; verification is the skill. If you want a standalone repo instead of the portfolio folder, `gh repo create stage3-strip --public --source=. --push` works.
 
@@ -178,37 +190,14 @@ The AI is the drafting tool; verification is the skill. If you want a standalone
 
 > **Credits.** Copilot Education gives unlimited inline completions but limited chat/agent credits; other plans have their own limits. Use a lightweight model for the scaffold and save the heavy model for the one hard bug.
 
-## ★ Task A: Log the stages
-
-Write under `## Study log` in `Module05/README.md` — a section, not a file. One pod member keeps the shared log; the others link to it and add one sentence.
-
-1. Stage 1: the fade and a one-sentence explanation of duty cycle.
-2. Stage 2: the measured red/green/blue currents, and whether your part is common cathode or anode.
-3. Stage 3: the `index R G B`/`clear` demo, your luminance setting, and the measured current.
-4. The power table: measured vs. computed for 8, 30, 60, and 144 LEDs.
-5. One AI claim you verified against the datasheet or the meter — and where the agent was wrong.
-
-*Portfolio evidence:* the `## Study log` section.
-
-## ★ Task B: Exchange with a neighbouring pod
-
-Pair with a neighbouring pod:
-
-1. Show each other the Stage 1 fade, the Stage 2/3 builds, and the power table.
-2. Compare your AI prompts: what did the agents get wrong, and what did you have to fix?
-3. Agree on the 3–5 most noteworthy points and one learning you jointly stand behind.
-4. Agree on one shared artefact — the best animation clip, power table, or wiring photo — and post it in the course Discord with one sentence on why.
-5. Add the “Agreed learning (pod discussion)” note to the shared log.
-
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. Stage 1 demo: the fade and a one-sentence duty-cycle explanation.
-2. Stage 2 demo: the serial `R G B` interaction and the measured channel currents.
-3. Stage 3 demo: repo link with the code, README, and `AGENTS.md`, plus a video or photos of `index R G B` and `clear`.
-4. Power table: measured vs. computed for 8, 30, 60, and 144 LEDs, and the supply decision.
-5. AI verification note: what the agent drafted, what you checked, and what was wrong.
-6. One optional extension, or a design rationale for the animation you chose.
-7. Deeper question: Why does an addressable strip need a power budget *and* a data-level consideration, while a single indicator LED needs neither?
+1. `## Study log` in `Module05/README.md` with the three stage entries and the AI claim you checked.
+2. The three project folders (`stage1-led/`, `stage2-rgb/`, `stage3-strip/`) with code, README, and `AGENTS.md`.
+3. Photos or video of the fade, the RGB REPL, and `index R G B`/`clear`.
+4. The power table: measured vs. computed for 8, 30, 60, and 144 LEDs, and the supply decision.
+5. One optional extension, or a design rationale for the animation you chose.
+6. Deeper question: Why does an addressable strip need a power budget *and* a data-level consideration, while a single indicator LED needs neither?
 
 > You may prove the same goals another way. The evidence is the point, not the task list.
 

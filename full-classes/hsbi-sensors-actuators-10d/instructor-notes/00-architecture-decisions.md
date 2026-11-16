@@ -472,7 +472,7 @@ Dates are design events, not every commit; Git history is the authority.
 | Q7 | **Does the bench checkpoint fit two sessions?** The email says about 15 minutes per pod; the module carries no time estimate. | The room needs a rotation and two instructors. | D13 |
 | Q8 | **Is Node-RED clearly optional in Module 4?** The global README/syllabus mention it; the module does not require it. | Students may think they need it before Module 8. | D10, D14 |
 | Q9 | **Is the old Module 4 archive still useful?** Does anyone teach it, and do its links/story canon stay valid? | It is instructor-facing maintenance. | D15 |
-| Q10 | **Is the collaboration wrapper enough without Task A/B headings?** Module 4 keeps the shared study log and exchange but not the Task A/B sections. | The workbook convention may expect the headings. | D6, D14 |
+| Q10 | **Is the collaboration wrapper enough without Task A/B headings?** Modules 4 and 5 keep the shared study log and exchange but not the Task A/B sections; Module 5 embeds them in the stages. | The workbook convention may expect the headings. | D6, D14 |
 | Q11 | **How many M5StickC-S3 units are available, and is the BMI270 library stable?** | The IMU/display path depends on it. | D10 |
 | Q12 | **Is environment sensing covered enough?** The new Module 4 no longer has BME280/DHT22 as a core lab; Module 3 covers T/RH, and the final project can use environment sensors. | The handbook outcome 3 includes environment sensing. | D8, Appendix A |
 | Q13 | **Which semester is the module in?** The handbook says *5. Semester*; the syllabus says *6th semester*. | Students read both; it affects prerequisites and cohort expectations. | D1; syllabus |
