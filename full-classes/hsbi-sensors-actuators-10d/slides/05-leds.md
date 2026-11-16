@@ -12,7 +12,7 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 # How to follow along
 
-- The instructor builds at the front; you build the same on your machine
+- The instructor builds at the front; you build the same circuit and run the same code
 - Ask questions when something is unclear
 - Report problems and curiosities as they happen — that is the dialog
 - The instructor will usually be too fast: slow the pace down

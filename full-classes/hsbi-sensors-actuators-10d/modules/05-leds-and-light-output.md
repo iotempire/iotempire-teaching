@@ -28,7 +28,7 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 ## 🧭 How to follow along
 
-In Tasks 1–3 the instructor may build at the front instead of leaving you to work from the text. **Follow along** means: do the same steps on your own machine, ask questions when something is unclear, and report problems and curiosities as they happen — that dialog is part of the learning, not an interruption. The instructor will usually be too fast, so say so and slow the pace down until you can follow. If you prefer to work from the text at your own speed, that is fine too; each task is written to stand alone.
+In Tasks 1–3 the instructor may build at the front instead of leaving you to work from the text. **Follow along** means: do the same steps on your own bench — wire the same circuit, run the same code — ask questions when something is unclear, and report problems and curiosities as they happen — that dialog is part of the learning, not an interruption. The instructor will usually be too fast, so say so and slow the pace down until you can follow. If you prefer to work from the text at your own speed, that is fine too; each task is written to stand alone.
 
 ## 🧰 One-time setup
 
