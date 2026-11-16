@@ -35,6 +35,14 @@ the architecture log first.
       genuinely provisional, and keep the sentence that explains what the boundary means.
 - [ ] **Re-check the dates and the session mapping** in the syllabus against the real semester
       calendar (D15) — the 11-session plan moved twice during the run.
+- [ ] **Build the slot-by-slot time breakdown from the real calendar.** For every date record the
+      time, the type (Übung / Praktikum / betreutes Selbststudium), the minutes, and the school
+      hours (45-minute units); sum by type and by day, and check the total against the module
+      handbook. Then check that the number of sessions still fits the module and project
+      distribution. The Sensors class needed this in 2026-11: a 90-minute slot is **two** school
+      hours and a 180-minute slot is four, so a block-count model silently undercounted the term
+      by four hours. Keep the breakdown in the instructor notes, not in the student-facing
+      syllabus.
 - [ ] **Re-run the smoke test and validation** on the machines you will teach from before the
       first session (D16): `sh scratch/smoke-test.sh all` and `python3 scratch/validate-all.py`.
 - [ ] **Refresh the numbers** in the module stories (D3) — M5 4.07/11.09 MB, M6a 2M rows and the
@@ -49,6 +57,13 @@ the architecture log first.
       to this class.
 
 ## Format and pedagogy
+
+- [ ] **Switch to one reflection per teaching session.** The instructor's rule across all classes is
+      one logbook entry after each teaching day or session, whether the class is taught as a block
+      or spread over weeks. This class currently specifies four block entries. Align the points
+      table, the reflection-format section, and the `Reflections/refNN.md` evidence in every module
+      (eleven entries for eleven sessions). The Sensors class made the change in 2026-11: nine
+      entries for nine days, still 4 points.
 
 - [ ] **Intersperse theory and practice more** (D7). Modules 2–4 still run as *study → lab*; the
       stage-and-gate format in Modules 5, 6a and 6b works better. Convert one module per term,

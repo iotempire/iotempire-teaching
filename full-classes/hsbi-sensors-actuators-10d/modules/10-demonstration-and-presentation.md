@@ -4,7 +4,7 @@
 
 > The last session is not a stage exam. It is the rehearsal before the take: you walk us through the system, we push back, and then you record the version you submit.
 
-**Course placement:** Day 9 afternoon, 12:30–14:00. Three Project Teams, 30 minutes each: 15–20 minutes presentation, with the rest of the slot for instructor and peer feedback. The assessed artifacts are the **submitted video, slide deck, and documentation**, not the live performance.
+**Course placement:** Day 9, third slot (14:15–15:45). Three Project Teams, 30 minutes each: 15–20 minutes presentation, with the rest of the slot for instructor and peer feedback. The assessed artifacts are the **submitted video, slide deck, and documentation**, not the live performance.
 
 ## 🎯 Learning Goals
 
@@ -26,13 +26,13 @@ Your walkthrough is that moment in miniature: show the system measuring and acti
 
 | Time | What happens |
 |---|---|
-| 08:30–10:30 | Final build and freeze: finish the system, the measurements, and the slides. |
-| 10:30–11:30 | Practice round: run the walkthrough, fix what does not work, time yourselves. |
-| 11:30–12:30 | Break — use it if you still need a rehearsal, but the practice slot is 10:30–11:30. |
-| 12:30–14:00 | Three teams, 30 minutes each: 15–20 minutes presentation, feedback fills the rest of the slot. |
-| After class | Record the 5–10 minute video and submit it with the slide deck and documentation. |
+| 08:30–11:30 | Finish, beautify, and practise: complete the system, the measurements, and the slides; run the walkthrough informally as often as you like. |
+| 11:30–12:30 | Break. |
+| 12:30–14:00 | Demo preparation: finalize the demo sequence and the fallback, then run one full timed rehearsal. |
+| 14:15–15:45 | Three teams, 30 minutes each: 15–20 minutes presentation, feedback fills the rest of the slot. |
+| After class, until the last day of the examination period | Record and edit the 5–10 minute video; submit it with the slide deck and documentation. |
 
-The live session is deliberately a **feedback rehearsal**. Nothing in it is graded. The video is recorded afterwards, with the feedback incorporated, and that video is the assessed artifact.
+The live session is deliberately a **feedback rehearsal**. Nothing in it is graded. The video is recorded and edited afterwards, with the feedback incorporated, and submitted by the **last day of the examination period** (*Prüfungszeitraum*, announced in the LMS) — that video is the assessed artifact.
 
 ## 🛠️ The 15–20 minute walkthrough
 
@@ -48,7 +48,7 @@ Then demonstrate live: measure a real quantity, make the actuator respond, and r
 
 ## 🎥 The submitted video (5–10 minutes)
 
-Record after the feedback round. It should stand alone for someone who was not in the room:
+Record and edit after the feedback round, then submit by the last day of the examination period. It should stand alone for someone who was not in the room:
 
 - 30 seconds: the story and the user.
 - 2–3 minutes: the system working, with the measurement visible.
@@ -67,7 +67,7 @@ The final project is assessed according to the [syllabus](../syllabus.md#final-p
 - [ ] The slide deck used in the walkthrough and the video.
 - [ ] The project documentation: architecture, system boundary, characterization, evaluation, fault-injection log.
 - [ ] The feedback you received and one sentence per change you made in the video.
-- [ ] Reflection logbook entry for Day 9.
+- [ ] Reflection logbook entry for Day 9 (`Reflections/ref09.md`).
 - [ ] Where you did not work entirely alone: links to pod mates and sources.
 
 > [!IMPORTANT]

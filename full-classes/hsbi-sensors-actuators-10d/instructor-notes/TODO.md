@@ -55,7 +55,8 @@ Proposals, not decisions. Prototype them as outlines before touching the module 
 
 ## Timetable change (D23)
 
-- [ ] **Keep contact hours in school-hour units.** 48 school hours = 36 clock hours (16 Übung + 16 Praktikum + 16 betreutes Selbststudium). Publish the annual 90/180-minute slot pattern from the LMS; do not derive a fixed block count from the day table. The 22-block/44-hour/33-clock-hour model was a miscount (a 90-minute slot is two 45-minute school hours).
+- [ ] **Keep contact hours in school-hour units.** 48 school hours = 36 clock hours (16 Übung + 16 Praktikum + 16 betreutes Selbststudium). Publish the annual 90/180-minute slot pattern from the LMS; do not derive a fixed block count from the day table. The 22-block/44-hour/33-clock-hour model was a miscount (a 90-minute slot is two 45-minute school hours). WS 2026/27 in 90-minute units, counting the supervised-self-study slots: day 1 = 2, day 2 = 3, days 3–6 = 2, days 7–9 = 4/3/4.
+- [ ] **Confirm the last day of the examination period (*Prüfungszeitraum*) and publish it.** The portfolio and the video are due on that day. It is fixed by the Prüfungsamt/HSBI examination schedule, was communicated by email, and is announced in the LMS; it cannot be derived from the module handbook. Check it at the start of term and repeat it in the Day 9 run sheet and the Part 1 submission note.
 - [ ] **Announce the two project tracks and the video artifact in the first session.** Track A (self-contained + System Boundary Document) is the default; Track B (MQTT + dashboard) is optional. The 5–10 minute video is the assessed artifact, not the live walkthrough.
 - [ ] **Update `00-assessment-and-operations.md` and the run sheets** to the 9-day timetable, CP2 on Day 7, CP3 on Day 8, and the Day 9 3 × 30 format.
 - [ ] **Review the 2.7 note after the first run.** It is an instructor judgment for an overall 3.0 with an exceptionally shaped portfolio; if it is used, record the case and decide whether it belongs in the table.
@@ -69,7 +70,7 @@ Proposals, not decisions. Prototype them as outlines before touching the module 
 - [ ] **Pair pods for the three multimeters.** One meter per pair; swap at the round boundary.
 - [ ] **Watch the resolution-vs-accuracy confusion.** `setResolution()` may look like it does nothing at constant temperature; check `getResolution(address)`, take a new conversion, and test a second probe (clone).
 - [ ] **Keep the dead-band and filter sub-tasks optional.** They are good stretchers, not additional core tasks.
-- [ ] **Check the three-session mapping.** The syllabus says Module 3 uses three sessions; do not compress it by accident (D6).
+- [ ] **Keep Module 3 at two 90-minute slots.** In WS 2026/27 the day held two slots (04.11) and the three rounds still fitted; keep the briefs tight and move the log work into self-study. Do not re-expand to three blocks (D6).
 
 ## Module 4 carry-over
 

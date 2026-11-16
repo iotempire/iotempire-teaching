@@ -57,6 +57,19 @@
       to the first genuinely provisional section, not to the end by habit.
 - [ ] **Re-check the session mapping and hardware assumptions** against the real semester calendar
       and the router/node count that was actually available.
+- [ ] **Build the slot-by-slot time breakdown from the real calendar.** For every date record the
+      time, the type (Übung / Praktikum / betreutes Selbststudium), the minutes, and the school
+      hours (45-minute units); sum by type and by day, and check the total against the module
+      handbook. Then check that the number of days still fits the module and project distribution.
+      The Sensors class needed this in 2026-11: a 90-minute slot is **two** school hours and a
+      180-minute slot is four, so a block-count model silently undercounted the term by four hours.
+      Keep the breakdown in the instructor notes, not in the student-facing syllabus.
+- [ ] **Switch to one reflection per teaching day.** The instructor's rule across all classes is one
+      logbook entry after each teaching day or session, whether the class is taught as a block or
+      spread over weeks. This class currently specifies one entry per teaching block. Align the
+      points table, the reflection-format section, and the `Reflections/refNN.md` evidence in every
+      module (ten entries for ten days). The Sensors class made the change in 2026-11: nine entries
+      for nine days, still 4 points.
 - [ ] **Review the discussion map after the de-bloat.** Every round should still name the learning
       goal and theory box its discussion checks; fewer steps must not mean fewer checks on
       understanding.

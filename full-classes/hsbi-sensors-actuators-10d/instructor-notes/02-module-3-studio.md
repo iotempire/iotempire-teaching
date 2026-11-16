@@ -38,7 +38,7 @@ Operational setup for Module 3 (Sensor Characterization, Calibration & Data Qual
 
 ## 5. Running the studio
 
-- The module's three rounds map to the module's three sessions: characterize, calibrate, then filter and decide.
+- The module's three rounds run back-to-back in one day: characterize, calibrate, then filter and decide. In WS 2026/27 that day had only two 90-minute slots (04.11), and the three rounds still fitted: keep the briefs tight and move the log writing into self-study. Do not plan for three blocks.
 - Each round: **Brief → Bench → Explain (random mini check) → Log/Swap**.
 - The mini-check prompts are at the end of each round in the module. Draw one at random and ask a pod to answer from its bench or log.
 - In Round 2, pair neighbouring pods for the peer validation of the third point. In Round 3, the pair agrees on one shared artefact and the agreed learning.

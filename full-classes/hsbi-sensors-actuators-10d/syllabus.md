@@ -136,8 +136,10 @@ You build and maintain one personal **GitHub portfolio**. The small tasks in eac
 | Component | Points | Details |
 |---|---|---|
 | Module 0 + Modules 1–8 — core technologies and lab challenges | 11 points | Portfolio setup, the technical labs, code, measurements, wiring, characterization, and functional artifacts that prove each module's learning goals. Module 0 is normally completed before Day 1; in a cohort that needs more setup time it can run as the first in-class module (same 1 point, same evidence). |
-| Individual reflection and engineering decision log | 4 points | One logbook entry for each teaching block (Days 1–3, 4–6, 7–9): what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals. |
+| Individual reflection and engineering decision log | 4 points | One logbook entry after each teaching day (Days 1–9, `ref01.md`–`ref09.md`): what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals. |
 | **Part 1 total** | **15 points** | **75% of the assessment.** |
+
+**Submission.** The complete portfolio is submitted by the **last day of the examination period** (*Prüfungszeitraum*), announced in the LMS. The Day 9 reflection may be written on the evening of Day 9 or the next morning; it only has to be in the portfolio by that deadline.
 
 ### Part 2 — Project Documentation & Presentation Materials (25% / 5 points)
 
@@ -148,7 +150,7 @@ You build and maintain one personal **GitHub portfolio**. The small tasks in eac
 | **Part 2 total** | **5 points** | **25% of the assessment.** |
 
 > [!IMPORTANT]
-> **The presentation is artifact-based, not an oral examination.** Part 2 is assessed from the **submitted project documentation, code/system artifacts, video, slide deck, and demo artifacts**. The final session is a **feedback rehearsal** of those artifacts — not a separate oral examination (*mündliche Prüfung*) — so no co-examiner (*Beisitzer*) or minutes are required. The video is recorded after the rehearsal and submitted as the assessed artefact.
+> **The presentation is artifact-based, not an oral examination.** Part 2 is assessed from the **submitted project documentation, code/system artifacts, video, slide deck, and demo artifacts**. The final session is a **feedback rehearsal** of those artifacts — not a separate oral examination (*mündliche Prüfung*) — so no co-examiner (*Beisitzer*) or minutes are required. The video is recorded and edited after the rehearsal and submitted as the assessed artefact by the last day of the examination period.
 
 > [!IMPORTANT]
 > **Total = 15 + 5 = 20 points.** Pass at **14 / 20** (~70%). There are no additional point categories outside the fixed 20-point scale.
@@ -194,7 +196,7 @@ Tasks are marked **★ Core** or **◇ Stretcher**. A **★ Core** task is one w
 
 ### Reflection format
 
-For each teaching block, write one logbook entry in `Reflections/refNN.md`, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). The template includes the **AI-verification** question. The log is an **engineering decision log**: what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals.
+After each teaching day, write one logbook entry in `Reflections/refNN.md` — `ref01.md` to `ref09.md` for the nine days — using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md). The template includes the **AI-verification** question. The log is an **engineering decision log**: what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment against the module learning goals.
 
 ### Grade Scale
 
@@ -261,18 +263,18 @@ The module is planned as **48 school hours (≈36 clock hours)** over **9 teachi
 |:---:|---|---|
 | 0 | [Pre-Study](./pre-study.md) | Measurement basics, datasheet reading, Wokwi mini-exercise, project scenario abstract. |
 | 1 | [Module 1 — Foundations: Electronics, Arduino & Measurement](./modules/01-foundations-measurement-and-sensor-chain.md) | Basic electronics (LED actor, button with pull-up/pull-down, debouncing), Arduino serial console and plotting, metrology and error, digital signal chain, ADC precision dance, LDR and first filtering. |
-| 2 | [Module 2 — Buses & I²C: From Simple Pins to One Bus, Many Devices](./modules/02-i2c-and-sensor-addressing.md) | *Two 90-minute sessions with a break; the instrument sprint can continue into self-study:* simple pins/PWM/voltage divider (optional UART detour), bus survey (RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire), I²C wiring/scan/register, address conflicts, scope/analyzer sprint. |
+| 2 | [Module 2 — Buses & I²C: From Simple Pins to One Bus, Many Devices](./modules/02-i2c-and-sensor-addressing.md) | *Three 90-minute slots (two Übung plus supervised self-study), with breaks; the instrument sprint continues into the self-study slot:* simple pins/PWM/voltage divider (optional UART detour), bus survey (RS-232/RS-485/Modbus/CAN/I²C/SPI/OneWire), I²C wiring/scan/register, address conflicts, scope/analyzer sprint. |
 | 3 | [Module 3 — Sensor Characterization, Calibration & Data Quality](./modules/03-sensor-characterization-and-calibration.md) | Transfer function, linearity, hysteresis, calibration, filtering, uncertainty of an LDR/DS18B20 and the ADC chain. |
 | 4 | [Module 4 — Liquid Measurement & Sensor Selection](./modules/04-liquid-measurement-and-sensor-selection.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* liquid-level sensing for a charter boat — binary/threshold/continuous/hybrid sensing, two pods aim for 4–5 decision-sheet rows, failure cases, IMU shock/motion; pod recommendation and theory reports. |
 | 5 | [Module 5 — LEDs & Light as Output](./modules/05-leds-and-light-output.md) | LED current limiting, PWM and gamma, RGB mixing, first addressable strip and power budget. |
 | 6 | [Module 6 — LED Animation, Sound & Interactive Installations](./modules/06-led-animation-sound-and-installations.md) | 32×32 HUB75 panel bring-up and power ceiling, non-blocking breathing, microphone and optional IMU interaction, one- vs two-controller architecture. |
 | 7 | [Module 7 — Motors & Motion Actuators](./modules/07-motors-and-motion-actuators.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–6), then:* servo control, DC motor speed/direction with an H-bridge, stepper stepping, current measurement; the remaining actuator families from the handbook as reading and a short lecture. |
 | 8 | [Module 8 — From Sensor to System: Boundary, Local Loop & Optional MQTT](./modules/08-sensor-to-system-and-integration.md) **+ Checkpoint 3 + Project kickoff** | *Checkpoint 3 first (Modules 7–8), then:* system boundary and interface specification, local orchestration/filter/fault behavior; MQTT and dashboard as the optional networked track; project kickoff and first build. |
-| 9 | [Module 9 — Final Project Studio](./modules/09-final-project-studio.md) + [Module 10 — Project Video & Feedback Walkthrough](./modules/10-demonstration-and-presentation.md) | Final build and freeze; practice round; three teams in 3 × 30-minute slots (15–20 presentation, feedback fills the slot); video recorded after class and submitted as the assessed artefact; retrospective and portfolio polish. |
+| 9 | [Module 9 — Final Project Studio](./modules/09-final-project-studio.md) + [Module 10 — Project Video & Feedback Walkthrough](./modules/10-demonstration-and-presentation.md) | Finish and beautify, then demo preparation and a full rehearsal; three teams, 30 minutes each, in the third slot (15–20 presentation, feedback fills the slot); video recorded and edited after class and submitted by the last day of the examination period; retrospective and portfolio polish. |
 
 
 > [!TIP]
-> **Day 9 run sheet:** 08:30–10:30 final build and freeze; 10:30–11:30 practice round; 11:30–12:30 break; 12:30–14:00 the three 30-minute walkthroughs. Teams record the 5–10 minute final video after class and submit it with the slides and documentation.
+> **Day 9 run sheet:** 08:30–11:30 finish, beautify, and practise; 11:30–12:30 break; 12:30–14:00 demo preparation and a full rehearsal; 14:15–15:45 the three 30-minute walkthroughs. Teams record and edit the 5–10 minute final video after class and submit it with the slides and documentation by the **last day of the examination period** (*Prüfungszeitraum*), announced in the LMS.
 
 <a id="final-project-requirements-5-points"></a>
 ## Final Project Requirements (5 Points)
