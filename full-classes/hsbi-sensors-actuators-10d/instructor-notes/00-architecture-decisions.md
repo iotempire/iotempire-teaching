@@ -25,7 +25,7 @@ The status vocabulary is deliberately small:
 
 **What belongs here.** Forces that constrain future material; a decision and what it costs; alternatives that looked plausible; the trigger that would reverse the decision; links to the artefact. **What does not.** Task steps (module), point values and checkpoints (syllabus), operational checklists (`00-assessment-and-operations.md`), troubleshooting recipes (resource bank), routine edits (Git log). If a sentence would fit better in one of those, it is in the wrong document.
 
-**For an agent.** Read §1 and the decision index, then only the records that touch your task. Do not re-introduce a rejected alternative because it looks simpler in isolation; the reasons are in §3. Do not move assessment text out of the syllabus. Do not add points, tiers, or a separate "reflection logbook" to a module. When you change a decision, update its record and status; do not silently rewrite history. Never commit, amend, rebase, tag, or push — leave the change in the working tree for the instructor to review (D22).
+**For an agent.** Read §1 and the decision index, then only the records that touch your task. Operational rules — commits, edit tools, privacy, language, vocabulary, and validation — live in the repository [`AGENTS.md`](../../../AGENTS.md); this log records the class-specific decisions and their rationale. Do not re-introduce a rejected alternative because it looks simpler in isolation; the reasons are in §3. Do not move assessment text out of the syllabus. Do not add points, tiers, or a separate "reflection logbook" to a module. When you change a decision, update its record and status; do not silently rewrite history.
 
 **Maintenance rule.** Add a record when a choice constrains future material, when you reject a plausible alternative, or when a first-offering improvisation becomes the pattern. Keep records short; link to the artefact instead of pasting it.
 
@@ -473,7 +473,7 @@ Dates are design events, not every commit; Git history is the authority.
 
 **Alternatives rejected.** Commit at the end of every task (removes the review gate); commit but never push (the local commit still hides the diff); commit only documentation (same problem, smaller file set); describe the diff in chat instead (a summary is not a review).
 
-**Evidence.** The rule is repeated in the “For an agent” paragraph above; module and instructor-note edits stay in the working tree until the instructor commits them.
+**Evidence.** The operative rules live in the repository [`AGENTS.md`](../../../AGENTS.md); this record keeps the rationale. Module and instructor-note edits stay in the working tree until the instructor commits them.
 
 **Revisit if.** The instructor delegates a defined batch of commits (for example a scripted migration), or an automation account is explicitly authorised to commit on its own branch.
 

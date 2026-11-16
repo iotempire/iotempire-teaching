@@ -90,6 +90,7 @@ Proposals, not decisions. Prototype them as outlines before touching the module 
 - [ ] **Keep the old Module 4 archive valid.** Links, banner, and instructor-only status (D15).
 - [ ] **Keep the module text free of assessment rules** — no points, grades, checkpoint rules, or time estimates (D4).
 - [ ] **Update the index, syllabus, and README** whenever Module 3/4 changes; do not leave the old Module 4 filename in the student path (D8, D14).
+- [ ] **Keep the repository [`AGENTS.md`](../../../AGENTS.md) current.** It holds the cross-class agent rules (git, edit tools, privacy, language, vocabulary, validation); the three HSBI ADRs point to it instead of repeating them. When an ADR adds a cross-class rule, add one line there and link the record. Do not copy ADR prose into it (D21, D22).
 
 ## Infrastructure and hardware
 
