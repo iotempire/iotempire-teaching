@@ -10,6 +10,18 @@ Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED stri
 
 ---
 
+# How to follow along
+
+- The instructor builds at the front; you build the same on your machine
+- Ask questions when something is unclear
+- Report problems and curiosities as they happen — that is the dialog
+- The instructor will usually be too fast: slow the pace down
+- Prefer the text? Each task stands alone; work at your own speed
+
+<!-- Note: Say this once, briefly. The point is permission to interrupt and to set the pace. -->
+
+---
+
 # Now back to the workbook
 
 **Build the circuit → load the code → deploy to the ESP32 MiniKit.**
