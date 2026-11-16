@@ -524,14 +524,14 @@ resource bank = recipes/canon/hints; instructor-notes = operations/design memory
 Link, don't copy.
 
 **Consequences.** A point value changes once. A module never restates points. The
-link checker enforces the links. The reader always knows where the binding text
+`tools/check-docs.sh` checker enforces the links. The reader always knows where the binding text
 is.
 
 **Alternatives rejected.** A single monolithic workbook (the Tartu/initial
 format); duplicating the schedule in every module; a second assessment page.
 
 **Evidence.** Commit `b5c510d` (dedup, ILIAS removed, folder names); current
-structure; the repository's link checker.
+structure; `tools/check-docs.sh`.
 
 **Revisit if.** The LMS needs a self-contained export. Generate it from the
 sources; do not hand-maintain a second copy.
@@ -741,8 +741,7 @@ embodies, so the new instructor can see what is load-bearing.
     recipe (D7, D13).
 16. Write instructor notes for the risky sessions (extroot, Nebula, port forward),
     not just for the happy path.
-17. Run the link/anchor/fence checker and `git diff --check` before every review
-    (D13).
+17. Run `./tools/check-all.sh` before every review (D13).
 
 **First offering**
 

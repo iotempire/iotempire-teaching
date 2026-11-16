@@ -52,9 +52,10 @@ the architecture log first.
       links to `./07-final-project-studio.md#read-before-the-kickoff-systems-that-broke-the-classic-stack`,
       but the emoji heading (`## 📖 Read before the kickoff…`) does not produce that slug. Add an
       explicit `<a id="read-before-the-kickoff-systems-that-broke-the-classic-stack"></a>` above the
-      heading in Module 7 (stable across heading edits) or correct the link. Found by the
-      link/anchor checker during the 2026-11-16 vocabulary pass; not fixed then because it belongs
-      to this class.
+      heading in Module 7 (stable across heading edits) or correct the link. Found by
+      `tools/check-docs.sh` during the 2026-11-16 vocabulary pass; not fixed then because it
+      belongs to this class. While it stays open, the entry in `tools/check-docs-baseline.txt`
+      keeps the check green — remove that entry when you fix the link.
 
 ## Format and pedagogy
 

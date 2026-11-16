@@ -2,6 +2,40 @@
 
 Shared helper scripts for maintaining the teaching material.
 
+## `check-all.sh` — validation before every review
+
+One read-only entry point, safe to run after any edit:
+
+```sh
+./tools/check-all.sh        # Markdown + slides + git whitespace
+./tools/check-docs.sh       # Markdown only
+./tools/check-slides.sh     # slide decks only
+```
+
+`check-docs.sh` walks every Markdown file (default: the whole repository,
+skipping `.git` and `untracked/`) and checks that:
+
+- code fences are balanced;
+- every relative link or image target exists;
+- every `file.md#anchor` and `#anchor` resolves to an explicit `<a id="…">`
+or a heading slug.
+
+Slugs follow GitHub's algorithm: lower-case, punctuation and emoji removed,
+spaces to hyphens, underscores kept, consecutive hyphens preserved, duplicate
+headings suffixed `-1`, `-2`, …
+
+Known issues live in [`check-docs-baseline.txt`](./check-docs-baseline.txt) as
+`path|message`. They are printed as `known` and do not fail the run; a stale
+entry fails, so the baseline cannot rot silently. The current entry is the
+Databases Module 1 anchor tracked in that class's TODO.
+
+`check-slides.sh` counts the `---` separators in each
+`full-classes/*/slides/*.md` (pages = separators + 1). When a PDF exists it
+compares that with `pdfinfo`; a mismatch fails, a stale PDF is only a warning.
+
+`check-all.sh` runs both and adds `git diff --check`. None of the three writes
+to the working tree.
+
 ## `generate-lms-pdfs.sh` — LMS exports
 
 Renders a class's `syllabus.md` and `pre-study.md` into dated, upload-ready PDFs

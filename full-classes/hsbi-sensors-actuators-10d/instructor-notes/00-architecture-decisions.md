@@ -564,7 +564,7 @@ Dates are design events, not every commit; Git history is the authority.
 - Prepare the shared kit: six pods, three multimeters, three HX711 scales with one known mass each, ToF/ultrasonic, Hall/magnet/cork, analog soil/humidity probes (open/sealed/needle), one binary capacitive water sensor, light barriers, reed/float, M5StickC-S3/BMI270, HX711 wiring.
 - Prepare the consumables: trays, towels, ruler, funnel, labels, cardboard, scissors, glue, tape, salt, dish soap, coffee grounds/soil/paper, bottles/cups; oil waste bottle; no glass.
 - Build the Module 4 class table (4–5 rows) and the test cards; send the [student email](./04-module-4-student-email.md) and ask the co-instructor to scrounge.
-- Render the slide deck and check the page count; run the link/anchor/fence checker and `git diff --check`.
+- Render the slide deck (or run `./tools/check-slides.sh`) and check the page count; run `./tools/check-all.sh`.
 - Teach; record what actually happened in the [TODO](./TODO.md) observations.
 
 ## Appendix A — Module handbook coverage

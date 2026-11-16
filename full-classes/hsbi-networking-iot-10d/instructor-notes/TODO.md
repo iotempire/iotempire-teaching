@@ -51,8 +51,7 @@
 
 ## Before the next semester (reset)
 
-- [ ] **Re-run the link/anchor/fence checker and `git diff --check`** from the repository root
-      before the first session.
+- [ ] **Re-run `./tools/check-all.sh`** from the repository root before the first session.
 - [ ] **Check the DRAFT BOUNDARY positions** against what was actually taught. Move each boundary
       to the first genuinely provisional section, not to the end by habit.
 - [ ] **Re-check the session mapping and hardware assumptions** against the real semester calendar

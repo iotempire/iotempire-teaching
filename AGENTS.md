@@ -24,6 +24,14 @@ Rationale: Sensors [D22](full-classes/hsbi-sensors-actuators-10d/instructor-note
 
 Terminal file writes bypass the editor's change review; that is why the editor's tool permissions treat them as a separate, confirmable action.
 
+## Validation: only the repository scripts
+
+- After any edit run `./tools/check-all.sh`. It checks relative links, anchors, code fences, slide-deck page counts, and `git diff --check`.
+- Targeted runs: `./tools/check-docs.sh [PATH ...]` and `./tools/check-slides.sh`.
+- These three commands are the **only** pre-approved validation commands. Do not run `git`, `python3`, or ad-hoc link/fence one-liners for validation; extend `tools/check-docs.py` instead.
+- The scripts are read-only. They never write to the working tree and never touch Git metadata.
+- Known issues go in `tools/check-docs-baseline.txt`, each tied to a TODO that tracks it. Do not silence a new issue by adding it to the baseline without a tracker.
+
 ## Private material
 
 - `untracked/` is private and git-ignored. Never read it into tracked files and never reference it in course documents.
@@ -57,7 +65,7 @@ Terminal file writes bypass the editor's change review; that is why the editor's
 
 ## Definition of done
 
-- Run the class link/anchor/fence checker and `git diff --check`; every relative link resolves and every fence is balanced.
+- Run `./tools/check-all.sh`; every relative link resolves and every fence is balanced. It also reports slide page counts and `git diff --check`.
 - Do not claim validation you did not run. Report the command and its output.
 - Report what changed (file and section), what you deliberately did not change, and open questions.
 - Do not fix unrelated problems silently; list them separately.

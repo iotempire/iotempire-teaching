@@ -33,7 +33,7 @@ Read this before the next redesign. These are places where this file, the archit
 ## Before the next semester (reset)
 
 - [ ] **Close Q2 and the Leistungsnachweis definition with the Prüfungsausschuss.** Q1 is settled (the handbook lists examples, not a catalogue). Confirm what counts as the Leistungsnachweis and whether the Module 4 pod report satisfies the individual portfolio (D4, D9, D13).
-- [ ] **Re-run the link/anchor/fence checker and `git diff --check`** from the repository root before the first session.
+- [ ] **Re-run `./tools/check-all.sh`** from the repository root before the first session.
 - [ ] **Check every run sheet against the 180-minute day.** A normal day is two 90-minute blocks; an older run sheet that assumes one 90-minute block leaves half the day unplanned (D20).
 - [ ] **Check the DRAFT BOUNDARY positions** against what was actually taught. Move each boundary to the first genuinely provisional section, not to the end by habit (D17).
 - [ ] **Re-check the session mapping and hardware counts** against the real semester calendar: six pods, twelve students, three multimeters, three scales, one shared binary capacitive sensor (D12).
