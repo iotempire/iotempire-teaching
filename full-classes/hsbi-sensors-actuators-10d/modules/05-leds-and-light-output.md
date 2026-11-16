@@ -26,22 +26,15 @@ By the end of this module, you can:
 
 Technician **Jonas Feld** has made the classic mistake: he powered a 30-LED strip from the microcontroller's 5 V pin and treated “brightness” as a single number. Aylin's question is practical: *"How much current does this wall actually need, and how do we drive it so it survives an opening night?"* Today: LED physics, current limiting, PWM and gamma, RGB mixing, addressable strips, and a power budget you measure.
 
-## 🗓️ How the two sessions run
-
-**Session 1 — first light, then the RGB project.**
+## Class Overview
 
 - **Stage 1:** one red or yellow LED on GPIO 16, a 220 Ω resistor, and a PWM fade. No AI, no project scaffold — just first light.
 - **Theory slides:** forward voltage and voltage capping, resistor computation, PWM, and gamma — now explaining what you just saw.
 - **Stage 2:** create `stage2-rgb/`, paste the Stage 2 prompt, and let the agent scaffold the RGB REPL. Wire it, measure the three channel currents, and check the agent's draft against the meter and the datasheet.
-- Commit both stages to the portfolio repo.
-
-**Session 2 — the addressable strip.**
-
 - **Stage 3:** create `stage3-strip/`, paste the Stage 3 prompt, wire the 8-LED strip, and deploy. The theory slides cover the WS2812B signal, DMA/RMT, and the power budget while the agent scaffolds.
 - **Extensions:** if you finish early, pick one or two from the `◇` list.
-- Commit the project and share the repo.
 
-The theory slides are [`slides/05-leds.md`](../slides/05-leds.md). They are the theory interlude — the instructor may also leave them up while the AI scaffolds or a build runs. The module body carries no timings; the run sheet is in the instructor notes.
+The theory slides are [`slides/05-leds.md`](../slides/05-leds.md). They are the theory interlude — the instructor may also leave them up while the AI scaffolds or a build runs.
 
 ## 🔌 Stage 1 — one LED, no AI
 
