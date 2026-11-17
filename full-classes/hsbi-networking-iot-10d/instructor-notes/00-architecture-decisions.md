@@ -248,6 +248,14 @@ report synthesizes it. One pod member keeps the shared study log; the others lin
 to it and add one sentence. Checkpoints are feedback, not separate examinations.
 The binding rules live **only** in the syllabus.
 
+**Grade scale.** The 20-point total maps to the fine German grades: 20 = 1.0,
+19 = 1.3, 18 = 1.7, 17 = 2.0, 16 = 2.3, 15 = 3.0, 14 = 4.0, below 14 = 5.0.
+A 2.7 is a documented exception for an overall 3.0 performance with an
+exceptionally well-shaped portfolio. The table is an orientation for feedback,
+not a mechanical sum of task points; the report is assessed as a whole against
+the learning goals, and 14/20 is the level at which it convincingly demonstrates
+them. The syllabus carries the student-facing wording.
+
 The chosen Prüfungsform is the **Hausarbeit**. The portfolio is deliberately
 structured so it can be turned into the report: the conversion is a synthesis and
 formatting step, not a new project, and it is not taught as a separate unit. For a

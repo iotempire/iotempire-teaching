@@ -124,7 +124,7 @@ The small tasks in each module are how you **produce evidence for that module's 
 | Module 0 + Modules 1–7 — core technologies and lab challenges | 11 points | Portfolio repository setup, the technical labs, configuration, captures, code, measurements, and functional artifacts that prove each module's learning goals. Module 0 is normally completed before Day 1; in a cohort that needs more setup time it can run as the first in-class module (same 1 point, same evidence). |
 | Individual reflection and engineering decision log | 4 points | One logbook entry for each teaching block (Days 1–3, 4–6, 7–8, 9–10): what you tried, what broke, how your mental model shifted, how you verified AI suggestions, and a short self-assessment of your learning progress. Included in the report. |
 | Final project | 5 points | 25% of the report. A multi-node, multi-protocol IoT network in the final report section, with a failover test and a short project presentation of that section. Built in a **Project Team** of 4–6. |
-| **Total** | **20 points** | Pass at **14 / 20** (~70%). |
+| **Total** | **20 points** | Pass at **14 / 20** (~70%); the [grade scale](#grade-scale) explains what that means. |
 
 > [!IMPORTANT]
 > **There are no additional point categories outside the fixed 20-point scale.**
@@ -178,10 +178,20 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 | Points (0–20) | German Grade | Status |
 |---|---|---|
 | 0–13 | Nicht bestanden (5.0) | Fail |
-| 14–15 | Ausreichend (4.0) | Passed |
-| 16–17 | Befriedigend (3.0) | Satisfactory |
-| 18–19 | Gut (2.0) | Good |
+| 14 | Ausreichend (4.0) | Passed |
+| 15 | Befriedigend (3.0) | Satisfactory |
+| 16 | Gut (2.3) | Good |
+| 17 | Gut (2.0) | Good |
+| 18 | Gut (1.7) | Good |
+| 19 | Sehr gut (1.3) | Very Good |
 | 20 | Sehr gut (1.0) | Very Good |
+
+> [!NOTE]
+> **How to read the grade scale.** The table is an orientation for feedback and self-assessment, not a mechanical conversion of task results. The **Hausarbeit is assessed as a whole** against the learning goals: individual tasks produce evidence, not separate grades, and a report that demonstrates the goals convincingly can earn a good grade regardless of how many prescribed steps it completed.
+>
+> **Why 14/20?** It looks like a high pass mark — around 70% — and students often ask about it. It is the level at which the report convincingly demonstrates the learning goals rather than merely completing steps. Experience in this class is that steady collaboration, serious experimentation, and critical reflection usually translate into very good results; the threshold is not there to make passing hard.
+>
+> **The 2.7 case.** A 2.7 is not a table row. The instructor may award it for an overall 3.0 performance with an exceptionally well-shaped portfolio — strong evidence, honest reflection, and a coherent argument, even if one area is thinner.
 
 ## Tools & Environment
 
