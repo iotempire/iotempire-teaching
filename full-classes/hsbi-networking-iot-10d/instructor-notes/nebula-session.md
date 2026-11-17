@@ -125,6 +125,28 @@ pod laptop -> Cudy LAN -> router gateway -> Node-RED UI (overlay name :1808x)
 - If a pod finishes early: direct laptop join, scratch CA, or watch the B.A.T.M.A.N. showcase.
   Yggdrasil is not part of this run.
 
+## Debugging a blocked path — keep `drop`
+
+`inbound_action` and `outbound_action` only decide what happens to a packet that matches **no
+rule**: `drop` is silent, `reject` answers with a TCP RST or an ICMP “administratively
+prohibited”. Neither one makes a node more or less permissive — permission comes from the rules,
+and Nebula has no deny rule at all. Outbound is already open through an allow-all rule, so the
+outbound action never fires.
+
+**Keep `drop` on the routers and the service hosts.** It preserves the distinction students need
+to debug: a **hang** means the packet was filtered, a **refused** means nothing is listening. With
+`reject` both failures look the same and a pod debugs the wrong layer — usually by restarting
+Mosquitto that was never broken.
+
+Use the other value as a demonstration, not as a default: set `inbound_action: reject` on one
+service host, restart, and probe a port that has no rule; then set it back to `drop` and probe
+again. Capture both runs on the pod router with the Module 2 recipe and compare — an RST or an
+ICMP reply versus nothing coming back. That comparison *is* the “filtered versus closed” lesson,
+and it costs one restart.
+
+If a pod is stuck on a blocked path during the session, flipping its router to `reject` for the
+duration of the diagnosis is a legitimate instructor move — say why, and flip it back.
+
 ## After the session
 
 - Delete the student bundles from the instructor host and any HTTP share; after installing the
