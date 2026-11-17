@@ -56,6 +56,8 @@ Initially, I taught these classes based on different sets of material, but we ar
 
 ## For Instructors
 
+Cross-class design guidance lives in [`instructor-notes/`](instructor-notes/README.md): the [best practices](instructor-notes/00-best-practices.md) distilled from the three class ADRs, and a [new-class template](instructor-notes/01-class-template.md) with the folder layout and skeleton headings. The class-specific design memory stays in each class's `instructor-notes/00-architecture-decisions.md`.
+
 Each class folder ships a `generate-lms-pdfs.sh` wrapper that renders its `syllabus.md` and `pre-study.md` into dated, upload-ready LMS PDFs via the shared generator [`tools/generate-lms-pdfs.sh`](tools/generate-lms-pdfs.sh). LibreOffice is used by default (it also leaves an editable `.odt`); Pandoc, headless Chromium, and LaTeX are fallbacks. Run it from a class folder, or point the tool at any class with `--class-dir`. To add the exports to a new class, see [`tools/README.md`](tools/README.md).
 
 ## References & Resources

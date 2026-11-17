@@ -55,7 +55,7 @@ Terminal file writes bypass the editor's change review; that is why the editor's
 
 ## One fact, one home
 
-- Assessment → syllabus. Design rationale → class ADR. Technical reference → `modules/Z-resources-bank.md`. Teaching hints and answer keys → `instructor-notes/`. Student text → module.
+- Assessment → syllabus. Design rationale → class ADR. Technical reference → `modules/Z-resources-bank.md`. Teaching hints and answer keys → `instructor-notes/`. Student text → module. Cross-class patterns and the new-class checklist → [`instructor-notes/`](./instructor-notes/README.md).
 - Link instead of duplicating. If a fact belongs elsewhere, move it and leave a link.
 
 ## Stories and canon
