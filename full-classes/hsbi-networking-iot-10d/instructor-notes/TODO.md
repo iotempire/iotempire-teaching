@@ -67,6 +67,14 @@
 
 ## Module 3 — before the session
 
+- [ ] **Re-sign the class certificates onto one wide prefix.** The `/24` split made the service
+      hosts unreachable from routers and laptops: in Nebula the certificate mask *is* the
+      reachability boundary ([D22](./00-architecture-decisions.md#d22)). Re-sign every class
+      certificate with the class prefix (same addresses), rebuild the bundles, and check `ip route`
+      on one router and one service host. Re-signing writes a **new private key**, so every
+      installed node needs a fresh bundle — including the instructor's own host, which drops its
+      overlay connection for the moment it takes the new cert. The test certificate in the CA
+      workspace (same host, address inside the infrastructure range) proves the cause first.
 - [x] **Confirm the pod group naming.** Pod groups are `hsbi-netiotNN`; routers are
       `routerNN.hsbi-netiot.ulno.mesh` with `hsbi-netiotNN`. The service policies and the 15
       router certs use this scheme.

@@ -22,6 +22,10 @@ optional instructor showcase. A Chatto/Discord/MQTT bridge is a later extra, not
   - one certificate for the admin host, with the admin group only;
   - optional laptop certificates, with the pod group when the laptop must reach that pod's
     Node-RED.
+- [ ] **One prefix on every certificate.** A Nebula certificate's mask bounds what its node may
+  talk to, not just its own address: a mesh split into `/24`s hangs on every cross-range flow.
+  `ip route` on a router and on a service host must each show one route for the whole overlay.
+  The concrete prefix belongs to the CA-workspace plan ([D22](./00-architecture-decisions.md#d22)).
 - [ ] **One bundle per pod** for its router, with the shared pod policy; laptop bundles only
   for students who confirmed admin rights. Use `nebula-manager` with `-l` and keep the operator
   log.
@@ -143,6 +147,11 @@ service host, restart, and probe a port that has no rule; then set it back to `d
 again. Capture both runs on the pod router with the Module 2 recipe and compare — an RST or an
 ICMP reply versus nothing coming back. That comparison *is* the “filtered versus closed” lesson,
 and it costs one restart.
+
+When **everything** hangs rather than one port, check the certificate prefix before the firewall:
+`ip route` shows one route for the whole overlay if the mesh uses a wide prefix, and several small
+ones if someone split it into `/24`s. Nebula refuses traffic outside a node's own certificate
+network, so a split mesh fails exactly like a closed firewall ([D22](./00-architecture-decisions.md#d22)).
 
 If a pod is stuck on a blocked path during the session, flipping its router to `reject` for the
 duration of the diagnosis is a legitimate instructor move — say why, and flip it back.

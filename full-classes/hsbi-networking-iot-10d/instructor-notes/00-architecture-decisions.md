@@ -78,6 +78,7 @@ records short; link to the artefact instead of pasting it.
 | [D19](#d19) | One vocabulary: Task, Subtask, Evidence | accepted | Module 3 pilot; later modules when touched |
 | [D20](#d20) | Timetable in school hours; every slot is studio time | accepted | syllabus, roadmap, modules |
 | [D21](#d21) | Overlay authorization: one group per pod, role ranges, one written-down relaxation | accepted | Module 3, [`nebula-session.md`](./nebula-session.md), CA workspace |
+| [D22](#d22) | One wide overlay prefix; sub-ranges are labels | accepted | CA workspace, [`nebula-session.md`](./nebula-session.md) |
 
 ## 1. Provenance — how this class came to be
 
@@ -787,6 +788,49 @@ router starts holding credentials or data worth protecting, or the certificates
 are re-issued for another reason anyway — then cut per-pod blocks inside the
 student range and re-sign. That is an addressing change; no role groups return.
 
+<a id="d22"></a>
+### D22 — One wide overlay prefix; sub-ranges are labels
+
+**Status:** accepted (2026-11-17).
+
+**Context.** A Nebula certificate's `-ip`/`--networks` is not only the node's own
+address: it is the address space that node may talk to. A node certified `…/24`
+can reach only that `/24`; traffic to another `/24` is refused on the receiving
+side, and the sender sees a timeout rather than an error. The class plan split
+the overlay into three `/24`s — infrastructure and routers, service hosts,
+student machines — to make addresses readable. That made every cross-range flow
+impossible: service hosts were unreachable from the routers and from the
+laptops, and it looked like a firewall or NAT problem. `tun.routes` cannot
+repair this (it is a per-route MTU table limited to the networks in the
+certificate), and `unsafe_routes` is for non-Nebula networks behind a gateway.
+
+**Decision.** Every certificate in the class overlay carries the **same wide
+prefix** (a `/16`); the sub-ranges remain only as human-readable numbering.
+Addresses do not change — only the mask. The concrete prefix is part of the
+overlay plan and lives with the CA workspace.
+
+**Consequences.** Each node installs a single route for the whole overlay, so
+every peer is reachable subject to the firewall. Firewall rules are unaffected:
+`cidr:` matches remote source addresses, which keep their values, and group
+rules never depended on the prefix. The failure mode is worth teaching: a split
+mesh hangs, so it reads as NAT, as a firewall, or as a dead service. Managed
+overlays use wide ranges for exactly this reason — Tailscale allocates from
+`100.64.0.0/10`, NetBird defaults to a `/16`.
+
+**Alternatives rejected.** Per-role `/24`s with `tun.routes` (does not widen
+reach). Per-role `/24`s with `unsafe_routes` (wrong tool; needs subnets on a
+gateway plus `local_cidr` rules on every node). A flat single `/24` (works, but
+discards the range mnemonic and caps the plan). A `/8` (also fine; more space
+than a class needs, and typos are harder to spot).
+
+**Evidence.** The 2026-11-17 incident: service hosts certified in their own
+`/24` were unreachable over the overlay from infrastructure hosts. Nebula docs
+for `tun.routes`/`unsafe_routes`; the certificate plan in the CA workspace.
+
+**Revisit if.** Nebula gains first-class routing between peer networks and the
+class wants real segment isolation. Then the split needs router nodes with
+`subnets`, not wider masks.
+
 ## 3. Deliberately rejected or retired
 
 These are not "bad ideas we never had". They are alternatives that looked
@@ -961,3 +1005,4 @@ For a re-creator with access to the instructor's workspace:
 | 2026-11-16 | D18 added: commits are instructor-only; agents leave changes uncommitted for review. Same rule as Sensors D22 and Databases D20. | Ulno + agent |
 | 2026-11-17 | D19 added: Task → Subtask → Evidence, piloted in Module 3. D20 added: timetable counted in school hours; Ü/BS/P are all hands-on studio time; real dates and project kickoff on Dec 11. D11 updated for the Optiplex Node-RED cluster. | Ulno + agent |
 | 2026-11-17 | D21 added: one group per pod and role ranges replace role groups; the wide student range and the cross-pod SSH it allows are an accepted, written-down relaxation with a revisit trigger. Concrete ranges and host names stay in the CA workspace. | Ulno + agent |
+| 2026-11-17 | D22 added: one wide overlay prefix for every certificate. The per-role /24 plan made service hosts unreachable from routers and laptops, because a Nebula certificate's mask bounds reachability. | Ulno + agent |
