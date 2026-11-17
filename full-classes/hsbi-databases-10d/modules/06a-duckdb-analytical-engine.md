@@ -33,19 +33,19 @@ In this studio you answer her with a file and a measurement.
 
 ## 🧭 How this studio works
 
-**It starts with a 15-minute recap, not a test.** Your instructor walks through what Module 5 produced — the flat table, the 3NF decomposition, the denormalized report table — and the three numbers you should have measured: storage (**≈4.1 MB normalized vs ≈11.1 MB denormalized**), rows touched by one site update (**1 vs 4,000**), and the surprise that *dropping* the index on the report table made the query faster. Then the bridge: that report table is 200,000 rows and 90 days old, and Lea wants two years.
+**It starts with a recap, not a test.** Your instructor walks through what Module 5 produced — the flat table, the 3NF decomposition, the denormalized report table — and the three numbers you should have measured: storage (**≈4.1 MB normalized vs ≈11.1 MB denormalized**), rows touched by one site update (**1 vs 4,000**), and the surprise that *dropping* the index on the report table made the query faster. Then the bridge: that report table is 200,000 rows and 90 days old, and Lea wants two years.
 
-If you do not have your own numbers, take the ones on the board and say so in your notes. The recap is input, not evidence — the evidence is what you measure today.
+If you do not have your own numbers, take the recap numbers and say so in your notes. The recap is input, not evidence — the evidence is what you measure today.
 
-<!-- PREP EMAIL (before Session 6): finish Module 5 Rounds 5–7 — the storage numbers, the rows touched by one site update, and the memo — and keep Module05/normalize.db. If the database is gone, rebuild it with the Module 5 Setup block (~1 minute). Bring the memo; we use it in the recap. -->
+<!-- PREP EMAIL (before Session 6): finish Module 5 Rounds 5–7 — the storage numbers, the rows touched by one site update, and the memo — and keep Module05/normalize.db. If the database is gone, rebuild it with the Module 5 Setup block. Bring the memo; we use it in the recap. -->
 
-**Then six rounds.** No lecture. Every round gives you one thing to do, a short **theory box** you read only when the task makes you want it, and a **discussion** with the nearest pod at the end: two minutes to say out loud what happened, why it happened, and what you would predict next time. A discussion is **not a checkpoint and not a test** — it is where the round's learning goal turns into words. Tick the round on the board when you have had it.
+**Then six tasks** (the headings also say “now Task 1–6”). No lecture. Every task gives you one thing to do, a short **theory box** you read only when the task makes you want it, and a **discussion** with the nearest pod at the end: say out loud what happened, why it happened, and what you would predict next time. A discussion is **not a checkpoint and not a test** — it is where the task's learning goal turns into words. Tick the task in your notes when you have had it.
 
-**Rough timing (180 minutes):** recap 15 → story 10 → **1 Build** 25 → **2 Convert** 20 → **3 Race** 30 → break 15 → **4 Plan** 20 → **5 Boundary** 30 → **6 Decide** 15 = 180. Faster pods take the **stretchers** at the end of this module; slower pods finish the core rounds and do the **homework** in §7.
+**Work at your pod's pace.** Faster pods take the **stretchers** at the end of this module; slower pods finish the core tasks and do the **homework** in §7.
 
 **Keep your notes in `Module06a/duckdb-notes.md`.** Everything else goes next to your scripts; do not commit the database, the CSV, or the Parquet file.
 
-| # | Round | You produce | Talk it through with a neighbour |
+| # | Task | You produce | Talk it through with a neighbour |
 |---|---|---|---|
 | 1 | **Build** | `history.db` with 2,000,000 rows | "Predict the count before you run. Wrong? Where?" |
 | 2 | **Convert** | `report_history.parquet` + a matching row count | "Same data or just same size — how would you know?" |
@@ -56,7 +56,7 @@ If you do not have your own numbers, take the ones on the board and say so in yo
 
 ---
 
-## 1 · Build the history (~25 minutes)
+## 1 · Build the history (now Task 1)
 
 Module 5 left you with `Module05/normalize.db` and the `report_jobpart` table — 200,000 rows covering 90 days. **We reuse that database on purpose.**
 
@@ -68,7 +68,7 @@ Module 5 left you with `Module05/normalize.db` and the `report_jobpart` table �
 >
 > The only thing we add is **time**.
 
-<!-- PREP EMAIL (before Session 6): keep Module05/normalize.db — you need it at the start of the DuckDB session. If it is gone, rebuild it with the Module 5 Setup block (~1 minute) and bring it. -->
+<!-- PREP EMAIL (before Session 6): keep Module05/normalize.db — you need it at the start of the DuckDB session. If it is gone, rebuild it with the Module 5 Setup block and bring it. -->
 
 **91 days is one quarter** (13 weeks — 4 × 91 = 364 days, one short of a year). Ten copies therefore give about **two and a half years**, a little more than Lea asked for, so the numbers have room.
 
@@ -123,14 +123,14 @@ Run it. Expect **2,000,000** rows and a CSV of roughly 11 MB.
 > `prepare.py` after this change; do **not** “fix” it with `encoding='latin-1'` in DuckDB, which only
 > happens to work for `ü` and mis-decodes other cp1252 characters.
 
-> **Discuss (nearest pod, 2 minutes).**
+> **Discuss (nearest pod).**
 > - **Why** is the row count exactly 10 × 200,000? If you cannot explain that before running, the multiplier is not understood yet — that is **goal 1**.
 > - **What if** you shifted by 90 days instead of 91? Predict the effect on the dates, then change it — it is cheap to try.
 > - **Find one more thing:** `date()` accepts `'+91 days'`; what would `'+1 month'` do differently? (Months are not all the same length — this matters the day you extend the dataset again.)
 
 ---
 
-## 2 · Convert to Parquet (~20 minutes)
+## 2 · Convert to Parquet (now Task 2)
 
 ```python
 # Module06a/to_parquet.py — run with:  uv run python Module06a/to_parquet.py
@@ -174,14 +174,14 @@ print(con.execute(f"""SELECT ROUND(SUM(part_price), 2) FROM read_parquet('{parqu
 > **Theory you need — why a file can be faster than a table.**
 > Parquet is **columnar**: values of one column are stored together, compressed per column, with statistics per block. A query that needs four of seven columns reads four. SQLite is **row-oriented**: to get `part_price` it reads whole rows. On an aggregation over millions of rows, the column store moves less data — which is most of the gap you are about to measure. The file is also immutable in practice: you write a new one, you do not update rows in place.
 
-> **Discuss (nearest pod, 2 minutes).**
+> **Discuss (nearest pod).**
 > - **How would you prove** the Parquet is the same data if `history.db` disappeared? You have the file, a checksum, and a row count — which one would convince you, and which would not?
 > - **Why** is the Parquet roughly 50× smaller than the database? (Hint: columns repeat, and compression loves repetition.) If that sounds interesting, run `SELECT * FROM parquet_metadata('report_history.parquet');` — it is also the door to stretcher S2 at the end of this module.
 > - **This is goal 1** — reproducibility. Could a podmate rebuild your file from your script alone, on a different machine?
 
 ---
 
-## 3 · The race (~30 minutes)
+## 3 · The race (now Task 3)
 
 ```python
 # Module06a/race.py — run with:  uv run python Module06a/race.py
@@ -246,7 +246,7 @@ On this machine, with this dataset: the dashboard takes about **600 ms in SQLite
 > [!IMPORTANT]
 > **Do not trust a single run.** First runs include file-cache effects; a single timing is a coin flip. Five interleaved runs and a median is the default; three is the minimum. If your two engines are within 20 %, say so — that is a finding, not a failure.
 
-> **Discuss (nearest pod, 2 minutes).**
+> **Discuss (nearest pod).**
 > - **Was the ratio what you predicted?** If not, name the assumption that was wrong — data size, cache, or number of columns. This is **goal 2**.
 > - **Why is the monthly ratio lower?** `strftime` is per-row work; the scan is no longer the bottleneck. Try `date_trunc('month', done_on)` in DuckDB — the ratio improves, the result is identical. Same query shape, different function, different number.
 > - **What would make SQLite win this race?** Try it: filter to one day (`WHERE done_on = '2026-02-14'`) or to one machine. A point query on an index can beat a column scan; a full aggregate over 2M rows cannot.
@@ -254,7 +254,7 @@ On this machine, with this dataset: the dashboard takes about **600 ms in SQLite
 
 ---
 
-## 4 · The plan (~20 minutes)
+## 4 · The plan (now Task 4)
 
 ```python
 # Module06a/plan.py — run with:  uv run python Module06a/plan.py
@@ -302,14 +302,14 @@ Three things to notice, and they are the whole lesson:
 
 > **Theory you need — two kinds of plan.** `EXPLAIN QUERY PLAN` (SQLite) tells you **how** a table is accessed: `SCAN`, `SEARCH … USING INDEX`, temp B-tree. `EXPLAIN ANALYZE` (DuckDB) actually **runs the query** and reports rows and time per operator. One is a prediction, the other is a measurement. When you need to explain a 90× gap, the measurement is the better witness.
 
-> **Discuss (nearest pod, 2 minutes).**
+> **Discuss (nearest pod).**
 > - **Point at the line** that proves the column store read less, and read the row count out loud. If you cannot find it, you have the output but not yet **goal 3**.
 > - **Why four columns and not seven?** Predict what the plan says if the query were `SELECT *`, then run it. (The row count stays; the projections change.)
 > - **Find one more thing:** SQLite's plan is a *prediction*; DuckDB's `EXPLAIN ANALYZE` is a *measurement* that runs the query. When would you use each — and which one would you show a manager?
 
 ---
 
-## 5 · The boundary (~30 minutes)
+## 5 · The boundary (now Task 5)
 
 DuckDB is not "better". Measure the other side.
 
@@ -365,7 +365,7 @@ Try the fix a thoughtful student will propose: `con.executemany("INSERT INTO s V
 
 > **Theory you need — OLTP vs OLAP in one sentence.** OLTP asks "one row, now, repeatedly" and is dominated by per-statement overhead, locks, and indexes. OLAP asks "all rows, rarely, in bulk" and is dominated by how much data must be moved. SQLite optimizes the first; DuckDB optimizes the second. Most systems need one, not both.
 
-> **Discuss (nearest pod, 2 minutes).**
+> **Discuss (nearest pod).**
 > - **Finish the sentence** without hedging: *"For Kortmann, DuckDB is the wrong engine when …"* This is **goal 4** — a number and a boundary, not an opinion.
 > - **Why** does a per-statement cost dominate? What actually happens on each `INSERT` that does not happen in a scan?
 > - **What if** the application batched its writes? `executemany` improves the number but does not close the gap — explain why not, and what would have to change in the *application*, not the engine.
@@ -373,7 +373,7 @@ Try the fix a thoughtful student will propose: `con.executemany("INSERT INTO s V
 
 ---
 
-## 6 · Decide (~15 minutes)
+## 6 · Decide (now Task 6)
 
 Write a short memo to **Lea Winter** and **Yasmin Kaya** (6–8 sentences):
 
@@ -384,7 +384,7 @@ Write a short memo to **Lea Winter** and **Yasmin Kaya** (6–8 sentences):
 
 *Portfolio evidence:* the memo, referencing your own timing table.
 
-> **Discuss (nearest pod, 3 minutes).**
+> **Discuss (nearest pod).**
 > - **Read the memo aloud.** Your neighbour asks one question: *"What if the copy is a day old?"* Answer without notes. This is **goal 5**.
 > - **Who owns the refresh** — a cron job, the shift lead, a script after the shift? What happens when it fails silently, and how would you *detect* that it did?
 > - **Which is worse for Kortmann:** a stale report or a slow one? Defend your answer with your own numbers.
@@ -393,9 +393,9 @@ Write a short memo to **Lea Winter** and **Yasmin Kaya** (6–8 sentences):
 
 ## ◇ Stretchers (if you are ahead)
 
-Three optional extensions, 15–25 minutes each. Pick the one that answers a question you actually have.
+Three optional extensions. Pick the one that answers a question you actually have.
 
-### ◇ S1 — Let DuckDB read the JSON (15 min)
+### ◇ S1 — Let DuckDB read the JSON
 
 In Module 6b the vendor metadata will live *inside* SQLite. DuckDB can read it as a file instead:
 
@@ -425,7 +425,7 @@ print(con.execute(f"""
 
 **Ask yourself:** which would you rather update — a JSON file, or a JSON column inside the database that already guarantees `json_valid`? You do not have to decide yet; 6b is where it gets settled.
 
-### ◇ S2 — Why analytics might not need an index (20 min)
+### ◇ S2 — Why analytics might not need an index
 
 Look at the Parquet's **row-group statistics** — the columnar cousin of an index:
 
@@ -450,7 +450,7 @@ ORDER BY row_group_id LIMIT 5;
 
 Now each group covers about two months. **The honest result:** at 2M rows the timing barely moves (≈1.2 ms vs ≈1.5 ms for a one-month query); at 200M it decides the query. Statistics only help if you write the data in the order you filter on — the same lesson as an index, without the index.
 
-### ◇ S3 — Compression is a storage trade (15 min)
+### ◇ S3 — Compression is a storage trade
 
 ```sql
 COPY (SELECT * FROM read_parquet('Module06a/report_history.parquet'))
@@ -461,15 +461,15 @@ Reference numbers on this dataset: **2.32 MB (snappy) → 1.37 MB (zstd)**, with
 
 ---
 
-## 7 · (probably homework) — choose your level
+## 7 · (homework) — choose your level (now Task 7)
 
-**Core (everyone, ~20 minutes).** Produce the zstd copy from S3, record the size difference, and add a paragraph to the memo: **how** the refresh runs, and what would break if it silently stopped. Bring the updated memo to Module 6b — the decision record starts from these numbers.
+**Core (everyone).** Produce the zstd copy from S3, record the size difference, and add a paragraph to the memo: **how** the refresh runs, and what would break if it silently stopped. Bring the updated memo to Module 6b — the decision record starts from these numbers.
 
-**◇ Intense track (opt in, ~45–60 minutes).** This is the task that turns the memo into a pipeline — the difference between *"we would refresh it"* and *"here is the script"*. Take it if you want the strongest evidence for **goal 5**, or if your final project will need a rebuild step anyway (most will).
+**◇ Intense track (opt in).** This is the task that turns the memo into a pipeline — the difference between *"we would refresh it"* and *"here is the script"*. Take it if you want the strongest evidence for **goal 5**, or if your final project will need a rebuild step anyway (most will).
 
 Write `Module06a/refresh.py` that:
 
-1. rebuilds `report_history.parquet` from `history.db` (reuse the `COPY` from Round 2);
+1. rebuilds `report_history.parquet` from `history.db` (reuse the `COPY` from Task 2);
 2. supports `--check`: compare **row count** and `SUM(part_price)` between SQLite and the Parquet, print both, and exit with status 1 on a mismatch;
 3. prints one line — rows, checksum, Parquet size, elapsed milliseconds;
 4. is **idempotent**: run it twice and the numbers must match (the bytes may differ; say so).

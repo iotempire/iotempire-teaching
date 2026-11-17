@@ -8,7 +8,7 @@
 > This is where the final project is built. Read [Module 8](./08-final-project.md) **before** Session 8 — you are expected to arrive with your **Project Team** and a one-paragraph story.
 
 > [!TIP]
-> **What is graded — and what is not.** The project is **3 points for the work** — the **story**, the **architecture** (schema, ingestion, headline query, interface) and the **plan** — plus **2 points** for the demo and your individual project discussion in Session 11. The steps below are a **menu** for building those three things, not a checklist: none of them is graded on its own, and you may merge, reorder, or skip them as long as the three artefacts exist and work.
+> **What is graded — and what is not.** The project is **3 points for the work** — the **story**, the **architecture** (schema, ingestion, headline query, interface) and the **plan** — plus **2 points** for the demo and your individual project discussion in Session 11. The tasks below are a **menu** for building those three things, not a checklist: none of them is graded on its own, and you may merge, reorder, or skip them as long as the three artefacts exist and work.
 
 ## 🎯 Learning Goals
 
@@ -57,15 +57,15 @@ Ask, for each: **what did it remove, what did it trade away, and what did it gai
 
 > **Checkpoint 2, part 1 runs alongside this session.** Ten pods give a ten-minute feedback round while the rest of the room works; the TA helps between slots. Nothing is graded in it — see the [syllabus](../syllabus.md#how-module-points-are-earned-from-your-portfolio).
 
-### ★ Step 1: Story and Project Team charter
+### ★ Task 1: Story and Project Team charter
 
 1. Form a **Project Team** of 4–6 by merging two **Task Pods** (the pods you worked in for Modules 1–6). Record, in `docs/team.md`: each member's name, the story, and **who owns what** (schema, ingestion, queries, interface, docs). Every member must own a piece that can be defended individually in Session 11.
-2. Write the one-paragraph story. Get it reviewed by a neighbouring **Project Team** — each side gets a turn: they ask *"what is the first query this database must answer?"*
+2. Compare the **project tickets** each pod wrote after Module 6b. Pick one story (or merge two), then write the one-paragraph story. Get it reviewed by a neighbouring **Project Team** — each side gets a turn: they ask *"what is the first query this database must answer?"*
 3. Choose the engine. **SQLite is the default.** Switch to DuckDB, JSON-in-SQLite, or a key-value store only if you can name the workload reason — and write that reason down.
 
 *Evidence:* `docs/team.md` committed.
 
-### ★ Step 2: Map requirements to deliverables
+### ★ Task 2: Map requirements to deliverables
 
 Fill in this table in `docs/requirements.md` — it is your checklist and your demo script in one:
 
@@ -81,7 +81,7 @@ Fill in this table in `docs/requirements.md` — it is your checklist and your d
 
 *Evidence:* `docs/requirements.md` with the table filled in.
 
-### ★ Step 3: Build the vertical slice (rest of Session 8)
+### ★ Task 3: Build the vertical slice
 
 Do not build breadth first — build **one path end-to-end**:
 
@@ -109,7 +109,7 @@ myproject/
 
 ## 🛠️ Sessions 9–10 — Build, Review, and Rehearse
 
-### ★ Step 4: Benchmark and harden (first half)
+### ★ Task 4: Benchmark and harden
 
 > **Performance clinic (30 minutes, Session 9).** Each team brings its slowest query. Three are profiled on the projector: `EXPLAIN QUERY PLAN`, the index that fixes it (or does not), and the before/after timing. This is the must-have most teams leave to the last week — rehearse it now, while there is still time to change the schema.
 
@@ -119,7 +119,7 @@ myproject/
 
 *Evidence:* benchmark files, the injection self-test note, and the trigger demonstration output.
 
-### ★ Step 5: Peer review
+### ★ Task 5: Peer review
 
 Trade repositories with another **Project Team**. Reviewers fill in `docs/peer-review.md`:
 
@@ -132,13 +132,13 @@ Give your notes to the other **Project Team**; they commit the fixes.
 
 *Evidence:* `docs/peer-review.md` (both as reviewer and as reviewee, with fixes linked).
 
-### ★ Step 6: Rehearse the demo (rest of Session 10)
+### ★ Task 6: Rehearse the fair demo
 
-Run a timed **15-minute dry run** of the Session 11 demo (format in [Module 8](./08-final-project.md#the-15-minute-demo--project-discussion)). Time it. The most common failure is running long on slides and short on the live demo — fix that now. Assign who answers which categories of questions.
+Rehearse the Session 11 **table demo** (format in [Module 8](./08-final-project.md#the-fair-demo--project-discussion)). Work with another Project Team: each side presents at its table while the other asks one question per member. The most common failure is running long on slides and short on the live demo — fix that now. Assign who answers which categories of questions.
 
-*Evidence:* `docs/demo-plan.md` with timings and speaker assignments.
+*Evidence:* `docs/demo-plan.md` with the table setup, the fallback video, and speaker assignments.
 
-### ◇ Step 7 (Stretcher): Ship something back
+### ◇ Task 7 (Stretcher): Ship something back
 
 Open a pull request to IoTempower, this course repository, or an open-source tool that helped you — a fixed typo in a doc, a sample script, a driver tweak. Accepted contributions can be proposed as an **Excellence Stretcher**.
 

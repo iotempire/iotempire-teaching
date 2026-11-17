@@ -19,9 +19,9 @@ the architecture log first.
 
 | # | Discrepancy | Owner | Meanwhile |
 |---|---|---|---|
-| 1 | **Time vocabulary.** Networking ADR D3 bans time estimates; this class's rounds carry "~25 minutes" targets. | [ADR §4](./00-architecture-decisions.md#4-open-questions) | Keep block targets for this run; add no new minute-by-minute predictions. Agree one vocabulary with Networking before the next offering. |
+| 1 | **Time vocabulary.** Networking ADR D3 bans time estimates; this class's rounds carry "~25 minutes" targets. | [ADR §4](./00-architecture-decisions.md#4-open-questions) | 06a/06b now have no time estimates; Modules 2–5 and 7–8 still do. Keep the run sheets in the instructor notes, and remove the remaining estimates in one pass. |
 | 2 | **“Gate” vs “discussion”.** §4 records it open; Modules 6a/6b say *discussion*, Module 5 still says *gate*. | ADR §4 | Do not rename by hand until §4 closes; if it closes as “discussion”, rename in one pass. |
-| 3 | **Checkpoint slot length.** This README and `feedback-rounds.md` say 10 minutes; the manual's run sheet says 12. | ADR §4, [feedback manual](./feedback-rounds.md) | Use 10 in the room (the syllabus wins) and record the actual slot times. |
+| 3 | **Checkpoint slot length.** Resolved for this run: README, `feedback-rounds.md` and the template use **10 minutes** for the instructor slot; the peer slot stays **12**. | ADR §4, [feedback manual](./feedback-rounds.md) | Record the actual slot times; if 10 is too tight, decide after the run. |
 | 4 | **Points split M5 vs 6a+6b.** One session for 2 points vs two sessions for 2 points. | ADR §4, syllabus | No point values in module files. Change only in the syllabus, and only with the Prüfungsausschuss. |
 | 5 | **Intensity opt-in** is a working TODO here but has no decision record. | this file | Treat it as provisional; if it survives a second run, write the record. |
 | 6 | **Online pods / async assessment** were born from an attendance crisis (D18) and depend on an unanswered Prüfungsamt question. | ADR §4 | Keep the public text minimal; cohort-specific detail stays in the private repo. |
@@ -47,6 +47,10 @@ the architecture log first.
       first session (D16): `sh scratch/smoke-test.sh all` and `python3 scratch/validate-all.py`.
 - [ ] **Refresh the numbers** in the module stories (D3) — M5 4.07/11.09 MB, M6a 2M rows and the
       warm timings — if you change the datasets or the SQLite/DuckDB versions.
+- [ ] **Remove time estimates from the student modules.** `AGENTS.md` forbids them. 06a/06b now
+      have none; Modules 2–5 and 7–8 still carry “~20 minutes” headings and “Rough timing” blocks.
+      Remove them in one pass after the planning is settled; keep the run sheets in the instructor
+      notes.
 
 - [ ] **Fix the broken case-study anchor in Module 1.** `modules/01-introduction-and-local-first.md`
       links to `./07-final-project-studio.md#read-before-the-kickoff-systems-that-broke-the-classic-stack`,
@@ -92,9 +96,10 @@ the architecture log first.
       pair-pods that pre-verify each other; a TA lane at checkpoints; one captain per pod on a
       rotating schedule; jigsaw inside the pod so one member teaches the others; and grading the
       portfolio once at the end instead of per module. Pick **one** per term and measure the time.
-- [ ] **Get a TA if the cohort is above ~30 students** (D13). Not for grading — for the room:
+- [x] **Get a TA if the cohort is above ~30 students** (D13). Not for grading — for the room:
       restarting containers, finding lost files, and taking a second feedback lane. The checkpoint
-      arithmetic is the argument: 20 pods × 10 minutes is 200 minutes.
+      arithmetic is the argument: 20 pods × 10 minutes is 200 minutes. The TA is **feedback-only**:
+      they may suggest readiness, they may not assign points. See the [TA briefing](./TA-briefing.md).
 - [ ] **Record the stage-and-gate observations** in [`study-formats.md`](./study-formats.md) for
       Modules 5, 6a and 6b while they are fresh (D7) — especially whether the theory boxes get read
       *when needed* and whether the discussions are real or performative.
@@ -111,16 +116,16 @@ the architecture log first.
 
 Many pods concluded that denormalization “buys nothing” — they were measuring a **cold cache**
 (D3). The module now warms both sides before timing (two sentences; leave them in), but the
-instructor's recap board still shows only storage and row counts. Fix that next time:
+instructor's recap output still shows only storage and row counts. Fix that next time:
 
 - [ ] **Re-measure the A/B race warm** on the teaching laptop before Session 5 and put the medians
-      on the recap board next to the storage numbers (≈4.07/11.09 MB) and the row counts (1 vs
+      in the recap file next to the storage numbers (≈4.07/11.09 MB) and the row counts (1 vs
       4,000). The timing is what students argue about.
 - [ ] **Show cold vs warm side by side** for one query — first run, then second run. It turns
       “denormalization buys nothing” into “I measured the cache”, which was the most common
       finding of the first run.
 - [ ] **Update the reference timings** in the private Module 5 solutions file with the warm
-      numbers, so the discussion answers and the board agree.
+      numbers, so the discussion answers and the recap agree.
 - [ ] Keep the recap at 15 minutes. If the warm numbers start a discussion, take the time from
       Round 1 of Module 6a, not from the story.
 

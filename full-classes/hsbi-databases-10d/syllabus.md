@@ -171,7 +171,7 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 
 ## 11-Session Course Schedule
 
-The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6b), and the final-project arc (Modules 7–8). Sessions 1–7 are taught studios; Sessions 8–10 are project studios, with **Checkpoint 2 spread across Sessions 8 and 9** while the teams work; Session 11 is demo and project discussion. Optional **TA-led tutorial sessions** (times announced via the LMS) add catch-up, deeper practice, and project support.
+The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6b), and the final-project arc (Modules 7–8). Sessions 1–7 are taught studios; Sessions 8–10 are project studios, with **Checkpoint 2 spread across Sessions 8 and 9** while the teams work; Session 11 is the two-lane demo fair and project discussion. Optional **TA-led tutorial sessions** (times announced via the LMS) add catch-up, deeper practice, and project support.
 
 The full roadmap — with a one-line summary and learning goals for every studio — is in the [module index](./modules/00-index.md).
 
@@ -185,11 +185,11 @@ The full roadmap — with a one-line summary and learning goals for every studio
 | 4 | [Module 4 — Data Integrity, Constraints & Edge Triggers](./modules/04-integrity-constraints-and-triggers.md) **+ Checkpoint 1 (feedback)** | *Peer-pod feedback round first (Modules 1–3), then:* `CHECK`/`UNIQUE`/`FK`, `STRICT` tables, generated columns, and a trigger that enforces edge telemetry rules. |
 | 5 | [Module 5 — Normalization vs. Denormalization](./modules/05-normalization-vs-denormalization.md) | Normalize to 3NF, denormalize on purpose, and measure read/write/storage trade-offs in SQLite. |
 | 6 | [Module 6a — The Analytical Engine (DuckDB)](./modules/06a-duckdb-analytical-engine.md) | Stretch the report to 2M rows, move it to Parquet, race DuckDB against SQLite, and find the boundary where it loses. |
-| 7 | [Module 6b — Polyglot Persistence & the Decision](./modules/06b-polyglot-persistence.md) | JSON documents in SQLite, a key-value comparison, a real server as the control group, and a one-page engine decision record. |
+| 7 | [Module 6b — Polyglot Persistence & the Decision](./modules/06b-polyglot-persistence.md) | JSON documents in SQLite, a key-value comparison (homework), a shared PostgreSQL server, and a one-page engine decision record. |
 | 8 | [Module 7 — Project Studio — story, architecture, plan](./modules/07-final-project-studio.md) **+ Checkpoint 2, part 1** | Teams merge; story, one-page plan with your own dates, first vertical slice. Feedback rounds run for half the pods while the rest work. |
 | 9 | [Module 7 — Project Studio — build & integrate](./modules/07-final-project-studio.md) **+ Checkpoint 2, part 2** | Build the slice out: ingestion, headline query, interface. The remaining pods get their feedback round. |
 | 10 | [Module 7 — Project Studio — harden, review, rehearse](./modules/07-final-project-studio.md) | Constraints, parameterization, index proof, peer review, timed rehearsal. |
-| 11 | [Module 8 — Live Demos & Project Discussions](./modules/08-final-project.md) | 15-minute Project Team demo + individual project discussion; retrospective. |
+| 11 | [Module 8 — Live Demos & Project Discussions](./modules/08-final-project.md) | Two-lane table fair: live demo, poster/slides, individual project discussion; retrospective. |
 
 > [!TIP]
 > **Buffer, pacing, and tutorials:** Sessions 8–10 are project studios, and at least one of them is deliberately loose — it can absorb spill-over from earlier labs, be released as flexible time, or be used for stretcher tasks and peer mentoring. The optional tutorial sessions (times announced via the LMS) are the natural home for catch-up and deeper deep dives. Announce the concrete use of each date in the LMS as the course progresses.
@@ -215,9 +215,9 @@ These seven are the **content criteria behind the architecture point** — they 
 - **Story (1 point):** a named person, a real problem, and the data that answers it.
 - **Architecture (1 point):** a schema with at least one enforced relationship, reproducible ingestion, the headline query, and an interface a human can use.
 - **Plan (1 point):** a one-page list of what you will deliver with the dates **you** chose — and evidence that you followed or revised it.
-- **Demo and individual project discussion (2 points):** a live end-to-end run in week 11, and one question per team member about the part they own.
+- **Demo and individual project discussion (2 points):** a live end-to-end table demo in the Session 11 fair, and one question per team member about the part they own.
 
-See the full [final project specification](./modules/08-final-project.md) for the demo script, documentation template, and the detailed rubric.
+See the full [final project specification](./modules/08-final-project.md) for the fair demo plan, documentation template, and the detailed rubric.
 
 ## Portfolio & Documentation Standards
 

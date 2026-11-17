@@ -9,29 +9,28 @@ That distinction is not a formality. In most German examination regulations the 
 
 ## Before the round
 
-- [ ] **Book the order.** Put the pod order on the board (or the LMS) before the session starts. Random order is fine; silent order is not.
-- [ ] **Do the arithmetic.** 5 minutes late buffer, two **12-minute** peer slots with 3-minute switches (35 in total), then **12 minutes per pod** with you (twelve pods = 144). If you have less, cut the per-pod slot, not the peer round — the practice is where the portfolio gate happens.
+- [ ] **Register the day.** Pods sign up at the start of the session for a rough timeslot (paper or the LMS). Publish the list. Random order is fine; silent order is not.
+- [ ] **Do the arithmetic.** 20 pods total; 10 per session. **10 minutes per pod** with the instructor; two lanes (instructor + TA) = **50 minutes** for 10 pods. One lane = 100 minutes. The peer practice stays **12 minutes each way**. If you have less time, cut the instructor slot, not the peer practice — the practice is where the portfolio gate happens.
 - [ ] **Open the template** ([`feedback-template.md`](./feedback-template.md)) in your editor, one line per pod.
 - [ ] **A visible timer.** A phone is enough, but it must be visible to the pod.
-- [ ] **Decide the fallback**: pods that are not ready get **4 minutes**. Write that rule on the board too.
+- [ ] **Decide the fallback**: pods that are not ready get **4 minutes**. Publish that rule with the sign-up list.
 
-## The 180-minute run sheet (2 × 90, 12 pods)
+## The checkpoint day (20 pods, two rounds)
 
 | Minutes | What happens |
 |---|---|
-| 0:00–0:05 | **Late-start buffer.** Deutsche Bahn is an uncredited co-author of this course. |
-| 0:05–0:17 | **Peer practice, first direction:** Pod A presents to Pod B — 12 minutes. |
-| 0:17–0:20 | **Switch and write feedback notes** — 3 minutes of slack, no presenting. |
-| 0:20–0:32 | **Peer practice, second direction:** Pod B presents to Pod A — 12 minutes. |
-| 0:32–0:35 | **Reflections and settling** — 3 minutes. |
-| 0:35–2:59 | **Instructor round:** 12 pods × 12 min; everyone else keeps working. |
-| 2:59–3:00 | Close: what happens next, when points are recorded, what "not yet" means. |
+| 0:00–0:05 | **Late-start buffer and registration.** Pods sign up for a rough slot. |
+| 0:05–0:35 | **Peer practice:** 12 minutes each way + 3-minute switches + settling. All pairs at once. |
+| 0:35–0:50 | **Break.** |
+| 0:50–1:40 | **Instructor lanes:** two lanes (instructor + TA), five pods each × 10 minutes. The rest of the room works. |
+| 1:40–1:50 | **Wrap:** what happens next, when points are recorded, what “not yet” means. |
+| 1:50–3:00 | **Project work** continues; the TA floats. |
 
-**Every slot is 12 minutes — including the peer slots.** The peer round gets six minutes of slack around them (switch, feedback notes, reflections); the instructor round does not. 145 minutes for 12 pods is exactly 12 each, with one minute spare. If two pods are known to be slow, give them 8 and bank the difference — the last pod gets the same time as the first, or the round was unfair.
+**Every instructor slot is 10 minutes.** The peer slots stay 12. With two lanes, 10 pods finish in 50 minutes; one lane needs 100. **Two rounds:** Session 8 covers 10 pods, Session 9 the other 10. Do not attempt 20 × 10 in one sitting.
 
-If you have 20 pods, do **two rounds** on two different days, or 7 minutes per pod. Do not attempt 20 × 12 in one sitting.
+The TA may run the second lane, ask the same questions, and write the feedback note; the TA may suggest “ready / not yet”, but **only the instructor records points**. See the [TA briefing](./TA-briefing.md).
 
-## The peer practice round (35 minutes)
+## The peer practice round (about 30 minutes)
 
 The point is that students hear the goals explained by peers before they hear them from you — and that every portfolio is **checked** by someone who is not the instructor.
 
@@ -80,19 +79,19 @@ Use these to keep the 12 minutes moving and to avoid "looks good" as the whole f
 
 The receiving pod's job ends with **two strengths, one gap, and one question they could not answer** — the last one goes to `#sql-questions`.
 
-## The instructor slot (12 minutes)
+## The instructor slot (10 minutes)
 
 **First 30 seconds: names.** While the pod sits down, it writes its members' **first names** into the `members` field. No discussion, no spelling bee — it is so you can use their names and so the line is still readable in week 11. If they hesitate, write what you hear and move on.
 
-**Move on the timer, not on the sentence.** Put the pods in a front-to-back order and sit at the front. When 12 minutes are up you move to the neighbouring pod — a few steps, never a walk across the room — and the next pod takes the seat you left. Do not wait for a sentence to finish; they will finish it while you sit down. The timer is visible to the pod, so nobody argues.
+**Move on the timer, not on the sentence.** Put the pods in a front-to-back order and sit at the front. When 10 minutes are up you move to the neighbouring pod — a few steps, never a walk across the room — and the next pod takes the seat you left. Do not wait for a sentence to finish; they will finish it while you sit down. The timer is visible to the pod, so nobody argues.
 
 | Minutes | What you do |
 |---|---|
-| 0–2 | **"Show me the one artefact you are proudest of, and name the learning goal it proves."** |
-| 2–4 | **"Now the other module: show it, or say 'not yet'."** |
-| 4–7 | One question from you, then **one strength and one next step**. |
-| 7–9 | Write one line in the template. Ask the next pod to come up. |
-| 9–12 | Transition and overrun; if the slot is clean, the next pod starts early. |
+| 0–1 | **“Show me the one artefact you are proudest of, and name the learning goal it proves.”** |
+| 1–3 | **“Now the other module: show it, or say ‘not yet’.”** |
+| 3–6 | One question from you, then **one strength and one next step**. |
+| 6–9 | Write one line in the template. Ask the next pod to come up. |
+| 9–10 | Transition and overrun; if the slot is clean, the next pod starts early. |
 
 **The 4-minute variant (not ready).** "Show me what exists." One next step. "Come back in the studio." No rescue, no negotiation, no guilt — and write `not yet` so the final review knows where to look.
 

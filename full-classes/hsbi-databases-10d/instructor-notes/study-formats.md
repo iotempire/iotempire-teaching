@@ -147,11 +147,11 @@ One page of definitions, then the whole session is lab. The card is the only rea
 
 Module 6 was split into two stage-and-gate studios mid-run, after Module 5 showed the format could carry a session. Do this *after* the two sessions have run:
 
-1. Read the observations above. If the rounds worked, keep the split. If 6a ran long, move Round 5 (the boundary) to homework — do not shrink the race.
-2. If the rounds worked but the room spread too far, add **one** whole-room checkpoint after Round 3 of 6a.
+1. Read the observations above. If the rounds worked, keep the split. If 6a ran long, move Task 5 (the boundary) to homework — do not shrink the race.
+2. If the tasks worked but the room spread too far, add **one** whole-room checkpoint after Task 3 of 6a.
 3. If the gates were gamed, switch the gate to a **question the neighbour asks from a fixed list** (see the [feedback-round manual](./feedback-rounds.md)).
-4. If students skipped the theory boxes, move one box *before* its round instead of inside it — a single change, not a redesign.
-5. If 6b had too many benches, cut to two (JSON + decision record) and move key-value and the server to reading.
+4. If students skipped the theory boxes, move one box *before* its task instead of inside it — a single change, not a redesign.
+5. If 6b has too many tasks, keep JSON + the shared server + the decision record, and move key-value to homework.
 
 > **Do not redesign on a hunch.** One data point (Module 5) is enough to adjust, not enough to rebuild. Change one dial at a time and write down what happened.
 

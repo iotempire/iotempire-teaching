@@ -441,10 +441,12 @@ one session cannot hold it. Grading mid-term is not permitted for the chosen for
 **Decision.** Checkpoints are **feedback rounds**, never graded. Checkpoint 1 sits in session 4;
 **Checkpoint 2 is spread over sessions 8 and 9** (ten pods each, ~10 minutes), while the project
 runs. The round opens with a peer practice (portfolio gate, one artefact, one reflection); "not yet"
-is a complete answer. A TA can run a second lane.
+is a complete answer. A TA can run a second lane: the TA gives feedback and may suggest "ready / not
+yet"; **only the instructor records points, grades, and pass/fail.**
 
 **Consequences.** Feedback lands while it is cheap to fix. The instructor sees every portfolio at
-least once. The project loses ~100 minutes per session to the round; that is the price.
+least once. With a TA lane the project loses ~50 minutes per session to the round (~100 without);
+that is the price.
 
 **Alternatives rejected.** One 4-hour checkpoint; grading in the checkpoint; a written mid-term; no
 mid-term feedback.
@@ -462,12 +464,13 @@ mid-term feedback.
 Two pods of 2–3 merge into a team of 4–6.
 
 **Decision.** Sessions 8–10 are project studios (story/architecture/plan → build/integrate →
-harden/review/rehearse); session 11 is demo + individual discussion. The work is 3 points (story,
-architecture, plan) and the demo/discussion 2 points. Milestones are proposed as a menu; teams set
-their own dates.
+harden/review/rehearse); session 11 is a **two-lane fair/poster demo** plus individual discussion at
+the tables. The instructor visits every team across the two blocks; the TA visits the other lane and
+gives feedback, not grades. The work is 3 points (story, architecture, plan) and the demo/discussion
+2 points. Milestones are proposed as a menu; teams set their own dates.
 
 **Consequences.** The project gets three weeks; checkpoints share the first two. A team that starts
-late cannot compress the rehearsal. The demo is a conversation, not a slide show.
+late cannot compress the rehearsal. The demo is a table conversation, not a stage show.
 
 **Alternatives rejected.** Four project weeks; a written project report only; grading the repository
 without a discussion.
@@ -627,8 +630,9 @@ a template to maintain.
   rounds carry "~25 minutes" targets. Are these pacing aids or predictions? Pick one vocabulary.
 - **Points split M5 / 6a+6b.** Module 5 is one session but still 2 points; 6a+6b are two sessions for
   2 points. Should one point move from M5 to the 6s?
-- **Checkpoint slot length.** The manual says 12 minutes; the syllabus says 10. With 20 pods and a
-  TA, is a second lane the permanent model?
+- **Checkpoint slot length.** Resolved for this run: **10 minutes** for the instructor slot; the peer
+  slot stays **12**. With 20 pods and a TA, is a second lane the permanent model? Record the actual
+  times.
 - **Online pods and the asynchronous form.** Is D18 a one-off crisis policy or a permanent route?
   Confirm with the Prüfungsamt before publishing it as an option.
 - **Random portfolio spot-checks.** Do they fit the examination law, and are they worth the trust
@@ -698,4 +702,5 @@ lives now.
 | Date | Change |
 |---|---|
 | 2026-11-11 | First version: provenance, 19 decisions, rejected list, open questions, recreation checklist, handbook map. |
+| 2026-11-17 | TA is feedback-only (D13); Session 11 is a two-lane fair (D14); 06b moves to Task vocabulary; 06a headings carry “(now Task N)”; time estimates removed from 06a/06b and tracked for the remaining modules. |
 | 2026-11-16 | D20 added: commits are instructor-only; agents leave changes uncommitted for review. Same rule as Sensors D22 and Networking D18. | Ulno + agent |

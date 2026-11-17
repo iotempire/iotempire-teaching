@@ -2,7 +2,7 @@
 
 [← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Previous: Module 7 →](./07-final-project-studio.md)
 
-**Course placement:** Session 11 (demo + project discussion), built during Sessions 8–10. Worth **5 points (25 % of the total)**.
+**Course placement:** Session 11 (fair demo + project discussion), built during Sessions 8–10. Worth **5 points (25 % of the total)**.
 
 > [!IMPORTANT]
 > **The syllabus is the single source of truth for assessment.** This page is the detailed specification and rubric. If this page and the [syllabus](../syllabus.md#final-project-requirements-5-points) ever disagree, the syllabus wins; this page is the working detail behind those requirements.
@@ -55,23 +55,34 @@ Submit a **5-page** report (Markdown or PDF) in the project repository under `do
 5. **Security, integrity & evaluation (≈1 page).** Your parameterization proof, your constraint/trigger, the measured evaluation numbers, and one honest limitation.
 6. **Project Team & contributions (≈½ page).** One line per member: what they owned.
 
-<a id="the-15-minute-demo--project-discussion"></a>
-## 🎤 The 15-Minute Demo & Project Discussion
+<a id="the-fair-demo--project-discussion"></a>
+## 🎤 The Fair Demo & Project Discussion
 
-Your final presentation has two parts: a **Project Team demo** and an **individual project discussion**. Budget your time like this:
+Demo day is a **two-lane fair**, not a stage. Each Project Team gets a table with a laptop, a
+poster or a few slides, and a 2-minute recorded fallback of the live flow. Teams present at their
+tables while the other lane visits; then the lanes swap. The instructor visits every table for the
+live demo and the individual questions; the TA visits the other lane and writes feedback. **The TA
+does not grade** — the instructor records the project points.
 
-| Minutes | Segment | Who |
+At your table, cover the whole story — in this order, without turning it into a slide talk:
+
+| Segment | What the visitors see | Who |
 |---|---|---|
-| 0–2 | **The story.** Name the stakeholder and the problem; show where the data comes from. | Any member |
-| 2–8 | **Live end-to-end demo.** Raw data → ingestion → database → the headline query → the interface. Run it live; do not show only slides. | Rotating |
-| 8–10 | **The proof.** Show one `EXPLAIN QUERY PLAN` before/after, the timings, and the injection self-test. | Query owner |
-| 10–12 | **Integrity.** Trigger the constraint/trigger live — show it rejecting bad data. | Integrity owner |
-| 12–15 | **Project discussion.** Individual questions to specific members on the design decisions they own; one "what would you change and why?" | All |
+| **The story** | The named person, the problem, where the data comes from | Any member |
+| **Live end-to-end** | Raw data → ingestion → database → the headline query → the interface. Run it live; slides may support, never replace it | Rotating |
+| **The proof** | One `EXPLAIN QUERY PLAN` before/after, the timings, and the injection self-test | Query owner |
+| **Integrity** | Trigger the constraint/trigger live — show it rejecting bad data | Integrity owner |
+| **Project discussion** | Individual questions to specific members on the design decisions they own; one “what would you change and why?” | All |
 
 **Preparation rules:**
-- Rehearse to the clock (see the Module 7 rehearsal). Slides may support, never replace, the live run.
-- Have a **fallback**: a recorded 2-minute capture of the live flow in case the machine misbehaves. A crash you handle calmly and explain is fine; a crash you cannot explain is a lost point.
-- Every member answers at least one question. "That was my teammate's part" is not an answer.
+- Rehearse the **table pitch** with another team. Visitors arrive in waves; the demo must restart
+  cleanly and quickly.
+- Keep the poster/slides short. A visitor should be able to read the story and the schema in a
+  minute, then watch the live run.
+- Have a **2-minute recorded fallback** of the live flow. A crash you handle calmly and explain is
+  fine; a crash you cannot explain is a lost point.
+- Every member answers at least one question. “That was my teammate’s part” is not an answer.
+- Bring your own power and network plan; the room is a fair, not a single demo machine.
 
 ## 📊 Evaluation Rubric (5 Points)
 
@@ -82,7 +93,7 @@ Four things, five points:
 | **Story** | **1** | A named person with a real problem, and data that answers it. A generic topic ("a database for a warehouse") earns nothing here. |
 | **Architecture** | **1** | A schema with at least one enforced relationship, reproducible ingestion, the headline query, and an interface a human can use. |
 | **Plan** | **1** | A one-page delivery plan with **your own dates** — and evidence that you followed or revised it. |
-| **Demo & individual project discussion** | **2** | **1** for a live end-to-end run in Session 11, **1** for every member explaining the part they own. |
+| **Demo & individual project discussion** | **2** | **1** for a live end-to-end table demo in the Session 11 fair, **1** for every member explaining the part they own. |
 
 **Distribution of the 5 points across the Project Team.** The project score is a Project Team score, but the *project discussion* is individual. A member who cannot explain their contribution does not automatically fail the Project Team — the instructor records an individual note, and the **reflection component (4 points)** or an approved **Excellence Stretcher** can offset it. Speak to the instructor **early** if a Project Team member is not contributing; that is a project-management problem we solve together, not a reason to wait until the demo.
 

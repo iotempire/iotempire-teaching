@@ -10,7 +10,9 @@ Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment l
 | [Future work](./TODO.md) | Actionable leftovers for the next run, a discrepancy watch against the architecture log and the sibling classes, and the shared partial-grades thought |
 | [Assessment & operations](./00-assessment-and-operations.md) | Assessment form, milestone plan, submission hygiene, group sign-off, re-examination, privacy, AI declaration |
 | [Study formats](./study-formats.md) | The catalogue of pod-study and stage-and-gate variants, and the observations we still owe |
-| [Feedback rounds](./feedback-rounds.md) | The 10-minute script, the 145-minute run sheet, and the fill-in [template](./feedback-template.md) |
+| [Feedback rounds](./feedback-rounds.md) | The 10-minute script, the registration/lane run sheet, and the fill-in [template](./feedback-template.md) |
+| [TA briefing](./TA-briefing.md) | What the TA may and may not do: feedback lane, evidence notes, suggested readiness, demo-fair notes, escalation |
+| [Project idea bank](./project-ideas.md) | Concrete project directions and a kickoff talk track — a person, a problem, a first query, a data source |
 | [Email template](./email-template.md) | Prep and expectation mail — send it at least three days before a session |
 | [PostgreSQL tunnel](./postgres-tunnel.sh) | The optional server contrast: Podman, Cloudflare tunnel, quick mode without a domain |
 
@@ -24,7 +26,7 @@ Networking class inherits patterns from this class; what it is copying is writte
 2. **Learning goals are the contract; tasks are negotiable.** Every module opens with its goals. Students may replace or skip tasks if they can still demonstrate the goals. That is why you assess conversations, not submissions.
 3. **You rarely lecture.** Most "input" is a pod study (20–30 min) with references and LLM prompts, followed by a concrete exercise and a share with a neighbouring pod. Your job is to walk, listen, and correct.
 4. **Every session has two harvests — collections, not quizzes.** At the break and again at the end, five minutes: students read out the curiosities they *marked while working* (an odd statement, a weird diagram, a bug, a UX surprise) and compare lists. Nobody explains and nobody is assessed; *"I collected these — which did you find?"* is the whole activity. Details in [Module 3](../modules/03-llm-assisted-sql-and-query-profiling.md), and one paragraph in the [syllabus](../syllabus.md#how-we-teach--challenge--and-project-based-in-person-and-always-in-flux).
-5. **Checkpoints are feedback, not an exam.** A short conversation per pod. Points for Modules 1–6 are recorded when you *see* the evidence; the graded assessment happens at the end. See [feedback rounds](./feedback-rounds.md) and the [syllabus](../syllabus.md).
+5. **Checkpoints are feedback, not an exam.** A short conversation per pod. Points for Modules 1–6 are recorded when you *see* the evidence; the graded assessment happens at the end. With a TA, run a second lane: the TA gives feedback and may suggest “ready / not yet”; **only the instructor records points.** See [feedback rounds](./feedback-rounds.md), the [TA briefing](./TA-briefing.md), and the [syllabus](../syllabus.md).
 
 > [!IMPORTANT]
 > **If you teach one technical habit, make it `EXPLAIN QUERY PLAN`.** It is the spine of the second half of this course: it turns "it feels slow" into a claim you can check, it is the only performance skill that still matters when a model writes the SQL, and it appears in every module from 3 to 8 — the final project requires a before/after plan as evidence. Say the command out loud, prefix queries with it in front of the room, and ask "what does the plan say?" before "how long did it take?". Students copy that reflex faster than any slide can teach it.
@@ -34,7 +36,7 @@ Networking class inherits patterns from this class; what it is copying is writte
 | Minutes | What happens |
 |---|---|
 | 0–5 | Story or a one-slide hook. Not a lecture. |
-| 5–50 | **Pod study and share** — 30 + 15 min in Modules 2 and 3; 20 + 10 in Module 4; **Modules 5, 6a and 6b replace this with a 15-minute skim (or a 15-minute gate) and self-paced rounds**. In practice studies run **1.5–2× longer** than printed, so treat the printed number as a **hard stop**, not a prediction. |
+| 5–50 | **Pod study and share** — 30 + 15 min in Modules 2 and 3; 20 + 10 in Module 4; **Module 5 uses a 15-minute skim, and Modules 6a/6b use self-paced tasks**. In practice studies run **1.5–2× longer** than printed, so treat the printed number as a **hard stop**, not a prediction. |
 | 50–90 | Studio lab, part 1. |
 | 90–105 | **Break — harvest swap 1** (read out the curiosities you marked). |
 | 105–185 | Studio lab, part 2 — checkpoints live here. |
@@ -44,9 +46,9 @@ Rooms: the schedule is 90 minutes, a 15-minute break, 90 minutes. Protect the br
 
 ## The stage-and-gate pattern (Module 5 onward)
 
-Module 5 dropped its pod study and became **seven rounds**: a short primer, a fifteen-minute skim, then small hands-on stages, each with a *“Theory you need”* box and a two-minute **peer gate** at the end. No timer, no synchronised share — the room runs at different speeds on purpose, and a gate board shows you who is stuck.
+Module 5 dropped its pod study and became **seven rounds**: a short primer, a fifteen-minute skim, then small hands-on stages, each with a *“Theory you need”* box and a two-minute **peer gate** at the end. No timer, no synchronised share — the room runs at different speeds on purpose, and a shared progress list shows you who is stuck.
 
-Use it when the material is **practical enough to start without the theory** and the study has been eating the lab. Do not use it where a shared vocabulary must exist before anyone can act — that is what the 30 + 15 studies in Modules 2–3 are for. **Modules 5, 6a and 6b all use it now**; 6a and 6b are each one session of rounds, not a study followed by a lab.
+Use it when the material is **practical enough to start without the theory** and the study has been eating the lab. Do not use it where a shared vocabulary must exist before anyone can act — that is what the 30 + 15 studies in Modules 2–3 are for. **Modules 5, 6a and 6b all use it now**; 6a and 6b are each one session of tasks, not a study followed by a lab.
 
 The full catalogue of formats we considered, the six dials behind them, and the observations we still owe are in **[study formats](./study-formats.md)**. Module 6 has since been split into two stage-and-gate studios (6a, 6b); fill in the observations there before the next redesign.
 
@@ -58,7 +60,7 @@ Nothing is graded in a checkpoint. A checkpoint exists so students hear what is 
 - **One artefact, one question, one next step.** That is the whole slot.
 - **"Not yet" is a complete answer.** Write it down and move on; do not rescue a pod inside the slot.
 - The round opens with a **peer practice**: two pods present to each other, **12 minutes each way**, with a 3-minute switch for feedback notes. The receiving pod does the **portfolio gate** (own repository, can edit, commit, link) and asks the questions from the manual.
-- **Checkpoint 2 is spread over sessions 8 and 9** — ten pods per session, ten minutes each, while the rest of the room builds. Session 8 covers Modules 4–5; session 9 covers 6a–6b. **If the TA knows the material, run two lanes (five pods each) and finish in ~50 minutes; otherwise the TA helps the working teams and you keep one lane.** With 20 pods this is the difference between a feedback round and a stampede.
+- **Checkpoint 2 is spread over sessions 8 and 9** — ten pods per session, ten minutes each, while the rest of the room builds. Pods register for a rough slot at the start of the day. Session 8 covers Modules 4–5; session 9 covers 6a–6b. **Run two lanes (five pods each) and finish in ~50 minutes; otherwise you keep one lane and the TA helps the working teams.** The TA writes feedback and may suggest “ready / not yet”; **you record the points.** With 20 pods this is the difference between a feedback round and a stampede.
 - Students who miss it send a **short video plus a portfolio excerpt**; they get less feedback, and lose no points.
 
 The run sheet, the 10-minute script and the fill-in template live in the **[feedback-round manual](./feedback-rounds.md)**.
