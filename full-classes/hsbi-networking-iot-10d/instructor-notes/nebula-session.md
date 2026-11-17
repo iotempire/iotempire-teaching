@@ -70,7 +70,8 @@ matching pod group on the assigned port.
 > **Pod groups are confirmed as `hsbi-netiotNN`.** The role groups `services`, `students`, and
 > `laptops` were removed; the policy uses the service and laptop ranges instead. `ulno` remains
 > the admin group at the network level. The firewall shape is what matters: one group per pod,
-> narrow role ranges, one admin group.
+> narrow role ranges, one admin group. Why, and what the wide student range costs, is
+> [D21](./00-architecture-decisions.md#d21).
 
 **What the group split means.**
 

@@ -113,7 +113,7 @@ The table is the discussion map: the **[Goal](#-learning-goals) · theory box** 
 | What | Notes |
 |---|---|
 | Router | Cudy TR1200 from Module 2; `192.168.14.0/24`; Mosquitto on `192.168.14.1:1883` |
-| Overlay | Nebula `nebula1` on the router; address from the bundle (`10.100.0.x`) |
+| Overlay | Nebula `nebula1` on the router; address assigned by the bundle |
 | Lighthouse | Class lighthouse; directory only, not a relay |
 | Node-RED | Optiplex cluster, one container per pod; URL and class login on the board |
 | Node-RED port | `1808x` on the assigned Optiplex host (exact port on the board) |

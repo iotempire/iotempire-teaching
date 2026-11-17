@@ -77,6 +77,7 @@ records short; link to the artefact instead of pasting it.
 | [D18](#d18) | Commits are instructor-only; agents never commit | accepted | every file; this log |
 | [D19](#d19) | One vocabulary: Task, Subtask, Evidence | accepted | Module 3 pilot; later modules when touched |
 | [D20](#d20) | Timetable in school hours; every slot is studio time | accepted | syllabus, roadmap, modules |
+| [D21](#d21) | Overlay authorization: one group per pod, role ranges, one written-down relaxation | accepted | Module 3, [`nebula-session.md`](./nebula-session.md), CA workspace |
 
 ## 1. Provenance — how this class came to be
 
@@ -740,6 +741,52 @@ fiction still fits the calendar.
 **Evidence.** Syllabus timetable; [TODO](./TODO.md); calendar export; `README.md`;
 Module 3.
 
+<a id="d21"></a>
+### D21 — Overlay authorization: one group per pod, role ranges, one written-down relaxation
+
+**Status:** accepted.
+
+**Context.** A Nebula firewall rule matches on a certificate group, a source
+address range, or a single host. The upstream examples label groups by role
+(`services`, `students`, `laptops`). That reads like identity but behaves as an
+access selector, so a rule written with them grants a whole class of machines
+access to another class — and the model then looks arbitrary. The first bundle
+design inherited those groups. Student certificates are also issued on demand,
+so a rule that depended on a per-student label would need editing at every issue.
+
+**Decision.** The per-pod group (`hsbi-netiotNN`) is the only identity selector;
+there are no role groups. Service hosts and student machines are selected by
+**address range** — the service range and the student range — not by group. Pod
+routers accept the broker port from the service range and SSH/ICMP from the whole
+student range plus the admin group, inbound dropped by default. The student range
+is deliberately **not** split per pod, so any student certificate can reach any
+pod router's SSH. Node-RED access is not affected: it stays keyed to the pod
+group, so a pod still cannot open another pod's instance.
+
+This class is not a security class. A relaxation that is known and written down
+is acceptable; a rule strict enough that people work around it is not.
+
+**Consequences.** Issuing a student certificate needs no policy change — take the
+next free address and hand out the bundle. Cross-pod SSH exists for the duration
+of the class and is visible in this record rather than discovered by accident.
+The relaxation is a convenience for issuing certificates and repairing routers,
+not a claim that the reach is harmless.
+
+**Alternatives rejected.** Role groups — intuitive-looking, broad in effect, and
+they were the original design (removed 2026-11-17). Per-pod address blocks inside
+the student range — correct in principle and cheap to implement, but it adds a
+numbering scheme every issue must respect, and the routers hold no data worth
+protecting.
+
+**Evidence.** Module 3 tasks; the certificate layout in
+[`nebula-session.md`](./nebula-session.md); the CA workspace holds the concrete
+ranges, names, and policy packs.
+
+**Revisit if.** A pod reaches another pod's router and it disturbs the class, a
+router starts holding credentials or data worth protecting, or the certificates
+are re-issued for another reason anyway — then cut per-pod blocks inside the
+student range and re-sign. That is an addressing change; no role groups return.
+
 ## 3. Deliberately rejected or retired
 
 These are not "bad ideas we never had". They are alternatives that looked
@@ -752,6 +799,7 @@ idea from returning as a "simple fix".
 | **A bus survey in Module 2** | Low-level buses belong to Sensors & Actuators / MCU Programming; repeating them in the networking lab eats the router day. The old `TODO(instructor)` about mirroring the survey was resolved this way. | Project wiring in Modules 7–8 needs a specific bus; teach that one, on the device, not a survey. |
 | **Instructor pre-flashes every router** | Flashing is easy (intermediate image, then upstream OpenWrt); pre-flashing hides the only step students must be able to repeat. Extroot is the hard part, and it still needs the student. | A cohort cannot flash at all — then pre-extroot the USB sticks, not the routers. |
 | **One router per two students** | A pod is the unit of work and the unit of assessment; a shared router across pods breaks the take-home path. | Never; the hardware count is per Task Pod. |
+| **Role groups in the overlay (`services`, `students`, `laptops`)** | They read like identity but act as access selectors, so a rule written with them grants a whole class of machines access to another class; that is where the “the Nebula firewall is incomprehensible” impression came from. One group per pod plus role *ranges* say the same thing with less reach (D21). | Never; a new class of machine gets a range, a new pod gets a pod group. |
 | **Node-RED on the router** | 16 MB flash / 128 MB RAM; the router is a gateway and broker, not an application server. | Never. If a service must run on the router, it is Mosquitto or a small MicroPython service. |
 | **Recorded Master Class demo sessions** | The old recordings are locked away and do not match the current stack; a recording cannot answer the room's question. | Never as the primary path; a short clip is acceptable only as a pre-class teaser. |
 | **Chatto / a class chat tool in Module 2** | It adds an account and a service before the network works; the class already uses Discord/LMS for sharing. | A cohort that needs a persistent chat from Day 1 — then decide it at class level, not in Module 2. |
@@ -912,3 +960,4 @@ For a re-creator with access to the instructor's workspace:
 | 2026-11-10 | Renamed the pedagogical gates to discussions in Modules 2–7; each round table now maps its discussion to a learning goal and theory box, following the Databases TODO | Ulno + agent |
 | 2026-11-16 | D18 added: commits are instructor-only; agents leave changes uncommitted for review. Same rule as Sensors D22 and Databases D20. | Ulno + agent |
 | 2026-11-17 | D19 added: Task → Subtask → Evidence, piloted in Module 3. D20 added: timetable counted in school hours; Ü/BS/P are all hands-on studio time; real dates and project kickoff on Dec 11. D11 updated for the Optiplex Node-RED cluster. | Ulno + agent |
+| 2026-11-17 | D21 added: one group per pod and role ranges replace role groups; the wide student range and the cross-pod SSH it allows are an accepted, written-down relaxation with a revisit trigger. Concrete ranges and host names stay in the CA workspace. | Ulno + agent |

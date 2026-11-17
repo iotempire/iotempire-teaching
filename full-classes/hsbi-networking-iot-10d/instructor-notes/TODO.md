@@ -70,15 +70,29 @@
 - [x] **Confirm the pod group naming.** Pod groups are `hsbi-netiotNN`; routers are
       `routerNN.hsbi-netiot.ulno.mesh` with `hsbi-netiotNN`. The service policies and the 15
       router certs use this scheme.
-- [x] **Remove redundant role groups.** `services`, `students`, and `laptops` were removed;
-      the router policy uses the service range `10.100.1.0/24` and the laptop range
-      `10.100.2.0/24`, with `ulno` as the admin group. No role groups remain to rename.
+- [x] **Remove redundant role groups.** `services`, `students`, and `laptops` were removed; the
+      router policy selects by the service range and the student range instead, with `ulno` as the
+      admin group. No role groups remain to rename. Rationale and the accepted relaxation:
+      [D21](./00-architecture-decisions.md#d21).
 - [ ] **Test one router end to end** before the class: bundle with the shared pod policy, install,
       and verify SSH/ICMP and the broker path.
 - [ ] **Install and verify the service-host bundles.** The four Node-RED hosts were re-bundled with
-      the `hsbi-netiotNN` rules; oldplex01 is unchanged. After installing, `firewall explain` on
-      each host must show `inbound_action: drop`, the admin rule, and only that host's pod groups
-      on the assigned ports. The admin host must allow only the admin group.
+      the `hsbi-netiotNN` rules; the admin-only host is unchanged. After installing,
+      `firewall explain` on each host must show `inbound_action: drop`, the admin rule, and only
+      that host's pod groups on the assigned ports. The admin host must allow only the admin group.
+
+## Module 3 — overlay policy watch items
+
+- [ ] **Watch for cross-pod router access.** By design ([D21](./00-architecture-decisions.md#d21)) any
+      student certificate may SSH to any pod router: the student range is wide and the rule selects
+      by range, not by pod. That is an accepted convenience, not an oversight. If a pod reaches
+      another pod's router and it disturbs the class, or if the routers start holding credentials or
+      data, cut per-pod blocks inside the student range and re-sign the student certificates. It is an
+      addressing change, not a group change — no role groups come back.
+- [ ] **Check whether the wide student range was actually used for repairs.** Cross-pod SSH exists so
+      that a pod whose own laptop is not set up can still help another pod, and so the instructor has
+      one rule instead of fifteen. If nobody ever used it, the justification is weaker than the record
+      claims — say so in the record rather than keeping a rule for a scenario that did not happen.
 
 ## Before the next semester (reset)
 
@@ -109,6 +123,14 @@
       **Done 2026-11-17:** the fine table, the 2.7 case, and the “orientation, assessed as a whole”
       note are in the syllabus. Keep the tone descriptive; do not turn the table into a task-point
       calculator.
+- [ ] **Genericize the certificate naming scheme in the tracked notes.** Concrete ranges (the
+      service and student ranges), the admin host name, and the overlay address prefix were removed
+      from tracked files on 2026-11-17. What remains is the scheme itself: `hsbi-netiotNN` in
+      [D21](./00-architecture-decisions.md#d21), [TODO](./TODO.md), and
+      [`nebula-session.md`](./nebula-session.md), plus `routerNN.hsbi-netiot.ulno.mesh` in the TODO.
+      It was kept because students meet the group name in class and the scheme explains the model.
+      Decide next run whether the workbook and notes use placeholders (`<pod-group>`, `<pod-name>`)
+      and leave the real scheme in the CA workspace with the rest of the overlay detail.
 - [ ] **Review the discussion map after the de-bloat.** Every round should still name the learning
       goal and theory box its discussion checks; fewer steps must not mean fewer checks on
       understanding.
