@@ -65,6 +65,17 @@
       Round 3) or switch to uplink-first (works on a plain upstream image and matches the German
       guide). If you switch, update Round 2 and the resource-bank recipe.
 
+## Module 3 — before the session
+
+- [ ] **Confirm the group names, then issue the pod router certificates.** The current labels
+      (`services`, `podNN`, `students`, `laptops`) are provisional; `services` is too generic and
+      the per-pod group should match the MQTT topic convention. Every router needs the student
+      group plus its per-pod group; the service host allows only that pod group on the assigned
+      port. Test one router end to end before the class.
+- [ ] **Install and verify the service-host bundles.** After installing, `firewall explain` on
+      each host must show `inbound_action: drop`, the admin rule, and only that host's pod groups
+      on the assigned ports. The admin host must allow only the admin group.
+
 ## Before the next semester (reset)
 
 - [ ] **Re-run `./tools/check-all.sh`** from the repository root before the first session.

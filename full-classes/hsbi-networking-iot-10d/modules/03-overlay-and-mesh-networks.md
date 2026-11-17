@@ -62,7 +62,7 @@ Node-RED is a shared class service on the Optiplex cluster, not another thing to
 
 - **The router routes and brokers; the Optiplex runs the flow.** Never install Node-RED on the router.
 - **Use the class login on the board.** It is a lab credential, not a personal password, and it is not reused outside this class. If you run your own Node-RED instance later, change the default login.
-- **The Nebula firewall is the door policy.** Access is restricted by host and port; there are no broad subnet rules in this first overlay session.
+- **The Nebula firewall is the door policy.** Access is restricted by certificate group and port; there are no broad subnet rules in this first overlay session.
 
 ## 📖 The Challenge — The Exhibition Across the City
 

@@ -238,7 +238,7 @@ Unlike pure microcontroller classes, our hardware focuses on modular, ready-to-n
   - One **Nebula lighthouse** with a stable address (small VPS or lab VM), run for the whole class.
   - One **class CA** on the instructor's machine and **one bundle per pod** (router certificate, plus laptop certificates for students with admin rights), handed out as croc codes or a download link. Bundles are credentials: they are not shared in the repository and are deleted after the session.
 - **Service cluster (instructor side):**
-  - Four **Optiplex** hosts (`ulno-oldplex02`–`ulno-oldplex05`) on the class Nebula, each running up to four rootless **Node-RED Podman containers**. One container per pod, one persistent volume per pod, one class login, reachable only through the Nebula firewall policy. The router remains the broker; Node-RED never runs on the router.
+  - Four instructor-provided **Optiplex** service hosts on the class Nebula, each running up to four rootless **Node-RED Podman containers**. One container per pod, one persistent volume per pod, one class login, reachable only through the Nebula firewall policy. The router remains the broker; Node-RED never runs on the router.
   - Yggdrasil is deferred to a later class; B.A.T.M.A.N. is an optional instructor showcase, not a dependency.
 
 > [!WARNING]

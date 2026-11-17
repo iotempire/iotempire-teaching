@@ -11,25 +11,31 @@ optional instructor showcase. A Chatto/Discord/MQTT bridge is a later extra, not
 
 ## Before the session
 
-- [ ] **Lighthouse:** the existing lighthouse on `ulno.mesh` is reachable, with `am_lighthouse:
-  true` and UDP 4242 open. Put its public `ip:port` into every `static_host_map`.
-- [ ] **Class CA** in `~/keys/class` — never in Git, never on a shared drive.
+- [ ] **Lighthouse:** the class lighthouse is reachable and `am_lighthouse: true`; put its public
+  `ip:port` into every `static_host_map`. The concrete endpoint is kept with the CA workspace.
+- [ ] **Certificate workspace:** an instructor-owned CA workspace outside Git; the CA key never
+  leaves the instructor machine. The concrete path is kept with the keys.
 - [ ] **Certificates and groups:**
-  - `lighthouse` — the lighthouse;
-  - `students` — one router per pod;
-  - `services` — the four Optiplex hosts;
-  - `laptops` — optional direct laptop joins.
-- [ ] **One bundle per pod** for its router, plus laptop bundles only for students who confirmed
-  admin rights. Use `nebula-manager` for the CA, signing, configs, bundles, and the initial
-  firewall policy; keep the commands in the transcript.
-- [ ] **Optiplex cluster:** Nebula installed on `ulno-oldplex02`–`ulno-oldplex05`, group
-  `services`. Four rootless Node-RED Podman containers per host, ports `18080–18083`, one
-  persistent `/data` volume per pod, one class login.
-- [ ] **Pod-to-container map:** `oldplex02` = pod01–04, `oldplex03` = pod05–08,
-  `oldplex04` = pod09–12, `oldplex05` = pod13–15 + spare. Put the URL table on the board.
-- [ ] **Firewall policy:** service hosts allow Node-RED ports `18080–18083` from `students`; pod
-  routers allow `1883` from `services`. Restrict by host and port; do not add broad subnet rules
-  in this first overlay session.
+  - one lighthouse certificate;
+  - one router certificate per pod, with the student group **and a per-pod group**;
+  - one certificate per service host, with the service group and the admin group;
+  - one certificate for the admin host, with the admin group only;
+  - optional laptop certificates, with the laptop group (and the pod group when the laptop must
+    reach that pod's Node-RED).
+- [ ] **One bundle per pod** for its router, with the shared pod policy; laptop bundles only
+  for students who confirmed admin rights. Use `nebula-manager` with `-l` and keep the operator
+  log.
+- [ ] **Service hosts:** Nebula installed on the instructor-provided Optiplex hosts; one admin-only
+  host and several Node-RED hosts. Up to four rootless Podman containers per Node-RED host, one
+  persistent volume per pod, one class login.
+- [ ] **Install the prepared service bundles** and run `nebula -test`; `firewall explain` must show
+  the admin rule and only the matching per-pod rules.
+- [ ] **Pod-to-container map:** each pod is assigned to one service host and one host port; put the
+  URL table on the board. The concrete map is kept with the CA workspace.
+- [ ] **Firewall policy:** service hosts drop inbound by default and allow only the matching
+  per-pod group on the assigned Node-RED port; the admin group is allowed for administration.
+  Pod routers use the shared pod policy: broker port from the service group, SSH/ICMP from
+  the student/laptop/admin groups, outbound open. No broad subnet rules.
 - [ ] **Node-RED login:** one initial class credential, `admin` / `iotempire`. It is a lab
   credential behind the Nebula policy, not a personal password; do not reuse it elsewhere.
 - [ ] **Static `nebula` binaries** for the router architectures (MIPS / MIPSLE / ARM),
@@ -41,6 +47,40 @@ optional instructor showcase. A Chatto/Discord/MQTT bridge is a later extra, not
   `df -h /overlay` shows the stick before this session.
 - [ ] **Fallback:** if the Optiplex cluster is not ready, run one instructor-hosted Node-RED
   instance for the room. The MQTT path still works; the per-pod isolation is lost.
+
+## Certificate layout (template)
+
+The concrete certificate names, overlay addresses, group labels, port map, policy-pack names,
+bundle directory, and signing commands are kept with the CA workspace, not in this repository.
+Use this shape:
+
+| Node | Groups | Firewall intent |
+|---|---|---|
+| Lighthouse | lighthouse | Directory only; control traffic |
+| Admin host | admin | Drop inbound; allow the admin group only |
+| Service hosts | service + admin | Drop inbound; allow each pod's group only on its assigned port |
+| Pod routers | student + per-pod | Drop inbound; broker port from the service group; SSH/ICMP from student/laptop/admin |
+| Optional laptops | laptop (+ per-pod) | No service exposure; add the per-pod group only for that pod's Node-RED |
+
+**The per-pod group is the selector.** A service host cannot distinguish pods from a single
+student group; every router needs the student group plus its own per-pod group. The service host
+allows only the matching pod group on the assigned port.
+
+> [!NOTE]
+> **Group names are provisional.** The current labels (`services`, `podNN`, `students`, `laptops`)
+> are still being discussed. Confirm them before issuing the student certificates. The firewall
+> shape is what matters: one group per pod, one service group, one admin group.
+
+**What the group split means.**
+
+- A router with only the student group cannot reach its Node-RED port; it needs its per-pod group.
+- A direct laptop join needs the laptop group plus the pod group if it should reach that pod's
+  Node-RED. Without the pod group, use the router gateway path.
+- Replacing a router: keep the name, overlay IP, and per-pod group. Re-sign only the certificate.
+- Changing the pod-to-port map: update that service host's policy pack and re-bundle the host;
+  the pod group stays the same.
+- The shared pod policy allows inbound broker traffic from the service group, SSH/ICMP from
+  the student/laptop/admin groups, and open outbound.
 
 ## The path to prove
 
@@ -59,7 +99,7 @@ pod laptop -> Cudy LAN -> router gateway -> Node-RED UI (overlay name :1808x)
 - **Direct laptop joins are a stretch.** One or two students per pod may hold their own bundle;
   that is two overlay nodes in one pod, not a mistake.
 - **Node-RED sees the router's overlay address** when the router masquerades LAN clients. Allow
-  the `students` group on the Node-RED ports; do not open the UI to the world.
+  each per-pod group only on its assigned Node-RED port; do not open the UI to the world.
 - **The lighthouse is a directory.** It does not relay HTTP or MQTT.
 
 ## Handing out
@@ -85,9 +125,9 @@ pod laptop -> Cudy LAN -> router gateway -> Node-RED UI (overlay name :1808x)
 
 ## After the session
 
-- Delete the student bundles from the instructor host and any HTTP share; re-sign anything that
-  was exposed.
-- Back up `~/keys/class`. Losing the CA key means re-issuing the whole mesh.
+- Delete the student bundles from the instructor host and any HTTP share; after installing the
+  service bundles, delete those archives too. Re-sign anything that was exposed.
+- Back up the CA workspace. Losing the CA key means re-issuing the whole mesh.
 - Keep the Node-RED volumes for the next module; do not delete a pod's flow between Module 3 and
   Module 4.
 
