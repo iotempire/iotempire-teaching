@@ -159,6 +159,19 @@ most common LLM mistake with JSON columns, and now you can see it.
 > schema — just a flexible one. What you gave up is column-level typing and cheap `JOIN`s; what you
 > gained is not migrating a table every time a vendor adds a field.
 
+> **Historic aside — XML databases and the schema promise.** In the early 2000s, *native XML
+> databases* (MarkLogic, BaseX, eXist-db, Sedna) made the same promise JSON document stores make
+> today: store documents as they arrive, let the schema evolve, and query the structure with
+> XPath/XQuery. The idea was real for document-centric publishing, archives, and catalogues; the
+> overreach was treating XML as the universal data model for every web API and enterprise
+> integration, which produced the SOAP/WS-* stack and what critics called the “angle bracket tax.”
+> JSON won the web API layer because it maps directly to JavaScript and is smaller; the document
+> idea survived in MongoDB/CouchDB and in JSON columns like the one you are using. The lesson is
+> not “XML bad” — it is that **the format is not the schema**. XSD, JSON Schema, `json_valid`, and
+> an expression index are all ways to make the implicit schema explicit and enforceable. For the
+> history and the counter-arguments, see the [XML-database reading
+> list](./Z-resources-bank.md#xml-databases-and-the-schema-debate).
+
 > **Discuss (nearest pod).**
 > - **Why** is the index ignored for `->>`? Say it in one sentence — that is **goal 1**.
 > - **What if** the vendor field moved into a real column? What do you gain, and what do you lose

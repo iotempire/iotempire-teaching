@@ -491,6 +491,43 @@ The claim that a full three-tier frontend/backend/cloud stack is overkill for a 
 - **Nushell** — a table-native shell: pipelines over structured data that read SQLite/CSV/JSON directly (see the Nushell pointer in Module 6b) — [nushell.sh](https://www.nushell.sh/)
 - Local-first community — [localfirst.fm](https://localfirst.fm/)
 
+### XML databases and the schema debate
+
+The native XML database wave is the direct ancestor of today's document databases and JSON columns.
+Both make the same promise: store flexible documents without a fixed relational schema, then query
+the structure. The useful question is not “which format won?” but “where is the schema enforced?”
+The sources disagree on purpose.
+
+- **Douglas Crockford — *JSON: The Fat-Free Alternative to XML* (2006)** — the primary source for
+  the JSON argument: [json.org/fatfree.html](https://www.json.org/fatfree.html).
+- **Jeff Atwood — *XML: The Angle Bracket Tax* (2008)** — the critique of XML everywhere:
+  [blog.codinghorror.com/xml-the-angle-bracket-tax](https://blog.codinghorror.com/xml-the-angle-bracket-tax).
+- **Norman Walsh — *Defending the tax* (2008)** — the counter-argument from an XML standards
+  expert: [norman.walsh.name/2008/05/13/thetax](https://norman.walsh.name/2008/05/13/thetax).
+- **Ronald Bourret — *XML and Databases*** — the classic practitioner overview of XML-enabled vs.
+  native XML databases:
+  [rpbourret.com/xml/XMLAndDatabases.htm](http://www.rpbourret.com/xml/XMLAndDatabases.htm).
+- **Ronald Bourret — *Going Native: Making the Case for XML Databases* (2005)** — the strongest
+  case for native XML storage:
+  [xml.com/pub/a/2005/03/30/native.html](https://www.xml.com/pub/a/2005/03/30/native.html).
+- **Serge Abiteboul, Peter Buneman, Dan Suciu — *Data on the Web: From Relations to Semistructured
+  Data and XML*** (Morgan Kaufmann, 1999) — the research foundation for semi-structured data; why
+  the relational model is not the only useful shape.
+- **Daniel Lemire — *Native XML databases: have they taken the world over yet?* (2008)** — a
+  practitioner's look at where native XML databases actually fit:
+  [lemire.me/blog/2008/12/04/…](https://lemire.me/blog/2008/12/04/native-xml-databases-have-they-taken-the-world-over-yet).
+- **Martin Fowler — *Schemaless Data Structures*** — why “schemaless” still has an implicit schema,
+  and when flexibility is worth it:
+  [martinfowler.com/articles/schemaless](https://martinfowler.com/articles/schemaless/).
+- **W3C — XQuery 3.1** — the query language the native XML databases were built around:
+  [w3.org/TR/xquery-31](https://www.w3.org/TR/xquery-31/).
+- **Current systems:** [BaseX](https://basex.org/), [eXist-db](http://exist-db.org/), and
+  [MarkLogic](https://www.marklogic.com/) (now multi-model: XML, JSON, RDF). They survive in
+  publishing, archives, government, and regulated document workflows.
+- **XML is not gone:** [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG), Office Open XML,
+  and [XBRL](https://www.xbrl.org/guidance/xbrl-report-formats) (which now also has JSON and CSV
+  formats) are XML-based standards in daily use.
+
 ### Real-world case studies (single-binary, embedded)
 
 - **GoToSocial** — [gotosocial.org](https://gotosocial.org) · [docs.gotosocial.org](https://docs.gotosocial.org). A full ActivityPub (“Fediverse”) server in a single Go binary, with **SQLite as the default** (Postgres optional), running in ~250–350 MiB of RAM on low-power hardware. The clearest production example of “embedded database by default.”
