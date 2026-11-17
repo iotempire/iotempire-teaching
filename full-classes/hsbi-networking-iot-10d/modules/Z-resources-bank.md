@@ -304,7 +304,7 @@ On **OpenWrt** the installer does not apply (no systemd): copy `<name>.crt`, `<n
 ```bash
 # The class uses an instructor-owned CA workspace; do not create a second CA.
 ./nebula-manager sign --name <pod-router> --ip <pod-overlay-ip> \
-  --groups <student-group>,<pod-group> --cert-dir <ca-dir>
+  --groups <pod-group> --cert-dir <ca-dir>
 ./nebula-manager cert list --cert-dir <ca-dir>            # expiry, groups, addresses
 ./nebula-manager cert bundle <pod-router> --policy <pod-policy> --out <bundle-dir>
 ./nebula-manager fleet croc --select name:<pod-router-glob> --policy <pod-policy>
@@ -318,10 +318,10 @@ The CA **key** never leaves the instructor's machine; only `ca.crt` and the sign
 | Role | Overlay address | Group | Notes |
 |---|---|---|---|
 | Lighthouse | `<lighthouse-ip>` | `<lighthouse-group>` | Directory only; public endpoint kept with the CA |
-| Pod routers | `<pod-range>` | `<student-group>` + `<pod-group>` | One per pod; the per-pod group is the firewall selector |
+| Pod routers | `<pod-range>` | `<pod-group>` | One per pod; the per-pod group is the firewall selector |
 | Admin host | `<admin-ip>` | `<admin-group>` | Admin-only |
-| Service hosts | `<service-range>` | `<service-group>` + `<admin-group>` | One Node-RED set per host |
-| Optional laptops | `<laptop-range>` | `<laptop-group>` (+ `<pod-group>`) | Add the per-pod group only for that pod's Node-RED |
+| Service hosts | `<service-range>` | `<admin-group>` + per-pod rules | One Node-RED set per host |
+| Optional laptops | `<laptop-range>` | `<pod-group>` | No role group; add the pod group only for that pod's Node-RED |
 
 **Node-RED on the Optiplex cluster.** One container per pod, one persistent volume per pod, one class login (`admin` / `iotempire`, lab-only). Never on the router. Each service host runs up to four containers on host ports `18080–18083` (container `1880`); the concrete host/pod map is kept with the CA workspace.
 
@@ -332,7 +332,7 @@ The CA **key** never leaves the instructor's machine; only `ca.crt` and the sign
 | Pod broker on the LAN | `192.168.14.1:1883` |
 | Pod broker on the overlay | router overlay address `:1883` |
 | Node-RED UI | `http://<service-host>.<mesh-domain>:<port>` (or overlay IP) |
-| Service → pod broker | allow the broker port from the service group on the router |
+| Service → pod broker | allow the broker port from the service range on the router |
 | Pod LAN → Node-RED | allow each per-pod group only on its assigned port on the service host |
 | Admin → network | allow the admin group for administration; no pod rules |
 | Node-RED MQTT | subscribe `pod<NN>/#`; publish `pod<NN>/<device>/set` |
@@ -437,7 +437,7 @@ Use these as portfolio prompts or in-class hook.
 
 **Before the first studio.** Label every router and node, record which router is the lab uplink, and keep one known-good Ethernet cable and one known-good M5Stack. Test the local Mosquitto broker on the gateway and the `classroom-nodered.sh` fleet for the Master Class; from Module 3, students use the Node-RED containers on the Optiplex cluster, with a laptop fallback. Node-RED does not run on the router. If you run the optional B.A.T.M.A.N. showcase, pre-check that the routers have `kmod-batman-adv` and a common Wi-Fi channel.
 
-**Nebula in one session — bundles, not ceremonies.** Use the instructor-owned CA workspace outside Git and sign **one certificate per pod** for its router, with the student group and the pod's own group, plus laptop certs for the students who have admin rights on their own machine. The per-pod group is the firewall selector: the service host allows only that pod group on the pod's port. Generate the bundles with the shared pod policy and hand out **one croc code per pod**, with the lighthouse already in `static_host_map`; the [bundles chapter](https://github.com/iotempire/nebula-manager/blob/main/docs/bundles.md) is the reference. Two things to prepare: (1) the router path needs a **static `nebula` binary** matching MIPS/ARM — pre-download the right release and keep it on a USB stick or an HTTP folder, because 16 MB of flash will not take a package install; (2) a **re-sign drill** for the pod that loses its key (`cert resign-all` or a single `sign`, then `--certs-only`) — it is a five-minute lesson in why the key *is* the credential. Never put the CA key on a shared drive, and delete the student bundles from the instructor host at the end of the day.
+**Nebula in one session — bundles, not ceremonies.** Use the instructor-owned CA workspace outside Git and sign **one certificate per pod** for its router, with the pod's own group, plus laptop certs for the students who have admin rights on their own machine. The per-pod group is the firewall selector: the service host allows only that pod group on the pod's port. Generate the bundles with the shared pod policy and hand out **one croc code per pod**, with the lighthouse already in `static_host_map`; the [bundles chapter](https://github.com/iotempire/nebula-manager/blob/main/docs/bundles.md) is the reference. Two things to prepare: (1) the router path needs a **static `nebula` binary** matching MIPS/ARM — pre-download the right release and keep it on a USB stick or an HTTP folder, because 16 MB of flash will not take a package install; (2) a **re-sign drill** for the pod that loses its key (`cert resign-all` or a single `sign`, then `--certs-only`) — it is a five-minute lesson in why the key *is* the credential. Never put the CA key on a shared drive, and delete the student bundles from the instructor host at the end of the day.
 
 **Pods and checkpoints.** Form Task Pods of two or three on Day 1 (three is the default for a large cohort). The checkpoint schedule, the 2-pod practice round, and the video alternative are defined in the [syllabus](../syllabus.md#how-module-points-are-earned-portfolio-evidence-and-checkpoints); run the slots from there. Treat checkpoints as feedback on the portfolio evidence, not as task-completion audits, and keep them a short conversation rather than a presentation rehearsal.
 

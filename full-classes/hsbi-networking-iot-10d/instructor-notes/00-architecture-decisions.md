@@ -479,13 +479,11 @@ install remains the fallback where the cluster is unavailable. Node-RED is never
 the router. The router runs Mosquitto and, optionally, small MicroPython services; a
 MicroPython IoTknit port is planned, not supported.
 
-**Per-pod access.** Each router certificate carries the student group plus a
-per-pod group; each Node-RED host allows only that group on the pod's assigned
-port. The broad student group is deliberately not used for Node-RED ports,
-because it would let every pod reach every port. The admin host is admin-only;
-the service hosts carry the service and admin groups and the per-pod rules. A
-shared pod policy allows inbound broker traffic from the service group and
-SSH/ICMP from the student, laptop, and admin groups.
+**Per-pod access.** Each router certificate carries its per-pod group; each Node-RED
+host allows only that group on the pod's assigned port. The admin host is admin-only;
+the service hosts carry the admin group and the per-pod rules. A shared pod policy
+allows inbound broker traffic from the service range and SSH/ICMP from the laptop
+range and admin group.
 
 **Consequences.** Day 1 has no install friction. Module 3 can prove the complete
 service path: pod broker → Nebula → Node-RED → Nebula → pod broker. The cluster is a

@@ -17,11 +17,11 @@ optional instructor showcase. A Chatto/Discord/MQTT bridge is a later extra, not
   leaves the instructor machine. The concrete path is kept with the keys.
 - [ ] **Certificates and groups:**
   - one lighthouse certificate;
-  - one router certificate per pod, with the student group **and a per-pod group**;
-  - one certificate per service host, with the service group and the admin group;
+  - one router certificate per pod, with its per-pod group;
+  - one certificate per service host, with the admin group;
   - one certificate for the admin host, with the admin group only;
-  - optional laptop certificates, with the laptop group (and the pod group when the laptop must
-    reach that pod's Node-RED).
+  - optional laptop certificates, with the pod group when the laptop must reach that pod's
+    Node-RED.
 - [ ] **One bundle per pod** for its router, with the shared pod policy; laptop bundles only
   for students who confirmed admin rights. Use `nebula-manager` with `-l` and keep the operator
   log.
@@ -32,10 +32,10 @@ optional instructor showcase. A Chatto/Discord/MQTT bridge is a later extra, not
   the admin rule and only the matching per-pod rules.
 - [ ] **Pod-to-container map:** each pod is assigned to one service host and one host port; put the
   URL table on the board. The concrete map is kept with the CA workspace.
-- [ ] **Firewall policy:** service hosts drop inbound by default and allow only the matching
-  per-pod group on the assigned Node-RED port; the admin group is allowed for administration.
-  Pod routers use the shared pod policy: broker port from the service group, SSH/ICMP from
-  the student/laptop/admin groups, outbound open. No broad subnet rules.
+- [ ] **Firewall policy:** service hosts drop inbound by default and allow only the admin group
+  plus the matching per-pod group on the assigned Node-RED port. Pod routers use the shared pod
+  policy: broker port from the service range, SSH/ICMP from the laptop range and admin group,
+  outbound open. No broad subnet rules.
 - [ ] **Node-RED login:** one initial class credential, `admin` / `iotempire`. It is a lab
   credential behind the Nebula policy, not a personal password; do not reuse it elsewhere.
 - [ ] **Static `nebula` binaries** for the router architectures (MIPS / MIPSLE / ARM),
@@ -58,29 +58,30 @@ Use this shape:
 |---|---|---|
 | Lighthouse | lighthouse | Directory only; control traffic |
 | Admin host | admin | Drop inbound; allow the admin group only |
-| Service hosts | service + admin | Drop inbound; allow each pod's group only on its assigned port |
-| Pod routers | student + per-pod | Drop inbound; broker port from the service group; SSH/ICMP from student/laptop/admin |
-| Optional laptops | laptop (+ per-pod) | No service exposure; add the per-pod group only for that pod's Node-RED |
+| Service hosts | admin | Drop inbound; allow the admin group and each pod's group only on its assigned port |
+| Pod routers | per-pod | Drop inbound; broker port from the service range; SSH/ICMP from the laptop range and admin |
+| Optional laptops | per-pod | No service exposure; use the router gateway unless the laptop needs that pod's Node-RED |
 
-**The per-pod group is the selector.** A service host cannot distinguish pods from a single
-student group; every router needs the student group plus its own per-pod group. The service host
-allows only the matching pod group on the assigned port.
+**The per-pod group is the selector.** A service host cannot distinguish pods from the shared
+router range; every router carries its own per-pod group. The service host allows only the
+matching pod group on the assigned port.
 
 > [!NOTE]
-> **Group names are provisional.** The current labels (`services`, `podNN`, `students`, `laptops`)
-> are still being discussed. Confirm them before issuing the student certificates. The firewall
-> shape is what matters: one group per pod, one service group, one admin group.
+> **Pod groups are confirmed as `hsbi-netiotNN`.** The role groups `services`, `students`, and
+> `laptops` were removed; the policy uses the service and laptop ranges instead. `ulno` remains
+> the admin group at the network level. The firewall shape is what matters: one group per pod,
+> narrow role ranges, one admin group.
 
 **What the group split means.**
 
-- A router with only the student group cannot reach its Node-RED port; it needs its per-pod group.
-- A direct laptop join needs the laptop group plus the pod group if it should reach that pod's
-  Node-RED. Without the pod group, use the router gateway path.
+- A router without its per-pod group cannot reach its Node-RED port; it needs its per-pod group.
+- A direct laptop join needs the pod group if it should reach that pod's Node-RED. Without the
+  pod group, use the router gateway path.
 - Replacing a router: keep the name, overlay IP, and per-pod group. Re-sign only the certificate.
 - Changing the pod-to-port map: update that service host's policy pack and re-bundle the host;
   the pod group stays the same.
-- The shared pod policy allows inbound broker traffic from the service group, SSH/ICMP from
-  the student/laptop/admin groups, and open outbound.
+- The shared pod policy allows inbound broker traffic from the service range, SSH/ICMP from the
+  laptop range and admin group, and open outbound.
 
 ## The path to prove
 

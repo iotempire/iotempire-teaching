@@ -169,7 +169,7 @@ The table is the discussion map: the **[Goal](#-learning-goals) · theory box** 
 
 **Proves:** Goal 4 · **Produces:** a Node-RED screenshot, an MQTT proof, and a one-line path diagram.
 
-1. **Make the router a gateway.** Give `nebula1` a firewall zone, allow `lan → nebula` forwarding, and masquerade LAN clients so their traffic can reach the service node. Allow only `1883` from the service group; do not open all input.
+1. **Make the router a gateway.** Give `nebula1` a firewall zone, allow `lan → nebula` forwarding, and masquerade LAN clients so their traffic can reach the service node. Allow only `1883` from the service range; do not open all input.
 2. **Open your Node-RED.** From a laptop on the pod LAN, open the assigned Optiplex URL on the board and log in with the class credential.
 3. **Move one message.** Add an `mqtt in` node for `pod<NN>/#`, an `mqtt out` node for `pod<NN>/<device>/set`, and an inject node. Send one command and observe the LED or actuator.
 4. **Draw the path.** Sensor → pod broker → overlay → Node-RED → overlay → pod broker → actuator. Mark the two firewall rules that made it work.

@@ -67,12 +67,16 @@
 
 ## Module 3 — before the session
 
-- [ ] **Confirm the group names, then issue the pod router certificates.** The current labels
-      (`services`, `podNN`, `students`, `laptops`) are provisional; `services` is too generic and
-      the per-pod group should match the MQTT topic convention. Every router needs the student
-      group plus its per-pod group; the service host allows only that pod group on the assigned
-      port. Test one router end to end before the class.
-- [ ] **Install and verify the service-host bundles.** After installing, `firewall explain` on
+- [x] **Confirm the pod group naming.** Pod groups are `hsbi-netiotNN`; routers are
+      `routerNN.hsbi-netiot.ulno.mesh` with `hsbi-netiotNN`. The service policies and the 15
+      router certs use this scheme.
+- [x] **Remove redundant role groups.** `services`, `students`, and `laptops` were removed;
+      the router policy uses the service range `10.100.1.0/24` and the laptop range
+      `10.100.2.0/24`, with `ulno` as the admin group. No role groups remain to rename.
+- [ ] **Test one router end to end** before the class: bundle with the shared pod policy, install,
+      and verify SSH/ICMP and the broker path.
+- [ ] **Install and verify the service-host bundles.** The four Node-RED hosts were re-bundled with
+      the `hsbi-netiotNN` rules; oldplex01 is unchanged. After installing, `firewall explain` on
       each host must show `inbound_action: drop`, the admin rule, and only that host's pod groups
       on the assigned ports. The admin host must allow only the admin group.
 
