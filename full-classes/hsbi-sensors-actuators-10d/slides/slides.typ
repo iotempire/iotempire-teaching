@@ -16,4 +16,14 @@
 #show heading.where(level: 2): set text(size: 25pt, weight: "bold")
 #show heading.where(level: 3): set text(size: 21pt)
 
+// Mermaid diagrams in ```mermaid blocks. Typst downloads the package on first
+// use and caches it locally; no Node, Chromium, or mermaid-cli required.
+#import "@preview/merman:0.5.0": show-mermaid-blocks
+#show raw.where(lang: "mermaid"): show-mermaid-blocks(
+  document-context: true,
+  height: 55%,
+  fit: "contain",
+  error-mode: "panic",
+)
+
 $body$

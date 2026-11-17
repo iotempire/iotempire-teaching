@@ -36,6 +36,28 @@ compares that with `pdfinfo`; a mismatch fails, a stale PDF is only a warning.
 `check-all.sh` runs both and adds `git diff --check`. None of the three writes
 to the working tree.
 
+## Mermaid in slide decks
+
+The Pandoc → Typst slide pipeline renders fenced `mermaid` blocks with the Typst package
+`@preview/merman`. Typst downloads the package on first compile and caches it under
+`~/.cache/typst/`; no Node, Chromium, or `mermaid-cli` is required.
+
+The import and show rule live in each deck's `slides.typ`:
+
+```typst
+#import "@preview/merman:0.5.0": show-mermaid-blocks
+#show raw.where(lang: "mermaid"): show-mermaid-blocks(
+  document-context: true,
+  height: 55%,
+  fit: "contain",
+  error-mode: "panic",
+)
+```
+
+`height`/`fit` keep a tall diagram on the same slide as its heading; without them Typst may push
+the diagram to the next page. `error-mode: "panic"` makes a broken diagram fail the build instead
+of rendering a placeholder. A deck without a `mermaid` block does not load the package.
+
 ## `generate-lms-pdfs.sh` — LMS exports
 
 Renders a class's `syllabus.md` and `pre-study.md` into dated, upload-ready PDFs
