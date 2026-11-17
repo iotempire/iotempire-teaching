@@ -2,7 +2,7 @@
 # openwrt-extroot-setup.sh - set up a USB stick as extroot (OpenWrt 24.10 / 25.x)
 # Class resource for Networking and IoT Solutions; tested on the Cudy TR1200.
 # Run on the router: sh openwrt-extroot-setup.sh [/dev/sdX]   (default: /dev/sda)
-# The prompts are German: confirm with JA; every other answer aborts without changes.
+# Type yes to confirm (any capitalization); every other answer aborts without changes.
 
 set -e
 
@@ -11,12 +11,12 @@ PART="${DISK}1"
 MNT="/tmp/extroot"
 PKGS="block-mount kmod-fs-ext4 e2fsprogs kmod-usb-storage fdisk"
 
-die()  { echo "FEHLER: $*" >&2; exit 1; }
+die()  { echo "ERROR: $*" >&2; exit 1; }
 info() { echo ">>> $*"; }
 
-[ "$(id -u)" = 0 ] || die "Bitte als root ausführen."
+[ "$(id -u)" = 0 ] || die "Run as root."
 
-# --- Pakete prüfen und ggf. nachinstallieren (apk ab 25.x, sonst opkg) ---
+# --- Check packages and install missing ones (apk on 25.x, otherwise opkg) ---
 if command -v apk >/dev/null 2>&1; then
 	pkg_installed() { apk info -e "$1" >/dev/null 2>&1; }
 	pkg_install()   { apk update && apk add "$@"; }
@@ -24,7 +24,7 @@ elif command -v opkg >/dev/null 2>&1; then
 	pkg_installed() { opkg list-installed | grep -q "^$1 "; }
 	pkg_install()   { opkg update && opkg install "$@"; }
 else
-	die "Weder apk noch opkg gefunden."
+	die "Neither apk nor opkg found."
 fi
 
 MISSING=""
@@ -32,19 +32,19 @@ for p in $PKGS; do
 	pkg_installed "$p" || MISSING="$MISSING $p"
 done
 if [ -n "$MISSING" ]; then
-	info "Installiere fehlende Pakete:$MISSING"
-	pkg_install $MISSING || die "Paketinstallation fehlgeschlagen (Internetverbindung?)."
+	info "Installing missing packages:$MISSING"
+	pkg_install $MISSING || die "Package installation failed (internet connection?)."
 fi
 
-# --- Läuft Extroot schon? ---
+# --- Is extroot already active? ---
 if block info | grep -q "^${DISK}[0-9]*:.*MOUNT=\"/overlay\""; then
-	die "Extroot ist bereits auf $DISK aktiv."
+	die "Extroot is already active on $DISK."
 fi
 
-# --- Auf den Stick warten ---
+# --- Wait for the stick ---
 i=0
 while [ ! -b "$DISK" ]; do
-	[ $i -ge 15 ] && die "$DISK nicht gefunden. Ist der Stick eingesteckt?"
+	[ $i -ge 15 ] && die "$DISK not found. Is the stick plugged in?"
 	i=$((i + 1)); sleep 1
 done
 
@@ -53,45 +53,48 @@ SIZE_MB=$(( $(cat /sys/block/$NAME/size) / 2048 ))
 VENDOR=$(tr -s ' ' < /sys/block/$NAME/device/vendor 2>/dev/null || true)
 MODEL=$(tr -s ' ' < /sys/block/$NAME/device/model 2>/dev/null || true)
 
-# --- Nachfrage ---
+# --- Confirmation ---
 echo
-echo "Gefundenes Laufwerk: $DISK  ($VENDOR $MODEL, ${SIZE_MB} MB)"
-block info 2>/dev/null | grep "^${DISK}" || echo "  (keine erkannten Dateisysteme)"
+echo "Found device: $DISK  ($VENDOR $MODEL, ${SIZE_MB} MB)"
+block info 2>/dev/null | grep "^${DISK}" || echo "  (no recognised filesystems)"
 echo
-echo "ACHTUNG: ALLE DATEN AUF $DISK WERDEN GELÖSCHT!"
-printf "Zum Fortfahren JA eingeben: "
+echo "WARNING: ALL DATA ON $DISK WILL BE ERASED!"
+printf "Type yes to continue: "
 read -r ANSWER < /dev/tty
-[ "$ANSWER" = "JA" ] || die "Abgebrochen, nichts verändert."
+case "$ANSWER" in
+	[yY][eE][sS]) ;;
+	*) die "Aborted, nothing changed." ;;
+esac
 
-# --- Eingehängte Partitionen des Sticks aushängen ---
+# --- Unmount mounted partitions on the stick ---
 for p in "$DISK"[0-9]*; do
 	[ -b "$p" ] || continue
 	if grep -q "^$p " /proc/mounts; then umount "$p"; fi
 done
 
-# --- Partitionieren und formatieren ---
-info "Lösche alte Partitionstabelle und Signaturen ..."
+# --- Partition and format ---
+info "Erasing the old partition table and signatures ..."
 dd if=/dev/zero of="$DISK" bs=1M count=4 2>/dev/null
 sync
 
-info "Lege eine Partition über den ganzen Stick an ..."
+info "Creating one partition across the whole stick ..."
 printf 'o\nn\np\n1\n\n\nw\n' | fdisk -w always -W always "$DISK" >/dev/null \
-	|| die "fdisk fehlgeschlagen."
+	|| die "fdisk failed."
 
 i=0
 while [ ! -b "$PART" ]; do
-	[ $i -ge 10 ] && die "$PART erscheint nicht."
+	[ $i -ge 10 ] && die "$PART did not appear."
 	i=$((i + 1)); sleep 1
 done
 umount "$PART" 2>/dev/null || true
 
-info "Formatiere $PART mit ext4 ..."
-mkfs.ext4 -q -F -L extroot "$PART" || die "mkfs.ext4 fehlgeschlagen."
+info "Formatting $PART with ext4 ..."
+mkfs.ext4 -q -F -L extroot "$PART" || die "mkfs.ext4 failed."
 
-# --- fstab konfigurieren ---
+# --- Configure fstab ---
 UUID=""
 eval $(block info "$PART" | grep -o -e 'UUID="\S*"')
-[ -n "$UUID" ] || die "Keine UUID für $PART gefunden."
+[ -n "$UUID" ] || die "No UUID found for $PART."
 
 MOUNT=""
 eval $(block info | grep -o -e 'MOUNT="\S*/overlay"')
@@ -110,21 +113,21 @@ uci set fstab.extroot="mount"
 uci set fstab.extroot.uuid="$UUID"
 uci set fstab.extroot.target="$OVERLAY"
 uci commit fstab
-info "fstab: extroot -> UUID $UUID, altes Overlay ($ORIG) -> /rwm"
+info "fstab: extroot -> UUID $UUID, old overlay ($ORIG) -> /rwm"
 
-# --- Overlay auf den Stick kopieren (nur wenn der Mount wirklich klappt) ---
+# --- Copy the overlay to the stick (only if the mount really works) ---
 mkdir -p "$MNT"
-mount -t ext4 "$PART" "$MNT" || die "Mount von $PART fehlgeschlagen."
-grep -q " $MNT ext4 " /proc/mounts || die "$PART ist nicht unter $MNT eingehängt."
+mount -t ext4 "$PART" "$MNT" || die "Mounting $PART failed."
+grep -q " $MNT ext4 " /proc/mounts || die "$PART is not mounted at $MNT."
 
-info "Kopiere $OVERLAY auf den Stick ..."
+info "Copying $OVERLAY to the stick ..."
 tar -C "$OVERLAY" -cf - . | tar -C "$MNT" -xf -
 sync
-[ -d "$MNT/upper" ] || die "Kopie unvollständig ($MNT/upper fehlt)."
+[ -d "$MNT/upper" ] || die "Copy incomplete ($MNT/upper missing)."
 umount "$MNT"
 
-# --- Neustart ---
-info "Fertig. Nach dem Neustart mit 'df -h /overlay' prüfen."
-info "Neustart in 10 Sekunden (Strg+C bricht ab) ..."
+# --- Reboot ---
+info "Done. After the reboot, check with 'df -h /overlay'."
+info "Rebooting in 10 seconds (Ctrl+C aborts) ..."
 sleep 10
 reboot

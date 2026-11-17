@@ -147,7 +147,7 @@ The Cudy has 16 MB of flash; the writable overlay is small. Nebula and `tshark` 
 
 1. **Insert the stick through the hub.** Check that it is seen: `logread | grep -i usb`, `ls /dev/sd*`, `block info`. Confirm the device name; it is usually `/dev/sda` or `/dev/sda1`.
 2. **Copy the script to the router.** Download it from the link above (or use your workbook clone) and `scp openwrt-extroot-setup.sh root@192.168.1.1:/tmp/`.
-3. **Run it and confirm the disk.** `ssh root@192.168.1.1`, then `sh /tmp/openwrt-extroot-setup.sh` (pass `/dev/sdb` or similar if your stick is not `/dev/sda`). The script prints the vendor, model, and size, then waits. Type `JA` only if that is your stick. **All data on the stick is erased.**
+3. **Run it and confirm the disk.** `ssh root@192.168.1.1`, then `sh /tmp/openwrt-extroot-setup.sh` (pass `/dev/sdb` or similar if your stick is not `/dev/sda`). The script prints the vendor, model, and size, then waits. Type `yes` (any capitalization) only if that is your stick. **All data on the stick is erased.**
 4. **Verify after the reboot.** `df -h /overlay` must show the stick; `mount | grep overlay` must show it too. Install a small package and reboot again to prove it survives.
 5. **Label the stick.** It is part of the router now. Do not swap it with another pod's stick; the overlay will not match.
 
