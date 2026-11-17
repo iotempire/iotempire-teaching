@@ -61,7 +61,7 @@ Ulno
 |---|---|
 | 6 (6a) | Finish M5 Rounds 5–7; keep `Module05/normalize.db`; bring the memo; `uv sync` once |
 | 7 (6b) | Bring `refresh.py` + one `--check` output **if** the intense track was taken; the updated memo |
-| 8 | Read Module 8; form the Project Team; bring a one-paragraph story |
+| 8 | Read Module 7; form the Project Team; bring a one-paragraph story |
 | 9–11 | Bring the repository and the current slice; nothing new to install |
 
 > The module files carry `PREP EMAIL` markers. Grep them before writing the mail:

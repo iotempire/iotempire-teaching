@@ -137,6 +137,10 @@ instructor's recap output still shows only storage and row counts. Fix that next
       query once untimed before measuring, and Module 6a's `race.py` does a warm-up run per engine.
       Apply the same sentence to every benchmark in the course, and say explicitly that **cold
       cache is not a result** — it is the reason denormalization looked useless to half the room.
+- [ ] **Test the native Debian Trixie server guide** ([`postgres-server-setup.md`](./postgres-server-setup.md))
+      end to end on the Optiplex: PostgreSQL 17, pgweb, Cloudflare named tunnel, credential sheet,
+      and one student laptop on the campus Wi-Fi. Correct package paths, service names, and the
+      connection host after the first real run.
 - [ ] **Re-test the Cloudflare/Podman script** from a student-like network before relying on it
       (D16); the quick-tunnel mode is the fallback for instructors without a domain.
 - [ ] **Check the DuckDB/Parquet path on Windows** once (D16) — the course assumes Git Bash or WSL

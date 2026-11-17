@@ -14,7 +14,8 @@ Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment l
 | [TA briefing](./TA-briefing.md) | What the TA may and may not do: feedback lane, evidence notes, suggested readiness, demo-fair notes, escalation |
 | [Project idea bank](./project-ideas.md) | Concrete project directions and a kickoff talk track — a person, a problem, a first query, a data source |
 | [Email template](./email-template.md) | Prep and expectation mail — send it at least three days before a session |
-| [PostgreSQL tunnel](./postgres-tunnel.sh) | The optional server contrast: Podman, Cloudflare tunnel, quick mode without a domain |
+| [PostgreSQL on Debian](./postgres-server-setup.md) | Native PostgreSQL 17 + pgweb + Cloudflare named tunnel on Debian Trixie: provisioning, credentials, certificate handout, tests, teardown |
+| [PostgreSQL tunnel](./postgres-tunnel.sh) | The container fallback: Podman, Cloudflare tunnel, quick mode without a domain |
 
 Add a row to **[Future work](./TODO.md)** when you notice something you cannot fix this term. The
 Networking class inherits patterns from this class; what it is copying is written down in its
@@ -48,7 +49,7 @@ Rooms: the schedule is 90 minutes, a 15-minute break, 90 minutes. Protect the br
 
 Module 5 dropped its pod study and became **seven rounds**: a short primer, a fifteen-minute skim, then small hands-on stages, each with a *“Theory you need”* box and a two-minute **peer gate** at the end. No timer, no synchronised share — the room runs at different speeds on purpose, and a shared progress list shows you who is stuck.
 
-Use it when the material is **practical enough to start without the theory** and the study has been eating the lab. Do not use it where a shared vocabulary must exist before anyone can act — that is what the 30 + 15 studies in Modules 2–3 are for. **Modules 5, 6a and 6b all use it now**; 6a and 6b are each one session of tasks, not a study followed by a lab.
+Use it when the material is **practical enough to start without the theory** and the study has been eating the lab. Do not use it where a shared vocabulary must exist before anyone can act — that is what the 30 + 15 studies in Modules 2–3 are for. **Modules 5, 6a and 6b all use it now**; 6a is one session of self-paced tasks, and 6b is two tasks plus the decision, not a study followed by a lab.
 
 The full catalogue of formats we considered, the six dials behind them, and the observations we still owe are in **[study formats](./study-formats.md)**. Module 6 has since been split into two stage-and-gate studios (6a, 6b); fill in the observations there before the next redesign.
 
@@ -119,6 +120,6 @@ A short path, in this order: [SQLite "Appropriate Uses"](https://www.sqlite.org/
 | 5 | [05](./05.md) | Dependencies, normalization, measured denormalization. |
 | 6 | [06a](./06a.md) | DuckDB day: 2M rows to Parquet, the race, `EXPLAIN ANALYZE`, the boundary. |
 | 7 | [06b](./06b.md) | JSON, key-value, the server contrast, the decision record and defence. |
-| 8–11 | [07](./07.md) | Project studios with Checkpoint 2 spread over sessions 8–9; demo day in [08](./08.md). |
+| 8–11 | [07](./07.md) | One project: kickoff, checkpoint lanes in sessions 8–9, build/rehearsal, fair demo. |
 | — | [Feedback rounds](./feedback-rounds.md) | The 10-minute script, a 145-minute run sheet, and the fill-in [template](./feedback-template.md). |
 | Course | [Assessment & operations](./00-assessment-and-operations.md) | Assessment form, milestone plan, submission hygiene, group sign-off, re-examination, privacy, AI declaration. |

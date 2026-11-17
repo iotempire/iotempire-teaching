@@ -69,7 +69,7 @@ short; link to the artefact instead of pasting it.
 | [D11](#d11) | Module 6 is two studios: analytical engine + polyglot decision | provisional | Modules 6a/6b |
 | [D12](#d12) | Module 5 is one session; its homework is gated by a recap | provisional | Module 5, Module 6a |
 | [D13](#d13) | Checkpoints are feedback, spread over sessions | accepted | syllabus, `feedback-rounds.md` |
-| [D14](#d14) | The project is three studios + demos, in merged teams | accepted | Modules 7–8, syllabus |
+| [D14](#d14) | The project is three studios + demos, in merged teams | accepted | Module 7, syllabus |
 | [D15](#d15) | Eleven sessions; sessions 6–7 teach, 8–10 build, 11 demos | provisional | syllabus schedule |
 | [D16](#d16) | The class must survive leaving the room | accepted | all modules, resource bank |
 | [D17](#d17) | English material, bilingual delivery | accepted | syllabus language section |
@@ -396,7 +396,9 @@ profiling.
 
 **Decision.** Split into **6a — The Analytical Engine (DuckDB)** and **6b — Polyglot Persistence &
 the Decision**, under one assessment module (2 points, two reflections). 6a carries the G2 story
-("the report outgrew SQLite"); 6b ends with the one-page decision record and a peer defence.
+("the report outgrew SQLite"); 6b is **server-first**: Task 1 tests local vs. remote, Task 2
+chooses the shape, and the one-page decision record and peer defence close it. The key-value
+benchmark and the project ticket are homework at the end, not extra tasks between them.
 
 **Consequences.** An extra session is spent, but both engines get depth and the project inherits an
 architecture argument. The split happened mid-run; the numbering 6a/6b preserves the points and
@@ -476,7 +478,7 @@ late cannot compress the rehearsal. The demo is a table conversation, not a stag
 **Alternatives rejected.** Four project weeks; a written project report only; grading the repository
 without a discussion.
 
-**Evidence.** Modules 7–8; syllabus.
+**Evidence.** Module 7; syllabus.
 
 **Revisit if.** The cohort needs more build time or the demo format changes.
 
@@ -642,7 +644,8 @@ a template to maintain.
   rebalanced points table?
 - **"Gate" vs "discussion".** Modules 6a/6b say discussion; Module 5 still says gate. Rename the
   remaining ones or keep the historical term?
-- **Server contrast.** Permanent in 6b or optional? Should the server stay up through the project?
+- **Server after 6b.** The server is now the opening task in 6b. Should it stay up through the
+  project weeks, and if so, who resets it and when?
 - **Project team size.** 4–6 is the current rule; is 6 too large for an individual defence?
 - **Recap in every module.** Should every session open with a 15-minute recap of the previous one,
   or only when homework spans sessions?
@@ -703,5 +706,7 @@ lives now.
 | Date | Change |
 |---|---|
 | 2026-11-11 | First version: provenance, 19 decisions, rejected list, open questions, recreation checklist, handbook map. |
-| 2026-11-17 | TA may suggest points and mark rechecks (D13); Session 11 is a five-tables-per-block fair (D14); 06b moves to Task vocabulary; 06a headings carry “(now Task N)”; 06b keeps a visible rough timing with a hidden TODO; time estimates still tracked for Modules 2–5 and 7–8. |
+| 2026-11-17 | D11 refined: 6b runs server-first as two tasks plus the decision; key-value and project ticket move to end-of-session homework. Native Debian server guide added. |
+| 2026-11-17 | Modules 7 and 8 merged into one final-project module: main instructions under 100 lines, optional appendix, one instructor note for Sessions 8–11; Module 8 kept as a redirect. |
+| 2026-11-17 | TA may suggest points and mark rechecks (D13); Session 11 is a five-tables-per-block fair (D14); 06b moves to Task vocabulary; 06a headings carry “(now Task N)”; 06b timing lives only in the instructor notes; time estimates still tracked for Modules 2–5. |
 | 2026-11-16 | D20 added: commits are instructor-only; agents leave changes uncommitted for review. Same rule as Sensors D22 and Networking D18. | Ulno + agent |

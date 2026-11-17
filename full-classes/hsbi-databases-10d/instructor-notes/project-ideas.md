@@ -1,6 +1,6 @@
 # Project idea bank — directions, not assignments
 
-[All instructor notes](./README.md) · [Project studio](./07.md) · [Project specification](../modules/08-final-project.md)
+[All instructor notes](./README.md) · [Project notes](./07.md) · [Project module](../modules/07-final-project-studio.md)
 
 **How to use this.** This is a seed bank for the project kickoff, not a menu students must choose
 from. Show three directions, then ask every pod to bring its own story. The best project is one a
@@ -176,7 +176,7 @@ Each direction gives a **person**, a **problem**, a **first query**, a **data so
 
 ## Mapping to the must-haves
 
-Every direction can hit the Module 8 criteria; make the mapping explicit in `docs/requirements.md`:
+Every direction can hit the Module 7 criteria; make the mapping explicit in `docs/requirements.md`:
 
 | Must-have | In a direction |
 |---|---|

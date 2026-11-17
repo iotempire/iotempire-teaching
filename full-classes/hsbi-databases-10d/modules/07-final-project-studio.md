@@ -1,167 +1,143 @@
-# Module 7 — Final Project Studio
+# Module 7 — Final Project
 
-[← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 8 →](./08-final-project.md)
+[← Previous: Module 6b](./06b-polyglot-persistence.md) | [Quick module index](./00-index.md) | [Back to front page](../README.md)
 
-**Course placement:** Sessions 8–10. Three project-studio sessions: story and plan, build and integration, hardening, peer review, and rehearsal. The *specification* — Project Teams, must-haves, documentation, and the demo rubric — lives in [Module 8](./08-final-project.md); this module is the **studio guide** for how you spend the time.
+**Course placement:** Sessions 8–11. One project, one Task. Session 8 is the kickoff, Sessions 9–10 are build and rehearsal, Session 11 is the fair. Read this page once; the appendix is optional.
 
-> [!IMPORTANT]
-> This is where the final project is built. Read [Module 8](./08-final-project.md) **before** Session 8 — you are expected to arrive with your **Project Team** and a one-paragraph story.
+## 🎬 The Course in One Page
 
-> [!TIP]
-> **What is graded — and what is not.** The project is **3 points for the work** — the **story**, the **architecture** (schema, ingestion, headline query, interface) and the **plan** — plus **2 points** for the demo and your individual project discussion in Session 11. The tasks below are a **menu** for building those three things, not a checklist: none of them is graded on its own, and you may merge, reorder, or skip them as long as the three artefacts exist and work.
+The project is the synthesis, not a new topic. You have learned to keep data local, model it, query it, protect it, normalize it, copy it for analytics, and decide where it lives. Use at least four of those in one small system.
+
+| Module | What it gave you |
+|---|---|
+| 1 | A local SQLite file and a first ingestion pipeline |
+| 2 | A schema, an ER model, and a data contract |
+| 3 | Queries, `EXPLAIN QUERY PLAN`, index evidence, injection safety |
+| 4 | Constraints, triggers, and idempotent `UPSERT` |
+| 5 | Normalization and measured denormalization |
+| 6a | An analytical copy in Parquet/DuckDB |
+| 6b | A deliberate engine decision |
 
 ## 🎯 Learning Goals
 
-By the end of these three sessions, your **Project Team** has:
+By the end, you can:
+1. Turn a named person's problem into a schema, a first query, and an interface.
+2. Build a reproducible, idempotent ingestion pipeline.
+3. Prove one performance decision with `EXPLAIN QUERY PLAN` and a timing.
+4. Enforce one domain rule in the database and secure every external input.
+5. Demo the system live and defend the part you own.
 
-1. A **stakeholder story** that names a real person, a real problem, and the data that solves it.
-2. A **mapped requirement set**: which must-have from Module 8 is covered by which deliverable.
-3. A **schema and an ingestion pipeline** checked into the project repository, reproducible from scratch.
-4. A **working vertical slice**: data goes in, one query comes out, one interface shows it.
-5. A **peer-reviewed draft** and a rehearsal plan for the Session 11 demo.
+## 🛠️ Task — Find and build the final project
 
-**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
+### 1. Find the story
 
-## 📖 Story First, Schema Second
+Bring the project tickets from 6b. A **Project Team of 4–6** (two merged Task Pods) picks one story and answers:
+- **Who** is the person, and where do they work?
+- **What decision** does the data change?
+- **What is the first query** the database must answer?
+- **Where does the data come from** — or how will you generate it reproducibly?
 
-The legacy course assigned topics ("a library", "a restaurant"). We keep the *free choice* but change the starting point: **begin from a story, not a category.** A story forces the requirements to be real:
+If you cannot name the person and the first query, it is a topic, not a project. Use the [project idea bank](../instructor-notes/project-ideas.md) if you are stuck, but choose a direction, not a topic. Record the story and roles in `docs/team.md`.
 
-> *"Marta runs the night shift on the bottling line at **Füllwerk Gütersloh**. When a filler jams, she loses 20 minutes walking to a terminal to find out which sensor tripped and when it happened last. She needs a screen on the line that shows the last 10 stops, grouped by cause."*
+### 2. Map the evidence
 
-That paragraph already implies entities (line, stop event, cause), a cardinality (a line has many stop events), a query (last 10 stops grouped by cause), and an interface (a line-side screen). You cannot get that from "make a database for a warehouse."
+Write a one-page plan in `docs/requirements.md`: one line per must-have, who owns it, and your own dates. The seven must-haves are in the [syllabus project requirements](../syllabus.md#final-project-requirements-5-points); they are the contract, not a menu of extra features.
 
-**Story checklist:**
-- Names a person and a place (Marta, Füllwerk Gütersloh).
-- Names the pain (20 minutes lost, no immediate answer).
-- Names the data that fixes it (stop events with causes and timestamps).
-- Is **pitchable in 60 seconds** and, ideally, ***playable*** — it could carry a short film or a stage scene.
+### 3. Build the vertical slice
 
-> [!NOTE]
-> **The hard part is the level of abstraction.** Writing a story that is *concrete enough to build from* but *not already a specification* is genuinely difficult — that balance **is** the skill, and it is normal to overshoot into a spec or undershoot into a category on the first tries. The test I use: a story is concrete enough when it is **pitchable** *and/or* **playable** — could you pitch it in a minute? could it carry a short film or a stage scene? One named person, one place, one moment of pain, and something at stake are enough to stand on. If it is still "a database for a warehouse", you have a *topic*, not a story.
+One path end-to-end, not five half-features:
+- `schema.sql` with one foreign key and one `CHECK`;
+- `ingest.py` that runs twice without duplicating rows;
+- the headline query in `queries.sql`;
+- the smallest interface that shows the answer — `datasette yourdb.db -o` counts.
 
-**Where this comes from.** Starting from concrete scenarios instead of class diagrams is *[Story Driven Modeling](https://en.wikipedia.org/wiki/Story-driven_modeling)* — Norbisrath, Zündorf & Jubeh, **Story Driven Modeling** (CreateSpace, 2013, ISBN 978-1483949253). It is why we begin with a named person and a moment of pain rather than an entity list.
+### 4. Prove and harden
+
+- Add one index and save `EXPLAIN QUERY PLAN` before/after plus a timing.
+- Replace every string-built query with bound parameters and run an injection self-test.
+- Add one constraint and one trigger or generated column; show it rejecting bad data.
+
+<a id="the-fair-demo--project-discussion"></a>
+### 5. Rehearse and present
+
+Session 11 is a **table fair**: each team presents repeatedly at its table while the rest of the room visits, reflects, praises one thing, and gives one concrete suggestion. The instructor and TA circulate; the discussion is individual. Bring a short recorded fallback. Rehearse the live path, not slides; the segment order is in [Appendix E](#e-demo-preparation).
+
+## ✅ Evidence checklist
+
+- [ ] `docs/team.md`: story, members, and who owns what.
+- [ ] `docs/requirements.md`: one-page plan with your dates.
+- [ ] `schema.sql`: one FK, one `CHECK`, one trigger or generated column.
+- [ ] `ingest.py`: repeatable from raw data or a download script; no duplicates.
+- [ ] `queries.sql` + `app.py`: the first query and an interface.
+- [ ] `docs/benchmarks/`: plan output and timings.
+- [ ] Injection self-test note: malicious input rejected.
+- [ ] `README.md`: rebuild in three commands; no `.db`, credentials, or personal data in Git.
+- [ ] `docs/report.md`: the Projektbericht with the five headings in Appendix C.
+- [ ] `docs/demo-plan.md`: table setup, fallback video, who answers what.
+- [ ] `Reflections/ref07.md` (and further project entries as needed).
+
+**Assessment:** the [syllabus](../syllabus.md#assessment-project-work-20-points) is the only source for points and grading. This page is the brief; it is not the rubric.
+
+## 📚 Appendix — optional reading
+
+### A. Story coaching
+
+A story is concrete enough when it is **pitchable** in a minute and/or **playable** as a short scene. One named person, one place, one moment of pain, and something at stake are enough. The test that matters: *can you name the first query?* If not, it is still a topic.
+
+The method is *Story Driven Modeling* (Norbisrath, Zündorf & Jubeh, 2013) — start from concrete scenarios, not class diagrams. The [resource bank](./Z-resources-bank.md#story-craft-is-it-concrete-enough) has more.
+
+### B. Case studies: systems that broke the classic stack
 
 <a id="read-before-the-kickoff-systems-that-broke-the-classic-stack"></a>
-## 📖 Read before the kickoff: systems that broke the classic stack
+Two real systems are the existence proof for the local-first bet:
 
-Ten minutes at the start of Session 8. For years the "serious" way to build a networked app was a frontend, a backend, a client/server database, a cache, and often a broker. A growing set of real systems throw that away:
+- **[GoToSocial](https://gotosocial.org)** — an ActivityPub/Fediverse server in Go, API-compatible with Mastodon. Where Mastodon runs PostgreSQL + Redis + Sidekiq + a frontend, GoToSocial ships as a **single binary** and uses **SQLite by default** (Postgres optional).
+- **[Chatto](https://www.hmans.dev/blog/chatto)** — a team-chat platform that is a **single executable serving its own web frontend**: no reverse proxy, no external database. Its embedded store is NATS JetStream — the same bet with a different engine.
 
-- **[GoToSocial](https://gotosocial.org)** — an ActivityPub/Fediverse server written in Go, API-compatible with Mastodon. Where Mastodon runs PostgreSQL + Redis + Sidekiq + a web frontend, GoToSocial ships as a **single binary** and uses **SQLite by default** (Postgres optional), in roughly 250–350 MiB of RAM. Its [database docs](https://docs.gotosocial.org/en/latest/configuration/database) call SQLite *"great for small instances and single-board computers"*.
-- **[Chatto](https://www.hmans.dev/blog/chatto)** — an open-source Slack/Teams alternative that is a **single executable serving its own web frontend**: "no reverse proxy, no external database — just one process." Its embedded store is **NATS JetStream**, not SQLite — the architecture is the same bet with a different engine, which is itself a good discussion point.
+For each: what did it remove, what did it trade away, and what did it gain? One sentence per team in `docs/requirements.md` is enough.
 
-Ask, for each: **what did it remove, what did it trade away, and what did it gain?** Then: *which of these shapes fits your project — and which must-haves from Module 8 are harder in it?* One sentence per team in `docs/requirements.md` is enough; this is context for the architecture choice, not a book report.
+### C. Repository and report template
 
-> [!NOTE]
-> **Why here and not in Module 6b?** Because this is the decision your project is about to make. Two single-binary systems are the strongest argument that "embedded by default" is a real engineering position, not a course gimmick — and they make the opposite choice visible too.
-
-## 🛠️ Session 8 — Story, Plan, and the First Slice
-
-<!-- TODO: remove timing notes after the project arc; the run sheet is in instructor-notes/07.md. -->
-
-> **Checkpoint 2, part 1 runs alongside this session.** Ten pods give a ten-minute feedback round while the rest of the room works; the TA helps between slots. Nothing is graded in it — see the [syllabus](../syllabus.md#how-module-points-are-earned-from-your-portfolio).
-
-### ★ Task 1: Story and Project Team charter
-
-1. Form a **Project Team** of 4–6 by merging two **Task Pods** (the pods you worked in for Modules 1–6). Record, in `docs/team.md`: each member's name, the story, and **who owns what** (schema, ingestion, queries, interface, docs). Every member must own a piece that can be defended individually in Session 11.
-2. Compare the **project tickets** each pod wrote after Module 6b. Pick one story (or merge two), then write the one-paragraph story. Get it reviewed by a neighbouring **Project Team** — each side gets a turn: they ask *"what is the first query this database must answer?"*
-3. Choose the engine. **SQLite is the default.** Switch to DuckDB, JSON-in-SQLite, or a key-value store only if you can name the workload reason — and write that reason down.
-
-*Evidence:* `docs/team.md` committed.
-
-### ★ Task 2: Map requirements to deliverables
-
-Fill in this table in `docs/requirements.md` — it is your checklist and your demo script in one:
-
-| Module 8 must-have | Your deliverable | Status |
-|---|---|---|
-| Embedded DB with documented schema + one enforced relationship | `schema.sql` + `docs/schema.md` + an ER diagram | |
-| Reproducible real-world ingestion | `ingest.py` (CSV/JSON/API export → DB) | |
-| Measured indexing proof | benchmark + `EXPLAIN QUERY PLAN` before/after | |
-| Parameterized, injection-safe queries | all reads/writes in `app.py` use bound params | |
-| Constraint + trigger/generated column enforcing a rule | in `schema.sql` | |
-| Evaluation evidence | timings, plan output, storage size, load time | |
-| Reachable interface + graceful recovery | Datasette / CLI / small app | |
-
-*Evidence:* `docs/requirements.md` with the table filled in.
-
-### ★ Task 3: Build the vertical slice
-
-Do not build breadth first — build **one path end-to-end**:
+A reproducible skeleton:
 
 ```text
-# A reproducible project skeleton (adjust to your story)
 myproject/
-├── data/            # raw input (gitignored if large) or a download script
+├── data/            # raw input or a download script (gitignored if large)
 ├── schema.sql       # CREATE TABLE ... with constraints
-├── ingest.py        # loads raw data into the DB, idempotently (UPSERT)
+├── ingest.py        # idempotent UPSERT loader
 ├── queries.sql      # the named queries your app needs
 ├── app.py           # parameterized access + interface
 ├── docs/
 │   ├── team.md
 │   ├── requirements.md
-│   └── schema.md
-└── README.md        # how to rebuild from scratch in 3 commands
+│   ├── schema.md
+│   └── benchmarks/
+└── README.md        # rebuild in three commands
 ```
 
-1. Write `schema.sql` with at least one foreign key and one `CHECK`.
-2. Write `ingest.py` so that `python ingest.py` builds the database from raw input **twice without duplicating rows** (reuse the `UPSERT` pattern from Module 4).
-3. Write the story's headline query in `queries.sql` and confirm it returns sensible rows.
-4. Wire the smallest possible interface: even `datasette yourdb.db -o` counts.
+The portfolio's *Projektbericht* uses `docs/report.md` with five headings: story and contributions; schema; ingestion; queries/index evidence; security/integrity and evaluation. The repository and README are the primary evidence; the report is a summary, not a separate deliverable.
 
-*Evidence:* commits for `schema.sql`, `ingest.py`, `queries.sql`, and a first interface.
+### D. Pointers
 
-## 🛠️ Sessions 9–10 — Build, Review, and Rehearse
+- [Project idea bank](../instructor-notes/project-ideas.md) — directions, not assignments.
+- [Story canon](./Z-resources-bank.md#story-canon-the-recurring-cast) — the recurring cast, if you want to borrow it.
+- [Resource bank](./Z-resources-bank.md) — datasets, visualization, tooling.
+- [Syllabus assessment](../syllabus.md#assessment-project-work-20-points) — points, grade scale, Excellence Stretcher.
 
-### ★ Task 4: Benchmark and harden
+### E. Demo preparation
 
-> **Performance clinic (30 minutes, Session 9).** Each team brings its slowest query. Three are profiled on the projector: `EXPLAIN QUERY PLAN`, the index that fixes it (or does not), and the before/after timing. This is the must-have most teams leave to the last week — rehearse it now, while there is still time to change the schema.
+At your table, cover the whole story in this order:
 
-1. Add at least one index and **prove its effect** with `EXPLAIN QUERY PLAN` and a timing on a non-trivial row count. Save the evidence under `docs/benchmarks/`.
-2. Run the **injection self-test**: search your code for any f-string or `%`-formatted SQL and replace it with bound parameters. Paste a deliberately malicious input into every user-facing field and confirm the app survives.
-3. Add the trigger or generated column that enforces your domain rule, and demonstrate it firing (and rejecting) something.
+| Segment | What visitors see | Who |
+|---|---|---|
+| **The story** | The named person, the problem, where the data comes from | Any member |
+| **Live end-to-end** | Raw data → ingestion → database → headline query → interface. Run it live; slides may support, never replace it | Rotating |
+| **The proof** | One `EXPLAIN QUERY PLAN` before/after, the timings, the injection self-test | Query owner |
+| **Integrity** | Trigger the constraint/trigger live — show it rejecting bad data | Integrity owner |
+| **Discussion** | Individual questions on the design decisions each member owns | All |
 
-*Evidence:* benchmark files, the injection self-test note, and the trigger demonstration output.
-
-### ★ Task 5: Peer review
-
-Trade repositories with another **Project Team**. Reviewers fill in `docs/peer-review.md`:
-
-- Can you rebuild their database from their README **in three commands**? Try it on a clean checkout.
-- Find one query that is **not** parameterized, or confirm none are.
-- Find one place where the schema could record **wrong data** (a missing constraint) and propose the fix.
-- Is the story still visible in the interface?
-
-Give your notes to the other **Project Team**; they commit the fixes.
-
-*Evidence:* `docs/peer-review.md` (both as reviewer and as reviewee, with fixes linked).
-
-### ★ Task 6: Rehearse the fair demo
-
-Rehearse the Session 11 **table demo** (format in [Module 8](./08-final-project.md#the-fair-demo--project-discussion)). Work with another Project Team: each side presents at its table while the other asks one question per member. The most common failure is running long on slides and short on the live demo — fix that now. Assign who answers which categories of questions.
-
-*Evidence:* `docs/demo-plan.md` with the table setup, the fallback video, and speaker assignments.
-
-### ◇ Task 7 (Stretcher): Ship something back
-
-Open a pull request to IoTempower, this course repository, or an open-source tool that helped you — a fixed typo in a doc, a sample script, a driver tweak. Accepted contributions can be proposed as an **Excellence Stretcher**.
-
-## ✅ Suggested portfolio evidence (proofs of the learning goals, per member)
-
-It is enough that each member's portfolio entry **proves their part of the project's learning goals**. A suggested shape — adapt it to what you actually did:
-- Links to the shared project repository.
-- States **their** contribution and the design decision **they** own.
-- Includes the evidence for that piece (their query, their benchmark, their ingestion module).
-- Contains `Reflections/ref07.md` (and further entries) for the project-studio blocks, using the [reflection template](https://github.com/iotempire/iot-portfolio-template/blob/main/Reflections/TEMPLATE.md).
-
-A project repository alone is not enough: the project assessment includes an **individual project discussion**, and your personal portfolio is what you explain from.
-
-## 📚 Project Team hygiene that saves the demo
-
-- Commit early and often with descriptive messages; a clean Git log is itself evidence of collaboration.
-- Keep raw data out of Git; commit the **script** that fetches or generates it.
-- Pin your dependencies (`requirements.txt`) so a reviewer can rebuild your environment.
-- Write the README's "rebuild in three commands" section **before** you think you are done — you will thank yourself at review time.
+Keep the poster or slides short. Bring a short recorded fallback of the live flow. Be ready to explain the part you own. If you are visiting, take notes, name one thing that impressed you, and give one concrete suggestion.
 
 ---
 
-[← Previous: Module 6b](./06b-polyglot-persistence.md) | [Back to front page](../README.md) | [Next: Module 8 — Final Project Specification →](./08-final-project.md)
+[← Previous: Module 6b](./06b-polyglot-persistence.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md)
