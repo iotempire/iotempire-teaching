@@ -2,7 +2,7 @@
 
 [← Back to Module 7](./07-fleet-management-and-iotempower.md) | [Quick module index](./00-index.md) | [Next: Module 9 →](./09-project-presentation-and-portfolio.md)
 
-**Course placement:** Days 8–9 — the final project studio, after Checkpoint 2 (Modules 4–7). The exact split depends on the timetable and group progress; the schedule deliberately reserves buffer time here so slower labs elsewhere do not eat into the project.
+**Course placement:** the project block — kickoff in the last two school hours of Module 6 (Dec 11), build in the two BS slots of Dec 14 after the Module 7 clinic and Checkpoint 2, then Dec 15, Dec 18, and Dec 21. The exact split depends on the timetable and group progress; the block deliberately reserves buffer time so slower labs elsewhere do not eat into the project.
 
 ## 🎯 Learning Goals
 
@@ -26,7 +26,7 @@ Your **Project Team** — two Task Pods merged into 4–6 people — is the engi
 
 ## 📖 Studio Briefing: From Story to Resilient System
 
-Before you build, spend a short pod-study block on the project craft:
+Before you build, read this short briefing on the project craft:
 
 ### Pointers (start here, then keep looking)
 
@@ -79,7 +79,7 @@ A toy IoT project works only when every component is connected under ideal condi
                            |
 [Router Mesh Layer]  OpenWrt Routers (optional: B.A.T.M.A.N. adv Layer-2 mesh)
                            |
-[Overlay Layer]      Nebula / Yggdrasil (Encrypted remote WAN access)
+[Overlay Layer]      Nebula (encrypted remote access; router as gateway)
                            |
 [Broker Layer]       Mosquitto MQTT Broker (Retained states, LWT, QoS 1)
                            |
@@ -89,7 +89,7 @@ A toy IoT project works only when every component is connected under ideal condi
 ===========================================================================
 ```
 
-You do not have to use every layer. A strong project uses each layer it includes *deliberately* and can explain that choice. If you configured a B.A.T.M.A.N. mesh in Module 3, this is where it earns its place by carrying real traffic across a link you can physically break.
+You do not have to use every layer. A strong project uses each layer it includes *deliberately* and can explain that choice. If you saw the optional B.A.T.M.A.N. showcase, this is where a mesh would have to earn its place by carrying real traffic across a link you can physically break; it is not required.
 
 ## 🛠️ Studio Labs — **Challenging**
 
@@ -108,7 +108,7 @@ You do not have to use every layer. A strong project uses each layer it includes
 
 Verify that your system meets the Final Project Must-Haves:
 1. Multi-Node: At least 4 independent physical nodes active (e.g. 2 M5Stack nodes, 1 OpenWrt router, 1 laptop/edge server).
-2. Multi-Network: At least two distinct communication/networking layers working together (e.g. ESP-NOW → Wi-Fi gateway; a Nebula/Yggdrasil overlay; or, optionally, an OpenWrt B.A.T.M.A.N. mesh).
+2. Multi-Network: At least two distinct communication/networking layers working together (e.g. ESP-NOW → Wi-Fi gateway; a Nebula overlay; or, optionally, an OpenWrt B.A.T.M.A.N. showcase).
 3. Structured MQTT Topics: Clear, documented hierarchy with QoS, Retain for state topics, and LWT for node health.
 4. Integration Engine: Node-RED flow and/or Python script orchestrating real-time logic.
 5. Declarative Management: At least one node managed and updatable via IoTempower Over-The-Air (OTA).

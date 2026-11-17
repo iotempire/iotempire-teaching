@@ -2,7 +2,7 @@
 
 [← Back to Module 8](./08-final-project-studio.md) | [Quick module index](./00-index.md)
 
-**Course placement:** Day 10 — the final session. You present the last part of your **technical engineering report** — the final project — and submit the complete report.
+**Course placement:** Tue 2026-12-22 — the final session. You present the last part of your **technical engineering report** — the final project — and submit the complete report.
 
 ## 🎯 Learning Goals
 
@@ -29,7 +29,7 @@ Your final presentation is that night in miniature. You have a short slot: first
 ### Presentation Script Guidelines
 
 1. **System Story & Problem Context:** Who uses this system? What real-world problem does it solve?
-2. **Network Topology & Architecture:** Walk through the physical and virtual topology — M5Stack nodes, OpenWrt router, optional B.A.T.M.A.N. mesh, Nebula/Yggdrasil overlay, and MQTT broker. Justify your protocol choices: Why ESP-NOW instead of Wi-Fi for node X? Why MQTT instead of HTTP? How does the overlay provide remote access?
+2. **Network Topology & Architecture:** Walk through the physical and virtual topology — M5Stack nodes, OpenWrt router, Nebula overlay, and MQTT broker. Justify your protocol choices: Why ESP-NOW instead of Wi-Fi for node X? Why MQTT instead of HTTP? How does the overlay provide remote access?
 3. **Live Demonstration:** Show real physical sensor input propagating across the network to triggers, actuators, and dashboards. Demonstrate an Over-The-Air (OTA) update or declarative reconfiguration using IoTempower.
 4. **Live Fault Injection (Instructor Challenge):** The instructor or a peer tests the resilience of your system (e.g. pulling power on an intermediate mesh router or disconnecting a Wi-Fi link). Show how the system degrades gracefully, re-routes, or recovers automatically.
 5. **Technical Report Walkthrough:** Open the last section of your report and show where the evidence lives — topology, captures, metrics, fault-injection results, and the reflection that ties the project together. Say what you would do next with another week.
@@ -43,7 +43,7 @@ The final project is assessed according to the [syllabus](../syllabus.md#final-p
 - [ ] Module 0: Pre-study notes, initial network exploration, and answers to guiding questions.
 - [ ] Module 1: Node-RED hello-world screenshot, a packet capture (Wireshark, `tshark`, or the `tcpdump -A` text), and OSI critique note.
 - [ ] Module 2: OpenWrt setup, network topology diagram, DHCP/ARP captures, and NAT/port forwarding test.
-- [ ] Module 3: Nebula overlay setup, cross-NAT ping/SSH proof, and Yggdrasil comparison (optional: B.A.T.M.A.N. `batctl` tables and mesh failover report).
+- [ ] Module 3: Nebula overlay setup, cross-NAT ping/SSH proof, Node-RED reachability, and MQTT through the overlay (optional: direct laptop join or B.A.T.M.A.N. `batctl` showcase notes).
 - [ ] Module 4: MQTT QoS, Retain, LWT analysis, Node-RED flows (`.json`), and Python/IoTknit integration scripts.
 - [ ] Module 5: Wireless comparison table, ESP-NOW peer-to-peer code, and ESP-NOW to MQTT gateway bridge proof.
 - [ ] Module 6: Industrial protocol analysis (recommended); optional simulated Modbus/OPC-UA server and bridge.
@@ -60,8 +60,8 @@ The final project is assessed according to the [syllabus](../syllabus.md#final-p
 Congratulations on completing Networking and IoT Solutions!
 
 You have developed a deep, practical mastery of:
-- Network Reality over Dogma: Moving from rigid 7-layer diagrams to pragmatic TCP/IP, Layer-2 action frames (ESP-NOW), and kernel mesh routing (`batman-adv`).
-- Software-Defined Edge Networking: Deploying modern overlays (Nebula, Yggdrasil) that make devices accessible anywhere without fragile port forwarding.
+- Network Reality over Dogma: Moving from rigid 7-layer diagrams to pragmatic TCP/IP, Layer-2 action frames (ESP-NOW), and a Layer-3 Nebula overlay.
+- Software-Defined Edge Networking: Deploying a modern Nebula overlay that makes devices and services accessible without fragile port forwarding.
 - Robust Asynchronous Systems: Decoupled messaging with MQTT, resilient integrations with Node-RED and Python, and an awareness of industrial interoperability (OPC-UA, Modbus).
 - Fleet-Scale Thinking: Managing hardware fleets declaratively with IoTempower.
 

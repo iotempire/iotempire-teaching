@@ -1,6 +1,6 @@
-# Networking and IoT Solutions (Vernetzung und IoT-Lösungen) — 10-Day Edition
+# Networking and IoT Solutions (Vernetzung und IoT-Lösungen) — 48 School-Hour Edition
 
-### Day 1 · Introduction, Pre-Study Rehash & The Master Class
+### Fri 2026-11-06 · Introduction, Pre-Study Rehash & The Master Class
 
 *Make things talk to each other — then prove the system still works when something dies.*
 
@@ -75,7 +75,7 @@ speaker notes and are dropped from the PDF.
 # Class logistics (short version)
 
 - **No separate exercise sheets** — but expect at least ~6 hours/week of self-study to finish labs, portfolio, and project work
-- **10 working days / 48 contact hours, one module per day**; session lengths vary (typically two sessions of 2 × 45 min, longer blocks on some days)
+- **11 dates / 48 school hours (≈ 36 clock hours)**, one module per teaching date; a normal date is two 90-minute slots
 - You work in small **Task Pods of two or three** (three by default in a large cohort). For the **final project, two pods merge into a Project Team (4–6)**
 - In-class exercises are initially **individual**
 - **Ongoing feedback** in the lab — talk to us!
@@ -89,7 +89,7 @@ speaker notes and are dropped from the PDF.
 
 Central entry point: **the course repository**.
 
-- **[Module index & roadmap](https://github.com/iotempire/iotempire-teaching/blob/main/full-classes/hsbi-networking-iot-10d/modules/00-index.md)** — every module and the day-by-day plan
+- **[Module index & roadmap](https://github.com/iotempire/iotempire-teaching/blob/main/full-classes/hsbi-networking-iot-10d/modules/00-index.md)** — every module and the plan date by date
 - **[Syllabus](https://github.com/iotempire/iotempire-teaching/blob/main/full-classes/hsbi-networking-iot-10d/syllabus.md)** — schedule, objectives, assessment, tools, policies
 - **[Pre-study guide](https://github.com/iotempire/iotempire-teaching/blob/main/full-classes/hsbi-networking-iot-10d/pre-study.md)** — Module 0
 - **[Module 1](https://github.com/iotempire/iotempire-teaching/blob/main/full-classes/hsbi-networking-iot-10d/modules/01-foundations-and-masterclass.md)** — today's module

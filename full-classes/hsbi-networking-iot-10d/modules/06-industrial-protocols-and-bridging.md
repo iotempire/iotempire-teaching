@@ -5,7 +5,7 @@
 > [!NOTE]
 > **Short and dry on purpose.** We do not have an industrial lab. The module is one video, one discussion, one RS-485/Modbus demo if the hardware is there, and an EtherCAT guest slot if we can get one. The rest of the page is a reference map for the handbook, not a lecture. You are not expected to own a factory.
 
-**Course placement:** Day 6 — a short industrial-interoperability briefing: place the protocols, watch and discuss, one RS-485/Modbus demo if the hardware is there, an EtherCAT guest slot, and an optional Python wrapper.
+**Course placement:** Fri 2026-12-11, first slot — a short industrial-interoperability briefing: place the protocols, watch and discuss, one RS-485/Modbus demo if the hardware is there, an EtherCAT guest slot, and an optional Python wrapper. The second slot is the last two school hours of the date and belongs to the [project kickoff](./08-final-project-studio.md); finish the bus map or register notes as homework before it if you need more time.
 
 ## 🎯 Learning Goals
 

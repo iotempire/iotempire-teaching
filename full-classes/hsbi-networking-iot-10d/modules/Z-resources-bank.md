@@ -235,7 +235,7 @@ ssh root@192.168.14.1 "tcpdump -i br-lan -A -c 20 'arp'"
 ssh root@192.168.14.1 "tcpdump -r /tmp/lan.pcap -A 'udp port 67 or udp port 68'"
 ```
 
-**Storage: 16 MB of flash.** `tcpdump` and Mosquitto are already on the class image. For anything bigger — Nebula, `tshark`, MicroPython — move the root filesystem to a **USB stick** (the routers have one USB 2.0 port). The class hands out a **> 4 GB stick and a mini USB hub**, so the stick and a USB-tethered phone can share that one port. Label the stick with the router ID; it is part of the router, not a spare.
+**Storage: 16 MB of flash.** `tcpdump` and Mosquitto fit as small package installs (Module 2 installs both). For anything bigger — Nebula, `tshark`, MicroPython — move the root filesystem to a **USB stick** (the routers have one USB 2.0 port). The class hands out a **> 4 GB stick and a mini USB hub**, so the stick and a USB-tethered phone can share that one port. Label the stick with the router ID; it is part of the router, not a spare.
 
 ```bash
 # on the router, once, with the stick plugged in
@@ -302,7 +302,7 @@ On **OpenWrt** the installer does not apply (no systemd): copy `<name>.crt`, `<n
 
 ```bash
 ./nebula-manager ca   --name ClassCA --cert-dir ~/keys/class
-./nebula-manager sign --name pod07-router --ip 10.100.0.7/24 --groups students --cert-dir ~/keys/class
+./nebula-manager sign --name pod07-router --ip 10.100.0.17/24 --groups students --cert-dir ~/keys/class
 ./nebula-manager cert config generate --all --cert-dir ~/keys/class
 ./nebula-manager cert list --cert-dir ~/keys/class            # expiry, groups, addresses
 ./nebula-manager cert bundle pod07-router --out ~/bundles
@@ -311,6 +311,35 @@ On **OpenWrt** the installer does not apply (no systemd): copy `<name>.crt`, `<n
 ```
 
 The CA **key** never leaves the instructor's machine; only `ca.crt` and the signed node certificates travel. Back up `~/keys/class` — losing the CA key means re-issuing the whole mesh.
+
+**Class overlay layout (WS 2026/27).** Use the `ulno.mesh` names on the board; the exact overlay address is in each bundle. This is a proposal to confirm against the class CA, not a second address authority.
+
+| Role | Overlay address | Group | Notes |
+|---|---|---|---|
+| Lighthouse | `10.100.0.1` | `lighthouse` | Directory only; UDP 4242 reachable |
+| Pod routers | `10.100.0.11`–`10.100.0.25` | `students` | One per pod; router-as-gateway default |
+| Optiplex services | `10.100.1.11`–`10.100.1.14` | `services` | One Node-RED container set per host |
+| Optional laptops | `10.100.2.x` | `laptops` | Only where the student has admin rights |
+
+**Node-RED on the Optiplex cluster.** One container per pod, one persistent volume per pod, one class login (`admin` / `iotempire`, lab-only). Never on the router.
+
+| Host | Pods | Host ports (container 1880) |
+|---|---|---|
+| `ulno-oldplex02` | pod01–pod04 | 18080–18083 |
+| `ulno-oldplex03` | pod05–pod08 | 18080–18083 |
+| `ulno-oldplex04` | pod09–pod12 | 18080–18083 |
+| `ulno-oldplex05` | pod13–pod15 + spare | 18080–18082 (+18083 spare) |
+
+**MQTT path through the overlay.** The router brokers; the Optiplex runs Node-RED. The router is the default gateway for the pod LAN; a direct laptop join is a stretch.
+
+| Hop | Address / rule |
+|---|---|
+| Pod broker on the LAN | `192.168.14.1:1883` |
+| Pod broker on the overlay | router overlay address `:1883` |
+| Node-RED UI | `http://<optiplex>.ulno.mesh:1808x` (or overlay IP) |
+| Services → pod broker | allow TCP `1883` from group `services` on the router |
+| Pod LAN → Node-RED | allow TCP `18080–18083` from group `students` on the service host |
+| Node-RED MQTT | subscribe `pod<NN>/#`; publish `pod<NN>/<device>/set` |
 
 <a id="mqtt-command-cheat-sheet"></a>
 ### 📌 MQTT Command Cheat Sheet
@@ -371,7 +400,7 @@ The CA **key** never leaves the instructor's machine; only `ca.crt` and the sign
 - **Retained MQTT messages:** a “live” test may show an old retained value. Clear retained state or publish a fresh value before you draw conclusions.
 - **Throughput/latency measurements:** note the payload size, protocol, channel, and load. A single ping is not a benchmark; use `iperf3` and repeat.
 - **Clock skew:** timestamps from different devices disagree. Compare durations, not absolute times, unless the clocks are synced.
-- **Node-RED is not on the router.** Module 1 uses the `classroom-nodered.sh` fleet on the class host; Module 4 onward uses your own Node-RED install on the class host or a laptop. The router runs Mosquitto and, optionally, small MicroPython services. A MicroPython IoTknit port is planned, not yet supported.
+- **Node-RED is not on the router.** Module 1 uses the `classroom-nodered.sh` fleet on the class host; from Module 3 the default is one Node-RED container per pod on the Optiplex cluster, with a laptop fallback. The router runs Mosquitto and, optionally, small MicroPython services. A MicroPython IoTknit port is planned, not yet supported. Access is restricted by the Nebula firewall to the service host and ports, not by broad subnets.
 
 <a id="troubleshooting-quick-drops"></a>
 ## 🧰 Troubleshooting Quick Drops
@@ -410,9 +439,9 @@ Use these as portfolio prompts or in-class hook.
 <a id="instructor-hints"></a>
 ## 🧑‍🏫 Instructor hints
 
-**Before the first studio.** Label every router and node, record which router is the lab uplink, and keep one known-good Ethernet cable and one known-good M5Stack. Test the local Mosquitto broker on the gateway and the `classroom-nodered.sh` fleet for the Master Class; from Module 4, students run their own Node-RED on the class host or a laptop. Node-RED does not run on the router. If you use the B.A.T.M.A.N. stretcher, pre-check that the routers have `kmod-batman-adv` and a common Wi-Fi channel.
+**Before the first studio.** Label every router and node, record which router is the lab uplink, and keep one known-good Ethernet cable and one known-good M5Stack. Test the local Mosquitto broker on the gateway and the `classroom-nodered.sh` fleet for the Master Class; from Module 3, students use the Node-RED containers on the Optiplex cluster, with a laptop fallback. Node-RED does not run on the router. If you run the optional B.A.T.M.A.N. showcase, pre-check that the routers have `kmod-batman-adv` and a common Wi-Fi channel.
 
-**Nebula in one session — bundles, not ceremonies.** Before class, create the class CA and sign **one certificate per pod** for its router (e.g. `pod07-router`, `10.100.0.7/24`, group `students`), plus laptop certs for the students who have admin rights on their own machine. Generate the configs and bundles and hand out **one croc code per pod** (`fleet croc --select group:students`), with the lighthouse already in `static_host_map`; the [bundles chapter](https://github.com/iotempire/nebula-manager/blob/main/docs/bundles.md) is the reference. Two things to prepare: (1) the router path needs a **static `nebula` binary** matching MIPS/ARM — pre-download the right release and keep it on a USB stick or an HTTP folder, because 16 MB of flash will not take a package install; (2) a **re-sign drill** for the pod that loses its key (`cert resign-all` or a single `sign`, then `--certs-only`) — it is a five-minute lesson in why the key *is* the credential. Never put the CA key on a shared drive, and delete the student bundles from the instructor host at the end of the day.
+**Nebula in one session — bundles, not ceremonies.** Before class, create the class CA and sign **one certificate per pod** for its router (e.g. `pod07-router`, `10.100.0.17/24`, group `students`), plus laptop certs for the students who have admin rights on their own machine. Generate the configs and bundles and hand out **one croc code per pod** (`fleet croc --select group:students`), with the lighthouse already in `static_host_map`; the [bundles chapter](https://github.com/iotempire/nebula-manager/blob/main/docs/bundles.md) is the reference. Two things to prepare: (1) the router path needs a **static `nebula` binary** matching MIPS/ARM — pre-download the right release and keep it on a USB stick or an HTTP folder, because 16 MB of flash will not take a package install; (2) a **re-sign drill** for the pod that loses its key (`cert resign-all` or a single `sign`, then `--certs-only`) — it is a five-minute lesson in why the key *is* the credential. Never put the CA key on a shared drive, and delete the student bundles from the instructor host at the end of the day.
 
 **Pods and checkpoints.** Form Task Pods of two or three on Day 1 (three is the default for a large cohort). The checkpoint schedule, the 2-pod practice round, and the video alternative are defined in the [syllabus](../syllabus.md#how-module-points-are-earned-portfolio-evidence-and-checkpoints); run the slots from there. Treat checkpoints as feedback on the portfolio evidence, not as task-completion audits, and keep them a short conversation rather than a presentation rehearsal.
 
@@ -420,7 +449,7 @@ Use these as portfolio prompts or in-class hook.
 
 **Network safety.** Keep every experiment inside the isolated lab router network. Never plug a rogue DHCP server into the campus network. Before any mesh/overlay lab, agree on team IDs, channels, and address ranges; write them on the board.
 
-**Packet capture in the room.** Assume **one Wi-Fi adapter per laptop and no monitor mode**: a laptop cannot see another station's unicast traffic, and Windows rarely supports monitor mode at all. Prepare capture *points*, not sniffers: (a) `tcpdump` on the router — it is on the class image, and `br-lan` covers the LAN; (b) one ESP32 running [`martin-ger/esp32_eth_wifi_bridge`](https://github.com/martin-ger/esp32_eth_wifi_bridge) as a transparent tap that streams pcap over TCP port 19000 (`pcap start`); and (c) one recorded dump per module (`module01.pcap`, `module02.pcap`, …) for pods whose hardware or laptop cannot capture that day. Open every dump yourself before handing it out, and say out loud that analysing a provided dump is full evidence. Hand out the **USB sticks and mini hubs for extroot** in Module 2 — Nebula does not fit into 16 MB of flash — and walk through the [extroot recipe](#packet-capture-without-a-second-wifi-card) with the first pod that hits it; Module 3 then verifies `/overlay` instead of discovering the problem.
+**Packet capture in the room.** Assume **one Wi-Fi adapter per laptop and no monitor mode**: a laptop cannot see another station's unicast traffic, and Windows rarely supports monitor mode at all. Prepare capture *points*, not sniffers: (a) `tcpdump` on the router — install it from the OpenWrt package feed (Module 2 does), and `br-lan` covers the LAN; (b) one ESP32 running [`martin-ger/esp32_eth_wifi_bridge`](https://github.com/martin-ger/esp32_eth_wifi_bridge) as a transparent tap that streams pcap over TCP port 19000 (`pcap start`); and (c) one recorded dump per module (`module01.pcap`, `module02.pcap`, …) for pods whose hardware or laptop cannot capture that day. Open every dump yourself before handing it out, and say out loud that analysing a provided dump is full evidence. Hand out the **USB sticks and mini hubs for extroot** in Module 2 — Nebula does not fit into 16 MB of flash — and walk through the [extroot recipe](#packet-capture-without-a-second-wifi-card) with the first pod that hits it; Module 3 then verifies `/overlay` instead of discovering the problem.
 
 **Bus and fieldbus coverage.** Low-level buses (UART, I²C, SPI, OneWire) belong to the Sensors & Actuators and Microcontroller Programming courses. Industrial fieldbuses (RS-485/Modbus, CAN, Profinet, TSN) are covered in [Module 6](../modules/06-industrial-protocols-and-bridging.md), including the ISO/OSI mapping and the bus comparison table. Do not duplicate the bus survey in Module 2; revisit it in Module 7/8 only if the project wiring needs it.
 
@@ -458,7 +487,7 @@ The module stories share a small cast of named (fictional) organizations and peo
 
 - **Architecture and layering:** [RFC 1958](https://www.rfc-editor.org/rfc/rfc1958) · [RFC 3439 §3](https://www.rfc-editor.org/rfc/rfc3439#section-3) · [Wikipedia: OSI model](https://en.wikipedia.org/wiki/OSI_model)
 - **TCP/IP and routing:** [RFC 1918](https://www.rfc-editor.org/rfc/rfc1918) · [RFC 2131](https://www.rfc-editor.org/rfc/rfc2131) · [RFC 3022](https://www.rfc-editor.org/rfc/rfc3022) · [Practical Networking](https://www.practicalnetworking.net/)
-- **Overlays and mesh:** [Nebula](https://nebula.defined.net/docs/) · [Yggdrasil](https://yggdrasil-network.github.io/) · [OpenWrt batman-adv](https://openwrt.org/docs/guide-user/network/wifi/mesh/batman)
+- **Overlay and services:** [Nebula](https://nebula.defined.net/docs/) · [Node-RED](https://nodered.org/docs/) · [OpenWrt firewall](https://openwrt.org/docs/guide-user/firewall/firewall_configuration). Yggdrasil is deferred to a later class; [OpenWrt batman-adv](https://openwrt.org/docs/guide-user/network/wifi/mesh/batman) is an optional showcase.
 - **Messaging:** [MQTT 5.0](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html) · [HiveMQ: MQTT essentials](https://www.hivemq.com/mqtt-essentials/) · [Node-RED](https://nodered.org/docs/) · [paho-mqtt](https://eclipse.dev/paho/files/paho.mqtt.python/html/index.html)
 - **Wireless:** [ESP-NOW](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/network/esp_now.html) · [LoRa Alliance](https://lora-alliance.org/) · [Bluetooth LE](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy)
 - **Industrial:** [Modbus](https://modbus.org/) · [OPC-UA](https://opcfoundation.org/about/opc-technologies/opc-ua/) · [TSN](https://en.wikipedia.org/wiki/Time-Sensitive_Networking)

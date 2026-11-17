@@ -2,7 +2,7 @@
 
 [← Back to Module 4](./04-mqtt-and-integration.md) | [Quick module index](./00-index.md) | [Next: Module 6 →](./06-industrial-protocols-and-bridging.md)
 
-**Course placement:** Day 5 — the wireless challenge. You choose a radio by measurement, then build an ESP-NOW-to-MQTT bridge.
+**Course placement:** Fri 2026-12-04 — the wireless challenge. You choose a radio by measurement, then build an ESP-NOW-to-MQTT bridge.
 
 ## 🎯 Learning Goals
 

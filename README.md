@@ -26,7 +26,7 @@ We provide several comprehensive workbooks that serve as the foundation for our 
 
 - [HSBI/GT Microcontroller Programming (10-day extended edition)](full-classes/hsbi-MCU-programming-10d/README.md): A local-first MCU and IoT course delivered over ten weeks, from basic electronics through multi-node final projects.
 
-- [HSBI/GT Networking and IoT Solutions (10 weeks)](full-classes/hsbi-networking-iot-10d/README.md): A local-first networking and integration course: TCP/IP and OpenWrt edge gateways, mesh and overlay networks (B.A.T.M.A.N., Nebula, Yggdrasil), MQTT, ESP-NOW, industrial bridging (OPC-UA/Modbus), and IoTempower fleet management, culminating in a multi-node final project.
+- [HSBI/GT Networking and IoT Solutions (11 dates / 48 school hours)](full-classes/hsbi-networking-iot-10d/README.md): A local-first networking and integration course: TCP/IP and OpenWrt edge gateways, a Nebula overlay with remote MQTT, ESP-NOW, industrial bridging (OPC-UA/Modbus), and IoTempower fleet management, culminating in a multi-node final project.
 
 - [HSBI/GT Sensors and Actuators (10 days)](full-classes/hsbi-sensors-actuators-10d/README.md): A hands-on sensors and actuators course: measurement technique and uncertainty, I²C and sensor addressing, sensor characterization and calibration, distance/motion/environment sensors, LEDs and LED animation, servos and other motors, and IoTempower-based sensor/actuator systems with a characterized final project.
 

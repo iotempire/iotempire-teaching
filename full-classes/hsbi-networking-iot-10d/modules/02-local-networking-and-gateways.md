@@ -2,7 +2,7 @@
 
 [← Back to Module 1](./01-foundations-and-masterclass.md) | [Quick module index](./00-index.md) | [Next: Module 3 →](./03-overlay-and-mesh-networks.md)
 
-**Course placement:** Day 2 — the edge-router challenge. You take one boxed router to a working pod gateway, prove the protocols at the choke point, and hand it over so the pod can continue at home.
+**Course placement:** Fri 2026-11-13 — the edge-router challenge. You take one boxed router to a working pod gateway, prove the protocols at the choke point, and hand it over so the pod can continue at home.
 
 ## 🎯 Learning Goals
 
@@ -452,7 +452,7 @@ You already use SSH to administer the router. SSH can also carry other TCP traff
 
 ### ◇ Stretch 3: Nebula preview
 
-If your extroot, LAN, and broker are solid and you are breezing through, ask the instructor for your Module 3 bundle. Read its `README.txt`, find the lighthouse in `static_host_map`, and — only if the instructor hands you a bundle — follow **Module 3 Round 2** on your router. Bring the result to Day 3; Module 3 will still explain the why, the cross-NAT test, and the certificate model. This is a preview, not a replacement: do not commit the bundle, the key, or the config.
+If your extroot, LAN, and broker are solid and you are breezing through, ask the instructor for your Module 3 bundle. Read its `README.txt`, find the lighthouse in `static_host_map`, and — only if the instructor hands you a bundle — follow **Module 3 Task 2** on your router. Bring the result to the Nov 20 session; Module 3 will still explain the why, the cross-NAT test, and the certificate model. This is a preview, not a replacement: do not commit the bundle, the key, or the config.
 
 > **Story hook.** *The key to the substation.* Tomorrow's bundle is the key; today you only check that the door has room for it.
 
@@ -476,13 +476,13 @@ You can already tick and link some rows in this module: transmission media (Roun
 | Serial vs. parallel | Bits one after another on one wire vs. several wires at once | RS-485/UART vs. parallel buses; Module 6 |
 | Synchronous vs. asynchronous | A shared clock vs. start/stop framing | Wi-Fi/ESP-NOW vs. UART/RS-485; Modules 5/6 |
 | Simplex / half-duplex / full-duplex | One way / both ways one at a time / both ways at once | RS-485 half-duplex, Ethernet full-duplex, Wi-Fi shared medium |
-| Topology | Bus, star, ring, mesh | Pod LAN star, B.A.T.M.A.N. mesh, MQTT star |
+| Topology | Bus, star, ring, mesh | Pod LAN star, Nebula overlay, optional B.A.T.M.A.N. showcase, MQTT star |
 | MAC addressing / ARP | Layer-2 address and IP-to-MAC resolution | Round 5 capture; `ip neigh` |
 | Collision domain / broadcast domain | Where frames can collide / where broadcasts reach | Ethernet switch vs. router; `br-lan` vs. WAN |
 | Error detection | FCS/CRC checks; a bad frame is dropped | Ethernet FCS, Modbus CRC16 (Module 6) |
 | CSMA/CD vs. CSMA/CA | Collision detection (wired Ethernet) vs. collision avoidance (Wi-Fi) | Module 5 radio, Round 4 Ethernet |
 | Routing / default gateway | Forwarding between subnets; longest-prefix match | Round 3 `ip route`, `ip route get` |
-| Spanning Tree Protocol | Prevents Layer-2 loops in a bridged LAN | Module 3's mesh uses B.A.T.M.A.N. for multi-hop routing, not STP |
+| Spanning Tree Protocol | Prevents Layer-2 loops in a bridged LAN | Module 3's Nebula overlay is Layer 3; B.A.T.M.A.N. is only an optional showcase |
 | Classful addressing vs. CIDR | Legacy fixed classes vs. prefix-based subnets | Round 6 subnetting |
 | Broadcast / fragmentation | One-to-all delivery / splitting a packet to fit the MTU | DHCP broadcast, `br-lan`; MTU and Wi-Fi |
 | TCP vs. UDP; flow control | Reliable stream vs. datagram; receiver window vs. congestion | MQTT/TCP, CoAP/UDP; Module 4 |
@@ -536,4 +536,4 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 
 ---
 
-[← Previous: Module 1](./01-foundations-and-masterclass.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 3 — Mesh & Overlay Networks →](./03-overlay-and-mesh-networks.md)
+[← Previous: Module 1](./01-foundations-and-masterclass.md) | [Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 3 — Overlay Networks: Nebula & Remote MQTT →](./03-overlay-and-mesh-networks.md)

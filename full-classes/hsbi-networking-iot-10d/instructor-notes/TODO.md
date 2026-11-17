@@ -26,10 +26,11 @@
       warnings, reference tables that belong in the resource bank, and “do this” instructions where
       a question plus two sources would teach more.
 
-- [ ] **Before Module 3 (Nebula): apply the constraint, do not repeat the pattern.** Keep the
-      bundle/credential rules, the working install path, and the cross-NAT proof. Let students
-      discover the lighthouse's role, choose router vs. laptop, and debug one failed path. Do not
-      write another exhaustive recipe that leaves no room for the why.
+- [x] **Before Module 3 (Nebula): apply the constraint, do not repeat the pattern.** Module 3 was
+      rewritten for WS 2026/27 as five Task/Subtask/Evidence tasks: Nebula only, router gateway by
+      default, direct laptop as a stretcher, Node-RED on the Optiplex cluster, and MQTT through the
+      overlay. Yggdrasil is deferred; B.A.T.M.A.N. is an optional showcase. Keep the de-bloat
+      constraint for Modules 4–7.
 
 - [ ] **Audit Module 2 after the run.** Count the prescribed steps against the actual student
       decisions. For each step ask: *does this prevent damage, or does it prevent thought?* Keep

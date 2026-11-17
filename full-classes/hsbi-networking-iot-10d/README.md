@@ -1,14 +1,14 @@
-# HSBI/GT Networking and IoT Solutions — 10-Day Edition
+# HSBI/GT Networking and IoT Solutions — 48 School-Hour Edition
 
 > **Build networks that survive the real world.** Move beyond the rigid seven-layer diagram: route at the edge, cross NAT without port forwarding, decouple with pub/sub, and prove resilience by breaking your own system.
 
 This is the course workbook and front page for **Networking and IoT Solutions (Vernetzung und IoT-Lösungen)** at Hochschule Bielefeld University of Applied Sciences and Arts (HSBI), Campus Gütersloh. It is a hands-on, laboratory-driven course about the networking and integration layer of modern IoT: edge routers, overlays, messaging, wireless links, industrial bridges, and fleet operations.
 
-The course runs over **10 working days / 48 contact hours**, with **one module per day**. Session lengths vary: most modules use two sessions of 2 × 45 min (90 minutes each), and a few days run longer. The official timetable, rooms, and announcements are published through the course LMS.
+The course runs over **11 dates / 48 school hours** (45-minute units, **≈ 36 clock hours**), with one module per teaching date and a shared project block at the end. The [syllabus explains the school-hour count](./syllabus.md#course-load--credits); the official timetable, rooms, and announcements are published through the course LMS.
 
-- **[Module index & roadmap](./modules/00-index.md)** — the course at a glance: every module and the day-by-day plan.
+- **[Module index & roadmap](./modules/00-index.md)** — the course at a glance: every module and the plan date by date.
 - **[Syllabus](./syllabus.md)** — the single source of truth: schedule, learning objectives, the learning-goals contract, tools, and policies.
-- **[Pre-study guide](./pre-study.md)** — Module 0: start here before Day 1.
+- **[Pre-study guide](./pre-study.md)** — Module 0: start here before the first date.
 - **[Prompt bank](./modules/Y-resources-prompt-bank.md)** — reflection prompts and LLM-verification drills.
 - **[Resource bank](./modules/Z-resources-bank.md)** — cheat sheets, RFCs, Git/GitHub primer, story canon, troubleshooting, and instructor hints.
 
@@ -19,7 +19,7 @@ Classical networking courses often begin with the seven-layer ISO/OSI model and 
 In this course you will:
 
 - **Work at the edge.** Configure OpenWrt routers, subnet a local network, run DHCP/DNS/NAT, and capture packets at the choke point with `tcpdump` — then read the dump with Wireshark, `tshark`, or as text.
-- **Extend the network without asking for a public IP.** Deploy Nebula and Yggdrasil overlays that cross CGNAT, campus firewalls, and changing WAN addresses — Nebula from a per-device **bundle** on the router or your laptop, with the lighthouse and certificates issued for the class.
+- **Extend the network without asking for a public IP.** Deploy a Nebula overlay that crosses CGNAT, campus firewalls, and changing WAN addresses — from a per-device **bundle** on the router or your laptop, with the lighthouse and certificates issued for the class. Yggdrasil moves to a later class; B.A.T.M.A.N. is an optional showcase.
 - **Decouple producers from consumers.** Design MQTT topic hierarchies with QoS, retained state, and Last Will and Testament, then integrate with Node-RED and Python.
 - **Choose the right radio.** Compare Wi-Fi, BLE, LoRaWAN, and connectionless ESP-NOW by range, latency, power, and payload — and build an ESP-NOW-to-MQTT bridge.
 - **Bridge the factory floor.** Understand Modbus, OPC-UA, RS-485, and deterministic networking, and build a simulated industrial-to-IoT bridge.
@@ -42,22 +42,22 @@ And this class is always in flux — that is a feature, not a bug. No course is 
 
 ## How the course is organized
 
-- **10 working days / 48 contact hours**, one module per day; session lengths vary (typically two sessions of 2 × 45 min, with longer blocks on some days).
-- **Module 0 (pre-study):** portfolio setup, a network mental model, packet-journey videos, and a first MQTT exploration — completed before Day 1 (or run as the first in-class module when the cohort needs more setup time).
-- **Modules 1–7:** one technical studio per day — the IoT continuum, local networking and OpenWrt, overlays and mesh, MQTT and integration, wireless and ESP-NOW, industrial protocols, and fleet management.
-- **Modules 8–9:** the final-project arc — a multi-node, multi-protocol IoT system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then presented as the closing section of the technical engineering report on the final day.
+- **11 dates / 48 school hours** (45-minute units, ≈ 36 clock hours), one module per teaching date; the project shares the last dates.
+- **Module 0 (pre-study):** portfolio setup, a network mental model, packet-journey videos, and a first MQTT exploration — completed before the first date (or run as the first in-class module when the cohort needs more setup time).
+- **Modules 1–7:** one technical studio per teaching date — the IoT continuum, local networking and OpenWrt, Nebula and remote MQTT, MQTT and integration, wireless and ESP-NOW, industrial protocols, and a fleet clinic.
+- **Modules 8–9:** the final-project arc — a multi-node, multi-protocol IoT system built and documented in a merged **Project Team** of 4–6 (two Task Pods), then presented as the closing section of the technical engineering report on the final date.
 
 The full module list, one-line summaries, and the session roadmap live in the **[module index](./modules/00-index.md)**.
 
 ## Get started
 
-> **Module 0 (pre-study) is required.** Create your portfolio, invite the instructor, and complete the pre-study tasks before Day 1.
+> **Module 0 (pre-study) is required.** Create your portfolio, invite the instructor, and complete the pre-study tasks before the first date.
 
 [![Create Portfolio](https://img.shields.io/badge/1--Click-Create%20Portfolio-brightgreen?style=for-the-badge&logo=github)](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire)
 
 1. **One click:** the button above creates your repository from the template (do **not** fork). Name it exactly **`net-iot-hsbi-2026-portfolio`** and make it public — or at least readable by the instructor.
 2. **Invite the instructor:** `https://github.com/<YOUR-USERNAME>/<YOUR-REPO>/settings/access` → **Add people** → **`ulno`** → role **Write**. The pre-study checklist cannot be ticked without this.
-3. Complete the **[pre-study guide](./pre-study.md)** (Module 0) before Day 1.
+3. Complete the **[pre-study guide](./pre-study.md)** (Module 0) before the first date.
 4. Read the **[module index](./modules/00-index.md)**, then start with **[Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md)**.
 5. Keep the **[syllabus](./syllabus.md)** handy for the schedule, the learning-goals contract, and policies.
 
@@ -66,8 +66,8 @@ The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-templ
 ## What you will work with
 
 - **Hardware:** one OpenWrt travel router per Task Pod, 2–3 students (Cudy TR1200 with pure upstream OpenWrt; GL.iNet Mango/Shadow as partners), **one USB stick and mini USB hub per router** for extended root (Nebula, `tshark`, MicroPython) and phone tethering, M5Stack nodes with Grove modules, Ethernet and USB cables, lab switches/access points.
-- **Networking:** OpenWrt + LuCI, `tcpdump` (Wireshark or `tshark` optional — captures are taken on the router or with an ESP32 tap, then read offline), `iperf3`, SSH tunnels, Nebula, Yggdrasil, optional B.A.T.M.A.N. advanced.
-- **Messaging and integration:** Mosquitto, MQTT Explorer, Node-RED (Master Class container fleet; later your own install on the class host or laptop, **not the router**), Python with `paho-mqtt` / IoTknit, MicroPython on the router, optional `pymodbus` / `asyncua`.
+- **Networking:** OpenWrt + LuCI, `tcpdump` (Wireshark or `tshark` optional — captures are taken on the router or with an ESP32 tap, then read offline), `iperf3`, SSH tunnels, Nebula; Yggdrasil in a later class and B.A.T.M.A.N. as an optional showcase.
+- **Messaging and integration:** Mosquitto, MQTT Explorer, Node-RED on the Optiplex cluster (one container per pod) or your laptop, **never the router**; Python with `paho-mqtt` / IoTknit, MicroPython on the router, optional `pymodbus` / `asyncua`.
 - **Fleet:** [IoTempower](https://github.com/iotempire/iotempower) for declarative nodes and OTA deployment.
 - **Editor and terminal:** VS Code or Zed with the **integrated terminal**; on Windows, set the terminal profile to **Git Bash** (ships with Git for Windows) because the labs use bash.
 - **AI co-pilots:** use them to draft and explain — then verify against a packet capture, a routing table, or a live test. Verification is the graded skill. The hands-on experiment comes first: build the network, observe the failure, then ask AI.

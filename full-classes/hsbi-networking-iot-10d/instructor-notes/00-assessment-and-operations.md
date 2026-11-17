@@ -37,11 +37,11 @@ weeks before the cut-off. The LMS submission record is the receipt.
 | Milestone | What is due | Cut-off | If it is missing |
 |---|---|---|---|
 | M1 — portfolio skeleton | Portfolio created from the template, instructor added, Module 0/1 evidence and first reflection committed | End of week 1, 23:59 | Written reminder via the LMS, with the remaining dates |
-| M2 — foundations | Modules 1–3 evidence + reflection 1 | Start of day 4 | Feedback at the checkpoint; no points decision |
-| M3 — technical core | Modules 4–7 evidence + reflections 2–3 | Start of day 8 | Written reminder; the evidence must exist before the final cut-off |
-| M4 — report draft | Continuous-text report draft with architecture decisions and appendices outline | Before the project studio | Written reminder; scope review with the team |
-| M5 — final technical report | Report + appendices (challenge logs, code, schematics, captures, measurements) | At least 24 h before day 10 | See §5 — this is an examination-law question, not a judgement call |
-| M6 — presentation materials | Slides/artifacts for the report-section presentation | At least 24 h before day 10 | See §5 |
+| M2 — foundations | Modules 1–3 evidence + reflection 1 | Start of the Nov 27 date (Checkpoint 1) | Feedback at the checkpoint; no points decision |
+| M3 — technical core | Modules 4–7 evidence + reflections 2–3 | Start of the Dec 14 project build (Checkpoint 2) | Written reminder; the evidence must exist before the final cut-off |
+| M4 — report draft | Continuous-text report draft with architecture decisions and appendices outline | Before the Dec 11 project kickoff | Written reminder; scope review with the team |
+| M5 — final technical report | Report + appendices (challenge logs, code, schematics, captures, measurements) | At least 24 h before the Dec 22 presentation | See §5 — this is an examination-law question, not a judgement call |
+| M6 — presentation materials | Slides/artifacts for the report-section presentation | At least 24 h before the Dec 22 presentation | See §5 |
 
 > **Do not invent informal extensions.** Documented illness and force majeure follow
 > the RPO/SPO procedure; anything else is a decision for the Prüfungsausschuss.

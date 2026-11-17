@@ -4,8 +4,8 @@ Welcome to Networking and IoT Solutions (Vernetzung und IoT-Lösungen)!
 
 In this course, we move beyond isolated microcontrollers and rigid textbook abstractions to build real, resilient, interconnected IoT networks:
 - M5Stack edge nodes communicating locally via Wi-Fi and ESP-NOW.
-- Dedicated OpenWrt travel routers running local DHCP, DNS, routing, and B.A.T.M.A.N. Layer-2 meshes.
-- Zero-friction overlay networks with Nebula and Yggdrasil allowing you to access your devices seamlessly across campus firewalls or from home.
+- Dedicated OpenWrt travel routers running local DHCP, DNS, routing, and a Nebula overlay gateway.
+- Zero-friction overlay networking with Nebula, allowing you to access your devices seamlessly across campus firewalls or from home. Yggdrasil moves to a later class; B.A.T.M.A.N. is an optional showcase.
 - Message routing and fleet integration with MQTT, Node-RED, Python (`paho-mqtt` / IoTknit), and IoTempower.
 - Industrial bridges connecting OPC-UA and Modbus into the modern IoT fabric.
 
@@ -39,7 +39,7 @@ In classical networking, the focus is often on client-server connections (a brow
          |                                                 |
          |                                      (Local Mosquitto MQTT Broker)
          |                                                 |
-         +-------(Nebula / Yggdrasil Overlay)--------------+
+         +-------(Nebula Overlay)-----------------------------+
                                 |
                    [Node-RED / Python Integrator]
                                 |
@@ -49,7 +49,7 @@ In classical networking, the focus is often on client-server connections (a brow
 Key architectural concepts to grasp early:
 - Local-First Architecture: Devices talk to a local gateway. The system must continue operating even if the external internet connection drops.
 - Decoupling via Pub/Sub: Sensors do not make direct TCP connections to every subscriber; they publish lightweight messages to an MQTT broker, which fans them out.
-- Overlays over Firewalls: Instead of tedious port forwarding or risky public IPs, modern mesh overlays (Nebula, Yggdrasil) create secure, flat, end-to-end encrypted networks across any firewall or NAT.
+- Overlays over Firewalls: Instead of tedious port forwarding or risky public IPs, an overlay such as Nebula creates a secure, end-to-end encrypted network across firewalls and NAT — with a lighthouse for discovery, not as a relay.
 
 ## 2. Required Preparation: Watch & Explore
 
@@ -94,7 +94,7 @@ Answer these questions in your portfolio under `PreStudy/README.md`:
 2. Addressing & Subnetting: Explain in your own words what an IP address and a subnet mask are. Why can't two devices on the same local subnet have the same IP?
 3. OSI vs. TCP/IP Reality: The ISO/OSI model specifies 7 layers, while TCP/IP uses 4. In real-world IoT systems, why do rigid layer boundaries often break down or cause unnecessary overhead? (Hint: consider tiny sensor packets vs. large headers).
 4. Decoupling with Pub/Sub: In a smart home with 10 temperature sensors and 3 displays, why is an MQTT broker more maintainable than each sensor opening direct HTTP connections to every display?
-5. Network Boundary Reflection: When you work from home, can your laptop directly ping a device on a classmate's home Wi-Fi? Why or why not? What does a mesh overlay network like Nebula or Yggdrasil change about this?
+5. Network Boundary Reflection: When you work from home, can your laptop directly ping a device on a classmate's home Wi-Fi? Why or why not? What does an overlay such as Nebula change about this?
 
 ## Ready for Day 1? Checklist
 

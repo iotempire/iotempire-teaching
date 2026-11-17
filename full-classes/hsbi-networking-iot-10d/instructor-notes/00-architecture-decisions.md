@@ -67,7 +67,7 @@ records short; link to the artefact instead of pasting it.
 | [D8](#d8) | One router per pod, factory to gateway; extroot is the escape hatch | accepted | Module 2, syllabus hardware |
 | [D9](#d9) | Uplinks are plural; the LAN is the constant | provisional | Module 2 Round 3/7 |
 | [D10](#d10) | Local broker first; overlay after the LAN works | accepted | Modules 2–3 |
-| [D11](#d11) | Node-RED is a class service today and an own install later; never on the router | provisional | Modules 1, 4; workshop README |
+| [D11](#d11) | Node-RED runs on the Optiplex cluster or a laptop, never on the router | accepted | Modules 1, 3, 4; Optiplex cluster |
 | [D12](#d12) | Fieldbuses are compressed into one short module | provisional | Module 6 |
 | [D13](#d13) | Each document has exactly one job | accepted | whole class folder |
 | [D14](#d14) | The class is a draft in motion, with a visible boundary | provisional | every module |
@@ -75,6 +75,8 @@ records short; link to the artefact instead of pasting it.
 | [D16](#d16) | English material, bilingual delivery | accepted | syllabus language section |
 | [D17](#d17) | Sequence the semester: databases → sensors/actuators → networking | accepted | syllabus prerequisites, sibling classes |
 | [D18](#d18) | Commits are instructor-only; agents never commit | accepted | every file; this log |
+| [D19](#d19) | One vocabulary: Task, Subtask, Evidence | accepted | Module 3 pilot; later modules when touched |
+| [D20](#d20) | Timetable in school hours; every slot is studio time | accepted | syllabus, roadmap, modules |
 
 ## 1. Provenance — how this class came to be
 
@@ -454,30 +456,36 @@ traffic — it does not inside the pod LAN.
 <a id="d11"></a>
 ### D11 — Node-RED is a class service today and an own install later; never on the router
 
-**Status:** provisional.
+**Status:** accepted (Optiplex cluster default where ready; laptop fallback).
 
 **Context.** Node-RED on a 16 MB/128 MB router is overkill. Locked-down company
 laptops cannot install it or a Nebula client. The Master Class needs zero setup on
-Day 1.
+Day 1. The class now has four Optiplex hosts that can run one container per pod and
+be reached through Nebula.
 
 **Decision.** `classroom-nodered.sh` on the class host is the Master Class path
-(Day 1 only). From Module 4, students install and use their own Node-RED on the
-Optiplex cluster (once it exists and is in Nebula) or their laptop. Node-RED is
-never on the router. The router runs Mosquitto and, optionally, small MicroPython
-services; a MicroPython IoTknit port is planned, not supported.
+(Day 1 only). From Module 3, the default Node-RED path is the **Optiplex cluster**:
+one rootless Podman container per pod, one persistent volume, one class login, and
+access restricted by the Nebula firewall to the Node-RED host and port. A laptop
+install remains the fallback where the cluster is unavailable. Node-RED is never on
+the router. The router runs Mosquitto and, optionally, small MicroPython services; a
+MicroPython IoTknit port is planned, not supported.
 
-**Consequences.** Day 1 has no install friction. Later modules need a browser-only
-fallback (MQTT Explorer, `mosquitto_sub`). The Optiplex cluster is a preparation
-dependency, not a given. Locked-down laptops depend on the class host.
+**Consequences.** Day 1 has no install friction. Module 3 can prove the complete
+service path: pod broker → Nebula → Node-RED → Nebula → pod broker. The cluster is a
+preparation dependency for that path; if it is not ready, the instructor provides a
+fallback instance and the MQTT proof still works. Locked-down laptops use the router
+as gateway, so they do not need a Nebula client.
 
 **Alternatives rejected.** Node-RED on the router; recorded demo sessions as the
-fallback; requiring every student to install Node-RED on Day 1; a cloud Node-RED.
+fallback; requiring every student to install Node-RED on Day 1; a cloud Node-RED;
+per-student Node-RED installations on locked-down laptops.
 
-**Evidence.** Module 1 Task 3; Module 4; workshop README; commits `82c4704` and
-`f52a5fb`; instructor decision.
+**Evidence.** Module 1 Task 3; Module 3 Task 4; Module 4; workshop README; commits
+`82c4704` and `f52a5fb`; instructor decision; `nebula-session.md`.
 
-**Revisit if.** The Optiplex cluster is ready and can host Node-RED for the whole
-week, or every student has admin rights.
+**Revisit if.** The Optiplex cluster cannot host the class for the whole week, or
+every student has admin rights.
 
 <a id="d12"></a>
 ### D12 — Fieldbuses are compressed into one short module
@@ -654,6 +662,70 @@ not the goals.
 **Revisit if.** The instructor delegates a defined batch of commits (for example a scripted migration), or an automation account is explicitly authorised to commit on its own branch.
 
 
+<a id="d19"></a>
+### D19 — One vocabulary: Task, Subtask, Evidence
+
+**Status:** accepted.
+
+**Context.** The workbook still mixes “Task”, “Round”, and “Studio”. The repository
+[`AGENTS.md`](../../../AGENTS.md) now fixes the student-facing vocabulary, and the
+Sensors class has already implemented the same rule in [D21](../../hsbi-sensors-actuators-10d/instructor-notes/00-architecture-decisions.md#d21). Module 3 is the
+first module being rewritten for this run, so it is the natural pilot.
+
+**Decision.** Use **Task → Subtask → Evidence** in the modules being revised:
+
+- the main divider is `### ★ Task N — <outcome>` with `Proves:` and `Produces:`;
+- subtasks are short, unnumbered moves, capped at four;
+- every task ends with **★ Log it** or is the closing exchange task;
+- `Stage`, `Round`, and `Studio` retire as activity names; **Session** remains the
+time unit; **Task Pod** and **Project Team** keep their names.
+
+Module 3 is the pilot. The other modules keep their current labels until they are
+next revised; do not mass-rename mid-run. D6's challenge → practice → theory →
+discussion rhythm is unchanged — only the label of the work unit changes.
+
+**Consequences.** Module 3 reads differently from Modules 1–2 and 4–7 until they are
+migrated. That is visible and intentional; a glossary is better than a mass rename
+that hides the work. The syllabus already says “task”, so the student-facing
+vocabulary and the assessment language agree.
+
+**Alternatives rejected.** Keeping Stage/Round/Studio with a glossary; renaming all
+modules by hand mid-run; one flat task list without subtasks.
+
+**Evidence.** [`AGENTS.md`](../../../AGENTS.md); Sensors D21; Module 3.
+
+<a id="d20"></a>
+### D20 — Timetable in school hours; every slot is studio time
+
+**Status:** accepted.
+
+**Context.** The calendar contains 20 slots: 4 Ü, 12 BS, and 4 P. In minutes that is
+2160 minutes, or **48 school hours = 36 clock hours**. The module handbook counts
+contact time in 45-minute school hours. The old “10 days / 48 contact hours” wording
+was easy to misread as 48 clock hours and made planning unnecessarily hard. Ü, BS,
+and P are administrative labels; in this class they are all hands-on studio time
+with at least one instructor present and almost no lecture.
+
+**Decision.** Publish and plan in **school hours**, explain the 45-minute unit once in
+the syllabus, and treat Ü, BS, and P as the same active format in the room. Use the
+real dates: Module 3 on Nov 20, Module 4 on Nov 27, Module 5 on Dec 4, Module 6 plus
+project kickoff on Dec 11, Module 7 clinic plus project build on Dec 14, project
+build on Dec 15/18/21, and presentation on Dec 22. Module 3 gets one 4-school-hour
+date. No per-task time estimates are added to modules.
+
+**Consequences.** Module 6 must fit its first slot and may leave finishing work as
+homework before the kickoff. Module 7 is a 3-hour clinic; the full task set remains
+for a future run. The project has no long homework gap, so it must be scoped for
+in-class work. The administrative labels stay compatible with the traditional
+module handbook and Prüfungsordnung while the room keeps the modern studio format.
+
+**Alternatives rejected.** Counting clock hours as “contact hours”; treating BS as
+unsupervised study; adding a lecture slot; pretending the 10-day/one-module-per-day
+fiction still fits the calendar.
+
+**Evidence.** Syllabus timetable; [TODO](./TODO.md); calendar export; `README.md`;
+Module 3.
+
 ## 3. Deliberately rejected or retired
 
 These are not "bad ideas we never had". They are alternatives that looked
@@ -721,9 +793,9 @@ embodies, so the new instructor can see what is load-bearing.
 7. Write the learning goals per module, then add the DRAFT BOUNDARY (D3, D14).
 8. Assign ★/◇; mark long/risky blocks **Challenging**; remove every time estimate
    (D3).
-9. Build the story canon and one story per module; write a hook per round (D5).
-10. Write the studio rhythm into the module template; make the challenge-and-rounds
-    format the default and a separate pod study the exception (D6).
+9. Build the story canon and one story per module; write a hook per task (D5).
+10. Write the studio rhythm into the module template; make the challenge-and-task
+    format the default and a separate pod study the exception (D6, D19).
 
 **Infrastructure**
 
@@ -825,3 +897,4 @@ For a re-creator with access to the instructor's workspace:
 | 2026-11-10 | Converted Modules 3–7 to the studio rhythm; D6 accepted for Modules 2–7, Module 1 remains the exception; Module 7 fleet lab aligned with the current IoTempower `system.conf` / `node.conf` / `deploy` workflow | Ulno + agent |
 | 2026-11-10 | Renamed the pedagogical gates to discussions in Modules 2–7; each round table now maps its discussion to a learning goal and theory box, following the Databases TODO | Ulno + agent |
 | 2026-11-16 | D18 added: commits are instructor-only; agents leave changes uncommitted for review. Same rule as Sensors D22 and Databases D20. | Ulno + agent |
+| 2026-11-17 | D19 added: Task → Subtask → Evidence, piloted in Module 3. D20 added: timetable counted in school hours; Ü/BS/P are all hands-on studio time; real dates and project kickoff on Dec 11. D11 updated for the Optiplex Node-RED cluster. | Ulno + agent |

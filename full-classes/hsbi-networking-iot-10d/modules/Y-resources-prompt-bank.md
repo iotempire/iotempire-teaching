@@ -43,17 +43,15 @@ Use these to end a pod-study block with **agreed learning** and one shared artef
 3. Process: *Router Debugging via CLI:* What was your most useful discovery when administering OpenWrt over SSH (`uci`, `ip route`, `brctl`, or `tcpdump`)?
 4. Project Context: *Edge vs. Cloud:* Why run the Mosquitto broker and DHCP locally on the OpenWrt router instead of pointing every sensor directly to a public cloud broker?
 
-## 📌 Module 3 – Mesh & Overlay Networks (Nebula, Yggdrasil & B.A.T.M.A.N.)
-*Focus: NAT traversal, Nebula lighthouse, UDP hole punching, Yggdrasil encrypted IPv6, and the concepts of Layer-2 mesh routing and failover (B.A.T.M.A.N. prompts 5–8 are optional stretchers).*
+## 📌 Module 3 – Overlay Networks: Nebula & Remote MQTT
+*Focus: NAT traversal, Nebula lighthouse, bundle credentials, router gateway, MQTT through the overlay, and a Node-RED service on the Optiplex cluster. Yggdrasil is deferred; B.A.T.M.A.N. is an optional showcase.*
 
 1. Technical: *Nebula vs. Port Forwarding:* How does Nebula’s lighthouse enable two nodes behind restrictive firewalls or Carrier-Grade NAT (CGNAT) to establish a direct, encrypted tunnel?
-2. Technical: *Decentralized Routing with Yggdrasil:* What makes Yggdrasil's cryptographic IPv6 addressing and tree routing fundamentally different from classical IP routing?
-3. Project Context: *Work-From-Home Workflow:* How did deploying Nebula or Yggdrasil change how you access and debug your lab gateway outside the classroom?
-4. Process: *Certificate and Key Management:* What security risks arise if an overlay node certificate or private key is leaked? How does Nebula isolate compromise?
-5. Technical: *Layer-2 vs. Layer-3 Mesh:* Why does `batman-adv` emulate a virtual Ethernet switch (`bat0`) rather than running an IP routing protocol like OSPF? What are the benefits and broadcast risks?
-6. Technical: *OGMs and Link Quality:* How does B.A.T.M.A.N. measure Transmit Quality (TQ) using Originator Messages, and how does it select the best next-hop neighbor?
-7. Hybrid: *The Link-Drop Experiment:* Document what happened to live traffic when an intermediate router was powered down. How many seconds did convergence take?
-8. Project Context: *Autonomous Infrastructure:* How could an ad-hoc router mesh be deployed in disaster response, agriculture, or temporary construction sites without internet access?
+2. Technical: *Bundle Credentials:* What do the certificate, private key, CA, and config each do? What exactly is revoked when one node is compromised?
+3. Project Context: *Work-From-Home Workflow:* How does the router-as-gateway path change how you access and debug your pod from outside the classroom?
+4. Technical: *MQTT Through the Overlay:* Why does Node-RED connect to the pod broker at its overlay address, and which firewall rule on the router allows it?
+5. Project Context: *Service Placement:* Why does Node-RED run on the Optiplex cluster while Mosquitto stays on the router? What does each placement cost?
+6. Optional showcase: *Layer-2 vs. Layer-3:* Why does `batman-adv` emulate a virtual Ethernet switch (`bat0`) rather than running an IP routing protocol like OSPF? What are the benefits and broadcast risks?
 
 ## 📌 Module 4 – Application Messaging: MQTT Deep Dive & Integration
 *Focus: Pub/Sub decoupling, QoS levels, retained states, LWT, Node-RED flows, Python integration.*

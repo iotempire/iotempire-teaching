@@ -2,7 +2,7 @@
 
 [← Back to front page](../README.md) | [Quick module index](./00-index.md) | [Next: Module 2 →](./02-local-networking-and-gateways.md)
 
-**Course placement:** Day 1 — the opening studio. We introduce the class and the way it works, build the mental model for the week, and then run the **[Master Class](../../../workshops/mastering-iot-solutions/README.md)** end-to-end integration in the same session.
+**Course placement:** Fri 2026-11-06 — the opening studio. We introduce the class and the way it works, build the mental model for the week, and then run the **[Master Class](../../../workshops/mastering-iot-solutions/README.md)** end-to-end integration in the same session.
 
 ## 🎯 Learning Goals
 
@@ -106,8 +106,8 @@ In modern IoT, rigid adherence to these 7 layers creates friction:
   Layer 6: Presentation          -->     JSON / CBOR / Protobuf / TLS
   Layer 5: Session               -->     MQTT Session / TLS Session
   Layer 4: Transport             -->     TCP / UDP
-  Layer 3: Network               -->     IPv4 / IPv6 / Nebula / Yggdrasil
-  Layer 2: Data Link             -->     Wi-Fi (802.11) / ESP-NOW / B.A.T.M.A.N. / Ethernet
+  Layer 3: Network               -->     IPv4 / IPv6 / Nebula overlay
+  Layer 2: Data Link             -->     Wi-Fi (802.11) / ESP-NOW / Ethernet / optional B.A.T.M.A.N. showcase
   Layer 1: Physical              -->     2.4 GHz / Sub-GHz Radio / Twisted Pair
 ```
 

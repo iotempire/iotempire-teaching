@@ -48,7 +48,7 @@ Modern IoT is not merely "an Arduino connected to Wi-Fi." It is a heterogeneous 
 
 - **Low-power edge nodes:** M5Stack microcontrollers (ESP32-based) communicating locally via Wi-Fi or connectionless ESP-NOW.
 - **Edge gateways and local routers:** OpenWrt travel routers (one router per Task Pod, 2–3 students) hosting local services, managing subnets, performing NAT, and routing traffic.
-- **Mesh and overlay networks:** Nebula and Yggdrasil providing secure, zero-friction remote access across campus firewalls and home networks without complex port forwarding; plus an optional B.A.T.M.A.N. (batman-adv) stretch for self-healing Layer-2 wireless router meshes.
+- **Overlay networks:** Nebula providing secure, zero-friction remote access across campus firewalls and home networks without complex port forwarding, plus a Node-RED/MQTT service path through the overlay. Yggdrasil moves to a later class; B.A.T.M.A.N. (batman-adv) is an optional showcase.
 - **Application messaging & integration:** MQTT as the central decoupling broker, complemented by visual integration via Node-RED and programmatic event flows in Python (`paho-mqtt` / IoTknit).
 - **Industrial interoperability (overview):** How legacy field buses (Modbus, RS-485) and industrial standards (OPC-UA, real-time Ethernet) would bridge into an open IoT fabric — taught mostly conceptually, since industrial hardware is usually unavailable in the lab.
 - **Fleet orchestration:** IoTempower for declarative configuration, fleet management, and Over-The-Air (OTA) deployment across dozens of devices.
@@ -74,7 +74,7 @@ By the end of this course, you will be able to:
 1. **Apply TCP/IP and network fundamentals:** Configure and debug IPv4 addressing, CIDR subnetting, DHCP, DNS, NAT, and basic IPv6 in real IoT edge topologies.
 2. **Critically assess network models:** Use the ISO/OSI model as an architectural reference while recognizing its real-world limitations in IoT (referencing RFC 3439 *"Layering Considered Harmful"* and RFC 1958).
 3. **Deploy edge gateways & routers:** Configure OpenWrt routers via CLI and LuCI; capture traffic at the choke point with `tcpdump` and read the dump with Wireshark, `tshark`, or as text.
-4. **Build overlay and mesh networks:** Deploy Nebula peer-to-peer overlay tunnels from a per-device **bundle** (on an OpenWrt router or a laptop) and Yggdrasil encrypted IPv6 mesh routing to securely connect distributed IoT nodes from home or behind firewalls; and *(optionally)* configure B.A.T.M.A.N. advanced for ad-hoc, self-healing wireless mesh routing between edge routers.
+4. **Build overlay networks:** Deploy Nebula peer-to-peer tunnels from a per-device **bundle** (on an OpenWrt router by default, or a laptop where you have admin rights), reach a Node-RED service and move MQTT through the overlay, and explain the certificate, key, CA, lighthouse, and firewall policy. Yggdrasil moves to a later class; B.A.T.M.A.N. is an optional showcase.
 5. **Architect publish/subscribe systems:** Design robust topic structures and message flows with MQTT (QoS levels, Retain, Last Will and Testament, TLS), and compare MQTT with CoAP and HTTP for constrained links.
 6. **Understand multi-protocol integration:** Explain how sensor nodes, actuators, and industrial protocols (OPC-UA, Modbus, RS-485) fit together, map fieldbuses onto the ISO/OSI layers, compare bus technologies for a given use case, and — if hardware or a simulator is available — *(optionally)* bridge them using Node-RED and Python.
 7. **Leverage local wireless standards:** Evaluate trade-offs between Wi-Fi, BLE, LoRaWAN, and connectionless ESP-NOW for latency, range, power, and payload constraints.
@@ -83,16 +83,20 @@ By the end of this course, you will be able to:
 
 ## Course Load & Credits
 
-- Format: 10 working days, **one module per day**, **48 contact hours** (45-minute class hours). Sessions are typically 2 × 45 min (90 min); most modules use two sessions, Module 3 uses three, and Modules 7–9 and Day 10 run longer.
+- Format: **11 dates / 48 school hours** (45-minute units, **≈ 36 clock hours**), one module per teaching date. Most dates are two 90-minute slots = 4 school hours; Mon 2026-12-14 is P + BS + BS = 8 school hours, and the single P dates (Dec 15, 21, 22) are one 180-minute slot = 4 school hours.
 - Target Audience: Bachelor students in *Digitale Technologien* and *Software Engineering* (3rd semester, Campus Gütersloh).
 - Module Number: 3264 (*Vernetzung und IoT-Lösungen*), 5 ECTS.
 - Total Workload: 150 hours.
-  - In-person lab and seminar contact: 48 hours.
+  - In-person lab and seminar contact: 48 school hours.
   - Independent preparation and pre-study (Module 0): the compulsory core is a few hours; the syllabus allocates room for deeper preparation.
   - Guided self-study, portfolio documentation, and final project: the remaining balance.
 
 > [!NOTE]
-> **Where the 150 hours come from.** The module handbook specifies 150 h (5 ECTS). The delivered format is 48 contact hours across 10 working days, plus portfolio work, network experiments, and the final project. Session lengths vary slightly; the total contact time is what the handbook fixes.
+> **Why “school hours” — and why it looks confusing.** A *school hour* is 45 minutes. The module handbook counts contact time in these units: **48 school hours = 36 clock hours**. That is why a “90-minute” session is **two** school hours, a 180-minute slot is **four**, and Dec 14 with its three slots is **eight**. The distinction is mainly a planning and AI trap; in the room, students simply see normal 90-minute sessions.
+>
+> **Ü, BS, and P are administrative labels, not different teaching modes.** Übung, betreutes Selbststudium, and Praktikum are all run as hands-on studio time with at least one instructor present and almost no lecture. That is deliberate: it lets us teach in a modern, challenge-based way while staying compatible with the traditional module handbook and Prüfungsordnung. The labels satisfy the old arithmetic; the room uses the same active format in every slot.
+>
+> **Where the 150 hours come from.** The module handbook specifies 150 h (5 ECTS): 48 school hours of contact plus portfolio work, network experiments, and the final project. The total contact time is what the handbook fixes; the timetable below is the concrete delivery.
 
 ### Prerequisites & Relationship to Other Modules
 
@@ -134,10 +138,10 @@ All deliverables are evaluated on the fixed 20-point scale. If you are tracking 
 
 You do not submit and grade every task. You earn a module's points through the **portfolio evidence** that proves its learning goals. A short **feedback checkpoint** — **10–12 minutes, including questions** — tells you whether that evidence is convincing before the report is submitted. Checkpoints are done **with your Task Pod, in person**, and cover a few modules at a time:
 
-- **Checkpoint 1 — start of Day 4 (Modules 1–3).** For a larger cohort this runs as a **30-minute 2-pod practice round**: two pods pair up; each pod walks the other through its portfolio evidence, and the other pod gives free-style feedback and questions checking how well the goals were proven. The instructor joins the feedback and notes where the report still needs work. In a small cohort, use the same slot for individual pod checkpoints.
-- **Checkpoint 2 — start of Day 8 (Modules 4–7).**
+- **Checkpoint 1 — start of the Nov 27 date (Modules 1–3).** For a larger cohort this runs as a **30-minute 2-pod practice round**: two pods pair up; each pod walks the other through its portfolio evidence, and the other pod gives free-style feedback and questions checking how well the goals were proven. The instructor joins the feedback and notes where the report still needs work. In a small cohort, use the same slot for individual pod checkpoints.
+- **Checkpoint 2 — Dec 14, after the Module 7 clinic, at the start of the project build (Modules 4–7).**
 
-Dates and slots are confirmed through the LMS. The goals of Module 8 (final project studio) are demonstrated in the final project section and its presentation.
+Dates and slots are confirmed through the LMS. The goals of the project studio are demonstrated in the final project section and its presentation.
 
 **Task Pods, and how checkpoints scale.** We work in **Task Pods** — small crews of **two or three** (three by default for a large cohort, roughly >40 students; a few **two-person pods** are welcome precisely because they reduce the instructor's checkpoint load; a fourth podmate is only by arrangement). The point is *small*, not rigid.
 
@@ -187,8 +191,8 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 | Terminal | **bash** (Git Bash on Windows) | The labs use heredocs, pipes, and `<` redirects; Git Bash ships with Git for Windows. WSL is also fine. |
 | Version control | **Git + GitHub** | Your portfolio is the evidence artifact. Create it from the template with the **[1-click link](https://github.com/new?template_name=iot-portfolio-template&template_owner=iotempire)** (not a fork), name it exactly `net-iot-hsbi-2026-portfolio`, and invite **`ulno`** as a collaborator. |
 | Routing & capture | **OpenWrt + LuCI**, `tcpdump`, **Wireshark** or `tshark` (optional), `iperf3` | One router per Task Pod (2–3 students). **Capture on the router**, then read the dump — the lab laptops have one Wi-Fi adapter and no monitor mode. |
-| Overlays & mesh | **Nebula** (class bundles, [nebula-manager](https://github.com/iotempire/nebula-manager)), **Yggdrasil**, optional **B.A.T.M.A.N. advanced** | Nebula bundles are prepared by the instructor (class CA + one lighthouse); the bundle's own `install.sh` / `install.ps1` needs no extra tooling. Router path: static binary + four files. |
-| Messaging & integration | **Mosquitto**, **MQTT Explorer**, **Node-RED** (Master Class container fleet; later your own install on the class host or laptop, not the router), **Python 3** (`paho-mqtt`, IoTknit; optional `pymodbus`, `asyncua`), **MicroPython** on the router | Local-first broker; Python and MicroPython as the programmatic glue. |
+| Overlay | **Nebula** (class bundles, [nebula-manager](https://github.com/iotempire/nebula-manager)) | The instructor prepares the class CA, one lighthouse, and one bundle per pod. Router path: static binary + four files. Router-as-gateway is the default; direct laptop joins are optional. Yggdrasil moves to a later class; B.A.T.M.A.N. is an optional showcase. |
+| Messaging & integration | **Mosquitto**, **MQTT Explorer**, **Node-RED** on the Optiplex cluster (one container per pod) or your laptop, **never the router**; **Python 3** (`paho-mqtt`, IoTknit; optional `pymodbus`, `asyncua`), **MicroPython** on the router | The router brokers; the Optiplex runs the flow. Node-RED uses the class login and is reachable only through the Nebula firewall policy. |
 | Python environment | **`uv`** | Pin Python and libraries with `uv`; commit `pyproject.toml` and `uv.lock`, never `.venv/`. Avoid bare `pip install` in the normal path. |
 | Fleet | **IoTempower** | Declarative node definition and OTA deployment. |
 | AI co-pilots | **ChatGPT / Claude / DeepSeek / local models** | Used to *draft* and explain, never to decide. Verification is the graded skill. |
@@ -209,7 +213,7 @@ Unlike pure microcontroller classes, our hardware focuses on modular, ready-to-n
 - **Edge routers (1 router per Task Pod, 2–3 students):**
   - Primarily the Cudy TR1200 flashed to pure upstream OpenWrt.
   - Partner and fallback models: GL.iNet GL-MT300N-V2 ("Mango") (used by colleagues in Tartu and Regensburg) and GL-AR300M ("Shadow") (to fill gaps).
-  - All routers run upstream OpenWrt with LuCI, Mosquitto MQTT broker, `tcpdump`, and `iperf3`; optional `kmod-batman-adv` and mesh tools for the B.A.T.M.A.N. stretcher.
+  - All routers run upstream OpenWrt with LuCI, Mosquitto MQTT broker, `tcpdump`, and `iperf3`; optional `kmod-batman-adv` and mesh tools are available only for the instructor-led B.A.T.M.A.N. showcase.
   - **USB sticks and mini USB hubs (1 set per router, handed out at the first OpenWrt session).** The Cudy has 16 MB of flash and one USB 2.0 port; the stick becomes **extended root** for Nebula, `tshark`, and optional MicroPython, and the hub lets the stick and a USB-tethered phone share the port. Setup: [extroot recipe](./modules/Z-resources-bank.md#packet-capture-without-a-second-wifi-card).
 - **Modular edge nodes (M5Stack ecosystem):**
   - M5StickC Plus / Plus2 and/or M5Atom Matrix / Lite / S3: ESP32-based devices with built-in displays, buttons, IMU, and Grove I²C/GPIO ports.
@@ -219,45 +223,51 @@ Unlike pure microcontroller classes, our hardware focuses on modular, ready-to-n
   - Actuators: RGB LEDs, buzzer, relays, servo/motor modules.
 - **Cables & networking gear:**
   - USB-C data cables, Ethernet patch cables, USB power hubs.
-  - Dedicated lab switches and access points for isolated mesh/subnet testing.
+  - Dedicated lab switches and access points for isolated subnet and optional showcase testing.
 - **Overlay infrastructure (instructor side):**
   - One **Nebula lighthouse** with a stable address (small VPS or lab VM), run for the whole class.
   - One **class CA** on the instructor's machine and **one bundle per pod** (router certificate, plus laptop certificates for students with admin rights), handed out as croc codes or a download link. Bundles are credentials: they are not shared in the repository and are deleted after the session.
+- **Service cluster (instructor side):**
+  - Four **Optiplex** hosts (`ulno-oldplex02`–`ulno-oldplex05`) on the class Nebula, each running up to four rootless **Node-RED Podman containers**. One container per pod, one persistent volume per pod, one class login, reachable only through the Nebula firewall policy. The router remains the broker; Node-RED never runs on the router.
+  - Yggdrasil is deferred to a later class; B.A.T.M.A.N. is an optional instructor showcase, not a dependency.
 
 > [!WARNING]
 > **Network hygiene.** You will configure DHCP servers, routing, and ad-hoc Wi-Fi networks. Never plug a rogue DHCP server into the campus network; always work inside the isolated lab router network. Disconnect power before rewiring, and never connect a 5 V or 12 V supply to a 3.3 V logic pin.
 
-## 10-Day Course Schedule
+## Timetable — 48 School Hours
 
-The 10 days correspond to 48 contact hours, with **one module per day**. Session lengths vary slightly: most modules use two sessions of 2 × 45 min, Module 3 uses three, and some days run longer. Modules 1–7 deliver the technical foundations; the final-project arc (Modules 8–9) spans the remaining studio sessions so that there is genuine build, hardening, and rehearsal time — not just a single rushed studio.
+The table uses the real dates. A normal date is two 90-minute slots = **4 school hours**; Dec 14 is three slots = **8 school hours**. All slots are hands-on studio time; the [school-hour explanation](#course-load--credits) covers why Ü, BS, and P are administrative labels, not different teaching modes.
 
-> Indicative plan. The day-by-day mapping below is a planning draft and may shift — including during the semester — as we refine this class together. The learning objectives and the final project matter more than the exact day a topic lands on.
-
-| Day | Module / Topic | Core Hands-on Focus |
-|:---:|---|---|
-| 0 | [Pre-Study](./pre-study.md) | Portfolio setup, inspiration video, network mental model, IP and MQTT exploration. |
-| 1 | [Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md) | Class opening and portfolio start, the IoT computing continuum, OSI vs. TCP/IP friction, Master Class live integration (M5StickC + MQTT + Node-RED + dashboard), packet-overhead measurement, system story pitch. |
-| 2 | [Module 2 — Local Networking & OpenWrt Gateways](./modules/02-local-networking-and-gateways.md) | IPv4 subnetting, DHCP, DNS, NAT, routing tables, OpenWrt flash/extroot, LuCI/SSH, 2.4 GHz pod LAN, local Mosquitto, `tcpdump` at the choke point (Wireshark optional), optional SSH-tunnel stretcher. |
-| 3 | [Module 3 — Mesh & Overlay Networks](./modules/03-overlay-and-mesh-networks.md) | Nebula overlay from class bundles (router path and laptop path), cross-NAT remote access, Yggdrasil IPv6 mesh; optional B.A.T.M.A.N. Layer-2 mesh stretcher (`batctl`, failover). |
-| 4 | [Module 4 — MQTT Deep Dive & Integration](./modules/04-mqtt-and-integration.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* Topic hierarchy, QoS 0/1/2, Retain, Last Will, MQTT Explorer, MQTT vs CoAP/HTTP, Node-RED on the class host/laptop, Python `paho-mqtt` / IoTknit and MicroPython on the router. |
-| 5 | [Module 5 — Wireless Technologies & ESP-NOW](./modules/05-wireless-technologies-and-espnow.md) | Radio spectrum, ISM bands, Wi-Fi vs BLE vs LoRaWAN trade-offs, ESP-NOW connectionless peer-to-peer micro-mesh and gateway bridge. |
-| 6 | [Module 6 — Industrial Protocols & Edge Bridging](./modules/06-industrial-protocols-and-bridging.md) | Short fieldbus briefing: video/discussion, Modbus RTU/TCP, OPC-UA, RS-485, ISO/OSI mapping and bus comparison, RS-485/Modbus demo, EtherCAT guest slot; optional Python wrapper to MQTT. |
-| 7 | [Module 7 — Fleet Management & Scaling with IoTempower](./modules/07-fleet-management-and-iotempower.md) | Declarative IoT architecture, multi-node configuration, Over-The-Air (OTA) deployment across M5Stack fleet, topic standardisation. |
-| 8–9 | [Module 8 — Final Project Studio](./modules/08-final-project-studio.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–7), then:* Project kickoff & story, team and requirement mapping, system integration across nodes and network layers, hardening, fault-injection & resilience testing, architecture documentation, peer review dry run. |
-| 10 | [Module 9 — Project Presentation & Technical Report Submission](./modules/09-project-presentation-and-portfolio.md) | Short project presentation of the final technical-report section, live multi-node demonstration, network fault-injection test, technical engineering report hand-in, retrospective. |
+| Date | Slots | School hours | Work |
+|---|:---:|---:|---|
+| before 2026-11-06 | — | — | [Pre-Study](./pre-study.md): portfolio setup, network mental model, IP and MQTT exploration. |
+| Fri 2026-11-06 | Ü + BS | 4 | [Module 1 — Foundations & Master Class](./modules/01-foundations-and-masterclass.md): class opening, IoT continuum, OSI vs. TCP/IP, Master Class integration, story pitch. |
+| Fri 2026-11-13 | Ü + BS | 4 | [Module 2 — Local Networking & OpenWrt Gateways](./modules/02-local-networking-and-gateways.md): subnetting, DHCP/DNS/NAT, OpenWrt flash/extroot, pod LAN, Mosquitto, `tcpdump`. |
+| Fri 2026-11-20 | Ü + BS | 4 | [Module 3 — Overlay Networks: Nebula & Remote MQTT](./modules/03-overlay-and-mesh-networks.md): bundle, cross-NAT proof, router gateway, Node-RED and MQTT through the overlay. |
+| Fri 2026-11-27 | Ü + BS | 4 | **Checkpoint 1 at the start**, then [Module 4 — MQTT Deep Dive & Integration](./modules/04-mqtt-and-integration.md): topics, QoS, Retain, LWT, Node-RED, Python/MicroPython. |
+| Fri 2026-12-04 | BS + BS | 4 | [Module 5 — Wireless Technologies & ESP-NOW](./modules/05-wireless-technologies-and-espnow.md): radio trade-offs, ESP-NOW, bridge to MQTT. |
+| Fri 2026-12-11 | BS + BS | 4 | [Module 6 — Industrial Protocols & Edge Bridging](./modules/06-industrial-protocols-and-bridging.md) in the first slot; **[project kickoff](./modules/08-final-project-studio.md)** in the second slot (the last two school hours). Finish any remaining Module 6 work as homework before the kickoff. |
+| Mon 2026-12-14 | P + BS + BS | 8 | [Module 7 — Fleet Management](./modules/07-fleet-management-and-iotempower.md) clinic in the 08:30–11:30 P slot; **Checkpoint 2 at the start of the first BS slot**, then the project build in both BS slots. |
+| Tue 2026-12-15 | P | 4 | [Module 8 — Final Project Studio](./modules/08-final-project-studio.md): build and integrate. |
+| Fri 2026-12-18 | BS + BS | 4 | Project: harden, document, peer review. |
+| Mon 2026-12-21 | P | 4 | Project: fault injection, rehearsal. |
+| Tue 2026-12-22 | P | 4 | [Module 9 — Project Presentation & Report Submission](./modules/09-project-presentation-and-portfolio.md): presentation, live demo, report hand-in, retrospective. |
+| **Total** | **20 slots** | **48** | **≈ 36 clock hours** |
 
 > [!TIP]
-> **Buffer and pacing:** Days 8–9 form the final-project block. Part of it is deliberately loose and can absorb spill-over from earlier labs, be released as flexible/wiggle time, or be used for stretcher tasks and peer mentoring. Announce the concrete use of each part in the LMS as the course progresses.
+> **Buffer and pacing:** the project block is Dec 11 (kickoff), Dec 14 (the two BS slots after the Module 7 clinic), Dec 15, Dec 18, and Dec 21. There is no long homework gap between these dates; plan the build for the room. Part of the block can absorb spill-over from earlier labs or become peer mentoring, but announce that use in the LMS.
+
+> Indicative plan. The exact mapping may shift during the semester as we refine the class together; the learning objectives and the final project matter more than the exact date a topic lands on.
 
 <a id="final-project-requirements-5-points"></a>
 ## Final Project Requirements (5 Points)
 
-The final project is an end-to-end networked system built by **Project Teams of 4–6 students** — the project merges two Task Pods from Modules 1–7, so you keep your pod and gain one or two more. Project Teams form and pitch a stakeholder story during the project kickoff (Module 8), then map their requirements onto the criteria below. The project is documented as the **final section of your technical engineering report**, and the last session presents that section.
+The final project is an end-to-end networked system built by **Project Teams of 4–6 students** — the project merges two Task Pods from Modules 1–7, so you keep your pod and gain one or two more. Project Teams form and pitch a stakeholder story during the **project kickoff at the end of Module 6**, then map their requirements onto the criteria below. The project is documented as the **final section of your technical engineering report**, and the last session presents that section.
 
 ### Must-Have System Criteria:
 
 1. **Multi-node networked architecture:** At least 4 independent physical nodes (e.g., 2 M5Stack nodes, 1 OpenWrt router, 1 edge gateway/laptop server).
-2. **Diverse network technologies:** Combine at least two distinct networking or communication layers (e.g., ESP-NOW local micro-network bridged to Wi-Fi/Ethernet; a B.A.T.M.A.N. Layer-2 mesh; or a Nebula/Yggdrasil overlay for remote access).
+2. **Diverse network technologies:** Combine at least two distinct networking or communication layers (e.g., ESP-NOW local micro-network bridged to Wi-Fi/Ethernet; a Nebula overlay for remote access; or an optional B.A.T.M.A.N. showcase).
 3. **Robust application messaging:** Well-structured MQTT topic hierarchy with explicit QoS, state retention, and Last Will and Testament for offline detection.
 4. **System integration layer:** Automated event routing, data processing, and user interface implemented via Node-RED and/or custom Python (`paho-mqtt` / IoTknit).
 5. **External or industrial interoperability (choose one):** A functional bridge to an external service/API (for example an HTTP/JSON API or public data source); or, if hardware or a simulator is available, to an industrial protocol such as Modbus or OPC-UA.
