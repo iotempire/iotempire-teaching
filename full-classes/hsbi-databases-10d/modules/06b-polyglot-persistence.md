@@ -184,6 +184,9 @@ most common LLM mistake with JSON columns, and now you can see it.
 The dashboard only ever does "get by key" and "set by key". Model that directly and measure it
 against SQLite. Run this at home; bring the four numbers and your choice to the next session.
 
+> **Before you commit:** on some platforms, `shelve` writes `sessions.bak`, `sessions.dat`, and
+> `sessions.dir`; `*.db` does not catch those. Add `Module06b/sessions*` to your `.gitignore`.
+
 ```python
 # Module06b/kv_compare.py — run with:  uv run python Module06b/kv_compare.py
 """The same access pattern in a key-value store and in SQLite."""
@@ -241,15 +244,25 @@ This is the control group for everything this course has argued. Your instructor
 PostgreSQL server on the classroom network; each pod gets one database and one role. You connect
 through the browser UI (pgweb) — nothing to install. The URL and credentials are in the LMS.
 
-1. **Connect.** Open pgweb, enter your pod's database, user, and password.
-2. **Create and query.** Create the same small `machine` table you used in Module 4; insert three
-   rows; run one query you already know from SQLite. The SQL is the same.
-3. **Write concurrently.** Open a second tab, or ask a podmate to update the same row at the same
-   time. Watch what happens.
+1. **Connect.** Open the pgweb URL and log in with the shared class credentials from the LMS.
+   Then use the connection form: host `db`, port `5432`, database `podNN`, user `podNN`, and your
+   pod password. The pod table is in the LMS; the TA has a printed copy.
+2. **Inspect and query.** Your pod database already contains a small `machine` table
+   (`machine_id INTEGER PRIMARY KEY`, `site TEXT NOT NULL`,
+   `parts_produced INTEGER NOT NULL DEFAULT 0`) with one row; your instructor pre-created it. Run
+   a `SELECT` and insert one row with an explicit `machine_id` (for example `2`). Do not recreate
+   the table. The DML is the same SQL you used in SQLite; the DDL is not — PostgreSQL has no
+   `STRICT` or `PRAGMA`, and an `INTEGER PRIMARY KEY` does not auto-increment.
+3. **Write concurrently.** Use **two different browsers or two student devices** — two tabs in the
+   same browser may share one pgweb session. Both run
+   `UPDATE machine SET parts_produced = parts_produced + 1 WHERE machine_id = 1;` and watch which
+   one waits. Your instructor will also project a `psql` demo of the lock and of a lost update; you
+   do not need to install anything.
 4. **Name the moving parts.** A connection is a host, a port, a user, a password, and a database.
    Count them.
-5. **Lose the server.** The instructor stops the server. Every client fails at once, and nothing in
-   your SQL can fix it. Then it restarts.
+5. **Lose the server.** The instructor stops only the database process; pgweb stays up. Every
+   client fails at once, and nothing in your SQL can fix it. After the restart, reload pgweb and
+   run the query again.
 
 Write three observations in `engine-notes.md`: one thing that got **easier**, one that got
 **harder**, and one failure mode that an embedded database does not have.
@@ -258,12 +271,12 @@ Write three observations in `engine-notes.md`: one thing that got **easier**, on
 > connections, one `BEGIN IMMEDIATE`, the second write gets `database is locked`. That is the local
 > version of the same lesson; the three observations still apply.
 
-> **Theory you need — CAP in one paragraph.** A distributed system can keep at most two of
-> **consistency**, **availability**, and **partition tolerance**. Since networks partition, real
-> systems choose **CP** (answer correctly or not at all) or **AP** (answer, possibly stale). An
-> embedded database sidesteps the choice by not distributing — a legitimate engineering decision,
-> not a limitation to apologise for. **ACID** is about one transaction's guarantees; **BASE**
-> relaxes consistency for availability at scale. You have now run both sides.
+> **Theory you need — CAP in one paragraph.** A network partition is a fact, not a choice. While
+> the partition lasts, a distributed system must choose **consistency** (answer correctly, or
+> refuse) or **availability** (answer, possibly stale): **CP** or **AP**. An embedded database
+> sidesteps the choice by not distributing — a legitimate engineering decision, not a limitation
+> to apologise for. **ACID** is about one transaction's guarantees; **BASE** relaxes consistency
+> for availability at scale. You have now run both sides.
 
 > **Discuss (nearest pod).**
 > - **What got harder, and what got easier?** One sentence each.
