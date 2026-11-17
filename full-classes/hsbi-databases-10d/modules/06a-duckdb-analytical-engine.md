@@ -33,6 +33,8 @@ In this studio you answer her with a file and a measurement.
 
 ## 🧭 How this studio works
 
+<!-- TODO: remove timing notes after the run; the run sheet is in instructor-notes/06a.md and scratch/06a-runthrough.md. -->
+
 **It starts with a recap, not a test.** Your instructor walks through what Module 5 produced — the flat table, the 3NF decomposition, the denormalized report table — and the three numbers you should have measured: storage (**≈4.1 MB normalized vs ≈11.1 MB denormalized**), rows touched by one site update (**1 vs 4,000**), and the surprise that *dropping* the index on the report table made the query faster. Then the bridge: that report table is 200,000 rows and 90 days old, and Lea wants two years.
 
 If you do not have your own numbers, take the recap numbers and say so in your notes. The recap is input, not evidence — the evidence is what you measure today.
@@ -40,6 +42,9 @@ If you do not have your own numbers, take the recap numbers and say so in your n
 <!-- PREP EMAIL (before Session 6): finish Module 5 Rounds 5–7 — the storage numbers, the rows touched by one site update, and the memo — and keep Module05/normalize.db. If the database is gone, rebuild it with the Module 5 Setup block. Bring the memo; we use it in the recap. -->
 
 **Then six tasks** (the headings also say “now Task 1–6”). No lecture. Every task gives you one thing to do, a short **theory box** you read only when the task makes you want it, and a **discussion** with the nearest pod at the end: say out loud what happened, why it happened, and what you would predict next time. A discussion is **not a checkpoint and not a test** — it is where the task's learning goal turns into words. Tick the task in your notes when you have had it.
+
+<!-- TODO: remove timing notes after the run; the run sheet is in instructor-notes/06a.md and scratch/06a-runthrough.md. -->
+**Rough timing (180 minutes):** recap 15 → story 10 → **1 Build** 25 → **2 Convert** 20 → **3 Race** 30 → break 15 → **4 Plan** 20 → **5 Boundary** 30 → **6 Decide** 15 = 180.
 
 **Work at your pod's pace.** Faster pods take the **stretchers** at the end of this module; slower pods finish the core tasks and do the **homework** in §7.
 

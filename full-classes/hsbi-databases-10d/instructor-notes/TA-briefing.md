@@ -2,9 +2,10 @@
 
 [All instructor notes](./README.md) · [Feedback rounds](./feedback-rounds.md) · [Syllabus](../syllabus.md)
 
-**The short rule: the TA gives feedback and suggests readiness; the instructor records every point,
-grade, and pass/fail decision.** This is not a limitation to apologise for — it is what keeps the
-assessment consistent and the TA free to ask the questions that help.
+**The short rule: the TA suggests points and readiness, and may mark an individual for recheck; the
+instructor records every final point, grade, and pass/fail decision.** This is not a limitation to
+apologise for — it is what keeps the assessment consistent and the TA free to ask the questions
+that help.
 
 ## What the TA may do
 
@@ -12,6 +13,8 @@ assessment consistent and the TA free to ask the questions that help.
 - Ask a pod to open its portfolio and show **one artefact**; listen, do not rescue.
 - Write evidence notes: what was shown, what was missing, the next step.
 - Suggest **“ready / not yet”** for a module or learning goal, with the evidence.
+- Suggest a **point value** (for example 1/2 or 2/2) and mark an individual for **recheck**; the
+  instructor confirms and records it.
 - Help with setup and debugging: Postgres/pgweb credentials, Git, `uv`, Windows encoding, a broken
   database. Prefer asking a question over taking the keyboard.
 - Run a lane at the demo fair and write feedback notes; suggest demo/discussion outcomes.
@@ -20,7 +23,8 @@ assessment consistent and the TA free to ask the questions that help.
 
 ## What the TA may not do
 
-- Assign points, grades, or pass/fail; promise that a module is “passed”.
+- Record the final points, grades, or pass/fail; promise that a module is “passed”. You may
+  suggest; the instructor records.
 - Change the syllabus, the rubric, or a deadline.
 - Decide that a student’s contribution is insufficient; record the observation and escalate.
 - Share one pod’s notes or portfolio with another pod.
@@ -38,22 +42,22 @@ assessment consistent and the TA free to ask the questions that help.
 
 ### Feedback record (hand to the instructor)
 
-| Pod | Module / goal | Evidence seen | Missing | Suggested next step | Suggested readiness |
-|---|---|---|---|---|---|
-| | | | | | ready / not yet |
+| Pod | Module / goal | Evidence seen | Missing | Suggested next step | Suggested points | Recheck? |
+|---|---|---|---|---|---|---|
+| | | | | | | |
 
 “Not yet” is a complete answer. It is not a punishment, and it is not a grade.
 
 ## Demo fair — the TA lane
 
-- The room is a fair, not a stage: each team has a table, a live demo, a poster or slides, and a
-  short recorded fallback.
-- Visit the tables assigned to your lane. Ask **one question per member**, aimed at the piece they
-  own (schema, ingestion, query, interface, docs).
+- The room is a fair: **five tables per 90-minute block**. Each team has a table, a live demo, a
+  poster or slides, and a short recorded fallback.
+- The TA joins the instructor for the **two training rounds** (both blocks), asks one question per
+  member, and writes feedback. After this run the TA can take a table lane independently while the
+  instructor takes the other.
 - Write feedback for the instructor: what worked, what was hard to follow, one question the team
-  could not answer. Do **not** write a point score.
-- The instructor visits every team across the two blocks and owns the grade. Your notes are input,
-  not a decision.
+  could not answer, and a **suggested point value**. Do **not** record the final score.
+- The instructor records the grade. Your notes are input, not a decision.
 
 ## Setup support
 
@@ -71,7 +75,7 @@ assessment consistent and the TA free to ask the questions that help.
 - A student says “that was my teammate’s part” and cannot explain their own piece.
 - A team’s demo is slides only, or the live run fails twice.
 - The server or the network is down and the room is waiting.
-- Anything that sounds like a grading decision.
+- Anything that sounds like a final grading decision.
 
 ## First-day checklist
 

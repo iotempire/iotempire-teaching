@@ -433,6 +433,37 @@ or drop the `r.` prefix from the column names. The module's `FROM read_csv_auto(
 - **The plant telemetry** you generate in Module 1 — extend it for the final project.
 - **Your own data** — a study log, a budget, sensor readings from another course. The most meaningful datasets are the ones that matter to you.
 
+### Weather and environmental data
+
+Starting points for a real-data project; search for a station near you, and record the source and
+licence.
+
+- **DWD Open Data** — [opendata.dwd.de](https://opendata.dwd.de/) — German weather service station
+  data, recent and historical; CSV/JSON, no account for most products.
+- **Open-Meteo** — [open-meteo.com](https://open-meteo.com/) — free historical and forecast API, no
+  key for non-commercial use; good for a quick snapshot.
+- **Meteostat** — [meteostat.net](https://meteostat.net/) — historical weather, Python library and
+  API.
+- **NOAA NCEI GHCN-Daily** — [ncei.noaa.gov](https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily) — global daily station data.
+- **Copernicus ERA5** — [cds.climate.copernicus.eu](https://cds.climate.copernicus.eu/) — reanalysis;
+  registration/API key, heavier data.
+- **Open data portals** — [govdata.de](https://www.govdata.de/) and
+  [OpenData NRW](https://www.opendata.nrw/) — search for local weather, water, or environmental
+  datasets.
+
+**Use a snapshot, not a live dependency.** Download one CSV/JSON, keep the station ID, retrieval
+date, and licence next to it, and load it with a repeatable script. A cached snapshot is the honest
+local-first artefact; a live API in the demo is a failure mode.
+
+### Visualization and interaction
+
+- **Datasette** — the default: one command, browser UI, good for exploring a SQLite file.
+- **Node-RED** with `node-red-node-sqlite` — a local dashboard and interaction layer; it can query
+  SQLite directly and is a good fit for a local-first project.
+- **Grafana** — powerful dashboards, but it does **not** ship a core SQLite data source. Use it only
+  if the team already runs PostgreSQL/MySQL or accepts a community plugin; it adds a service. Do
+  not make it a requirement.
+
 ## Extended reading
 
 ### Story-driven modeling (the method behind this course)

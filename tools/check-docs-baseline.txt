@@ -4,7 +4,3 @@
 # Keep an entry only while the issue is tracked elsewhere; the checker
 # fails when an entry no longer matches (a stale entry means the issue
 # was fixed or the message changed).
-#
-# Databases: "Fix the broken case-study anchor in Module 1" in
-# full-classes/hsbi-databases-10d/instructor-notes/TODO.md.
-full-classes/hsbi-databases-10d/modules/01-introduction-and-local-first.md|missing anchor: ./07-final-project-studio.md#read-before-the-kickoff-systems-that-broke-the-classic-stack

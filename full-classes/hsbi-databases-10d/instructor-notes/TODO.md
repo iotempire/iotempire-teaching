@@ -19,7 +19,7 @@ the architecture log first.
 
 | # | Discrepancy | Owner | Meanwhile |
 |---|---|---|---|
-| 1 | **Time vocabulary.** Networking ADR D3 bans time estimates; this class's rounds carry "~25 minutes" targets. | [ADR §4](./00-architecture-decisions.md#4-open-questions) | 06a/06b now have no time estimates; Modules 2–5 and 7–8 still do. Keep the run sheets in the instructor notes, and remove the remaining estimates in one pass. |
+| 1 | **Time vocabulary.** Networking ADR D3 bans time estimates; this class's rounds carry "~25 minutes" targets. | [ADR §4](./00-architecture-decisions.md#4-open-questions) | 06a has none; 06b keeps a visible rough timing with a hidden TODO; Modules 2–5 and 7–8 still do. Keep the run sheets in the instructor notes and remove the remaining estimates in one pass. |
 | 2 | **“Gate” vs “discussion”.** §4 records it open; Modules 6a/6b say *discussion*, Module 5 still says *gate*. | ADR §4 | Do not rename by hand until §4 closes; if it closes as “discussion”, rename in one pass. |
 | 3 | **Checkpoint slot length.** Resolved for this run: README, `feedback-rounds.md` and the template use **10 minutes** for the instructor slot; the peer slot stays **12**. | ADR §4, [feedback manual](./feedback-rounds.md) | Record the actual slot times; if 10 is too tight, decide after the run. |
 | 4 | **Points split M5 vs 6a+6b.** One session for 2 points vs two sessions for 2 points. | ADR §4, syllabus | No point values in module files. Change only in the syllabus, and only with the Prüfungsausschuss. |
@@ -47,19 +47,15 @@ the architecture log first.
       first session (D16): `sh scratch/smoke-test.sh all` and `python3 scratch/validate-all.py`.
 - [ ] **Refresh the numbers** in the module stories (D3) — M5 4.07/11.09 MB, M6a 2M rows and the
       warm timings — if you change the datasets or the SQLite/DuckDB versions.
-- [ ] **Remove time estimates from the student modules.** `AGENTS.md` forbids them. 06a/06b now
-      have none; Modules 2–5 and 7–8 still carry “~20 minutes” headings and “Rough timing” blocks.
-      Remove them in one pass after the planning is settled; keep the run sheets in the instructor
-      notes.
+- [ ] **Remove time estimates from the student modules.** `AGENTS.md` forbids them. 06a has none;
+      06b keeps a visible rough timing with a hidden TODO; Modules 2–5 and 7–8 still carry “~20
+      minutes” headings and “Rough timing” blocks. Remove them in one pass after the planning is
+      settled; keep the run sheets in the instructor notes.
 
-- [ ] **Fix the broken case-study anchor in Module 1.** `modules/01-introduction-and-local-first.md`
-      links to `./07-final-project-studio.md#read-before-the-kickoff-systems-that-broke-the-classic-stack`,
-      but the emoji heading (`## 📖 Read before the kickoff…`) does not produce that slug. Add an
-      explicit `<a id="read-before-the-kickoff-systems-that-broke-the-classic-stack"></a>` above the
-      heading in Module 7 (stable across heading edits) or correct the link. Found by
-      `tools/check-docs.sh` during the 2026-11-16 vocabulary pass; not fixed then because it
-      belongs to this class. While it stays open, the entry in `tools/check-docs-baseline.txt`
-      keeps the check green — remove that entry when you fix the link.
+- [x] **Fix the broken case-study anchor in Module 1.** Done 2026-11-17: an explicit
+      `<a id="read-before-the-kickoff-systems-that-broke-the-classic-stack"></a>` now sits above the
+      Module 7 heading, and the entry in `tools/check-docs-baseline.txt` is removed. The same pass
+      fixed the Sensors `AGENTS.md` anchor used by `instructor-notes/00-best-practices.md`.
 
 ## Format and pedagogy
 
@@ -98,8 +94,9 @@ the architecture log first.
       portfolio once at the end instead of per module. Pick **one** per term and measure the time.
 - [x] **Get a TA if the cohort is above ~30 students** (D13). Not for grading — for the room:
       restarting containers, finding lost files, and taking a second feedback lane. The checkpoint
-      arithmetic is the argument: 20 pods × 10 minutes is 200 minutes. The TA is **feedback-only**:
-      they may suggest readiness, they may not assign points. See the [TA briefing](./TA-briefing.md).
+      arithmetic is the argument: 20 pods × 10 minutes is 200 minutes. The TA may **suggest points
+      and readiness** and **mark individuals for recheck**; the instructor records the final points.
+      See the [TA briefing](./TA-briefing.md).
 - [ ] **Record the stage-and-gate observations** in [`study-formats.md`](./study-formats.md) for
       Modules 5, 6a and 6b while they are fresh (D7) — especially whether the theory boxes get read
       *when needed* and whether the discussions are real or performative.

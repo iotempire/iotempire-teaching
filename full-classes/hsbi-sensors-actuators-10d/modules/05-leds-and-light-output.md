@@ -301,6 +301,7 @@ Ask your co-pilot — but treat every answer as a **claim to test**, not a fact.
 
 <a id="appendix-d"></a>
 <a id="agentsmd"></a>
+<a id="appendix-d--agentsmd-template"></a>
 ## 📎 Appendix D — `AGENTS.md` template
 
 One `AGENTS.md` at the project root, **not** a separate `CLAUDE.md`, so Copilot and Claude agents load the same rules. A working template:

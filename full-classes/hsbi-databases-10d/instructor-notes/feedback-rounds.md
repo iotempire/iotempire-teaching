@@ -17,6 +17,8 @@ That distinction is not a formality. In most German examination regulations the 
 
 ## The checkpoint day (20 pods, two rounds)
 
+<!-- TODO: remove the timing notes after the run; keep the registration and two-lane structure. -->
+
 | Minutes | What happens |
 |---|---|
 | 0:00–0:05 | **Late-start buffer and registration.** Pods sign up for a rough slot. |
@@ -28,7 +30,7 @@ That distinction is not a formality. In most German examination regulations the 
 
 **Every instructor slot is 10 minutes.** The peer slots stay 12. With two lanes, 10 pods finish in 50 minutes; one lane needs 100. **Two rounds:** Session 8 covers 10 pods, Session 9 the other 10. Do not attempt 20 × 10 in one sitting.
 
-The TA may run the second lane, ask the same questions, and write the feedback note; the TA may suggest “ready / not yet”, but **only the instructor records points**. See the [TA briefing](./TA-briefing.md).
+The TA may run the second lane, ask the same questions, write the feedback note, **suggest points and readiness**, and **mark an individual for recheck**; **only the instructor records points**. See the [TA briefing](./TA-briefing.md).
 
 ## The peer practice round (about 30 minutes)
 
@@ -118,11 +120,15 @@ P03 | Ada, Ben, Chi | ok | M1, M2 | M4 | bring the M2 orphan query and its plan
 - **shown** — module numbers only. A tick is not needed; the list is the tick.
 - **not yet** — module numbers, or `—`.
 - **next step** — one imperative sentence. If you cannot fit it in one line, it is not a next step yet.
-- Nothing per student. The individual picture comes from the final project discussion and the portfolio review.
+- **suggested points / recheck** — the TA may append `suggested=2/2` or `suggested=1/2; recheck Ada`.
+  It is a suggestion, not a recorded point; the instructor confirms and records.
+- Nothing per student otherwise. The individual picture comes from the final project discussion and the portfolio review.
 
 ## What not to do
 
-- **Do not grade.** No numbers in the margin, no "that would be a 2". If you catch yourself assessing, say "not yet" and move on.
+- **Do not grade in the slot.** No “that would be a 2” at the table. The TA may suggest a point value
+  in the note; the instructor records points from the portfolio evidence, not from the conversation.
+  If you catch yourself assessing, say “not yet” and move on.
 - **Do not teach in the slot.** Two minutes of explanation is fine; a ten-minute tutorial is not, and the other eleven pods are waiting.
 - **Do not rescue.** A pod that is behind does not need you to fix it at the table; it needs one next step.
 - **Do not read the whole portfolio.** Ask for the one artefact that proves the most, then spot-check.

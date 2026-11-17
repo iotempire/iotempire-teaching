@@ -441,8 +441,9 @@ one session cannot hold it. Grading mid-term is not permitted for the chosen for
 **Decision.** Checkpoints are **feedback rounds**, never graded. Checkpoint 1 sits in session 4;
 **Checkpoint 2 is spread over sessions 8 and 9** (ten pods each, ~10 minutes), while the project
 runs. The round opens with a peer practice (portfolio gate, one artefact, one reflection); "not yet"
-is a complete answer. A TA can run a second lane: the TA gives feedback and may suggest "ready / not
-yet"; **only the instructor records points, grades, and pass/fail.**
+is a complete answer. A TA can run a second lane: the TA gives feedback and may suggest
+**points and readiness** and **mark an individual for recheck**; **only the instructor records
+points, grades, and pass/fail.**
 
 **Consequences.** Feedback lands while it is cheap to fix. The instructor sees every portfolio at
 least once. With a TA lane the project loses ~50 minutes per session to the round (~100 without);
@@ -464,9 +465,9 @@ mid-term feedback.
 Two pods of 2–3 merge into a team of 4–6.
 
 **Decision.** Sessions 8–10 are project studios (story/architecture/plan → build/integrate →
-harden/review/rehearse); session 11 is a **two-lane fair/poster demo** plus individual discussion at
-the tables. The instructor visits every team across the two blocks; the TA visits the other lane and
-gives feedback, not grades. The work is 3 points (story, architecture, plan) and the demo/discussion
+harden/review/rehearse); session 11 is a **five-tables-per-90-minute-block fair** plus individual
+discussion at the tables. The instructor and TA circulate; the TA joins for the two training blocks,
+then can take a table lane. The work is 3 points (story, architecture, plan) and the demo/discussion
 2 points. Milestones are proposed as a menu; teams set their own dates.
 
 **Consequences.** The project gets three weeks; checkpoints share the first two. A team that starts
@@ -702,5 +703,5 @@ lives now.
 | Date | Change |
 |---|---|
 | 2026-11-11 | First version: provenance, 19 decisions, rejected list, open questions, recreation checklist, handbook map. |
-| 2026-11-17 | TA is feedback-only (D13); Session 11 is a two-lane fair (D14); 06b moves to Task vocabulary; 06a headings carry “(now Task N)”; time estimates removed from 06a/06b and tracked for the remaining modules. |
+| 2026-11-17 | TA may suggest points and mark rechecks (D13); Session 11 is a five-tables-per-block fair (D14); 06b moves to Task vocabulary; 06a headings carry “(now Task N)”; 06b keeps a visible rough timing with a hidden TODO; time estimates still tracked for Modules 2–5 and 7–8. |
 | 2026-11-16 | D20 added: commits are instructor-only; agents leave changes uncommitted for review. Same rule as Sensors D22 and Networking D18. | Ulno + agent |

@@ -41,6 +41,7 @@ That paragraph already implies entities (line, stop event, cause), a cardinality
 
 **Where this comes from.** Starting from concrete scenarios instead of class diagrams is *[Story Driven Modeling](https://en.wikipedia.org/wiki/Story-driven_modeling)* — Norbisrath, Zündorf & Jubeh, **Story Driven Modeling** (CreateSpace, 2013, ISBN 978-1483949253). It is why we begin with a named person and a moment of pain rather than an entity list.
 
+<a id="read-before-the-kickoff-systems-that-broke-the-classic-stack"></a>
 ## 📖 Read before the kickoff: systems that broke the classic stack
 
 Ten minutes at the start of Session 8. For years the "serious" way to build a networked app was a frontend, a backend, a client/server database, a cache, and often a broker. A growing set of real systems throw that away:
@@ -54,6 +55,8 @@ Ask, for each: **what did it remove, what did it trade away, and what did it gai
 > **Why here and not in Module 6b?** Because this is the decision your project is about to make. Two single-binary systems are the strongest argument that "embedded by default" is a real engineering position, not a course gimmick — and they make the opposite choice visible too.
 
 ## 🛠️ Session 8 — Story, Plan, and the First Slice
+
+<!-- TODO: remove timing notes after the project arc; the run sheet is in instructor-notes/07.md. -->
 
 > **Checkpoint 2, part 1 runs alongside this session.** Ten pods give a ten-minute feedback round while the rest of the room works; the TA helps between slots. Nothing is graded in it — see the [syllabus](../syllabus.md#how-module-points-are-earned-from-your-portfolio).
 

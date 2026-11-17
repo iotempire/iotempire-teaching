@@ -58,11 +58,17 @@ Submit a **5-page** report (Markdown or PDF) in the project repository under `do
 <a id="the-fair-demo--project-discussion"></a>
 ## 🎤 The Fair Demo & Project Discussion
 
-Demo day is a **two-lane fair**, not a stage. Each Project Team gets a table with a laptop, a
-poster or a few slides, and a 2-minute recorded fallback of the live flow. Teams present at their
-tables while the other lane visits; then the lanes swap. The instructor visits every table for the
-live demo and the individual questions; the TA visits the other lane and writes feedback. **The TA
-does not grade** — the instructor records the project points.
+Demo day has **two 90-minute blocks**, and each block is a fair of **five tables**. The first five
+teams set up before class; the other five set up during the break and present in the second block.
+Each team stays at its table and presents repeatedly while the rest of the room visits, takes notes
+for the final reflection, praises one thing, and gives one concrete suggestion.
+
+The instructor and TA circulate. Each table gets a **15-minute assessed slot — a 10-minute live demo
+and 5 minutes of questions** — with a hard clock. The TA gives feedback and may suggest points or
+mark an individual for recheck; the instructor records the points. **The TA does not record the
+grade.**
+
+<!-- TODO: remove the timing notes (90/15/10/5) after the fair settles; the instructor note is the source of truth. -->
 
 At your table, cover the whole story — in this order, without turning it into a slide talk:
 
@@ -75,14 +81,18 @@ At your table, cover the whole story — in this order, without turning it into 
 | **Project discussion** | Individual questions to specific members on the design decisions they own; one “what would you change and why?” | All |
 
 **Preparation rules:**
-- Rehearse the **table pitch** with another team. Visitors arrive in waves; the demo must restart
-  cleanly and quickly.
+- You will present **repeatedly** to different visitor groups. Rehearse a 10-minute demo and a
+  5-minute question round; the clock is hard.
 - Keep the poster/slides short. A visitor should be able to read the story and the schema in a
   minute, then watch the live run.
 - Have a **2-minute recorded fallback** of the live flow. A crash you handle calmly and explain is
   fine; a crash you cannot explain is a lost point.
 - Every member answers at least one question. “That was my teammate’s part” is not an answer.
 - Bring your own power and network plan; the room is a fair, not a single demo machine.
+
+**If you are visiting:** take notes for your final reflection, name one thing that impressed you,
+and give one concrete suggestion. The presenting team learns as much from your questions as from
+the instructor’s.
 
 ## 📊 Evaluation Rubric (5 Points)
 

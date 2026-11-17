@@ -54,6 +54,11 @@ Four **Tasks**, one artefact. No lecture and no pod study. Every task ends with 
 end. Some tasks continue as homework — the key-value comparison and the project ticket are
 deliberate homework.
 
+<!-- TODO: remove the timing notes after the run; the instructor note is the source of truth. -->
+**Rough timing (180 minutes):** opening + 6a recap 10 → Task 1 25 → Task 2 briefing 5 → break 15 →
+Task 3 25 → Task 4 30 → peer defence 35 → harvest + wrap 15 = **160**, with **20 minutes buffer**
+for the server setup.
+
 Keep your notes in `Module06b/engine-notes.md`.
 
 | # | Task | You produce | Talk it through |
@@ -68,6 +73,15 @@ Keep your notes in `Module06b/engine-notes.md`.
 ## 🛠️ Task 1 — Metadata that will not sit still
 
 Store the vendor metadata as JSON and query it without migrating the table.
+
+> **Why this task.** Anke’s vendor metadata changes shape. A new column per field means a schema
+> migration and a maintenance window every time a vendor adds something. A JSON column lets you
+> store the fields you know now and add fields later without a migration; `json_valid` keeps it
+> honest, and an expression index keeps the queries you actually run fast. The price is real: no
+> column-level typing, no cheap joins, and the index only works for the exact expression you index.
+> This task proves both sides — flexibility and the index trap — and gives the metadata row of the
+> decision record its evidence. A separate key-value store would make “find every device by
+> vendor” hard; JSON inside SQLite keeps the relational query and the flexible field together.
 
 ```python
 # Module06b/json_bench.py — run with:  uv run python Module06b/json_bench.py

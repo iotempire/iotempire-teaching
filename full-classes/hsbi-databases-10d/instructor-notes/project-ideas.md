@@ -148,6 +148,22 @@ Each direction gives a **person**, a **problem**, a **first query**, a **data so
 - **Local-first twist:** the data stays on the student’s machine; the database is a file in the project.
 - **Stretch:** provenance columns and a reproducible ingest script.
 
+### 13. Local weather station — real data
+
+- **Person:** an allotment association or a school with a weather station.
+- **Problem:** the station logs data, but nobody queries it; frost and rain decisions are guesses.
+- **First query:** which nights last month dropped below 3 °C?
+- **Data:** a DWD, Open-Meteo, or Meteostat snapshot; record the station ID, retrieval date, and licence.
+- **Local-first twist:** the CSV snapshot lives in SQLite on the school laptop; no API dependency at the demo.
+- **Stretch:** a Node-RED dashboard over the SQLite file, or a comparison with your own sensor.
+
+## If your project uses weather data
+
+- Start from the [weather datasets in the resource bank](../modules/Z-resources-bank.md#weather-and-environmental-data). Search for a station near your story; the list is a starting point, not the only source.
+- Download a **snapshot** (CSV/JSON), keep the station ID, retrieval date, and licence, and load it with a repeatable script. The demo uses the snapshot, not a live API.
+- Good first queries: the longest gap between readings, nights below a threshold, a monthly comparison, or a station vs. your own sensor.
+- Visualization: Datasette first; **Node-RED** with `node-red-node-sqlite` for a local dashboard; **Grafana** only if the team already runs PostgreSQL/MySQL or accepts a community plugin — it has no core SQLite data source.
+
 ## Anti-patterns and how to rescue them
 
 | The pitch | Why it stalls | Rescue |

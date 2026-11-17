@@ -47,6 +47,8 @@
 # NOT READY? 4 minutes: "not yet", one next step, move on. No rescue.
 #
 # FIELDS:  pod | members | gate | shown | not yet | next step
+#   suggested points / recheck: the TA may append it (for example
+#   `suggested=2/2` or `suggested=1/2; recheck Ada`); the instructor records.
 #   members         : FIRST NAMES ONLY — the pod writes them, in the first 30 s
 #   gate            : ok / fix   (repo missing, cannot edit, cannot link)
 #   shown / not yet : module numbers only ("M1, M2"), or "—"
