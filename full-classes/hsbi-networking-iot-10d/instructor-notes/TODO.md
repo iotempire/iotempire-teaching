@@ -50,6 +50,21 @@
 - [ ] **Safety and exploration are mixed in the same list.** Separate the non-negotiable guardrails
       from the part students are allowed to own.
 
+## Module 2 — after the first run
+
+- [ ] **Unify the pod SSID naming next run.** Module 2 allows both `pod<NN>` (this workbook) and
+      `iotempire<NN>` (the German OpenWrt guide distributed in class, e.g. `iotempire07`). The split
+      caused confusion in the room; the damage is done for WS 2026/27, so keep the dual naming for
+      now. Next run, pick one scheme before the routers are handed out — likely `iotempire<NN>` to
+      match the German guide — and update the module, the resource bank, and the slides together.
+      Do not confuse either with the class uplink `iotempire-b1300-5g`.
+- [ ] **Revisit the extroot/uplink order.** This run extroots before the uplink (Round 2 before
+      Round 3), which works because the class image already contains the extroot packages. The
+      German guide joins eduroam first because its script may download packages. With the script now
+      in `resources/`, decide next run whether to keep extroot-first (fewer moving parts before
+      Round 3) or switch to uplink-first (works on a plain upstream image and matches the German
+      guide). If you switch, update Round 2 and the resource-bank recipe.
+
 ## Before the next semester (reset)
 
 - [ ] **Re-run `./tools/check-all.sh`** from the repository root before the first session.

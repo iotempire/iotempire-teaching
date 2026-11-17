@@ -237,6 +237,8 @@ ssh root@192.168.14.1 "tcpdump -r /tmp/lan.pcap -A 'udp port 67 or udp port 68'"
 
 **Storage: 16 MB of flash.** `tcpdump` and Mosquitto fit as small package installs (Module 2 installs both). For anything bigger — Nebula, `tshark`, MicroPython — move the root filesystem to a **USB stick** (the routers have one USB 2.0 port). The class hands out a **> 4 GB stick and a mini USB hub**, so the stick and a USB-tethered phone can share that one port. Label the stick with the router ID; it is part of the router, not a spare.
 
+**Class path.** Run [`openwrt-extroot-setup.sh`](../resources/openwrt-extroot-setup.sh) on the router: it partitions and formats the stick, copies the overlay, writes the fstab entry, and reboots. The manual sequence below is the equivalent, for reading or recovery; do not pre-format the stick if you use the script.
+
 ```bash
 # on the router, once, with the stick plugged in
 # 24.10 and newer:
@@ -249,7 +251,6 @@ apk add block-mount kmod-fs-ext4 kmod-usb-storage e2fsprogs
 #   apk add kmod-usb2  (or opkg install kmod-usb2 / kmod-usb-ohci), then check `logread`
 # Confirm the device with `logread`, `ls /dev/sd*`, and `block info` before you touch it.
 # If the stick is blank, create one Linux partition first (fdisk /dev/sda), then use /dev/sda1.
-# If the instructor pre-formatted the stick, skip mkfs and go straight to mount.
 mkfs.ext4 /dev/sda1                       # only for a stick you identified and may erase
 mkdir -p /mnt/sda1 && mount /dev/sda1 /mnt/sda1
 cp -a /overlay/. /mnt/sda1/ && umount /mnt/sda1

@@ -406,7 +406,7 @@ experiment. At home, the uplink is different again.
 
 **Decision.** Uplinks are plural: eduroam 5 GHz first, phone USB tether second,
 `iotempire-b1300-5g` third, optional wired uplink. All end in a WAN default route
-(`wwan` for Wi-Fi/tether, `wan` for Ethernet). The LAN is always
+(`wwan` for Wi-Fi, `tether` in the German guide for USB, `wan` for Ethernet). The LAN is always
 `192.168.14.0/24` with the router at `.1`; never the OpenWrt default
 `192.168.1.0/24`. Credential ownership follows the router: the student who
 provides the eduroam account owns and carries it. If the router moves to another
@@ -416,7 +416,7 @@ pod member, remove the credential before the handover.
 B1300 as the outside network; it does not isolate clients by default, so the
 outside laptop works directly. If you enable isolation as an experiment, use a
 wired outside client. Students verify with
-`ubus call network.interface.wwan status` and `ip route`.
+`ubus call network.interface.wwan status` (or `tether`) and `ip route`.
 
 **Alternatives rejected.** A single mandatory uplink; campus VLANs/overlays per
 pod (a DVZ burden); the default `192.168.1.0/24`; calling the B1300 a "wire" — it
