@@ -126,9 +126,21 @@ If you have admin rights on your laptop, join a second node with its own bundle 
 
 **Proves:** Goal 1 · **Produces:** two numbers and one sentence.
 
-1. `ping` between your laptop, the router, and the Node-RED host. Then `iperf3` where the class policy allows it: laptop ↔ router on the pod LAN always, laptop ↔ host only if your pod's group has port `5201` open — the service hosts are locked to the Node-RED ports, so ask before you assume.
-2. Where is it fast (same LAN), where is it slow (a hop through the internet, a relayed path)?
-3. **Optional depth:** what are CGNAT and DS-Lite, and why does a peer behind them need a relay while a peer behind a home router usually does not?
+1. `ping` between your laptop, the router, and the measurement host `10.100.1.1`.
+2. **Throughput against the class target** — the instructor runs an `iperf3` server on `10.100.1.1:5201` for everyone:
+
+   ```bash
+   iperf3 -c 10.100.1.1 -t 10          # uplink
+   iperf3 -c 10.100.1.1 -t 10 -R       # downlink
+   iperf3 -c 10.100.1.1 -t 10 -P 4     # parallel streams
+
+   # LAN baseline, for comparison: run iperf3 -s on the router, then
+   iperf3 -c 192.168.14.1 -t 10
+   ```
+
+   **Keep every test to 5–10 seconds.** A pod on eduroam is relayed through the class VPS: a minute at line rate spends the VPS traffic budget and measures the relay, not your network. One short run, one number, move on.
+3. Where is it fast (same LAN), where is it slow (a hop through the internet, a relayed path)?
+4. **Optional depth:** what are CGNAT and DS-Lite, and why does a peer behind them need a relay while a peer behind a home router usually does not?
 
 > **Optional graphical aids.** The numbers are the evidence; these only make them easier to see.
 >
