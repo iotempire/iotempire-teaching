@@ -79,6 +79,7 @@ records short; link to the artefact instead of pasting it.
 | [D20](#d20) | Timetable in school hours; every slot is studio time | accepted | syllabus, roadmap, modules |
 | [D21](#d21) | Overlay authorization: one group per pod, role ranges, one written-down relaxation | accepted | Module 3, [`nebula-session.md`](./nebula-session.md), CA workspace |
 | [D22](#d22) | One wide overlay prefix; sub-ranges are labels | accepted | CA workspace, [`nebula-session.md`](./nebula-session.md) |
+| [D23](#d23) | A pod router accepts everything from its own pod | accepted | Module 3, CA policy packs |
 
 ## 1. Provenance — how this class came to be
 
@@ -745,7 +746,7 @@ Module 3.
 <a id="d21"></a>
 ### D21 — Overlay authorization: one group per pod, role ranges, one written-down relaxation
 
-**Status:** accepted.
+**Status:** accepted. **See also:** [D23](#d23) — the router's rule list was widened on 2026-11-19; the rest of this record stands.
 
 **Context.** A Nebula firewall rule matches on a certificate group, a source
 address range, or a single host. The upstream examples label groups by role
@@ -830,6 +831,56 @@ for `tun.routes`/`unsafe_routes`; the certificate plan in the CA workspace.
 **Revisit if.** Nebula gains first-class routing between peer networks and the
 class wants real segment isolation. Then the split needs router nodes with
 `subnets`, not wider masks.
+
+<a id="d23"></a>
+### D23 — A pod router accepts everything from its own pod
+
+**Status:** accepted (2026-11-19).
+
+**Context.** D21 opened exactly three things on a pod router: the broker port from
+the service range, and SSH plus ICMP from the student range and the admin group.
+That list is a snapshot of one module's services. The router is also where students
+debug, where the MicroPython stretcher runs, and where later sessions add services
+(administration, a bridge, a small chat server). Every addition would mean editing
+the policy, rebuilding that pod's bundle — and a bundle is a snapshot, so the router
+has to be re-flashed or re-pushed with it. Fifteen routers, one rule change, one
+hand-out cycle. The firewall would become the schedule's bottleneck.
+
+**Decision.** A pod router accepts **any** inbound traffic from its own pod group
+(`hsbi-netiotNN`) and from the admin and instructor groups. The narrow D21 rules stay
+as a fallback for certificates that carry no pod group: broker port from the service
+range, SSH and ICMP from the student range. Outbound stays open.
+
+This is a deliberate move from "the router is a small server with a port list" to
+"the router is the pod's trusted device". A pod certificate already reaches its own
+Node-RED instance; reaching its own router is the same trust boundary, not a new one.
+Note that the admin group also contains the service hosts today, so they are covered
+by the same rule.
+
+**Consequences.** One policy pack per pod, not one shared pack: a pack is copied
+verbatim into the config, so "the node's own group" cannot be expressed in a shared
+file, and a shared list of all pod groups would let any pod open any router. Adding a
+service on the router needs no policy change and no re-bundle. The router's own
+credentials become the real boundary — a pod certificate can now reach the
+administration interface, so the class default must be changed during setup and the
+reason said out loud. Cross-pod reach does not widen beyond D21: another pod's group
+is not accepted, and the only remaining path between pods is the student-range
+SSH/ICMP fallback that D21 already records.
+
+**Alternatives rejected.** Keeping the explicit port list — safest on paper, but each
+new service triggers a policy edit, fifteen re-bundles and a re-hand-out, and the
+class teaches services faster than that cycle runs. One shared pack listing all pod
+groups — cheaper to maintain, wrong in effect: pod 01 would reach pod 05's router.
+Per-student host rules — unmaintainable at this many certificates, and it turns the
+certificate name into an access list.
+
+**Evidence.** Module 3: the students configure the router, run the broker on it, and
+host the MicroPython stretcher there; the CA workspace holds the concrete packs.
+
+**Revisit if.** A router starts holding something worth protecting, or the class
+begins treating routers as shared infrastructure rather than pod property. Then the
+pod-group rule narrows back to a service list — and the schedule has to absorb the
+re-bundle cycle that comes with it.
 
 ## 3. Deliberately rejected or retired
 
@@ -1006,3 +1057,4 @@ For a re-creator with access to the instructor's workspace:
 | 2026-11-17 | D19 added: Task → Subtask → Evidence, piloted in Module 3. D20 added: timetable counted in school hours; Ü/BS/P are all hands-on studio time; real dates and project kickoff on Dec 11. D11 updated for the Optiplex Node-RED cluster. | Ulno + agent |
 | 2026-11-17 | D21 added: one group per pod and role ranges replace role groups; the wide student range and the cross-pod SSH it allows are an accepted, written-down relaxation with a revisit trigger. Concrete ranges and host names stay in the CA workspace. | Ulno + agent |
 | 2026-11-17 | D22 added: one wide overlay prefix for every certificate. The per-role /24 plan made service hosts unreachable from routers and laptops, because a Nebula certificate's mask bounds reachability. | Ulno + agent |
+| 2026-11-19 | D23 added: a pod router accepts any traffic from its own pod group and the admin/instructor groups; the D21 port list remains as a fallback. One pack per pod, because a pack is copied verbatim. | Ulno + agent |
