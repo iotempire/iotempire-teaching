@@ -53,7 +53,7 @@ This is the path that works on the pod routers (OpenWrt + LuCI):
 
 1. **Get your bundle.** Your instructor posts a `croc` code per pod. Open <https://getcroc.com/#receive> and follow the receive instructions — it works in the browser, no install needed. Prefer the command line? Download the binary from <https://getcroc.com/> and run `croc` then enter your code. Check that the archive was for **your** pod — the ID is on the label on your router. Keep code and archive to yourself; both are credentials.
 
-2. **Install the protocol.** *System → Software*: install `luci-proto-nebula`, then **reboot the router**. Over SSH: `opkg update && opkg install luci-proto-nebula && reboot`.
+2. **Install the protocol.** *System → Software*: install `luci-proto-nebula`, then **reboot the router**. Over SSH: `apk update && apk add luci-proto-nebula && reboot`.
 
 3. **Unpack and copy four files to the router.** Unzip the archive (Windows: right-click → *Extract All*, macOS: double-click, Linux: `unzip`). You need exactly four files: `ca.crt`, `<host>.crt`, `<host>.key`, `config.yml`.
 
