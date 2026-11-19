@@ -157,7 +157,7 @@ If you have admin rights on your laptop, join a second node with its own bundle 
 
 So far the router has been the broker and the gateway. Make it a **node** too:
 
-1. Install MicroPython on the router (`opkg install micropython` on 24.10, `apk add micropython` on 25.12) and the `umqtt.simple` library — from the feed if present, otherwise copy it next to your script.
+1. Install MicroPython on the router (`apk add micropython`) and the `umqtt.simple` library — from the feed if present, otherwise copy it next to your script.
 2. Write a script that connects to `192.168.14.1:1883`, publishes one reading per second to `pod<NN>/router/uptime`, and subscribes to `pod<NN>/router/set`.
 3. Run it, publish a command from your laptop, and watch the router react — print the payload, or toggle the LED.
 

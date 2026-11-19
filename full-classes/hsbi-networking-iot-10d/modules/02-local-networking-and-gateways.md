@@ -151,15 +151,11 @@ The Cudy has 16 MB of flash; the writable overlay is small. Nebula and MicroPyth
 4. **Verify after the reboot.** `df -h /overlay` must show the stick; `mount | grep overlay` must show it too. Then install the tools you will want for the rest of the class — this doubles as the small-package test that proves the overlay survives a reboot:
 
    ```bash
-   if command -v apk >/dev/null; then
-       apk update && apk add mc terminfo mosquitto-client-nossl
-   else
-       opkg update && opkg install mc terminfo mosquitto-client-nossl
-   fi
+   apk update && apk add mc terminfo mosquitto-client-nossl
    reboot
    ```
 
-   After the reboot `command -v mc mosquitto_pub mosquitto_sub` must print three paths. `terminfo` is not optional: without it `mc` stops with *Error opening terminal*. If a tool is gone after the reboot, the overlay did not move — go back to the extroot step instead of installing again. `mosquitto-client-nossl` is the plaintext build and must match the broker from Round 4: OpenWrt ships both variants, and the ssl and nossl packages conflict, so mixing them makes the package manager remove one.
+   After the reboot `command -v mc mosquitto_pub mosquitto_sub` must print three paths. `terminfo` is not optional: without it `mc` stops with *Error opening terminal*. If a tool is gone after the reboot, the overlay did not move — go back to the extroot step instead of installing again. `mosquitto-client-nossl` is the plaintext build and must match the broker from Round 4: OpenWrt ships both variants, and the ssl and nossl packages conflict, so mixing them makes the package manager remove one. Every `apk add` in this module is also one entry in LuCI's *System → Software* — the command line is just faster to copy.
 5. **Label the stick.** It is part of the router now. Do not swap it with another pod's stick; the overlay will not match.
 
 **What the script did — and what you must be able to explain.** It installed any missing storage packages, wrote a fresh partition table, created one ext4 partition labelled `extroot`, copied `/overlay` to it, registered it by UUID in `/etc/config/fstab` as `/overlay`, kept the old overlay as `/rwm`, and rebooted. [German guide: same script, but it joins eduroam first because a plain image may need to download packages; the class image already contains them, so this workbook keeps extroot before Round 3.] A plain upstream image needs an uplink before you run the script.
@@ -182,7 +178,7 @@ Pick the upstream that fits your pod. **Prefer eduroam on 5 GHz**; phone USB tet
 **Path A — eduroam on 5 GHz (default).**
 
 1. In LuCI, **Network → Wireless → Scan** on `radio1` (the 5 GHz radio). Join the eduroam SSID and create a new interface named `wwan`.
-2. Set the security to **WPA2-EAP** with **PEAP** and **MSCHAPv2**; enter the student's identity and password; select the HSBI CA certificate and the correct authentication server/domain. [German guide: identity `<kennung>@hsbi.de`, PEAP with EAP-MSCHAPv2, *Use system certificates*, domain constraint `radius.hsbi.de`, HARICA root from `ca-bundle`.] A full `wpad` variant is required (`wpad-mbedtls` or another full build); `wpad-basic` cannot do EAP. [German guide: the distributed image already contains `wpad-openssl` and `ca-bundle`, so this is a check, not an install.] If it is missing, install it now (`apk update && apk add wpad-mbedtls` on 25.12, or `opkg update && opkg install wpad` on 24.10/23.05; use the full variant for your build); remove `wpad-basic-mbedtls` (or `wpad-basic`) first if your package manager asks. That is one reason extroot comes before this round.
+2. Set the security to **WPA2-EAP** with **PEAP** and **MSCHAPv2**; enter the student's identity and password; select the HSBI CA certificate and the correct authentication server/domain. [German guide: identity `<kennung>@hsbi.de`, PEAP with EAP-MSCHAPv2, *Use system certificates*, domain constraint `radius.hsbi.de`, HARICA root from `ca-bundle`.] A full `wpad` variant is required (`wpad-mbedtls` or another full build); `wpad-basic` cannot do EAP. [German guide: the distributed image already contains `wpad-openssl` and `ca-bundle`, so this is a check, not an install.] If it is missing, install it now (`apk update && apk add wpad-mbedtls`; use the full variant for your build); remove `wpad-basic-mbedtls` first if your package manager asks. That is one reason extroot comes before this round.
 3. Put `wwan` in the `wan` firewall zone, as a DHCP client.
 4. Check the clock (`date`) before you debug the certificate. A wrong clock makes every certificate look invalid. Check `logread -e wpa_supplicant` and `ubus call network.interface.wwan status`.
 5. If the SSID is missing, check the channel: the Cudy cannot *serve* an AP on DFS channels, but as a **client** it can use them (the German guide tested channel 100 at 5500 MHz at HSBI). Give the scan time. If the association still fails, fall back to Path B or C and come back later.
@@ -190,7 +186,7 @@ Pick the upstream that fits your pod. **Prefer eduroam on 5 GHz**; phone USB tet
 **Path B — phone USB tethering.**
 
 1. Connect the phone to the hub, enable USB tethering, and check `lsusb`, `dmesg | tail`, and `ip link`. The interface is often `usb0` or `eth1`.
-2. Install the matching driver if it is missing (`apk add`/`opkg install`): `kmod-usb-net-rndis` for many Android phones, `kmod-usb-net-cdc-ether` for others; `usb-modeswitch` and `usbutils` help.
+2. Install the matching driver if it is missing (`apk add`): `kmod-usb-net-rndis` for many Android phones, `kmod-usb-net-cdc-ether` for others; `usb-modeswitch` and `usbutils` help.
 3. Create a `wwan` interface on that device as a DHCP client and put it in the `wan` zone. The German guide names this interface `tether`; either name works as long as the firewall zone is `wan`.
 4. If the phone is not detected through the hub, try a powered hub or the phone's Wi-Fi hotspot instead.
 
@@ -240,12 +236,8 @@ eduroam is 802.1X (WPA2-EAP/PEAP/MSCHAPv2), not a captive portal; it needs a ful
 6. **Install and run the local broker.** The class image does not include Mosquitto by default. Over SSH, one paste does the whole job — install, write the deliberately open lab configuration, enable at boot, restart:
 
    ```bash
-   # install the broker — 25.12 uses apk, 24.10 and older use opkg
-   if command -v apk >/dev/null; then
-       apk update && apk add mosquitto-nossl
-   else
-       opkg update && opkg install mosquitto-nossl
-   fi
+   # install the broker
+   apk update && apk add mosquitto-nossl
 
    cat >/etc/mosquitto/mosquitto.conf <<'EOF'
    listener 1883 0.0.0.0
@@ -286,7 +278,7 @@ The edge services:
 
 Capture where every packet must pass: the router. **You do not need a second Wi-Fi adapter, and you do not need Wireshark to prove anything** — but a dump is easier to read in a GUI, so the pattern is always: capture on the router → copy the file → open it. The recipes live in the [resource bank](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card).
 
-1. Install `tcpdump` if it is not already there: `apk update && apk add tcpdump` on 25.12, or `opkg update && opkg install tcpdump` on 24.10/23.05.
+1. Install `tcpdump` if it is not already there: `apk update && apk add tcpdump`.
 2. Capture on the LAN bridge:
    ```bash
    ssh root@192.168.14.1 "tcpdump -i br-lan -s 0 -w /tmp/pod.pcap 'arp or udp port 67 or udp port 68 or udp port 53 or tcp port 1883'"
@@ -419,7 +411,7 @@ This is a discussion round, not a build round; it can continue after class.
 | Hardware | AVM devices | Broad device table |
 | Failure mode | Vendor policy or ownership change | Your maintenance burden |
 
-**Theory you need.** OpenWrt is a Linux distribution for embedded routers, not a single vendor's firmware. It keeps a read-only root filesystem and a writable **overlay**, exposes **UCI** for configuration, and offers **LuCI** and a package manager (OpenWrt 24.10 and older use `opkg`; 25.12 and newer use `apk`). The project began in 2004; the **LEDE** fork (2016) merged back in 2018. Its value is not "more features" in the abstract; it is **control and reproducibility** — you can inspect, script, patch, and keep a device alive after the vendor stops. The trade is real: vendor firmware may integrate hardware better, and flashing can void support. On a FRITZ!Box, OpenWrt can replace FRITZ!OS on some models, but it does not inherit AVM's DECT/telephony integration; you gain control and lose vendor integration. *Go deeper: the OpenWrt history, the Table of Hardware, and the TR1200 device page.*
+**Theory you need.** OpenWrt is a Linux distribution for embedded routers, not a single vendor's firmware. It keeps a read-only root filesystem and a writable **overlay**, exposes **UCI** for configuration, and offers **LuCI** and the `apk` package manager. The project began in 2004; the **LEDE** fork (2016) merged back in 2018. Its value is not "more features" in the abstract; it is **control and reproducibility** — you can inspect, script, patch, and keep a device alive after the vendor stops. The trade is real: vendor firmware may integrate hardware better, and flashing can void support. On a FRITZ!Box, OpenWrt can replace FRITZ!OS on some models, but it does not inherit AVM's DECT/telephony integration; you gain control and lose vendor integration. *Go deeper: the OpenWrt history, the Table of Hardware, and the TR1200 device page.*
 
 > **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Show them your three-sentence argument and the device-table entry, and ask: *"What does upstream OpenWrt buy you that the vendor UI does not — and what does it cost?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 

@@ -266,14 +266,10 @@ It needs Wireshark on the laptop and a stable link; the two-step — capture, co
 
 ```bash
 # on the router, once, with the stick plugged in
-# 24.10 and newer:
 apk update
 apk add block-mount kmod-fs-ext4 kmod-usb-storage e2fsprogs
-# 23.05 and older:
-# opkg update
-# opkg install block-mount kmod-fs-ext4 kmod-usb-storage e2fsprogs
 # If the stick does not show up at all, the USB controller module is missing too:
-#   apk add kmod-usb2  (or opkg install kmod-usb2 / kmod-usb-ohci), then check `logread`
+#   apk add kmod-usb2  (or kmod-usb-ohci), then check `logread`
 # Confirm the device with `logread`, `ls /dev/sd*`, and `block info` before you touch it.
 # If the stick is blank, create one Linux partition first (fdisk /dev/sda), then use /dev/sda1.
 mkfs.ext4 /dev/sda1                       # only for a stick you identified and may erase
@@ -399,7 +395,7 @@ The CA **key** never leaves the instructor's machine; only `ca.crt` and the sign
 
 - **Pasting into a shell:** multi-line blocks with comments can execute line by line. Save the block to a file (or use a heredoc) and run the file. On Windows, use the editor's **Git Bash** profile or WSL.
 - **SSH host keys after a reflash:** a reflashed router presents a new host key. Remove the old entry (`ssh-keygen -R <host>`) instead of disabling the check.
-- **`opkg update` first:** installs fail on a stale package list. Run `opkg update` before `opkg install tcpdump` or `kmod-batman-adv`.
+- **`apk update` first:** installs fail on a stale package list. Run `apk update` before `apk add tcpdump` or `kmod-batman-adv`.
 - **Capturing on `any`:** `tcpdump -i any` can show the same packet twice (ingress and egress). Note the interface when you interpret a capture.
 - **Nebula has no `nebula1`:** run it in the foreground first (`/etc/nebula/nebula -config …`) instead of with `nohup`; the error is almost always a wrong `pki.*` path, a missing lighthouse in `static_host_map`, or a key with the wrong permissions.
 - **`certificate is not yet valid` / `expired`:** the node clock is wrong. Check `date` on the router (NTP) before touching certificates.

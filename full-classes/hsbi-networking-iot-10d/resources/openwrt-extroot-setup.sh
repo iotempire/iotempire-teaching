@@ -1,5 +1,5 @@
 #!/bin/sh
-# openwrt-extroot-setup.sh - set up a USB stick as extroot (OpenWrt 24.10 / 25.x)
+# openwrt-extroot-setup.sh - set up a USB stick as extroot (OpenWrt 25.x, apk)
 # Class resource for Networking and IoT Solutions; tested on the Cudy TR1200.
 # Run on the router: sh openwrt-extroot-setup.sh [/dev/sdX]   (default: /dev/sda)
 # Type yes to confirm (any capitalization); every other answer aborts without changes.
@@ -16,16 +16,13 @@ info() { echo ">>> $*"; }
 
 [ "$(id -u)" = 0 ] || die "Run as root."
 
-# --- Check packages and install missing ones (apk on 25.x, otherwise opkg) ---
-if command -v apk >/dev/null 2>&1; then
-	pkg_installed() { apk info -e "$1" >/dev/null 2>&1; }
-	pkg_install()   { apk update && apk add "$@"; }
-elif command -v opkg >/dev/null 2>&1; then
-	pkg_installed() { opkg list-installed | grep -q "^$1 "; }
-	pkg_install()   { opkg update && opkg install "$@"; }
-else
-	die "Neither apk nor opkg found."
-fi
+# --- Packages: this class runs OpenWrt 25.x, which uses apk. Older opkg-based
+# --- releases are not supported; stop rather than guess.
+command -v apk >/dev/null 2>&1 \
+	|| die "This script needs the apk package manager (OpenWrt 25.x). Older opkg-based releases are not supported - flash a current image."
+
+pkg_installed() { apk info -e "$1" >/dev/null 2>&1; }
+pkg_install()   { apk update && apk add "$@"; }
 
 MISSING=""
 for p in $PKGS; do
