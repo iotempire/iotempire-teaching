@@ -25,7 +25,7 @@ Technician **Jonas Feld** tries a port forward, then dynamic DNS, then gives up.
 
 ### Your portfolio entry — sections in `Module03/README.md`
 
-- `## Overlay plan` — the underlay/overlay sketch, the overlay addresses, the lighthouse, the Node-RED host, the MQTT path.
+- `## Overlay plan` — the underlay/overlay sketch, the overlay addresses, the lighthouse, the Node-RED host, the MQTT path, and the note to Mara.
 - `## Study log` — what you actually needed, what surprised you, the LLM answers you checked. One pod member keeps it; the others link to it and add one sentence.
 - `## Bundle notes` — what the bundle contains and where it went. **No keys, no certificates, no credentials.**
 - `## Discussion log` — one line per discussion: who listened, what they asked.
@@ -110,11 +110,12 @@ If you have admin rights on your laptop, join a second node with its own bundle 
 
 ### ★ Task 4 — Draw the two networks
 
-**Proves:** Goals 1 and 3 · **Produces:** the `## Overlay plan` section.
+**Proves:** Goals 1 and 3 · **Produces:** the `## Overlay plan` section, including a short note to Mara.
 
 1. **Underlay:** museum firewall, campus, home, mobile. Where does each connection actually leave the building?
 2. **Overlay:** virtual addresses, the lighthouse, the peers. Mark the tunnel and mark everything the lighthouse is **not** on.
 3. **Answer in three sentences:** what an overlay is; what the lighthouse does (and that it only relays when two peers cannot punch, e.g. behind one NAT or CGNAT); what the instructor had to prepare, and how you would repeat it for another site.
+4. **Answer Mara.** Under the sketch, write 5–8 sentences to Mara Voss — a creative director, not an engineer. She asked how you reach the sculpture and the dashboard without anyone opening a hole in a firewall: answer that, say what she can do now that she could not before, what did **not** change in the museum network, and one limit she will notice (both ends must run the client; a path through the relay is slower than one on the same LAN). No word she would have to look up.
 
 *Pointers:* [Nebula docs](https://nebula.defined.net/docs/), [NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal), [UDP hole punching](https://en.wikipedia.org/wiki/UDP_hole_punching).
 
@@ -172,7 +173,7 @@ We dropped the formal harvest. Keep collecting anyway: note the odd bits in `## 
 
 A suggestion, not a checklist — a better artefact of your own is worth more than a ticked list.
 
-1. The overlay plan: underlay/overlay sketch, addresses, one sentence on why the lighthouse is not in the data path.
+1. The overlay plan: underlay/overlay sketch, addresses, one sentence on why the lighthouse is not in the data path, and the note that answers Mara.
 2. The deployment: `ip -brief addr show nebula1`, the overlay address, and bundle notes. **No key material.**
 3. The remote proof: ping/ssh output from a different network, plus the Node-RED URL.
 4. The MQTT round trip: flow, topics, the command that changed an output, and the two rules that allowed it.
