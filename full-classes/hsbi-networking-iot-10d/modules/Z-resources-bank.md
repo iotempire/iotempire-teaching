@@ -245,6 +245,21 @@ ssh root@192.168.14.1 tcpdump -i br-lan -U -s0 -w - 'not port 22' | wireshark -k
 
 It needs Wireshark on the laptop and a stable link; the two-step — capture, copy, read — is what survives Windows and flaky Wi-Fi.
 
+**ESP-NOW is its own case.** Unencrypted ESP-NOW frames *can* be captured by an ESP32 in promiscuous mode: [`sp4rkie/ultra-espnow-sniff`](https://github.com/sp4rkie/ultra-espnow-sniff) streams them as ordinary pcap over UART or Ethernet. Expect a few percent of frames to be missed depending on where the observer sits — one sniffer cannot tell a broken link from a badly placed observer (Module 5).
+
+**What to capture for which module**
+
+| Module | Capture | What it shows |
+|---|---|---|
+| 1 | `tcp port 1883` | MQTT publish/subscribe, the header overhead |
+| 2 | `arp`, `udp port 67 or 68`, `udp port 53`, `tcp port 1883` | ARP resolution, DHCP DORA, DNS, MQTT on the LAN |
+| 3 | `-i nebula1` (or `-i tun0`) | overlay traffic inside the tunnel, and its encapsulation outside |
+| 4 | `tcp port 1883` | QoS bits, retained message, Last Will |
+| 5 | ESP32 sniffer | ESP-NOW frames on the air |
+
+<a id="extroot-on-the-pod-router"></a>
+### 📌 Extroot: put the root filesystem on the USB stick
+
 **Storage: 16 MB of flash.** `tcpdump` and Mosquitto fit as small package installs (Module 2 installs both). For anything bigger — Nebula, MicroPython — move the root filesystem to a **USB stick** (the routers have one USB 2.0 port). The class hands out a **> 4 GB stick and a mini USB hub**, so the stick and a USB-tethered phone can share that one port. Label the stick with the router ID; it is part of the router, not a spare.
 
 **Class path.** Run [`openwrt-extroot-setup.sh`](../resources/openwrt-extroot-setup.sh) on the router: it partitions and formats the stick, copies the overlay, writes the fstab entry, and reboots. The manual sequence below is the equivalent, for reading or recovery; do not pre-format the stick if you use the script.
@@ -276,18 +291,6 @@ reboot
 > **If the router does not come back after the extroot reboot, remove the stick and boot from the internal overlay.** Inspect `/etc/config/fstab`; OpenWrt failsafe can repair the config. Never delete the internal overlay before the first successful boot from the stick. The stick is not a backup: it is the live root filesystem.
 
 > **Never commit the contents of a USB stick, and do not commit a router backup you did not read.** Document *what* you installed and *how* instead — that is the reproducible part.
-
-**ESP-NOW is its own case.** Unencrypted ESP-NOW frames *can* be captured by an ESP32 in promiscuous mode: [`sp4rkie/ultra-espnow-sniff`](https://github.com/sp4rkie/ultra-espnow-sniff) streams them as ordinary pcap over UART or Ethernet. Expect a few percent of frames to be missed depending on where the observer sits — one sniffer cannot tell a broken link from a badly placed observer (Module 5).
-
-**What to capture for which module**
-
-| Module | Capture | What it shows |
-|---|---|---|
-| 1 | `tcp port 1883` | MQTT publish/subscribe, the header overhead |
-| 2 | `arp`, `udp port 67 or 68`, `udp port 53`, `tcp port 1883` | ARP resolution, DHCP DORA, DNS, MQTT on the LAN |
-| 3 | `-i nebula1` (or `-i tun0`) | overlay traffic inside the tunnel, and its encapsulation outside |
-| 4 | `tcp port 1883` | QoS bits, retained message, Last Will |
-| 5 | ESP32 sniffer | ESP-NOW frames on the air |
 
 <a id="nebula-bundles--the-class-ca"></a>
 ### 📌 Nebula bundles & the class CA
@@ -455,7 +458,7 @@ Use these as portfolio prompts or in-class hook.
 
 **Network safety.** Keep every experiment inside the isolated lab router network. Never plug a rogue DHCP server into the campus network. Before any mesh/overlay lab, agree on team IDs, channels, and address ranges; write them on the board.
 
-**Packet capture in the room.** Assume **one Wi-Fi adapter per laptop and no monitor mode**: a laptop cannot see another station's unicast traffic, and Windows rarely supports monitor mode at all. Prepare capture *points*, not sniffers: (a) `tcpdump` on the router — install it from the OpenWrt package feed (Module 2 does), and `br-lan` covers the LAN; (b) one ESP32 running [`martin-ger/esp32_eth_wifi_bridge`](https://github.com/martin-ger/esp32_eth_wifi_bridge) as a transparent tap that streams pcap over TCP port 19000 (`pcap start`); and (c) one recorded dump per module (`module01.pcap`, `module02.pcap`, …) for pods whose hardware or laptop cannot capture that day. Open every dump yourself before handing it out, and say out loud that analysing a provided dump is full evidence. Hand out the **USB sticks and mini hubs for extroot** in Module 2 — Nebula does not fit into 16 MB of flash — and walk through the [extroot recipe](#packet-capture-without-a-second-wifi-card) with the first pod that hits it; Module 3 then verifies `/overlay` instead of discovering the problem.
+**Packet capture in the room.** Assume **one Wi-Fi adapter per laptop and no monitor mode**: a laptop cannot see another station's unicast traffic, and Windows rarely supports monitor mode at all. Prepare capture *points*, not sniffers: (a) `tcpdump` on the router — install it from the OpenWrt package feed (Module 2 does), and `br-lan` covers the LAN; (b) one ESP32 running [`martin-ger/esp32_eth_wifi_bridge`](https://github.com/martin-ger/esp32_eth_wifi_bridge) as a transparent tap that streams pcap over TCP port 19000 (`pcap start`); and (c) one recorded dump per module (`module01.pcap`, `module02.pcap`, …) for pods whose hardware or laptop cannot capture that day. Open every dump yourself before handing it out, and say out loud that analysing a provided dump is full evidence. Hand out the **USB sticks and mini hubs for extroot** in Module 2 — Nebula does not fit into 16 MB of flash — and walk through the [extroot recipe](#extroot-on-the-pod-router) with the first pod that hits it; Module 3 then verifies `/overlay` instead of discovering the problem.
 
 **Bus and fieldbus coverage.** Low-level buses (UART, I²C, SPI, OneWire) belong to the Sensors & Actuators and Microcontroller Programming courses. Industrial fieldbuses (RS-485/Modbus, CAN, Profinet, TSN) are covered in [Module 6](../modules/06-industrial-protocols-and-bridging.md), including the ISO/OSI mapping and the bus comparison table. Do not duplicate the bus survey in Module 2; revisit it in Module 7/8 only if the project wiring needs it.
 
