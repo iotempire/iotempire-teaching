@@ -10,7 +10,7 @@ Der Dozent gibt pro Pod einen `croc`-Code aus. Öffne <https://getcroc.com/#rece
 
 ## 2. Paket installieren
 
-*System → Software*: `luci-proto-nebula` installieren. Danach den **Router neu starten**. Per SSH: `opkg update && opkg install luci-proto-nebula && reboot`.
+*System → Software*: `luci-proto-nebula` installieren. Danach den **Router neu starten**. Oder per SSH: `apk update && apk add luci-proto-nebula && reboot`.
 
 ## 3. Vier Dateien entpacken und auf den Router kopieren
 
