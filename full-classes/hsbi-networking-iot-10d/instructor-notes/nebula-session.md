@@ -40,6 +40,9 @@ optional instructor showcase. A Chatto/Discord/MQTT bridge is a later extra, not
   plus the matching per-pod group on the assigned Node-RED port. Pod routers use the shared pod
   policy: broker port from the service range, SSH/ICMP from the laptop range and admin group,
   outbound open. No broad subnet rules.
+- [ ] **Measurement target:** an `iperf3` server on the admin host (`iperf3 -s -B <overlay-ip>
+  -p 5201`) with `5201/tcp` allowed from the overlay range; Module 3 Task 5 sends every pod to it,
+  and asks for tests of 5–10 s because relayed pods spend the VPS budget.
 - [ ] **Node-RED login:** one initial class credential, `admin` / `iotempire`. It is a lab
   credential behind the Nebula policy, not a personal password; do not reuse it elsewhere.
 - [ ] **Static `nebula` binaries** for the router architectures (MIPS / MIPSLE / ARM),
@@ -111,8 +114,8 @@ pod laptop -> Cudy LAN -> router gateway -> Node-RED UI (overlay name :1808x)
 ## Handing out
 
 - One archive per pod. Never a shared archive: each bundle contains one private key.
-- Put the pod names, overlay IPs, Node-RED URLs, and class login on the projector. Unlabeled
-  archives get swapped within minutes.
+- Put the pod names, overlay IPs, Node-RED URLs, the class login, and the measurement target (overlay
+  IP and port) on the projector. Unlabeled archives get swapped within minutes.
 - Say out loud that the archive is a credential and must not land in the portfolio repository.
 
 ## During the session
