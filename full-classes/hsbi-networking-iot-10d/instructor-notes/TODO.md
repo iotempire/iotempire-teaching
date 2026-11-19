@@ -91,6 +91,11 @@
 
 ## Module 3 — overlay policy watch items
 
+- [ ] **Decide whether Task 5 may use `iperf3` to the service hosts.** The service policies open only the
+      Node-RED ports (`18080`–`18083`) per pod group; `5201` is closed. Either add a `5201` rule per pod
+      group for the measurement task, or keep the throughput measurement on the pod LAN (laptop ↔
+      router) and say so on the board. Observation: the module's first draft asked for `iperf3` to the
+      host without a rule that allows it.
 - [ ] **Watch for cross-pod router access.** By design ([D21](./00-architecture-decisions.md#d21)) any
       student certificate may SSH to any pod router: the student range is wide and the rule selects
       by range, not by pod. That is an accepted convenience, not an oversight. If a pod reaches

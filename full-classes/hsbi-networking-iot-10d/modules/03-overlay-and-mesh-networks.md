@@ -126,9 +126,15 @@ If you have admin rights on your laptop, join a second node with its own bundle 
 
 **Proves:** Goal 1 · **Produces:** two numbers and one sentence.
 
-1. `ping` and `iperf3` between your laptop and the Node-RED host, and between the router and the host.
+1. `ping` between your laptop, the router, and the Node-RED host. Then `iperf3` where the class policy allows it: laptop ↔ router on the pod LAN always, laptop ↔ host only if your pod's group has port `5201` open — the service hosts are locked to the Node-RED ports, so ask before you assume.
 2. Where is it fast (same LAN), where is it slow (a hop through the internet, a relayed path)?
 3. **Optional depth:** what are CGNAT and DS-Lite, and why does a peer behind them need a relay while a peer behind a home router usually does not?
+
+> **Optional graphical aids.** The numbers are the evidence; these only make them easier to see.
+>
+> - **Latency over time:** [`gping`](https://github.com/orf/gping) draws a live graph for several hosts in one terminal — Windows, macOS, Linux (`winget install orf.gping`, `brew install gping`, `apt install gping`). For *where* the delay starts, `mtr` (Linux/macOS) shows latency and loss **per hop**; on Windows use **WinMTR**, which is maintained again.
+> - **iperf3 without a shell:** **iperf3 Speed Test** (Android) and **HE.NET Network Tools** (Android/iOS) run a real iperf3 client against any `iperf3 -s`. Old Java wrappers for iperf2 are not worth installing on a laptop.
+> - **Any device with a browser:** run **LibreSpeed** (`ghcr.io/librespeed/speedtest`) or **OpenSpeedTest** as one more container on the service host; a phone or a locked-down laptop then measures the overlay with nothing installed.
 
 > **Show and ask.** *"Where did the path stop being a LAN, and how do you know?"*
 
