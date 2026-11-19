@@ -79,7 +79,7 @@ This is the path that works on the pod routers (OpenWrt + LuCI):
 5. **Interface.** *Network → Interfaces → Add new interface*: name `nebula1`, protocol **Nebula**, config file `/etc/nebula/config.yml`. Put it in a new firewall zone `nebula`, save and apply. The device `nebula1` appears with its mesh address; LuCI may still show the interface as *pending* — that is expected.
 6. **Firewall.** Zone `nebula`: input **accept**, output **accept**, forward **reject**, **masquerading on** (the mesh only accepts source addresses from the certificate), allow forward from `lan`, and under *Advanced → Covered devices* add `nebula1`. That last one is the decisive setting: without a device the zone has no interface and LAN→mesh traffic is refused.
 7. **DNS.** *Network → DHCP and DNS*: forward `/ulno.mesh/10.100.0.1`, and add `ulno.mesh` to the domain whitelist — otherwise dnsmasq discards the private answers as a "possible DNS-rebind attack".
-8. **Test.** On the router: `ping 10.100.0.1` and `ping ulno-ge75.ulno.mesh`. From a laptop on the pod LAN: `ping ulno-oldplex05.hsbi01.ulno.mesh`.
+8. **Test.** On the router: `ping vps.ulno.mesh` (DNS works and the lighthouse answers). From a laptop on the pod LAN: `ping ulno-oldplex02.hsbi01.ulno.mesh` — every service host is `ulno-oldplexNN.hsbi01.ulno.mesh`.
 
 Because of masquerading every LAN device appears in the mesh as the router. Whether a mesh service answers is decided by the **Nebula firewall rules on the other side**, which select the router's certificate and groups.
 

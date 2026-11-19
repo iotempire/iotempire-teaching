@@ -69,7 +69,7 @@ Der letzte Punkt ist entscheidend: Weil das Interface nie „up“ ist, kennt di
 
 ## 8. Testen
 
-Auf dem Router: `ping 10.100.0.1` und `ping ulno-ge75.ulno.mesh`. Auf einem Rechner im LAN: `ping ulno-oldplex05.hsbi01.ulno.mesh`.
+Auf dem Router: `ping vps.ulno.mesh` (DNS funktioniert und das Lighthouse antwortet). Auf einem Rechner im LAN: `ping ulno-oldplex02.hsbi01.ulno.mesh` — alle Service-Hosts heißen `ulno-oldplexNN.hsbi01.ulno.mesh`.
 
 Bei Problemen: *Status → System Log* nach Meldungen von `dnsmasq` und `nebula` durchsuchen.
 
