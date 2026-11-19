@@ -65,7 +65,7 @@ The [Git & GitHub primer](./modules/Z-resources-bank.md#git--github-primer-templ
 
 ## What you will work with
 
-- **Hardware:** one OpenWrt travel router per Task Pod, 2–3 students (Cudy TR1200 with pure upstream OpenWrt; GL.iNet Mango/Shadow as partners), **one USB stick and mini USB hub per router** for extended root (Nebula, `tshark`, MicroPython) and phone tethering, M5Stack nodes with Grove modules, Ethernet and USB cables, lab switches/access points.
+- **Hardware:** one OpenWrt travel router per Task Pod, 2–3 students (Cudy TR1200 with pure upstream OpenWrt; GL.iNet Mango/Shadow as partners), **one USB stick and mini USB hub per router** for extended root (Nebula, MicroPython) and phone tethering, M5Stack nodes with Grove modules, Ethernet and USB cables, lab switches/access points.
 - **Networking:** OpenWrt + LuCI, `tcpdump` (Wireshark or `tshark` optional — captures are taken on the router or with an ESP32 tap, then read offline), `iperf3`, SSH tunnels, Nebula; Yggdrasil in a later class and B.A.T.M.A.N. as an optional showcase.
 - **Messaging and integration:** Mosquitto, MQTT Explorer, Node-RED on the Optiplex cluster (one container per pod) or your laptop, **never the router**; Python with `paho-mqtt` / IoTknit, MicroPython on the router, optional `pymodbus` / `asyncua`.
 - **Fleet:** [IoTempower](https://github.com/iotempire/iotempower) for declarative nodes and OTA deployment.

@@ -235,7 +235,17 @@ ssh root@192.168.14.1 "tcpdump -i br-lan -A -c 20 'arp'"
 ssh root@192.168.14.1 "tcpdump -r /tmp/lan.pcap -A 'udp port 67 or udp port 68'"
 ```
 
-**Storage: 16 MB of flash.** `tcpdump` and Mosquitto fit as small package installs (Module 2 installs both). For anything bigger — Nebula, `tshark`, MicroPython — move the root filesystem to a **USB stick** (the routers have one USB 2.0 port). The class hands out a **> 4 GB stick and a mini USB hub**, so the stick and a USB-tethered phone can share that one port. Label the stick with the router ID; it is part of the router, not a spare.
+**`tshark` is not an OpenWrt package.** It is a full Wireshark build with heavy dependencies, so the router captures with `tcpdump` and the analysis runs on your laptop (`wireshark`, `tshark -r`, or `tcpdump -r … -A` anywhere).
+
+**Live pipe (optional demo, not the lab path).** OpenWrt's docs show streaming a capture straight into Wireshark:
+
+```bash
+ssh root@192.168.14.1 tcpdump -i br-lan -U -s0 -w - 'not port 22' | wireshark -k -i -
+```
+
+It needs Wireshark on the laptop and a stable link; the two-step — capture, copy, read — is what survives Windows and flaky Wi-Fi.
+
+**Storage: 16 MB of flash.** `tcpdump` and Mosquitto fit as small package installs (Module 2 installs both). For anything bigger — Nebula, MicroPython — move the root filesystem to a **USB stick** (the routers have one USB 2.0 port). The class hands out a **> 4 GB stick and a mini USB hub**, so the stick and a USB-tethered phone can share that one port. Label the stick with the router ID; it is part of the router, not a spare.
 
 **Class path.** Run [`openwrt-extroot-setup.sh`](../resources/openwrt-extroot-setup.sh) on the router: it partitions and formats the stick, copies the overlay, writes the fstab entry, and reboots. The manual sequence below is the equivalent, for reading or recovery; do not pre-format the stick if you use the script.
 

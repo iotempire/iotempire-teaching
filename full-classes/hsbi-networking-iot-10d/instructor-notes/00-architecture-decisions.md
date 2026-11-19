@@ -390,8 +390,8 @@ mini hub. The stick travels with the router. 16 MB is a design constraint, not a
 bug.
 
 **Consequences.** Every pod has a real gateway and a WAN address. The instructor
-demos flashing and extroot live. Nebula and `tshark` fit because the overlay is on
-the stick. The pod must agree who carries the router.
+demos flashing and extroot live. Nebula fits because the overlay is on the
+stick. The pod must agree who carries the router.
 
 **Alternatives rejected.** Instructor pre-flashes 15 routers; vendor forks such as
 the GL-SFT1200 ("Opal"); one router per two students; SD-card-only extroot;

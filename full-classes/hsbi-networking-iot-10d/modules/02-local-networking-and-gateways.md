@@ -143,7 +143,7 @@ For guidance, the table below is the discussion map: the **[Goal](#-learning-goa
 
 ### ★ Round 2: Extroot — give the router room
 
-The Cudy has 16 MB of flash; the writable overlay is small. Nebula and `tshark` will not fit there; the phone-tether drivers may, but the stick gives you room — including for the MicroPython integration service in Module 4. Move the overlay to the USB stick now, before it becomes an error message. The class path is the helper script [`openwrt-extroot-setup.sh`](../resources/openwrt-extroot-setup.sh); the [resource bank recipe](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card) has the manual equivalent.
+The Cudy has 16 MB of flash; the writable overlay is small. Nebula and MicroPython will not fit there; the phone-tether drivers may, but the stick gives you room — including for the MicroPython integration service in Module 4. (`tshark` is not the reason: OpenWrt has no such package; the dump is read on your laptop.) Move the overlay to the USB stick now, before it becomes an error message. The class path is the helper script [`openwrt-extroot-setup.sh`](../resources/openwrt-extroot-setup.sh); the [resource bank recipe](./Z-resources-bank.md#packet-capture-without-a-second-wifi-card) has the manual equivalent.
 
 1. **Insert the stick through the hub.** Check that it is seen: `logread | grep -i usb`, `ls /dev/sd*`, `block info`. Confirm the device name; it is usually `/dev/sda` or `/dev/sda1`.
 2. **Copy the script to the router.** Download it from the link above (or use your workbook clone) and `scp openwrt-extroot-setup.sh root@192.168.1.1:/tmp/`.
@@ -276,7 +276,7 @@ Capture where every packet must pass: the router. **You do not need a second Wi-
    - **ARP:** flush your ARP cache (`ip -s -s neigh flush all` on Linux; `arp -d *` or `netsh interface ip delete arpcache` in an **admin** shell on Windows), then `ping 192.168.14.1`. Look for *Who has 192.168.14.1?* and the unicast reply.
    - **DNS:** `nslookup openwrt.org` from a client. Find the query and the response.
    - **MQTT:** publish one message with `mosquitto_pub` and find the PUBLISH packet.
-4. **Read it offline — Wireshark optional.** `wireshark pod.pcap` if you have it; otherwise `tshark -r pod.pcap -V`, or straight from the router `tcpdump -r /tmp/pod.pcap -A`. The text output is enough for the portfolio.
+4. **Read it offline — Wireshark optional.** On your laptop: `wireshark pod.pcap`, or `tshark -r pod.pcap -V` if you prefer the terminal. Without either, read it on the router: `tcpdump -r /tmp/pod.pcap -A`. **OpenWrt has no `tshark` package** — the reader always runs on your machine, the router only captures. The text output is enough for the portfolio.
 5. **Name the interface.** `br-lan` covers Ethernet LAN ports and Wi-Fi clients. If you also capture WAN traffic, note that `-i any` can show the same packet twice; state which interface you used.
 
 **Theory you need.** A capture at the choke point shows what actually crossed the router. `br-lan` is the bridge that covers Ethernet LAN ports and Wi-Fi clients; `-i any` can show the same packet twice, so name the interface. What to look for:
@@ -288,7 +288,7 @@ Capture where every packet must pass: the router. **You do not need a second Wi-
 | DNS | UDP 53 | A query and a response resolve a name. |
 | MQTT | TCP 1883 | A PUBLISH carries the reading. |
 
-Read the dump offline: `tshark -r`, or `tcpdump -A`. A packet is evidence; a dashboard is a claim. *Go deeper: the capture recipe in the resource bank; RFC 2131; the tcpdump manual.*
+Read the dump offline — `tshark -r` on your laptop, or `tcpdump -A` on either machine. A packet is evidence; a dashboard is a claim. *Go deeper: the capture recipe in the resource bank; RFC 2131; the tcpdump manual.*
 
 > **Discussion — show one person.** Ask someone at the nearest pod if they have a moment. Open your capture, show them one packet, and ask: *"What does this packet prove?"* If they want, let them show you theirs and ask you one question back. Write one line in `## Discussion log`.
 
