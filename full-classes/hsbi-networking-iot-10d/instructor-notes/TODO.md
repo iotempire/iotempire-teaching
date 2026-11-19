@@ -102,6 +102,26 @@
       one rule instead of fifteen. If nobody ever used it, the justification is weaker than the record
       claims — say so in the record rather than keeping a rule for a scenario that did not happen.
 
+## Module 4 — before the session
+
+- [ ] **Stand up Chatto for Module 4.** Self-host it on the Optiplex cluster (or the framework host),
+      reachable only through the overlay, and wire the two bridges the module wants to show:
+      Discord ↔ Chatto and Chatto ↔ MQTT. Decide the class login, put the address on the board, and
+      keep it out of the public repository. Observation: Module 4 has no chat surface today, so
+      "MQTT versus a chat protocol" stays abstract.
+- [ ] **Hand out the M5Sticks pre-configured.** Flash IoTempower onto each stick and set its pod's
+      Wi-Fi credentials *before* the session — at the end of Module 4 or the start of Module 5, not
+      during it. Observation: in the first run the flashing and pairing ate the integration time;
+      the sticks are the point of Module 5, not its preamble.
+- [ ] **Make IoTknit run on MicroPython.** It is listed as "planned, not supported" in
+      [D11](./00-architecture-decisions.md#d11), and Module 4 assumes it. Land the port, or ship a
+      working `umqtt.simple` example as the fallback so no pod is blocked.
+- [ ] **Add the MicroPython + MQTT stretcher.** A ◇ task where a student publishes and subscribes
+      MQTT straight from the router in MicroPython — `umqtt.simple` from `micropython-lib`, **not**
+      `paho-mqtt`, which is CPython and stays the laptop client. Placement is still open: end of
+      Module 3 (the router stops being only a broker) or the integration block of Module 4. Module 3
+      currently has no such task.
+
 ## Before the next semester (reset)
 
 - [ ] **Re-run `./tools/check-all.sh`** from the repository root before the first session.

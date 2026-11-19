@@ -132,6 +132,20 @@ If you have admin rights on your laptop, join a second node with its own bundle 
 
 > **Show and ask.** *"Where did the path stop being a LAN, and how do you know?"*
 
+### ◇ Task 6 (Stretcher) — The router as a node
+
+**Proves:** Goal 4 · **Produces:** a MicroPython script that publishes and subscribes on the pod broker.
+
+So far the router has been the broker and the gateway. Make it a **node** too:
+
+1. Install MicroPython on the router (`opkg install micropython` on 24.10, `apk add micropython` on 25.12) and the `umqtt.simple` library — from the feed if present, otherwise copy it next to your script.
+2. Write a script that connects to `192.168.14.1:1883`, publishes one reading per second to `pod<NN>/router/uptime`, and subscribes to `pod<NN>/router/set`.
+3. Run it, publish a command from your laptop, and watch the router react — print the payload, or toggle the LED.
+
+`paho-mqtt` does **not** belong here: it is CPython and stays the laptop client. On MicroPython the client is `umqtt.simple` from `micropython-lib`.
+
+> **Show and ask.** *"What does this prove that the laptop client did not?"*
+
 ## 🔁 Curiosities — the harvest ritual is gone
 
 We dropped the formal harvest. Keep collecting anyway: note the odd bits in `## Study log` and share them — in a reflection, on Discord, or by telling someone at another pod when you take a break. A bundle that installed but got no address, a peer that answers while another does not, MQTT that subscribes but cannot publish: these are the questions worth carrying forward, and two pods hitting the same one is worth a line in the class channel.
@@ -145,6 +159,7 @@ A suggestion, not a checklist — a better artefact of your own is worth more th
 3. The remote proof: ping/ssh output from a different network, plus the Node-RED URL.
 4. The MQTT round trip: flow, topics, the command that changed an output, and the two rules that allowed it.
 5. The running log: `## Study log` and `## Discussion log`.
+6. **Optional:** the MicroPython client on the router, the direct laptop join, or the B.A.T.M.A.N. showcase notes.
 
 ## 🤖 Ask an LLM — then verify
 
@@ -160,6 +175,7 @@ Treat every answer as a claim to test against your own mesh.
 - [nebula-manager](https://github.com/iotempire/nebula-manager) — the class CA and bundle tool: [bundles](https://github.com/iotempire/nebula-manager/blob/main/docs/bundles.md), [certificates](https://github.com/iotempire/nebula-manager/blob/main/docs/certificates.md), [firewall](https://github.com/iotempire/nebula-manager/blob/main/docs/firewall.md).
 - [OpenWrt firewall](https://openwrt.org/docs/guide-user/firewall/firewall_configuration) — zones, forwarding, masquerading.
 - [Node-RED](https://nodered.org/docs/), [NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal), [UDP hole punching](https://en.wikipedia.org/wiki/UDP_hole_punching).
+- [MicroPython](https://micropython.org/) and [`umqtt.simple`](https://github.com/micropython/micropython-lib/tree/master/micropython/umqtt.simple) — the stretcher's MQTT client on the router.
 - The [resource bank's Nebula bundle sheet](./Z-resources-bank.md#nebula-bundles--the-class-ca) and [networking snippets](./Z-resources-bank.md#networking-snippets-copypaste).
 - **Showcase (instructor):** if the mesh kit is out, watch the B.A.T.M.A.N. demonstration and compare a Layer-2 mesh for one room with a Layer-3 overlay for the city. It is not a setup task; Yggdrasil is deferred to a later class.
 - **If mesh clients cannot reach the router's broker,** check that Mosquitto listens on `nebula1` (or `0.0.0.0`) with `netstat -ltn` on the router — the broker's bind address is the usual culprit.
