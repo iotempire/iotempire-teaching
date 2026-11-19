@@ -115,7 +115,7 @@ If you have admin rights on your laptop, join a second node with its own bundle 
 1. **Underlay:** museum firewall, campus, home, mobile. Where does each connection actually leave the building?
 2. **Overlay:** virtual addresses, the lighthouse, the peers. Mark the tunnel and mark everything the lighthouse is **not** on.
 3. **Answer in three sentences:** what an overlay is; what the lighthouse does (and that it only relays when two peers cannot punch, e.g. behind one NAT or CGNAT); what the instructor had to prepare, and how you would repeat it for another site.
-4. **Answer Mara.** Under the sketch, write 5–8 sentences to Mara Voss — a creative director, not an engineer. She asked how you reach the sculpture and the dashboard without anyone opening a hole in a firewall: answer that, say what she can do now that she could not before, what did **not** change in the museum network, and one limit she will notice (both ends must run the client; a path through the relay is slower than one on the same LAN). No word she would have to look up.
+4. **Answer Mara.** Under the sketch, write 5–8 sentences to Mara Voss — a creative director, not an engineer. She asked how you reach the sculpture and the dashboard without anyone opening a hole in a firewall: answer that, say what she can do now that she could not before, what did **not** change in the museum network, and one limit she will notice (both ends must run the client; a path through the relay is slower than one on the same LAN).
 
 *Pointers:* [Nebula docs](https://nebula.defined.net/docs/), [NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal), [UDP hole punching](https://en.wikipedia.org/wiki/UDP_hole_punching).
 
