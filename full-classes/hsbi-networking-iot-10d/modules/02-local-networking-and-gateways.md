@@ -148,7 +148,18 @@ The Cudy has 16 MB of flash; the writable overlay is small. Nebula and MicroPyth
 1. **Insert the stick through the hub.** Check that it is seen: `logread | grep -i usb`, `ls /dev/sd*`, `block info`. Confirm the device name; it is usually `/dev/sda` or `/dev/sda1`.
 2. **Copy the script to the router.** Download it from the link above (or use your workbook clone) and `scp openwrt-extroot-setup.sh root@192.168.1.1:/tmp/`.
 3. **Run it and confirm the disk.** `ssh root@192.168.1.1`, then `sh /tmp/openwrt-extroot-setup.sh` (pass `/dev/sdb` or similar if your stick is not `/dev/sda`). The script prints the vendor, model, and size, then waits. Type `yes` (any capitalization) only if that is your stick. **All data on the stick is erased.**
-4. **Verify after the reboot.** `df -h /overlay` must show the stick; `mount | grep overlay` must show it too. Install a small package and reboot again to prove it survives.
+4. **Verify after the reboot.** `df -h /overlay` must show the stick; `mount | grep overlay` must show it too. Then install the tools you will want for the rest of the class — this doubles as the small-package test that proves the overlay survives a reboot:
+
+   ```bash
+   if command -v apk >/dev/null; then
+       apk update && apk add mc terminfo mosquitto-client-nossl
+   else
+       opkg update && opkg install mc terminfo mosquitto-client-nossl
+   fi
+   reboot
+   ```
+
+   After the reboot `command -v mc mosquitto_pub mosquitto_sub` must print three paths. `terminfo` is not optional: without it `mc` stops with *Error opening terminal*. If a tool is gone after the reboot, the overlay did not move — go back to the extroot step instead of installing again. `mosquitto-client-nossl` is the plaintext build and must match the broker from Round 4: OpenWrt ships both variants, and the ssl and nossl packages conflict, so mixing them makes the package manager remove one.
 5. **Label the stick.** It is part of the router now. Do not swap it with another pod's stick; the overlay will not match.
 
 **What the script did — and what you must be able to explain.** It installed any missing storage packages, wrote a fresh partition table, created one ext4 partition labelled `extroot`, copied `/overlay` to it, registered it by UUID in `/etc/config/fstab` as `/overlay`, kept the old overlay as `/rwm`, and rebooted. [German guide: same script, but it joins eduroam first because a plain image may need to download packages; the class image already contains them, so this workbook keeps extroot before Round 3.] A plain upstream image needs an uplink before you run the script.
@@ -226,15 +237,28 @@ eduroam is 802.1X (WPA2-EAP/PEAP/MSCHAPv2), not a captive portal; it needs a ful
 3. **Broadcast on 2.4 GHz.** Create an AP on `radio0` with your pod SSID (`pod<NN>` or `iotempire<NN>`), WPA2-PSK, country DE, 20 MHz, and the `lan` network. Disable or rename the default OpenWrt APs you are not using, so only your pod SSID is visible. Pick a channel that is not crowded; the class is a shared RF environment.
 4. **Check the firewall.** The `lan` zone accepts input and forwards; the `wan` zone masquerades. Verify with `uci show firewall` and `ip route`.
 5. **Join clients.** Connect one laptop by Ethernet and one laptop or phone over 2.4 GHz. Verify `ip addr`, `ip route`, `ip neigh`, and `logread -e dnsmasq`. The M5StickC can join too if you re-point its Wi-Fi credentials; the phone is the faster fresh client.
-6. **Install and run the local broker.** The class image does not include Mosquitto by default. Install it (`apk update && apk add mosquitto` on 25.12, or `opkg update && opkg install mosquitto` on 24.10/23.05), then edit (or create) `/etc/mosquitto/mosquitto.conf` with this deliberately open lab configuration:
+6. **Install and run the local broker.** The class image does not include Mosquitto by default. Over SSH, one paste does the whole job — install, write the deliberately open lab configuration, enable at boot, restart:
 
-   ```text
+   ```bash
+   # install the broker — 25.12 uses apk, 24.10 and older use opkg
+   if command -v apk >/dev/null; then
+       apk update && apk add mosquitto-nossl
+   else
+       opkg update && opkg install mosquitto-nossl
+   fi
+
+   cat >/etc/mosquitto/mosquitto.conf <<'EOF'
    listener 1883 0.0.0.0
    allow_anonymous true
+   EOF
+
+   /etc/init.d/mosquitto enable
+   /etc/init.d/mosquitto restart
+   logread -e mosquitto | tail -5
    ```
 
-   Then `/etc/init.d/mosquitto enable`, `/etc/init.d/mosquitto restart`, and check `logread -e mosquitto` (or `netstat -tlnp | grep 1883` if your image has `netstat`).
-7. **Prove it from two clients.** On one client subscribe to `pod<NN>/#`; on the other publish a test message to `pod<NN>/test`. Both must see it.
+   The last line must name the listener on `1883`. `allow_anonymous true` without TLS is deliberate on a lab LAN — say in `## Network plan` why that is acceptable here, and never repeat it on a router that faces the internet. The `-nossl` build is part of the same decision: OpenWrt ships broker, clients and library twice, and the ssl and nossl packages conflict, so do not mix them. Turning this broker into a TLS broker later means replacing the packages, not editing the config.
+7. **Prove it from two clients.** On one client subscribe to `pod<NN>/#`; on the other publish a test message to `pod<NN>/test`. Both must see it. One of the two can be the router itself — the client tools came with Round 2: `mosquitto_sub -h 127.0.0.1 -t 'pod<NN>/#' -v` in one SSH session, `mosquitto_pub -h 127.0.0.1 -t pod<NN>/test -m hello` in a second.
 
 **Theory you need.** Private address space (RFC 1918) is `10.0.0.0/8`, `172.16.0.0/12`, and `192.168.0.0/16`. The class standard is `192.168.14.0/24` with the router at `.1`; do not leave the OpenWrt default `192.168.1.0/24`, because an upstream may already use it and the point is to make the addressing a decision.
 
@@ -254,7 +278,7 @@ The edge services:
 > **Story hook.** *The noticeboard in the basement.* The broker is where the substation's readings land; the laptops and the phone are the people reading them. It works without the cloud — and without a password, which is exactly why it stays inside the LAN.
 
 > [!NOTE]
-> This broker is deliberately open: anonymous, no TLS, LAN only. That is the lab configuration, not a production default. Module 4 adds authentication, TLS, QoS, retained messages, and Last Will. Never expose this broker to WAN except during the controlled port-forward test, and remove the forward afterwards.
+> This broker is deliberately open: anonymous, no TLS, LAN only. That is the lab configuration, not a production default. Module 4 works with QoS, retained messages, and Last Will on this broker; authentication and TLS stay discussion topics there, not a configuration you will do — which is exactly why this module installs the `-nossl` build. Never expose this broker to WAN except during the controlled port-forward test, and remove the forward afterwards.
 
 *Portfolio evidence:* your `## Network plan`, a DHCP lease from the router, a `mosquitto_pub`/`mosquitto_sub` screenshot from two clients, and `uci show firewall`.
 
