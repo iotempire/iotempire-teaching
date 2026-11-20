@@ -129,6 +129,12 @@
 
 ## Before the next semester (reset)
 
+- [ ] **Rename the closing section in Modules 1 and 2 to `## 📚 Resources`.** Modules 3–9 were
+      renamed in WS 2026/27, because the section now also carries comparison material (Tailscale,
+      NetBird, Headscale) and not only "go deeper" links. Modules 1 and 2 still say
+      `## 📚 If you want to go deeper`; they were left alone so the rename stayed out of the two
+      modules that had already been taught this run. No anchor links point at the old heading, so
+      the change is safe whenever it happens.
 - [ ] **Re-run `./tools/check-all.sh`** from the repository root before the first session.
 - [ ] **Check the DRAFT BOUNDARY positions** against what was actually taught. Move each boundary
       to the first genuinely provisional section, not to the end by habit.

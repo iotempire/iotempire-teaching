@@ -69,7 +69,7 @@ You have developed a deep, practical mastery of:
 - Continue exploring the IoTempire ecosystem: [iotempire.net](https://iotempire.net/) and [github.com/iotempire/iotempower](https://github.com/iotempire/iotempower).
 - If you are interested in the physical side, the elective Sensorik und Aktorik goes deeper into analog and digital sensor physics, signal conditioning, error calculations, and building custom sensing hardware.
 
-## 📚 If you want to go deeper
+## 📚 Resources
 
 - [Wikipedia: Story-driven modeling](https://en.wikipedia.org/wiki/Story-driven_modeling) — the method behind the project stories.
 - [Wikipedia: Fault injection](https://en.wikipedia.org/wiki/Fault_injection) — the resilience test you will face live.

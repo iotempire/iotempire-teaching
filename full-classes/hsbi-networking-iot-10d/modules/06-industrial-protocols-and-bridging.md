@@ -296,7 +296,7 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 > [!IMPORTANT]
 > Never commit secrets, credentials, private keys, or plant data. Where you did not work entirely alone, link your pod mates and sources.
 
-## 📚 If you want to go deeper
+## 📚 Resources
 
 - [Modbus Organization](https://modbus.org/) and [Wikipedia: Modbus](https://en.wikipedia.org/wiki/Modbus) — the register model and framing.
 - [OPC Foundation: OPC-UA](https://opcfoundation.org/about/opc-technologies/opc-ua/) — the information model and security.

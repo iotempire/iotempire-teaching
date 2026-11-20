@@ -268,7 +268,7 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 > [!IMPORTANT]
 > Never commit secrets, credentials, private keys, or personal data. Where you did not work entirely alone, link your pod mates and sources.
 
-## 📚 If you want to go deeper
+## 📚 Resources
 
 - [Espressif ESP-NOW documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/network/esp_now.html) — peers, callbacks, and channel behavior.
 - [IEEE 802.11](https://en.wikipedia.org/wiki/IEEE_802.11) — the standard behind both Wi-Fi and ESP-NOW action frames.

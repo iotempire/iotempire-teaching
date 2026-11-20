@@ -382,7 +382,7 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 > [!IMPORTANT]
 > Never commit Wi-Fi passwords, broker credentials, private keys, device certificates, or an unredacted `system.conf`. A node definition is safe to publish; the credentials inside the system configuration are not. If you copied a neighbour's node, say so and show how you changed the identity.
 
-## 📚 If you want to go deeper
+## 📚 Resources
 
 - [IoTempower](https://github.com/iotempire/iotempower) — the declarative node model and deployment workflow.
 - [IoTempower quickstart](https://github.com/iotempire/iotempower/blob/master/doc/quickstart.rst) — the shortest path from install to the first node.

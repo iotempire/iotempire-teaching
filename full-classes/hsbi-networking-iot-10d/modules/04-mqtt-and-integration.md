@@ -350,7 +350,7 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 > [!IMPORTANT]
 > Never commit secrets, credentials, private keys, or broker configuration containing passwords. Where you did not work entirely alone, link your pod mates and sources.
 
-## 📚 If you want to go deeper
+## 📚 Resources
 
 - [MQTT 5.0 specification](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html) and [mqtt.org](https://mqtt.org/) — the protocol reference.
 - [HiveMQ: MQTT essentials](https://www.hivemq.com/mqtt-essentials/) — the readable guide to topics, QoS, retain, and LWT.

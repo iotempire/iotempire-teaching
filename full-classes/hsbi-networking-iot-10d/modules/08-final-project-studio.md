@@ -148,7 +148,7 @@ Pair with another Project Team for a reciprocal dry run:
 > [!IMPORTANT]
 > Never commit secrets, credentials, private keys, captures with personal traffic, or `.venv/`. Where you did not work entirely alone, link your pod mates and sources.
 
-## 📚 If you want to go deeper
+## 📚 Resources
 
 - [Wikipedia: Story-driven modeling](https://en.wikipedia.org/wiki/Story-driven_modeling) — the method behind the stories.
 - [Wikipedia: Requirement](https://en.wikipedia.org/wiki/Requirement) and [Acceptance testing](https://en.wikipedia.org/wiki/Acceptance_testing) — turning a story into testable criteria.
