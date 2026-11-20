@@ -14,8 +14,6 @@ By the end of this module, you can:
 3. Flash, configure, administer, and secure an OpenWrt edge router via SSH and the LuCI web interface — from factory firmware to a working pod LAN with a WAN uplink (eduroam, phone tether, or the class Wi-Fi).
 4. Capture traffic at the choke point with `tcpdump` on the router, and read the dump with Wireshark, `tshark`, or as text — without needing a second network adapter.
 
-**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
 ## 🎬 Opening the Challenge
 
 **The day starts with the challenge, not a slide.** Module 1 gave you the continuum; today you make the edge real. The opening runs in five quick beats:
@@ -549,6 +547,8 @@ This is a **suggestion, not a checklist** — the learning goals are the contrac
 - [OpenWrt WWAN / USB tethering](https://openwrt.org/docs/guide-user/network/wan/wwan/start) — the phone-tether path.
 - [tcpdump manual](https://www.tcpdump.org/manpages/tcpdump.1.html) and [Wireshark User's Guide](https://www.wireshark.org/docs/wsug_html_chunked/) — capture at the choke point and read it offline.
 - [mosquitto.conf manual](https://mosquitto.org/man/mosquitto-conf-5.html) — the broker you are running.
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ---
 
