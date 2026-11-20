@@ -19,7 +19,7 @@ By the end of this module, you can:
 
 Technician **Jonas Feld** tries a port forward, then dynamic DNS, then gives up. The broker is on the pod router, the dashboard runs on a Node-RED instance on the class cluster. Mara asks the question behind today: *"How do we reach the sculpture and the dashboard without asking anyone to open a hole in their firewall?"*
 
-**Your challenge.** Give the sculpture a private address without opening a port, then move one MQTT message from the pod broker to Node-RED and one command back.
+**Your challenge.** Give the sculpture a private address without opening a port, then move one MQTT message from the pod broker to Node-RED and one command back. **The sculpture is simulated:** a publisher on the laptop or the router stands in for it, the Node-RED flow is the animation, and no sensor hardware is involved.
 
 ### Your portfolio entry — sections in `Module03/README.md`
 
@@ -107,9 +107,9 @@ Because of masquerading every LAN device appears in the mesh as the router. Whet
 **Proves:** Goal 4 · **Produces:** Node-RED open from a pod laptop, one MQTT round trip, a path sketch.
 
 1. From a laptop on the pod LAN, open the URL on the board (`http://<optiplex-host>:1808x`) and log in.
-2. In Node-RED: an `mqtt in` node on `pod<NN>/#`, an `mqtt out` node to `pod<NN>/<device>/set`, and one inject. Broker address: the **router's overlay address**, port `1883`.
+2. In Node-RED: an `mqtt in` node on `pod<NN>/#`, an `mqtt out` node to `pod<NN>/<device>/set`, and one inject. Broker address: the **router's overlay address**, port `1883`. Pick a device name that fits the story, for example `led` or `ledwall` — you are simulating Mara's sculpture, not wiring one.
 3. Send one command to a topic you chose and watch it from another client change.
-4. Draw the path: sensor → pod broker → overlay → Node-RED → overlay → pod broker → actuator. Mark the two rules that allowed it: the group rule on the service host, and the router's forward + masquerade.
+4. Draw the path: simulated sensor → pod broker → overlay → Node-RED → overlay → pod broker → simulated actuator. Mark the two rules that allowed it: the group rule on the service host, and the router's forward + masquerade.
 
 > **Story hook.** *The dashboard is in the class, the broker is in the basement.* The sculpture publishes locally; the dashboard runs across town; nobody opened a port.
 
@@ -176,7 +176,7 @@ So far the router has been the broker and the gateway. Make it a **node** too:
 
 1. Install MicroPython on the router (`apk add micropython`) and the `umqtt.simple` library — from the feed if present, otherwise copy it next to your script.
 2. Write a script that connects to `192.168.14.1:1883`, publishes one reading per second to `pod<NN>/router/uptime`, and subscribes to `pod<NN>/router/set`.
-3. Run it, publish a command from your laptop, and watch the router react — print the payload, or toggle the LED.
+3. Run it, publish a command from your laptop, and watch the router react — the script prints the payload it receives. The router carries no sensor and its status LEDs are not part of the lesson: the script is the device.
 
 `paho-mqtt` does **not** belong here: it is CPython and stays the laptop client. On MicroPython the client is `umqtt.simple` from `micropython-lib`.
 
