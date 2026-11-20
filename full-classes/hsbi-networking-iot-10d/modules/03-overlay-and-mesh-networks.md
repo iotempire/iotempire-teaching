@@ -13,8 +13,6 @@ By the end of this module, you can:
 3. Explain the roles in the mesh — certificate, peer, lighthouse — and what the lighthouse does and deliberately does not do.
 4. Make the router a gateway, reach your Node-RED instance on the Optiplex cluster through the overlay, and move one MQTT message each way.
 
-**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
-
 ## 📖 The Challenge — The Exhibition Across the City
 
 **Lumenwerk Gütersloh GmbH** has installed an interactive light sculpture in a partner museum across town. Creative director **Mara Voss** wants to update the animation and read the sensor logs without driving over. The museum network is behind a campus firewall: no public IP, no inbound ports, no help from their IT.
@@ -48,6 +46,8 @@ There is no separate study phase: each task gives you the theory when the task m
 ### ★ Task 1 — Connect your router to the overlay
 
 **Proves:** Goal 2 · **Produces:** `nebula1` up with its mesh address, and the lighthouse reachable.
+
+*Deutsche Fassung dieser Anleitung:* [Nebula auf OpenWrt einrichten](./03-annex-nebula-openwrt-de.md).
 
 This is the path that works on the pod routers (OpenWrt + LuCI):
 
@@ -98,8 +98,6 @@ This is the path that works on the pod routers (OpenWrt + LuCI):
 
 Because of masquerading every LAN device appears in the mesh as the router. Whether a mesh service answers is decided by the **Nebula firewall rules on the other side**, which select the router's certificate and groups.
 
-*Deutsche Fassung dieser Anleitung:* [Nebula auf OpenWrt einrichten](./03-annex-nebula-openwrt-de.md).
-
 > **Story hook.** *Mara's keys.* She does not want an account on a museum server. She wants the sculpture to have its own address and its own key — and to be able to revoke one machine without changing everybody's password.
 
 > **Show and ask.** Show the `nebula1` address. *"Which file in the bundle is the credential, and what happens if it leaks?"*
@@ -116,6 +114,8 @@ Because of masquerading every LAN device appears in the mesh as the router. Whet
 > **Story hook.** *The dashboard is in the class, the broker is in the basement.* The sculpture publishes locally; the dashboard runs across town; nobody opened a port.
 
 > **Show and ask.** Show the flow and the output that changed. *"Which two rules made the message move?"*
+
+**⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
 ### ◇ Task 3 (optional) — A certificate for your laptop
 
