@@ -19,10 +19,11 @@ Archiv entpacken (Windows: Rechtsklick → *Alle extrahieren*, macOS: Doppelklic
 Terminal öffnen — PowerShell unter Windows (10/11 bringt `scp` im OpenSSH-Client mit), Terminal unter macOS, deine Shell unter Linux — und mit `cd` in den entpackten Ordner wechseln. Tipp: `cd ` tippen und den Ordner aus dem Dateimanager ins Fenster ziehen.
 
 ```bash
+ssh root@192.168.14.1 "mkdir -p /etc/nebula"
 scp -O ca.crt <host>.crt <host>.key config.yml root@192.168.14.1:/etc/nebula/
 ```
 
-`-O` ist nötig, weil OpenWrt keinen sftp-Server hat. Fehlt `scp` unter Windows: *Einstellungen → Apps → Optionale Features → OpenSSH-Client*.
+`scp` legt das Zielverzeichnis nicht an, und die Nebula-Pakete bringen `/etc/nebula` auch nicht mit — deshalb die erste Zeile. `-O` ist nötig, weil OpenWrt keinen sftp-Server hat. Fehlt `scp` unter Windows: *Einstellungen → Apps → Optionale Features → OpenSSH-Client*.
 
 ## 4. Per SSH prüfen
 

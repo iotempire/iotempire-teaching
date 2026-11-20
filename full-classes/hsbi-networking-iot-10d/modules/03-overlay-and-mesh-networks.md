@@ -60,10 +60,11 @@ This is the path that works on the pod routers (OpenWrt + LuCI):
    Open a terminal — PowerShell on Windows (10/11 ships `scp` with the OpenSSH client), Terminal on macOS, your shell on Linux — and `cd` into the unpacked folder. Tip: type `cd `, then drag the folder from the file manager into the terminal window.
 
    ```bash
+   ssh root@192.168.14.1 "mkdir -p /etc/nebula"
    scp -O ca.crt <host>.crt <host>.key config.yml root@192.168.14.1:/etc/nebula/
    ```
 
-   `-O` because OpenWrt has no sftp server. If `scp` is missing on Windows: *Settings → Apps → Optional features → OpenSSH client*.
+   `scp` does not create the target directory, and the Nebula packages do not create `/etc/nebula` either — the first line does. `-O` because OpenWrt has no sftp server. If `scp` is missing on Windows: *Settings → Apps → Optional features → OpenSSH client*.
 
 4. **Check it over SSH** — the same login you used in Module 2:
 
@@ -77,6 +78,8 @@ This is the path that works on the pod routers (OpenWrt + LuCI):
    All four files must be in `/etc/nebula/`, the key at mode `600`, and the three paths in `config.yml` must point at `/etc/nebula/…`. **Not** `/etc/config/` — that is UCI's directory.
 
 5. **Interface.** *Network → Interfaces → Add new interface*: name `nebula1`, protocol **Nebula**, config file `/etc/nebula/config.yml`. Put it in a new firewall zone `nebula`, save and apply. The device `nebula1` appears with its mesh address; LuCI may still show the interface as *pending* — that is expected.
+
+   The interface name must equal `tun.dev` in `config.yml` (your bundle says `nebula1`). If they differ, the protocol starts and dies immediately, and the error repeats both names in a way that looks like they match — read the trailing spaces.
 6. **Firewall.** Zone `nebula`: input **accept**, output **accept**, forward **reject**, **masquerading on** (the mesh only accepts source addresses from the certificate), allow forward from `lan`, and under *Advanced → Covered devices* add `nebula1`. That last one is the decisive setting: without a device the zone has no interface and LAN→mesh traffic is refused.
 7. **DNS.** *Network → DHCP and DNS*: forward `/ulno.mesh/10.100.0.1`, and add `ulno.mesh` to the domain whitelist — otherwise dnsmasq discards the private answers as a "possible DNS-rebind attack".
 8. **Test.** On the router: `ping vps.ulno.mesh` (DNS works and the lighthouse answers). From a laptop on the pod LAN: `ping ulno-oldplex02.hsbi01.ulno.mesh` — every service host is `ulno-oldplexNN.hsbi01.ulno.mesh`.

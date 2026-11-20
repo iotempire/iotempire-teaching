@@ -306,7 +306,7 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1 -CertsOnly
 nebula-cert print -path /etc/nebula/<name>.crt
 ```
 
-On **OpenWrt** the installer does not apply (no systemd): copy `<name>.crt`, `<name>.key`, `ca.crt` and `config.yml` into `/etc/nebula/`, `chmod 600` the key, and run the static binary — the full recipe is in [Module 3](./03-overlay-and-mesh-networks.md).
+On **OpenWrt** the installer does not apply (no systemd): `mkdir -p /etc/nebula` first (no package creates it), copy `<name>.crt`, `<name>.key`, `ca.crt` and `config.yml` into it, `chmod 600` the key, and run the static binary — the full recipe is in [Module 3](./03-overlay-and-mesh-networks.md).
 
 **The instructor side (the class CA).** All of this runs as a normal user; only the lighthouse's `/etc/nebula` needs sudo. The class uses an instructor-owned CA workspace outside Git; the concrete paths and names stay with the CA.
 
