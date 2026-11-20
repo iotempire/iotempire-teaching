@@ -132,7 +132,7 @@ If you have admin rights on your laptop, join a second node with its own bundle 
 3. **Layers.** In the final overview picture, write the OSI layers each connection touches — at least where the tunnel starts and where it ends. This picture is the map you will reuse for the rest of the class, so label it for someone who was not in the room.
 4. **Explain it in three sentences.** What an overlay is; what the lighthouse does (and that it only relays when two peers cannot punch, e.g. behind one NAT or CGNAT); what the instructor had to prepare, and how you would repeat it for another site.
 5. **Answer Mara.** Under the sketch, write 5–8 sentences to Mara Voss — a creative director, not an engineer. She asked how you reach the sculpture and the dashboard without anyone opening a hole in a firewall: answer that, say what she can do now that she could not before, what did **not** change in the museum network, and one limit she will notice (both ends must run the client; a path through the relay is slower than one on the same LAN).
-6. **Widen the view.** Read the [nebula-manager](https://github.com/iotempire/nebula-manager) README and one page each on [Tailscale](https://tailscale.com/) and [NetBird](https://netbird.io/). Three sentences in `## Study log`: what they give you that Nebula does not, and why this class runs its own CA instead.
+6. **Widen the view.** Read the [nebula-manager](https://github.com/iotempire/nebula-manager) README and one page each on [Tailscale](https://tailscale.com/) and [NetBird](https://netbird.io/) — optionally [Headscale](https://github.com/juanfont/headscale), the self-hosted control server for Tailscale clients. Three sentences in `## Study log`: what they give you that Nebula does not, and why this class runs its own CA instead.
 
 *Pointers:* [Nebula docs](https://nebula.defined.net/docs/), [NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal), [UDP hole punching](https://en.wikipedia.org/wiki/UDP_hole_punching).
 
@@ -205,10 +205,11 @@ Treat every answer as a claim to test against your own mesh.
 - "What do certificate, private key, CA, and config each do in a Nebula bundle? What does revocation mean?"
 - "A Node-RED instance can subscribe to the pod broker but cannot publish. Which layers would you check, in order?"
 
-## 📚 If you want to go deeper
+## 📚 Resources
 
 - [Nebula documentation](https://nebula.defined.net/docs/) — lighthouses, certificates, firewall rules, relay.
 - [nebula-manager](https://github.com/iotempire/nebula-manager) — the class CA and bundle tool: [bundles](https://github.com/iotempire/nebula-manager/blob/main/docs/bundles.md), [certificates](https://github.com/iotempire/nebula-manager/blob/main/docs/certificates.md), [firewall](https://github.com/iotempire/nebula-manager/blob/main/docs/firewall.md).
+- [Tailscale](https://tailscale.com/), [NetBird](https://netbird.io/), [Headscale](https://github.com/juanfont/headscale) — the managed overlays that solve the same problem: a coordination server, NAT traversal, a relay fallback. Headscale is the open-source control server for Tailscale clients, and the closest thing to running your own lighthouse.
 - [OpenWrt firewall](https://openwrt.org/docs/guide-user/firewall/firewall_configuration) — zones, forwarding, masquerading.
 - [Node-RED](https://nodered.org/docs/), [NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal), [UDP hole punching](https://en.wikipedia.org/wiki/UDP_hole_punching).
 - [MicroPython](https://micropython.org/) and [`umqtt.simple`](https://github.com/micropython/micropython-lib/tree/master/micropython/umqtt.simple) — the stretcher's MQTT client on the router.
