@@ -43,34 +43,38 @@ Alle vier Dateien müssen in `/etc/nebula/` liegen, der Schlüssel auf Modus `60
 *Network → Interfaces → Add new interface*:
 
 - Name: `nebula1`
-- Protocol: `Nebula`
+- Protocol: `Nebula Network` (so heißt das Protokoll in LuCI, nicht nur „Nebula“)
 - Config file: `/etc/nebula/config.yml`
+
+> [!TIP]
+> **Name und `tun.dev` müssen übereinstimmen.** Im Bundle steht `nebula1`, also muss das Interface auch `nebula1` heißen. Weichen sie ab, startet das Protokoll und beendet sich sofort; die Fehlermeldung nennt beide Namen so, dass sie gleich aussehen — achte auf ein Leerzeichen am Ende.
 
 Unter *Firewall Settings* eine neue Zone `nebula` anlegen und zuweisen, dann *Save & Apply*. Damit startet netifd Nebula und das Device `nebula1` mit der Mesh-Adresse erscheint. LuCI zeigt das Interface trotzdem dauerhaft als *pending* — das ist normal und der Grund für Schritt 6.
 
 ## 6. Firewall
 
-*Network → Firewall → Zone `nebula` bearbeiten*:
+*Network → Firewall → Zones*: `nebula` öffnen (oder **Add**, falls du die Zone in Schritt 5 nicht angelegt hast):
 
-- Input: **accept**
-- Output: **accept**
-- Forward: **reject**
-- **Masquerading: an** — nötig, weil das Mesh nur Absender-Adressen aus dem Nebula-Zertifikat akzeptiert
-- *Allow forward from source zones*: `lan`
-- *Advanced Settings → Covered devices*: `nebula1`
+- Input **accept**, Output **accept**, *Intra zone forward* **reject**
+- **IPv4 Masquerading** an — nötig, weil das Mesh nur Absender-Adressen aus dem Nebula-Zertifikat akzeptiert
+- *Allow forward to destination zones*: nichts; *Allow forward from source zones*: `lan`
+- *Covered networks*: leer lassen — das ist **nicht** das Device-Feld, auch wenn der Name so klingt
+- *Advanced Settings → Covered devices*: `nebula1` — nach dem Tippen **Enter** drücken, sonst übernimmt LuCI den Eintrag nicht
 
-Der letzte Punkt ist entscheidend: Weil das Interface nie „up“ ist, kennt die Firewall sonst kein Device für die Zone und verwirft den Verkehr vom LAN ins Mesh.
+Das Covered-Device ist der entscheidende Punkt: Weil das Interface nie „up“ ist, kennt die Firewall sonst kein Device für die Zone und verwirft den Verkehr vom LAN ins Mesh.
 
 ## 7. DNS
 
-*Network → DHCP and DNS*:
+*Network → DNS* — nicht die DHCP-Seite, das sind zwei getrennte Menüpunkte:
 
-- *Forwards*: `/ulno.mesh/10.100.0.1` — Anfragen für `*.ulno.mesh` gehen damit an den Mesh-DNS.
-- *Filter → Domain whitelist* (Rebind-Schutz): `ulno.mesh` — sonst verwirft dnsmasq die Antworten mit privaten 10.x-Adressen (im Log: „possible DNS-rebind attack detected“).
+- **DNS Forwards**: `/ulno.mesh/10.100.0.1` — Anfragen für `*.ulno.mesh` gehen damit an den Mesh-DNS.
+- **Filter → Domain whitelist** (Rebind-Schutz): `ulno.mesh` — sonst verwirft dnsmasq die Antworten mit privaten 10.x-Adressen (im Log: „possible DNS-rebind attack detected“).
+
+Danach **Save & Apply** — beide Tabs bleiben bis dahin ungespeichert.
 
 ## 8. Testen
 
-Auf dem Router: `ping vps.ulno.mesh` (DNS funktioniert und das Lighthouse antwortet). Auf einem Rechner im LAN: `ping ulno-oldplex02.hsbi01.ulno.mesh` — alle Service-Hosts heißen `ulno-oldplexNN.hsbi01.ulno.mesh`.
+Auf dem Router (`ssh root@192.168.14.1`): `ping vps.ulno.mesh` (DNS funktioniert und das Lighthouse antwortet). Auf einem Rechner im LAN: `ping ulno-oldplex02.hsbi01.ulno.mesh` — alle Service-Hosts heißen `ulno-oldplexNN.hsbi01.ulno.mesh`.
 
 Bei Problemen: *Status → System Log* nach Meldungen von `dnsmasq` und `nebula` durchsuchen.
 

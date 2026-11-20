@@ -77,12 +77,24 @@ This is the path that works on the pod routers (OpenWrt + LuCI):
 
    All four files must be in `/etc/nebula/`, the key at mode `600`, and the three paths in `config.yml` must point at `/etc/nebula/…`. **Not** `/etc/config/` — that is UCI's directory.
 
-5. **Interface.** *Network → Interfaces → Add new interface*: name `nebula1`, protocol **Nebula**, config file `/etc/nebula/config.yml`. Put it in a new firewall zone `nebula`, save and apply. The device `nebula1` appears with its mesh address; LuCI may still show the interface as *pending* — that is expected.
+5. **Interface.** *Network → Interfaces → Add new interface*: name `nebula1`, protocol **Nebula Network**, config file `/etc/nebula/config.yml`. Put it in a new firewall zone `nebula`, save and apply. The device `nebula1` appears with its mesh address; LuCI may still show the interface as *pending* — that is expected.
 
-   The interface name must equal `tun.dev` in `config.yml` (your bundle says `nebula1`). If they differ, the protocol starts and dies immediately, and the error repeats both names in a way that looks like they match — read the trailing spaces.
-6. **Firewall.** Zone `nebula`: input **accept**, output **accept**, forward **reject**, **masquerading on** (the mesh only accepts source addresses from the certificate), allow forward from `lan`, and under *Advanced → Covered devices* add `nebula1`. That last one is the decisive setting: without a device the zone has no interface and LAN→mesh traffic is refused.
-7. **DNS.** *Network → DHCP and DNS*: forward `/ulno.mesh/10.100.0.1`, and add `ulno.mesh` to the domain whitelist — otherwise dnsmasq discards the private answers as a "possible DNS-rebind attack".
-8. **Test.** On the router: `ping vps.ulno.mesh` (DNS works and the lighthouse answers). From a laptop on the pod LAN: `ping ulno-oldplex02.hsbi01.ulno.mesh` — every service host is `ulno-oldplexNN.hsbi01.ulno.mesh`.
+   > [!TIP]
+   > **Name and `tun.dev` must match.** Your bundle says `nebula1`, so the interface must be `nebula1` too. If they differ, the protocol starts and dies immediately, and the error repeats both names in a way that looks like they agree — read for a trailing space.
+6. **Firewall.** *Network → Firewall → Zones*: open `nebula` (or **Add** it, if you left the zone unspecified in step 5):
+   - Input **accept**, Output **accept**, *Intra zone forward* **reject**.
+   - **IPv4 Masquerading** on — the mesh only accepts source addresses from the certificate.
+   - *Allow forward to destination zones*: nothing. *Allow forward from source zones*: `lan`.
+   - *Covered networks*: leave empty — this is **not** the device field, despite the similar name.
+   - *Advanced Settings → Covered devices*: `nebula1`. Press **Enter** after typing it, otherwise LuCI does not accept the token.
+
+   The covered device is the decisive setting: because the interface never comes "up", the zone would otherwise have no device and LAN→mesh traffic is refused.
+7. **DNS.** *Network → DNS*, not the DHCP page — the two are separate menu entries:
+   - **DNS Forwards**: `/ulno.mesh/10.100.0.1` — queries for `*.ulno.mesh` go to the mesh DNS.
+   - **Filter → Domain whitelist** (rebind protection): `ulno.mesh` — otherwise dnsmasq discards private 10.x answers and logs *possible DNS-rebind attack detected*.
+
+   Then **Save & Apply**; both tabs stay unsaved until you do.
+8. **Test.** On the router (`ssh root@192.168.14.1`): `ping vps.ulno.mesh` (DNS works and the lighthouse answers). From a laptop on the pod LAN: `ping ulno-oldplex02.hsbi01.ulno.mesh` — every service host is `ulno-oldplexNN.hsbi01.ulno.mesh`.
 
 Because of masquerading every LAN device appears in the mesh as the router. Whether a mesh service answers is decided by the **Nebula firewall rules on the other side**, which select the router's certificate and groups.
 
