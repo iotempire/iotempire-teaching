@@ -10,8 +10,8 @@ By the end of this module, you can:
 
 1. Explain what an overlay network is and when it beats a port forward: changing WAN addresses, campus firewalls, CGNAT/DS-Lite, hole punching. *(The NAT variants are optional depth; know the shape of the problem.)*
 2. Deploy a Nebula node from a bundle on the router, and explain what the CA, the certificate, the key, and the config each do.
-3. Explain the roles in the mesh — certificate, peer, lighthouse — and what the lighthouse does and deliberately does not do.
-4. Make the router a gateway, reach your Node-RED instance on the Optiplex cluster through the overlay, and move one MQTT message each way.
+3. Draw a network architecture involving an overlay network and explain the network and the roles in the mesh (nodes, certificate, peer, lighthouse).
+4. Make the router the pod's gateway into the overlay, reach your Node-RED instance on the Optiplex cluster through the overlay, and move one MQTT message each way.
 
 ## 📖 The Challenge — The Exhibition Across the City
 
@@ -104,7 +104,7 @@ Because of masquerading every LAN device appears in the mesh as the router. Whet
 
 ### ★ Task 2 — Reach Node-RED and move one message
 
-**Proves:** Goals 3–4 · **Produces:** Node-RED open from a pod laptop, one MQTT round trip, a path sketch.
+**Proves:** Goal 4 · **Produces:** Node-RED open from a pod laptop, one MQTT round trip, a path sketch.
 
 1. From a laptop on the pod LAN, open the URL on the board (`http://<optiplex-host>:1808x`) and log in.
 2. In Node-RED: an `mqtt in` node on `pod<NN>/#`, an `mqtt out` node to `pod<NN>/<device>/set`, and one inject. Broker address: the **router's overlay address**, port `1883`.
@@ -123,14 +123,16 @@ If you have admin rights on your laptop, join a second node with its own bundle 
 
 > **Show and ask.** *"What does the second node prove that the router path did not?"*
 
-### ★ Task 4 — Draw the two networks
+### ★ Task 4 — Draw the networks and name the layers
 
 **Proves:** Goals 1 and 3 · **Produces:** the `## Overlay plan` section, including a short note to Mara.
 
-1. **Underlay:** museum firewall, campus, home, mobile. Where does each connection actually leave the building?
-2. **Overlay:** virtual addresses, the lighthouse, the peers. Mark the tunnel and mark everything the lighthouse is **not** on.
-3. **Answer in three sentences:** what an overlay is; what the lighthouse does (and that it only relays when two peers cannot punch, e.g. behind one NAT or CGNAT); what the instructor had to prepare, and how you would repeat it for another site.
-4. **Answer Mara.** Under the sketch, write 5–8 sentences to Mara Voss — a creative director, not an engineer. She asked how you reach the sculpture and the dashboard without anyone opening a hole in a firewall: answer that, say what she can do now that she could not before, what did **not** change in the museum network, and one limit she will notice (both ends must run the client; a path through the relay is slower than one on the same LAN).
+1. **Underlay.** Museum firewall, campus, home, mobile: where does each connection actually leave the building?
+2. **Overlay.** Virtual addresses, the lighthouse, the peers. Mark the tunnel, and mark everything the lighthouse is **not** on.
+3. **Layers.** In the final overview picture, write the OSI layers each connection touches — at least where the tunnel starts and where it ends. This picture is the map you will reuse for the rest of the class, so label it for someone who was not in the room.
+4. **Explain it in three sentences.** What an overlay is; what the lighthouse does (and that it only relays when two peers cannot punch, e.g. behind one NAT or CGNAT); what the instructor had to prepare, and how you would repeat it for another site.
+5. **Answer Mara.** Under the sketch, write 5–8 sentences to Mara Voss — a creative director, not an engineer. She asked how you reach the sculpture and the dashboard without anyone opening a hole in a firewall: answer that, say what she can do now that she could not before, what did **not** change in the museum network, and one limit she will notice (both ends must run the client; a path through the relay is slower than one on the same LAN).
+6. **Widen the view.** Read the [nebula-manager](https://github.com/iotempire/nebula-manager) README and one page each on [Tailscale](https://tailscale.com/) and [NetBird](https://netbird.io/). Three sentences in `## Study log`: what they give you that Nebula does not, and why this class runs its own CA instead.
 
 *Pointers:* [Nebula docs](https://nebula.defined.net/docs/), [NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal), [UDP hole punching](https://en.wikipedia.org/wiki/UDP_hole_punching).
 
@@ -188,7 +190,7 @@ We dropped the formal harvest. Keep collecting anyway: note the odd bits in `## 
 
 A suggestion, not a checklist — a better artefact of your own is worth more than a ticked list.
 
-1. The overlay plan: underlay/overlay sketch, addresses, one sentence on why the lighthouse is not in the data path, and the note that answers Mara.
+1. The overlay plan: the underlay/overlay sketch with the OSI labels on each connection, addresses, one sentence on why the lighthouse is not in the data path, and the note that answers Mara.
 2. The deployment: `ip -brief addr show nebula1`, the overlay address, and bundle notes. **No key material.**
 3. The remote proof: ping/ssh output from a different network, plus the Node-RED URL.
 4. The MQTT round trip: flow, topics, the command that changed an output, and the two rules that allowed it.
