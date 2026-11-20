@@ -119,7 +119,7 @@ Because of masquerading every LAN device appears in the mesh as the router. Whet
 
 ### ◇ Task 3 (optional) — A certificate for your laptop
 
-If you have admin rights on your laptop, join a second node with its own bundle and show two overlay addresses for one pod. Explain why that is normal and not a mistake. The laptop bundle is a credential too: do not share it and get it from the instructor (for example via croc). Without admin rights, skip this — the router path is the default and full evidence.
+If you have admin rights on your laptop, join a second node with its own bundle and show two overlay addresses for one pod. Explain why that is normal and not a mistake. The laptop bundle is a credential too: do not share it and get it from the instructor (for example via croc). On Windows, `nebula.exe` has to be on the machine first — see the [bundle section](./Z-resources-bank.md#nebula-bundles--the-class-ca) of the resource bank. Without admin rights, skip this — the router path is the default and full evidence.
 
 > **Show and ask.** *"What does the second node prove that the router path did not?"*
 

@@ -291,20 +291,30 @@ reboot
 <a id="nebula-bundles--the-class-ca"></a>
 ### 📌 Nebula bundles & the class CA
 
-A **bundle** is the deployment unit: certificate, private key, `ca.crt`, `config.yml.template`, `install.sh`, `install.ps1`, `README.txt`. The installers are self-contained — a client does **not** need nebula-manager. Treat every archive and every `.key` as a credential.
+A **bundle** is the deployment unit: certificate, private key, `ca.crt`, `config.yml`, `install.sh`, `install.ps1`, `README.txt`. The installers are self-contained — a client does **not** need nebula-manager. Treat every archive and every `.key` as a credential.
 
 ```bash
 # client, Linux/macOS: unpack and install (needs the nebula package)
 unzip <name>-nebula-bundle.zip -d nb && sudo bash nb/install.sh
 sudo bash nb/install.sh --certs-only     # after a re-sign: refresh cert/key, keep config
 
-# client, Windows (elevated PowerShell, nebula.exe already installed)
+# client, Windows (elevated PowerShell — see the binary note below)
 powershell -ExecutionPolicy Bypass -File .\install.ps1
 powershell -ExecutionPolicy Bypass -File .\install.ps1 -CertsOnly
 
 # inspect what a certificate actually says
 nebula-cert print -path /etc/nebula/<name>.crt
 ```
+
+**Windows: where `nebula.exe` comes from.** There is no winget or Chocolatey package. Download `nebula-windows-amd64.zip` from the [Nebula releases](https://github.com/slackhq/nebula/releases) — it contains `nebula.exe` and `nebula-cert.exe` — and put `nebula.exe` on `PATH` or in `C:\Program Files\Nebula\`; the bundle's `install.ps1` searches exactly those two places. It installs into `C:\ProgramData\nebula`, rewrites the `/etc/nebula` paths in `config.yml` to that directory, runs `nebula -test`, and registers the service. Manual equivalent, if you want to see each step:
+
+```powershell
+nebula.exe -test -config C:\ProgramData\nebula\config.yml
+nebula.exe -service install -config C:\ProgramData\nebula\config.yml
+nebula.exe -service start
+```
+
+`-config` must be an **absolute** path, and so must every path inside `config.yml` — the Linux bundle copied unchanged will not work, which is exactly what `install.ps1` is for.
 
 On **OpenWrt** the installer does not apply (no systemd): `mkdir -p /etc/nebula` first (no package creates it), copy `<name>.crt`, `<name>.key`, `ca.crt` and `config.yml` into it, `chmod 600` the key, and run the static binary — the full recipe is in [Module 3](./03-overlay-and-mesh-networks.md).
 
