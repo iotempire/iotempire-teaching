@@ -108,7 +108,7 @@ Because of masquerading every LAN device appears in the mesh as the router. Whet
 
 1. From a laptop on the pod LAN, open the URL on the board (`http://<optiplex-host>:1808x`) and log in.
 2. In Node-RED: an `mqtt in` node on `pod<NN>/#`, an `mqtt out` node to `pod<NN>/<device>/set`, and one inject. Broker address: the **router's overlay address**, port `1883`.
-3. Send one command and watch the LED or actuator change.
+3. Send one command to a topic you chose and watch it from another client change.
 4. Draw the path: sensor → pod broker → overlay → Node-RED → overlay → pod broker → actuator. Mark the two rules that allowed it: the group rule on the service host, and the router's forward + masquerade.
 
 > **Story hook.** *The dashboard is in the class, the broker is in the basement.* The sculpture publishes locally; the dashboard runs across town; nobody opened a port.
