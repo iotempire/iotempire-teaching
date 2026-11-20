@@ -214,7 +214,7 @@ Treat every answer as a claim to test against your own mesh.
 - [Node-RED](https://nodered.org/docs/), [NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal), [UDP hole punching](https://en.wikipedia.org/wiki/UDP_hole_punching).
 - [MicroPython](https://micropython.org/) and [`umqtt.simple`](https://github.com/micropython/micropython-lib/tree/master/micropython/umqtt.simple) — the stretcher's MQTT client on the router.
 - The [resource bank's Nebula bundle sheet](./Z-resources-bank.md#nebula-bundles--the-class-ca) and [networking snippets](./Z-resources-bank.md#networking-snippets-copypaste).
-- **Showcase (instructor):** if the mesh kit is out, watch the B.A.T.M.A.N. demonstration and compare a Layer-2 mesh for one room with a Layer-3 overlay for the city. It is not a setup task; Yggdrasil is deferred to a later class.
+- [B.A.T.M.A.N. advanced](https://docs.kernel.org/networking/batman-adv.html) and its [OpenWrt guide](https://openwrt.org/docs/guide-user/network/wifi/mesh/batman) — a different, proven kind of mesh: a **Layer-2** network where every node forwards for the others and the routes emerge from the links, with no lighthouse and no per-peer tunnel. That is truer to the word *mesh* than the overlay here — which is exactly why the two get confused.
 - **If mesh clients cannot reach the router's broker,** check that Mosquitto listens on `nebula1` (or `0.0.0.0`) with `netstat -ltn` on the router — the broker's bind address is the usual culprit.
 
 ---
