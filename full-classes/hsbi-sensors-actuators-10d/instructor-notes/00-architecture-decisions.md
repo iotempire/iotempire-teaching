@@ -51,11 +51,12 @@ The status vocabulary is deliberately small:
 | [D16](#d16) | English material, bilingual delivery; local-first systems | accepted | syllabus; README |
 | [D17](#d17) | The class is a draft in motion; ADR and TODO are its memory | accepted | every module; this file; TODO |
 | [D18](#d18) | Handbook examples that are not on the bench are reading homework | accepted | Modules 7, 8; resource bank |
-| [D19](#d19) | Module 5 is evaluated: guided walkthrough, then challenge | provisional | Module 5; Module 5 studio |
+| [D19](#d19) | Module 5 is evaluated: guided walkthrough, then challenge | accepted | Module 5; Module 5 studio |
 | [D20](#d20) | A teaching day is 180 minutes: two 90-minute blocks | accepted | every module; instructor run sheets |
 | [D21](#d21) | One vocabulary: Task, Subtask, Evidence | accepted | every module; syllabus; sibling workbooks |
 | [D22](#d22) | Commits are instructor-only; agents never commit | accepted | every file; this log |
 | [D23](#d23) | Nine-day timetable, two project tracks, and a video artifact | accepted | syllabus; Modules 8–10; index |
+| [D24](#d24) | Module 6: two controllers, UART default, play mandatory | provisional | Module 6; Module 6 studio; reference project |
 
 ## 1. Provenance — how this class came to be
 
@@ -403,19 +404,21 @@ Dates are design events, not every commit; Git history is the authority.
 <a id="d19"></a>
 ### D19 — Module 5 is evaluated: guided walkthrough, then challenge
 
-**Status:** provisional.
+**Status:** accepted.
 
 **Context.** Module 5 is the session observed for the teaching evaluation. The evaluation format expects a lecture-style segment and an AI-first approach, while the module outcomes are hands-on. A pure lecture would not produce the evidence; a pure lab would not fit the observation. The class is also the first test of the “one open challenge plus a hints appendix” idea.
 
 **Decision.** Run Module 5 as a guided walkthrough — first light with one LED, then the RGB LED, then the 8-LED strip and an optional extension — with students following on their own laptops, then hand the strip over for an open challenge with a comparable artefact (animation, power table, and a shareable repo). The repo is drafted with AI and verified on the strip: prompt → draft → verify → commit. The old task ladder becomes the appendix: background and failure modes, the manual route, pointers, and the `AGENTS.md` template; the two reference sketches move to the instructor notes as a backup for when AI or the editor tooling is unavailable. The module body keeps the goals, the story, the walkthrough, the challenge, and the share step.
 
-**Consequences.** Less free exploration at the start; the walkthrough must stay short and interactive, or it eats the challenge. The learning evidence is the challenge, not the walkthrough. AI-first is visible in the challenge, not as a separate lecture; the repo makes the artifact shareable. The format is evaluation-driven and may not survive the visit.
+**First run (2026-11-18).** The evaluation was positive. Every pod controlled the strip; two pods went beyond the extension list and built a small Tetris-like game, used a phone hotspot, and added a piezo. The no-AI Task 1 worked as the confidence builder and as the instructor's backup when the AI tooling was slow. The creative payoff came from the optional extension, not from the guided walkthrough.
+
+**Consequences.** Less free exploration at the start; the walkthrough must stay short and interactive, or it eats the challenge. The learning evidence is the challenge, not the walkthrough. AI-first is visible in the challenge, not as a separate lecture; the repo makes the artifact shareable. **The guided format is now an observed-session pattern, not the default:** Modules 6+ use the open studio with a short brief, a no-AI first step where the hardware is new, and an AI-scaffolded build.
 
 **Alternatives rejected.** A pure lecture (fails the hands-on outcomes); a pure lab (does not fit the observation); slides-only (students watch instead of building).
 
 **Evidence.** [Module 5](../modules/05-leds-and-light-output.md); [Module 5 studio](./05-module-5-studio.md); the TODO structural idea.
 
-**Revisit if.** The evaluation format changes, or the challenge produces weaker evidence than the old task ladder.
+**Revisit if.** The evaluation format changes; the open studio stops producing the evidence; or the no-AI first step proves unnecessary.
 
 <a id="d20"></a>
 ### D20 — A teaching day is 180 minutes: two 90-minute blocks
@@ -501,6 +504,29 @@ Dates are design events, not every commit; Git history is the authority.
 **Evidence.** [Syllabus](../syllabus.md); [Module 8](../modules/08-sensor-to-system-and-integration.md); [Module 9](../modules/09-final-project-studio.md); [Module 10](../modules/10-demonstration-and-presentation.md); [index](../modules/00-index.md).
 
 **Revisit if.** The timetable returns to 10 days; the Prüfungsausschuss rejects the contact-hour deviation; or a cohort wants the networked track as the default.
+
+<a id="d24"></a>
+### D24 — Module 6: two controllers, UART default, play mandatory
+
+**Status:** provisional (first run 2026-11-25).
+
+**Context.** The 32×32 HUB75 panel needs thirteen signals; the M5StickC-S3 carries the microphone, IMU, speaker, display, and only a small exposed header. The 2026-11-18 Module 5 run showed that students prefer the ESP32 Dev Module when they need pins, and that the creative payoff comes from an open build. The ES8311 codec is half-duplex: microphone and speaker cannot run at the same time.
+
+**Decision.**
+
+- **Two controllers.** The ESP32 Dev Module (`esp32dev`) drives the panel; the M5StickC-S3 reads the microphone and IMU and sends `L 0..100` and `H 0..255`.
+- **UART default.** Hardware `Serial2` on the Stick's HAT2 G1/G2 (or Grove G9/G10) to the panel's GPIO32/33, 115200, newline-terminated. No SoftwareSerial: it competes with the I2S microphone and the panel DMA. ESP-NOW is the `◇` “cut the cable” extension; a phone hotspot with MQTT is Module 8/final-project territory.
+- **First light without AI.** The panel is new hardware; Task 1 uses the library example and the meter, not an agent. AI scaffolds Task 2.
+- **Play is mandatory.** Task 3 is a `★` task, stays open after the exchange, and starts with a one-sentence story hook. The hook is part of the design note and the evidence; the realization may stay small.
+- **One 180-minute studio.** Two halves with a break; the run sheet is in the Module 6 studio note.
+
+**Consequences.** More moving parts than Module 5: two boards, a link, a 5 V supply, and a level shifter. Pre-flight is mandatory; keep a known-good reference project. The play task gives the creativity a home and seeds the final-project story. The Stick's speaker and microphone cannot run simultaneously; use a piezo on the panel controller or a second Stick.
+
+**Alternatives rejected.** One controller (the Stick does not expose enough pins; the Dev Module is the pin-rich board); SoftwareSerial (competes with I2S/DMA); ESP-NOW as the default (pairing and channel state add friction); phone hotspot plus MQTT (duplicates Module 8); one AI prompt for both boards (two PlatformIO projects are clearer).
+
+**Evidence.** [Module 6](../modules/06-led-animation-sound-and-installations.md); [Module 6 studio](./06-module-6-studio.md); `untracked/module6-panel-lab/` (instructor reference).
+
+**Revisit if.** A supported S3 board with enough exposed pins appears; ESP-NOW proves easier than UART in the room; or the play task stops producing evidence.
 
 
 ## 3. Deliberately rejected or retired
@@ -607,3 +633,4 @@ The authoritative wording is in the [syllabus](../syllabus.md). This table is a 
 - **2026-11-16** — Review gate. D22 added: no agent or collaborator commits, amends, rebases, tags, or pushes without an explicit instruction; changes stay in the working tree for the instructor's review. The same rule is recorded in Databases (D20) and Networking (D18).
 - **2026-11-16** — Timetable and project. D23 added: 9 teaching days, 48 school hours (≈36 clock hours) in 90/180-minute slots, CP2/CP3 moved, two project tracks with optional MQTT, Module 8 as a clinic, Day 9 feedback rehearsal plus a 5–10 minute assessed video, grade table B. D20 amended for the longer Days 7–9.
 - **2026-11-16** — Vocabulary. D21 added: every module uses Task → Subtask → Evidence; Module 5 refactored as the reference (Tasks 1–5, `Proves:`/`Produces:`, standing `★ Log it`, closing exchange task); Modules 1–4 carry bracketed task numbers until their refactor; the sibling workbooks get the same TODO. Q10 resolved.
+- **2026-11-22** — Module 5 evidence and Module 6. D19 accepted after the evaluation: every pod controlled the strip, two pods built games with phone hotspots and a piezo; the guided format stays an observed-session pattern. D24 added: two controllers, UART default, ESP-NOW as the wireless extension, mandatory play task with a story hook, one 180-minute studio.

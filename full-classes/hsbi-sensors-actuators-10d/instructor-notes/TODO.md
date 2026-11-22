@@ -48,7 +48,7 @@ Proposals, not decisions. Prototype them as outlines before touching the module 
 
 - [ ] **Compress Days 5–7 into two modules.** Merge Module 7 (motors plus the reading on fluid, thermal, and unconventional actuators) into Module 6, and move the animation and sound parts of Module 6 into Module 5. The liquid challenge showed that one story plus a decision sheet beats a catalogue; three actuator days may be more than the outcomes need. Cost: Module 6 becomes a long day (animation + motors), and Module 5 gains animation — but Module 5 is now the evaluated guided session, so weigh whether it can absorb animation at all. Keep Module 7 as the fallback until the compressed version has been taught once (D6, D17, D19).
 - [ ] **Check handbook coverage after the compression.** Outcome 4 (mechanical, thermal, optical, unconventional) must still be evidenced; the five-family table in Module 7 is the current evidence (D18, Appendix A).
-- [ ] **Decide the Module 5 format after the evaluation.** Keep the guided walkthrough only if it produced the evidence; otherwise return to the open challenge. Record the observer feedback (D19).
+- [x] **Decide the Module 5 format after the evaluation.** Done 2026-11-18: evaluation positive, every pod controlled the strip, two pods built Tetris-like games with phone hotspots and a piezo. Keep the guided walkthrough for an observed session; Module 6+ uses the open studio (D19).
 - [ ] **Rework every class around one open challenge plus a hints appendix.** Keep the learning goals and the story; replace the task ladder with a short, deliberately vague challenge that admits several solutions; move the old tasks, theory, recipes, and pointers into an appendix of hints and resources. Module 4 is the model; Module 5 is the first test. The risk is vagueness without a comparable artefact — fix one required artefact per challenge (decision sheet, demo plus power table) before rewriting. Do this after the current run, not during it (D17, D19).
 - [ ] **Roll out Task → Subtask → Evidence to Modules 1–4.** Module 5 is the reference (D21). Next run: rewrite each main divider as `Task N — <outcome>`, add `Proves:`/`Produces:`, make the log a standing `★ Log it` line, fold the letter tasks (A/B) into a closing exchange task, and drop Studio/Round as activity names. Do the same in the Databases and Networking workbooks, whose TODOs point back here.
 - [ ] **Make AI-first explicit in every challenge.** The evaluation expects AI-first teaching; Module 5 uses the loop prompt → draft → verify → commit, with the repo as the deliverable. Decide the pattern for the other modules: what the AI drafts, what must be verified on hardware, and what is committed (D14, D17, D19).
@@ -60,6 +60,13 @@ Proposals, not decisions. Prototype them as outlines before touching the module 
 - [ ] **Announce the two project tracks and the video artifact in the first session.** Track A (self-contained + System Boundary Document) is the default; Track B (MQTT + dashboard) is optional. The 5–10 minute video is the assessed artifact, not the live walkthrough.
 - [ ] **Update `00-assessment-and-operations.md` and the run sheets** to the 9-day timetable, CP2 on Day 7, CP3 on Day 8, and the Day 9 3 × 30 format.
 - [ ] **Review the 2.7 note after the first run.** It is an instructor judgment for an overall 3.0 with an exceptionally shaped portfolio; if it is used, record the case and decide whether it belongs in the table. The fine 20-point table with 1.3, 1.7, and 2.3 is the reference the Databases and Networking TODOs point to; keep it here when they align.
+
+## Module 6 — LED panels, sound, play
+
+- [ ] **Pre-flight the reference project.** Flash `untracked/module6-panel-lab/` on the actual panel + 5 V 4 A supply + ESP32 Dev Module + M5StickC-S3; photograph the wiring; keep a known-good `task1-panel/` for the session (D24).
+- [ ] **Pack the game options.** Motors, DC motor shields, servos, joystick dev boards, piezos. The Module 5 run showed the creative payoff; Module 6 makes the play task mandatory (D24).
+- [ ] **Move the Module 6 `DRAFT BOUNDARY`** after the first run, once the two-controller default and the play task have produced evidence.
+- [ ] **Check the StickS3 PlatformIO recipe.** `board = esp32-s3-devkitc-1`, USB CDC flags, M5Unified; the board is not officially supported (M5 docs).
 
 ## Module 3 carry-over
 

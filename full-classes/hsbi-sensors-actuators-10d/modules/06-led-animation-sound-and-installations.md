@@ -2,20 +2,21 @@
 
 [← Back to Module 5](./05-leds-and-light-output.md) | [Quick module index](./00-index.md) | [Next: Module 7 →](./07-motors-and-motion-actuators.md)
 
-> A panel is not a bigger strip. It is a display: 1024 pixels, a scan rate, and a power budget you have to measure.
+> A panel is not a bigger strip. It is a display: 1024 pixels, a scan rate, a power budget — and a story.
 
-**Course placement:** Day 6 — two sessions. Session 1 is the panel and its power budget; Session 2 is breathing, sound, and the exchange. Work in your Task Pod. The appendices are optional: read them in any order, or replace them with your own research.
+**Course placement:** Day 6 — one 180-minute studio, two halves with a break. **No new setup:** reuse the `pio` toolchain, the portfolio, and the `AGENTS.md` habit from Module 5. Work in your Task Pod; the instructor circulates and joins the debugging.
 
 ## 🎯 Learning Goals
 
-This module gives you the opportunity to explore a real LED display and achieve competency in driving a scanned matrix, measuring its power ceiling, animating without blocking, and fusing sound (and optionally motion) into the light.
+This module gives you the opportunity to explore a real LED display and achieve competency in driving a scanned matrix, measuring its power ceiling, animating without blocking, fusing sound into the light, and turning the result into something someone wants to play with.
 
 By the end of this module, you can:
 1. Drive a 32×32 HUB75 RGB panel from a microcontroller: wiring, library, and a stable test pattern.
 2. Measure the panel’s current at several brightness levels and choose a maximum luminance that leaves margin on the 5 V 4 A supply.
-3. Build a non-blocking breathing animation with `millis()` and one parameter that controls speed and depth.
-4. Fuse a microphone signal — and, if you want, the IMU — into the animation so it reacts without flicker.
-5. Justify the architecture — one microcontroller or two — from pin count, memory, timing, and library constraints.
+3. Explain how a scanned panel works — rows, scan rate, refresh — and why it is not a WS2812B strip.
+4. Build a non-blocking breathing animation and fuse a microphone envelope (and, if you want, the IMU or a distance sensor) into it.
+5. Defend the two-controller architecture and the protocol between the boards; name what one controller would cost.
+6. Write a one-sentence story hook and turn it into a small interactive toy, instrument, or game.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
@@ -23,7 +24,9 @@ By the end of this module, you can:
 
 **Lumenwerk Gütersloh GmbH** has one week before the Stadtmuseum opening. Curator **Aylin Demir** wants the light wall to *breathe*: a slow pulse when the room is empty, a faster wave when visitors approach, and a bright ripple when the room gets loud. Creative director **Mara Voss** has replaced the prototype strip with a 32×32 RGB panel; technician **Jonas Feld** has the panel, a 5 V 4 A supply, and an M5StickC-S3 with a microphone.
 
-The first test is beautiful — until Jonas sets the panel to full white and the supply sags. The second problem is quieter: the panel needs thirteen control pins, the Stick has a microphone and an IMU, and the animation must keep running while the audio is sampled. Aylin’s question is practical: *“Can one board do both jobs, or does this installation need two — and how bright can we actually run it?”*
+The first test is beautiful — until Jonas sets the panel to full white and the supply sags. The second problem is quieter: the panel needs thirteen control pins, the Stick has the microphone and the IMU, and the animation must keep running while the audio is sampled. Aylin’s question is practical: *“Can one board do both jobs, or does this installation need two — and how bright can we actually run it?”*
+
+The answer in this module is **two** — unless you can defend one. And the wall is not finished until someone wants to touch it.
 
 ## 🧰 What you have
 
@@ -31,103 +34,288 @@ The first test is beautiful — until Jonas sets the panel to full white and the
 |---|---|
 | 32×32 HUB75 RGB panel, 5 mm pitch ([Adafruit 2026](https://www.adafruit.com/product/2026)) | 1024 RGB pixels, 5 V logic, up to 4 A at full white, 13 control signals |
 | 5 V 4 A power supply | The panel’s supply — not the microcontroller’s USB port |
-| M5StickC-S3 | ESP32-S3, 8 MB PSRAM, BMI270 IMU, ES8311 codec with MEMS microphone and speaker |
-| ESP32 MiniKit(s), jumpers, breadboard, level shifter | A second controller if you need one, and the wiring between them |
+| ESP32 Dev Module (`esp32dev`) | The **panel controller**: enough exposed pins for the HUB75 ribbon |
+| M5StickC-S3 | The **sensor/UI controller**: microphone, BMI270 IMU, display, buttons, speaker |
+| 74HCT245 level shifter, jumpers, breadboard | 3.3 V logic to the panel’s 5 V inputs; the link between the boards |
 | Multimeter (shared), phone camera | Current measurements and the video for your portfolio |
+| Optional: piezo, small servo, DC motor shield, joystick board | The physical twist for the play task; ask before you wire it |
 
 Meters are shared; ask your instructor which panels and supplies are per pod, and plan the pass-around with your neighbouring pod.
 
-## 🔌 ★ Task 1 — Light the panel, find the ceiling
+## 🧭 How to work
 
-**Proves:** Goals 1, 2, and 5 · **Produces:** a working panel, a power table, and a one-sentence architecture decision.
+You work in your Task Pod at your own pace. The instructor circulates; ask early, not after twenty minutes of guessing. Task 1 is deliberately **without AI** — the panel is new hardware, and first light should be yours. Task 2 is AI-scaffolded. Task 3 is yours to invent; it stays open after the exchange. At the end, each pod shows one thing that works and one thing that does not.
 
-1. **Choose the architecture.** One microcontroller or two? Count the panel’s thirteen signals, check which pins your board actually exposes, and check what the driver library needs. Write the decision in one sentence before you wire anything.
-2. **Wire it.** HUB75 ribbon to the panel, 5 V and GND from the 4 A supply, common ground with the microcontroller. Do not power the panel from USB or from a GPIO. Add level shifting if your panel or wiring is unhappy at 3.3 V.
-3. **Bring it up.** Run a test pattern at low brightness first. Confirm orientation, color order, and that the whole 32×32 area is addressed.
-4. **Measure the ceiling.** Measure current at several brightness levels — for example 25 %, 50 %, 75 %, and 100 % white — and find the highest setting that stays stable with margin on the 4 A supply. Watch the panel voltage, not only the current.
-5. **★ Log it.** In `## Study log` in `Module06/README.md`: the architecture decision and why, the wiring, the max luminance you trust, and the measured current at each step.
+## 🔌 ★ Task 1 — First light and the power ceiling (no AI)
 
-**Done when:** the panel shows a stable test pattern, you can state the maximum brightness you trust on the 4 A supply, and you can defend one controller versus two.
+**Proves:** Goals 1, 2, and 3 · **Produces:** `task1-panel/` with a stable test pattern, a wiring photo, and the power table.
 
-## ✨ ★ Task 2 — Breathe, then listen
+1. **Wire the default rig.** Panel + 5 V 4 A supply + 74HCT245 + ESP32 Dev Module. Use the pin table in [Appendix A](#appendix-a). Common ground everywhere; never power the panel from USB or a GPIO. The Stick stays on the bench for Task 2.
+2. **Flash the library example.** Use [`ESP32-HUB75-MatrixPanel-DMA`](https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA) and its example sketch — no agent. Confirm orientation, colour order, and that the whole 32×32 area is addressed.
+3. **Measure the ceiling.** Measure current at 25 %, 50 %, 75 %, and 100 % white. Fill the table, watch the panel voltage, and choose the highest brightness that stays stable with margin on the 4 A supply.
+4. **◇ How the panel actually works.** In one paragraph, explain the row scan, the 1/16 scan of this panel, the refresh rate, and why a phone camera may show flicker that the eye does not. Use the library and the Adafruit background as sources.
+5. **★ Log it.** In `## Study log` in `Module06/README.md`: the wiring, the maximum brightness you trust, the measured current at each step, and the scan explanation.
 
-**Proves:** Goals 3 and 4 · **Produces:** a breathing mode, a sound-reactive mode, a video, and a mapping note.
+| Brightness | Measured current | Panel voltage | Stable? | Notes |
+|---:|---:|---:|---|---|
+| 25 % | | | | |
+| 50 % | | | | |
+| 75 % | | | | |
+| 100 % | | | | |
 
-1. **Breathe.** Build a `millis()`-based breathing effect — no `delay()` in the loop — with one normalized parameter that controls speed and depth. The loop must stay responsive while it runs.
-2. **Listen.** Use the Stick’s microphone (M5Unified) or an analog sound sensor: sample fast, compute a short-term envelope (peak or RMS), and map it to brightness or hue. Add automatic gain control so quiet and loud rooms both work.
-3. **◇ Optional — motion.** Use the BMI270 IMU for tilt or shake as a second input. Only if you want it; the sound path is the required one.
-4. **Test and record.** Quiet and loud, still and moving. Note latency, flicker, and what you changed to make it stable.
-5. **★ Log it.** In the same log: the envelope you computed, the mapping you chose, the IMU input if used, and what still flickers.
+**Done when:** the panel shows a stable test pattern, you can state the maximum brightness you trust on the 4 A supply, and your scan explanation is written down.
 
-**Done when:** the panel breathes smoothly while the loop stays responsive, and the sound mode reacts visibly without constant re-tuning.
+## ✨ ★ Task 2 — Breathe and listen (AI scaffold)
 
-## ★ Task 3 — Exchange and evidence
+**Proves:** Goals 4 and 5 · **Produces:** `task2-breathe/` with `panel/` and `stick/`, a video, and a mapping note.
 
-**Proves:** Goals 1–5 · **Produces:** the agreed learning in your shared log, one shared artefact, and the evidence list below.
+1. **Create two PlatformIO projects.** `task2-breathe/panel/` for the ESP32 Dev Module and `task2-breathe/stick/` for the M5StickC-S3. One `README.md` at the top documents the protocol and the wiring.
+2. **Paste the prompts.** Each agent scaffolds one project, its `AGENTS.md`, and its README.
+3. **Wire the link.** Default: **UART** at 115200. Stick HAT2 **G1 (TX) → panel GPIO32 (RX)**, Stick **G2 (RX) ← panel GPIO33 (TX)**, and a common ground. The `◇` alternative is **ESP-NOW** — same protocol, no wire (see [Appendix A](#appendix-a)).
+4. **Breathe.** Build a `millis()`-based breathing effect — no `delay()` in the loop — with one normalized parameter for speed and depth. The panel keeps breathing while the link is idle.
+5. **Listen.** Use the Stick’s microphone (M5Unified): sample in short blocks, compute a peak or RMS envelope, add automatic gain control, and send `L 0..100`. Map the level to brightness; map tilt (IMU) or a distance sensor to hue, or to a second parameter.
+6. **Verify.** Quiet and loud, still and moving. Note latency, flicker, and what you changed to make it stable. Record a short video.
+7. **★ Log it.** In the same log: the protocol, the envelope, the mapping, and what still flickers.
 
-1. Show each other the panel, the power table, and the breathing and sound modes.
-2. Compare architectures: who used one controller, who used two, and what broke in each case?
+<a id="task-2-panel-prompt"></a>
+
+<details>
+<summary>Task 2 prompt — panel controller (ESP32 Dev Module)</summary>
+
+```text
+Initialize a PlatformIO Arduino project in this empty folder for an ESP32 Dev Module (`board = esp32dev`) that drives a 32×32 HUB75 RGB panel with `ESP32-HUB75-MatrixPanel-DMA` and `Adafruit GFX`.
+
+Configure `platformio.ini` with `monitor_speed = 115200` and:
+lib_deps =
+    https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA.git
+    adafruit/Adafruit GFX Library
+Add a `.gitignore` for `.pio/` and `compile_commands.json`.
+
+Create `AGENTS.md` documenting:
+- Board: `esp32dev` (ESP32 Dev Module), panel: 32×32 HUB75, 1/16 scan.
+- Default HUB75 pins: R1=25, G1=26, B1=27, R2=14, G2=12, B2=13, A=23, B=19, C=5, D=17, E=-1, LAT=4, OE=15, CLK=16.
+- Power: 5 V 4 A panel supply, common ground, never from USB or a GPIO.
+- Link: `Serial2` on GPIO32 (RX) and GPIO33 (TX), 115200, newline-terminated `L <0..100>` and `H <0..255>`.
+- Brightness cap: `setBrightness8(96)` (adjust after measuring the panel).
+
+In `src/main.cpp`, start with `#include <Arduino.h>`, initialize the panel, set a conservative brightness cap, and parse the `L`/`H` lines without blocking. Keep a slow `millis()`-based breathing effect; the incoming level scales it and the hue colours it. Echo the applied values on the USB serial monitor. Add a short `README.md` with the wiring, the protocol, and the build/upload/monitor commands. Verify with `pio run`.
+```
+
+</details>
+
+<a id="task-2-stick-prompt"></a>
+
+<details>
+<summary>Task 2 prompt — sensor controller (M5StickC-S3)</summary>
+
+```text
+Initialize a PlatformIO Arduino project in this empty folder for the M5StickC-S3 (ESP32-S3) with `M5Unified`.
+
+Use this recipe, because the StickS3 is not an official PlatformIO board:
+platform = espressif32@6.12.0
+board = esp32-s3-devkitc-1
+framework = arduino
+board_build.arduino.partitions = default_8MB.csv
+board_build.arduino.memory_type = qio_opi
+build_flags =
+    -DESP32S3
+    -DBOARD_HAS_PSRAM
+    -mfix-esp32-psram-cache-issue
+    -DCORE_DEBUG_LEVEL=5
+    -DARDUINO_USB_CDC_ON_BOOT=1
+    -DARDUINO_USB_MODE=1
+lib_deps = m5stack/M5Unified
+Add a `.gitignore` for `.pio/` and `compile_commands.json`.
+
+Create `AGENTS.md` documenting:
+- Board: M5StickC-S3, `board = esp32-s3-devkitc-1`, 8 MB flash and PSRAM, USB CDC.
+- Link: `Serial2` on HAT2 G1 (TX) and G2 (RX), 115200, newline-terminated.
+- Protocol: send `L <0..100>` every 50 ms, and `H <0..255>` when the hue changes.
+- Audio is half-duplex: do not use the speaker while the microphone is recording.
+
+In `src/main.cpp`, use `M5Unified`: initialize the display, microphone, IMU, and `Serial2`. Record short blocks (8 kHz, 256 samples), compute RMS with a noise floor and a simple automatic gain control, map it to 0..100, and send `L`. Map tilt to hue 0..255 and send `H`. Show the current level and hue on the display. Add a short `README.md` with the wiring, the protocol, and the calibration knobs. Verify with `pio run`.
+```
+
+</details>
+
+**Why two controllers.** The HUB75 panel needs thirteen signals; the Stick’s exposed header is small and already shares pins with the display, audio codec, and IMU. The ESP32 Dev Module is the pin-rich board; the Stick is the sensor/UI board. One controller is a `◇` challenge, not the default — see [Appendix A](#appendix-a).
+
+**Why UART.** It is deterministic, needs no pairing or channel state, and works with the boards on the same bench. ESP-NOW is the fun `◇` version: low latency, no router, but MAC pairing and packet-loss debugging are a separate lesson. Do not use SoftwareSerial on the S3; it competes with the I2S microphone and the panel DMA.
+
+**Done when:** the panel breathes smoothly while the loop stays responsive, the sound mode reacts visibly without constant re-tuning, and the link and protocol are written down.
+
+## 🎮 ★ Task 3 — Play (mandatory, stays open)
+
+**Proves:** Goal 6 · **Produces:** `task3-play/` with the story hook, one interaction, a video, and a five-line design note.
+
+1. **Write the story hook first.** One sentence: *“Someone wants … because …”* Put it at the top of `task3-play/README.md`. The story is more important than the realization; a small, clear idea beats an unfinished spectacle.
+2. **Build one interaction.** A toy, an instrument, or a game. One behaviour is enough. Seeds are in [Appendix C](#appendix-c): a reaction game, a tiny snake, a VU meter, a theremin, a distance-triggered wave, a joystick game.
+3. **Optional physical twist.** A piezo or the Stick’s speaker for sound, a small servo or DC motor shield, a joystick board. Keep it optional; do not let it eat the panel time. The Stick’s microphone and speaker are half-duplex — use a piezo on the panel controller or a second Stick if you need both at once.
+4. **Document.** The hook, the input → light/sound mapping, one failure mode, and the video.
+5. **★ Log it.** In the same log: the hook, the mapping, and what you would change with another hour.
+
+**Done when:** someone can interact with it for thirty seconds without instructions, and the video and the hook exist.
+
+**This task stays open after Task 5.** Keep the folder and the video in the portfolio; return to it in self-study, or bring it into the final project. The hook is the seed for your project story.
+
+## 🔗 ★ Task 4 — Share the repo
+
+**Proves:** Goals 1–6 · **Produces:** the committed `Module06/` folder and its README.
+
+1. Open the portfolio repo in Zed or VS Code. The Source Control panel (or `gh`) commits and pushes; the [Git primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) has the workflow.
+2. Finish the README: the wiring, the protocol, the power table, the three task folders, the play hook, and the videos.
+3. Verify before you commit: pin map, panel size, colour order, library, brightness cap, baud rate, and the measured current. The AI’s arithmetic is a claim, not a measurement.
+4. Commit code, READMEs, `AGENTS.md`, the power table, and the videos. No secrets, no `.pio/`, no `compile_commands.json`, no large binaries.
+
+The AI is the drafting tool; verification is the skill.
+
+## ★ Task 5 — Exchange and evidence
+
+**Proves:** Goals 1–6 · **Produces:** the agreed learning in your shared log, one shared artefact, and the evidence list below.
+
+1. Show each other the panel, the power table, the breathing and sound modes, and the play interaction.
+2. Compare architectures: who used UART, who tried ESP-NOW, and what broke in each case? Compare the prompts: what did the agents get wrong?
 3. Agree on the 3–5 most noteworthy points and one learning you jointly stand behind; one of you writes the “Agreed learning (pod discussion)” note into the shared log.
-4. Pick one shared artefact — the best video, the power table, or a wiring photo — and post it in the course Discord with one sentence on why.
+4. Pick one shared artefact — the best video, the power table, the hook, or a wiring photo — and post it in the course Discord with one sentence on why.
 5. Check the evidence list below and fill the gaps.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 
-1. `## Study log` in `Module06/README.md` with the two task entries and the architecture decision.
-2. Panel wiring: a photo or diagram, the pin mapping, and the library you used.
+1. `## Study log` in `Module06/README.md` with the three task entries and the architecture decision.
+2. Panel wiring: a photo or diagram, the pin map, the level shifter, and the library you used.
 3. Power table: brightness versus measured current, the maximum stable luminance, and the supply margin.
-4. Video: the breathing effect and the sound reaction (plus the IMU input if you used it).
-5. One paragraph on the installation constraints: heat, mounting, and what happens when a cable or the sound input fails.
-6. Deeper question: why is a scanned panel a different engineering problem from a WS2812B strip?
+4. The two-controller link: the protocol, the pin pair, and whether you used UART or ESP-NOW.
+5. Video: the breathing effect and the sound reaction (plus the IMU or distance input if you used it).
+6. The play task: the story hook, the video, and the five-line design note.
+7. One paragraph on the installation constraints: heat, mounting, and what happens when a cable or the sound input fails.
+8. The panel explainer: row scan, 1/16 scan, refresh, and why a phone camera may show flicker.
+9. Deeper question: why is a scanned panel a different engineering problem from a WS2812B strip?
 
 > You may prove the same goals another way. The evidence is the point, not the task list.
 
-## 📎 Appendix A — Hints and resources (read in any order)
+<a id="appendix-a"></a>
+## 📎 Appendix A — Panel facts, wiring, power, and the link
 
-**Panel facts.** The 32×32 panel is a HUB75 display: 1024 RGB LEDs, 5 V logic, thirteen signals (six data: R1/G1/B1/R2/G2/B2; seven control: A/B/C/D, CLK, LAT, OE — some panels also expose E). It is scanned, so the whole image is not lit at once. Adafruit rates the panel at up to 4 A with all LEDs on; typical animations draw less. Product: [Adafruit 2026](https://www.adafruit.com/product/2026); background: [RGB LED matrix basics](https://learn.adafruit.com/32x16-32x32-rgb-led-matrix).
+**Panel facts.** The 32×32 panel is a HUB75 display: 1024 RGB LEDs, 5 V logic, thirteen signals (six data: R1/G1/B1/R2/G2/B2; seven control: A/B/C/D, CLK, LAT, OE — some panels also expose E). It is scanned, so the whole image is not lit at once; the library refreshes rows fast enough that the eye sees one image. Adafruit rates the panel at up to 4 A with all LEDs on; typical animations draw less. Product: [Adafruit 2026](https://www.adafruit.com/product/2026); background: [RGB LED matrix basics](https://learn.adafruit.com/32x16-32x32-rgb-led-matrix).
 
-**Power.** Use the 4 A supply for the panel, with a common ground to the controller, short thick wires, and a bulk capacitor across 5 V/GND if the image flickers on bright frames. Full white is the worst case and leaves no margin on a 4 A supply; that is why you measure and cap the brightness. Never power the panel from USB, a GPIO, or the 3.3 V rail. Panels get warm at high brightness — do not cover them.
+**Default wiring (classic ESP32 Dev Module).** The library’s default pins, wired explicitly in the reference project:
 
-**Driver.** The usual ESP32 choice is [`ESP32-HUB75-MatrixPanel-DMA`](https://github.com/mrfaptastic/ESP32-HUB75-MatrixPanel-DMA) (PlatformIO: `mrfaptastic/ESP32-HUB75-MatrixPanel-DMA`); it uses DMA, supports double buffering, and ships examples. `Adafruit_Protomatter` is an alternative. The library defines the pin mapping; check that your board exposes every pin it needs. The panel expects 5 V logic; 3.3 V often works, a level shifter (for example a 74HCT245) is the safe choice.
+| Signal | GPIO | Signal | GPIO |
+|---|---:|---|---:|
+| R1 | 25 | R2 | 14 |
+| G1 | 26 | G2 | 12 |
+| B1 | 27 | B2 | 13 |
+| A | 23 | B | 19 |
+| C | 5 | D | 17 |
+| E | — (1/16 scan) | LAT | 4 |
+| OE | 15 | CLK | 16 |
 
-**One controller or two?** Count the thirteen signals against the pins your board exposes, then add the pins the microphone, IMU, and display already use. On a small board the honest answer is often a second ESP32 that only drives the panel, with the Stick sending brightness, hue, or level over serial, I2C, or ESP-NOW. There is no single right answer; there is an answer you can defend.
+The HUB75 ribbon carries the signals and a ground reference; it does **not** carry the LED power. Power the panel through its 5 V/GND terminals from the 4 A supply. The library’s wiring and pin notes are in the [library README](https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA).
 
-**M5StickC-S3.** ESP32-S3 with 8 MB PSRAM, BMI270 IMU, and an ES8311 codec with a MEMS microphone and speaker. Use [M5Unified](https://github.com/m5stack/M5Unified) for the microphone and IMU; the microphone is an I2S codec, not a bare analog pin. The Stick’s exposed header and Grove port are limited — that is part of the architecture decision.
+**Level shifter (74HCT245).** The ESP32 is 3.3 V; the panel expects 5 V logic. Put the 3.3 V signals on the A side and the panel signals on the B side, VCC = 5 V, OE = GND, DIR = 3.3 V, common ground, and a 100 nF decoupling capacitor. Many panels work at 3.3 V on a short ribbon; the shifter is the reliable choice, not a blocker.
+
+**Power.** Full white is the worst case and leaves no margin on a 4 A supply; that is why you measure and cap the brightness. Use short, thick wires; add a bulk capacitor across 5 V/GND if bright frames flicker. Panels get warm at high brightness — do not cover them. Never power the panel from USB, a GPIO, or the 3.3 V rail.
+
+**The link (default: UART).**
+
+| StickS3 HAT2 | ESP32 Dev Module | Note |
+|---|---|---|
+| G1 (TX) | GPIO32 (RX) | data from Stick to panel |
+| G2 (RX) | GPIO33 (TX) | data from panel to Stick |
+| GND | GND | common ground; required |
+
+`Serial2.begin(115200, SERIAL_8N1, RX, TX)` on both sides; newline-terminated `L <0..100>` and `H <0..255>`. The Stick’s Grove port is G9/G10 if you prefer the Grove cable; verify the TX/RX order before you trust it. The StickS3 pin map is in the [M5 docs](https://docs.m5stack.com/en/core/StickS3).
+
+**The link (`◇` alternative: ESP-NOW).** Same protocol, no wire. Put both boards in station mode on the same Wi-Fi channel, read the receiver’s MAC from its serial output, add it as a peer, and send the same two messages. Start with the [Arduino ESP-NOW guide](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/espnow.html) and the [Random Nerd tutorial](https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/). ESP-NOW is fast and fun; it is not the default because pairing and channel state add a second lesson to a 180-minute studio.
+
+**M5StickC-S3.** ESP32-S3 with 8 MB flash, 8 MB PSRAM, BMI270 IMU, ES8311 codec, MEMS microphone, speaker, display, and buttons. Use [M5Unified](https://github.com/m5stack/M5Unified) for the microphone and IMU; the microphone is an I2S codec, not a bare analog pin. **The codec is half-duplex:** M5Unified does not support microphone and speaker at the same time. For simultaneous sound and listening, use a piezo on the panel controller or a second Stick. PlatformIO does not ship an official StickS3 board; use `board = esp32-s3-devkitc-1` with the recipe in the Task 2 prompt ([M5 PlatformIO notes](https://docs.m5stack.com/en/core/StickS3)).
 
 **Non-blocking animation.** Keep the render interval and the update interval separate, animate a normalized `0..1` parameter, and never `delay()` in the loop. The pattern is the same as in [Module 5](./05-leds-and-light-output.md).
 
 **Sound envelope.** Sample in blocks, compute peak or RMS over a short window, and decouple the fast audio sampling from the slower frame rate. Automatic gain control normalizes to a recent maximum, so the effect survives both a whisper and a loud room.
 
-**Installation.** Plan for heat, mounting, a diffuser, strain relief on the ribbon and power wires, and a defined behavior when the sensor or the network drops. An installation that looks good for a minute is not the same as one that survives an evening.
+**Installation.** Plan for heat, mounting, a diffuser, strain relief on the ribbon and power wires, and a defined behaviour when the sensor or the link drops. An installation that looks good for a minute is not the same as one that survives an evening.
 
-## 📎 Appendix B — Ideas and prompts when you are stuck
+## 📎 Appendix B — Doing it without AI
+
+The panel is new hardware; a working manual path matters.
+
+- **Panel bring-up.** Flash the `ESP32-HUB75-MatrixPanel-DMA` examples (`ColorPixels`, `PatternPlasma`, `AnimatedGIFs`) before writing your own sketch. They prove the wiring, the pin map, the colour order, and the brightness cap.
+- **Two-controller link.** Start with two minimal sketches: one that prints `L 42` and `H 128` every second on `Serial2`, and one that reads the lines and prints them on the USB monitor. Add the panel only after the link is boring.
+- **Microphone.** Run the M5Unified `Microphone` example first. If the waveform is flat, check the library version and the Stick model before suspecting your wiring.
+- **Power.** Measure the panel at 25 % before you raise the brightness. A stable test pattern at low brightness is the baseline; everything else is an experiment.
+- **Sources.** [Adafruit RGB matrix basics](https://learn.adafruit.com/32x16-32x32-rgb-led-matrix), [library README](https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA), [M5Unified](https://github.com/m5stack/M5Unified), [M5StickS3 docs](https://docs.m5stack.com/en/core/StickS3).
+
+<a id="appendix-c"></a>
+## 📎 Appendix C — Ideas, prompts, and sources
 
 Read in any order, take what helps, and replace the rest with your own research. Cite what you use.
 
-**Immediate experiments**
+**Play seeds (Task 3)**
 
-- Solid colors, a gradient, a moving bar, and a plasma — the four test patterns that expose wiring, orientation, and refresh problems.
-- Change the gamma and the brightness steps; compare what the eye sees with what the meter reads.
-- Rotate or mirror the image in software; the panel’s orientation is a mapping choice, not a wiring fact.
-- Map the microphone level to rows (a VU meter), to hue, or to a peak-hold bar.
-- Use the IMU: tilt maps to direction, a shake triggers sparkle.
-- If you use two controllers, define a tiny protocol (`LEVEL 0..100`, `HUE 0..255`) before you write code.
+- **Reaction game:** one pixel lights, the player hits the button, the next one lights; score on the panel.
+- **Tiny snake or Tetris:** a grid game on 32×32; the joystick or the Stick buttons are the controller.
+- **VU meter:** microphone level to rows, with a peak-hold dot.
+- **Theremin:** hand distance (ToF) or light (LDR) to hue and tone; the piezo or the Stick speaker plays the note.
+- **Distance wave:** the Module 4 ToF sensor wakes the panel when someone approaches.
+- **Sound mirror:** the panel shows the envelope as a moving bar; quiet and loud rooms must both work.
+- **Motorized twist:** a servo or DC motor shield moves a diffuser or a pointer; keep it optional and do not let it eat the panel time.
+- **Networked twist (`◇`):** a phone hotspot and a tiny web UI or MQTT; this is Module 8/final-project territory, not a requirement.
 
 **Questions to ask an LLM (then verify on the panel)**
 
-- “Scaffold a PlatformIO project for a 32×32 HUB75 panel on an ESP32-S3 with the HUB75 DMA library: test pattern, brightness control, and a non-blocking loop.”
-- “Count the pins a HUB75 panel needs and compare them with the exposed GPIOs of the M5StickC-S3. Propose a one-controller and a two-controller architecture, with the trade-offs.”
+- “Scaffold a PlatformIO project for a 32×32 HUB75 panel on an ESP32 Dev Module with the HUB75 DMA library: test pattern, brightness control, and a non-blocking loop.”
 - “Given measured currents at 25/50/75/100 % white, estimate the maximum safe brightness for a 5 V 4 A supply and the margin I should keep.”
 - “Write a `millis()`-based breathing effect for a 32×32 panel with one speed/depth parameter. No `delay()`.”
 - “Compute a short-term RMS envelope from an I2S microphone and map it to brightness with automatic gain control.”
+- “Design a tiny protocol for a two-controller panel: `L 0..100` and `H 0..255` over UART; show the parser and the failure handling.”
 - “Explain HUB75 scan and refresh, and why a phone camera may show flicker that the eye does not.”
+- “Turn this story hook into a one-button game loop on a 32×32 panel: <hook>.”
 
 > Run each prompt against your own panel, and record where the model is wrong, vague, or over-confident.
+
+**Wiring and background sources**
+
+- [Adafruit 32×32 panel](https://www.adafruit.com/product/2026) and [RGB LED matrix basics](https://learn.adafruit.com/32x16-32x32-rgb-led-matrix) — power, scan, wiring.
+- [`ESP32-HUB75-MatrixPanel-DMA`](https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA) — driver, examples, default pin maps.
+- [M5StickS3 documentation](https://docs.m5stack.com/en/core/StickS3) — pin map, PlatformIO recipe, audio codec.
+- [M5Unified](https://github.com/m5stack/M5Unified) — microphone, IMU, display, speaker.
+- [Arduino ESP-NOW guide](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/espnow.html) and [Random Nerd tutorial](https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/) — the wireless `◇`.
+- [Arduino: `millis()`](https://docs.arduino.cc/language-reference/en/functions/time/millis/) and [Blink Without Delay](https://docs.arduino.cc/built-in-examples/digital/BlinkWithoutDelay/) — the non-blocking pattern.
+- [Envelope (music)](https://en.wikipedia.org/wiki/Envelope_(music)) and [Root mean square](https://en.wikipedia.org/wiki/Root_mean_square) — the sound features you can compute on a microcontroller.
+
+## 📎 Appendix D — `AGENTS.md` template
+
+One `AGENTS.md` per project, at its root. Keep the two projects separate; each agent gets only the rules it needs.
+
+```md
+# AGENTS.md — panel controller
+
+- Board: ESP32 Dev Module (`esp32dev`), PlatformIO.
+- Panel: 32×32 HUB75, 1/16 scan. Pins: R1=25, G1=26, B1=27, R2=14, G2=12,
+  B2=13, A=23, B=19, C=5, D=17, E=-1, LAT=4, OE=15, CLK=16.
+- Power: 5 V 4 A panel supply, common ground; never from USB or a GPIO.
+- Link: Serial2, GPIO32 (RX) / GPIO33 (TX), 115200. Protocol: `L 0..100`,
+  `H 0..255`, newline-terminated.
+- Brightness: cap at `setBrightness8(96)` until the power table says otherwise.
+- Keep the loop non-blocking; no `delay()` in the render path.
+```
+
+```md
+# AGENTS.md — sensor controller (M5StickC-S3)
+
+- Board: M5StickC-S3, `board = esp32-s3-devkitc-1`, `platform = espressif32@6.12.0`,
+  8 MB partitions, qio_opi, USB CDC; `lib_deps = m5stack/M5Unified`.
+- Link: Serial2, HAT2 G1 (TX) / G2 (RX), 115200.
+- Protocol: send `L 0..100` every 50 ms; send `H 0..255` when the hue changes.
+- Microphone: short blocks, 8 kHz, 256 samples; RMS with a noise floor and AGC.
+- Audio is half-duplex: do not use the speaker while recording.
+```
 
 ## 📚 If you want to go deeper
 
 - [Adafruit 32×32 panel](https://www.adafruit.com/product/2026) and [RGB LED matrix basics](https://learn.adafruit.com/32x16-32x32-rgb-led-matrix) — wiring, power, and scan.
-- [`ESP32-HUB75-MatrixPanel-DMA`](https://github.com/mrfaptastic/ESP32-HUB75-MatrixPanel-DMA) — DMA driver, examples, and pin mapping.
+- [`ESP32-HUB75-MatrixPanel-DMA`](https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA) — DMA driver, examples, and pin mapping.
 - [M5Unified](https://github.com/m5stack/M5Unified) — microphone, IMU, and display on the Stick.
 - [Arduino: `millis()`](https://docs.arduino.cc/language-reference/en/functions/time/millis/) and [Blink Without Delay](https://docs.arduino.cc/built-in-examples/digital/BlinkWithoutDelay/) — the non-blocking pattern.
 - [Envelope (music)](https://en.wikipedia.org/wiki/Envelope_(music)) and [Root mean square](https://en.wikipedia.org/wiki/Root_mean_square) — the sound features you can compute on a microcontroller.

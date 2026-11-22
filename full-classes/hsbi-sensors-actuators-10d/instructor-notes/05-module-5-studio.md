@@ -14,6 +14,17 @@ Do not turn it into a slide lecture. The walkthrough is the lecture-style segmen
 interactive: students predict, measure, and call out results. The learning evidence is the lab and
 the repo.
 
+## After the run (2026-11-18)
+
+- **Evaluation positive.** Every pod controlled the strip. Two pods went beyond the extension list:
+  a small Tetris-like game, a phone hotspot, and a piezo. The open end of the session is where the
+  creativity lived.
+- **Keep:** Task 1 without AI as the confidence builder and the instructor's fallback; the theory
+  slides while the agents scaffold; one optional extension; the prompt → draft → verify → commit loop.
+- **Change next time:** make the show-and-tell explicit (two minutes per pod, even for unfinished
+  work), and keep the non-AI reference sketches within reach. The guided walkthrough stays an
+  observed-session pattern; Module 6+ uses the open studio (D19, D24).
+
 ## The day is 180 minutes (two 90-minute blocks)
 
 A normal teaching day is **two 90-minute blocks**, not one (D20). The break sits between them.
