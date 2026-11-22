@@ -63,8 +63,8 @@ Proposals, not decisions. Prototype them as outlines before touching the module 
 
 ## Module 6 — LED panels, sound, play
 
-- [ ] **Pre-flight the reference project.** Flash `untracked/module6-panel-lab/` on the actual panel + 5 V 4 A supply + ESP32 Dev Module + M5StickC-S3; photograph the wiring; keep a known-good `task1-panel/` for the session (D24).
-- [ ] **Pack the game options.** Motors, DC motor shields, servos, joystick dev boards, piezos. The Module 5 run showed the creative payoff; Module 6 makes the play task mandatory (D24).
+- [ ] **Pre-flight the reference project.** Flash [`module6-panel-lab/`](./module6-panel-lab/README.md) on the actual panel + 5 V 4 A supply + ESP32 Dev Module + M5StickC-S3; photograph the wiring; keep a known-good `task1-panel/` for the session (D24).
+- [ ] **Pack the game options.** Motors, DC motor shields, servos, joystick dev boards, piezos, and the Adafruit I2S amp + speaker modules if they arrive. The Module 5 run showed the creative payoff; Module 6 makes the play task mandatory (D24).
 - [ ] **Move the Module 6 `DRAFT BOUNDARY`** after the first run, once the two-controller default and the play task have produced evidence.
 - [ ] **Check the StickS3 PlatformIO recipe.** `board = esp32-s3-devkitc-1`, USB CDC flags, M5Unified; the board is not officially supported (M5 docs).
 

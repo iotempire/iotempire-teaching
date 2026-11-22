@@ -16,6 +16,8 @@ Prüfungsausschuss.
 | [Module 3 studio](./02-module-3-studio.md) | LDR/potentiometer/DS18B20 setup, multimeter pairing, water prep, fall field transect, DHT11 comparison, running the three rounds |
 | [Module 4 studio](./03-module-4-studio.md) | HX711 scale sharing and calibration, liquid/materials prep, IMU shock/motion, divide-and-conquer pairing, running the two sessions |
 | [Module 5 studio](./05-module-5-studio.md) | 180-minute run sheet (two 90-minute blocks), `uv`/`pio` + Zed/VS Code setup, AI models/credits, AI-first shareable repo, Task 1–3 prep, the 220 Ω default, the 8-LED USB budget, WS2812 strip/supply prep, the bulk-capacitor theory-vs-classroom rule, level shifter |
+| [Module 6 studio](./06-module-6-studio.md) | Two-controller panel run sheet, pre-flight, packing list (motors, joysticks, piezos, optional I2S amp), UART/ESP-NOW notes, common failures |
+| [Module 6 reference lab](./module6-panel-lab/README.md) | Tracked PlatformIO reference: ESP32 Dev Module + 32×32 HUB75 panel and M5StickC-S3 microphone/IMU over UART; wiring, protocol, builds |
 | [Module 4 student email](./04-module-4-student-email.md) | Ready-to-send email draft: what to bring, sensor menu, 80% guidance, portfolio polish, and first-checkpoint timing |
 | [Module 5 student email](./06-module-5-student-email.md) | Ready-to-send prep draft: `pio` via `uv`, an AI assistant in the editor (GitHub Education optional; Claude/DeepSeek welcome), `opencode` option, and a stuck-student table |
 | [Module 5 backup sketches](./07-module-5-backup-sketches.md) | The RGB and WS2812B reference sketches plus the manual build route — instructor answer key, only needed if AI or the editor tooling is unavailable |

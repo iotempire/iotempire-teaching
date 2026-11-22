@@ -524,7 +524,7 @@ Dates are design events, not every commit; Git history is the authority.
 
 **Alternatives rejected.** One controller (the Stick does not expose enough pins; the Dev Module is the pin-rich board); SoftwareSerial (competes with I2S/DMA); ESP-NOW as the default (pairing and channel state add friction); phone hotspot plus MQTT (duplicates Module 8); one AI prompt for both boards (two PlatformIO projects are clearer).
 
-**Evidence.** [Module 6](../modules/06-led-animation-sound-and-installations.md); [Module 6 studio](./06-module-6-studio.md); `untracked/module6-panel-lab/` (instructor reference).
+**Evidence.** [Module 6](../modules/06-led-animation-sound-and-installations.md); [Module 6 studio](./06-module-6-studio.md); [reference project](./module6-panel-lab/README.md).
 
 **Revisit if.** A supported S3 board with enough exposed pins appears; ESP-NOW proves easier than UART in the room; or the play task stops producing evidence.
 

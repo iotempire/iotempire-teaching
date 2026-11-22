@@ -39,6 +39,7 @@ The answer in this module is **two** — unless you can defend one. And the wall
 | 74HCT245 level shifter, jumpers, breadboard | 3.3 V logic to the panel’s 5 V inputs; the link between the boards |
 | Multimeter (shared), phone camera | Current measurements and the video for your portfolio |
 | Optional: piezo, small servo, DC motor shield, joystick board | The physical twist for the play task; ask before you wire it |
+| Optional: Adafruit I2S amplifier + speaker | Real sound output without the Stick’s half-duplex codec; check the free I2S peripheral and pins (if the modules arrive) |
 
 Meters are shared; ask your instructor which panels and supplies are per pod, and plan the pass-around with your neighbouring pod.
 
@@ -150,7 +151,7 @@ In `src/main.cpp`, use `M5Unified`: initialize the display, microphone, IMU, and
 
 1. **Write the story hook first.** One sentence: *“Someone wants … because …”* Put it at the top of `task3-play/README.md`. The story is more important than the realization; a small, clear idea beats an unfinished spectacle.
 2. **Build one interaction.** A toy, an instrument, or a game. One behaviour is enough. Seeds are in [Appendix C](#appendix-c): a reaction game, a tiny snake, a VU meter, a theremin, a distance-triggered wave, a joystick game.
-3. **Optional physical twist.** A piezo or the Stick’s speaker for sound, a small servo or DC motor shield, a joystick board. Keep it optional; do not let it eat the panel time. The Stick’s microphone and speaker are half-duplex — use a piezo on the panel controller or a second Stick if you need both at once.
+3. **Optional physical twist.** A piezo, the Stick’s speaker, or — if the Adafruit I2S amplifier + speaker modules have arrived — an external I2S amp. A small servo or DC motor shield, or a joystick board. Keep it optional; do not let it eat the panel time. The Stick’s microphone and speaker are half-duplex; a piezo or an external amp avoids the conflict. Check the free I2S peripheral and pins before wiring.
 4. **Document.** The hook, the input → light/sound mapping, one failure mode, and the video.
 5. **★ Log it.** In the same log: the hook, the mapping, and what you would change with another hour.
 
@@ -228,7 +229,7 @@ The HUB75 ribbon carries the signals and a ground reference; it does **not** car
 
 **The link (`◇` alternative: ESP-NOW).** Same protocol, no wire. Put both boards in station mode on the same Wi-Fi channel, read the receiver’s MAC from its serial output, add it as a peer, and send the same two messages. Start with the [Arduino ESP-NOW guide](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/espnow.html) and the [Random Nerd tutorial](https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/). ESP-NOW is fast and fun; it is not the default because pairing and channel state add a second lesson to a 180-minute studio.
 
-**M5StickC-S3.** ESP32-S3 with 8 MB flash, 8 MB PSRAM, BMI270 IMU, ES8311 codec, MEMS microphone, speaker, display, and buttons. Use [M5Unified](https://github.com/m5stack/M5Unified) for the microphone and IMU; the microphone is an I2S codec, not a bare analog pin. **The codec is half-duplex:** M5Unified does not support microphone and speaker at the same time. For simultaneous sound and listening, use a piezo on the panel controller or a second Stick. PlatformIO does not ship an official StickS3 board; use `board = esp32-s3-devkitc-1` with the recipe in the Task 2 prompt ([M5 PlatformIO notes](https://docs.m5stack.com/en/core/StickS3)).
+**M5StickC-S3.** ESP32-S3 with 8 MB flash, 8 MB PSRAM, BMI270 IMU, ES8311 codec, MEMS microphone, speaker, display, and buttons. Use [M5Unified](https://github.com/m5stack/M5Unified) for the microphone and IMU; the microphone is an I2S codec, not a bare analog pin. **The codec is half-duplex:** M5Unified does not support microphone and speaker at the same time. For simultaneous sound and listening, use a piezo on the panel controller or a second Stick. If the Adafruit I2S amplifier + speaker modules arrive, they are an optional third path; check the free I2S peripheral and pins (on the classic ESP32 the HUB75 driver already uses one). PlatformIO does not ship an official StickS3 board; use `board = esp32-s3-devkitc-1` with the recipe in the Task 2 prompt ([M5 PlatformIO notes](https://docs.m5stack.com/en/core/StickS3)).
 
 **Non-blocking animation.** Keep the render interval and the update interval separate, animate a normalized `0..1` parameter, and never `delay()` in the loop. The pattern is the same as in [Module 5](./05-leds-and-light-output.md).
 

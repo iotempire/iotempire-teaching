@@ -11,7 +11,7 @@ mandatory and stays open after the exchange (D24).
 
 ## Before the session
 
-- **Pre-flight the reference project.** Flash `untracked/module6-panel-lab/` on the actual
+- **Pre-flight the reference project.** Flash [`module6-panel-lab/`](./module6-panel-lab/README.md) on the actual
   32×32 panel, the 5 V 4 A supply, an ESP32 Dev Module, and an M5StickC-S3. Measure at 25 % white,
   confirm the colour order and the UART link, and photograph the wiring.
 - **Keep a known-good baseline.** One `task1-panel/` folder with the library example, the pin map,
@@ -21,8 +21,10 @@ mandatory and stays open after the exchange (D24).
 - **No prep email is required** if the pods use the class boards: the toolchain is Module 5's. If
   pods bring their own Stick, send the PlatformIO recipe and the UART pin pair.
 - **Pack for the play task.** Motors, DC motor shields, small servos, joystick dev boards, piezos,
-  and a few spare jumpers. Module 5's best moments came from students adding a piezo and a phone
-  hotspot; Module 6 makes the play task mandatory, so have the physical options on the table.
+  and a few spare jumpers. If the Adafruit I2S amplifier + speaker modules arrive in time, pack them
+  too as an optional audio path (check the free I2S peripheral and pins first). Module 5's best
+  moments came from students adding a piezo and a phone hotspot; Module 6 makes the play task
+  mandatory, so have the physical options on the table.
 
 ## The day is 180 minutes (two halves)
 
