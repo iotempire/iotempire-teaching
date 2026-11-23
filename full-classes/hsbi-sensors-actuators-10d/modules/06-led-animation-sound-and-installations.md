@@ -45,9 +45,9 @@ Meters are shared; ask your instructor which panels and supplies are per pod, an
 
 ## 🧭 How to work
 
-You work in your Task Pod at your own pace. The instructor circulates; ask early, not after twenty minutes of guessing. Task 1 is deliberately **without AI** — the panel is new hardware, and first light should be yours. Task 2 is AI-scaffolded. Task 3 is yours to invent; it stays open after the exchange. At the end, each pod shows one thing that works and one thing that does not.
+You work in your Task Pod at your own pace. The instructors circulate; ask early, not after twenty minutes of guessing. Task 1 is deliberately **without AI** — the panel is new hardware, and first light should be yours. Task 2 is AI-scaffolded. Task 3 is yours to invent; it stays open after the exchange. At the end, each pod shows one thing that works and one thing that does not.
 
-## 🔌 ★ Task 1 — First light and the power ceiling (no AI)
+## 🔌 ★ Task 1 — First light and the power ceiling
 
 **Proves:** Goals 1, 2, and 3 · **Produces:** `task1-panel/` with a stable test pattern, a wiring photo, and the power table.
 
