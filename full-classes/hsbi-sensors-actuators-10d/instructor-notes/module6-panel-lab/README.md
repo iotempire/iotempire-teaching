@@ -56,7 +56,8 @@ with the I2S microphone and the panel DMA.
 
 ### ESP-NOW (`◇`)
 
-Same protocol, no wire. Put both boards in station mode on the same Wi-Fi channel, read the
+Same protocol, no wire. You can do this instead of the UART version, but it is riskier.
+Put both boards in station mode on the same Wi-Fi channel, read the
 receiver MAC from its serial output, add it as a peer, and send the same two messages. The HUB75
 driver uses I2S DMA, not the radio, so it coexists with ESP-NOW. Sources:
 [Arduino ESP-NOW](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/espnow.html),
