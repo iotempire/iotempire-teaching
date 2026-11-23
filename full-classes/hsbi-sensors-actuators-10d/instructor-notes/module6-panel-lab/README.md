@@ -82,24 +82,63 @@ pio run -t upload
 pio device monitor          # 115200, level/hue debug output
 ```
 
+The panel sketch runs a self-test at boot before the breathing starts — do step 1 of the Test
+below right after the first upload. Set `SELFTEST_ON_BOOT` to `0` in `panel/src/main.cpp` once the
+panel is known good.
+
 The StickS3 is not an official PlatformIO board. `stick/platformio.ini` uses
 `board = esp32-s3-devkitc-1`, 8 MB partitions, `qio_opi`, USB CDC, and M5Unified, which is the
 recipe from the [M5 docs](https://docs.m5stack.com/en/core/StickS3).
 
 ## Test
 
-1. Open the panel monitor. It prints `panel ready`; the panel shows a dim breathing colour.
-2. Open the Stick monitor. Speak or clap: the level rises, the panel brightens. Tilt the Stick: the
-   hue changes. The Stick display shows `L` and `H`.
-3. Cover the panel at 100 % white and measure the current with the meter in series with the 5 V
-   supply. Lower `MAX_BRIGHTNESS` in `panel/src/main.cpp` until you have margin on the 4 A supply.
-4. If the link is silent: swap TX/RX, check the common ground, and confirm both `Serial2` pin
+Two steps, in this order. Do step 1 before you connect the Stick: with the UART already wired, a
+silent panel could be wiring, level shifter, power, or protocol all at once.
+
+### Step 1 — panel only (no Stick connected)
+
+Flash `panel/` with nothing on the UART pins. `setup()` runs the self-test, then hands over to the
+breathing.
+
+1. Open the panel monitor. It prints `panel ready`, then `selftest: …`.
+2. Watch the sequence, about a second each:
+   - solid **red**, **green**, **blue**, **white**;
+   - a grey border with four corner pixels: **red** top-left, **green** top-right, **blue**
+     bottom-left, **white** bottom-right;
+   - a ramp along row 1 fading red → black left to right, and one down column 1 fading green →
+     black top to bottom;
+   - then the dim breathing colour and `selftest done - breathing` in the monitor.
+3. Read the failure here, while only the panel is in the loop:
+
+   | You see | Look at |
+   |---|---|
+   | nothing at all | 5 V on the panel terminals, common ground, OE wiring; `panel init failed` in the monitor would have stopped it earlier |
+   | one colour missing or wrong | that colour pair (R1/R2, G1/G2, B1/B2) or the ribbon orientation |
+   | corners in the wrong place, image mirrored or rotated | ribbon orientation; panel scan / mapping |
+   | shifted, doubled, or torn image | ribbon seating, scan rate / mapping, level shifter |
+   | flicker on bright frames | common ground, thin power wires, missing 74HCT245, brightness cap too high |
+
+4. While the solid white is up, measure the current with the meter in series with the 5 V supply.
+   That white is at `MAX_BRIGHTNESS` (96, not 255), so it is the number that matters. Lower
+   `MAX_BRIGHTNESS` in `panel/src/main.cpp` until you have margin on the 4 A supply.
+
+### Step 2 — panel + Stick (UART)
+
+1. Open the panel monitor and the Stick monitor.
+2. Speak or clap: the level rises and the panel brightens. Tilt the Stick: the hue changes. The
+   Stick display shows `L` and `H`.
+3. If the link is silent: swap TX/RX, check the common ground, and confirm both `Serial2` pin
    pairs. Print the raw received line on the panel monitor.
 
 ## Known issues
 
 - **Wrong colours or a shifted image:** ribbon orientation, a swapped colour pair, or the wrong
   panel scan. Run the library example before blaming the sketch.
+- **`ESP32-HUB75-MatrixPanel-DMA.h: No such file or directory`:** the library ships
+  `ESP32-HUB75-MatrixPanel-I2S-DMA.h` — the `I2S` is part of the header name, the C++ class is
+  still `MatrixPanel_I2S_DMA`. `platformio.ini` pulls the library from Git without a tag, so a
+  future upstream rename shows up here first. If you want reproducibility, pin `lib_deps` to a
+  commit (`…MatrixPanel-DMA.git#<sha>`).
 - **Flicker on bright frames:** common ground, thin power wires, missing level shifter, or the
   brightness cap too high.
 - **Stick microphone flat:** wrong M5Unified version or the codec still in speaker mode. Run the

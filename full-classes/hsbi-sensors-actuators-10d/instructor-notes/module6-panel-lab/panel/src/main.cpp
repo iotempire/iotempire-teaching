@@ -6,7 +6,7 @@
 // Cap the brightness after measuring the panel current on the 5 V 4 A supply.
 
 #include <Arduino.h>
-#include <ESP32-HUB75-MatrixPanel-DMA.h>
+#include <ESP32-HUB75-MatrixPanel-I2S-DMA.h>
 #include <Adafruit_GFX.h>
 
 #define PANEL_RES_X 32
@@ -34,6 +34,10 @@
 
 // Start low. Raise only after the power table shows margin on the 4 A supply.
 const uint8_t MAX_BRIGHTNESS = 96;
+
+// Boot self-test: proves the wiring, the colour pairs, the orientation and the axis
+// mapping before any UART traffic exists. Set to 0 on a known-good panel.
+#define SELFTEST_ON_BOOT 1
 
 HUB75_I2S_CFG::i2s_pins pins = {
     R1_PIN, G1_PIN, B1_PIN,
@@ -77,6 +81,36 @@ void handleLine(char *text) {
   Serial.printf("L=%u H=%u\n", level, hue);
 }
 
+// Boot self-test: four solid colours, then a frame whose corners and axes show whether
+// the ribbon, the colour pairs and the scan mapping are right. White is held long enough
+// to read the current meter on the 5 V supply.
+#if SELFTEST_ON_BOOT
+static void solid(uint16_t colour, uint16_t ms) {
+  display.fillScreen(colour);
+  delay(ms);
+}
+
+static void selftest() {
+  Serial.println("selftest: red green blue white (hold white for the current meter), then corners");
+  solid(display.color565(255, 0, 0), 900);
+  solid(display.color565(0, 255, 0), 900);
+  solid(display.color565(0, 0, 255), 900);
+  solid(display.color565(255, 255, 255), 2500);
+  display.fillScreen(display.color565(0, 0, 0));
+
+  display.drawRect(0, 0, PANEL_RES_X, PANEL_RES_Y, display.color565(64, 64, 64));
+  display.drawPixel(0, 0, display.color565(255, 0, 0));                  // top-left     red
+  display.drawPixel(PANEL_RES_X - 1, 0, display.color565(0, 255, 0));    // top-right    green
+  display.drawPixel(0, PANEL_RES_Y - 1, display.color565(0, 0, 255));    // bottom-left  blue
+  display.drawPixel(PANEL_RES_X - 1, PANEL_RES_Y - 1,                      // bottom-right white
+                    display.color565(255, 255, 255));
+  // Axis ramps: row 1 fades red -> black left to right, column 1 green -> black top to bottom.
+  for (int i = 0; i < PANEL_RES_X; i++) display.drawPixel(i, 1, display.color565(i * 8, 0, 0));
+  for (int i = 0; i < PANEL_RES_Y; i++) display.drawPixel(1, i, display.color565(0, i * 8, 0));
+  delay(2500);
+}
+#endif
+
 void setup() {
   Serial.begin(115200);
   Serial2.begin(115200, SERIAL_8N1, LINK_RX, LINK_TX);
@@ -88,6 +122,11 @@ void setup() {
   display.setBrightness8(MAX_BRIGHTNESS);
   display.fillScreen(display.color565(0, 0, 0));
   Serial.println("panel ready");
+
+#if SELFTEST_ON_BOOT
+  selftest();
+  Serial.println("selftest done - breathing");
+#endif
 }
 
 void loop() {

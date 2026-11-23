@@ -13,3 +13,6 @@ untracked/
 .zed/
 .gemini/skills/
 .agents/skills/
+
+# PlatformIO build output (module 6 panel lab) — regenerate with `pio run`
+**/module6-panel-lab/**/.pio/
