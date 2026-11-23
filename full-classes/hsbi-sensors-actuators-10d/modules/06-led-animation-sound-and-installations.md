@@ -55,7 +55,21 @@ You work in your Task Pod at your own pace. The instructors circulate; ask early
 2. **Flash the library example.** Use [`ESP32-HUB75-MatrixPanel-DMA`](https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA) and its example sketch — no agent. Confirm orientation, colour order, and that the whole 32×32 area is addressed.
 3. **Measure the ceiling.** Measure current at 25 %, 50 %, 75 %, and 100 % white. Fill the table, watch the panel voltage, and choose the highest brightness that stays stable with margin on the 4 A supply.
 4. **How the panel actually works.** In one paragraph, explain the row scan, the 1/16 scan of this panel, the refresh rate, and why a phone camera may show flicker that the eye does not. Use the library and the Adafruit background as sources.
-5. **Log it.** In `## Study log` in `Module06/README.md`: the wiring, the maximum brightness you trust, the measured current at each step, and the scan explanation.
+
+   **Then find out by removing signals.** Put a still picture on the panel and unplug **one signal wire at a time**, look at what changes, and plug it back before the next one. Signal wires only — never the 5 V feed, and never a ground wire: the ground is the reference every signal is measured against, so pulling it gives you nonsense rather than a lesson. Write down what you actually saw; the exact shape of the damage differs between panels, and explaining it is the point.
+
+   | Unplug | What to expect | What it tells you |
+   |---|---|---|
+   | `CLK` (pin 13) | the image freezes, garbles, or disappears | nothing shifts into the column drivers without a clock |
+   | `LAT` (pin 14) | the image freezes or smears | data arrives but is never transferred to the outputs |
+   | `OE` (pin 15) | panel goes blank, the code still runs | output enable only gates the LEDs; the data path is untouched |
+   | `A`, `B`, `C` or `D` (pins 9–12) | the picture folds or repeats in horizontal bands | the address lines choose which row group is lit right now |
+   | `R1`, `G1` or `B1` (pins 1–3) | that colour disappears from the **upper** half | `R1`/`G1`/`B1` are the upper half's data |
+   | `R2`, `G2` or `B2` (pins 5–7) | that colour disappears from the **lower** half | `R2`/`G2`/`B2` are the lower half's data |
+
+   The last two rows are the ones worth staring at: one panel, two data sets, each driving half the rows — that is the 1/16 scan made visible. Once you have seen it, "16 row groups lit in turn, each group showing two rows at once" stops being a sentence you memorised.
+
+In `## Study log` in `Module06/README.md`: the wiring, the maximum brightness you trust, the measured current at each step, the scan explanation, and one line per removed signal on what changed.
 
 | Brightness | Measured current | Panel voltage | Stable? | Notes |
 |---:|---:|---:|---|---|
@@ -64,7 +78,7 @@ You work in your Task Pod at your own pace. The instructors circulate; ask early
 | 75 % | | | | |
 | 100 % | | | | |
 
-**Done when:** the panel shows a stable test pattern, you can state the maximum brightness you trust on the 4 A supply, and your scan explanation is written down.
+**Done when:** the panel shows a stable test pattern, you can state the maximum brightness you trust on the 4 A supply, your scan explanation is written down, and you can say what a signal group does because you have watched it stop doing it.
 
 ## ★ Task 2 — Breathe and listen (AI scaffold)
 
