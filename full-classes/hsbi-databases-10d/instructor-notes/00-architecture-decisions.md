@@ -76,6 +76,7 @@ short; link to the artefact instead of pasting it.
 | [D18](#d18) | Attendance is thin; online pods are the fallback | provisional | syllabus, email template |
 | [D19](#d19) | Prep and expectation emails, three days ahead | accepted | `email-template.md` |
 | [D20](#d20) | Commits are instructor-only; agents never commit | accepted | every file; this log |
+| [D21](#d21) | Project scope is a family, the process is light, the failure is the evidence | provisional | `project-ideas.md`, Module 7, syllabus, `07.md` |
 
 ## 1. Provenance — how this class came to be
 
@@ -195,7 +196,10 @@ run one locally. The class argues the opposite default, but must not turn it int
 
 **Decision.** SQLite and DuckDB run **inside the process**; the default app ships a file, not a
 deployment. A real PostgreSQL server appears once, in Module 6b, as the **control group** — so
-students feel what a server adds (and costs) before deciding.
+students feel what a server adds (and costs) before deciding. Remote is a component, not the
+default: a second database, a report exchange, or a PostgreSQL peer is allowed when the project
+charter states the reason. Turning SQLite into a server is not the route; a Node-RED flow in front
+of the file is the cheap network UI.
 
 **Consequences.** Every lab runs offline. The server is optional infrastructure; the lesson survives
 without it. The comparison makes local-first a measured choice, not a slogan.
@@ -203,7 +207,9 @@ without it. The comparison makes local-first a measured choice, not a slogan.
 **Alternatives rejected.** MySQL/PostgreSQL-first; a mandatory server day; no server at all (the
 contrast would stay abstract).
 
-**Evidence.** Modules 1, 6b; README "Why this course looks different"; `postgres-tunnel.sh`.
+**Evidence.** Modules 1, 6b; README "Why this course looks different"; `postgres-tunnel.sh`;
+[Module 7 catalogue](../modules/07-project-catalogue.md#3-where-your-data-lives) for the
+student-facing rule.
 
 **Revisit if.** The room cannot run the server, or the module moves to a different semester.
 
@@ -604,6 +610,23 @@ a template to maintain.
 **Evidence.** The operative rules live in the repository [`AGENTS.md`](../../../AGENTS.md); this record keeps the rationale. Module and instructor-note edits stay in the working tree until the instructor commits them.
 
 **Revisit if.** The instructor delegates a defined batch of commits (for example a scripted migration), or an automation account is explicitly authorised to commit on its own branch.
+
+<a id="d21"></a>
+### D21 — Project scope is a family, the process is light, the failure is the evidence
+
+**Status:** provisional (adopted 2026-11-19 for Sessions 8–11).
+
+**Context.** The first run produced projects with one actor, one workflow and four tables: they met the criteria and taught too little, because a schema with one actor has no state and a schema without state has no reason for a trigger. The 2026-11-19 6b session showed the same thing from the other side — a server task that was one `SELECT` and one `UPDATE` had no depth once it worked. Becking's semester project (a company case study with business areas, use cases that drive the SQL, and 29 work packages) is the reference shape, but this class has three build weeks, not a semester.
+
+**Decision.** Projects are chosen from **families** (3–4 actors, 2–3 workflows with states, 7–10 entities) and built as **one vertical slice**. In Session 8 every team writes a one-page `docs/charter.md`, turns it into a work-package board, and elects a **Product Owner** and a **process keeper**; each later session opens with a 5-minute stand-up and closes with a 10-minute review. This is a light three-week process, **not full Scrum**: no story points, no velocity, no certification, and nothing about the process is graded. AI may generate schemas, code, and prose, but the team keeps `docs/ai-log.md` with at least one rejected suggestion and the fair asks for the worst AI output and its repair. Contribution is individual and peer-confirmed.
+
+**Consequences.** Bigger stories without more surface; the schema gains states and actors, so constraints and triggers have a reason. The process costs about fifteen minutes per session. The risk is process theatre; the 5-minute stand-up, the 20-item board, and “prioritise, do not assign” are the guardrails. The points stay at 20; the contribution rule clarifies the existing individual discussion rather than adding a category.
+
+**Alternatives rejected.** Adding features to the single-actor directions (breadth-first, no depth); copying Becking's 29 packages (no time); calling it Scrum (a false promise that invites ceremony); grading the process (rewards compliance).
+
+**Evidence.** [`project-ideas.md`](./project-ideas.md); [Module 7](../modules/07-final-project-studio.md); the [Session 8–11 run sheet](./07.md); the syllabus section *Contribution is individual*.
+
+**Revisit if.** Teams spend more time on the board than on the database, or the individual discussion cannot distinguish contributors from passengers.
 
 
 ## 3. Deliberately rejected or retired

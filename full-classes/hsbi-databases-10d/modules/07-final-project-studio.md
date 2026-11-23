@@ -37,11 +37,15 @@ Bring the project tickets from 6b. A **Project Team of 4–6** (two merged Task 
 - **What is the first query** the database must answer?
 - **Where does the data come from** — or how will you generate it reproducibly?
 
-If you cannot name the person and the first query, it is a topic, not a project. Use the [project idea bank](../instructor-notes/project-ideas.md) if you are stuck, but choose a direction, not a topic. Record the story and roles in `docs/team.md`.
+If you cannot name the person and the first query, it is a topic, not a project. Use the [project catalogue](./07-project-catalogue.md) if you are stuck, but choose a family, not a topic.
+
+Write `docs/charter.md` before you build: the organisation, 3–4 actors, 2–3 workflows with the states they move through, 5–8 use cases as named queries, the one slice you will build, where each database lives and why, and a **cut list** of what you will not build. Choose a **Product Owner** (what and why) and a **process keeper** (the stand-up, the board, the commit watch). This is a light three-week process, not full Scrum. Record the roles in `docs/team.md`.
 
 ### 2. Map the evidence
 
 Write a one-page plan in `docs/requirements.md`: one line per must-have, who owns it, and your own dates. The seven must-haves are in the [syllabus project requirements](../syllabus.md#final-project-requirements-5-points); they are the contract, not a menu of extra features.
+
+Turn the plan into `docs/backlog.md`: work packages of at most half a day, each naming the delivery it serves, with one owner and one acceptance line. Commits reference the item (`T-12`).
 
 ### 3. Build the vertical slice
 
@@ -51,26 +55,34 @@ One path end-to-end, not five half-features:
 - the headline query in `queries.sql`;
 - the smallest interface that shows the answer — `datasette yourdb.db -o` counts.
 
+**Where the data lives:** default to one SQLite file. A second database, a report export, or a PostgreSQL peer is fine when the charter says why. Do not turn SQLite into a server — put Node-RED in front of it if you need a network UI. The options are in the [catalogue §3](./07-project-catalogue.md#3-where-your-data-lives).
+
 ### 4. Prove and harden
 
 - Add one index and save `EXPLAIN QUERY PLAN` before/after plus a timing.
 - Replace every string-built query with bound parameters and run an injection self-test.
 - Add one constraint and one trigger or generated column; show it rejecting bad data.
+- Keep `docs/ai-log.md`: what an AI produced, what was wrong, what you changed, and the evidence it works. A log with no rejected suggestion is not a log.
 
 <a id="the-fair-demo--project-discussion"></a>
 ### 5. Rehearse and present
 
 Session 11 is a **table fair**: each team presents repeatedly at its table while the rest of the room visits, reflects, praises one thing, and gives one concrete suggestion. The instructor and TA circulate; the discussion is individual. Bring a short recorded fallback. Rehearse the live path, not slides; the segment order is in [Appendix E](#e-demo-preparation).
 
+At the table, every member names the part they built, tested, reviewed, debugged, or presented, and a teammate confirms it. Small parts count fully — the demo script, acting in the live path, the README, an AI suggestion you rejected with evidence.
+
 ## ✅ Evidence checklist
 
-- [ ] `docs/team.md`: story, members, and who owns what.
+- [ ] `docs/team.md`: roles, members, and who owns what.
+- [ ] `docs/charter.md`: organisation, actors, workflows with states, use cases, the slice, where the data lives, the cut list.
+- [ ] `docs/backlog.md`: work packages with a delivery, an owner, and an acceptance line.
 - [ ] `docs/requirements.md`: one-page plan with your dates.
 - [ ] `schema.sql`: one FK, one `CHECK`, one trigger or generated column.
 - [ ] `ingest.py`: repeatable from raw data or a download script; no duplicates.
 - [ ] `queries.sql` + `app.py`: the first query and an interface.
 - [ ] `docs/benchmarks/`: plan output and timings.
 - [ ] Injection self-test note: malicious input rejected.
+- [ ] `docs/ai-log.md`: what an AI produced, what was wrong, what changed, and the evidence.
 - [ ] `README.md`: rebuild in three commands; no `.db`, credentials, or personal data in Git.
 - [ ] `docs/report.md`: the Projektbericht with the five headings in Appendix C.
 - [ ] `docs/demo-plan.md`: table setup, fallback video, who answers what.
@@ -119,7 +131,7 @@ The portfolio's *Projektbericht* uses `docs/report.md` with five headings: story
 
 ### D. Pointers
 
-- [Project idea bank](../instructor-notes/project-ideas.md) — directions, not assignments.
+- [Project catalogue](./07-project-catalogue.md) — families, where the data lives, and the self-check.
 - [Story canon](./Z-resources-bank.md#story-canon-the-recurring-cast) — the recurring cast, if you want to borrow it.
 - [Resource bank](./Z-resources-bank.md) — datasets, visualization, tooling.
 - [Syllabus assessment](../syllabus.md#assessment-project-work-20-points) — points, grade scale, Excellence Stretcher.

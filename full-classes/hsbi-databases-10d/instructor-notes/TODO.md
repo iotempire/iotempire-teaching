@@ -97,6 +97,12 @@ the architecture log first.
       arithmetic is the argument: 20 pods × 10 minutes is 200 minutes. The TA may **suggest points
       and readiness** and **mark individuals for recheck**; the instructor records the final points.
       See the [TA briefing](./TA-briefing.md).
+- [ ] **Keep a prepared authentication-vs-authorization minute** (2026-11-19). A mis-owned table
+      produced `permission denied for table machine` for the whole room; the 30-second framing
+      (“your login worked, your query did not — privileges are per object, per role”) turned the
+      failure into the lesson. Put that framing plus `SELECT current_user, session_user;` and
+      `\dp` into the 6b instructor note so it is planned, not improvised, and demo one deliberate
+      failure next run.
 - [ ] **Record the stage-and-gate observations** in [`study-formats.md`](./study-formats.md) for
       Modules 5, 6a and 6b while they are fresh (D7) — especially whether the theory boxes get read
       *when needed* and whether the discussions are real or performative.
@@ -108,6 +114,11 @@ the architecture log first.
 - [ ] **Check the one-session bet in Module 5** (D12). Did pods actually do the recap-gated
       homework before 6a, or did 6a lose its first 15 minutes to a recap anyway? One observation
       sentence decides whether the compression holds.
+- [ ] **Decide after 17 Dec whether the family shape becomes a syllabus criterion** (D21). This run
+      asks for 3–4 actors, 2–3 workflows, one state transition and one cross-entity report as
+      *plan quality*, not assessment. Measure: how many teams chose L2, whether the extra actors
+      produced evidence or confusion, and whether the individual discussion distinguished
+      contributors from passengers.
 
 ## Module 5 — carry-over from this run
 
@@ -137,10 +148,29 @@ instructor's recap output still shows only storage and row counts. Fix that next
       query once untimed before measuring, and Module 6a's `race.py` does a warm-up run per engine.
       Apply the same sentence to every benchmark in the course, and say explicitly that **cold
       cache is not a result** — it is the reason denormalization looked useless to half the room.
-- [ ] **Test the native Debian Trixie server guide** ([`postgres-server-setup.md`](./postgres-server-setup.md))
-      end to end on the Optiplex: PostgreSQL 17, pgweb, Cloudflare named tunnel, credential sheet,
-      and one student laptop on the campus Wi-Fi. Correct package paths, service names, and the
-      connection host after the first real run.
+- [x] **Test the native Debian Trixie server guide** ([`postgres-server-setup.md`](./postgres-server-setup.md))
+      end to end on the Optiplex. Done 2026-11-19: PostgreSQL 17, pgweb 0.17.0, the named tunnel and
+      the credential sheet all worked. The run found one real defect — `machine` was created **as
+      `postgres`**, so every pod got `permission denied for table machine` in the room. Section 5
+      now creates the table as the pod role and documents the repair; Section 4 revokes `CONNECT`
+      from `PUBLIC` so pods cannot open each other's databases.
+
+- [ ] **Preflight the server programmatically before the session** (2026-11-19). Manual checklists
+      were read as “done” while the ACL was wrong. A `tools/check-06b-server.sh` must, in under a
+      minute and without a browser: create the role and database; create the table **as that role**;
+      connect as that role over `127.0.0.1:5432`; run `SELECT`, `UPDATE` and `\dp`; assert
+      `pg_get_userbyid(relowner)` is the pod role; assert `CONNECT` is not granted to `PUBLIC`; print
+      one PASS/FAIL line per pod and exit non-zero on the first failure. Run it after every rebuild
+      and once from a student-like network. The guide's checklist stays as the fallback.
+
+- [ ] **Decide the local/remote strategy for 6b** (D2, D16). Reported after the 2026-11-19 run: the
+      shared server was the strongest moment of the session, but the task itself was too shallow —
+      once the connection worked it was one `SELECT` and one concurrent `UPDATE`. Options: (a) keep
+      local-first as the spine and make the server a genuine **second workload** (many writers,
+      sessions, a connection string, a recovery), not a demo; (b) run a local PostgreSQL in the same
+      session so the comparison is server-vs-server; (c) move the server work into the project phase
+      where team concurrency is real. Pick one and **replace** something — do not add a second
+      server lesson on top.
 - [ ] **Re-test the Cloudflare/Podman script** from a student-like network before relying on it
       (D16); the quick-tunnel mode is the fallback for instructors without a domain.
 - [ ] **Check the DuckDB/Parquet path on Windows** once (D16) — the course assumes Git Bash or WSL
@@ -186,3 +216,11 @@ the architecture log §4 and gets a record; do not leave it here as a permanent 
 - Did the two-studio Module 6 reduce the “pod study ate the session” problem, or just move it?
 - Did the optional intense homework get taken, and by whom — the strong students or the ones who
   need the practice?
+- **Is the SQLite concurrency claim measured?** (2026-11-19) The 6b story implies that concurrent
+  writers on a file database are slow, but that day neither proved nor disproved it: nobody ran two
+  writers with a fixed `busy_timeout`, WAL on and off, and enough contention to move a number.
+  Either measure it (N writers, p50/p99 lock wait, WAL vs rollback journal) and put the reference
+  table in the instructor note, or stop implying it in the story.
+- **Did the announced-absence route carry the day?** (2026-11-19) A large share of the cohort was
+  ill but announced it. Did the pod know, did anyone use the video/recording option, and did the
+  checkpoint arithmetic survive? One sentence decides whether D18's fallback is real or theoretical.

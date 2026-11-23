@@ -12,7 +12,7 @@ Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment l
 | [Study formats](./study-formats.md) | The catalogue of pod-study and stage-and-gate variants, and the observations we still owe |
 | [Feedback rounds](./feedback-rounds.md) | The 10-minute script, the registration/lane run sheet, and the fill-in [template](./feedback-template.md) |
 | [TA briefing](./TA-briefing.md) | What the TA may and may not do: feedback lane, evidence notes, suggested readiness, demo-fair notes, escalation |
-| [Project idea bank](./project-ideas.md) | Concrete project directions and a kickoff talk track — a person, a problem, a first query, a data source |
+| [Project idea bank](./project-ideas.md) | Instructor companion to the [student catalogue](../modules/07-project-catalogue.md): verdict rules, the trap each family teaches, rescues, and the kickoff sheet |
 | [Email template](./email-template.md) | Prep and expectation mail — send it at least three days before a session |
 | [PostgreSQL on Debian](./postgres-server-setup.md) | Native PostgreSQL 17 + pgweb + Cloudflare named tunnel on Debian Trixie: provisioning, credentials, certificate handout, tests, teardown |
 | [PostgreSQL tunnel](./postgres-tunnel.sh) | The container fallback: Podman, Cloudflare tunnel, quick mode without a domain |

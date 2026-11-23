@@ -210,6 +210,10 @@ The final project is a local-first, embedded database application built by **Pro
 
 These seven are the **content criteria behind the architecture point** — they are not graded one by one. Meet them inside the three artefacts (story, architecture, plan) and the demo.
 
+### Contribution is individual
+
+Project work is graded as a team; the discussion is individual. In `docs/team.md` the team records what each member built, tested, reviewed, debugged, or presented, and at the fair each member names their own part and a teammate confirms it. Any real contribution counts — a tested query, the demo script, acting in the live demo, a review that caught a bug, or an AI suggestion you rejected with evidence. Attending without contributing does not. A member who cannot name a part, and whose team does not confirm one, cannot be awarded the individual discussion points; the three work points stay with the team.
+
 ### Assessment Criteria (5 points)
 
 - **Story (1 point):** a named person, a real problem, and the data that answers it.
