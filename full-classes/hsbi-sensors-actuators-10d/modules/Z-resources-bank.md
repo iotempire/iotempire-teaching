@@ -326,6 +326,48 @@ These are three different jobs — and none is a magic requirement:
 
 **Decoupling ≠ bulk.** A 0.1 µF ceramic next to an IC is decoupling (high-frequency noise); a 1000 µF electrolytic across the strip supply is bulk (current bursts). Do not call the bulk capacitor a decoupling capacitor. If you add an electrolytic, use **10 V or 16 V**, observe polarity, and expect inrush. If you are unsure, omit it for a short lab strip.
 
+<a id="hub75-scan"></a>
+### 📌 LED matrix panels: what “1/16 scan” means
+
+A HUB75 panel does **not** light all its LEDs at once. Its LEDs are wired in 16 **row groups**; the
+controller lights one group at a time and cycles through them. At any instant only 1/16 of the
+pixels — 64 of the 1024 on a 32×32 — can be on. The eye integrates the cycle into one image as long
+as it repeats fast enough (persistence of vision).
+
+| Panel | Groups, lit one after another | Address lines | Steps for a full image |
+|---|---|---|---|
+| 1/4 scan (often 32×16) | 4 | A, B | 4 |
+| 1/8 scan (often 64×64) | 8 | A, B, C | 8 |
+| **1/16 scan** (32×32, 64×32) | 16 | A, B, C, D | 16 |
+| 1/32 scan (64×64) | 32 | A, B, C, D, E | 32 |
+
+The step count is a power of two, which is why the address lines grow: *n* groups need *n* bits.
+A 1/16 panel therefore stops at `D`, and the `E` row in the pin table stays empty — that is the
+fifth address bit a 1/32 panel would need, not a broken wire.
+
+- **Refresh rate** is how often the whole cycle repeats. At 1/16 scan and 100 Hz, each group is on
+  for about 0.6 ms. A phone camera reads the screen line by line (rolling shutter) and catches the
+  groups in different phases, so it shows banding your eye never sees.
+- **Brightness is paid for twice.** Lighting 1/16 of the pixels at a time is what makes the panel
+  need only 16 row drivers, and it is also why the perceived brightness depends on duty cycle.
+
+**Why it is not a WS2812B strip.**
+
+| | WS2812B | HUB75 |
+|---|---|---|
+| Data | one line; every LED stores its own value | 13 parallel signals; the LEDs store nothing |
+| Image | all LEDs on, always | one row group at a time |
+| Refresh | whatever your strip update does | must be generated continuously by the controller |
+| Wrong wiring | one pixel misbehaves | shifted, doubled, or blank image |
+
+**Which controller drives it.** This class uses the ESP32 with
+[`ESP32-HUB75-MatrixPanel-DMA`](https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA): hardware
+DMA clocks the 13 lines, so the CPU stays free for animation, audio, and Wi-Fi. An **ESP8266** can
+drive the same panel with [`PxMatrix`](https://github.com/2dom/PxMatrix), which bit-bangs those
+13 lines from a timer instead — a common recipe (Wemos D1 mini, 32×16 or 64×32, panels chained on
+one ribbon), but CPU-bound and with lower refresh and colour depth. The wiring is **identical**
+either way: the ESP8266 saves no pins, it only changes how the pixels are clocked.
+
 ## 🧰 Tool gotchas
 
 - **Pasting into a REPL or serial monitor** executes line by line, and some boards reset when the serial port opens. Put multi-line code in a file, save it, then flash/upload. Close the serial monitor before flashing if the port is busy.

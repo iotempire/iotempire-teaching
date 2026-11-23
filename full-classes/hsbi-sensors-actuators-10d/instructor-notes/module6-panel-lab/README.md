@@ -42,6 +42,49 @@ shifter.
 VCC = 5 V, OE = GND, DIR = 3.3 V, common ground, 100 nF decoupling. Many panels work at 3.3 V on a
 short ribbon; the shifter is the reliable choice.
 
+### Board labels: `TDO` is GPIO 15
+
+Some boards print the JTAG function instead of the GPIO number. On the classic ESP32 the mapping
+is fixed, so read the number, not the name:
+
+| Silkscreen | GPIO | Used here as |
+|---|---:|---|
+| `TDI` / `MTDI` | 12 | G2 |
+| `TDO` / `MTDO` | 15 | OE |
+| `TCK` / `MTCK` | 13 | B2 |
+| `TMS` / `MTMS` | 14 | R2 |
+
+On an Espressif **ESP32-Ethernet-Kit** (or a clone with a JTAG DIP block) those four GPIOs are
+wired to the on-board FT2232H while their DIP switches are **on**. Turn them **off**, or the panel
+signals and the debug chip drive the same lines.
+
+### Strapping pins: why the panel can stop the board booting
+
+GPIO 5, 12 and 15 are *strapping* pins — sampled at reset to configure the chip. The panel and the
+level shifter can hold them at the wrong level before the ESP32 has configured them:
+
+| GPIO | Used here as | Must be at reset | Otherwise |
+|---|---|---|---|
+| 12 (`MTDI`) | G2 | **LOW** | flash voltage is selected as 1.8 V and the board does not boot |
+| 5 | C | **HIGH** | wrong SDIO timing / can drop into download mode |
+| 15 (`MTDO`) | OE | **HIGH** | boot log on UART0 is silenced (annoying, not fatal) |
+
+Two habits make that a non-issue:
+
+- **Flash with the ribbon unplugged** if the board refuses to boot or upload; reconnect it afterwards.
+  Once booted, all three pins behave as ordinary outputs.
+- If it still misbehaves, add a **10 kΩ pulldown from GPIO 12 to GND** on the ESP32 side of the
+  shifter. That is the pin that breaks boot, and the fix is one resistor.
+- If you would rather not add the resistor, move G2 off the strapping pin: **GPIO 18 is free** in
+  this build. Change `#define G2_PIN 12` to `18` in `panel/src/main.cpp` and that one wire in the
+  table above — nothing else changes.
+
+How the panel addresses its rows (and why `E` is unused here) is explained under
+[1/16 scan](../../modules/Z-resources-bank.md#hub75-scan) in the resource bank.
+
+The 5 V supply stays separate and the ground stays common — the ribbon carries signals, not LED
+current.
+
 ### UART link (default)
 
 | StickS3 HAT2 | ESP32 Dev Module |
@@ -134,6 +177,11 @@ breathing.
 
 - **Wrong colours or a shifted image:** ribbon orientation, a swapped colour pair, or the wrong
   panel scan. Run the library example before blaming the sketch.
+- **Board will not boot or upload with the panel connected:** GPIO 12 (G2) is a strapping pin and
+  must be LOW at reset. Flash with the ribbon unplugged, or add a 10 kΩ pulldown from GPIO 12 to
+  GND. See *Strapping pins* under Wiring.
+- **`TDO` / `TDI` on the silkscreen:** those are GPIO 15 and 12. The board-label table under Wiring
+  has the full mapping.
 - **`ESP32-HUB75-MatrixPanel-DMA.h: No such file or directory`:** the library ships
   `ESP32-HUB75-MatrixPanel-I2S-DMA.h` — the `I2S` is part of the header name, the C++ class is
   still `MatrixPanel_I2S_DMA`. `platformio.ini` pulls the library from Git without a tag, so a

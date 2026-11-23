@@ -517,6 +517,14 @@ Dates are design events, not every commit; Git history is the authority.
 - **Two controllers.** The ESP32 Dev Module (`esp32dev`) drives the panel; the M5StickC-S3 reads the microphone and IMU and sends `L 0..100` and `H 0..255`.
 - **UART default.** Hardware `Serial2` on the Stick's HAT2 G1/G2 (or Grove G9/G10) to the panel's GPIO32/33, 115200, newline-terminated. No SoftwareSerial: it competes with the I2S microphone and the panel DMA. ESP-NOW is the `◇` “cut the cable” extension; a phone hotspot with MQTT is Module 8/final-project territory.
 - **First light without AI.** The panel is new hardware; Task 1 uses the library example and the meter, not an agent. AI scaffolds Task 2.
+- **Controller family: ESP32, not ESP8266 — with the reason on record.** An ESP8266 *can* drive a
+  HUB75 panel with `PxMatrix` (bit-banged from a timer), and that was a working recipe in earlier
+  years, including several panels chained on one ribbon. It is rejected here for two reasons, not
+  because it is impossible: the wiring is identical (same 13 signals, so it saves no pins), and
+  bit-banging leaves no CPU to sample audio, run the animation, and keep a wireless path alive. The
+  ESP32's DMA path buys that headroom for the same harness. Keep the ESP8266 + PxMatrix route as a
+  documented fallback for a cohort that has only ESP8266 boards; students should still be able to
+  explain the trade (see the resource bank's 1/16-scan entry).
 - **Play is mandatory.** Task 3 is a `★` task, stays open after the exchange, and starts with a one-sentence story hook. The hook is part of the design note and the evidence; the realization may stay small.
 - **One 180-minute studio.** Two halves with a break; the run sheet is in the Module 6 studio note.
 
@@ -634,3 +642,4 @@ The authoritative wording is in the [syllabus](../syllabus.md). This table is a 
 - **2026-11-16** — Timetable and project. D23 added: 9 teaching days, 48 school hours (≈36 clock hours) in 90/180-minute slots, CP2/CP3 moved, two project tracks with optional MQTT, Module 8 as a clinic, Day 9 feedback rehearsal plus a 5–10 minute assessed video, grade table B. D20 amended for the longer Days 7–9.
 - **2026-11-16** — Vocabulary. D21 added: every module uses Task → Subtask → Evidence; Module 5 refactored as the reference (Tasks 1–5, `Proves:`/`Produces:`, standing `Log it`, closing exchange task); Modules 1–4 carry bracketed task numbers until their refactor; the sibling workbooks get the same TODO. Q10 resolved.
 - **2026-11-22** — Module 5 evidence and Module 6. D19 accepted after the evaluation: every pod controlled the strip, two pods built games with phone hotspots and a piezo; the guided format stays an observed-session pattern. D24 added: two controllers, UART default, ESP-NOW as the wireless extension, mandatory play task with a story hook, one 180-minute studio.
+- **2026-11-23** — Module 6 controller family. D24 extended: the ESP32/DMA choice is recorded against the ESP8266 + PxMatrix route that worked in earlier years, with the reason (identical harness, no CPU left for audio and the link). The resource bank gained a [1/16-scan entry](../modules/Z-resources-bank.md#hub75-scan) so the module's Task 1 question has a reference, and the reference lab documents the GPIO-12 strapping hazard and a GPIO-18 remap.

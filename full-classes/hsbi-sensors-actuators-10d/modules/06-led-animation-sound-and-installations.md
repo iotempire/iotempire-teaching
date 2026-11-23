@@ -198,6 +198,8 @@ The AI is the drafting tool; verification is the skill.
 
 **Panel facts.** The 32×32 panel is a HUB75 display: 1024 RGB LEDs, 5 V logic, thirteen signals (six data: R1/G1/B1/R2/G2/B2; seven control: A/B/C/D, CLK, LAT, OE — some panels also expose E). It is scanned, so the whole image is not lit at once; the library refreshes rows fast enough that the eye sees one image. Adafruit rates the panel at up to 4 A with all LEDs on; typical animations draw less. Product: [Adafruit 2026](https://www.adafruit.com/product/2026); background: [RGB LED matrix basics](https://learn.adafruit.com/32x16-32x32-rgb-led-matrix).
 
+> **1/16 scan, in one line.** The controller lights 16 row groups one after another, so only 1/16 of the pixels is on at any instant and `E` — the fifth address bit a 1/32-scan panel would need — stays unused. The arithmetic, the refresh consequences, and the WS2812B comparison are in the [resource bank](./Z-resources-bank.md#hub75-scan).
+
 **Default wiring (classic ESP32 Dev Module).** The library’s default pins, wired explicitly in the reference project:
 
 | Signal | GPIO | Signal | GPIO |

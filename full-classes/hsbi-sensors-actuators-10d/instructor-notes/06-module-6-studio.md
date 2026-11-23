@@ -55,6 +55,13 @@ start Task 2 early; the play task is the reward, not the schedule's hostage.
 - **Wireless `◇`:** ESP-NOW, same protocol; same Wi-Fi channel; peer MAC from the serial output.
   No router. Do not use SoftwareSerial: it competes with the I2S microphone and the panel DMA.
 
+**Why the ESP32 and not the ESP8266 boards of earlier years.** Both chips drive a HUB75 panel — the
+ESP32 through DMA (`ESP32-HUB75-MatrixPanel-DMA`), the ESP8266 through bit-banging (`PxMatrix`) — and
+the harness is identical either way, so the ESP8266 saves no wiring. The difference is CPU headroom:
+bit-banging the 13 lines leaves little room for the microphone, the animation, and a wireless path.
+Recorded as D24 in the [architecture log](./00-architecture-decisions.md#d24); the student-facing
+explanation is the resource bank's [1/16-scan entry](../modules/Z-resources-bank.md#hub75-scan).
+
 ## Common failures
 
 - **Wrong colours or a shifted image:** ribbon orientation, a swapped R/G/B pair, or the wrong
