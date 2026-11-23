@@ -10,7 +10,7 @@ That distinction is not a formality. In most German examination regulations the 
 ## Before the round
 
 - [ ] **Register the day.** Pods sign up at the start of the session for a rough timeslot (paper or the LMS). Publish the list. Random order is fine; silent order is not.
-- [ ] **Do the arithmetic.** 20 pods total; 10 per session. **10 minutes per pod** with the instructor; two lanes (instructor + TA) = **50 minutes** for 10 pods. One lane = 100 minutes. The peer practice stays **12 minutes each way**. If you have less time, cut the instructor slot, not the peer practice — the practice is where the portfolio gate happens.
+- [ ] **Do the arithmetic.** 20 pods total; 10 per session. **10 minutes per pod** with the instructor; two lanes (instructor + TA) = **50 minutes** for 10 pods. One lane = 100 minutes. The peer practice stays **12 minutes each way**. If you have less time, cut the instructor slot, not the peer practice — the practice is where the portfolio check happens.
 - [ ] **Open the template** ([`feedback-template.md`](./feedback-template.md)) in your editor, one line per pod.
 - [ ] **A visible timer.** A phone is enough, but it must be visible to the pod.
 - [ ] **Decide the fallback**: pods that are not ready get **4 minutes**. Publish that rule with the sign-up list.
@@ -40,15 +40,15 @@ The point is that students hear the goals explained by peers before they hear th
 
 | Minutes | What |
 |---|---|
-| 0–2 | **Portfolio gate.** Every member of the presenting pod opens *their own* portfolio on *their own* device. The receiving pod verifies four things (below). |
+| 0–2 | **Portfolio check.** Every member of the presenting pod opens *their own* portfolio on *their own* device. The receiving pod verifies four things (below). |
 | 2–10 | **One artefact each.** Each member shows exactly **one** artefact that proves a learning goal, and names the goal. At most one minute of questions per artefact. |
 | 10–12 | **One reflection.** The pod shows the reflection entry it is proudest of, and says why. |
 
-The **3-minute switch** between directions is for writing feedback notes, not for presenting. If a pod runs over, cut the reflection, not the gate.
+The **3-minute switch** between directions is for writing feedback notes, not for presenting. If a pod runs over, cut the reflection, not the check.
 
 The receiving pod writes the presenting members' **first names** first — 30 seconds, same as in your round.
 
-### The portfolio gate (the only hard requirement)
+### The portfolio check (the only hard requirement)
 
 The receiving pod checks, for **each** member:
 
@@ -57,7 +57,7 @@ The receiving pod checks, for **each** member:
 - [ ] They can **link**: a relative Markdown link from one file to another opens the right page (ideally to a podmate's entry).
 - [ ] They have **at least one entry per module worked on so far**, or a visible "not yet".
 
-A member who fails the gate is not in trouble — it is a five-minute fix now and a disaster in week 11. Note it on their line as `gate: fix`.
+A member who fails the check is not in trouble — it is a five-minute fix now and a disaster in week 11. Note it on their line as `portfolio: fix`.
 
 ### Questions the receiving pod should ask
 
@@ -116,7 +116,7 @@ P03 | Ada, Ben, Chi | ok | M1, M2 | M4 | bring the M2 orphan query and its plan
 ```
 
 - **members** — first names only, written by the pod in the first 30 seconds. No surnames, no student IDs.
-- **gate** — `ok` or `fix`, taken from the peer practice round. This is the field that saves you in week 11.
+- **portfolio** — `ok` or `fix`, taken from the peer practice round. This is the field that saves you in week 11.
 - **shown** — module numbers only. A tick is not needed; the list is the tick.
 - **not yet** — module numbers, or `—`.
 - **next step** — one imperative sentence. If you cannot fit it in one line, it is not a next step yet.

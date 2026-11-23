@@ -20,7 +20,7 @@ the architecture log first.
 | # | Discrepancy | Owner | Meanwhile |
 |---|---|---|---|
 | 1 | **Time vocabulary.** Networking ADR D3 bans time estimates; this class's rounds carry "~25 minutes" targets. | [ADR §4](./00-architecture-decisions.md#4-open-questions) | 06a has none; 06b keeps a visible rough timing with a hidden TODO; Modules 2–5 and 7–8 still do. Keep the run sheets in the instructor notes and remove the remaining estimates in one pass. |
-| 2 | **“Gate” vs “discussion”.** §4 records it open; Modules 6a/6b say *discussion*, Module 5 still says *gate*. | ADR §4 | Do not rename by hand until §4 closes; if it closes as “discussion”, rename in one pass. |
+| 2 | **“Gate” vs “discussion”.** **Resolved 2026-11-19:** the activity is an **exchange** (D7); “gate” and “discussion” retire. | D7 | Renamed in one pass across modules, notes, templates and the kickoff mail. |
 | 3 | **Checkpoint slot length.** Resolved for this run: README, `feedback-rounds.md` and the template use **10 minutes** for the instructor slot; the peer slot stays **12**. | ADR §4, [feedback manual](./feedback-rounds.md) | Record the actual slot times; if 10 is too tight, decide after the run. |
 | 4 | **Points split M5 vs 6a+6b.** One session for 2 points vs two sessions for 2 points. | ADR §4, syllabus | No point values in module files. Change only in the syllabus, and only with the Prüfungsausschuss. |
 | 5 | **Intensity opt-in** is a working TODO here but has no decision record. | this file | Treat it as provisional; if it survives a second run, write the record. |
@@ -72,17 +72,16 @@ the architecture log first.
       with an exceptionally shaped portfolio. Change the syllabus only — assessment is
       examination-law territory (D5).
 - [ ] **Intersperse theory and practice more** (D7). Modules 2–4 still run as *study → lab*; the
-      stage-and-gate format in Modules 5, 6a and 6b works better. Convert one module per term,
+      study-and-exchange format in Modules 5, 6a and 6b works better. Convert one module per term,
       not all at once, and write down what changed.
 - [ ] **Remove the remaining board assumptions.** The room has no board. In the instructor notes for
       Modules 2, 4 and 5 (and anywhere else the text says “write it on the board”), replace it with
       terminal output, a projected document, or a saved file. Module 6a now uses
       `scratch/warmup-portfolio/06a-recap-output.txt`; use that as the pattern.
-- [ ] **Rename all remaining “gates” to “discussions”** — **blocked**, see discrepancy 2 and
-      ADR §4. If the question closes as “discussion”, link each one explicitly to the module's
-      **learning goal** and the **theory box** it tests. Modules 5, 6a and 6b already do this in
-      different degrees; Modules 1–4 still say “gate” and some prompts only check completion, not
-      understanding.
+- [x] **Rename all remaining “gates” to “exchanges”** (D7). Done 2026-11-19: modules, notes,
+      templates and the kickoff mail use **exchange**; the project check is the **story test** and
+      the board is the **progress board**. Next run, check that every exchange question is tied to a
+      learning goal and a theory box, not only to completion.
 - [ ] **Make intensity opt-in everywhere it is possible** (D4; provisional, see discrepancy 5).
       Module 6a now has a core homework and an optional intense track; check whether the same
       shape fits Modules 3–5 (a small core proof plus one ambitious task), and whether students
@@ -103,15 +102,15 @@ the architecture log first.
       failure into the lesson. Put that framing plus `SELECT current_user, session_user;` and
       `\dp` into the 6b instructor note so it is planned, not improvised, and demo one deliberate
       failure next run.
-- [ ] **Record the stage-and-gate observations** in [`study-formats.md`](./study-formats.md) for
+- [ ] **Record the study-and-exchange observations** in [`study-formats.md`](./study-formats.md) for
       Modules 5, 6a and 6b while they are fresh (D7) — especially whether the theory boxes get read
-      *when needed* and whether the discussions are real or performative.
+      *when needed* and whether the exchanges are real or performative.
 - [ ] **Watch the checkpoint split** across Sessions 8–9 (D13, ADR §4): ten pods each, or two
       lanes with the TA? Write down which one actually happened and how long each slot took.
 - [ ] **Decide the two-studio split** (D11). 6a/6b were invented during the run and worked; make
       the split permanent in the module index and the points table, or merge them back after
       recording why the two-session version failed.
-- [ ] **Check the one-session bet in Module 5** (D12). Did pods actually do the recap-gated
+- [ ] **Check the one-session bet in Module 5** (D12). Did pods actually do the recap-closed
       homework before 6a, or did 6a lose its first 15 minutes to a recap anyway? One observation
       sentence decides whether the compression holds.
 - [ ] **Decide after 17 Dec whether the family shape becomes a syllabus criterion** (D21). This run

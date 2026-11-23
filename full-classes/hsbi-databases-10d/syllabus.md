@@ -131,7 +131,7 @@ There is no exam to pass module by module. For each of Modules 1–6 I look for 
 
 **If you are ill on the day.** Tell your pod and me — this is not a problem to solve alone. You can **join the round by video call**, your pod can **record it** and share the recording, and if something about *your* contribution is missing from what they show, **send me a short message** so it is on the record. If it needs a real conversation, **book a 15-minute slot in my office hour**. None of this changes your points; it only changes how much feedback you get.
 
-**Task Pods and Project Teams.** Your Task Pod of two or three is the unit for labs and checkpoints. For the final project, two pods merge into a **Project Team of 4–6**.
+**Task Pods and Project Teams.** Your Task Pod of two or three is the unit for labs and checkpoints. For the final project, two or three pods merge into a **Project Team of 6–9** (4–6 where the cohort allows).
 
 **Why it is built this way.** In database work the evidence is the artefact: a schema, a query plan, a benchmark table, a constraint that refuses bad data. Your portfolio is where those live, and a short conversation about them is a better test than a written exam — and a better use of our time than grading every task.
 
@@ -171,7 +171,7 @@ For each teaching block, write one logbook entry in `Reflections/refNN.md`, usin
 
 ## 11-Session Course Schedule
 
-The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6b), and the final-project arc (Module 7). Sessions 1–7 are taught studios; Sessions 8–10 are project studios, with **Checkpoint 2 spread across Sessions 8 and 9** while the teams work; Session 11 is the demo fair — five tables per 90-minute block, with a 10-minute live demo and a 5-minute discussion per table. Optional **TA-led tutorial sessions** (times announced via the LMS) add catch-up, deeper practice, and project support.
+The 11 sessions deliver Module 1 (introduction), the technical foundations (Modules 2–6b), and the final-project arc (Module 7). Sessions 1–7 are taught studios; Sessions 8–10 are project studios, with **Checkpoint 2 spread across Sessions 8 and 9** while the teams work; Session 11 is the demo fair — up to five tables per 90-minute block, with a 10-minute live demo and a 5-minute discussion per table. Optional **TA-led tutorial sessions** (times announced via the LMS) add catch-up, deeper practice, and project support.
 
 The full roadmap — with a one-line summary and learning goals for every studio — is in the [module index](./modules/00-index.md).
 
@@ -196,7 +196,7 @@ The full roadmap — with a one-line summary and learning goals for every studio
 
 ## Final Project Requirements (5 Points)
 
-The final project is a local-first, embedded database application built by **Project Teams of 4–6 students** — the project merges two of the Task Pods from Modules 1–6, so you keep your pod and gain one or two more. Project Teams form and pitch a stakeholder story during the project kickoff (Module 7), then map their requirements onto the criteria below. A Project Team may, by agreement with the instructor, continue a project from another course — this is a possibility, not a requirement; the default is a self-contained database application.
+The final project is a local-first, embedded database application built by **Project Teams of 6–9 students** — three Task Pods from Modules 1–6 (4–6 students where the cohort allows), so you keep your pod and gain two more. Project Teams form and pitch a stakeholder story during the project kickoff (Module 7), then map their requirements onto the criteria below. A Project Team may, by agreement with the instructor, continue a project from another course — this is a possibility, not a requirement; the default is a self-contained database application.
 
 ### Must-Have System Criteria:
 

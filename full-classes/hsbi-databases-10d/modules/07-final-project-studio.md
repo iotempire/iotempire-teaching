@@ -31,7 +31,7 @@ By the end, you can:
 
 ### 1. Find the story
 
-Bring the project tickets from 6b. A **Project Team of 4–6** (two merged Task Pods) picks one story and answers:
+Bring the project tickets from 6b. A **Project Team of 6–9** (two or three merged Task Pods) picks one story and answers:
 - **Who** is the person, and where do they work?
 - **What decision** does the data change?
 - **What is the first query** the database must answer?
@@ -39,7 +39,7 @@ Bring the project tickets from 6b. A **Project Team of 4–6** (two merged Task 
 
 If you cannot name the person and the first query, it is a topic, not a project. Use the [project catalogue](./07-project-catalogue.md) if you are stuck, but choose a family, not a topic.
 
-Write `docs/charter.md` before you build: the organisation, 3–4 actors, 2–3 workflows with the states they move through, 5–8 use cases as named queries, the one slice you will build, where each database lives and why, and a **cut list** of what you will not build. Choose a **Product Owner** (what and why) and a **process keeper** (the stand-up, the board, the commit watch). This is a light three-week process, not full Scrum. Record the roles in `docs/team.md`.
+Write `docs/charter.md` before you build: the organisation, 3–4 actors, 2–3 workflows with the states they move through, 5–8 use cases as named queries, the one slice you will build, where each database lives and why, and a **cut list** of what you will not build. Choose a **Product Owner** (what and why) and a **process keeper** (the stand-up, the board, the commit watch). If your team is more than six, keep the Task Pods as working units: each pod owns one delivery — the slice, the proof, or the surface — and names a **pod lead**. This is a light three-week process, not full Scrum. Record the roles in `docs/team.md`.
 
 ### 2. Map the evidence
 
@@ -71,9 +71,11 @@ Session 11 is a **table fair**: each team presents repeatedly at its table while
 
 At the table, every member names the part they built, tested, reviewed, debugged, or presented, and a teammate confirms it. Small parts count fully — the demo script, acting in the live path, the README, an AI suggestion you rejected with evidence.
 
+The demo is a relay: each member takes the part they own for about a minute, in the order of the live path, so the system is shown by the people who built it.
+
 ## ✅ Evidence checklist
 
-- [ ] `docs/team.md`: roles, members, and who owns what.
+- [ ] `docs/team.md`: roles, pod leads, and who owns what.
 - [ ] `docs/charter.md`: organisation, actors, workflows with states, use cases, the slice, where the data lives, the cut list.
 - [ ] `docs/backlog.md`: work packages with a delivery, an owner, and an acceptance line.
 - [ ] `docs/requirements.md`: one-page plan with your dates.

@@ -29,11 +29,11 @@ The operations lead, **Yasmin Kaya**, offers the classic shortcut: *"just copy t
 
 **Rough timing — Rounds 1–4 fill the two blocks of 90.** skim 15 → **1 See it** 25 → **2 Break it** 20 → **3 Build it** 50 → **4 Race it** 70 = 180 minutes. The break falls somewhere inside Round 3; take it when the build is running.
 
-**Rounds 5–7 are homework.** If your pod is faster, start Round 5 in class; if you are slower, finish Round 4 at home — but do not skip it. **Bring the homework rounds to Session 6:** the first 15 minutes of Module 6a are the Module 5 gate. No artefact? Say "not yet" and start the DuckDB studio — it does not block you.
+**Rounds 5–7 are homework.** If your pod is faster, start Round 5 in class; if you are slower, finish Round 4 at home — but do not skip it. **Bring the homework rounds to Session 6:** the first 15 minutes of Module 6a are the Module 5 recap. No artefact? Take the recap numbers and say you copied them — it does not block you.
 
-**Every round ends with a gate.** Show the round's artefact to the **nearest pod** and ask them the gate question. Two minutes, no instructor, no schedule. Tick the round on the gate board (or in your notes) when you have passed it. If a neighbour cannot answer your question, that is a better use of five minutes than reading the box again.
+**Every round ends with an exchange.** Show the round's artefact to the **nearest pod** and ask them the exchange question. Two minutes, no instructor, no schedule. Tick the round on the progress board (or in your notes) when you have finished it. If a neighbour cannot answer your question, that is a better use of five minutes than reading the box again.
 
-| # | Round | You produce | Gate question for a neighbour |
+| # | Round | You produce | Exchange question for a neighbour |
 |---|---|---|---|
 | 1 | **See it** | an FD list and two ER sketches | “Which arrow disappears in the second diagram?” |
 | 2 | **Break it** | three SQL statements and the broken row | “Try to break one of my three statements.” |
@@ -72,7 +72,7 @@ Take this five-row extract of the kind of table this studio starts from:
 
 **If you are stuck, ask:** *“Here is a flat table: `<columns and the five rows>`. List the functional dependencies you can infer, and mark which are domain facts and which are only observed in these rows.”* The model will promote an accident in five rows into a “dependency”. Deciding for yourself is the skill.
 
-**Gate.** Show your two diagrams to the nearest pod and ask: *“Which arrow disappears in the second one?”*
+**Exchange.** Show your two diagrams to the nearest pod and ask: *“Which arrow disappears in the second one?”*
 
 ---
 
@@ -105,7 +105,7 @@ INSERT INTO flat5 VALUES
 
 **If you are stuck, ask:** *“Give me a concrete update anomaly in this table, with the SQL statements and the inconsistent rows afterwards.”*
 
-**Gate.** Show your three statements to a neighbour and say: *“Try to break one of them.”*
+**Exchange.** Show your three statements to a neighbour and say: *“Try to break one of them.”*
 
 ---
 
@@ -186,7 +186,7 @@ SELECT (SELECT COUNT(*) FROM flat_jobpart)  AS flat_rows,
 
 **If you are stuck, ask:** *“Explain 2NF vs 3NF with a table where 2NF holds but 3NF fails.”*
 
-**Gate.** Show your two row counts to a neighbour and ask: *“Why does `part` have 10 rows, not 40?”*
+**Exchange.** Show your two row counts to a neighbour and ask: *“Why does `part` have 10 rows, not 40?”*
 
 ---
 
@@ -316,7 +316,7 @@ A *fully* denormalized variant would copy `name, category, brand` onto every fac
 
 **If you are stuck, ask:** *“When is denormalization the right call? Give a workload where 3NF is measurably slower, and say what the cost is.”*
 
-**Gate.** Compare plans with a neighbour: *“Did you get the same plan? If not, why?”* (Check `sqlite3 --version` first.)
+**Exchange.** Compare plans with a neighbour: *“Did you get the same plan? If not, why?”* (Check `sqlite3 --version` first.)
 
 ---
 
@@ -354,7 +354,7 @@ Fill in every number you measured:
 | Normalized (3NF) | | | | none |
 | Denormalized (report) | | | | site/technician/price repeated |
 
-**Gate.** Tell a neighbour your two storage numbers and your two row counts, and ask: *“Guess my query timings before I show you.”*
+**Exchange.** Tell a neighbour your two storage numbers and your two row counts, and ask: *“Guess my query timings before I show you.”*
 
 ---
 
@@ -362,7 +362,7 @@ Fill in every number you measured:
 
 Write a short recommendation (5–8 sentences) to the operations lead: which design should serve the dashboard, what the normalization of the transactional tables must stay at, and — crucially — **how you would keep the denormalized table from going stale** (a trigger from Module 4, a scheduled rebuild, or a materialized view). Cite your own numbers.
 
-**Gate.** Read the memo aloud to a neighbour. They ask one *“what if…”* question, and you answer it without notes.
+**Exchange.** Read the memo aloud to a neighbour. They ask one *“what if…”* question, and you answer it without notes.
 
 *Portfolio evidence:* the recommendation memo, referencing your benchmark table.
 

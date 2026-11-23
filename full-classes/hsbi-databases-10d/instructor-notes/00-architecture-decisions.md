@@ -62,12 +62,12 @@ short; link to the artefact instead of pasting it.
 | [D4](#d4) | Learning goals are the contract; tasks are negotiable | accepted | every module, syllabus |
 | [D5](#d5) | Assessment is portfolio → Projektarbeit | accepted | syllabus, `00-assessment-and-operations.md` |
 | [D6](#d6) | Stories carry the why; the canon keeps them consistent | accepted | modules, resource bank `#story-canon` |
-| [D7](#d7) | Stage-and-gate: the study is folded into the practice | accepted | Modules 5, 6a, 6b |
+| [D7](#d7) | Study-and-exchange: the study is folded into the practice | accepted | Modules 5, 6a, 6b |
 | [D8](#d8) | Each document has exactly one job | accepted | whole class folder |
 | [D9](#d9) | The class is a draft in motion, with a visible boundary | accepted | every module |
 | [D10](#d10) | One toolchain: `uv`, Python 3.14, SQLite/DuckDB — no pip, no extensions | accepted | syllabus, Module 1 |
 | [D11](#d11) | Module 6 is two studios: analytical engine + polyglot decision | provisional | Modules 6a/6b |
-| [D12](#d12) | Module 5 is one session; its homework is gated by a recap | provisional | Module 5, Module 6a |
+| [D12](#d12) | Module 5 is one session; its homework is closed by a recap | provisional | Module 5, Module 6a |
 | [D13](#d13) | Checkpoints are feedback, spread over sessions | accepted | syllabus, `feedback-rounds.md` |
 | [D14](#d14) | The project is three studios + demos, in merged teams | accepted | Module 7, syllabus |
 | [D15](#d15) | Eleven sessions; sessions 6–7 teach, 8–10 build, 11 demos | provisional | syllabus schedule |
@@ -146,7 +146,7 @@ copying and what is not.
 | D4 goals contract | D3 | Same. **Discrepancy:** networking says "no time estimates"; DB rounds carry block times (see §4). |
 | D5 portfolio → Projektarbeit | D4 portfolio → Hausarbeit | Same pipeline, different exam form. |
 | D6 stories + canon | D5 | Same; each course keeps its own cast. |
-| D7 stage-and-gate | D6 studio rhythm | Same, but DB removed the study phase earlier (Module 5). |
+| D7 study-and-exchange | D6 studio rhythm | Same, but DB removed the study phase earlier (Module 5). |
 | D8 one document, one job | D13 | Same. |
 | D9 draft boundary | D14 | Same; DB moves boundaries to the end once a module is delivered. |
 | D10 toolchain | — | DB-specific (software-only class). |
@@ -303,7 +303,7 @@ continuity that forces students to read another module to understand a hook.
 **Revisit if.** A story stops carrying the technical content, or the canon becomes a barrier.
 
 <a id="d7"></a>
-### D7 — Stage-and-gate: the study is folded into the practice
+### D7 — Study-and-exchange: the study is folded into the practice
 
 **Status:** accepted.
 
@@ -311,12 +311,12 @@ continuity that forces students to read another module to understand a hook.
 the lab. The same happened in the first Module 5 attempt.
 
 **Decision.** From Module 5 on, remove the separate study phase. Each round: a small task, a theory
-box read only when the task demands it, and a two-minute **discussion** with the nearest pod. The
+box read only when the task demands it, and a two-minute **exchange** with the nearest pod. The
 instructor walks and listens; no lecture. The format spreads to 6a/6b.
 
 **Consequences.** The room runs at different speeds on purpose; a shared progress list replaces
 synchronisation. The theory is discovered, not pre-loaded. Some students will skip the box and learn
-from the gate discussion instead — acceptable.
+from the exchange instead — acceptable.
 
 **Alternatives rejected.** Keeping the study and shortening the lab; a lecture to "save time"; a
 synchronised share.
@@ -324,6 +324,11 @@ synchronised share.
 **Evidence.** Module 5 primer; Modules 6a/6b; [study formats](./study-formats.md).
 
 **Revisit if.** A module needs a shared vocabulary before anyone can act.
+
+**Renamed (2026-11-19).** The pattern was called *stage-and-gate*. “Gate” read as a stop rather
+than an invitation, so the activity is now an **exchange**, the shared list is the **progress
+board**, and the final-project check is the **story test**. The vocabulary rule lives in
+[`AGENTS.md`](../../../AGENTS.md#vocabulary) so it applies to every class.
 
 <a id="d8"></a>
 ### D8 — Each document has exactly one job
@@ -418,7 +423,7 @@ points); DuckDB as a stretcher only.
 **Revisit if.** A future cohort needs the polyglot material earlier, or the points are rebalanced.
 
 <a id="d12"></a>
-### D12 — Module 5 is one session; its homework is gated by a recap
+### D12 — Module 5 is one session; its homework is closed by a recap
 
 **Status:** provisional.
 
@@ -426,13 +431,13 @@ points); DuckDB as a stretcher only.
 showed the measured rounds fit one. The leftover homework (Rounds 5–7) would otherwise be forgotten.
 
 **Decision.** Module 5 is **one session** (Rounds 1–4); Rounds 5–7 are homework. Session 6 opens
-with a **15-minute instructor recap** of the numbers and findings, not a student gate. Students
+with a **15-minute instructor recap** of the numbers and findings, not a student test. Students
 without homework take the generated recap numbers and note that they copied them.
 
 **Consequences.** The recap starts the next session with shared numbers and identifies the cold-cache
-surprise; it costs 15 minutes of Module 6a. The gate-as-test ritual is removed.
+surprise; it costs 15 minutes of Module 6a. The test ritual is removed.
 
-**Alternatives rejected.** Two sessions; a student gate; skipping the homework entirely.
+**Alternatives rejected.** Two sessions; a student test; skipping the homework entirely.
 
 **Evidence.** Module 5 primer; Module 6a "How this studio works"; instructor notes 06a.
 
@@ -448,7 +453,7 @@ one session cannot hold it. Grading mid-term is not permitted for the chosen for
 
 **Decision.** Checkpoints are **feedback rounds**, never graded. Checkpoint 1 sits in session 4;
 **Checkpoint 2 is spread over sessions 8 and 9** (ten pods each, ~10 minutes), while the project
-runs. The round opens with a peer practice (portfolio gate, one artefact, one reflection); "not yet"
+runs. The round opens with a peer practice (portfolio check, one artefact, one reflection); "not yet"
 is a complete answer. A TA can run a second lane: the TA gives feedback and may suggest
 **points and readiness** and **mark an individual for recheck**; **only the instructor records
 points, grades, and pass/fail.**
@@ -470,7 +475,8 @@ mid-term feedback.
 **Status:** accepted.
 
 **Context.** The project is the graded artefact; students need time to build, review and rehearse.
-Two pods of 2–3 merge into a team of 4–6.
+Two pods of 2–3 merge into a team of 4–6. The 2026/27 cohort forced three pods and 6–9 people, so
+the Task Pod stays the working unit inside the team (D21).
 
 **Decision.** Sessions 8–10 are project studios (story/architecture/plan → build/integrate →
 harden/review/rehearse); session 11 is a **five-tables-per-90-minute-block fair** plus individual
@@ -605,7 +611,7 @@ a template to maintain.
 
 **Consequences.** The working tree may carry uncommitted changes between sessions; that is intended, not a mistake to clean up. Editors and tooling must not auto-commit in this folder. A clean tree is a sign that someone committed, not that the work is finished.
 
-**Alternatives rejected.** Commit at the end of every task (removes the review gate); commit but never push (the local commit still hides the diff); commit only documentation (same problem, smaller file set); describe the diff in chat instead (a summary is not a review).
+**Alternatives rejected.** Commit at the end of every task (removes the review step); commit but never push (the local commit still hides the diff); commit only documentation (same problem, smaller file set); describe the diff in chat instead (a summary is not a review).
 
 **Evidence.** The operative rules live in the repository [`AGENTS.md`](../../../AGENTS.md); this record keeps the rationale. Module and instructor-note edits stay in the working tree until the instructor commits them.
 
@@ -618,7 +624,7 @@ a template to maintain.
 
 **Context.** The first run produced projects with one actor, one workflow and four tables: they met the criteria and taught too little, because a schema with one actor has no state and a schema without state has no reason for a trigger. The 2026-11-19 6b session showed the same thing from the other side — a server task that was one `SELECT` and one `UPDATE` had no depth once it worked. Becking's semester project (a company case study with business areas, use cases that drive the SQL, and 29 work packages) is the reference shape, but this class has three build weeks, not a semester.
 
-**Decision.** Projects are chosen from **families** (3–4 actors, 2–3 workflows with states, 7–10 entities) and built as **one vertical slice**. In Session 8 every team writes a one-page `docs/charter.md`, turns it into a work-package board, and elects a **Product Owner** and a **process keeper**; each later session opens with a 5-minute stand-up and closes with a 10-minute review. This is a light three-week process, **not full Scrum**: no story points, no velocity, no certification, and nothing about the process is graded. AI may generate schemas, code, and prose, but the team keeps `docs/ai-log.md` with at least one rejected suggestion and the fair asks for the worst AI output and its repair. Contribution is individual and peer-confirmed.
+**Decision.** Projects are chosen from **families** (3–4 actors, 2–3 workflows with states, 7–10 entities) and built as **one vertical slice**. In Session 8 every team writes a one-page `docs/charter.md`, turns it into a work-package board, and elects a **Product Owner** and a **process keeper**. Above six people the Task Pod stays the working unit: each pod owns one delivery and names a pod lead, the stand-up runs per pod with a two-minute leads sync, and each session closes with a 3-minute review per pod. This is a light three-week process, **not full Scrum**: no story points, no velocity, no certification, and nothing about the process is graded. AI may generate schemas, code, and prose, but the team keeps `docs/ai-log.md` with at least one rejected suggestion and the fair asks for the worst AI output and its repair. Contribution is individual and peer-confirmed.
 
 **Consequences.** Bigger stories without more surface; the schema gains states and actors, so constraints and triggers have a reason. The process costs about fifteen minutes per session. The risk is process theatre; the 5-minute stand-up, the 20-item board, and “prioritise, do not assign” are the guardrails. The points stay at 20; the contribution rule clarifies the existing individual discussion rather than adding a category.
 
@@ -665,11 +671,9 @@ a template to maintain.
   cost?
 - **Module 6 numbering next term.** Keep 6a/6b under Module 6, or make them two modules with a
   rebalanced points table?
-- **"Gate" vs "discussion".** Modules 6a/6b say discussion; Module 5 still says gate. Rename the
-  remaining ones or keep the historical term?
 - **Server after 6b.** The server is now the opening task in 6b. Should it stay up through the
   project weeks, and if so, who resets it and when?
-- **Project team size.** 4–6 is the current rule; is 6 too large for an individual defence?
+- **Project team size.** 4–6 is the default; 2026/27 ran 6–9 (three pods). Is 9 too large for an individual defence, and does the relay give every member a real part?
 - **Recap in every module.** Should every session open with a 15-minute recap of the previous one,
   or only when homework spans sessions?
 - **Warm-cache method everywhere.** Module 5 and 6a now warm up; should every benchmark in the

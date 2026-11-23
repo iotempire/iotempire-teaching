@@ -7,7 +7,7 @@ families, where the data lives, the ten-quality self-check, and the charter. Thi
 not for them — the verdict rules, the traps, the kickoff sheet, and the rescues. Do not duplicate
 the catalogue here; link to it.
 
-## 1. The gate — fifteen seconds per pitch
+## 1. The story test — fifteen seconds per pitch
 
 1. *Who is the person, and what do they do differently on Monday because of your answer?*
 2. *Say the first query out loud — what does it return today?*

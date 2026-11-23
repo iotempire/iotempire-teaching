@@ -1,6 +1,6 @@
 # Study formats — design notes and options
 
-**Status: living document, written during the first run (WS 2026/27).** Module 5 is the first outing of the **stage-and-gate** format. Module 6 followed: it was **split into two stage-and-gate studios (6a DuckDB, 6b polyglot)** rather than a study plus a lab. Fill in *Observations* for both before redesigning again.
+**Status: living document, written during the first run (WS 2026/27).** Module 5 is the first outing of the **study-and-exchange** format. Module 6 followed: it was **split into two study-and-exchange studios (6a DuckDB, 6b polyglot)** rather than a study plus a lab. Fill in *Observations* for both before redesigning again.
 
 This is not student-facing. It is the memory of *why* the format changed and what else we considered.
 
@@ -21,7 +21,7 @@ Modules 2–4 use (1)+(2). Module 5 uses (3). **Module 6 now uses (3) as well �
 | **Mini-lecture** | original draft | 15 min of talking, then lab | Removed. Students stopped typing; it was the lecture the course replaces. |
 | **Pod study + share** | Modules 2, 3, 4 | 30 + 15 or 20 + 10, then lab | 1.5–2× over estimate. Good discussions, but the lab started late. |
 | **Divide and conquer** | Module 3 | Four workstreams, 1-minute interruptions, hard stop | Better: the interruption rule kept pods from reading in silence. Still overran. |
-| **Stage-and-gate rounds** | Module 5 | Primer + 15-min skim, then 7 self-paced rounds with theory-on-demand and a peer gate each | **Running now** — observations below. |
+| **Study-and-exchange rounds** | Module 5 | Primer + 15-min skim, then 7 self-paced rounds with theory-on-demand and a peer exchange each | **Running now** — observations below. |
 
 ## Six dials (they are independent)
 
@@ -30,11 +30,11 @@ Most "formats" are just settings of these:
 1. **When does theory arrive?** before the work / during it / after a failed attempt.
 2. **Who holds it?** instructor / text / LLM / a peer who read it.
 3. **Fixed or chosen path?** one linear path / two tracks / free choice of order.
-4. **What synchronises the room?** a timer / peer gates / nothing / two whole-room moments.
+4. **What synchronises the room?** a timer / peer exchanges / nothing / two whole-room moments.
 5. **Unit of work?** a concept / an artefact / a question / a broken thing.
 6. **Where does the evidence land?** personal notes / the repo / the board / a peer's head.
 
-The stage-and-gate format is: theory *during*, held by *text and LLM*, one path, gates as the only sync, artefacts as the unit, evidence in the repo.
+The study-and-exchange format is: theory *during*, held by *text and LLM*, one path, exchanges as the only sync, artefacts as the unit, evidence in the repo.
 
 ## Option catalogue
 
@@ -44,10 +44,10 @@ Tasks come first; the concept text sits below them as a reference. Each task end
 - **Watch out:** keen pods read everything anyway; quiet pods never open the reference.
 - **Edit cost:** very low.
 
-### B. Stage-and-gate rounds (Module 5)
-Primer → skim → 5–7 small rounds, each with *Do / Theory you need / If stuck ask / Gate*.
+### B. Study-and-exchange rounds (Module 5)
+Primer → skim → 5–7 small rounds, each with *Do / Theory you need / If stuck ask / Exchange*.
 - **Best for:** procedural, observable material with clear artefacts.
-- **Watch out:** the room spreads out; you need a gate board; a pod can fake a tick.
+- **Watch out:** the room spreads out; you need a progress board; a pod can fake a tick.
 - **Edit cost:** medium (one module rewrite).
 
 ### C. Two tracks, same destination
@@ -57,7 +57,7 @@ Pods choose *schema-first* (normalize, then measure) or *measurement-first* (den
 - **Edit cost:** high.
 
 ### D. Station rotation
-Four corners: theory/LLM, sketching, playground, benchmark. Pods rotate on completion; the gate is the next station.
+Four corners: theory/LLM, sketching, playground, benchmark. Pods rotate on completion; the exchange is the next station.
 - **Best for:** restless rooms, lots of visualization, a big space.
 - **Watch out:** queues; the slowest station becomes the bottleneck.
 - **Edit cost:** high (materials + room).
@@ -115,7 +115,7 @@ One page of definitions, then the whole session is lab. The card is the only rea
 | If the material is… | Try |
 |---|---|
 | vocabulary everyone needs before acting | Pod study, Jigsaw, Card sort |
-| procedural and startable without theory | Stage-and-gate (B), Study as reference (A) |
+| procedural and startable without theory | Study-and-exchange (B), Study as reference (A) |
 | two legitimate approaches | Two tracks (C) |
 | debugging / finding defects | Error hunt (G) |
 | measurement and plans | Predict–observe–explain (H) |
@@ -124,13 +124,13 @@ One page of definitions, then the whole session is lab. The card is the only rea
 
 ## Observations (fill in after the run)
 
-### Module 5, first run (stage-and-gate)
+### Module 5, first run (study-and-exchange)
 
 - **Timing:** even after the block plan was made generous, the room did not reach the end of Round 4 in 180 minutes. **Double every estimate again** for the next run. Keep the **end of Round 4** as the class boundary; Rounds 5–7 are homework by design.
 - **Attendance:** about **one third of the class** attended. The room was regrouped once; that regrouping is the last one — do not re-form pods again in the same session.
-- Did the gates happen without the instructor? Did pods tick honestly?
-- Did the gates happen without the instructor? Did pods tick honestly?
-- Did anyone actually read the "Theory you need" boxes — and did the gate questions expose the ones who did not?
+- Did the exchanges happen without the instructor? Did pods tick honestly?
+- Did the exchanges happen without the instructor? Did pods tick honestly?
+- Did anyone actually read the "Theory you need" boxes — and did the exchange questions expose the ones who did not?
 - Was the 15-minute skim enough? Too much?
 - What did the instructor spend time on that was not teaching?
 
@@ -145,11 +145,11 @@ One page of definitions, then the whole session is lab. The card is the only rea
 
 ## Revisit checklist for Modules 6a and 6b
 
-Module 6 was split into two stage-and-gate studios mid-run, after Module 5 showed the format could carry a session. Do this *after* the two sessions have run:
+Module 6 was split into two study-and-exchange studios mid-run, after Module 5 showed the format could carry a session. Do this *after* the two sessions have run:
 
 1. Read the observations above. If the rounds worked, keep the split. If 6a ran long, move Task 5 (the boundary) to homework — do not shrink the race.
 2. If the tasks worked but the room spread too far, add **one** whole-room checkpoint after Task 3 of 6a.
-3. If the gates were gamed, switch the gate to a **question the neighbour asks from a fixed list** (see the [feedback-round manual](./feedback-rounds.md)).
+3. If the exchanges were gamed, switch to a **question the neighbour asks from a fixed list** (see the [feedback-round manual](./feedback-rounds.md)).
 4. If students skipped the theory boxes, move one box *before* its task instead of inside it — a single change, not a redesign.
 5. If 6b has too many tasks, keep JSON + the shared server + the decision record, and move key-value to homework.
 
@@ -157,8 +157,8 @@ Module 6 was split into two stage-and-gate studios mid-run, after Module 5 showe
 
 ## Open questions
 
-- Does the gate board change behaviour, or is it decoration?
+- Does the progress board change behaviour, or is it decoration?
 - Is the 15-minute skim real, or do pods start at Round 1 and never look ahead?
-- Do the theory boxes get read *when needed*, or only when a gate fails?
-- What is the minimum viable primer? (Currently: why, skim, gate rule, round table.)
+- Do the theory boxes get read *when needed*, or only when an exchange fails?
+- What is the minimum viable primer? (Currently: why, skim, exchange rule, round table.)
 - Can the same pattern carry a **tool-heavy** module (6a with DuckDB), or does it need the live walkthrough (K) first? *Being observed now.*

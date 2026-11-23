@@ -83,9 +83,9 @@ The order matters more than the artefacts. Each step names the decision it encod
 **Sources.** [Sensors D5](../full-classes/hsbi-sensors-actuators-10d/instructor-notes/00-architecture-decisions.md#d5) · [Databases D6](../full-classes/hsbi-databases-10d/instructor-notes/00-architecture-decisions.md#d6) · [Networking D5](../full-classes/hsbi-networking-iot-10d/instructor-notes/00-architecture-decisions.md#d5). **Strength:** invariant.
 
 #### B3. Use one vocabulary, and retire the synonyms
-**Practice.** Task → Subtask → Evidence. `Task Pod` (2–3), `Project Team` (4–6), `★ Core`, `◇ Stretcher`, `Excellence Stretcher`. Do not reintroduce Stage/Round/Studio as activity names in the `hsbi-*` workbooks.
+**Practice.** Task → Subtask → Evidence. `Task Pod` (2–3), `Project Team` (4–6; up to 9 when the cohort forces it), `★ Core`, `◇ Stretcher`, `Excellence Stretcher`. The study→practice moment is an **Exchange**, not a gate: a short peer share that opens the next move. The final-project check is the **Story test**, and the shared list is the **progress board**. Do not reintroduce Stage/Round/Studio as activity names in the `hsbi-*` workbooks.
 **Why.** Students navigate by the words in the schedule. A second name for the same thing reads as a second requirement.
-**Sources.** [Sensors D21](../full-classes/hsbi-sensors-actuators-10d/instructor-notes/00-architecture-decisions.md#d21) · [`AGENTS.md`](../AGENTS.md). **Strength:** default.
+**Sources.** [Sensors D21](../full-classes/hsbi-sensors-actuators-10d/instructor-notes/00-architecture-decisions.md#d21) · [Databases D7](../full-classes/hsbi-databases-10d/instructor-notes/00-architecture-decisions.md#d7) · [`AGENTS.md`](../AGENTS.md). **Strength:** default.
 
 #### B4. Compress breadth into reading, not into the bench
 **Practice.** When the handbook lists more principles than the days allow, keep the ones the kit can demonstrate on the bench and move the rest into a short lecture or a reading table with a check. Mark them as reading homework.
@@ -231,7 +231,7 @@ The order matters more than the artefacts. Each step names the decision it encod
 - **Reinventing the rejected alternative.** If the ADR says it was declined, read why before proposing it again.
 - **A second canon, a second vocabulary, or a second AI context file.** Each one creates a silent contradiction.
 - **Unverified AI output presented as evidence.** A pinout, a library name, or a timing claim from a model is a hypothesis until it is checked on hardware or in a datasheet.
-- **Committing for the instructor.** The review step is the quality gate; an agent that commits removes it.
+- **Committing for the instructor.** The review step is the quality check; an agent that commits removes it.
 - **A validation command that exists only in a chat message.** Put it in `tools/` and in `AGENTS.md`, or it will not be run next term.
 
 ## 5. Retrofit check for an existing class

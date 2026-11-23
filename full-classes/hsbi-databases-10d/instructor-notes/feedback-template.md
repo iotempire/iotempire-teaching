@@ -24,7 +24,7 @@
 #   12 min  Pod A presents   |  3 min switch + notes
 #   12 min  Pod B presents   |  3 min reflections
 #
-# PORTFOLIO GATE (checked in the peer round, ~15 seconds per member)
+# PORTFOLIO CHECK (checked in the peer round, ~15 seconds per member)
 #   [ ] own repository — from "Use this template", not a fork
 #   [ ] can edit and commit — show the commit
 #   [ ] can link — a relative link opens the right page
@@ -46,11 +46,11 @@
 #
 # NOT READY? 4 minutes: "not yet", one next step, move on. No rescue.
 #
-# FIELDS:  pod | members | gate | shown | not yet | next step
+# FIELDS:  pod | members | portfolio | shown | not yet | next step
 #   suggested points / recheck: the TA may append it (for example
 #   `suggested=2/2` or `suggested=1/2; recheck Ada`); the instructor records.
 #   members         : FIRST NAMES ONLY — the pod writes them, in the first 30 s
-#   gate            : ok / fix   (repo missing, cannot edit, cannot link)
+#   portfolio       : ok / fix   (repo missing, cannot edit, cannot link)
 #   shown / not yet : module numbers only ("M1, M2"), or "—"
 #   next step       : ONE imperative sentence
 #
@@ -87,7 +87,7 @@ P20 |  |  | M1, M2 |  |
 # ---------------------------------------------------------------------------
 # Turn this file into a Markdown table later (bash/zsh):
 #
-#   { printf '| pod | members | gate | shown | not yet | next step |\n|---|---|---|---|---|---|\n'
+#   { printf '| pod | members | portfolio | shown | not yet | next step |\n|---|---|---|---|---|---|\n'
 #     grep -v '^#' feedback.txt | grep -v '^$' | sed -e 's/ *| */ | /g' -e 's/^/| /' -e 's/$/ |/'
 #   } > feedback-table.md
 #

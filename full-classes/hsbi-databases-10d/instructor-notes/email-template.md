@@ -47,7 +47,7 @@ Ulno
 ## Session 8 example — the project kickoff (Thu 26 Nov 2026)
 
 > The kickoff mail is the one place where the “one action per bullet” rule bends: the team has to
-> make a decision in the room, so the gate is stated. It still carries no points; assessment stays
+> make a decision in the room, so the test is stated. It still carries no points; assessment stays
 > in the [syllabus](../syllabus.md).
 
 ```text
@@ -62,14 +62,15 @@ Before you come
 Bring two candidate project families, one paragraph each: the organisation, three
 actors, one workflow with its states, the first query, where the data comes from,
 and roughly how many rows you expect. The project catalogue on the course page
-has seven families and a ten-question self-check — run it on your candidates. If you already wrote the Module 6b project ticket, it counts as
-one candidate. Do not build anything yet and do not form teams in advance; you
-merge pods in the room.
+has seven families and a ten-question self-check — run it on your candidates.
+If you already wrote the Module 6b project ticket, it counts as one candidate.
+Do not build anything yet and do not form teams in advance; you merge pods in
+the room.
 
 What happens
-- Merge two pods into a Project Team (4–6).
-- Pitch your candidates and choose one. The gate is a named person and a first
-  query; if a candidate cannot clear it, we pick a family together — that is the
+- Merge two or three pods into a Project Team (6–9).
+- Pitch your candidates and choose one. The **story test** is a named person and a first
+  query; if a candidate cannot pass it, we pick a family together — that is the
   kickoff working, not a penalty.
 - Write docs/charter.md (one page), elect a Product Owner and a process keeper,
   and split the slice into work packages on a small board.
@@ -98,7 +99,7 @@ Ulno
 ## Current expectations (WS 2026/27)
 
 - **Module 5 is one session.** Its homework (Rounds 5–7: storage numbers, rows touched, memo) is
-  gated by a **15-minute recap** at the start of Module 6a — no test, and no penalty for "not yet".
+  picked up by a **15-minute recap** at the start of Module 6a — no test, and no penalty for "not yet".
 - **Module 6 is two studios:** 6a DuckDB (session 6), 6b polyglot + decision record (session 7).
 - **Checkpoint 2 is spread over sessions 8 and 9**, ten pods each, while the project runs.
 - **Project:** three studios (8–10) + the fair (11) — no extra project week. Session 8 is the kickoff: teams arrive with two candidate families, merge in the room, and leave with a charter, a board, and a running slice.

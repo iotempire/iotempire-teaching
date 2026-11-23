@@ -9,7 +9,7 @@ Content lives in [`../modules/`](../modules/00-index.md). Rules and assessment l
 | [Architecture decisions](./00-architecture-decisions.md) | Why the class is shaped this way: provenance, decision records with alternatives and reversal triggers, rejected ideas, open questions, recreation checklist, module-handbook coverage |
 | [Future work](./TODO.md) | Actionable leftovers for the next run, a discrepancy watch against the architecture log and the sibling classes, and the shared partial-grades thought |
 | [Assessment & operations](./00-assessment-and-operations.md) | Assessment form, milestone plan, submission hygiene, group sign-off, re-examination, privacy, AI declaration |
-| [Study formats](./study-formats.md) | The catalogue of pod-study and stage-and-gate variants, and the observations we still owe |
+| [Study formats](./study-formats.md) | The catalogue of pod-study and study-and-exchange variants, and the observations we still owe |
 | [Feedback rounds](./feedback-rounds.md) | The 10-minute script, the registration/lane run sheet, and the fill-in [template](./feedback-template.md) |
 | [TA briefing](./TA-briefing.md) | What the TA may and may not do: feedback lane, evidence notes, suggested readiness, demo-fair notes, escalation |
 | [Project idea bank](./project-ideas.md) | Instructor companion to the [student catalogue](../modules/07-project-catalogue.md): verdict rules, the trap each family teaches, rescues, and the kickoff sheet |
@@ -45,13 +45,13 @@ Networking class inherits patterns from this class; what it is copying is writte
 
 Rooms: the schedule is 90 minutes, a 15-minute break, 90 minutes. Protect the break — it is part of the method, not slack.
 
-## The stage-and-gate pattern (Module 5 onward)
+## The study-and-exchange pattern (Module 5 onward)
 
-Module 5 dropped its pod study and became **seven rounds**: a short primer, a fifteen-minute skim, then small hands-on stages, each with a *“Theory you need”* box and a two-minute **peer gate** at the end. No timer, no synchronised share — the room runs at different speeds on purpose, and a shared progress list shows you who is stuck.
+Module 5 dropped its pod study and became **seven rounds**: a short primer, a fifteen-minute skim, then small hands-on stages, each with a *“Theory you need”* box and a two-minute **peer exchange** at the end. No timer, no synchronised share — the room runs at different speeds on purpose, and a shared progress list shows you who is stuck.
 
 Use it when the material is **practical enough to start without the theory** and the study has been eating the lab. Do not use it where a shared vocabulary must exist before anyone can act — that is what the 30 + 15 studies in Modules 2–3 are for. **Modules 5, 6a and 6b all use it now**; 6a is one session of self-paced tasks, and 6b is two tasks plus the decision, not a study followed by a lab.
 
-The full catalogue of formats we considered, the six dials behind them, and the observations we still owe are in **[study formats](./study-formats.md)**. Module 6 has since been split into two stage-and-gate studios (6a, 6b); fill in the observations there before the next redesign.
+The full catalogue of formats we considered, the six dials behind them, and the observations we still owe are in **[study formats](./study-formats.md)**. Module 6 has since been split into two study-and-exchange studios (6a, 6b); fill in the observations there before the next redesign.
 
 ## Checkpoints are feedback rounds (sessions 4, 8 and 9)
 
@@ -60,7 +60,7 @@ Nothing is graded in a checkpoint. A checkpoint exists so students hear what is 
 - **~10 minutes per pod**, in person, from the **existing portfolio** — never from slides prepared for the occasion.
 - **One artefact, one question, one next step.** That is the whole slot.
 - **"Not yet" is a complete answer.** Write it down and move on; do not rescue a pod inside the slot.
-- The round opens with a **peer practice**: two pods present to each other, **12 minutes each way**, with a 3-minute switch for feedback notes. The receiving pod does the **portfolio gate** (own repository, can edit, commit, link) and asks the questions from the manual.
+- The round opens with a **peer practice**: two pods present to each other, **12 minutes each way**, with a 3-minute switch for feedback notes. The receiving pod does the **portfolio check** (own repository, can edit, commit, link) and asks the questions from the manual.
 - **Checkpoint 2 is spread over sessions 8 and 9** — ten pods per session, ten minutes each, while the rest of the room builds. Pods register for a rough slot at the start of the day. Session 8 covers Modules 4–5; session 9 covers 6a–6b. **Run two lanes (five pods each) and finish in ~50 minutes; otherwise you keep one lane and the TA helps the working teams.** The TA writes feedback, may suggest points and readiness, and may mark an individual for recheck; **you confirm and record the points.** With 20 pods this is the difference between a feedback round and a stampede.
 - Students who miss it send a **short video plus a portfolio excerpt**; they get less feedback, and lose no points.
 

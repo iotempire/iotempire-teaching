@@ -74,7 +74,7 @@ land; the reasoning is in the DB ADR or in the linked artefact.
 | SQL, DuckDB, normalization content | Belongs to Databases; the didactic shape is what travels. |
 | Minute-by-minute estimates inside tasks | Networking rejected them for good reasons (its ADR §3). Keep the ban; Databases is still deciding (see §5). |
 | The cohort-specific attendance mail | It lives in the private repo and names a specific room. Write your own when you need it. |
-| “Gate” as the standard term | Databases is renaming it to **discussion**; do not introduce the old word in new material. |
+| “Gate” as the standard term | Databases uses **exchange**; do not introduce the old word in new material. |
 | A second reflection logbook per module | Reflections are block-based; a second copy drifts and inflates the workload. |
 
 ## 5. Shared questions — close them together
@@ -83,7 +83,7 @@ land; the reasoning is in the DB ADR or in the linked artefact.
 |---|---|---|
 | **Partial grades (A-, B+, B-)** | Databases ADR §4: the 20-point table moves in whole points. | First a thought experiment for both classes: define what separates an A- from a B+ in the evidence, then see whether the table can express it without inventing half points. Do not put it in a module. |
 | **Time vocabulary** | Networking bans estimates; Databases uses block targets. | Pick one vocabulary for both classes before the next offering. |
-| **“Gate” vs “discussion”** | Databases uses *discussion* in 6a/6b, *gate* in Module 5. | Pick one term and rename in one pass; link each discussion to the learning goal it tests. |
+| **“Gate” vs “discussion”** | Resolved: Databases uses **exchange**. | Link each exchange to the learning goal it tests. |
 | **Checkpoint slot length** | 10 minutes in the syllabus, 12 in the run sheet. | Fix one number in both documents; record actual slot times for a term. |
 | **Big pods / TA** | Databases: 20 pods, one TA lane. | Measure one term before making the TA a permanent requirement. |
 | **Online pods** | Databases D18 is provisional. | Ask the Prüfungsamt together; publish only what is allowed. |
@@ -106,8 +106,8 @@ land; the reasoning is in the DB ADR or in the linked artefact.
 - [Databases TODO](../../hsbi-databases-10d/instructor-notes/TODO.md) — the discrepancy watch and
   the actionable leftovers.
 - [Databases study formats](../../hsbi-databases-10d/instructor-notes/study-formats.md) — the
-  catalogue of pod-study and stage-and-gate variants.
+  catalogue of pod-study and study-and-exchange variants.
 - [Databases module index](../../hsbi-databases-10d/modules/00-index.md) — Modules 5, 6a and 6b are
-  the current stage-and-gate examples.
+  the current study-and-exchange examples.
 - [Databases PostgreSQL tunnel](../../hsbi-databases-10d/instructor-notes/postgres-tunnel.sh) — a
   reusable pattern for putting one optional service in front of the room.

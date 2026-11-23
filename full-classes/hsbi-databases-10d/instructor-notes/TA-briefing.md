@@ -31,7 +31,7 @@ that help.
 
 ## Checkpoint lane — the ten-minute script
 
-1. **Portfolio gate (1 min).** The pod opens its own repository; can it edit, commit, and link an
+1. **Portfolio check (1 min).** The pod opens its own repository; can it edit, commit, and link an
    artefact? If not, stop and fix that first.
 2. **One artefact (3 min).** “Show me the thing you are proudest of from Module X.” Ask what it
    proves, not how long it took.
@@ -50,7 +50,7 @@ that help.
 
 ## Demo fair — the TA lane
 
-- The room is a fair: **five tables per 90-minute block**. Each team has a table, a live demo, a
+- The room is a fair: **up to five tables per 90-minute block**. Each team has a table, a live demo, a
   poster or slides, and a short recorded fallback.
 - The TA joins the instructor for the **two training rounds** (both blocks), asks one question per
   member, and writes feedback. After this run the TA can take a table lane independently while the
@@ -71,7 +71,7 @@ that help.
 
 ## Escalate immediately
 
-- A pod has no working portfolio after the gate.
+- A pod has no working portfolio after the check.
 - A student says “that was my teammate’s part” and cannot explain their own piece.
 - A team’s demo is slides only, or the live run fails twice.
 - The server or the network is down and the room is waiting.
