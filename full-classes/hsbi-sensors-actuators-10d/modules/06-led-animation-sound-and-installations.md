@@ -54,8 +54,8 @@ You work in your Task Pod at your own pace. The instructors circulate; ask early
 1. **Wire the default rig.** Panel + 5 V 4 A supply + 74HCT245 + ESP32 Dev Module. Use the pin table in [Appendix A](#appendix-a). Common ground everywhere; never power the panel from USB or a GPIO. The Stick stays on the bench for Task 2.
 2. **Flash the library example.** Use [`ESP32-HUB75-MatrixPanel-DMA`](https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA) and its example sketch — no agent. Confirm orientation, colour order, and that the whole 32×32 area is addressed.
 3. **Measure the ceiling.** Measure current at 25 %, 50 %, 75 %, and 100 % white. Fill the table, watch the panel voltage, and choose the highest brightness that stays stable with margin on the 4 A supply.
-4. **◇ How the panel actually works.** In one paragraph, explain the row scan, the 1/16 scan of this panel, the refresh rate, and why a phone camera may show flicker that the eye does not. Use the library and the Adafruit background as sources.
-5. **★ Log it.** In `## Study log` in `Module06/README.md`: the wiring, the maximum brightness you trust, the measured current at each step, and the scan explanation.
+4. **How the panel actually works.** In one paragraph, explain the row scan, the 1/16 scan of this panel, the refresh rate, and why a phone camera may show flicker that the eye does not. Use the library and the Adafruit background as sources.
+5. **Log it.** In `## Study log` in `Module06/README.md`: the wiring, the maximum brightness you trust, the measured current at each step, and the scan explanation.
 
 | Brightness | Measured current | Panel voltage | Stable? | Notes |
 |---:|---:|---:|---|---|
@@ -76,7 +76,7 @@ You work in your Task Pod at your own pace. The instructors circulate; ask early
 4. **Breathe.** Build a `millis()`-based breathing effect — no `delay()` in the loop — with one normalized parameter for speed and depth. The panel keeps breathing while the link is idle.
 5. **Listen.** Use the Stick’s microphone (M5Unified): sample in short blocks, compute a peak or RMS envelope, add automatic gain control, and send `L 0..100`. Map the level to brightness; map tilt (IMU) or a distance sensor to hue, or to a second parameter.
 6. **Verify.** Quiet and loud, still and moving. Note latency, flicker, and what you changed to make it stable. Record a short video.
-7. **★ Log it.** In the same log: the protocol, the envelope, the mapping, and what still flickers.
+7. **Log it.** In the same log: the protocol, the envelope, the mapping, and what still flickers.
 
 <a id="task-2-panel-prompt"></a>
 
@@ -153,7 +153,7 @@ In `src/main.cpp`, use `M5Unified`: initialize the display, microphone, IMU, and
 2. **Build one interaction.** A toy, an instrument, or a game. One behaviour is enough. Seeds are in [Appendix C](#appendix-c): a reaction game, a tiny snake, a VU meter, a theremin, a distance-triggered wave, a joystick game.
 3. **Optional physical twist.** A piezo, the Stick’s speaker, or — if the Adafruit I2S amplifier + speaker modules have arrived — an external I2S amp. A small servo or DC motor shield, or a joystick board. Keep it optional; do not let it eat the panel time. The Stick’s microphone and speaker are half-duplex; a piezo or an external amp avoids the conflict. Check the free I2S peripheral and pins before wiring.
 4. **Document.** The hook, the input → light/sound mapping, one failure mode, and the video.
-5. **★ Log it.** In the same log: the hook, the mapping, and what you would change with another hour.
+5. **Log it.** In the same log: the hook, the mapping, and what you would change with another hour.
 
 **Done when:** someone can interact with it for thirty seconds without instructions, and the video and the hook exist.
 
