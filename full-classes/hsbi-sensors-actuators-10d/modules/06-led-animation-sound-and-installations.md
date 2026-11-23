@@ -139,9 +139,9 @@ In `src/main.cpp`, use `M5Unified`: initialize the display, microphone, IMU, and
 
 </details>
 
-**Why two controllers.** The HUB75 panel needs thirteen signals; the Stick’s exposed header is small and already shares pins with the display, audio codec, and IMU. The ESP32 Dev Module is the pin-rich board; the Stick is the sensor/UI board. One controller is a `◇` challenge, not the default — see [Appendix A](#appendix-a).
+**Why two controllers.** The HUB75 panel needs thirteen signals; the Stick’s exposed header is small and already shares pins with the display, audio codec, and IMU. The ESP32 Dev Module is the pin-rich board; the Stick is the sensor/UI board — see [Appendix A](#appendix-a).
 
-**Why UART.** It is deterministic, needs no pairing or channel state, and works with the boards on the same bench. ESP-NOW is the fun `◇` version: low latency, no router, but MAC pairing and packet-loss debugging are a separate lesson. Do not use SoftwareSerial on the S3; it competes with the I2S microphone and the panel DMA.
+**Why UART.** It is deterministic, needs no pairing or channel state, and works with the boards on the same bench. ESP-NOW is the alternative "fun" `◇` version: low latency, no router, but MAC pairing and packet-loss debugging are a separate lesson. Do not use SoftwareSerial on the S3; it competes with the I2S microphone and the panel DMA.
 
 **Done when:** the panel breathes smoothly while the loop stays responsive, the sound mode reacts visibly without constant re-tuning, and the link and protocol are written down.
 
