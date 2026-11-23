@@ -46,42 +46,65 @@ Power the panel through its **5 V/GND** terminals from the 5 V 4 A supply. The r
 signals, not the LED current. Common ground between the panel supply, the ESP32, and the level
 shifter.
 
-### The connector as you see it
+### The connector: read the panel's own print
 
-**Mirrored** — the class case: the flat ribbon comes towards you. Each row reads left to right; the
-number is the pin position, counted in pairs (1‑2, 3‑4, …) from the pin‑1 end. The right-hand
-columns say where that wire goes on the MiniKit.
+The panel prints the connector's functions next to the plug, in the standard HUB75 order — pairs
+left to right, pins 1–16 from the top:
+
+```text
+R1   G1
+B1   GND
+R2   G2
+B2   GND
+A    B
+C    D
+CLK  LAT
+OE   GND
+```
+
+That print is the authority: it is on the hardware, and its numbers do not change. Which of the two
+views below you use depends only on what you are holding, not on the panel.
+
+**A — dupont straight into the back of the panel.** You see the connector itself, so each row reads
+exactly as printed (`R1` `G1`, `B1` `GND`, …):
 
 | # | Signal | GPIO | MiniKit | # | Signal | GPIO | MiniKit |
 |---:|---|---:|---|---:|---|---:|---|
-| 1 | `G1` | 26 | left-inner `IO26` | 2 | `R1` | 25 | right-outer `IO25` |
-| 3 | `GND` | — | any `GND` | 4 | `B1` | 27 | right-outer `IO27` |
-| 5 | `G2` | 12 | right-outer `TDI` | 6 | `R2` | 14 | left-outer `TMS` |
-| 7 | `GND` | — | any `GND` | 8 | `B2` | 13 | left-inner `TCK` |
-| 9 | `B` | 19 | left-inner `IO19` | 10 | `A` | 23 | left-inner `IO23` |
-| 11 | `D` | 17 | right-inner `IO17` | 12 | `C` | 5 | left-inner `IO5` |
-| 13 | `LAT` | 4 | right-outer `IO4` | 14 | `CLK` | 16 | right-inner `IO16` |
+| 1 | `R1` | 25 | right-outer `IO25` | 2 | `G1` | 26 | left-inner `IO26` |
+| 3 | `B1` | 27 | right-outer `IO27` | 4 | `GND` | — | any `GND` |
+| 5 | `R2` | 14 | left-outer `TMS` | 6 | `G2` | 12 | right-outer `TDI` |
+| 7 | `B2` | 13 | left-inner `TCK` | 8 | `GND` | — | any `GND` |
+| 9 | `A` | 23 | left-inner `IO23` | 10 | `B` | 19 | left-inner `IO19` |
+| 11 | `C` | 5 | left-inner `IO5` | 12 | `D` | 17 | right-inner `IO17` |
+| 13 | `CLK` | 16 | right-inner `IO16` | 14 | `LAT` | 4 | right-outer `IO4` |
 | 15 | `OE` | 15 | right-inner `TDO` | 16 | `GND` | — | any `GND` |
 
-**Unmirrored** — the same connector seen from the other side, for male–female dupont wires. Same
-rows, the two halves swapped:
+**B — dupont onto the free end of a flat ribbon.** The ribbon presents the same pins **mirrored left
+to right**: every pair reads in the reverse order. The numbers in the cells are still the panel's
+numbers, so wire by pair, never by column position:
 
 | # | Signal | GPIO | MiniKit | # | Signal | GPIO | MiniKit |
 |---:|---|---:|---|---:|---|---:|---|
-| 2 | `R1` | 25 | right-outer `IO25` | 1 | `G1` | 26 | left-inner `IO26` |
-| 4 | `B1` | 27 | right-outer `IO27` | 3 | `GND` | — | any `GND` |
-| 6 | `R2` | 14 | left-outer `TMS` | 5 | `G2` | 12 | right-outer `TDI` |
-| 8 | `B2` | 13 | left-inner `TCK` | 7 | `GND` | — | any `GND` |
-| 10 | `A` | 23 | left-inner `IO23` | 9 | `B` | 19 | left-inner `IO19` |
-| 12 | `C` | 5 | left-inner `IO5` | 11 | `D` | 17 | right-inner `IO17` |
-| 14 | `CLK` | 16 | right-inner `IO16` | 13 | `LAT` | 4 | right-outer `IO4` |
+| 2 | `G1` | 26 | left-inner `IO26` | 1 | `R1` | 25 | right-outer `IO25` |
+| 4 | `GND` | — | any `GND` | 3 | `B1` | 27 | right-outer `IO27` |
+| 6 | `G2` | 12 | right-outer `TDI` | 5 | `R2` | 14 | left-outer `TMS` |
+| 8 | `GND` | — | any `GND` | 7 | `B2` | 13 | left-inner `TCK` |
+| 10 | `B` | 19 | left-inner `IO19` | 9 | `A` | 23 | left-inner `IO23` |
+| 12 | `D` | 17 | right-inner `IO17` | 11 | `C` | 5 | left-inner `IO5` |
+| 14 | `LAT` | 4 | right-outer `IO4` | 13 | `CLK` | 16 | right-inner `IO16` |
 | 16 | `GND` | — | any `GND` | 15 | `OE` | 15 | right-inner `TDO` |
 
-The ribbon carries sixteen pins and **no `E`** (unused at 1/16 scan); the third ground shares the last
-pair with `OE`. The signal in the cell is what you wire — if your panel prints the standard HUB75
-numbers (1 = `R1`, 2 = `G1`, …), the numbers here are only an orientation aid, because a mirrored
-ribbon swaps the two members of each pair. Verify one panel with a continuity tester before you trust
-any number.
+Both tables are the same mapping. If you know the physical position of `R1` at your end of the wire,
+you know which view applies; if you do not, beep one ground through and read off where it lands.
+
+There is no `E`: a 16-pin 1/16-scan panel multiplexes 32 rows with `A`–`D` only.
+
+**The trap that catches everyone.** The two views differ by exactly one thing — the left/right order
+of each pair — and one of those pairs is `CLK`/`LAT`. Mixing the views puts the ESP32's latch pulses
+on the panel's clock input, and the panel then stays **completely dark while the driver reports
+success**: nothing is ever shifted into the column drivers. Dark panel, `panel ready`, `frames`
+climbing, dark at brightness 255 — check which view you wired and check `CLK` and `LAT` first,
+before anything else. A ribbon that is plugged in facing the wrong way does the same thing.
 
 **Level shifter (74HCT245).** 3.3 V signals on the A side, panel signals on the B side,
 VCC = 5 V, OE = GND, DIR = 3.3 V, common ground, 100 nF decoupling. Many panels work at 3.3 V on a
@@ -132,42 +155,27 @@ How the panel addresses its rows (and why `E` is unused here) is explained under
 The silk screen prints function names, not GPIO numbers, and the JTAG quartet sits on the header
 where you would look for GPIO 12–15. The board has two double-row headers; read down each column
 (GPIO numbers in brackets). Ribbon on the left, board on the right, same rows — the `H<n>` marks
-tie a board pin to a HUB75 pin above.
-
-**Mirrored ribbon** (the class case):
+tie a board pin to a HUB75 pin, numbered as in **view A** above.
 
 | HUB75 | | | left-outer | left-inner | | right-inner | right-outer |
 |---|---|---|---|---|---|---|---|
-| `1` `G1` | `2` `R1` | | `GND` | `RST` | | `TXD` (1) | `GND` |
-| `3` `GND` | `4` `B1` | | `NC` | `SVP` (36) | | `RXD` (3) | `IO27` **H4** |
-| `5` `G2` | `6` `R2` | | `SVN` (39) | `IO26` **H1** | | `IO22` | `IO25` **H2** |
-| `7` `GND` | `8` `B2` | | `IO35` | `IO18` | | `IO21` | `IO32` |
-| `9` `B` | `10` `A` | | `IO33` | `IO19` **H9** | | `IO17` **H11** | `TDI` (12) **H5** |
-| `11` `D` | `12` `C` | | `IO34` | `IO23` **H10** | | `IO16` **H14** | `IO4` **H13** |
-| `13` `LAT` | `14` `CLK` | | `TMS` (14) **H6** | `IO5` **H12** | | `GND` | `IO0` |
+| `1` `R1` | `2` `G1` | | `GND` | `RST` | | `TXD` (1) | `GND` |
+| `3` `B1` | `4` `GND` | | `NC` | `SVP` (36) | | `RXD` (3) | `IO27` **H3** |
+| `5` `R2` | `6` `G2` | | `SVN` (39) | `IO26` **H2** | | `IO22` | `IO25` **H1** |
+| `7` `B2` | `8` `GND` | | `IO35` | `IO18` | | `IO21` | `IO32` |
+| `9` `A` | `10` `B` | | `IO33` | `IO19` **H10** | | `IO17` **H12** | `TDI` (12) **H6** |
+| `11` `C` | `12` `D` | | `IO34` | `IO23` **H9** | | `IO16` **H13** | `IO4` **H14** |
+| `13` `CLK` | `14` `LAT` | | `TMS` (14) **H5** | `IO5` **H11** | | `GND` | `IO0` |
 | `15` `OE` | `16` `GND` | | `NC` | `3V3` | | `VCC` | `IO2` |
-| | | | `SD2` (9) | `TCK` (13) **H8** | | `TDO` (15) **H15** | `SD1` (8) |
+| | | | `SD2` (9) | `TCK` (13) **H7** | | `TDO` (15) **H15** | `SD1` (8) |
 | | | | `CMD` (11) | `SD3` (10) | | `SD0` (7) | `CLK` (6) |
 
-**Unmirrored ribbon** (male–female dupont, board seen the other way):
-
-| HUB75 | | | left-outer | left-inner | | right-inner | right-outer |
-|---|---|---|---|---|---|---|---|
-| `2` `R1` | `1` `G1` | | `GND` | `RST` | | `TXD` (1) | `GND` |
-| `4` `B1` | `3` `GND` | | `NC` | `SVP` (36) | | `RXD` (3) | `IO27` **H4** |
-| `6` `R2` | `5` `G2` | | `SVN` (39) | `IO26` **H1** | | `IO22` | `IO25` **H2** |
-| `8` `B2` | `7` `GND` | | `IO35` | `IO18` | | `IO21` | `IO32` |
-| `10` `A` | `9` `B` | | `IO33` | `IO19` **H9** | | `IO17` **H11** | `TDI` (12) **H5** |
-| `12` `C` | `11` `D` | | `IO34` | `IO23` **H10** | | `IO16` **H14** | `IO4` **H13** |
-| `14` `CLK` | `13` `LAT` | | `TMS` (14) **H6** | `IO5` **H12** | | `GND` | `IO0` |
-| `16` `GND` | `15` `OE` | | `NC` | `3V3` | | `VCC` | `IO2` |
-| | | | `SD2` (9) | `TCK` (13) **H8** | | `TDO` (15) **H15** | `SD1` (8) |
-| | | | `CMD` (11) | `SD3` (10) | | `SD0` (7) | `CLK` (6) |
-
-`H<n>` is the HUB75 pin number from the tables above, so the three views agree. The remaining header
-pins carry no panel signal: **`IO22` is unused**, as are `IO21`, `IO32`, `IO18`, `IO0`, `IO2`,
-`IO33`, `IO34`, `IO35`, `SVP`, `SVN` — `IO18` is the spare that can take over G2 if GPIO 12
-misbehaves.
+Read the `H<n>` tags against the panel's print, not against the row position: if your ribbon presents
+the mirrored order (**view B**), every pair exchanges, so `IO26` and `IO25` trade `H1`/`H2` and `IO16`
+and `IO4` trade `H13`/`H14`. Confirm `H1` (`R1`) and `H13` (`CLK`) with the meter, then wire the rest
+as pairs. The remaining header pins carry no panel signal: **`IO22` is unused**, as are `IO21`,
+`IO32`, `IO18`, `IO0`, `IO2`, `IO33`, `IO34`, `IO35`, `SVP`, `SVN` — `IO18` is the spare that can
+take over G2 if GPIO 12 misbehaves.
 
 Which label carries which panel signal:
 
@@ -311,9 +319,10 @@ breathing.
 ## Known issues
 
 - **Panel completely dark, driver running (`panel ready`, `alive …` with `frames` climbing, dark at
-  beacon 255):** in this order — 5 V measured at the panel terminals, common ground, `CLK`
-  (H14 → IO16), `OE` (H15 → `TDO`). Beep the last two with a multimeter; "the wire looks right" is
-  not a measurement. If all four check out, flash the
+  beacon 255):** in this order — 5 V measured at the panel terminals, common ground, the ribbon
+  turned over (`CLK`/`LAT` and every other pair exchanged, see *The connector*), `CLK` (pin 13 →
+  IO16) and `LAT` (pin 14 → IO4), then `OE` (pin 15 → `TDO`). Beep those three with a multimeter;
+  "the wire looks right" is not a measurement. If they all check out, flash the
   [ESP8266 fallback](pxmatrix-fallback/README.md) to prove the panel and ribbon independently.
 - **Wrong colours or a shifted image:** ribbon orientation, a swapped colour pair, or the wrong
   panel scan. Run the library example before blaming the sketch.
