@@ -40,35 +40,40 @@ shifter.
 
 ### The connector as you see it
 
-**Mirrored** — the class case: the flat ribbon comes towards you, so the panel's pin order reads in
-reverse. Take the signal and its GPIO from the same cell.
+**Mirrored** — the class case: the flat ribbon comes towards you. Each row reads left to right; the
+number is the pin position, counted in pairs (1‑2, 3‑4, …) from the pin‑1 end. The right-hand
+columns say where that wire goes on the MiniKit.
 
-| | |
-|---|---|
-| `G1` → 26 | `R1` → 25 |
-| `GND` | `B1` → 27 |
-| `G2` → 12 | `R2` → 14 |
-| `GND` | `B2` → 13 |
-| `B` → 19 | `A` → 23 |
-| `D` → 17 | `C` → 5 |
-| `LAT` → 4 | `CLK` → 16 |
+| # | Signal | GPIO | MiniKit | # | Signal | GPIO | MiniKit |
+|---:|---|---:|---|---:|---|---:|---|
+| 1 | `G1` | 26 | left-inner `IO26` | 2 | `R1` | 25 | right-outer `IO25` |
+| 3 | `GND` | — | any `GND` | 4 | `B1` | 27 | right-outer `IO27` |
+| 5 | `G2` | 12 | right-outer `TDI` | 6 | `R2` | 14 | left-outer `TMS` |
+| 7 | `GND` | — | any `GND` | 8 | `B2` | 13 | left-inner `TCK` |
+| 9 | `B` | 19 | left-inner `IO19` | 10 | `A` | 23 | left-inner `IO23` |
+| 11 | `D` | 17 | right-inner `IO17` | 12 | `C` | 5 | left-inner `IO5` |
+| 13 | `LAT` | 4 | right-outer `IO4` | 14 | `CLK` | 16 | right-inner `IO16` |
+| 15 | `OE` | 15 | right-inner `TDO` | 16 | `GND` | — | any `GND` |
 
-**Unmirrored** — the same connector seen from the other side, for male–female dupont wires that
-follow the panel's own numbering:
+**Unmirrored** — the same connector seen from the other side, for male–female dupont wires. Same
+rows, the two halves swapped:
 
-| | |
-|---|---|
-| `CLK` → 16 | `LAT` → 4 |
-| `C` → 5 | `D` → 17 |
-| `A` → 23 | `B` → 19 |
-| `B2` → 13 | `GND` |
-| `R2` → 14 | `G2` → 12 |
-| `B1` → 27 | `GND` |
-| `R1` → 25 | `G1` → 26 |
+| # | Signal | GPIO | MiniKit | # | Signal | GPIO | MiniKit |
+|---:|---|---:|---|---:|---|---:|---|
+| 2 | `R1` | 25 | right-outer `IO25` | 1 | `G1` | 26 | left-inner `IO26` |
+| 4 | `B1` | 27 | right-outer `IO27` | 3 | `GND` | — | any `GND` |
+| 6 | `R2` | 14 | left-outer `TMS` | 5 | `G2` | 12 | right-outer `TDI` |
+| 8 | `B2` | 13 | left-inner `TCK` | 7 | `GND` | — | any `GND` |
+| 10 | `A` | 23 | left-inner `IO23` | 9 | `B` | 19 | left-inner `IO19` |
+| 12 | `C` | 5 | left-inner `IO5` | 11 | `D` | 17 | right-inner `IO17` |
+| 14 | `CLK` | 16 | right-inner `IO16` | 13 | `LAT` | 4 | right-outer `IO4` |
+| 16 | `GND` | — | any `GND` | 15 | `OE` | 15 | right-inner `TDO` |
 
-The class panels use a **14-pin** ribbon: no `E` (unused at 1/16 scan) and no `OE`. If yours has the
-16-pin connector, `E` stays unconnected and `OE` goes to **GPIO 15**. Check one panel against its
-label with a continuity tester before trusting either table.
+The ribbon carries sixteen pins and **no `E`** (unused at 1/16 scan); the third ground shares the last
+pair with `OE`. The signal in the cell is what you wire — if your panel prints the standard HUB75
+numbers (1 = `R1`, 2 = `G1`, …), the numbers here are only an orientation aid, because a mirrored
+ribbon swaps the two members of each pair. Verify one panel with a continuity tester before you trust
+any number.
 
 **Level shifter (74HCT245).** 3.3 V signals on the A side, panel signals on the B side,
 VCC = 5 V, OE = GND, DIR = 3.3 V, common ground, 100 nF decoupling. Many panels work at 3.3 V on a
@@ -116,27 +121,70 @@ How the panel addresses its rows (and why `E` is unused here) is explained under
 
 ### Finding these pins on the MH-ET LIVE MiniKit
 
-The MiniKit is an ESP32 in the D1-mini footprint, and its silkscreen prints function aliases instead
-of GPIO numbers. Match on the alias:
+The silk screen prints function names, not GPIO numbers, and the JTAG quartet sits on the header
+where you would look for GPIO 12–15. The board has two double-row headers; read down each column
+(GPIO numbers in brackets). Ribbon on the left, board on the right, same rows — the `H<n>` marks
+tie a board pin to a HUB75 pin above.
 
-| Signal | GPIO | Printed on the MH-ET |
+**Mirrored ribbon** (the class case):
+
+| HUB75 | | | left-outer | left-inner | | right-inner | right-outer |
+|---|---|---|---|---|---|---|---|
+| `1` `G1` | `2` `R1` | | `GND` | `RST` | | `TXD` (1) | `GND` |
+| `3` `GND` | `4` `B1` | | `NC` | `SVP` (36) | | `RXD` (3) | `IO27` **H4** |
+| `5` `G2` | `6` `R2` | | `SVN` (39) | `IO26` **H1** | | `IO22` | `IO25` **H2** |
+| `7` `GND` | `8` `B2` | | `IO35` | `IO18` | | `IO21` | `IO32` |
+| `9` `B` | `10` `A` | | `IO33` | `IO19` **H9** | | `IO17` **H11** | `TDI` (12) **H5** |
+| `11` `D` | `12` `C` | | `IO34` | `IO23` **H10** | | `IO16` **H14** | `IO4` **H13** |
+| `13` `LAT` | `14` `CLK` | | `TMS` (14) **H6** | `IO5` **H12** | | `GND` | `IO0` |
+| `15` `OE` | `16` `GND` | | `NC` | `3V3` | | `VCC` | `IO2` |
+| | | | `SD2` (9) | `TCK` (13) **H8** | | `TDO` (15) **H15** | `SD1` (8) |
+| | | | `CMD` (11) | `SD3` (10) | | `SD0` (7) | `CLK` (6) |
+
+**Unmirrored ribbon** (male–female dupont, board seen the other way):
+
+| HUB75 | | | left-outer | left-inner | | right-inner | right-outer |
+|---|---|---|---|---|---|---|---|
+| `2` `R1` | `1` `G1` | | `GND` | `RST` | | `TXD` (1) | `GND` |
+| `4` `B1` | `3` `GND` | | `NC` | `SVP` (36) | | `RXD` (3) | `IO27` **H4** |
+| `6` `R2` | `5` `G2` | | `SVN` (39) | `IO26` **H1** | | `IO22` | `IO25` **H2** |
+| `8` `B2` | `7` `GND` | | `IO35` | `IO18` | | `IO21` | `IO32` |
+| `10` `A` | `9` `B` | | `IO33` | `IO19` **H9** | | `IO17` **H11** | `TDI` (12) **H5** |
+| `12` `C` | `11` `D` | | `IO34` | `IO23` **H10** | | `IO16` **H14** | `IO4` **H13** |
+| `14` `CLK` | `13` `LAT` | | `TMS` (14) **H6** | `IO5` **H12** | | `GND` | `IO0` |
+| `16` `GND` | `15` `OE` | | `NC` | `3V3` | | `VCC` | `IO2` |
+| | | | `SD2` (9) | `TCK` (13) **H8** | | `TDO` (15) **H15** | `SD1` (8) |
+| | | | `CMD` (11) | `SD3` (10) | | `SD0` (7) | `CLK` (6) |
+
+`H<n>` is the HUB75 pin number from the tables above, so the three views agree. The remaining header
+pins carry no panel signal: **`IO22` is unused**, as are `IO21`, `IO32`, `IO18`, `IO0`, `IO2`,
+`IO33`, `IO34`, `IO35`, `SVP`, `SVN` — `IO18` is the spare that can take over G2 if GPIO 12
+misbehaves.
+
+Which label carries which panel signal:
+
+| Signal | GPIO | Printed on the board |
 |---|---:|---|
-| R1 | 25 | `IO25` (`A18`, `DAC1`) |
-| G1 | 26 | `IO26` (`DAC2`) |
+| R1 | 25 | `IO25` |
+| G1 | 26 | `IO26` |
 | B1 | 27 | `IO27` |
-| R2 | 14 | `A16` / `T6` |
-| G2 | 12 | `A15` / `T5` |
-| B2 | 13 | `A14` / `T4` |
-| A | 23 | `MOSI` |
-| B | 19 | `MISO` |
-| C | 5 | `SS` |
+| R2 | 14 | `TMS` |
+| G2 | 12 | `TDI` |
+| B2 | 13 | `TCK` |
+| A | 23 | `IO23` |
+| B | 19 | `IO19` |
+| C | 5 | `IO5` |
 | D | 17 | `IO17` |
-| LAT | 4 | `A10` / `T0` |
-| OE | 15 | `A13` / `T3` — labelled **TDO** on some batches |
+| LAT | 4 | `IO4` |
+| OE | 15 | `TDO` |
 | CLK | 16 | `IO16` |
 
-`TXD` / `RXD` (GPIO 1/3) are the USB console and stay free. `SVP` / `SVN` (36/39) and `A6` / `A7`
-(34/35) are **input-only**: they cannot drive a panel line, whatever the label suggests.
+The four JTAG names are exactly the four pins this panel needs: `TDI` = G2, `TCK` = B2, `TMS` = R2,
+`TDO` = OE. That is why the board seems to have no GPIO 12–15.
+
+**Do not use** `SD0`, `SD1`, `SD2`, `SD3`, `CLK`, `CMD` (GPIO 6–11): the internal flash bus.
+`SVP`/`SVN` (36/39) and `IO34`/`IO35` are **input-only** and cannot drive a panel line. `TXD`/`RXD`
+(1/3) are the USB console and stay free.
 
 ### UART link (default)
 
