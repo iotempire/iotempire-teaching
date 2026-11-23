@@ -154,8 +154,10 @@ How the panel addresses its rows (and why `E` is unused here) is explained under
 
 The silk screen prints function names, not GPIO numbers, and the JTAG quartet sits on the header
 where you would look for GPIO 12–15. The board has two double-row headers; read down each column
-(GPIO numbers in brackets). Ribbon on the left, board on the right, same rows — the `H<n>` marks
-tie a board pin to a HUB75 pin, numbered as in **view A** above.
+(GPIO numbers in brackets). In both tables below the **board columns are the fixed side**; the
+ribbon block is what you are holding, and the `H<n>` marks tie a board pin to a HUB75 pin.
+
+**View A — the ribbon read in the panel's printed order.**
 
 | HUB75 | | | left-outer | left-inner | | right-inner | right-outer |
 |---|---|---|---|---|---|---|---|
@@ -170,12 +172,31 @@ tie a board pin to a HUB75 pin, numbered as in **view A** above.
 | | | | `SD2` (9) | `TCK` (13) **H7** | | `TDO` (15) **H15** | `SD1` (8) |
 | | | | `CMD` (11) | `SD3` (10) | | `SD0` (7) | `CLK` (6) |
 
-Read the `H<n>` tags against the panel's print, not against the row position: if your ribbon presents
-the mirrored order (**view B**), every pair exchanges, so `IO26` and `IO25` trade `H1`/`H2` and `IO16`
-and `IO4` trade `H13`/`H14`. Confirm `H1` (`R1`) and `H13` (`CLK`) with the meter, then wire the rest
-as pairs. The remaining header pins carry no panel signal: **`IO22` is unused**, as are `IO21`,
-`IO32`, `IO18`, `IO0`, `IO2`, `IO33`, `IO34`, `IO35`, `SVP`, `SVN` — `IO18` is the spare that can
-take over G2 if GPIO 12 misbehaves.
+**View B — the same ribbon read from its other face.** Identical board columns, identical `H<n>`
+tags; only the left/right order of each ribbon pair is reversed, so the block reads exactly like the
+ribbon in your hand when it is mirrored.
+
+| HUB75 | | | left-outer | left-inner | | right-inner | right-outer |
+|---|---|---|---|---|---|---|---|
+| `2` `G1` | `1` `R1` | | `GND` | `RST` | | `TXD` (1) | `GND` |
+| `4` `GND` | `3` `B1` | | `NC` | `SVP` (36) | | `RXD` (3) | `IO27` **H3** |
+| `6` `G2` | `5` `R2` | | `SVN` (39) | `IO26` **H2** | | `IO22` | `IO25` **H1** |
+| `8` `GND` | `7` `B2` | | `IO35` | `IO18` | | `IO21` | `IO32` |
+| `10` `B` | `9` `A` | | `IO33` | `IO19` **H10** | | `IO17` **H12** | `TDI` (12) **H6** |
+| `12` `D` | `11` `C` | | `IO34` | `IO23` **H9** | | `IO16` **H13** | `IO4` **H14** |
+| `14` `LAT` | `13` `CLK` | | `TMS` (14) **H5** | `IO5` **H11** | | `GND` | `IO0` |
+| `16` `GND` | `15` `OE` | | `NC` | `3V3` | | `VCC` | `IO2` |
+| | | | `SD2` (9) | `TCK` (13) **H7** | | `TDO` (15) **H15** | `SD1` (8) |
+| | | | `CMD` (11) | `SD3` (10) | | `SD0` (7) | `CLK` (6) |
+
+The two tables differ in exactly one thing: the order in which the ribbon's wires read. The board
+pins and the `H<n>` tags do **not** move — a ribbon is a 1:1 cable, so the wire that reaches a board
+pin is the same wire however you look at it. That is also the mistake to avoid: never match table
+cells **by column**, always match by **signal name** (`R1` … `OE`). Confirm `H1` (`R1`) and `H13`
+(`CLK`) with the meter before wiring the rest; those two are where a wrong guess turns into hours of
+work. The remaining header pins carry no panel signal: **`IO22` is unused**, as are `IO21`, `IO32`,
+`IO18`, `IO0`, `IO2`, `IO33`, `IO34`, `IO35`, `SVP`, `SVN` — `IO18` is the spare that can take over
+G2 if GPIO 12 misbehaves.
 
 Which label carries which panel signal:
 
