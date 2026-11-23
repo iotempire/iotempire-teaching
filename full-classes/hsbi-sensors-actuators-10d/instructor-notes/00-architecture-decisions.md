@@ -448,7 +448,7 @@ Dates are design events, not every commit; Git history is the authority.
 
 - The main divider is `### ★ Task N — <outcome>`; every task states `Proves:` (the learning goals it evidences) and `Produces:` (the artefact).
 - Subtasks are the short, unnumbered bold moves inside a task (`1. Create the folder.`); cap them at four, sequence only, and never give a subtask its own evidence. Number them only when the run sheet or an evidence item must point at one.
-- Every task ends with the same standing line, **★ Log it** — or the task is the module's closing exchange.
+- Every task ends with the same standing line, **Log it** — or the task is the module's closing exchange.
 - The module closes with a final task for the pod exchange and the evidence check; the `## ✅ Suggested portfolio evidence` section stays and maps back to the goals.
 - `Session` remains the time unit (one 90-minute block). `Task Pod` and `Project Team` keep their names. `Stage`, `Round`, and `Studio` retire as student-facing activity names; `Studio` survives only as a heading word where the block is one open challenge (Module 4), not as a level in the vocabulary.
 - Tasks remain tiered (`★`/`◇`) and negotiable; the vocabulary changes the label, not the contract.
@@ -580,7 +580,7 @@ Dates are design events, not every commit; Git history is the authority.
 
 - **Q1 — Module 4 handbook coverage (2026-11-15).** The module handbook 3350 lists sensor principles as examples (*"z.B. Positions- und Abstandssensoren, Time-of-Flight, Gyroskop, Triangulation"*), not as a fixed catalogue, and permits the *Kombinationsprüfung*. The liquid challenge covers position, distance, and force directly; triangulation, gyroscope, and hydrostatic pressure are now reading homework in Module 8 (D18). D8 moves to **accepted**.
 
-- **Q10 — the collaboration wrapper (2026-11-16).** Resolved by D21: the study log is a standing `★ Log it` line inside every task, and each module closes with an exchange/evidence task; the letter tasks A/B retire. Modules 1–4 migrate at their next revision; this run only gains bracketed task numbers on their main dividers.
+- **Q10 — the collaboration wrapper (2026-11-16).** Resolved by D21: the study log is a standing `Log it` line inside every task, and each module closes with an exchange/evidence task; the letter tasks A/B retire. Modules 1–4 migrate at their next revision; this run only gains bracketed task numbers on their main dividers.
 
 ## 5. Recreation checklist
 
@@ -632,5 +632,5 @@ The authoritative wording is in the [syllabus](../syllabus.md). This table is a 
 - **2026-11-15** — Planning unit. D20 added: a teaching day is two 90-minute blocks (180 minutes); Module 5's run sheet and the constraints table now use that unit.
 - **2026-11-16** — Review gate. D22 added: no agent or collaborator commits, amends, rebases, tags, or pushes without an explicit instruction; changes stay in the working tree for the instructor's review. The same rule is recorded in Databases (D20) and Networking (D18).
 - **2026-11-16** — Timetable and project. D23 added: 9 teaching days, 48 school hours (≈36 clock hours) in 90/180-minute slots, CP2/CP3 moved, two project tracks with optional MQTT, Module 8 as a clinic, Day 9 feedback rehearsal plus a 5–10 minute assessed video, grade table B. D20 amended for the longer Days 7–9.
-- **2026-11-16** — Vocabulary. D21 added: every module uses Task → Subtask → Evidence; Module 5 refactored as the reference (Tasks 1–5, `Proves:`/`Produces:`, standing `★ Log it`, closing exchange task); Modules 1–4 carry bracketed task numbers until their refactor; the sibling workbooks get the same TODO. Q10 resolved.
+- **2026-11-16** — Vocabulary. D21 added: every module uses Task → Subtask → Evidence; Module 5 refactored as the reference (Tasks 1–5, `Proves:`/`Produces:`, standing `Log it`, closing exchange task); Modules 1–4 carry bracketed task numbers until their refactor; the sibling workbooks get the same TODO. Q10 resolved.
 - **2026-11-22** — Module 5 evidence and Module 6. D19 accepted after the evaluation: every pod controlled the strip, two pods built games with phone hotspots and a piezo; the guided format stays an observed-session pattern. D24 added: two controllers, UART default, ESP-NOW as the wireless extension, mandatory play task with a story hook, one 180-minute studio.

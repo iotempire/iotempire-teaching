@@ -92,6 +92,12 @@ Terminal file writes bypass the editor's change review; that is why the editor's
 - Groups: `Task Pod` (2–3), `Project Team` (4–6). Tiers: `★ Core`, `◇ Stretcher`, `Excellence Stretcher`. Do not introduce synonyms.
 - Do not reintroduce Stage/Round/Studio as activity names in `hsbi-*`; the reasoning is Sensors [D21](full-classes/hsbi-sensors-actuators-10d/instructor-notes/00-architecture-decisions.md#d21).
 
+## Typography: use markers sparingly
+
+- `★` and `◇` are **tier markers on task headings**, nothing else. Use them on `★ Task N` / `◇ Task N` where the tier matters; do not put them on subtasks, log lines, evidence lines, emphasis, or status labels. `Log it`, `Done when`, `Proves`, and `Produces` are plain text.
+- Prefer plain words over symbols and emoji in new material. No decorative “AI” markers (sparkles, robots, arrows).
+- Existing emoji headings are legacy. Do not add new ones; do not mass-remove them without an explicit request.
+
 ## One fact, one home
 
 - Assessment → syllabus. Design rationale → class ADR. Technical reference → `modules/Z-resources-bank.md`. Teaching hints and answer keys → `instructor-notes/`. Student text → module. Cross-class patterns and the new-class checklist → [`instructor-notes/`](./instructor-notes/README.md).

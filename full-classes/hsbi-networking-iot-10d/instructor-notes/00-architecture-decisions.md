@@ -693,7 +693,7 @@ first module being rewritten for this run, so it is the natural pilot.
 
 - the main divider is `### ★ Task N — <outcome>` with `Proves:` and `Produces:`;
 - subtasks are short, unnumbered moves, capped at four;
-- every task ends with **★ Log it** or is the closing exchange task;
+- every task ends with **Log it** or is the closing exchange task;
 - `Stage`, `Round`, and `Studio` retire as activity names; **Session** remains the
 time unit; **Task Pod** and **Project Team** keep their names.
 

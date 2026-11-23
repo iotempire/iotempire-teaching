@@ -152,10 +152,9 @@ In `src/main.cpp`, use `M5Unified`: initialize the display, microphone, IMU, and
 1. **Write the story hook first.** One sentence: *“Someone wants … because …”* Put it at the top of `task3-play/README.md`. The story is more important than the realization; a small, clear idea beats an unfinished spectacle.
 2. **Build one interaction.** A toy, an instrument, or a game. One behaviour is enough. Seeds are in [Appendix C](#appendix-c): a reaction game, a tiny snake, a VU meter, a theremin, a distance-triggered wave, a joystick game.
 3. **Optional physical twist.** A piezo, the Stick’s speaker, or — if the Adafruit I2S amplifier + speaker modules have arrived — an external I2S amp. A small servo or DC motor shield, or a joystick board. Keep it optional; do not let it eat the panel time. The Stick’s microphone and speaker are half-duplex; a piezo or an external amp avoids the conflict. Check the free I2S peripheral and pins before wiring.
-4. **Document.** The hook, the input → light/sound mapping, one failure mode, and the video.
-5. **Log it.** In the same log: the hook, the mapping, and what you would change with another hour.
+4. **Log it and document.** Put the hook, the input → light/sound mapping, one failure mode, and the video link at the top of `task3-play/README.md`. In the shared `## Study log`, link to that README and add one sentence on what you would change with another hour.
 
-**Done when:** someone can interact with it for thirty seconds without instructions, and the video and the hook exist.
+**Done when:** someone can interact with it for thirty seconds without instructions, and the hook, the design note, and the video exist.
 
 **This task stays open after Task 5.** Keep the folder and the video in the portfolio; return to it in self-study, or bring it into the final project. The hook is the seed for your project story.
 

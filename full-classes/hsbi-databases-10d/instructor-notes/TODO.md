@@ -170,7 +170,7 @@ instructor's recap output still shows only storage and row counts. Fix that next
       settled the student-facing naming in
       [ADR D21](../../hsbi-sensors-actuators-10d/instructor-notes/00-architecture-decisions.md#d21):
       every main divider is `Task N — <outcome>` with `Proves:`/`Produces:`, subtasks are short
-      unnumbered moves (max four), every task ends with a standing `★ Log it`, and the module
+      unnumbered moves (max four), every task ends with a standing `Log it`, and the module
       closes with an exchange/evidence task. “Stage”, “Round”, and “Studio” retire as activity
       names. Do not rename by hand mid-run; fold it into the next module revision so students meet
       one vocabulary across the three workbooks.

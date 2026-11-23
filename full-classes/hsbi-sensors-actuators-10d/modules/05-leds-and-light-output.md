@@ -102,7 +102,7 @@ pio run -t upload -t monitor
 
 **Done when:** the LED fades smoothly from off to full and back, and you can say what duty cycle means.
 
-**★ Log it.** Under `## Study log` in `Module05/README.md`, one sentence on what the fade does and what duty cycle means. One pod member keeps the shared log; the others link to it and add one sentence.
+**Log it.** Under `## Study log` in `Module05/README.md`, one sentence on what the fade does and what duty cycle means. One pod member keeps the shared log; the others link to it and add one sentence.
 
 ## 🌈 ★ Task 2 — RGB LED project
 
@@ -137,7 +137,7 @@ In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it
 
 **Why 220 Ω is the default.** It is a safe, conservative value: red draws about 6 mA on 3.3 V, green less, blue much less; everything lights, and nothing is near the GPIO limit. You only need the precise calculation when you want a target current, a balanced white, or when a low-`Vf` LED with a small resistor would exceed the pin's comfort range. The full arithmetic is in [Appendix A](#appendix-a).
 
-**★ Log it.** In the same `## Study log`: the measured red, green, and blue currents, whether your part is common cathode or anode, and one sentence on what the agent got wrong (if anything).
+**Log it.** In the same `## Study log`: the measured red, green, and blue currents, whether your part is common cathode or anode, and one sentence on what the agent got wrong (if anything).
 
 ## ✨ ★ Task 3 — WS2812B strip project
 
@@ -182,7 +182,7 @@ In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it
 2. **Perceptual linearity.** Compare a linear ramp with a gamma-corrected one — `NeoPixelBusLg` with `NeoGammaTableMethod` applies the gamma table for you. At which step size does the eye stop seeing a difference?
 3. **Sensor-to-actuator bridge.** Connect an analog sensor on **GPIO 34 (ADC1)** from an earlier module and map its calibrated reading to the active pixel index, an `HslColor` hue, or `SetLuminance()`.
 
-**★ Log it.** In the same `## Study log`: the `index R G B`/`clear` demo, your `SetLuminance` value, the measured current, and the power table — measured vs. computed for 8, 30, 60, and 144 LEDs.
+**Log it.** In the same `## Study log`: the `index R G B`/`clear` demo, your `SetLuminance` value, the measured current, and the power table — measured vs. computed for 8, 30, 60, and 144 LEDs.
 
 ## 🔗 ★ Task 4 — Share the repo (AI-first)
 

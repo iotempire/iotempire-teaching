@@ -40,7 +40,7 @@ The final project uses the same split; choose the track you want to defend there
 2. **Draw the boundary.** One sensor, one actuator, a local rule, and a local UI or log. Mark what must keep working when the network is gone.
 3. **Close the loop.** Read the sensor, apply one filter (average, median, or cutoff), apply a rule with hysteresis, drive the actuator, and define the safe state on startup and on sensor failure.
 4. **Write the System Boundary Document** (template in Appendix A), or the topic map if you are on Track B.
-5. **★ Log it.** In `## Study log` in `Module08/README.md`: the boundary, the filter and rule, the safe state, and the track choice.
+5. **Log it.** In `## Study log` in `Module08/README.md`: the boundary, the filter and rule, the safe state, and the track choice.
 
 **Done when:** the local loop keeps working with the network off, and the boundary document says what the network would change.
 
@@ -52,7 +52,7 @@ The final project uses the same split; choose the track you want to defend there
 2. **Actuator stall:** block the motor or servo. Does current or timing reveal it, and does the interlock react?
 3. **Noise:** add a motor, longer wires, or a light source. Does the filter or hysteresis cope?
 4. **Track B only — broker restart:** restart Mosquitto. Do node and dashboard reconnect and resubscribe?
-5. **★ Log it.** One line per test: what you broke, what happened, what you changed.
+5. **Log it.** One line per test: what you broke, what happened, what you changed.
 
 **Done when:** each test has an observed result, including “it did not recover” — that is a finding, not a failure.
 
@@ -63,7 +63,7 @@ The final project uses the same split; choose the track you want to defend there
 1. Start a broker on any host, publish the sensor value, and subscribe to a command topic.
 2. Add reconnect, resubscription, and a last-will message so a dead node is visible.
 3. Build a Node-RED dashboard or a small CLI view with one rule, and document how manual and automatic control are arbitrated.
-4. **★ Log it.** The topic map, the reconnect behavior, and the dashboard link.
+4. **Log it.** The topic map, the reconnect behavior, and the dashboard link.
 
 ### ★ Task 4 — Exchange and evidence
 
