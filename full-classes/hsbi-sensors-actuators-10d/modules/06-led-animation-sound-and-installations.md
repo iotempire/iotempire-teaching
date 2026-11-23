@@ -214,6 +214,97 @@ The AI is the drafting tool; verification is the skill.
 
 The HUB75 ribbon carries the signals and a ground reference; it does **not** carry the LED power. Power the panel through its 5 V/GND terminals from the 4 A supply. The library’s wiring and pin notes are in the [library README](https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA).
 
+**The connector itself.** The panel prints the pin functions right next to the HUB75 plug, in pairs — pins 1–16 from the pin-1 corner:
+
+```text
+R1   G1
+B1   GND
+R2   G2
+B2   GND
+A    B
+C    D
+CLK  LAT
+OE   GND
+```
+
+That print is authoritative — use it, not a photo of somebody else's panel. Depending on how you handle the cable you read the same pins in one of two orders, so both are written out below.
+
+**View A — dupont straight into the back of the panel**, rows exactly as printed:
+
+| # | Signal | GPIO | # | Signal | GPIO |
+|---:|---|---:|---:|---|---:|
+| 1 | `R1` | 25 | 2 | `G1` | 26 |
+| 3 | `B1` | 27 | 4 | `GND` | — |
+| 5 | `R2` | 14 | 6 | `G2` | 12 |
+| 7 | `B2` | 13 | 8 | `GND` | — |
+| 9 | `A` | 23 | 10 | `B` | 19 |
+| 11 | `C` | 5 | 12 | `D` | 17 |
+| 13 | `CLK` | 16 | 14 | `LAT` | 4 |
+| 15 | `OE` | 15 | 16 | `GND` | — |
+
+**View B — dupont onto the free end of a flat ribbon.** The ribbon presents the same pins **mirrored left to right**, so every pair reads in the reverse order. The numbers still belong to the panel, so match **signal names**, never column positions:
+
+| # | Signal | GPIO | # | Signal | GPIO |
+|---:|---|---:|---:|---|---:|
+| 2 | `G1` | 26 | 1 | `R1` | 25 |
+| 4 | `GND` | — | 3 | `B1` | 27 |
+| 6 | `G2` | 12 | 5 | `R2` | 14 |
+| 8 | `GND` | — | 7 | `B2` | 13 |
+| 10 | `B` | 19 | 9 | `A` | 23 |
+| 12 | `D` | 17 | 11 | `C` | 5 |
+| 14 | `LAT` | 4 | 13 | `CLK` | 16 |
+| 16 | `GND` | — | 15 | `OE` | 15 |
+
+**The mistake that costs hours.** The two views differ only in the order of each pair, and one of those pairs is `CLK`/`LAT`. Swap those two and the panel is **completely dark while your code reports success** — the clock pulses arrive on the latch input and no pixel data is ever shifted in. The other pairs fail quietly: `R1`/`G1` crossed makes red look green, and `B1`/`B2` landing in the `GND` holes costs you the entire blue channel, so white comes out yellow. Crossed `A`/`B` and `C`/`D` look perfect in any solid colour and only show up in a frame with distinct corners — test with a pattern that has four differently coloured corners, not with a filled screen.
+
+**Where those pins are on your board.** Some ESP32 boards print the JTAG function instead of the GPIO number, and the four JTAG pins are exactly the four the panel needs:
+
+| Silkscreen | GPIO | Used as |
+|---|---:|---|
+| `TDI` / `MTDI` | 12 | `G2` |
+| `TDO` / `MTDO` | 15 | `OE` |
+| `TCK` / `MTCK` | 13 | `B2` |
+| `TMS` / `MTMS` | 14 | `R2` |
+
+If your board is the **MH-ET LIVE MiniKit** (ESP32 in a D1-mini footprint), these two tables put the ribbon beside the header. The board columns are the fixed side; the `H<n>` marks tie a board pin to a HUB75 pin, and the two tables differ only in how the ribbon reads — same tags, same pins, because a ribbon is a 1:1 cable.
+
+*View A — ribbon read as printed:*
+
+| HUB75 | | | left-outer | left-inner | | right-inner | right-outer |
+|---|---|---|---|---|---|---|---|
+| `1` `R1` | `2` `G1` | | `GND` | `RST` | | `TXD` (1) | `GND` |
+| `3` `B1` | `4` `GND` | | `NC` | `SVP` (36) | | `RXD` (3) | `IO27` **H3** |
+| `5` `R2` | `6` `G2` | | `SVN` (39) | `IO26` **H2** | | `IO22` | `IO25` **H1** |
+| `7` `B2` | `8` `GND` | | `IO35` | `IO18` | | `IO21` | `IO32` |
+| `9` `A` | `10` `B` | | `IO33` | `IO19` **H10** | | `IO17` **H12** | `TDI` (12) **H6** |
+| `11` `C` | `12` `D` | | `IO34` | `IO23` **H9** | | `IO16` **H13** | `IO4` **H14** |
+| `13` `CLK` | `14` `LAT` | | `TMS` (14) **H5** | `IO5` **H11** | | `GND` | `IO0` |
+| `15` `OE` | `16` `GND` | | `NC` | `3V3` | | `VCC` | `IO2` |
+| | | | `SD2` (9) | `TCK` (13) **H7** | | `TDO` (15) **H15** | `SD1` (8) |
+| | | | `CMD` (11) | `SD3` (10) | | `SD0` (7) | `CLK` (6) |
+
+*View B — ribbon read mirrored (its other face):*
+
+| HUB75 | | | left-outer | left-inner | | right-inner | right-outer |
+|---|---|---|---|---|---|---|---|
+| `2` `G1` | `1` `R1` | | `GND` | `RST` | | `TXD` (1) | `GND` |
+| `4` `GND` | `3` `B1` | | `NC` | `SVP` (36) | | `RXD` (3) | `IO27` **H3** |
+| `6` `G2` | `5` `R2` | | `SVN` (39) | `IO26` **H2** | | `IO22` | `IO25` **H1** |
+| `8` `GND` | `7` `B2` | | `IO35` | `IO18` | | `IO21` | `IO32` |
+| `10` `B` | `9` `A` | | `IO33` | `IO19` **H10** | | `IO17` **H12** | `TDI` (12) **H6** |
+| `12` `D` | `11` `C` | | `IO34` | `IO23` **H9** | | `IO16` **H13** | `IO4` **H14** |
+| `14` `LAT` | `13` `CLK` | | `TMS` (14) **H5** | `IO5` **H11** | | `GND` | `IO0` |
+| `16` `GND` | `15` `OE` | | `NC` | `3V3` | | `VCC` | `IO2` |
+| | | | `SD2` (9) | `TCK` (13) **H7** | | `TDO` (15) **H15** | `SD1` (8) |
+| | | | `CMD` (11) | `SD3` (10) | | `SD0` (7) | `CLK` (6) |
+
+Unused header pins are **`IO22`**, `IO21`, `IO32`, `IO18`, `IO0`, `IO2`, `IO33`, `IO34`, `IO35`, `SVP`, `SVN`; `IO18` is the spare that can take over `G2` if GPIO 12 misbehaves. Never use `SD0`–`SD3`, `CLK`, `CMD` (GPIO 6–11, the internal flash bus); `SVP`/`SVN` and `IO34`/`IO35` are input-only.
+
+**Strapping pins.** GPIO 5, 12 and 15 are sampled at reset, and the panel or the level shifter can hold them at the wrong level before your code configures them. GPIO 12 (`G2`) is the one that bites: high at reset selects a 1.8 V flash voltage and the board never boots. Two habits keep this boring:
+
+- **Flash with the ribbon unplugged** if the board refuses to boot or upload; reconnect afterwards. Once booted, all three behave as ordinary outputs.
+- If it keeps failing, add a **10 kΩ pulldown from GPIO 12 to GND**, or move `G2` to **GPIO 18** (free) — one `#define` change and one wire.
+
 **Level shifter (74HCT245).** The ESP32 is 3.3 V; the panel expects 5 V logic. Put the 3.3 V signals on the A side and the panel signals on the B side, VCC = 5 V, OE = GND, DIR = 3.3 V, common ground, and a 100 nF decoupling capacitor. Many panels work at 3.3 V on a short ribbon; the shifter is the reliable choice, not a blocker.
 
 **Power.** Full white is the worst case and leaves no margin on a 4 A supply; that is why you measure and cap the brightness. Use short, thick wires; add a bulk capacitor across 5 V/GND if bright frames flicker. Panels get warm at high brightness — do not cover them. Never power the panel from USB, a GPIO, or the 3.3 V rail.

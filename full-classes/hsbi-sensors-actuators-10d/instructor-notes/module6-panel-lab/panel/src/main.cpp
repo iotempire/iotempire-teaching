@@ -107,6 +107,29 @@ static void beacon(uint8_t b) {
   delay(600);
 }
 
+// Corner and axis frame: four 6x6 corner blocks — red top-left, green top-right, blue
+// bottom-left, white bottom-right — plus a red ramp along the middle row (black at the
+// left, bright at the right) and a green ramp down the middle column (black at the top,
+// bright at the bottom). This is the only frame that proves the address lines A-D are in
+// the right order, because a solid fill looks identical with the rows permuted. Blocks and
+// mid-panel ramps instead of single pixels: one-pixel markers are unreadable at arm's
+// length, and a lone red pixel next to a lone green one just looks yellow. Also reachable
+// from the console with 'c'.
+static void corner_frame(uint16_t ms) {
+  const int B = 6;  // corner block edge in pixels
+  const int mid = PANEL_RES_Y / 2;
+
+  display.fillScreen(display.color565(0, 0, 0));
+  display.drawRect(0, 0, PANEL_RES_X, PANEL_RES_Y, display.color565(48, 48, 48));
+  display.fillRect(0, 0, B, B, display.color565(255, 0, 0));                                 // top-left red
+  display.fillRect(PANEL_RES_X - B, 0, B, B, display.color565(0, 255, 0));                   // top-right green
+  display.fillRect(0, PANEL_RES_Y - B, B, B, display.color565(0, 0, 255));                   // bottom-left blue
+  display.fillRect(PANEL_RES_X - B, PANEL_RES_Y - B, B, B, display.color565(255, 255, 255)); // bottom-right white
+  for (int i = 0; i < PANEL_RES_X; i++) display.drawPixel(i, mid, display.color565(i * 8, 0, 0));
+  for (int i = 0; i < PANEL_RES_Y; i++) display.drawPixel(mid, i, display.color565(0, i * 8, 0));
+  delay(ms);
+}
+
 static void selftest() {
   static const uint8_t steps[] = {16, 48, 96, 160, 255};
   Serial.println("selftest: brightness beacon - note the step at which the panel lights up");
@@ -120,17 +143,7 @@ static void selftest() {
   solid(display.color565(0, 0, 255), 900);
   solid(display.color565(255, 255, 255), 2500);
   display.fillScreen(display.color565(0, 0, 0));
-
-  display.drawRect(0, 0, PANEL_RES_X, PANEL_RES_Y, display.color565(64, 64, 64));
-  display.drawPixel(0, 0, display.color565(255, 0, 0));                  // top-left     red
-  display.drawPixel(PANEL_RES_X - 1, 0, display.color565(0, 255, 0));    // top-right    green
-  display.drawPixel(0, PANEL_RES_Y - 1, display.color565(0, 0, 255));    // bottom-left  blue
-  display.drawPixel(PANEL_RES_X - 1, PANEL_RES_Y - 1,                      // bottom-right white
-                    display.color565(255, 255, 255));
-  // Axis ramps: row 1 fades red -> black left to right, column 1 green -> black top to bottom.
-  for (int i = 0; i < PANEL_RES_X; i++) display.drawPixel(i, 1, display.color565(i * 8, 0, 0));
-  for (int i = 0; i < PANEL_RES_Y; i++) display.drawPixel(1, i, display.color565(0, i * 8, 0));
-  delay(2500);
+  corner_frame(2500);
 }
 #endif
 
@@ -166,7 +179,7 @@ static void print_banner() {
   Serial.printf("uart link  : Serial2 RX=%d TX=%d, 115200 8N1\n", LINK_RX, LINK_TX);
   Serial.printf("boot       : reset reason %u (%s)\n",
                 (unsigned)esp_reset_reason(), reset_reason_name(esp_reset_reason()));
-  Serial.println("console    : ? banner+diag, t self-test, +/- brightness, r reboot");
+  Serial.println("console    : ? banner+diag, t self-test, c corners, +/- brightness, r reboot");
 }
 
 static void print_diag() {
@@ -231,6 +244,19 @@ void loop() {
       }
 #else
       Serial.println("self-test compiled out (SELFTEST_ON_BOOT 0)");
+#endif
+    } else if (c == 'c') {
+#if SELFTEST_ON_BOOT
+      if (panel_ok) {
+        Serial.println("corner frame 6 s: red TL, green TR, blue BL, white BR; red ramp points right, green ramp points down");
+        display.setBrightness8(bright_cap);
+        corner_frame(6000);
+        display.fillScreen(display.color565(0, 0, 0));
+      } else {
+        Serial.println("panel not initialised - nothing to show");
+      }
+#else
+      Serial.println("corner frame compiled out (SELFTEST_ON_BOOT 0)");
 #endif
     } else if (c == '+' || c == '-') {
       int v = (int)bright_cap + ((c == '+') ? 32 : -32);

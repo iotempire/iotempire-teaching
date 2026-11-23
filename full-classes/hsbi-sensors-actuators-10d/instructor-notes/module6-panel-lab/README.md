@@ -16,9 +16,8 @@ module6-panel-lab/
 The fallback exists for two reasons: a pod that only has ESP8266 boards, and a control experiment
 when the ESP32 build stays dark — if the D1 mini lights the panel, the panel, ribbon and supply are
 proven good and the fault is in the ESP32 harness. It also documents the five-jumper trick that made
-the ESP8266 recipe work in earlier years. See
-[`pxmatrix-fallback/README.md`](pxmatrix-fallback/README.md), rationale in
-[D24](../00-architecture-decisions.md#d24).
+the ESP8266 recipe work in earlier years. See [`pxmatrix-fallback/README.md`](pxmatrix-fallback/README.md),
+rationale in [D24](../00-architecture-decisions.md#d24).
 
 The protocol is deliberately tiny:
 
@@ -27,222 +26,16 @@ L <0..100>\n     sound level
 H <0..255>\n     hue
 ```
 
-## Wiring
+## Wiring lives in the student module
 
-### Panel
+The complete wiring reference — the panel's printed pin numbers, the two ribbon readings (straight
+and mirrored), the MiniKit header tables, the `TDO`/GPIO 15 labels, the strapping pins and the level
+shifter — is **student material** now:
 
-| HUB75 | ESP32 | HUB75 | ESP32 |
-|---|---:|---|---:|
-| R1 | 25 | R2 | 14 |
-| G1 | 26 | G2 | 12 |
-| B1 | 27 | B2 | 13 |
-| A | 23 | B | 19 |
-| C | 5 | D | 17 |
-| E | — (1/16 scan) | LAT | 4 |
-| OE | 15 | CLK | 16 |
-| GND | GND | | |
+> [Module 6, Appendix A — Panel facts, wiring, power, and the link](../../modules/06-led-animation-sound-and-installations.md#appendix-a)
 
-Power the panel through its **5 V/GND** terminals from the 5 V 4 A supply. The ribbon carries the
-signals, not the LED current. Common ground between the panel supply, the ESP32, and the level
-shifter.
-
-### The connector: read the panel's own print
-
-The panel prints the connector's functions next to the plug, in the standard HUB75 order — pairs
-left to right, pins 1–16 from the top:
-
-```text
-R1   G1
-B1   GND
-R2   G2
-B2   GND
-A    B
-C    D
-CLK  LAT
-OE   GND
-```
-
-That print is the authority: it is on the hardware, and its numbers do not change. Which of the two
-views below you use depends only on what you are holding, not on the panel.
-
-**A — dupont straight into the back of the panel.** You see the connector itself, so each row reads
-exactly as printed (`R1` `G1`, `B1` `GND`, …):
-
-| # | Signal | GPIO | MiniKit | # | Signal | GPIO | MiniKit |
-|---:|---|---:|---|---:|---|---:|---|
-| 1 | `R1` | 25 | right-outer `IO25` | 2 | `G1` | 26 | left-inner `IO26` |
-| 3 | `B1` | 27 | right-outer `IO27` | 4 | `GND` | — | any `GND` |
-| 5 | `R2` | 14 | left-outer `TMS` | 6 | `G2` | 12 | right-outer `TDI` |
-| 7 | `B2` | 13 | left-inner `TCK` | 8 | `GND` | — | any `GND` |
-| 9 | `A` | 23 | left-inner `IO23` | 10 | `B` | 19 | left-inner `IO19` |
-| 11 | `C` | 5 | left-inner `IO5` | 12 | `D` | 17 | right-inner `IO17` |
-| 13 | `CLK` | 16 | right-inner `IO16` | 14 | `LAT` | 4 | right-outer `IO4` |
-| 15 | `OE` | 15 | right-inner `TDO` | 16 | `GND` | — | any `GND` |
-
-**B — dupont onto the free end of a flat ribbon.** The ribbon presents the same pins **mirrored left
-to right**: every pair reads in the reverse order. The numbers in the cells are still the panel's
-numbers, so wire by pair, never by column position:
-
-| # | Signal | GPIO | MiniKit | # | Signal | GPIO | MiniKit |
-|---:|---|---:|---|---:|---|---:|---|
-| 2 | `G1` | 26 | left-inner `IO26` | 1 | `R1` | 25 | right-outer `IO25` |
-| 4 | `GND` | — | any `GND` | 3 | `B1` | 27 | right-outer `IO27` |
-| 6 | `G2` | 12 | right-outer `TDI` | 5 | `R2` | 14 | left-outer `TMS` |
-| 8 | `GND` | — | any `GND` | 7 | `B2` | 13 | left-inner `TCK` |
-| 10 | `B` | 19 | left-inner `IO19` | 9 | `A` | 23 | left-inner `IO23` |
-| 12 | `D` | 17 | right-inner `IO17` | 11 | `C` | 5 | left-inner `IO5` |
-| 14 | `LAT` | 4 | right-outer `IO4` | 13 | `CLK` | 16 | right-inner `IO16` |
-| 16 | `GND` | — | any `GND` | 15 | `OE` | 15 | right-inner `TDO` |
-
-Both tables are the same mapping. If you know the physical position of `R1` at your end of the wire,
-you know which view applies; if you do not, beep one ground through and read off where it lands.
-
-There is no `E`: a 16-pin 1/16-scan panel multiplexes 32 rows with `A`–`D` only.
-
-**The trap that catches everyone.** The two views differ by exactly one thing — the left/right order
-of each pair — and one of those pairs is `CLK`/`LAT`. Mixing the views puts the ESP32's latch pulses
-on the panel's clock input, and the panel then stays **completely dark while the driver reports
-success**: nothing is ever shifted into the column drivers. Dark panel, `panel ready`, `frames`
-climbing, dark at brightness 255 — check which view you wired and check `CLK` and `LAT` first,
-before anything else. A ribbon that is plugged in facing the wrong way does the same thing.
-
-**Level shifter (74HCT245).** 3.3 V signals on the A side, panel signals on the B side,
-VCC = 5 V, OE = GND, DIR = 3.3 V, common ground, 100 nF decoupling. Many panels work at 3.3 V on a
-short ribbon; the shifter is the reliable choice.
-
-### Board labels: `TDO` is GPIO 15
-
-Some boards print the JTAG function instead of the GPIO number. On the classic ESP32 the mapping
-is fixed, so read the number, not the name:
-
-| Silkscreen | GPIO | Used here as |
-|---|---:|---|
-| `TDI` / `MTDI` | 12 | G2 |
-| `TDO` / `MTDO` | 15 | OE |
-| `TCK` / `MTCK` | 13 | B2 |
-| `TMS` / `MTMS` | 14 | R2 |
-
-On an Espressif **ESP32-Ethernet-Kit** (or a clone with a JTAG DIP block) those four GPIOs are
-wired to the on-board FT2232H while their DIP switches are **on**. Turn them **off**, or the panel
-signals and the debug chip drive the same lines.
-
-### Strapping pins: why the panel can stop the board booting
-
-GPIO 5, 12 and 15 are *strapping* pins — sampled at reset to configure the chip. The panel and the
-level shifter can hold them at the wrong level before the ESP32 has configured them:
-
-| GPIO | Used here as | Must be at reset | Otherwise |
-|---|---|---|---|
-| 12 (`MTDI`) | G2 | **LOW** | flash voltage is selected as 1.8 V and the board does not boot |
-| 5 | C | **HIGH** | wrong SDIO timing / can drop into download mode |
-| 15 (`MTDO`) | OE | **HIGH** | boot log on UART0 is silenced (annoying, not fatal) |
-
-Two habits make that a non-issue:
-
-- **Flash with the ribbon unplugged** if the board refuses to boot or upload; reconnect it afterwards.
-  Once booted, all three pins behave as ordinary outputs.
-- If it still misbehaves, add a **10 kΩ pulldown from GPIO 12 to GND** on the ESP32 side of the
-  shifter. That is the pin that breaks boot, and the fix is one resistor.
-- If you would rather not add the resistor, move G2 off the strapping pin: **GPIO 18 is free** in
-  this build. Change `#define G2_PIN 12` to `18` in `panel/src/main.cpp` and that one wire in the
-  table above — nothing else changes.
-
-How the panel addresses its rows (and why `E` is unused here) is explained under
-[1/16 scan](../../modules/Z-resources-bank.md#hub75-scan) in the resource bank.
-
-### Finding these pins on the MH-ET LIVE MiniKit
-
-The silk screen prints function names, not GPIO numbers, and the JTAG quartet sits on the header
-where you would look for GPIO 12–15. The board has two double-row headers; read down each column
-(GPIO numbers in brackets). In both tables below the **board columns are the fixed side**; the
-ribbon block is what you are holding, and the `H<n>` marks tie a board pin to a HUB75 pin.
-
-**View A — the ribbon read in the panel's printed order.**
-
-| HUB75 | | | left-outer | left-inner | | right-inner | right-outer |
-|---|---|---|---|---|---|---|---|
-| `1` `R1` | `2` `G1` | | `GND` | `RST` | | `TXD` (1) | `GND` |
-| `3` `B1` | `4` `GND` | | `NC` | `SVP` (36) | | `RXD` (3) | `IO27` **H3** |
-| `5` `R2` | `6` `G2` | | `SVN` (39) | `IO26` **H2** | | `IO22` | `IO25` **H1** |
-| `7` `B2` | `8` `GND` | | `IO35` | `IO18` | | `IO21` | `IO32` |
-| `9` `A` | `10` `B` | | `IO33` | `IO19` **H10** | | `IO17` **H12** | `TDI` (12) **H6** |
-| `11` `C` | `12` `D` | | `IO34` | `IO23` **H9** | | `IO16` **H13** | `IO4` **H14** |
-| `13` `CLK` | `14` `LAT` | | `TMS` (14) **H5** | `IO5` **H11** | | `GND` | `IO0` |
-| `15` `OE` | `16` `GND` | | `NC` | `3V3` | | `VCC` | `IO2` |
-| | | | `SD2` (9) | `TCK` (13) **H7** | | `TDO` (15) **H15** | `SD1` (8) |
-| | | | `CMD` (11) | `SD3` (10) | | `SD0` (7) | `CLK` (6) |
-
-**View B — the same ribbon read from its other face.** Identical board columns, identical `H<n>`
-tags; only the left/right order of each ribbon pair is reversed, so the block reads exactly like the
-ribbon in your hand when it is mirrored.
-
-| HUB75 | | | left-outer | left-inner | | right-inner | right-outer |
-|---|---|---|---|---|---|---|---|
-| `2` `G1` | `1` `R1` | | `GND` | `RST` | | `TXD` (1) | `GND` |
-| `4` `GND` | `3` `B1` | | `NC` | `SVP` (36) | | `RXD` (3) | `IO27` **H3** |
-| `6` `G2` | `5` `R2` | | `SVN` (39) | `IO26` **H2** | | `IO22` | `IO25` **H1** |
-| `8` `GND` | `7` `B2` | | `IO35` | `IO18` | | `IO21` | `IO32` |
-| `10` `B` | `9` `A` | | `IO33` | `IO19` **H10** | | `IO17` **H12** | `TDI` (12) **H6** |
-| `12` `D` | `11` `C` | | `IO34` | `IO23` **H9** | | `IO16` **H13** | `IO4` **H14** |
-| `14` `LAT` | `13` `CLK` | | `TMS` (14) **H5** | `IO5` **H11** | | `GND` | `IO0` |
-| `16` `GND` | `15` `OE` | | `NC` | `3V3` | | `VCC` | `IO2` |
-| | | | `SD2` (9) | `TCK` (13) **H7** | | `TDO` (15) **H15** | `SD1` (8) |
-| | | | `CMD` (11) | `SD3` (10) | | `SD0` (7) | `CLK` (6) |
-
-The two tables differ in exactly one thing: the order in which the ribbon's wires read. The board
-pins and the `H<n>` tags do **not** move — a ribbon is a 1:1 cable, so the wire that reaches a board
-pin is the same wire however you look at it. That is also the mistake to avoid: never match table
-cells **by column**, always match by **signal name** (`R1` … `OE`). Confirm `H1` (`R1`) and `H13`
-(`CLK`) with the meter before wiring the rest; those two are where a wrong guess turns into hours of
-work. The remaining header pins carry no panel signal: **`IO22` is unused**, as are `IO21`, `IO32`,
-`IO18`, `IO0`, `IO2`, `IO33`, `IO34`, `IO35`, `SVP`, `SVN` — `IO18` is the spare that can take over
-G2 if GPIO 12 misbehaves.
-
-Which label carries which panel signal:
-
-| Signal | GPIO | Printed on the board |
-|---|---:|---|
-| R1 | 25 | `IO25` |
-| G1 | 26 | `IO26` |
-| B1 | 27 | `IO27` |
-| R2 | 14 | `TMS` |
-| G2 | 12 | `TDI` |
-| B2 | 13 | `TCK` |
-| A | 23 | `IO23` |
-| B | 19 | `IO19` |
-| C | 5 | `IO5` |
-| D | 17 | `IO17` |
-| LAT | 4 | `IO4` |
-| OE | 15 | `TDO` |
-| CLK | 16 | `IO16` |
-
-The four JTAG names are exactly the four pins this panel needs: `TDI` = G2, `TCK` = B2, `TMS` = R2,
-`TDO` = OE. That is why the board seems to have no GPIO 12–15.
-
-**Do not use** `SD0`, `SD1`, `SD2`, `SD3`, `CLK`, `CMD` (GPIO 6–11): the internal flash bus.
-`SVP`/`SVN` (36/39) and `IO34`/`IO35` are **input-only** and cannot drive a panel line. `TXD`/`RXD`
-(1/3) are the USB console and stay free.
-
-### UART link (default)
-
-| StickS3 HAT2 | ESP32 Dev Module |
-|---|---|
-| G1 (TX) | GPIO32 (RX) |
-| G2 (RX) | GPIO33 (TX) |
-| GND | GND |
-
-`Serial2.begin(115200, SERIAL_8N1, RX, TX)` on both sides. The Stick's Grove port is G9/G10 if you
-prefer the Grove cable; verify the TX/RX order. Do not use SoftwareSerial on the S3; it competes
-with the I2S microphone and the panel DMA.
-
-### ESP-NOW (`◇`)
-
-Same protocol, no wire. You can do this instead of the UART version, but it is riskier.
-Put both boards in station mode on the same Wi-Fi channel, read the
-receiver MAC from its serial output, add it as a peer, and send the same two messages. The HUB75
-driver uses I2S DMA, not the radio, so it coexists with ESP-NOW. Sources:
-[Arduino ESP-NOW](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/espnow.html),
-[Random Nerd tutorial](https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/).
+Keep it there. This page describes how to run the lab against that diagram; if a wiring fact changes,
+change it in the module and not here, or the two will drift apart the way the pin numbering did.
 
 ## Optional audio (if the modules arrive)
 
@@ -272,6 +65,7 @@ missed the boot output, the sketch can repeat it:
 |---|---|
 | `?` | reprint the config banner and the current diagnostic line |
 | `t` | run the self-test again (beacon, colours, corners) |
+| `c` | show only the corner/ramp frame for 6 s — the wiring check, nothing else |
 | `+` / `-` | raise / lower the brightness cap by 32 while running |
 | `r` | reboot |
 
@@ -309,21 +103,39 @@ breathing.
    means power, ground, or OE — not brightness.
 4. Then the colour sequence, about a second each:
    - solid **red**, **green**, **blue**, **white**;
-   - a grey border with four corner pixels: **red** top-left, **green** top-right, **blue**
-     bottom-left, **white** bottom-right;
-   - a ramp along row 1 fading red → black left to right, and one down column 1 fading green →
-     black top to bottom;
+   - four **6×6 corner blocks**: **red** top-left, **green** top-right, **blue** bottom-left,
+     **white** bottom-right;
+   - a red ramp across the **middle row**, black at the left → bright red at the right (it points
+     right), and a green ramp down the **middle column**, black at the top → bright green at the
+     bottom (it points down);
+   - a dim grey border around the whole 32×32 area;
    - then the dim breathing colour and `selftest done - breathing` in the monitor.
+
+   Judge the frame by **position, not by colour mixing**: a red block next to a green one looks
+   yellow at 5 mm pitch, and blue next to green looks cyan. Four blocks in four different corners,
+   one ramp pointing right, one pointing down — anything else is a wiring fault, not optics.
+
+   The corner frame is the only one that tests the address lines; press `c` to bring it back without
+   re-running the whole sequence.
 5. Read the failure here, while only the panel is in the loop:
 
    | You see | Look at |
    |---|---|
    | nothing at any beacon step | 5 V on the panel terminals, common ground, OE wiring; `panel init FAILED` in the monitor lists the same checks |
    | lights only at 160/255 | brightness setting, not a fault — raise the cap with `+` |
+   | no blue anywhere, white looks yellow | the blue pair: pins 3/7 (`B1`/`B2`) wired into the ground holes, or `B1`/`B2` really at GND |
+   | red and green exchanged (the red phase is green, the green phase red) | pins 1/2 (`R1`/`G1`), or 5/6 (`R2`/`G2`) |
    | one colour missing or wrong | that colour pair (R1/R2, G1/G2, B1/B2) or the ribbon orientation |
    | corners in the wrong place, image mirrored or rotated | ribbon orientation; panel scan / mapping |
    | shifted, doubled, or torn image | ribbon seating, scan rate / mapping, level shifter |
    | flicker on bright frames | common ground, thin power wires, missing 74HCT245, brightness cap too high |
+
+   **The pair-swap signature.** Red and green exchanged *and* no blue at all (the beacon's white
+   comes out yellow) means pairs 1–2 and 3–4 — and 7–8 as well if it affects both halves — are
+   crossed: `R1` sits in the `G1` hole, `B1` in the `GND` hole. It is the same mistake as a swapped
+   `CLK`/`LAT`, just in pairs that fail quietly instead of dark. Solid colours also hide crossed
+   `A`/`B` and `C`/`D` (pins 9–12), because a solid fill looks identical with the row order
+   permuted — that one only shows up in the corner and ramp frame, so look at it.
 
 6. While the solid white is up, measure the current with the meter in series with the 5 V supply.
    That white is at `MAX_BRIGHTNESS` (96, not 255), so it is the number that matters. Lower
@@ -340,10 +152,11 @@ breathing.
 ## Known issues
 
 - **Panel completely dark, driver running (`panel ready`, `alive …` with `frames` climbing, dark at
-  beacon 255):** in this order — 5 V measured at the panel terminals, common ground, the ribbon
-  turned over (`CLK`/`LAT` and every other pair exchanged, see *The connector*), `CLK` (pin 13 →
-  IO16) and `LAT` (pin 14 → IO4), then `OE` (pin 15 → `TDO`). Beep those three with a multimeter;
-  "the wire looks right" is not a measurement. If they all check out, flash the
+  beacon 255):** in this order — 5 V measured at the panel terminals, common ground, the two ribbon
+  readings mixed up (`CLK`/`LAT` are in the same pair, see
+  [Module 6 Appendix A](../../modules/06-led-animation-sound-and-installations.md#appendix-a)),
+  `CLK` (pin 13 → IO16) and `LAT` (pin 14 → IO4), then `OE` (pin 15 → `TDO`). Beep those three with
+  a multimeter; "the wire looks right" is not a measurement. If they all check out, flash the
   [ESP8266 fallback](pxmatrix-fallback/README.md) to prove the panel and ribbon independently.
 - **Wrong colours or a shifted image:** ribbon orientation, a swapped colour pair, or the wrong
   panel scan. Run the library example before blaming the sketch.
@@ -355,10 +168,11 @@ breathing.
   mode; (c) a stuck BOOT button or a faulty USB-bridge auto-reset. The first serial line names the
   reset reason, and `alive …` every two seconds proves the sketch is actually running.
 - **Board will not boot or upload with the panel connected:** GPIO 12 (G2) is a strapping pin and
-  must be LOW at reset. Flash with the ribbon unplugged, or add a 10 kΩ pulldown from GPIO 12 to
-  GND. See *Strapping pins* under Wiring.
-- **`TDO` / `TDI` on the silkscreen:** those are GPIO 15 and 12. The board-label table under Wiring
-  has the full mapping.
+  must be LOW at reset. Flash with the ribbon unplugged, or add a 10 kΩ pulldown. The full note is
+  under *Strapping pins* in
+  [Module 6 Appendix A](../../modules/06-led-animation-sound-and-installations.md#appendix-a).
+- **`TDO` / `TDI` on the MiniKit silkscreen:** those are GPIO 15 and 12, and they are the panel's
+  `OE` and `G2`. Full mapping in the same appendix.
 - **`ESP32-HUB75-MatrixPanel-DMA.h: No such file or directory`:** the library ships
   `ESP32-HUB75-MatrixPanel-I2S-DMA.h` — the `I2S` is part of the header name, the C++ class is
   still `MatrixPanel_I2S_DMA`. `platformio.ini` pulls the library from Git without a tag, so a

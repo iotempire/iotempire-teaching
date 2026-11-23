@@ -64,6 +64,27 @@ static void show(uint16_t colour, uint16_t ms) {
 }
 
 #if SELFTEST_ON_BOOT
+// Corner and axis frame: four 6x6 corner blocks (red TL, green TR, blue BL, white BR),
+// a red ramp along the middle row and a green ramp down the middle column. The only frame
+// that proves the address lines A-D are in the right order. Blocks and mid-panel ramps
+// instead of single pixels, because one-pixel markers are unreadable at arm's length.
+// Also reachable with 'c'.
+static void corner_frame(uint16_t ms) {
+  const int B = 6;
+  const int mid = PANEL_RES_Y / 2;
+
+  display.fillScreen(0);
+  display.drawRect(0, 0, PANEL_RES_X, PANEL_RES_Y, display.color565(48, 48, 48));
+  display.fillRect(0, 0, B, B, display.color565(255, 0, 0));
+  display.fillRect(PANEL_RES_X - B, 0, B, B, display.color565(0, 255, 0));
+  display.fillRect(0, PANEL_RES_Y - B, B, B, display.color565(0, 0, 255));
+  display.fillRect(PANEL_RES_X - B, PANEL_RES_Y - B, B, B, display.color565(255, 255, 255));
+  for (int i = 0; i < PANEL_RES_X; i++) display.drawPixel(i, mid, display.color565(i * 8, 0, 0));
+  for (int i = 0; i < PANEL_RES_Y; i++) display.drawPixel(mid, i, display.color565(0, i * 8, 0));
+  uint32_t end = millis() + ms;
+  while ((int32_t)(millis() - end) < 0) display.display(10);
+}
+
 static void selftest() {
   static const uint8_t steps[] = {16, 48, 96, 160, 255};
   Serial.println("selftest: brightness beacon - note the step at which the panel lights up");
@@ -83,16 +104,7 @@ static void selftest() {
 
   // Corner and axis frame: red top-left, green top-right, blue bottom-left, white
   // bottom-right, plus a ramp along row 1 and down column 1.
-  display.fillScreen(0);
-  display.drawRect(0, 0, PANEL_RES_X, PANEL_RES_Y, display.color565(64, 64, 64));
-  display.drawPixel(0, 0, display.color565(255, 0, 0));
-  display.drawPixel(PANEL_RES_X - 1, 0, display.color565(0, 255, 0));
-  display.drawPixel(0, PANEL_RES_Y - 1, display.color565(0, 0, 255));
-  display.drawPixel(PANEL_RES_X - 1, PANEL_RES_Y - 1, display.color565(255, 255, 255));
-  for (int i = 0; i < PANEL_RES_X; i++) display.drawPixel(i, 1, display.color565(i * 8, 0, 0));
-  for (int i = 0; i < PANEL_RES_Y; i++) display.drawPixel(1, i, display.color565(0, i * 8, 0));
-  uint32_t end = millis() + 2500;
-  while ((int32_t)(millis() - end) < 0) display.display(10);
+  corner_frame(2500);
 
   display.fillScreen(0);
   display.display(10);
@@ -109,7 +121,7 @@ static void print_banner() {
                 P_LAT, P_OE, P_A, P_B, P_C, P_D);
   Serial.printf("cpu        : %u MHz, heap %u\n",
                 (unsigned)ESP.getCpuFreqMHz(), (unsigned)ESP.getFreeHeap());
-  Serial.println("console    : ? banner+diag, t self-test, +/- brightness, r reboot");
+  Serial.println("console    : ? banner+diag, t self-test, c corners, +/- brightness, r reboot");
 }
 
 static void print_diag() {
@@ -152,6 +164,16 @@ void loop() {
       Serial.println("selftest done - breathing");
 #else
       Serial.println("self-test compiled out (SELFTEST_ON_BOOT 0)");
+#endif
+    } else if (c == 'c') {
+#if SELFTEST_ON_BOOT
+      Serial.println("corner frame 6 s: red TL, green TR, blue BL, white BR; red ramp points right, green ramp points down");
+      display.setBrightness(bright_cap);
+      corner_frame(6000);
+      display.fillScreen(0);
+      display.display(10);
+#else
+      Serial.println("corner frame compiled out (SELFTEST_ON_BOOT 0)");
 #endif
     } else if (c == '+' || c == '-') {
       int v = (int)bright_cap + ((c == '+') ? 32 : -32);

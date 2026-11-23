@@ -74,7 +74,8 @@ download mode applies here.
 
 The boot output and the console are the same as the ESP32 build: banner, brightness beacon
 (16 / 48 / 96 / 160 / 255), red-green-blue-white, corner and ramp frame, then breathing, with an
-`alive …` line every two seconds and `?` / `t` / `+` / `-` / `r` on the console.
+`alive …` line every two seconds and `?` / `t` / `c` / `+` / `-` / `r` on the console (`c` re-shows
+just the corner frame).
 
 What it tells you:
 
