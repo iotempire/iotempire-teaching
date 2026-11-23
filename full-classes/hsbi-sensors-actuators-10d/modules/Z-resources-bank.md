@@ -363,10 +363,12 @@ fifth address bit a 1/32 panel would need, not a broken wire.
 **Which controller drives it.** This class uses the ESP32 with
 [`ESP32-HUB75-MatrixPanel-DMA`](https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA): hardware
 DMA clocks the 13 lines, so the CPU stays free for animation, audio, and Wi-Fi. An **ESP8266** can
-drive the same panel with [`PxMatrix`](https://github.com/2dom/PxMatrix), which bit-bangs those
-13 lines from a timer instead — a common recipe (Wemos D1 mini, 32×16 or 64×32, panels chained on
-one ribbon), but CPU-bound and with lower refresh and colour depth. The wiring is **identical**
-either way: the ESP8266 saves no pins, it only changes how the pixels are clocked.
+drive the same panel with [`PxMatrix`](https://github.com/2dom/PxMatrix) — the recipe from earlier
+years (Wemos D1 mini, panels on one ribbon). It needs only *one* data line, because the panel's six
+colour inputs are chained into a single shift register with five jumpers between the input and the
+output header: fewer GPIOs, but three times as many bits on the wire per frame. The refresh is
+CPU-bound, so the colour depth and the refresh rate are lower — that is the trade, and it is why
+this class uses the ESP32.
 
 ## 🧰 Tool gotchas
 

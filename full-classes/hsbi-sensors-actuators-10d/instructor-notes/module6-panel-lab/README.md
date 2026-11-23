@@ -4,13 +4,21 @@
 > It is tracked instructor material; students may read it as an example. Flash it, break it, and
 > improve it before the session; keep a known-good `task1-panel/` from it.
 
-Two PlatformIO projects:
+Three PlatformIO projects:
 
 ```
 module6-panel-lab/
-├── panel/     ESP32 Dev Module + 32×32 HUB75 panel (ESP32-HUB75-MatrixPanel-DMA)
-└── stick/     M5StickC-S3: microphone + IMU → UART → panel
+├── panel/               ESP32 Dev Module + 32×32 HUB75 panel (ESP32-HUB75-MatrixPanel-DMA)
+├── stick/               M5StickC-S3: microphone + IMU → UART → panel
+└── pxmatrix-fallback/   plan B: Wemos D1 mini + PxMatrix, panel-only diagnostic
 ```
+
+The fallback exists for two reasons: a pod that only has ESP8266 boards, and a control experiment
+when the ESP32 build stays dark — if the D1 mini lights the panel, the panel, ribbon and supply are
+proven good and the fault is in the ESP32 harness. It also documents the five-jumper trick that made
+the ESP8266 recipe work in earlier years. See
+[`pxmatrix-fallback/README.md`](pxmatrix-fallback/README.md), rationale in
+[D24](../00-architecture-decisions.md#d24).
 
 The protocol is deliberately tiny:
 
@@ -226,6 +234,18 @@ pio run -t upload
 pio device monitor          # 115200, level/hue debug output
 ```
 
+Open the monitor **after** the board has started, not before. On this board the USB bridge's DTR
+line holds GPIO 0 low, so pressing RESET while a monitor is attached lands in download mode and you
+see `waiting for download` instead of the sketch. Reset first, then attach the monitor. If you
+missed the boot output, the sketch can repeat it:
+
+| Type in the monitor | Effect |
+|---|---|
+| `?` | reprint the config banner and the current diagnostic line |
+| `t` | run the self-test again (beacon, colours, corners) |
+| `+` / `-` | raise / lower the brightness cap by 32 while running |
+| `r` | reboot |
+
 The panel sketch runs a self-test at boot before the breathing starts — do step 1 of the Test
 below right after the first upload. Set `SELFTEST_ON_BOOT` to `0` in `panel/src/main.cpp` once the
 panel is known good.
@@ -244,25 +264,39 @@ silent panel could be wiring, level shifter, power, or protocol all at once.
 Flash `panel/` with nothing on the UART pins. `setup()` runs the self-test, then hands over to the
 breathing.
 
-1. Open the panel monitor. It prints `panel ready`, then `selftest: …`.
-2. Watch the sequence, about a second each:
+1. Attach the monitor *after* a reset (see Build and flash). The order is:
+   `boot: reset reason: …` → a `=== module6 panel controller ===` banner with the pin map →
+   `panel ready` → `selftest: …` → `selftest done - breathing` → a
+   `alive <seconds> L=… H=… bright=…/<cap> frames=… heap=…` line **every two seconds**. That
+   heartbeat is the difference between "the sketch is running and the panel is dark" and "no sketch
+   is running at all"; `frames` climbing proves the panel is being written to.
+2. Read the reset reason on the first line. `power-on` after you press the button is normal;
+   `brownout` means the 5 V supply or the grounds sagged (the panel's current, not the code);
+   `external pin` or **no output whatsoever** means GPIO 0 was held low and the chip sat in the ROM
+   bootloader instead of starting the sketch.
+3. The self-test starts with a **brightness beacon**: solid white at 16, 48, 96, 160, 255, each
+   announced on serial. Note the step at which the panel first lights up. Lights at 255 but nothing
+   lower is a dim or high-resistance path (or a very dark room measurement); nothing at any step
+   means power, ground, or OE — not brightness.
+4. Then the colour sequence, about a second each:
    - solid **red**, **green**, **blue**, **white**;
    - a grey border with four corner pixels: **red** top-left, **green** top-right, **blue**
      bottom-left, **white** bottom-right;
    - a ramp along row 1 fading red → black left to right, and one down column 1 fading green →
      black top to bottom;
    - then the dim breathing colour and `selftest done - breathing` in the monitor.
-3. Read the failure here, while only the panel is in the loop:
+5. Read the failure here, while only the panel is in the loop:
 
    | You see | Look at |
    |---|---|
-   | nothing at all | 5 V on the panel terminals, common ground, OE wiring; `panel init failed` in the monitor would have stopped it earlier |
+   | nothing at any beacon step | 5 V on the panel terminals, common ground, OE wiring; `panel init FAILED` in the monitor lists the same checks |
+   | lights only at 160/255 | brightness setting, not a fault — raise the cap with `+` |
    | one colour missing or wrong | that colour pair (R1/R2, G1/G2, B1/B2) or the ribbon orientation |
    | corners in the wrong place, image mirrored or rotated | ribbon orientation; panel scan / mapping |
    | shifted, doubled, or torn image | ribbon seating, scan rate / mapping, level shifter |
    | flicker on bright frames | common ground, thin power wires, missing 74HCT245, brightness cap too high |
 
-4. While the solid white is up, measure the current with the meter in series with the 5 V supply.
+6. While the solid white is up, measure the current with the meter in series with the 5 V supply.
    That white is at `MAX_BRIGHTNESS` (96, not 255), so it is the number that matters. Lower
    `MAX_BRIGHTNESS` in `panel/src/main.cpp` until you have margin on the 4 A supply.
 
@@ -276,8 +310,20 @@ breathing.
 
 ## Known issues
 
+- **Panel completely dark, driver running (`panel ready`, `alive …` with `frames` climbing, dark at
+  beacon 255):** in this order — 5 V measured at the panel terminals, common ground, `CLK`
+  (H14 → IO16), `OE` (H15 → `TDO`). Beep the last two with a multimeter; "the wire looks right" is
+  not a measurement. If all four check out, flash the
+  [ESP8266 fallback](pxmatrix-fallback/README.md) to prove the panel and ribbon independently.
 - **Wrong colours or a shifted image:** ribbon orientation, a swapped colour pair, or the wrong
   panel scan. Run the library example before blaming the sketch.
+- **Reset lands in download mode, and the monitor stays silent:** GPIO 0 is LOW at reset, so the ROM
+  bootloader runs and no sketch starts. Three causes, in order of likelihood: (a) a monitor was
+  attached when you pressed RESET — the USB bridge's DTR holds GPIO 0 low, so reset first and attach
+  the monitor afterwards; (b) you bridged `GND` to `IO0` to force a flash — a common workaround when
+  the auto-reset misbehaves — **remove that link**, with it in place every reset re-enters download
+  mode; (c) a stuck BOOT button or a faulty USB-bridge auto-reset. The first serial line names the
+  reset reason, and `alive …` every two seconds proves the sketch is actually running.
 - **Board will not boot or upload with the panel connected:** GPIO 12 (G2) is a strapping pin and
   must be LOW at reset. Flash with the ribbon unplugged, or add a 10 kΩ pulldown from GPIO 12 to
   GND. See *Strapping pins* under Wiring.

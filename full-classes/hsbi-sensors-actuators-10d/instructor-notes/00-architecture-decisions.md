@@ -518,13 +518,19 @@ Dates are design events, not every commit; Git history is the authority.
 - **UART default.** Hardware `Serial2` on the Stick's HAT2 G1/G2 (or Grove G9/G10) to the panel's GPIO32/33, 115200, newline-terminated. No SoftwareSerial: it competes with the I2S microphone and the panel DMA. ESP-NOW is the `◇` “cut the cable” extension; a phone hotspot with MQTT is Module 8/final-project territory.
 - **First light without AI.** The panel is new hardware; Task 1 uses the library example and the meter, not an agent. AI scaffolds Task 2.
 - **Controller family: ESP32, not ESP8266 — with the reason on record.** An ESP8266 *can* drive a
-  HUB75 panel with `PxMatrix` (bit-banged from a timer), and that was a working recipe in earlier
-  years, including several panels chained on one ribbon. It is rejected here for two reasons, not
-  because it is impossible: the wiring is identical (same 13 signals, so it saves no pins), and
-  bit-banging leaves no CPU to sample audio, run the animation, and keep a wireless path alive. The
-  ESP32's DMA path buys that headroom for the same harness. Keep the ESP8266 + PxMatrix route as a
-  documented fallback for a cohort that has only ESP8266 boards; students should still be able to
-  explain the trade (see the resource bank's 1/16-scan entry).
+  HUB75 panel with [`PxMatrix`](https://github.com/2dom/PxMatrix), and that was a working recipe in
+  earlier years, including several panels chained on one ribbon. It gets away with the ESP8266's
+  single SPI data line by chaining the panel's six colour registers into one, using five jumpers
+  between the input and the output header. So the harness is *not* identical: the ESP8266 uses
+  fewer GPIOs (8 panel signals instead of 13) and puts three times as many bits on the wire per
+  frame. It is still rejected here, but for the refresh, not for the pins: the refresh is CPU-bound
+  (no DMA, lower colour depth, flicker below 160 MHz), and bit-banging leaves no CPU to sample
+  audio, run the animation, and keep a wireless path alive. The ESP32's DMA path buys that headroom.
+  The ESP8266 route is kept as a working plan B for a cohort with only ESP8266 boards and as the
+  control experiment for a dark ESP32 build:
+  [`module6-panel-lab/pxmatrix-fallback/`](module6-panel-lab/pxmatrix-fallback/README.md). Students
+  should still be able to explain the trade (see the resource bank's
+  [1/16-scan entry](../modules/Z-resources-bank.md#hub75-scan)).
 - **Play is mandatory.** Task 3 is a `★` task, stays open after the exchange, and starts with a one-sentence story hook. The hook is part of the design note and the evidence; the realization may stay small.
 - **One 180-minute studio.** Two halves with a break; the run sheet is in the Module 6 studio note.
 
@@ -642,4 +648,5 @@ The authoritative wording is in the [syllabus](../syllabus.md). This table is a 
 - **2026-11-16** — Timetable and project. D23 added: 9 teaching days, 48 school hours (≈36 clock hours) in 90/180-minute slots, CP2/CP3 moved, two project tracks with optional MQTT, Module 8 as a clinic, Day 9 feedback rehearsal plus a 5–10 minute assessed video, grade table B. D20 amended for the longer Days 7–9.
 - **2026-11-16** — Vocabulary. D21 added: every module uses Task → Subtask → Evidence; Module 5 refactored as the reference (Tasks 1–5, `Proves:`/`Produces:`, standing `Log it`, closing exchange task); Modules 1–4 carry bracketed task numbers until their refactor; the sibling workbooks get the same TODO. Q10 resolved.
 - **2026-11-22** — Module 5 evidence and Module 6. D19 accepted after the evaluation: every pod controlled the strip, two pods built games with phone hotspots and a piezo; the guided format stays an observed-session pattern. D24 added: two controllers, UART default, ESP-NOW as the wireless extension, mandatory play task with a story hook, one 180-minute studio.
-- **2026-11-23** — Module 6 controller family. D24 extended: the ESP32/DMA choice is recorded against the ESP8266 + PxMatrix route that worked in earlier years, with the reason (identical harness, no CPU left for audio and the link). The resource bank gained a [1/16-scan entry](../modules/Z-resources-bank.md#hub75-scan) so the module's Task 1 question has a reference, and the reference lab documents the GPIO-12 strapping hazard and a GPIO-18 remap.
+- **2026-11-23** — Module 6 controller family. D24 extended: the ESP32/DMA choice is recorded against the ESP8266 + PxMatrix route that worked in earlier years, with the reason (no CPU left for audio and the link). The resource bank gained a [1/16-scan entry](../modules/Z-resources-bank.md#hub75-scan) so the module's Task 1 question has a reference, and the reference lab documents the GPIO-12 strapping hazard and a GPIO-18 remap.
+- **2026-11-23** — Module 6 panel bring-up. Corrected a factual claim in D24 and in the resource bank: the ESP8266 + PxMatrix harness is *not* identical to the ESP32 one — it chains the six colour registers with five jumpers and drives one data line, so it uses fewer GPIOs and three times the bits per frame. The 2026-11-21…23 bring-up also showed a dark panel with a running DMA driver (frames climbing, dark at brightness 255), so the sketch gained a brightness beacon, a config banner, a periodic diagnostic line and a serial console, and the lab gained a plan-B project, [`module6-panel-lab/pxmatrix-fallback/`](module6-panel-lab/pxmatrix-fallback/README.md), which separates a panel or ribbon fault from an ESP32 harness fault.
