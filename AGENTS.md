@@ -25,14 +25,13 @@ The instructor commits; the rules above still apply. When you are asked to write
 <What changed, grouped by area: two to four bullets or one short paragraph.>
 <Why it changed: the decision, the run evidence, or the constraint.>
 
-Validation: <command and result>
 Decisions: <class D-numbers, if any>
 ```
 
 - **Subject:** `<area>: <summary>`, at most 72 characters, imperative, no trailing period. Use `sensors`, `databases`, `networking`, `repo`, `tools`, or `instructor-notes` as the area.
 - **Body:** lead with the student-facing change, then the design or assessment change, then the tooling. Do not list every file.
 - **Big changes:** one bullet per coherent area; name the decision IDs and where the binding text lives. State migrations, follow-ups, and known gaps.
-- **Validation:** name the script you ran and its result. Never claim a check you did not run.
+- **Validation is not part of the message.** Run `./tools/check-all.sh` before you commit and report the result in the conversation; the commit body carries decisions and context, not check output.
 - **Do not add AI attribution** unless the repository asks for it.
 - **Never amend, squash, or rewrite history** unless the instructor explicitly asks.
 
@@ -50,7 +49,6 @@ sensors: make Module 6 a two-controller panel studio
 Why: Module 5's evaluation showed that a no-AI first win plus an open end
 produces both confidence and creativity; the panel needs two boards.
 
-Validation: ./tools/check-all.sh (PASS, 143 files, 2461 links)
 Decisions: Sensors D19 (accepted), D24 (provisional)
 ```
 
