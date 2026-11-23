@@ -163,7 +163,7 @@ Pair with a **neighbouring pod**:
 
 *Portfolio evidence:* the cleaned-up `## Study log` (with the **“Agreed learning (pod discussion)”** note) and your pod-pair's shared artefact.
 
-## 🛠️ In-Class Lab: From Blink to Measurement — **Challenging**
+## In-Class Lab: From Blink to Measurement — **Challenging**
 
 *Hardware:* 1× M5Stack node and/or a raw ESP board (ESP32 DevKit / ESP32 Ethernet mini kit / Wemos D1 Mini), breadboard and jumper wires, 1× LED + 220–330 Ω resistor, 1× push button, **2× 10 kΩ resistors** (one for the button — or use the internal pull-up — and one fixed resistor for the LDR divider), 1× 100 nF capacitor (optional, for hardware debounce), 1× potentiometer, 1× LDR, optional relay module for a low-voltage load, multimeter.
 

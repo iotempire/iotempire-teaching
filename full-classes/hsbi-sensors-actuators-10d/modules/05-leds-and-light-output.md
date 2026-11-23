@@ -44,7 +44,7 @@ No `uv`? [Install it first](./Z-resources-bank.md#python-environment-with-uv). E
 
 No serial port? Linux needs your user in `dialout` (or `uucp`) and the PlatformIO udev rules; Windows needs the CP210x or CH340 driver; macOS needs the driver and, if the port stays invisible, `admin` and `wheel` membership. The table is in the [resource bank](./Z-resources-bank.md#platformio-cli--zedvscode-setup).
 
-## 🔌 ★ Task 1 — one LED, no AI
+## ★ Task 1 — one LED, no AI
 
 **Proves:** Goals 1 and 2 · **Produces:** `task1-led/` with the fading LED.
 
@@ -104,7 +104,7 @@ pio run -t upload -t monitor
 
 **Log it.** Under `## Study log` in `Module05/README.md`, one sentence on what the fade does and what duty cycle means. One pod member keeps the shared log; the others link to it and add one sentence.
 
-## 🌈 ★ Task 2 — RGB LED project
+## ★ Task 2 — RGB LED project
 
 **Proves:** Goals 1, 3, and 4 · **Produces:** `task2-rgb/` with the serial `R G B` REPL.
 
@@ -139,7 +139,7 @@ In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it
 
 **Log it.** In the same `## Study log`: the measured red, green, and blue currents, whether your part is common cathode or anode, and one sentence on what the agent got wrong (if anything).
 
-## ✨ ★ Task 3 — WS2812B strip project
+## ★ Task 3 — WS2812B strip project
 
 **Proves:** Goals 4, 5, and 6 · **Produces:** `task3-strip/` with the addressable strip and the power table.
 
@@ -184,7 +184,7 @@ In `src/main.cpp`, start with `#include <Arduino.h>` (PlatformIO does not add it
 
 **Log it.** In the same `## Study log`: the `index R G B`/`clear` demo, your `SetLuminance` value, the measured current, and the power table — measured vs. computed for 8, 30, 60, and 144 LEDs.
 
-## 🔗 ★ Task 4 — Share the repo (AI-first)
+## ★ Task 4 — Share the repo (AI-first)
 
 **Proves:** Goal 4 · **Produces:** the committed `Module05/` repo and its README.
 

@@ -33,7 +33,7 @@ The scanner finds a single address. Reads are intermittent. Mara asks the questi
 > [!WARNING]
 > Power off before rewiring. Check that every module's logic voltage matches 3.3 V. I²C modules with their own 5 V pull-ups can over-voltage a 3.3 V device — check before connecting. The scope/analyzer inputs are **3.3 V only**; use a divider or clamp for higher voltages and never connect to mains-referenced circuits.
 
-## 🛠️ Studio Lab 1: From Simple Pins to Buses — **Challenging** (Tasks 1–2)
+## Studio Lab 1: From Simple Pins to Buses — **Challenging** (Tasks 1–2)
 
 ### ★ Task 1: Simple pins, PWM, and a voltage divider
 
@@ -228,7 +228,7 @@ Pair with a **neighbouring pod**:
 2. Agree on the **3 most noteworthy points** and **one shared artefact** — the best bus table, a scan map, or a new diagram the two pods make together. **Post it in the course channel** with one sentence on why you chose it.
 3. Update the `## Study log` with what you learned and add a short **“Agreed learning (pod discussion)”** note.
 
-## 🛠️ Studio Lab 2: Talk to the I²C Bus — **Challenging** (Tasks 5–8)
+## Studio Lab 2: Talk to the I²C Bus — **Challenging** (Tasks 5–8)
 
 ### ★ Task 5: Wire the Bus and Scan It
 
@@ -279,7 +279,7 @@ Pair with a **neighbouring pod**:
    - use an I²C multiplexer to give each device its own channel.
 3. Document the conflict and the fix — this is exactly the kind of engineering note the portfolio rewards.
 
-## 🛠️ Studio Lab 3: Build the Instrument — **Challenging** (Tasks 9–10)
+## Studio Lab 3: Build the Instrument — **Challenging** (Tasks 9–10)
 
 > [!NOTE]
 > **Lab reality: no benchtop oscilloscope, shared multimeters.** This instrument sprint follows the I²C work, which has given you real traffic to capture. It is deliberately a **risky, exploratory build**: try the candidates, compare them, and let the class's enthusiasm and evidence decide. Then agree on **1–2 solutions** we use for the rest of the course. For I²C and OneWire, a **logic analyzer** with PulseView/sigrok is the right tool; for slow analog signals and PWM, a browser-based ESP32 scope is useful. Use the multimeter for reference/sanity checks and let the scope/analyzer carry the bus debugging.

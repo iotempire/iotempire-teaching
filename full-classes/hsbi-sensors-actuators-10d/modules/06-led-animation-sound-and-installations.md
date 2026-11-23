@@ -47,7 +47,7 @@ Meters are shared; ask your instructor which panels and supplies are per pod, an
 
 You work in your Task Pod at your own pace. The instructors circulate; ask early, not after twenty minutes of guessing. Task 1 is deliberately **without AI** — the panel is new hardware, and first light should be yours. Task 2 is AI-scaffolded. Task 3 is yours to invent; it stays open after the exchange. At the end, each pod shows one thing that works and one thing that does not.
 
-## 🔌 ★ Task 1 — First light and the power ceiling
+## ★ Task 1 — First light and the power ceiling
 
 **Proves:** Goals 1, 2, and 3 · **Produces:** `task1-panel/` with a stable test pattern, a wiring photo, and the power table.
 
@@ -66,7 +66,7 @@ You work in your Task Pod at your own pace. The instructors circulate; ask early
 
 **Done when:** the panel shows a stable test pattern, you can state the maximum brightness you trust on the 4 A supply, and your scan explanation is written down.
 
-## ✨ ★ Task 2 — Breathe and listen (AI scaffold)
+## ★ Task 2 — Breathe and listen (AI scaffold)
 
 **Proves:** Goals 4 and 5 · **Produces:** `task2-breathe/` with `panel/` and `stick/`, a video, and a mapping note.
 
@@ -145,7 +145,7 @@ In `src/main.cpp`, use `M5Unified`: initialize the display, microphone, IMU, and
 
 **Done when:** the panel breathes smoothly while the loop stays responsive, the sound mode reacts visibly without constant re-tuning, and the link and protocol are written down.
 
-## 🎮 ★ Task 3 — Play (mandatory, stays open)
+## ★ Task 3 — Play (mandatory, stays open)
 
 **Proves:** Goal 6 · **Produces:** `task3-play/` with the story hook, one interaction, a video, and a five-line design note.
 
@@ -158,7 +158,7 @@ In `src/main.cpp`, use `M5Unified`: initialize the display, microphone, IMU, and
 
 **This task stays open after Task 5.** Keep the folder and the video in the portfolio; return to it in self-study, or bring it into the final project. The hook is the seed for your project story.
 
-## 🔗 ★ Task 4 — Share the repo
+## ★ Task 4 — Share the repo
 
 **Proves:** Goals 1–6 · **Produces:** the committed `Module06/` folder and its README.
 

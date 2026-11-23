@@ -116,7 +116,7 @@ Pair with a **neighbouring pod**:
 
 *Portfolio evidence:* the cleaned-up `## Study log` (with the **“Agreed learning (pod discussion)”** note) and your pod-pair's shared artefact.
 
-## 🛠️ In-Class Lab: Distance, Motion & Environment — **Challenging**
+## In-Class Lab: Distance, Motion & Environment — **Challenging**
 
 *Hardware:* a distance sensor (VL53L0X ToF and/or an ultrasonic module) plus one motion/environment sensor chosen from what is available — the MPU6050 or the M5StickC's built-in IMU, the MPR121 capacitive-touch controller, or the DS18B20 (OneWire) temperature sensor. A ruler or measuring tape as reference; a Hall sensor is optional.
 

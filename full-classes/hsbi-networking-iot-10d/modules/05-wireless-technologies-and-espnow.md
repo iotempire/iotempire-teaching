@@ -93,7 +93,7 @@ The table is the discussion map: the **[Goal](#-learning-goals) · theory box** 
 
 **The order is a suggestion.** The rounds are a path, not a timetable. If the bridge node refuses the Wi-Fi channel, fix the channel before you debug the code; if you finish early, take the sniffer stretch. **The instructor demos one ESP-NOW send and one bridge publish live on the beamer** — ask for the demo you need. Rotate roles after each round; everybody should send, receive, and publish at least once. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
-## 🛠️ The Studio: The Sub-Millisecond ESP-NOW Swarm — **Challenging**
+## The Studio: The Sub-Millisecond ESP-NOW Swarm — **Challenging**
 
 *Hardware:* 2× M5Stack nodes (e.g. 1 M5StickC and 1 M5Atom) + 1× OpenWrt router.
 
@@ -235,7 +235,7 @@ ESP-NOW is connectionless, so there is no broker to look at and no TCP connectio
 
 *Portfolio evidence:* the pcap, the one-frame breakdown, and the reliability answer.
 
-## 🤖 Ask an LLM — then verify
+## Ask an LLM — then verify
 
 Use these when a theory box is not enough. Treat every answer as a **claim to test**, not a fact, and run it against your own radios.
 

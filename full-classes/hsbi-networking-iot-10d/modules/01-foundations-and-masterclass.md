@@ -167,7 +167,7 @@ Pair with a **neighbouring pod**:
 
 *Portfolio evidence:* your cleaned-up `## Study log` (with the **“Agreed learning (pod discussion)”** note) and your pod-pair's shared artefact.
 
-## 🛠️ The Master Class — **Challenging**
+## The Master Class — **Challenging**
 
 The hands-on part of today is the **[Mastering IoT Solutions](../../../workshops/mastering-iot-solutions/README.md)** workshop, which has its own workbook with the exact, click-by-click steps. **That workbook is the authoritative procedure** — follow it in order (Phases 1–5, then the open-ended explorations). This module does not repeat the steps; it gives you the story, the learning goal each phase proves, and the evidence to keep.
 

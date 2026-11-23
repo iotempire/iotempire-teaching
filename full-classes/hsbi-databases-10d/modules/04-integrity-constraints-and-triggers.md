@@ -81,7 +81,7 @@ Two follow-ups worth five minutes: what does `CHECK` do with a `NULL` value (try
 - Which constraint was hardest to get right — `CHECK` with `NULL`, `STRICT` with numbers, or `UNIQUE` over two columns?
 - Agreed points go into `integrity-notes.md`; anything unresolved goes to `#sql-questions`.
 
-## 🛠️ Studio Lab: Make the Database Refuse to Lie — **Challenging**
+## Studio Lab: Make the Database Refuse to Lie — **Challenging**
 
 *Software:* `sqlite3` CLI and Python 3.14.
 

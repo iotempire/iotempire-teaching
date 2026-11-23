@@ -4,7 +4,7 @@
 
 [← Back to Module Index](./00-index.md) | [Back to Resources Bank](./Z-resources-bank.md)
 
-## 🧠 LLM verification drills (use in every module)
+## LLM verification drills (use in every module)
 
 AI is a **drafting tool**, not an oracle. For each module, pick at least one prompt, run it, and record it under `## Study log` in that module's README: the prompt, a 2–3 line summary, **how you verified it**, and where the model was wrong.
 

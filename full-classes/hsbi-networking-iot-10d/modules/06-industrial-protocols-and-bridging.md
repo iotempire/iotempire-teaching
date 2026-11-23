@@ -93,7 +93,7 @@ The table is the discussion map: the **[Goal](#-learning-goals) · theory box** 
 
 **The order is a suggestion.** The rounds are a path, not a timetable. If the RS-485 hardware is missing, do Round 3 on the register map and move on; if the guest is not there, use the EtherCAT video. **The instructor demos one register read and one publish live if the hardware is present.** The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
-## 🛠️ The Briefing: Four Layers and a Wrapper — **Short and Dry**
+## The Briefing: Four Layers and a Wrapper — **Short and Dry**
 
 ### ★ Round 1: Place the protocols
 
@@ -263,7 +263,7 @@ Run the bridge and verify in MQTT Explorer or `mosquitto_sub` that the industria
 
 *Portfolio evidence:* the two scripts, the MQTT stream, and one sentence each on what the wrapper added and what it lost.
 
-## 🤖 Ask an LLM — then verify
+## Ask an LLM — then verify
 
 Use these when a theory box is not enough. Treat every answer as a **claim to test**, not a fact, and run it against a simulator or a real device.
 

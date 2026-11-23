@@ -139,7 +139,7 @@ Where you disagree, you have found either your own gap or the model's — both a
 2. **Explain the surprise.** Each pod names the plan that surprised it most, and what it now believes about indexes.
 3. **Swap collections.** Add each other's best curiosities to both pods' `sql-notes.md`; anything neither pod could place goes to `#sql-questions`.
 
-## 🛠️ Studio Lab: Generate, Profile, and Secure — **Challenging**
+## Studio Lab: Generate, Profile, and Secure — **Challenging**
 
 *Software:* `sqlite3` CLI and Python 3.14. Keep `.timer on` in the shell (see [Measuring query time](./Z-resources-bank.md#measuring-query-time)). **Prefix every query you tune with `EXPLAIN QUERY PLAN` before you measure it** — here and for the rest of the course.
 

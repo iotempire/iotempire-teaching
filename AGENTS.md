@@ -95,8 +95,11 @@ Terminal file writes bypass the editor's change review; that is why the editor's
 ## Typography: use markers sparingly
 
 - `★` and `◇` are **tier markers on task headings**, nothing else. Use them on `★ Task N` / `◇ Task N` where the tier matters; do not put them on subtasks, log lines, evidence lines, emphasis, or status labels. `Log it`, `Done when`, `Proves`, and `Produces` are plain text.
-- Prefer plain words over symbols and emoji in new material. No decorative “AI” markers (sparkles, robots, arrows).
-- Existing emoji headings are legacy. Do not add new ones; do not mass-remove them without an explicit request.
+- **One marker per heading.** If a heading already carries a semantic marker — a `★`/`◇` tier, a `**Challenging**`/`**Short and Dry**` difficulty label, or a navigation emoji such as 🎯 — do not add a decorative emoji in front of it. Keep the marker that has a function and drop the other.
+- **No AI markers.** Do not use ✨, 🤖, 🧠, 🚀, 🔥, or similar symbols. A heading, a task, or a prompt says what it is in words; the sparkle and robot make the material feel generated and hollow, and they distract from the learning.
+- A single emoji is allowed only when it helps scanning (for example 🎯 for Learning Goals or ✅ for the evidence list). Otherwise, plain text.
+- Apply this to every workbook under `full-classes/`, not only `hsbi-*`.
+- Existing marker clusters are legacy. Do not add new ones; do not mass-remove single navigation emoji without an explicit request.
 
 ## One fact, one home
 

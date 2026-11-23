@@ -96,7 +96,7 @@ The table is the discussion map: the **[Goal](#-learning-goals) · theory box** 
 
 **The order is a suggestion.** The rounds are a path, not a timetable. If Node-RED is not installed yet, use the class host and come back; if you finish early, take the MicroPython stretch. **The instructor demos one LWT kill and one Node-RED flow live on the beamer** — ask for the demo you need. Rotate roles after each round; everybody should publish, subscribe, and see one LWT at least once. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
-## 🛠️ The Studio: Building the Integration Engine — **Challenging**
+## The Studio: Building the Integration Engine — **Challenging**
 
 ### ★ Round 1: Place the protocols
 
@@ -315,7 +315,7 @@ The router is a good place for a small integration service: it already runs the 
 
 *Portfolio evidence:* the MicroPython service, the topic it subscribes to, and the alert it publishes.
 
-## 🤖 Ask an LLM — then verify
+## Ask an LLM — then verify
 
 Use these when a theory box is not enough. Treat every answer as a **claim to test**, not a fact, and run it against your own broker.
 

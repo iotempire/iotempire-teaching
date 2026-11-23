@@ -95,7 +95,7 @@ Then the instructor reveals the table and we compare:
 > [!TIP]
 > SQLite is the most widely deployed database engine in the world — it is inside every phone, browser, and aircraft you use. "Embedded" is not "toy".
 
-## 🛠️ In-Class Studio: Your First Local-First Database — **Challenging**
+## In-Class Studio: Your First Local-First Database — **Challenging**
 
 *Software:* a laptop with Python 3.14 and Git. You will use a terminal for the SQL labs, but you can do the Git work from your editor or the browser. No server, no admin rights required.
 

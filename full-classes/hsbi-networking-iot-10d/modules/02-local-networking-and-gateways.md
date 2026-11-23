@@ -103,7 +103,7 @@ For guidance, the table below is the discussion map: the **[Goal](#-learning-goa
 
 **The order is a suggestion.** The rounds are a path, not a timetable. If your pod's eduroam association fails, switch to phone tethering or the `iotempire-b1300-5g` Wi-Fi and come back; if you finish early, take a stretcher. **The instructor demos the risky steps live on the beamer** — flashing, extroot, the eduroam join, and one capture — so ask for the demo you need instead of waiting with a broken step. Rotate roles after each round; everybody should flash or configure at least one piece. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
-## 🛠️ The Studio: From Factory Router to Pod Gateway — **Challenging**
+## The Studio: From Factory Router to Pod Gateway — **Challenging**
 
 | What | Notes |
 |---|---|
@@ -502,7 +502,7 @@ You can already tick and link some rows in this module: transmission media (Roun
 | TCP vs. UDP; flow control | Reliable stream vs. datagram; receiver window vs. congestion | MQTT/TCP, CoAP/UDP; Module 4 |
 | Session / presentation / application | Session setup and teardown, data format, application protocol | MQTT session, JSON/TLS, DNS/DHCP/NTP/SSH/HTTP; SMTP/POP3/FTP are the same layer, not used in the lab |
 
-## 🤖 Ask an LLM — then verify
+## Ask an LLM — then verify
 
 Use these when a theory box is not enough. Treat every answer as a **claim to test**, not a fact, and run each prompt against your own router or capture.
 

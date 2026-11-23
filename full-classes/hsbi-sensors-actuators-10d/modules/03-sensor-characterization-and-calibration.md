@@ -28,7 +28,7 @@ Elif replaced the NTC with a **DS18B20** on a long sealed cable, so the probe ca
 
 Elif does not need a prettier plot. She needs a number she can act on: *"How wrong is each reading, and can I trust it at the threshold?"* Today you characterize, calibrate, and state the uncertainty for both sensors — take the sealed probes outside to find the cold pockets before tonight, and use a **potentiometer** as the stable "known input" that lets you check the measurement chain itself.
 
-## 🛠️ Characterization Studio — **Challenging** (Tasks 1–3)
+## Characterization Studio — **Challenging** (Tasks 1–3)
 
 *Hardware per pod:* 1× ESP32 (or ESP8266), breadboard and jumper wires, 1× LDR + 10 kΩ resistor, 1× 10 kΩ potentiometer, 1× DHT11 (optional comparison), 2–3× DS18B20 sealed probes on long cables (OneWire) plus a 4.7 kΩ pull-up, two cups for ice water and warm water.
 

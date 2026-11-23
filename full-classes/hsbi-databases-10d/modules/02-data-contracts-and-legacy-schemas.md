@@ -104,7 +104,7 @@ Pair with a **neighbouring pod** for about **15 minutes**:
 
 *Portfolio evidence:* your cleaned-up `study-log.md` (with the **“Agreed learning (pod discussion)”** section), and your pod-pair's single shared image posted in Discord.
 
-## 🛠️ Studio Lab: Audit a Legacy Schema — **Challenging**
+## Studio Lab: Audit a Legacy Schema — **Challenging**
 
 *Software:* the `sqlite3` CLI and Python 3.14. Everything runs locally on a file you create.
 

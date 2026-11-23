@@ -139,7 +139,7 @@ Pair with a **neighbouring pod**:
 
 *Portfolio evidence:* the cleaned-up `## Study log` (with the **“Agreed learning (pod discussion)”** note) and your pod-pair's shared artefact.
 
-## 🛠️ In-Class Lab: Make It Move — **Challenging**
+## In-Class Lab: Make It Move — **Challenging**
 
 *Hardware:* SG90 servo, small DC motor, 28BYJ-48 stepper + ULN2003, H-bridge driver (TB6612/L298N), separate 5 V supply, multimeter, USB power meter.
 

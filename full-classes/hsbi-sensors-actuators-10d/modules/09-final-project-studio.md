@@ -103,7 +103,7 @@ Sessions are open-ended by design. If you finish a milestone early, harden the s
 
 A strong project uses each layer it includes deliberately and can explain the choice.
 
-## 🛠️ Studio Labs — **Challenging**
+## Studio Labs — **Challenging**
 
 *Project Teams of 4–6 students (two merged Task Pods). Work through the milestones; they are not a rigid clock.*
 

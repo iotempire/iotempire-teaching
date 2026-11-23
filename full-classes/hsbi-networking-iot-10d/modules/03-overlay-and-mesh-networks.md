@@ -41,7 +41,7 @@ There is no separate study phase: each task gives you the theory when the task m
 
 *Hardware per pod:* the Module 2 router with extroot, one bundle, laptops, and your assigned Node-RED on the cluster.
 
-## 🛠️ The Build — **Challenging**
+## The Build — **Challenging**
 
 ### ★ Task 1 — Connect your router to the overlay
 
@@ -197,7 +197,7 @@ A suggestion, not a checklist — a better artefact of your own is worth more th
 5. The running log: `## Study log` and `## Discussion log`.
 6. **Optional:** the MicroPython client on the router, the direct laptop join, or the B.A.T.M.A.N. showcase notes.
 
-## 🤖 Ask an LLM — then verify
+## Ask an LLM — then verify
 
 Treat every answer as a claim to test against your own mesh.
 

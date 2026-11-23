@@ -97,7 +97,7 @@ The table is the discussion map: the **[Goal](#-learning-goals) · theory box** 
 
 **The order is a suggestion.** The rounds are a path, not a timetable. If the IoTempower host is not ready, start with the inventory and the topic map and come back to the flash; if a board string is wrong, stop and ask instead of guessing. **The instructor demos the risky steps live on the beamer** — the first serial flash, one OTA deploy, and one recovery — so ask for the demo you need instead of waiting with a broken step. Rotate roles after each round; everybody should declare, deploy, or verify at least one piece. The question you should always be able to answer is *"what did you choose, and what did it cost you?"*
 
-## 🛠️ The Studio: From One-Off Sketch to a Fleet — **Challenging**
+## The Studio: From One-Off Sketch to a Fleet — **Challenging**
 
 *Hardware per pod:* 1× OpenWrt router from Module 2 with its USB stick and Mosquitto broker, 2× class-supported M5Stack/ESP32 nodes, USB cables for the first flash, and 1× IoTempower host (a Linux/WSL laptop or the class host). Node-RED is optional and, if used, runs on the host or laptop — not on the router.
 
@@ -349,7 +349,7 @@ Connect the roles: a button on the sensor node changes the alarm node's LED or d
 
 > **Stretch discussion — show one person.** Ask someone who has not done the stretcher: *"What does this prove that the basic fleet did not?"* A short moment. If they are curious, show them the rollback or the lint failure.
 
-## 🤖 Ask an LLM — then verify
+## Ask an LLM — then verify
 
 Use these when a theory box is not enough. Treat every answer as a **claim to test**, not a fact, and run each prompt against your own node, host, and broker.
 

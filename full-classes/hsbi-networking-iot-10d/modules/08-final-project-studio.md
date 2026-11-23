@@ -91,7 +91,7 @@ A toy IoT project works only when every component is connected under ideal condi
 
 You do not have to use every layer. A strong project uses each layer it includes *deliberately* and can explain that choice. If you saw the optional B.A.T.M.A.N. showcase, this is where a mesh would have to earn its place by carrying real traffic across a link you can physically break; it is not required.
 
-## 🛠️ Studio Labs — **Challenging**
+## Studio Labs — **Challenging**
 
 *Project Teams of 4–6 students (two merged Task Pods) assemble their full hardware and networking setup. Work through the tasks as milestones, not as a rigid clock.*
 
