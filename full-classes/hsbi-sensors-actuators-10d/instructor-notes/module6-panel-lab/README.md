@@ -38,6 +38,38 @@ Power the panel through its **5 V/GND** terminals from the 5 V 4 A supply. The r
 signals, not the LED current. Common ground between the panel supply, the ESP32, and the level
 shifter.
 
+### The connector as you see it
+
+**Mirrored** — the class case: the flat ribbon comes towards you, so the panel's pin order reads in
+reverse. Take the signal and its GPIO from the same cell.
+
+| | |
+|---|---|
+| `G1` → 26 | `R1` → 25 |
+| `GND` | `B1` → 27 |
+| `G2` → 12 | `R2` → 14 |
+| `GND` | `B2` → 13 |
+| `B` → 19 | `A` → 23 |
+| `D` → 17 | `C` → 5 |
+| `LAT` → 4 | `CLK` → 16 |
+
+**Unmirrored** — the same connector seen from the other side, for male–female dupont wires that
+follow the panel's own numbering:
+
+| | |
+|---|---|
+| `CLK` → 16 | `LAT` → 4 |
+| `C` → 5 | `D` → 17 |
+| `A` → 23 | `B` → 19 |
+| `B2` → 13 | `GND` |
+| `R2` → 14 | `G2` → 12 |
+| `B1` → 27 | `GND` |
+| `R1` → 25 | `G1` → 26 |
+
+The class panels use a **14-pin** ribbon: no `E` (unused at 1/16 scan) and no `OE`. If yours has the
+16-pin connector, `E` stays unconnected and `OE` goes to **GPIO 15**. Check one panel against its
+label with a continuity tester before trusting either table.
+
 **Level shifter (74HCT245).** 3.3 V signals on the A side, panel signals on the B side,
 VCC = 5 V, OE = GND, DIR = 3.3 V, common ground, 100 nF decoupling. Many panels work at 3.3 V on a
 short ribbon; the shifter is the reliable choice.
@@ -82,8 +114,29 @@ Two habits make that a non-issue:
 How the panel addresses its rows (and why `E` is unused here) is explained under
 [1/16 scan](../../modules/Z-resources-bank.md#hub75-scan) in the resource bank.
 
-The 5 V supply stays separate and the ground stays common — the ribbon carries signals, not LED
-current.
+### Finding these pins on the MH-ET LIVE MiniKit
+
+The MiniKit is an ESP32 in the D1-mini footprint, and its silkscreen prints function aliases instead
+of GPIO numbers. Match on the alias:
+
+| Signal | GPIO | Printed on the MH-ET |
+|---|---:|---|
+| R1 | 25 | `IO25` (`A18`, `DAC1`) |
+| G1 | 26 | `IO26` (`DAC2`) |
+| B1 | 27 | `IO27` |
+| R2 | 14 | `A16` / `T6` |
+| G2 | 12 | `A15` / `T5` |
+| B2 | 13 | `A14` / `T4` |
+| A | 23 | `MOSI` |
+| B | 19 | `MISO` |
+| C | 5 | `SS` |
+| D | 17 | `IO17` |
+| LAT | 4 | `A10` / `T0` |
+| OE | 15 | `A13` / `T3` — labelled **TDO** on some batches |
+| CLK | 16 | `IO16` |
+
+`TXD` / `RXD` (GPIO 1/3) are the USB console and stay free. `SVP` / `SVN` (36/39) and `A6` / `A7`
+(34/35) are **input-only**: they cannot drive a panel line, whatever the label suggests.
 
 ### UART link (default)
 
