@@ -79,7 +79,7 @@ Set your identity once: `git config --global user.name "Your Name"` and `git con
 <a id="python-environment-with-uv-optional"></a>
 ## 🐍 Python environment with `uv`
 
-The integration labs use Python (`paho-mqtt`, IoTknit, optional `pymodbus` / `asyncua`). Use a pinned `uv` environment instead of bare `pip install`:
+The integration labs use Python (`paho-mqtt`, optional `pymodbus` / `asyncua`). Use a pinned `uv` environment instead of bare `pip install`:
 
 ```sh
 # install uv once (macOS/Linux)
@@ -90,7 +90,8 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 uv python install 3.14
 uv python pin 3.14
 uv init --name networking-portfolio   # skip if pyproject.toml exists
-uv add paho-mqtt pymodbus asyncua     # add only what you use
+uv add "paho-mqtt>=2,<3"            # pin major 2: the callback API changed in 2.0
+uv add pymodbus asyncua               # only for Module 6 / the project
 uv sync                               # rebuild from uv.lock after a fresh clone
 uv run python iot_bridge.py
 ```
@@ -356,6 +357,33 @@ The CA **key** never leaves the instructor's machine; only `ca.crt` and the sign
 | Admin → network | allow the admin group for administration; no pod rules |
 | Node-RED MQTT | subscribe `pod<NN>/#`; publish `pod<NN>/<device>/set` |
 
+<a id="protocol-port-table"></a>
+### 📌 Protocol and port table
+
+The full list, including the legacy protocols the module handbook names. The lab uses only the first block; the rest is there so the layer and the security posture have a home.
+
+| Protocol | Port / transport | OSI | Security / note |
+|---|---|---|---|
+| DNS | 53 UDP/TCP | 7 | plaintext; DoT/DoH encrypt it |
+| DHCP | 67/68 UDP | 7 | plaintext, LAN only |
+| NTP | 123 UDP | 7 | plaintext; NTS exists |
+| HTTP | 80 TCP | 7 | plaintext |
+| HTTPS | 443 TCP | 7 | TLS |
+| SSH | 22 TCP | 7 (5/6 via encryption) | encrypted; also your tunnel tool (Module 2) |
+| Telnet | 23 TCP | 7 | plaintext — do not use |
+| MQTT | 1883 TCP / 8883 TLS | 7 | TLS optional; **the class broker is 1883 without TLS** |
+| CoAP | 5683 UDP / 5684 DTLS | 7 | DTLS/OSCORE |
+| Modbus TCP | 502 TCP | 7 | no security |
+| OPC-UA | 4840 TCP | 7 | security built in |
+| SMTP | 25/587 TCP | 7 | STARTTLS/TLS; legacy mail |
+| POP3 | 110 TCP | 7 | STARTTLS/TLS; legacy mail |
+| FTP | 20/21 TCP | 7 | plaintext; SFTP/FTPS are the alternatives |
+| SNMP | 161/162 UDP | 7 | v3 adds security |
+| TFTP | 69 UDP | 7 | no security; trivial file transfer |
+| Chatto (class chat) | 4000 TCP | 7 | application protocol over HTTP; reachable only through the overlay |
+
+Every one of these is a TCP/IP **Application**-layer protocol; the transport column shows what it sits on. "Application layer" says nothing about whether it is encrypted.
+
 <a id="mqtt-command-cheat-sheet"></a>
 ### 📌 MQTT Command Cheat Sheet
 | Command                      | Example                                      | Purpose                                  |
@@ -415,7 +443,7 @@ The CA **key** never leaves the instructor's machine; only `ca.crt` and the sign
 - **Retained MQTT messages:** a “live” test may show an old retained value. Clear retained state or publish a fresh value before you draw conclusions.
 - **Throughput/latency measurements:** note the payload size, protocol, channel, and load. A single ping is not a benchmark; use `iperf3` and repeat.
 - **Clock skew:** timestamps from different devices disagree. Compare durations, not absolute times, unless the clocks are synced.
-- **Node-RED is not on the router.** Module 1 uses the `classroom-nodered.sh` fleet on the class host; from Module 3 the default is one Node-RED container per pod on the Optiplex cluster, with a laptop fallback. The router runs Mosquitto and, optionally, small MicroPython services. A MicroPython IoTknit port is planned, not yet supported. Access is restricted by the Nebula firewall to the service host and ports, not by broad subnets.
+- **Node-RED is not on the router.** Module 1 uses the `classroom-nodered.sh` fleet on the class host; from Module 3 the default is one Node-RED container per pod on the Optiplex cluster, with a laptop fallback. The router runs Mosquitto and, optionally, small MicroPython services (`umqtt.simple`). Access is restricted by the Nebula firewall to the service host and ports, not by broad subnets. Chatto runs the same way on `oldplex01:4000`; setup is in [`chatto-session.md`](../instructor-notes/chatto-session.md).
 
 <a id="troubleshooting-quick-drops"></a>
 ## 🧰 Troubleshooting Quick Drops

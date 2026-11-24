@@ -44,7 +44,7 @@ The final project is assessed according to the [syllabus](../syllabus.md#final-p
 - [ ] Module 1: Node-RED hello-world screenshot, a packet capture (Wireshark, `tshark`, or the `tcpdump -A` text), and OSI critique note.
 - [ ] Module 2: OpenWrt setup, network topology diagram, DHCP/ARP captures, and NAT/port forwarding test.
 - [ ] Module 3: Nebula overlay setup, cross-NAT ping/SSH proof, Node-RED reachability, and MQTT through the overlay (optional: direct laptop join or B.A.T.M.A.N. `batctl` showcase notes).
-- [ ] Module 4: MQTT QoS, Retain, LWT analysis, Node-RED flows (`.json`), and Python/IoTknit integration scripts.
+- [ ] Module 4: MQTT QoS, Retain, LWT analysis, Node-RED flows (`.json`), and the Python mock-device and integrator scripts.
 - [ ] Module 5: Wireless comparison table, ESP-NOW peer-to-peer code, and ESP-NOW to MQTT gateway bridge proof.
 - [ ] Module 6: Industrial protocol analysis (recommended); optional simulated Modbus/OPC-UA server and bridge.
 - [ ] Module 7: IoTempower declarative node configuration (`setup.cpp`), OTA deployment logs, and fleet integration.

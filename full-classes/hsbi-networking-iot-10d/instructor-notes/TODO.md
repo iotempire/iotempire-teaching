@@ -109,23 +109,22 @@
 
 ## Module 4 — before the session
 
-- [ ] **Stand up Chatto for Module 4.** Self-host it on the Optiplex cluster (or the framework host),
-      reachable only through the overlay, and wire the two bridges the module wants to show:
-      Discord ↔ Chatto and Chatto ↔ MQTT. Decide the class login, put the address on the board, and
-      keep it out of the public repository. Observation: Module 4 has no chat surface today, so
-      "MQTT versus a chat protocol" stays abstract.
-- [ ] **Hand out the M5Sticks pre-configured.** Flash IoTempower onto each stick and set its pod's
-      Wi-Fi credentials *before* the session — at the end of Module 4 or the start of Module 5, not
-      during it. Observation: in the first run the flashing and pairing ate the integration time;
-      the sticks are the point of Module 5, not its preamble.
-- [ ] **Make IoTknit run on MicroPython.** It is listed as "planned, not supported" in
-      [D11](./00-architecture-decisions.md#d11), and Module 4 assumes it. Land the port, or ship a
-      working `umqtt.simple` example as the fallback so no pod is blocked.
-- [ ] **Add the MicroPython + MQTT stretcher.** A ◇ task where a student publishes and subscribes
-      MQTT straight from the router in MicroPython — `umqtt.simple` from `micropython-lib`, **not**
-      `paho-mqtt`, which is CPython and stays the laptop client. Placement is still open: end of
-      Module 3 (the router stops being only a broker) or the integration block of Module 4. Module 3
-      currently has no such task.
+- [ ] **Deploy Chatto before Friday.** The manual is written and tracked:
+      [`chatto-session.md`](./chatto-session.md). It covers the install on `oldplex01`, the single
+      overlay firewall rule (`4000/tcp` in the `oldplex01` pack), the URL and credentials for the
+      board, and the room plan. Observation: without a live counterpart, "MQTT versus a chat
+      protocol" stays abstract.
+- [ ] **Decide the M5StickC hand-out.** Flash IoTempower onto each stick and set its pod's Wi-Fi
+      credentials *before* the session — at the end of Module 4 or the start of Module 5, not during
+      it. Module 4 no longer depends on the sticks, because the AC unit is a simulation; the stick
+      is an optional second publisher for the mock-to-real swap, so a pod without one is not
+      blocked.
+- [x] **IoTknit** — retired from every document
+      ([D24](./00-architecture-decisions.md#d24)). No MicroPython port to chase: the laptop runs
+      `paho-mqtt` (pinned `>=2,<3`) and the router runs `umqtt.simple`.
+- [x] **MicroPython + MQTT stretcher** — landed as Module 3's `◇ Task 6 — The router as a node`.
+      Module 4's Task 6 now builds the threshold service on top of it instead of repeating the
+      client.
 
 ## Before the next semester (reset)
 

@@ -14,6 +14,7 @@ Prüfungsausschuss.
 | [From Databases](./from-databases.md) | A gift from the Databases class at the end of its first run: six things to copy first, a TODO backlog, what not to copy, and the questions the two classes should close together |
 | [Assessment & operations](./00-assessment-and-operations.md) | Assessment form, milestone plan, submission hygiene, group accountability and sign-off template, re-examination, privacy, AI assistance |
 | [Nebula session](./nebula-session.md) | Preparing the lighthouse, class CA, bundles, handout, in-session recovery, cleanup |
+| [Chatto session](./chatto-session.md) | The class chat on `oldplex01`: single binary, port 4000 over the overlay, the one firewall rule, rooms, and the optional MQTT bridge |
 | [Collecting portfolios](./portfolios.md) | The one-click template link, the invite rule, bulk-accepting invitations and cloning repositories |
 
 Technical hints that are useful to students (capture points, router quirks,

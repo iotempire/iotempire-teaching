@@ -6,7 +6,7 @@ In this course, we move beyond isolated microcontrollers and rigid textbook abst
 - M5Stack edge nodes communicating locally via Wi-Fi and ESP-NOW.
 - Dedicated OpenWrt travel routers running local DHCP, DNS, routing, and a Nebula overlay gateway.
 - Zero-friction overlay networking with Nebula, allowing you to access your devices seamlessly across campus firewalls or from home. Yggdrasil moves to a later class; B.A.T.M.A.N. is an optional showcase.
-- Message routing and fleet integration with MQTT, Node-RED, Python (`paho-mqtt` / IoTknit), and IoTempower.
+- Message routing and fleet integration with MQTT, Node-RED, Python (`paho-mqtt`), and IoTempower.
 - Industrial bridges connecting OPC-UA and Modbus into the modern IoT fabric.
 
 See the [syllabus](./syllabus.md) for the complete course schedule and policies.

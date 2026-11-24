@@ -83,7 +83,7 @@ A toy IoT project works only when every component is connected under ideal condi
                            |
 [Broker Layer]       Mosquitto MQTT Broker (Retained states, LWT, QoS 1)
                            |
-[Integration Layer]  Node-RED Dashboards + Python / IoTknit Event Bridge
+[Integration Layer]  Node-RED Dashboards + Python (`paho-mqtt`) Event Bridge
                            |
 [Industrial / Cloud] External Services (or optional OPC-UA / Modbus bridge)
 ===========================================================================

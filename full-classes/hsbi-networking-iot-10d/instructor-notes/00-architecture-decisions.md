@@ -479,8 +479,9 @@ be reached through Nebula.
 one rootless Podman container per pod, one persistent volume, one class login, and
 access restricted by the Nebula firewall to the Node-RED host and port. A laptop
 install remains the fallback where the cluster is unavailable. Node-RED is never on
-the router. The router runs Mosquitto and, optionally, small MicroPython services; a
-MicroPython IoTknit port is planned, not supported.
+the router. The router runs Mosquitto and, optionally, small MicroPython services; the
+MicroPython IoTknit port is no longer pursued — IoTknit is retired from the class
+([D24](#d24)).
 
 **Per-pod access.** Each router certificate carries its per-pod group; each Node-RED
 host allows only that group on the pod's assigned port. The admin host is admin-only;
@@ -882,6 +883,27 @@ begins treating routers as shared infrastructure rather than pod property. Then 
 pod-group rule narrows back to a service list — and the schedule has to absorb the
 re-bundle cycle that comes with it.
 
+<a id="d24"></a>
+### D24 — IoTknit retired; Python on the students' machines; Chatto for the chat comparison
+
+**Status:** accepted (2026-11-23).
+
+**Context.** Three Module 4 assumptions did not survive contact with the run. IoTknit was named as the integration helper in the syllabus, the class README, pre-study, the prompt bank, Modules 4, 8 and 9 — but it never became a dependency the class actually used, it has no supported MicroPython path (D11), and a 30-line `paho-mqtt` client teaches the same thing without a helper library. Goal 4 (swap a mock for real hardware) depended on M5Sticks, which are optional and handed out at the end of Module 4 or the start of Module 5 at the earliest. And the intended "MQTT versus a chat protocol" comparison had no live counterpart, so it stayed abstract.
+
+**Decision.**
+
+- **IoTknit is retired from the class.** Integration services are `paho-mqtt` on the student's own machine and `umqtt.simple` on the router. No student-facing document names IoTknit. `paho-mqtt` is pinned `>=2,<3`, because the callback API changed in 2.0 and the module prints working code.
+- **Every student is assumed to have Python 3 locally.** The Module 4 device task is a simulation: an AC unit with a fake temperature and an HVAC that answers commands, plus an integrator that closes the loop. The day therefore works without hardware, and the mock→swap goal survives a pod with no stick.
+- **One Chatto instance on `oldplex01`, overlay-only.** Single binary, port `4000`, plain HTTP (the tunnel encrypts), no LiveKit, no SMTP, reached from the pod LAN through the router's masquerade exactly like Node-RED. One firewall rule in the `oldplex01` policy pack. Setup: [`chatto-session.md`](./chatto-session.md). It is a comparison object, never an assessment artefact.
+
+**Consequences.** Module 4 loses its hardware dependency; an M5StickC becomes an optional extra publisher for the swap. The chat comparison has a real counterpart without adding an account to every student's day before the network works — which is the condition the rejected-ideas table named ("decide it at class level, not in Module 2"); this is that decision, and it lands in Module 4. D11's "MicroPython IoTknit port is planned" is superseded, and the matching open question closes. The class list of Python libraries shrinks to what is installed.
+
+**Alternatives rejected.** Keeping IoTknit as an optional extra — still a name to install for no teaching gain. Simulating only in Node-RED — no code path, and Node-RED is deliberately the operator surface, not the logic. Chatto with a public hostname and certificates — a private CA on every laptop for a comparison object. Discord only — no self-hosted counterpart, and the class already uses it for informal peer sharing.
+
+**Evidence.** Module 4 Tasks 4–6; [`chatto-session.md`](./chatto-session.md); D11; the TODO entries this closes.
+
+**Revisit if.** IoTknit gains a maintained MicroPython path *and* a teaching purpose that a plain client does not cover; or a cohort cannot run Python locally, in which case the mocks move to the router.
+
 ## 3. Deliberately rejected or retired
 
 These are not "bad ideas we never had". They are alternatives that looked
@@ -897,7 +919,7 @@ idea from returning as a "simple fix".
 | **Role groups in the overlay (`services`, `students`, `laptops`)** | They read like identity but act as access selectors, so a rule written with them grants a whole class of machines access to another class; that is where the “the Nebula firewall is incomprehensible” impression came from. One group per pod plus role *ranges* say the same thing with less reach (D21). | Never; a new class of machine gets a range, a new pod gets a pod group. |
 | **Node-RED on the router** | 16 MB flash / 128 MB RAM; the router is a gateway and broker, not an application server. | Never. If a service must run on the router, it is Mosquitto or a small MicroPython service. |
 | **Recorded Master Class demo sessions** | The old recordings are locked away and do not match the current stack; a recording cannot answer the room's question. | Never as the primary path; a short clip is acceptable only as a pre-class teaser. |
-| **Chatto / a class chat tool in Module 2** | It adds an account and a service before the network works; the class already uses Discord/LMS for sharing. | A cohort that needs a persistent chat from Day 1 — then decide it at class level, not in Module 2. |
+| **Chatto / a class chat tool in Module 2** | It adds an account and a service before the network works; the class already uses Discord/LMS for sharing. | A cohort that needs a persistent chat from Day 1 — then decide it at class level, not in Module 2. Revisited for Module 4 in [D24](#d24). |
 | **Cloud broker as the default** | The class is local-first; a cloud broker turns a network lab into an account setup and hides NAT. | A project needs remote access before Module 3 — then use the overlay, not a public broker. |
 | **Monitor mode / a second Wi-Fi adapter** | The room has one adapter per laptop, usually Windows, and no monitor-mode support; a lab that requires it fails for most students. | Every student is issued a supported adapter. |
 | **Live capture streaming into a GUI** | Fragile, Windows-hostile, and it hides the analysis; the capture belongs on the router, the reading belongs offline. | Never; a live view can be a demo, not a lab step. |
@@ -920,7 +942,7 @@ can close the question, not who is currently doing the work.
 | **Handbook depth for line codes and spread spectrum**: is "name and place" enough? | The chosen form is a Hausarbeit, not a separate oral examination; the report argumentation can carry reference depth. If the form ever changes to a Klausur or mündliche Prüfung, this becomes a real gap. | Reference depth; no coding-theory arithmetic. | Module coordinator |
 | **Optiplex cluster**: which OS, how many Node-RED instances, how is it added to Nebula, who powers it? | It is the intended home for the "own Node-RED" path and for browser-only students; without it, Module 4 falls back to laptops and the class host. | Keep as is: laptops and the class host are the fallback; the cluster is optional, not a dependency. | Instructor + IT |
 | **Chat and sharing**: is Discord the official channel, or only peer sharing? | Modules ask pods to post a shared artefact; if the channel is not official, the evidence must still be reachable in the portfolio. | LMS for official communication; Discord for peer sharing. | Instructor |
-| **MicroPython IoTknit port**: does it land, and does it replace the Mosquitto-only router story? | It would make the router a first-class node and change Module 2/7; until then it is "planned, not supported". | Mosquitto and small MicroPython services; no IoTknit on the router. | Developer / instructor |
+| **MicroPython IoTknit port**: does it land, and does it replace the Mosquitto-only router story? | It would make the router a first-class node and change Module 2/7; until then it is "planned, not supported". | **Closed 2026-11-23:** IoTknit is retired from the class; the router runs `umqtt.simple` ([D24](#d24)). | — |
 | **EtherCAT guest slot**: who comes, when, and does the test device need a safety briefing? | The guest is the strongest part of Module 6, but it is not a dependency. | Optional slot; video + discussion if nobody comes. | Instructor |
 | **Harvest assessment**: keep it ungraded and optional? | It works because it is low-stakes; grading it would turn curiosity into a task. | Ungraded, optional, never a quiz. | Instructor |
 
@@ -1058,3 +1080,4 @@ For a re-creator with access to the instructor's workspace:
 | 2026-11-17 | D21 added: one group per pod and role ranges replace role groups; the wide student range and the cross-pod SSH it allows are an accepted, written-down relaxation with a revisit trigger. Concrete ranges and host names stay in the CA workspace. | Ulno + agent |
 | 2026-11-17 | D22 added: one wide overlay prefix for every certificate. The per-role /24 plan made service hosts unreachable from routers and laptops, because a Nebula certificate's mask bounds reachability. | Ulno + agent |
 | 2026-11-19 | D23 added: a pod router accepts any traffic from its own pod group and the admin/instructor groups; the D21 port list remains as a fallback. One pack per pod, because a pack is copied verbatim. | Ulno + agent |
+| 2026-11-23 | D24 added: IoTknit retired from every document; Python `paho-mqtt` (pinned 2.x) on the students' machines and `umqtt.simple` on the router; Module 4's device task is a simulation (AC unit, HVAC, integrator) so the day has no hardware dependency; one overlay-only Chatto on `oldplex01` with a single firewall rule, for the MQTT-vs-chat comparison. D11's IoTknit sentence superseded, the matching open question closed, and the rejected "chat tool" row marked as revisited. Module 4 rewritten to Task vocabulary with the harvest replaced by Curiosities. | Ulno + agent |
