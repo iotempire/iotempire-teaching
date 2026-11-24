@@ -63,7 +63,11 @@ Proposals, not decisions. Prototype them as outlines before touching the module 
 
 ## Module 6 — LED panels, sound, play
 
-- [ ] **Pre-flight the reference project.** Flash [`module6-panel-lab/`](./module6-panel-lab/README.md) on the actual panel + 5 V 4 A supply + ESP32 Dev Module + M5StickC-S3; photograph the wiring; keep a known-good `task1-panel/` for the session (D24).
+- [ ] **Pre-flight the reference project.** Flash [`module6-panel-lab/`](./module6-panel-lab/README.md) on the actual panel + 5 V 4 A supply + MH-ET LIVE ESP32 MiniKit + M5StickC-S3; photograph the wiring; keep a known-good `task1-panel/` for the session (D24).
+- [ ] **Measure the current at the cap.** During the 2.5 s white hold at `MAX_BRIGHTNESS` 96 on the 4 A supply, record the panel current, then set the cap from that number (D24).
+- [ ] **Confirm the corner frame** on the class panel: four 6×6 corner blocks, the red ramp pointing right, the green ramp pointing down.
+- [ ] **Decide the wire-pulling rig.** Run Task 1's signal-removal experiment on the instructor rig or a spare panel, not the only working class panel.
+- [ ] **Optionally pin the HUB75 library** in `panel/platformio.ini` to a known commit for reproducible builds.
 - [ ] **Pack the game options.** Motors, DC motor shields, servos, joystick dev boards, piezos, and the Adafruit I2S amp + speaker modules if they arrive. The Module 5 run showed the creative payoff; Module 6 makes the play task mandatory (D24).
 - [ ] **Move the Module 6 `DRAFT BOUNDARY`** after the first run, once the two-controller default and the play task have produced evidence.
 - [ ] **Check the StickS3 PlatformIO recipe.** `board = esp32-s3-devkitc-1`, USB CDC flags, M5Unified; the board is not officially supported (M5 docs).

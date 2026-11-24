@@ -510,11 +510,11 @@ Dates are design events, not every commit; Git history is the authority.
 
 **Status:** provisional (first run 2026-11-25).
 
-**Context.** The 32×32 HUB75 panel needs thirteen signals; the M5StickC-S3 carries the microphone, IMU, speaker, display, and only a small exposed header. The 2026-11-18 Module 5 run showed that students prefer the ESP32 Dev Module when they need pins, and that the creative payoff comes from an open build. The ES8311 codec is half-duplex: microphone and speaker cannot run at the same time.
+**Context.** The 32×32 HUB75 panel needs thirteen signals; the M5StickC-S3 carries the microphone, IMU, speaker, display, and only a small exposed header. The class board is the MH-ET LIVE ESP32 MiniKit; its header exposes the pins the panel needs, and the 2026-11-18 Module 5 run showed that the creative payoff comes from an open build. The ES8311 codec is half-duplex: microphone and speaker cannot run at the same time.
 
 **Decision.**
 
-- **Two controllers.** The ESP32 Dev Module (`esp32dev`) drives the panel; the M5StickC-S3 reads the microphone and IMU and sends `L 0..100` and `H 0..255`.
+- **Two controllers.** The MH-ET LIVE ESP32 MiniKit (`mhetesp32minikit`) drives the panel; the M5StickC-S3 reads the microphone and IMU and sends `L 0..100` and `H 0..255`.
 - **UART default.** Hardware `Serial2` on the Stick's HAT2 G1/G2 (or Grove G9/G10) to the panel's GPIO32/33, 115200, newline-terminated. No SoftwareSerial: it competes with the I2S microphone and the panel DMA. ESP-NOW is the `◇` “cut the cable” extension; a phone hotspot with MQTT is Module 8/final-project territory.
 - **First light without AI.** The panel is new hardware; Task 1 uses the library example and the meter, not an agent. AI scaffolds Task 2.
 - **Controller family: ESP32, not ESP8266 — with the reason on record.** An ESP8266 *can* drive a
@@ -536,7 +536,7 @@ Dates are design events, not every commit; Git history is the authority.
 
 **Consequences.** More moving parts than Module 5: two boards, a link, a 5 V supply, and a level shifter. Pre-flight is mandatory; keep a known-good reference project. The play task gives the creativity a home and seeds the final-project story. The Stick's speaker and microphone cannot run simultaneously; use a piezo on the panel controller or a second Stick.
 
-**Alternatives rejected.** One controller (the Stick does not expose enough pins; the Dev Module is the pin-rich board); SoftwareSerial (competes with I2S/DMA); ESP-NOW as the default (pairing and channel state add friction); phone hotspot plus MQTT (duplicates Module 8); one AI prompt for both boards (two PlatformIO projects are clearer).
+**Alternatives rejected.** One controller (the Stick does not expose enough pins; the MiniKit is the class board with the needed header); SoftwareSerial (competes with I2S/DMA); ESP-NOW as the default (pairing and channel state add friction); phone hotspot plus MQTT (duplicates Module 8); one AI prompt for both boards (two PlatformIO projects are clearer).
 
 **Evidence.** [Module 6](../modules/06-led-animation-sound-and-installations.md); [Module 6 studio](./06-module-6-studio.md); [reference project](./module6-panel-lab/README.md).
 

@@ -8,7 +8,7 @@ Three PlatformIO projects:
 
 ```
 module6-panel-lab/
-├── panel/               ESP32 Dev Module + 32×32 HUB75 panel (ESP32-HUB75-MatrixPanel-DMA)
+├── panel/               MH-ET LIVE ESP32 MiniKit + 32×32 HUB75 panel (ESP32-HUB75-MatrixPanel-DMA)
 ├── stick/               M5StickC-S3: microphone + IMU → UART → panel
 └── pxmatrix-fallback/   plan B: Wemos D1 mini + PxMatrix, panel-only diagnostic
 ```

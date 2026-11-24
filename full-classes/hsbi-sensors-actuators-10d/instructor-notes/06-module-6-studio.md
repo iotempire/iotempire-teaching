@@ -12,12 +12,15 @@ mandatory and stays open after the exchange (D24).
 ## Before the session
 
 - **Pre-flight the reference project.** Flash [`module6-panel-lab/`](./module6-panel-lab/README.md) on the actual
-  32×32 panel, the 5 V 4 A supply, an ESP32 Dev Module, and an M5StickC-S3. Measure at 25 % white,
+  32×32 panel, the 5 V 4 A supply, an MH-ET LIVE ESP32 MiniKit, and an M5StickC-S3. Measure at 25 % white,
   confirm the colour order and the UART link, and photograph the wiring.
 - **Keep a known-good baseline.** One `task1-panel/` folder with the library example, the pin map,
   and the power table; one pre-flashed panel; one Stick with the mic and the sender working.
 - **Test the Stick recipe.** PlatformIO has no official StickS3 board: `board = esp32-s3-devkitc-1`,
   8 MB partitions, `qio_opi`, USB CDC flags, M5Unified. Confirm the upload and the serial monitor.
+- **Wire-pulling experiment.** Run Task 1's signal-removal experiment on the instructor rig or a
+  spare panel, not the only working class panel. Keep a spare ribbon; signal wires only, never the
+  5 V feed or a ground.
 - **No prep email is required** if the pods use the class boards: the toolchain is Module 5's. If
   pods bring their own Stick, send the PlatformIO recipe and the UART pin pair.
 - **Pack for the play task.** Motors, DC motor shields, small servos, joystick dev boards, piezos,
@@ -46,9 +49,9 @@ start Task 2 early; the play task is the reward, not the schedule's hostage.
 
 ## The default architecture
 
-- **Panel controller:** ESP32 Dev Module (`esp32dev`), `ESP32-HUB75-MatrixPanel-DMA`, the classic
-  ESP32 default pins (R1=25, G1=26, B1=27, R2=14, G2=12, B2=13, A=23, B=19, C=5, D=17, E=-1,
-  LAT=4, OE=15, CLK=16).
+- **Panel controller:** MH-ET LIVE ESP32 MiniKit (`mhetesp32minikit`), `ESP32-HUB75-MatrixPanel-DMA`,
+  the library's default GPIO numbers (R1=25, G1=26, B1=27, R2=14, G2=12, B2=13, A=23, B=19, C=5, D=17,
+  E=-1, LAT=4, OE=15, CLK=16).
 - **Sensor/UI controller:** M5StickC-S3, M5Unified, microphone + BMI270, display, buttons.
 - **Link:** UART, 115200, `Serial2`. Stick HAT2 G1 (TX) → panel GPIO32 (RX); Stick G2 (RX) ← panel
   GPIO33 (TX); common ground. Protocol: `L 0..100`, `H 0..255`, newline-terminated.
@@ -56,11 +59,13 @@ start Task 2 early; the play task is the reward, not the schedule's hostage.
   No router. Do not use SoftwareSerial: it competes with the I2S microphone and the panel DMA.
 
 **Why the ESP32 and not the ESP8266 boards of earlier years.** Both chips drive a HUB75 panel — the
-ESP32 through DMA (`ESP32-HUB75-MatrixPanel-DMA`), the ESP8266 through bit-banging (`PxMatrix`) — and
-the harness is identical either way, so the ESP8266 saves no wiring. The difference is CPU headroom:
-bit-banging the 13 lines leaves little room for the microphone, the animation, and a wireless path.
-Recorded as D24 in the [architecture log](./00-architecture-decisions.md#d24); the student-facing
-explanation is the resource bank's [1/16-scan entry](../modules/Z-resources-bank.md#hub75-scan).
+ESP32 through DMA (`ESP32-HUB75-MatrixPanel-DMA`), the ESP8266 through bit-banging (`PxMatrix`) — but
+the harness is not identical: the ESP8266 uses fewer GPIOs (8 panel signals instead of 13) and puts
+three times as many bits on the wire per frame. It is rejected for refresh headroom, not for pin
+count: bit-banging leaves little CPU for the microphone, the animation, and a wireless path. The
+ESP8266 route survives as the PxMatrix fallback. Recorded as D24 in the
+[architecture log](./00-architecture-decisions.md#d24); the student-facing explanation is the
+resource bank's [1/16-scan entry](../modules/Z-resources-bank.md#hub75-scan).
 
 ## Common failures
 

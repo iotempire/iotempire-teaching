@@ -1,4 +1,4 @@
-// Module 6 reference: 32x32 HUB75 panel on a classic ESP32 Dev Module.
+// Module 6 reference: 32x32 HUB75 panel on the MH-ET LIVE ESP32 MiniKit.
 // Link from the M5StickC-S3: Serial2, GPIO32 (RX) / GPIO33 (TX), 115200.
 // Protocol: "L <0..100>\n" and "H <0..255>\n".
 //
@@ -14,7 +14,8 @@
 #define PANEL_RES_Y 32
 #define PANEL_CHAIN 1
 
-// Classic ESP32 HUB75 default pins. Change only together with the wiring.
+// HUB75 pins: the MiniKit exposes the same GPIO numbers as the library default;
+// TDO/TDI/TCK/TMS are GPIO 15/12/13/14 (OE/G2/B2/R2). Change only with the wiring.
 #define R1_PIN 25
 #define G1_PIN 26
 #define B1_PIN 27

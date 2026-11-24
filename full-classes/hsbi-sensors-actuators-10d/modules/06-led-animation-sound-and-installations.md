@@ -34,7 +34,7 @@ The answer in this module is **two** — unless you can defend one. And the wall
 |---|---|
 | 32×32 HUB75 RGB panel, 5 mm pitch ([Adafruit 2026](https://www.adafruit.com/product/2026)) | 1024 RGB pixels, 5 V logic, up to 4 A at full white, 13 control signals |
 | 5 V 4 A power supply | The panel’s supply — not the microcontroller’s USB port |
-| ESP32 Dev Module (`esp32dev`) | The **panel controller**: enough exposed pins for the HUB75 ribbon |
+| MH-ET LIVE ESP32 MiniKit (`mhetesp32minikit`) | The **panel controller**: the class board; its header exposes the HUB75 pins, including the four JTAG-labelled ones |
 | M5StickC-S3 | The **sensor/UI controller**: microphone, BMI270 IMU, display, buttons, speaker |
 | 74HCT245 level shifter, jumpers, breadboard | 3.3 V logic to the panel’s 5 V inputs; the link between the boards |
 | Multimeter (shared), phone camera | Current measurements and the video for your portfolio |
@@ -51,7 +51,7 @@ You work in your Task Pod at your own pace. The instructors circulate; ask early
 
 **Proves:** Goals 1, 2, and 3 · **Produces:** `task1-panel/` with a stable test pattern, a wiring photo, and the power table.
 
-1. **Wire the default rig.** Panel + 5 V 4 A supply + 74HCT245 + ESP32 Dev Module. Use the pin table in [Appendix A](#appendix-a). Common ground everywhere; never power the panel from USB or a GPIO. The Stick stays on the bench for Task 2.
+1. **Wire the default rig.** Panel + 5 V 4 A supply + 74HCT245 + MH-ET LIVE ESP32 MiniKit. Use the pin table in [Appendix A](#appendix-a). Common ground everywhere; never power the panel from USB or a GPIO. The Stick stays on the bench for Task 2.
 2. **Flash the library example.** Use [`ESP32-HUB75-MatrixPanel-DMA`](https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA) and its example sketch — no agent. Confirm orientation, colour order, and that the whole 32×32 area is addressed.
 3. **Measure the ceiling.** Measure current at 25 %, 50 %, 75 %, and 100 % white. Fill the table, watch the panel voltage, and choose the highest brightness that stays stable with margin on the 4 A supply.
 4. **How the panel actually works.** In one paragraph, explain the row scan, the 1/16 scan of this panel, the refresh rate, and why a phone camera may show flicker that the eye does not. Use the library and the Adafruit background as sources.
@@ -84,7 +84,7 @@ In `## Study log` in `Module06/README.md`: the wiring, the maximum brightness yo
 
 **Proves:** Goals 4 and 5 · **Produces:** `task2-breathe/` with `panel/` and `stick/`, a video, and a mapping note.
 
-1. **Create two PlatformIO projects.** `task2-breathe/panel/` for the ESP32 Dev Module and `task2-breathe/stick/` for the M5StickC-S3. One `README.md` at the top documents the protocol and the wiring.
+1. **Create two PlatformIO projects.** `task2-breathe/panel/` for the MH-ET LIVE ESP32 MiniKit and `task2-breathe/stick/` for the M5StickC-S3. One `README.md` at the top documents the protocol and the wiring.
 2. **Paste the prompts.** Each agent scaffolds one project, its `AGENTS.md`, and its README.
 3. **Wire the link.** Default: **UART** at 115200. Stick HAT2 **G1 (TX) → panel GPIO32 (RX)**, Stick **G2 (RX) ← panel GPIO33 (TX)**, and a common ground. The `◇` alternative is **ESP-NOW** — same protocol, no wire (see [Appendix A](#appendix-a)).
 4. **Breathe.** Build a `millis()`-based breathing effect — no `delay()` in the loop — with one normalized parameter for speed and depth. The panel keeps breathing while the link is idle.
@@ -95,10 +95,10 @@ In `## Study log` in `Module06/README.md`: the wiring, the maximum brightness yo
 <a id="task-2-panel-prompt"></a>
 
 <details>
-<summary>Task 2 prompt — panel controller (ESP32 Dev Module)</summary>
+<summary>Task 2 prompt — panel controller (MH-ET LIVE ESP32 MiniKit)</summary>
 
 ```text
-Initialize a PlatformIO Arduino project in this empty folder for an ESP32 Dev Module (`board = esp32dev`) that drives a 32×32 HUB75 RGB panel with `ESP32-HUB75-MatrixPanel-DMA` and `Adafruit GFX`.
+Initialize a PlatformIO Arduino project in this empty folder for an MH-ET LIVE ESP32 MiniKit (`board = mhetesp32minikit`) that drives a 32×32 HUB75 RGB panel with `ESP32-HUB75-MatrixPanel-DMA` and `Adafruit GFX`.
 
 Configure `platformio.ini` with `monitor_speed = 115200` and:
 lib_deps =
@@ -107,8 +107,8 @@ lib_deps =
 Add a `.gitignore` for `.pio/` and `compile_commands.json`.
 
 Create `AGENTS.md` documenting:
-- Board: `esp32dev` (ESP32 Dev Module), panel: 32×32 HUB75, 1/16 scan.
-- Default HUB75 pins: R1=25, G1=26, B1=27, R2=14, G2=12, B2=13, A=23, B=19, C=5, D=17, E=-1, LAT=4, OE=15, CLK=16.
+- Board: `mhetesp32minikit` (MH-ET LIVE ESP32 MiniKit), panel: 32×32 HUB75, 1/16 scan.
+- HUB75 pins (MiniKit; the JTAG labels TDO/TDI/TCK/TMS are GPIO 15/12/13/14): R1=25, G1=26, B1=27, R2=14, G2=12, B2=13, A=23, B=19, C=5, D=17, E=-1, LAT=4, OE=15, CLK=16.
 - Power: 5 V 4 A panel supply, common ground, never from USB or a GPIO.
 - Link: `Serial2` on GPIO32 (RX) and GPIO33 (TX), 115200, newline-terminated `L <0..100>` and `H <0..255>`.
 - Brightness cap: `setBrightness8(96)` (adjust after measuring the panel).
@@ -153,7 +153,7 @@ In `src/main.cpp`, use `M5Unified`: initialize the display, microphone, IMU, and
 
 </details>
 
-**Why two controllers.** The HUB75 panel needs thirteen signals; the Stick’s exposed header is small and already shares pins with the display, audio codec, and IMU. The ESP32 Dev Module is the pin-rich board; the Stick is the sensor/UI board — see [Appendix A](#appendix-a).
+**Why two controllers.** The HUB75 panel needs thirteen signals; the Stick’s exposed header is small and already shares pins with the display, audio codec, and IMU. The MH-ET LIVE ESP32 MiniKit exposes the header the panel needs; the Stick is the sensor/UI board — see [Appendix A](#appendix-a).
 
 **Why UART.** It is deterministic, needs no pairing or channel state, and works with the boards on the same bench. ESP-NOW is the alternative "fun" `◇` version: low latency, no router, but MAC pairing and packet-loss debugging are a separate lesson. Do not use SoftwareSerial on the S3; it competes with the I2S microphone and the panel DMA.
 
@@ -214,7 +214,7 @@ The AI is the drafting tool; verification is the skill.
 
 > **1/16 scan, in one line.** The controller lights 16 row groups one after another, so only 1/16 of the pixels is on at any instant and `E` — the fifth address bit a 1/32-scan panel would need — stays unused. The arithmetic, the refresh consequences, and the WS2812B comparison are in the [resource bank](./Z-resources-bank.md#hub75-scan).
 
-**Default wiring (classic ESP32 Dev Module).** The library’s default pins, wired explicitly in the reference project:
+**Default wiring (MH-ET LIVE ESP32 MiniKit).** The library’s default GPIO numbers, wired explicitly in the reference project; the MiniKit prints four of them as JTAG names:
 
 | Signal | GPIO | Signal | GPIO |
 |---|---:|---|---:|
@@ -325,7 +325,7 @@ Unused header pins are **`IO22`**, `IO21`, `IO32`, `IO18`, `IO0`, `IO2`, `IO33`,
 
 **The link (default: UART).**
 
-| StickS3 HAT2 | ESP32 Dev Module | Note |
+| StickS3 HAT2 | MiniKit | Note |
 |---|---|---|
 | G1 (TX) | GPIO32 (RX) | data from Stick to panel |
 | G2 (RX) | GPIO33 (TX) | data from panel to Stick |
@@ -371,7 +371,7 @@ Read in any order, take what helps, and replace the rest with your own research.
 
 **Questions to ask an LLM (then verify on the panel)**
 
-- “Scaffold a PlatformIO project for a 32×32 HUB75 panel on an ESP32 Dev Module with the HUB75 DMA library: test pattern, brightness control, and a non-blocking loop.”
+- “Scaffold a PlatformIO project for a 32×32 HUB75 panel on an MH-ET LIVE ESP32 MiniKit with the HUB75 DMA library: test pattern, brightness control, and a non-blocking loop.”
 - “Given measured currents at 25/50/75/100 % white, estimate the maximum safe brightness for a 5 V 4 A supply and the margin I should keep.”
 - “Write a `millis()`-based breathing effect for a 32×32 panel with one speed/depth parameter. No `delay()`.”
 - “Compute a short-term RMS envelope from an I2S microphone and map it to brightness with automatic gain control.”
@@ -398,9 +398,10 @@ One `AGENTS.md` per project, at its root. Keep the two projects separate; each a
 ```md
 # AGENTS.md — panel controller
 
-- Board: ESP32 Dev Module (`esp32dev`), PlatformIO.
+- Board: MH-ET LIVE ESP32 MiniKit (`mhetesp32minikit`), PlatformIO.
 - Panel: 32×32 HUB75, 1/16 scan. Pins: R1=25, G1=26, B1=27, R2=14, G2=12,
-  B2=13, A=23, B=19, C=5, D=17, E=-1, LAT=4, OE=15, CLK=16.
+  B2=13, A=23, B=19, C=5, D=17, E=-1, LAT=4, OE=15, CLK=16. On the MiniKit,
+  TDO/TDI/TCK/TMS are GPIO 15/12/13/14.
 - Power: 5 V 4 A panel supply, common ground; never from USB or a GPIO.
 - Link: Serial2, GPIO32 (RX) / GPIO33 (TX), 115200. Protocol: `L 0..100`,
   `H 0..255`, newline-terminated.
