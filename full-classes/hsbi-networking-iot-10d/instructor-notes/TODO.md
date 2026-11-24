@@ -109,11 +109,7 @@
 
 ## Module 4 — before the session
 
-- [ ] **Deploy Chatto before Friday.** The manual is written and tracked:
-      [`chatto-session.md`](./chatto-session.md). It covers the install on `oldplex01`, the single
-      overlay firewall rule (`4000/tcp` in the `oldplex01` pack), the URL and credentials for the
-      board, and the room plan. Observation: without a live counterpart, "MQTT versus a chat
-      protocol" stays abstract.
+- [x] **Deploy Chatto before Friday.** Installed and running on `oldplex01` on 2026-11-24 (`http://10.100.1.1:4000`, systemd unit `chatto`, firewall `4000/tcp` from the class prefix). Manual: [`chatto-session.md`](./chatto-session.md). Remaining before the session: the owner account and the rooms in the browser wizard, and the URL plus credentials on the board.
 - [ ] **Decide the M5StickC hand-out.** Flash IoTempower onto each stick and set its pod's Wi-Fi
       credentials *before* the session — at the end of Module 4 or the start of Module 5, not during
       it. Module 4 no longer depends on the sticks, because the AC unit is a simulation; the stick

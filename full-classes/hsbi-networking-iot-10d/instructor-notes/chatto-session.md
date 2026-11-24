@@ -13,6 +13,16 @@ data in `./data`.
 live server students can actually use beats a paragraph. It is *not* an assessment target and
 not part of the grading pipeline; it is a comparison object and a place to swap curiosities.
 
+**Current state (2026-11-24).** Installed and running:
+
+| | |
+|---|---|
+| URL | `http://10.100.1.1:4000` — hand out the **IP**; pod routers have no mesh DNS |
+| Service | `systemctl status chatto` — user `chatto`, `/var/lib/chatto`, unit `/etc/systemd/system/chatto.service` |
+| Version | 0.5.0, binary from the release tarball, sha256 checked against the GitHub API digest |
+| Firewall | `4000/tcp` from `10.100.0.0/16` in the `oldplex01` pack, applied 2026-11-24 (host backup `config.yml.bak.20261124-175402`) |
+| Still to do | owner account and rooms — browser work, see §4 |
+
 ## 1. Decide where it runs
 
 | Choice | Decision |
@@ -20,7 +30,7 @@ not part of the grading pipeline; it is a comparison object and a place to swap 
 | Host | `ulno-oldplex01.hsbi01.ulno.mesh` (`10.100.1.1`) — the admin host, already the iperf3 target |
 | Reachability | **Overlay only.** No public port, no reverse proxy, no DNS entry outside the mesh |
 | Transport | **Plain HTTP** on `:4000`. The Nebula tunnel already encrypts the wire; a certificate would add a private CA on every student laptop for no teaching gain |
-| TLS / mail | Not configured. Invitations by e-mail do not work — create accounts with the operator CLI |
+| TLS / mail | Not configured. No SMTP, so e-mail invitations and password reset do not work — accounts are created in the setup wizard, by an owner, or with the operator CLI |
 | Calls | Not configured (no LiveKit). Text, files, and reactions only |
 
 Students reach it from a laptop on the pod LAN through their **router's Nebula gateway**
@@ -31,32 +41,49 @@ Students reach it from a laptop on the pod LAN through their **router's Nebula g
 ```bash
 # on oldplex01, as root
 useradd --system --home-dir /var/lib/chatto --shell /usr/sbin/nologin chatto
-install -d -o chatto -g chatto /var/lib/chatto
+install -d -m 0750 -o chatto -g chatto /var/lib/chatto
 
-# take the Linux x86_64 binary from the releases page (asset name like
-# chatto-linux-amd64; check https://github.com/chattocorp/chatto/releases)
 cd /var/lib/chatto
-curl -fL -o chatto https://github.com/chattocorp/chatto/releases/latest/download/chatto-linux-amd64
-chmod +x chatto
-sudo -u chatto ./chatto init          # writes chatto.toml and ./data
+curl -fL -o /tmp/chatto.tar.gz \
+  https://github.com/chattocorp/chatto/releases/download/v0.5.0/chatto_Linux_x86_64.tar.gz
+sha256sum /tmp/chatto.tar.gz           # must match the digest on the release page
+
+tar xzf /tmp/chatto.tar.gz chatto      # the archive holds chatto, NOTICE, LICENSES/
+chown chatto:chatto chatto && chmod 0755 chatto
+./chatto --version                     # expect: chatto version 0.5.0
+
+sudo -u chatto ./chatto init           # NON-interactive; -i is the guided version
 ```
 
 `chatto init` writes the defaults: port `4000`, URL `http://localhost:4000`, embedded NATS with
-data directory `./data`. Then set the public URL to the **overlay** address, so links in the UI
-point where students can actually connect:
+data directory `./data`, and the first-run setup wizard enabled. Then set the public URL to the
+**overlay** address, so links in the UI point where students can connect, and let Chatto check the
+file:
 
-```toml
-# /var/lib/chatto/chatto.toml
-[webserver]
-url = "http://10.100.1.1:4000"
+```bash
+cd /var/lib/chatto
+cp -a chatto.toml chatto.toml.bak
+sed -i "s|url = 'http://localhost:4000'|url = 'http://10.100.1.1:4000'|" chatto.toml
+grep -n '^url = ' chatto.toml          # expect the 10.100.1.1 line
+sudo -u chatto ./chatto config check   # expect: Configuration check passed
 ```
+
+`chatto.toml` contains `cookie_signing_secret`, `core.secret_key` and the embedded NATS token. Keep
+it at mode `600`, never paste it into the repository, and treat a leaked copy as a full reset of
+sessions and invitation codes.
+
+`oldplex01` has `ffmpeg`, so `asset_processing` stays enabled and thumbnails work. On a host
+without it, set `[asset_processing] enabled = false` rather than running a worker that fails on
+every upload.
 
 `/etc/systemd/system/chatto.service`:
 
 ```ini
 [Unit]
 Description=Chatto chat server
+Documentation=https://docs.chatto.run/
 After=network-online.target
+Wants=network-online.target
 
 [Service]
 User=chatto
@@ -66,6 +93,9 @@ ExecStart=/var/lib/chatto/chatto run
 Restart=always
 RestartSec=3
 NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=full
+ProtectHome=yes
 
 [Install]
 WantedBy=multi-user.target
@@ -95,6 +125,7 @@ from the pack, so edit the pack, never the host:
 
 ```bash
 nebula-manager fleet ssh ulno-oldplex01.hsbi01.ulno.mesh --policy oldplex01 --yes
+# if it is not on PATH, run ./nebula-manager from the nebula-manager checkout
 
 # from a pod router (or any mesh node)
 nc -vz 10.100.1.1 4000
@@ -107,7 +138,9 @@ or was not applied. That distinction is worth teaching — it is the same one as
 
 ## 4. First login and rooms
 
-Register the first account in the web UI at `http://10.100.1.1:4000`, or from the shell:
+0.5.0 has a **browser setup wizard**: the first visit to `http://10.100.1.1:4000` asks for the server
+name and the owner account, no mail and no CLI. Do that yourself — do not let a student take the
+owner slot. From then on, accounts come from the owner (invitation codes) or from the shell:
 
 ```bash
 cd /var/lib/chatto && sudo -u chatto ./chatto operator user create --login ulno
