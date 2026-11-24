@@ -17,7 +17,7 @@ not part of the grading pipeline; it is a comparison object and a place to swap 
 
 | | |
 |---|---|
-| URL | `http://10.100.1.1:4000` — hand out the **IP**; pod routers have no mesh DNS |
+| URL | `http://10.100.1.1:4000` for students (an IP needs no DNS); `http://ulno-oldplex01.hsbi01.ulno.mesh:4000` also works for any client that runs the Nebula client — both are in `allowed_origins` |
 | Service | `systemctl status chatto` — user `chatto`, `/var/lib/chatto`, unit `/etc/systemd/system/chatto.service` |
 | Version | 0.5.0, binary from the release tarball, sha256 checked against the GitHub API digest |
 | Firewall | `4000/tcp` from `10.100.0.0/16` in the `oldplex01` pack, applied 2026-11-24 (host backup `config.yml.bak.20261124-175402`) |
@@ -179,8 +179,14 @@ the publisher, a room by the people who joined it.
   can open. It must be the overlay address.
 - **Permissions.** Everything under `/var/lib/chatto` must belong to `chatto`; a root-owned
   `data/` fails at first write, not at start.
-- **Browser warnings.** Plain HTTP plus a login prompt makes some browsers grumble. Expected;
-  the tunnel is encrypted even when the last hop is not.
+- **Browser warnings.** Plain HTTP plus a login prompt makes some browsers grumble. Expected; the
+  tunnel is encrypted even when the last hop is not. A mesh **name** does not change this — the badge
+  is about `http://`, not about the address. Removing it would need a certificate Firefox trusts:
+  a private CA on every laptop (no) or a real domain with a Let's Encrypt DNS-01 certificate
+  pointing at `10.100.1.1` (possible, but renewal plus split-horizon DNS for a comparison object).
+- **Two accepted origins.** `[webserver] allowed_origins` lists the IP and the mesh name, so cookie
+  auth works on either. If you later add a third way in (a tunnel, another name), add it there too or
+  the login will succeed and the app will sit on a loading spinner.
 - **No mail.** Anything that expects SMTP (password reset, invitations) will not work. Create
   accounts with the operator CLI.
 - **It is not assessment.** Do not require a Chatto artefact in any portfolio; the module offers
