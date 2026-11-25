@@ -56,6 +56,14 @@ pio run -t upload
 pio device monitor          # 115200, level/hue debug output
 ```
 
+**Board ID.** `panel/platformio.ini` uses `board = mhetesp32minikit`. `esp32dev` also builds and
+flashes this board, and the two are interchangeable here. Their PlatformIO definitions differ only in
+the Arduino `variant` and one `-D` macro (`-DARDUINO_MH_ET_LIVE_ESP32MINIKIT` vs
+`-DARDUINO_ESP32_DEV`); the MCU, 4 MB flash, `dio` flash mode, 40 MHz flash frequency and the 460800
+upload speed are identical, so the flash method does not change. The pin map lives in
+`panel/src/main.cpp` anyway. Keep `mhetesp32minikit` as the recorded value so the repository states
+what the class actually uses.
+
 Open the monitor **after** the board has started, not before. On this board the USB bridge's DTR
 line holds GPIO 0 low, so pressing RESET while a monitor is attached lands in download mode and you
 see `waiting for download` instead of the sketch. Reset first, then attach the monitor. If you

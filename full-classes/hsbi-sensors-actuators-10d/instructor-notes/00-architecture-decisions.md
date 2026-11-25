@@ -509,7 +509,7 @@ Dates are design events, not every commit; Git history is the authority.
 <a id="d24"></a>
 ### D24 — Module 6: two controllers, UART default, play mandatory
 
-**Status:** provisional (first run 2026-11-25).
+**Status:** provisional — the first run on 2026-11-25 went well; the link default (UART vs ESP-NOW) is the open question.
 
 **Context.** The 32×32 HUB75 panel needs thirteen signals; the M5StickC-S3 carries the microphone, IMU, speaker, display, and only a small exposed header. The class board is the MH-ET LIVE ESP32 MiniKit; its header exposes the pins the panel needs, and the 2026-11-18 Module 5 run showed that the creative payoff comes from an open build. The ES8311 codec is half-duplex: microphone and speaker cannot run at the same time.
 
@@ -539,6 +539,8 @@ Dates are design events, not every commit; Git history is the authority.
 **Consequences.** More moving parts than Module 5: two boards, a link, a 5 V supply, and a level shifter. Pre-flight is mandatory; keep a known-good reference project. The play task gives the creativity a home and seeds the final-project story. The Stick's speaker and microphone cannot run simultaneously; use a piezo on the panel controller or a second Stick.
 
 **Alternatives rejected.** One controller (the Stick does not expose enough pins; the MiniKit is the class board with the needed header); SoftwareSerial (competes with I2S/DMA); ESP-NOW as the default (pairing and channel state add friction); phone hotspot plus MQTT (duplicates Module 8); one AI prompt for both boards (two PlatformIO projects are clearer).
+
+**Evidence (first run, 2026-11-25).** Bootstrapping from the library's online matrix example was the fastest first-light route, and the pre-tested reference rig worked; every pod reached a stable pattern. Both links were used — one pod over UART, one over ESP-NOW — and the instructor's impression was that ESP-NOW caused less friction because there is no wiring to get wrong. One pod per route is not enough to move the default: UART stays the default and ESP-NOW the `◇`, and the next run times both with a whole cohort.
 
 **Evidence.** [Module 6](../modules/06-led-animation-sound-and-installations.md); [Module 6 studio](./06-module-6-studio.md); [reference project](./module6-panel-lab/README.md).
 
@@ -649,6 +651,7 @@ The authoritative wording is in the [syllabus](../syllabus.md). This table is a 
 - **2026-11-16** — Review gate. D22 added: no agent or collaborator commits, amends, rebases, tags, or pushes without an explicit instruction; changes stay in the working tree for the instructor's review. The same rule is recorded in Databases (D20) and Networking (D18).
 - **2026-11-16** — Timetable and project. D23 added: 9 teaching days, 48 school hours (≈36 clock hours) in 90/180-minute slots, CP2/CP3 moved, two project tracks with optional MQTT, Module 8 as a clinic, Day 9 feedback rehearsal plus a 5–10 minute assessed video, grade table B. D20 amended for the longer Days 7–9.
 - **2026-11-25** — Day 7–9 timing re-checked against the WS 2026/27 calendar (48 school hours, 26 delivered by Day 6, 22 left). CP3 narrowed to Module 7, because Module 8 is taught after it; the kickoff is split so that team formation and the story draft move to Day 7's self-study slot. Run sheets added for Module 7 and for the folded Modules 8–10 project support.
+- **2026-11-25** — Module 6 first run. D24 evidence recorded: the library's online matrix example and the pre-tested rig carried first light; UART and ESP-NOW both worked, with ESP-NOW feeling easier for lack of wiring. D24 stays provisional until the link default is decided on more than one pod per route.
 - **2026-11-16** — Vocabulary. D21 added: every module uses Task → Subtask → Evidence; Module 5 refactored as the reference (Tasks 1–5, `Proves:`/`Produces:`, standing `Log it`, closing exchange task); Modules 1–4 carry bracketed task numbers until their refactor; the sibling workbooks get the same TODO. Q10 resolved.
 - **2026-11-22** — Module 5 evidence and Module 6. D19 accepted after the evaluation: every pod controlled the strip, two pods built games with phone hotspots and a piezo; the guided format stays an observed-session pattern. D24 added: two controllers, UART default, ESP-NOW as the wireless extension, mandatory play task with a story hook, one 180-minute studio.
 - **2026-11-23** — Module 6 controller family. D24 extended: the ESP32/DMA choice is recorded against the ESP8266 + PxMatrix route that worked in earlier years, with the reason (no CPU left for audio and the link). The resource bank gained a [1/16-scan entry](../modules/Z-resources-bank.md#hub75-scan) so the module's Task 1 question has a reference, and the reference lab documents the GPIO-12 strapping hazard and a GPIO-18 remap.

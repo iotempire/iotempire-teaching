@@ -63,7 +63,9 @@ laptop before the session.
   `pio` on `PATH` is fine. Do not let VS Code download a second Python environment
   (`"platformio-ide.useBuiltinPIOCore": false`).
 - **Board:** `pio project init --board mhetesp32minikit`. The MH-ET LIVE ESP32 MiniKit is
-  `mhetesp32minikit`; do not silently substitute `esp32dev`.
+  `mhetesp32minikit`. `esp32dev` also builds and flashes it and the two are interchangeable, so it is
+  a valid fallback; make the substitution explicit rather than silent, because a board ID the
+  instructor did not expect is the first sign that something else was copied in.
 - **Serial port:** Linux needs `dialout` (or `uucp`) membership and the PlatformIO udev rules;
   Windows needs the CP210x or CH340 driver; macOS needs the driver and, if the port stays
   invisible, `admin` and `wheel` membership (the resource bank has the exact commands).

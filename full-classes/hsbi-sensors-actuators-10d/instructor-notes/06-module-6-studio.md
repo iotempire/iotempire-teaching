@@ -18,6 +18,12 @@ mandatory and stays open after the exchange (D24).
   and the power table; one pre-flashed panel; one Stick with the mic and the sender working.
 - **Test the Stick recipe.** PlatformIO has no official StickS3 board: `board = esp32-s3-devkitc-1`,
   8 MB partitions, `qio_opi`, USB CDC flags, M5Unified. Confirm the upload and the serial monitor.
+- **Both board IDs work.** `mhetesp32minikit` and `esp32dev` both build and flash the MH-ET LIVE
+  board and are interchangeable here. Their PlatformIO definitions differ only in the Arduino
+  `variant` and one `-D` macro; the MCU, 4 MB flash, `dio` flash mode, 40 MHz flash frequency and the
+  460800 upload speed are identical, so the upload method does not change. The HUB75 pins are defined
+  in the sketch. Keep `mhetesp32minikit` in student-facing material, so an unexpected `esp32dev` stays
+  a visible trace of a copied-in file.
 - **Wire-pulling experiment.** Run Task 1's signal-removal experiment on the instructor rig or a
   spare panel, not the only working class panel. Keep a spare ribbon; signal wires only, never the
   5 V feed or a ground.
@@ -81,8 +87,18 @@ resource bank's [1/16-scan entry](../modules/Z-resources-bank.md#hub75-scan).
 - **Speaker and microphone at once:** the ES8311 codec is half-duplex. Use a piezo on the panel
   controller or a second Stick.
 
-## After the run
+## After the run (2026-11-25)
 
-Record the evidence in the TODO and the ADR: what the pods built, which link they chose, where the
-power table surprised them, and whether the play task produced a shareable hook. Move the module's
-`DRAFT BOUNDARY` only after that evidence exists.
+- **Positive.** Bootstrapping from the library's own online matrix example was the fastest route to
+  first light, and the pre-tested reference rig gave every pod a known-good target. All pods reached
+  a stable pattern.
+- **Both links worked.** One pod used ESP-NOW, one used UART. ESP-NOW felt like less friction — there
+  is no wiring to get wrong — but that is one pod per route; keep UART as the default until a second
+  run confirms it (D24, TODO).
+- **Keep:** Task 1 without AI; the library example first; the signal-removal experiment; the
+  pre-flighted reference rig.
+- **Next time:** ask every pod which link it chose and why, and time both routes, so the default
+  question is decided on evidence rather than impression.
+
+Record the rest in the TODO and the ADR: where the power table surprised them, and whether the play
+task produced a shareable hook. Move the module's `DRAFT BOUNDARY` only after that evidence exists.
