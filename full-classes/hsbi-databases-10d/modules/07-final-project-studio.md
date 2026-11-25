@@ -31,7 +31,7 @@ By the end, you can:
 
 ### 1. Find the story
 
-Bring the project tickets from 6b. A **Project Team of 6–8** (two merged Task Pods of 3–4) picks one story and answers:
+Bring the project tickets from 6b — and the `Module01/story-seed.md` you wrote in Session 1 if it still fits. A **Project Team of 6–8** (two merged Task Pods of 3–4) picks one story and answers:
 - **Who** is the person, and where do they work?
 - **What decision** does the data change?
 - **What is the first query** the database must answer?
@@ -99,6 +99,8 @@ The demo is a relay: each member takes the part they own for about a minute, in 
 A story is concrete enough when it is **pitchable** in a minute and/or **playable** as a short scene. One named person, one place, one moment of pain, and something at stake are enough. The test that matters: *can you name the first query?* If not, it is still a topic.
 
 The method is *Story Driven Modeling* (Norbisrath, Zündorf & Jubeh, 2013) — start from concrete scenarios, not class diagrams. The [resource bank](./Z-resources-bank.md#story-craft-is-it-concrete-enough) has more.
+
+The person is a **persona**, not a demographic: name, role, goal, and the constraint that makes it hard. That is why every person in the story has a name — see [personas](./Z-resources-bank.md#personas).
 
 ### B. Case studies: systems that broke the classic stack
 

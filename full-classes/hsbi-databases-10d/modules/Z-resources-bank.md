@@ -312,6 +312,15 @@ Docs: [pandoc manual](https://pandoc.org/MANUAL.html) · [Typst documentation](h
 
 Hitting the right level of abstraction in a story is genuinely difficult. The balance between *too abstract* ("a database for a warehouse") and *too precise* (an already-finished specification) **is** the skill, and it is normal to overshoot or undershoot on the first tries. The test to teach: a story is concrete enough when it is **pitchable** (you can pitch it in a minute) and/or **playable** (it could carry a short film or a stage scene) — one named person, one place, one moment of pain, and something at stake. See [Module 7](./07-final-project-studio.md) for the student-facing checklist. The underlying method is *Story Driven Modeling* — Norbisrath, Zündorf & Jubeh, **Story Driven Modeling** (CreateSpace, 2013, ISBN 978-1483949253), [en.wikipedia.org/wiki/Story-driven_modeling](https://en.wikipedia.org/wiki/Story-driven_modeling).
 
+### Personas
+
+A persona is a **named, goal-directed archetype**, not a demographic profile. The name is the point: it lets a team say “Marta would not do that” and keep a design decision honest. Keep the sheet to one page — name, role, goal, the constraint that makes the goal hard, and what the person does today. Alan Cooper introduced the method in *The Inmates Are Running the Asylum* (1999); these are the practical references we use:
+
+- **[Roman Pichler — From Personas to User Stories](https://www.romanpichler.com/blog/personas-epics-user-stories/)** — name, role, goal, then epics and stories.
+- **[William Hudson — User Stories Don’t Help Users: Introducing Persona Stories](https://interactions.acm.org/archive/view/november-december-2013/user-stories-dont-help-users-Introducing-persona-stories)** (ACM *Interactions*, 2013) — minimal personas, one page each, and the persona-story form.
+- **[Interaction Design Foundation — Personas: A Simple Introduction](https://ixdf.org/literature/article/personas-why-and-how-you-should-use-them)** — the history and the goal-directed method.
+- **[Atlassian — User Stories](https://www.atlassian.com/agile/project-management/user-stories)** — the `persona + need + purpose` shape used in agile teams.
+
 ## Story canon: the recurring cast
 
 The module stories share a small cast of named (fictional) organizations and people. New material should stay consistent with them — the stories are deliberately kept as separate case studies for now.

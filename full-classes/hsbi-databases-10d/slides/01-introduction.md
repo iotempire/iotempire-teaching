@@ -98,6 +98,17 @@ Central entry point: **the course repository**.
 
 ---
 
+# Start your story today
+
+- One paragraph in `Module01/story-seed.md` — a candidate, not a commitment.
+- **Who** is the person? **What decision** changes? **What is the first query?** **Where does the data come from?**
+- Inspiration from the course cast: Kai Lehmann (Wittkamp), Anke Reuter / Lea Winter (Kortmann), Nils Bergmann (Frachtflow), Marta (Füllwerk).
+- **No person + first query = a topic.** Bring it back in Module 7; the best seeds become project tickets.
+
+<!-- Note: 2 minutes. Ask two pods to say their person and query aloud. -->
+
+---
+
 # Warm-up: what is a database — and why SQL?
 
 *(You are in your pods now — do this together, then jigsaw with a neighbouring pod.)*
