@@ -10,6 +10,8 @@
 > [!NOTE]
 > **This class is a draft in motion.** It is a full redesign of the legacy Databases course, taught for the first time in WS 2026/27 by an instructor who is *also* new to teaching databases and is learning the material alongside you. In every module a ***DRAFT BOUNDARY*** marks the part that is not settled yet; it moves down as we approve content together. Expect this syllabus to keep changing, and bring your own deep dives and stretchers — your input can shape the class.
 
+**Jump to:** [Learning objectives](#learning-objectives) · [Assessment](#assessment-project-work-20-points) · [Final project requirements](#final-project-requirements-5-points) · [11-session schedule](#11-session-course-schedule)
+
 ## Class Times and Locations
 
 - Schedule, location, and room: Published in the official HSBI timetable and course LMS before teaching begins.

@@ -43,7 +43,7 @@ Write `docs/charter.md` before you build: the organisation, 3–4 actors, 2–3 
 
 ### 2. Map the evidence
 
-Write a one-page plan in `docs/requirements.md`: one line per must-have, who owns it, and your own dates. The seven must-haves are in the [syllabus project requirements](../syllabus.md#final-project-requirements-5-points); they are the contract, not a menu of extra features.
+Write a one-page plan in `docs/requirements.md`: one line per must-have, who owns it, and your own dates. The seven must-haves are in the [syllabus: Final Project Requirements (5 points)](../syllabus.md#final-project-requirements-5-points); they are the contract, not a menu of extra features.
 
 Turn the plan into `docs/backlog.md`: work packages of at most half a day, each naming the delivery it serves, with one owner and one acceptance line. Commits reference the item (`T-12`).
 
