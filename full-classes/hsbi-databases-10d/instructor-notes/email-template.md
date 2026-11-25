@@ -51,32 +51,44 @@ Ulno
 > in the [syllabus](../syllabus.md).
 
 ```text
-Subject: Databases — Thu 26 Nov: project kickoff (what to bring)
+Subject: Databases — Thu 26 Nov: kickoff, checkpoint slots, and what to bring
 
 Hi all,
 
 Thursday 26 November, 08:30–11:45 in G005, is the project kickoff. The modules are
 over; the rest of the term is your project.
 
+Checkpoint slots — one email per pod
+We split the pods in half: half on Thursday 26 November, half on Thursday 3
+December. Every slot covers all modules. Send one email per pod, to
+email-TA and email-instructor, with the full names of
+all pod members and one starter portfolio link (they are interlinked anyway);
+tell us if you can only attend one of the two days. We will reply with your day
+and a rough timeslot. Use the subject line "database - slot preference".
+
+- Thursday 26 November, second session from 10:30 — 8–10 slots.
+- Thursday 3 December, second session from 10:15 — 8–10 slots.
+
 Before you come
-Bring two candidate project families, one paragraph each: the organisation, three
-actors, one workflow with its states, the first query, where the data comes from,
-and roughly how many rows you expect. The project catalogue on the course page
-has seven families and a ten-question self-check — run it on your candidates.
-If you already wrote the Module 6b project ticket, it counts as one candidate.
-Do not build anything yet and do not form teams in advance; you merge pods in
-the room.
+Each pod brings TWO candidate project families, one paragraph each: the
+organisation, three actors, one workflow with its states, the first query, where
+the data comes from, and roughly how many rows you expect. Each member may bring
+one idea to the pod chat first; the pod picks the two it will pitch. The project
+catalogue on the course page has seven families and a ten-question self-check —
+run it on your candidates. If you already wrote the Module 6b project ticket, it
+counts as one candidate. Do not build anything yet, and do not form teams in
+advance; you merge pods in the room.
 
 What happens
-- Merge two or three pods into a Project Team (6–9).
-- Pitch your candidates and choose one. The **story test** is a named person and a first
-  query; if a candidate cannot pass it, we pick a family together — that is the
-  kickoff working, not a penalty.
+- Merge pods into a Project Team of 6–8 (usually two pods of 3–4).
+- Pitch your two candidates and choose one. The story test is a named person and a
+  first query; if a candidate cannot pass it, we pick a family together — that is
+  the kickoff working, not a penalty.
 - Write docs/charter.md (one page), elect a Product Owner and a process keeper,
   and split the slice into work packages on a small board.
 - Start the vertical slice before the break: schema → ingest → query → interface.
-- Second block: Checkpoint 2, part 1 (Modules 4–5) for ten pods. Register for a
-  slot at the start of the day; there are two lanes (me and Shruthi).
+- Second block: the checkpoint lanes run while teams build. If your pod has a
+  slot, you will have it by email.
 
 Where the data lives
 Default is one SQLite file. A second database, a report export, or a PostgreSQL
@@ -89,8 +101,7 @@ Allowed, as always: draft with it, verify it, and keep docs/ai-log.md — what i
 produced, what was wrong, what you changed. A log with no rejected suggestion is
 not a log.
 
-Checkpoint 2, part 2 is Thursday 3 December (Modules 6a–6b). The fair is Thursday
-17 December.
+Checkpoint 2 continues on Thursday 3 December. The fair is Thursday 17 December.
 
 See you Thursday.
 Ulno
@@ -101,11 +112,11 @@ Ulno
 - **Module 5 is one session.** Its homework (Rounds 5–7: storage numbers, rows touched, memo) is
   picked up by a **15-minute recap** at the start of Module 6a — no test, and no penalty for "not yet".
 - **Module 6 is two studios:** 6a DuckDB (session 6), 6b polyglot + decision record (session 7).
-- **Checkpoint 2 is spread over sessions 8 and 9**, ten pods each, while the project runs.
+- **Checkpoint 2 is spread over sessions 8 and 9**, 8–10 pods each, while the project runs.
 - **Project:** three studios (8–10) + the fair (11) — no extra project week. Session 8 is the kickoff: teams arrive with two candidate families, merge in the room, and leave with a charter, a board, and a running slice.
 - **Homework has two levels:** a small core for everyone, an optional intense track (Module 6a:
   `refresh.py`; sell it, do not require it).
-- **Pods:** 20 pods of 2–3; a TA helps.
+- **Pods:** 3–4 people; a TA helps.
 
 ## Per-session prep (current run)
 
@@ -113,7 +124,7 @@ Ulno
 |---|---|
 | 6 (6a) | Finish M5 Rounds 5–7; keep `Module05/normalize.db`; bring the memo; `uv sync` once |
 | 7 (6b) | Bring `refresh.py` + one `--check` output **if** the intense track was taken; the updated memo |
-| 8 | Read the [project catalogue](../modules/07-project-catalogue.md); bring **two candidate families** (one paragraph each); do not form teams — they merge in the room |
+| 8 | Read the [project catalogue](../modules/07-project-catalogue.md); bring **two candidate families** (one paragraph each); one pod email with the full names and a starter portfolio link for the checkpoint slot; do not form teams |
 | 9–11 | Bring the repository and the current slice; nothing new to install |
 
 > The module files carry `PREP EMAIL` markers. Grep them before writing the mail:
