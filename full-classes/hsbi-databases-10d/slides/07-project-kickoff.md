@@ -18,7 +18,7 @@
 
 # What the project asks of you
 
-- **One person, one decision, one first query.** No named person and first query = a topic, not a project.
+- **One person, one decision, one first query — and a reason it matters to one of you.** No named person and first query = a topic, not a project.
 - **Use at least four of the seven modules** — not all.
 - **The seven must-haves** are the contract:
   1. a schema with an enforced relationship

@@ -36,8 +36,9 @@ Bring the project tickets from 6b — and the `Module01/story-seed.md` you wrote
 - **What decision** does the data change?
 - **What is the first query** the database must answer?
 - **Where does the data come from** — or how will you generate it reproducibly?
+- **Why does it matter** — to that person, and to at least one of you? (More than one is better.)
 
-If you cannot name the person and the first query, it is a topic, not a project. Use the [project catalogue](./07-project-catalogue.md) if you are stuck, but choose a family, not a topic.
+If you cannot name the person and the first query, it is a topic, not a project. If nobody in the team can say why it matters, it is an exercise. Use the [project catalogue](./07-project-catalogue.md) if you are stuck, but choose a family, not a topic.
 
 Write `docs/charter.md` before you build: the organisation, 3–4 actors, 2–3 workflows with the states they move through, 5–8 use cases as named queries, the one slice you will build, where each database lives and why, and a **cut list** of what you will not build. Choose a **Product Owner** (what and why) and a **process keeper** (the stand-up, the board, the commit watch). Keep the Task Pods as working units: each pod owns one or two deliveries — the slice, the proof, or the surface — and names a **pod lead**. This is a light three-week process, not full Scrum. Record the roles in `docs/team.md`.
 

@@ -140,16 +140,17 @@ Two rules:
 
 ## 4. Does your project pass?
 
-Two questions first:
+Three questions first:
 
 1. **Who is the person, and what do they do differently on Monday because of your answer?**
 2. **Say the first query out loud — what does it return today?**
+3. **Why does it matter — to them, and to at least one of you?**
 
-If either answer is vague, you have a topic. Then check the ten qualities:
+If any answer is vague, you have a topic. Then check the ten qualities:
 
 | # | Quality | Ask yourself | Green | Red |
 |---|---|---|---|---|
-| 1 | **Named** | Who is the person or role, and when did they last hit this? | a role with a moment | "users", "a company" |
+| 1 | **Named and felt** | Who is the person, and why does it matter to them — or to one of you? | a role, a moment, and a stake | "users", "a company", "it is only an exercise" |
 | 2 | **Consequential** | What action changes because of the answer? | stop, order, dose, send, replace | "they get insights" |
 | 3 | **Computable** | Say the first query; what number comes back today? | a query and the shape of its answer | "a dashboard" |
 | 4 | **Grounded** | Where is one real row right now? | a file, an export, a snapshot, or a generator written today | "we will find data" |

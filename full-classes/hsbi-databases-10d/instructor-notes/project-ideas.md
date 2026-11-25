@@ -11,8 +11,9 @@ the catalogue here; link to it.
 
 1. *Who is the person, and what do they do differently on Monday because of your answer?*
 2. *Say the first query out loud — what does it return today?*
+3. *Why does it matter — to them, and to at least one of you?*
 
-If either is vague, the team has a topic. Send them to the catalogue; do not let them browse.
+If any is vague, the team has a topic. Send them to the catalogue; do not let them browse.
 
 ## 2. Verdicts
 

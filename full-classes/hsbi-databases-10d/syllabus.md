@@ -218,7 +218,7 @@ Project work is graded as a team; the discussion is individual. In `docs/team.md
 
 ### Assessment Criteria (5 points)
 
-- **Story (1 point):** a named person, a real problem, and the data that answers it.
+- **Story (1 point):** a named person, a real problem, and the data that answers it. The problem must matter to at least one team member, who can explain why when asked — ideally more than one. The fair story or the 2-minute fallback video is enough to prove it.
 - **Architecture (1 point):** a schema with at least one enforced relationship, reproducible ingestion, the headline query, and an interface a human can use.
 - **Plan (1 point):** a one-page list of what you will deliver with the dates **you** chose — and evidence that you followed or revised it.
 - **Demo and individual project discussion (2 points):** a live end-to-end table demo in the Session 11 fair, and one question per team member about the part they own.

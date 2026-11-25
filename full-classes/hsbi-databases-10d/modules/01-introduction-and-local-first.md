@@ -158,18 +158,19 @@ __pycache__/
 
 Every project in this course starts from a story. You do not have to know the final project yet; write **one paragraph** in `Module01/story-seed.md` and keep it. It is a candidate, not a commitment.
 
-Answer four questions:
+Answer these questions:
 
 - **Who** is the person, and where do they work?
 - **What decision** does the data change?
 - **What is the first query** the database must answer?
 - **Where does the data come from** — or how will you generate it reproducibly?
+- **Why does it matter** — to that person, and to at least one of you?
 
 Treat the person as a **persona**, not a job title: a name, a role, a goal, and the constraint that makes the goal hard. One page is enough — the name is what lets your team say “Marta would not do that” later. [Personas in the resource bank](./Z-resources-bank.md#personas).
 
 Use the course's recurring cast as inspiration: **Kai Lehmann** at Wittkamp (machine shop), **Anke Reuter** or **Lea Winter** at Kortmann (plastics), **Nils Bergmann** at Frachtflow (logistics), **Marta** at Füllwerk (bottling). The [story canon](./Z-resources-bank.md#story-canon-the-recurring-cast) lists them; you may also bring your own person.
 
-If you cannot name the person and the first query, it is a topic. Bring the seed back in Module 7 — the best ones become project tickets.
+If you cannot name the person and the first query, it is a topic. If nobody can say why it matters, it is an exercise. Bring the seed back in Module 7 — the best ones become project tickets.
 
 ### ★ Task 2: Git & Markdown proficiency in the pod
 
