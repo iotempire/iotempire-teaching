@@ -87,7 +87,7 @@ Terminal file writes bypass the editor's change review; that is why the editor's
 ## Vocabulary
 
 - Activity structure: Task → Subtask → Evidence.
-- Groups: `Task Pod` (2–3), `Project Team` (4–6; up to 9 when the cohort forces three pods). Tiers: `★ Core`, `◇ Stretcher`, `Excellence Stretcher`. Do not introduce synonyms.
+- Groups: `Task Pod` (2–3; 3–4 when the cohort forces it), `Project Team` (4–6; 6–8 when the cohort forces bigger pods). Tiers: `★ Core`, `◇ Stretcher`, `Excellence Stretcher`. Do not introduce synonyms.
 - The study→practice moment is an **Exchange**, not a gate: a short peer share that opens the next move. The final-project check is the **Story test**, and the shared progress list is the **progress board**. Do not use “gate” as an activity name.
 - Do not reintroduce Stage/Round/Studio as activity names in `hsbi-*`; the reasoning is Sensors [D21](full-classes/hsbi-sensors-actuators-10d/instructor-notes/00-architecture-decisions.md#d21).
 

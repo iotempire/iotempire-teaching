@@ -11,7 +11,7 @@ commit. You do not have to pick a family — bring your own and check it against
 | Level | Shape | When it is right |
 |---|---|---|
 | L1 | one actor, one workflow, 4–6 tables | a slice, or a first week |
-| **L2** | **3–4 actors, 2–3 workflows, 7–10 tables, one thing that changes state** | the target for a Project Team (6–9 people in this run) |
+| **L2** | **3–4 actors, 2–3 workflows, 7–10 tables, one thing that changes state** | the target for a Project Team (6–8 people in this run) |
 | L3 | L2 plus a second site, or an analytical copy | a team that already has the slice running |
 
 Bigger means **more actors and states**, not more screens. A warehouse is big because goods move
@@ -180,9 +180,9 @@ docs/charter.md
 8. Roles — Product Owner, process keeper, pod leads, and the owner of each work package
 ```
 
-**More than six people?** Keep the Task Pods as working units inside the team. Each pod owns one
-delivery — the slice, the proof, or the surface — and names a pod lead. The pod is the unit for the
-stand-up; the leads sync for two minutes afterwards.
+**Two pods of 3–4?** Keep the Task Pods as working units inside the team. Each pod owns one or
+two deliveries — the slice, the proof, or the surface — and names a pod lead. The pod is the unit
+for the stand-up; the leads sync for two minutes afterwards.
 
 **The story test:** no actor, no query, no project. If it grows past one page, you are writing a
 requirements document instead of choosing a story.

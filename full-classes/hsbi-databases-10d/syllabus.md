@@ -123,15 +123,15 @@ All deliverables are evaluated on the fixed 20-point scale. If you are tracking 
 
 There is no exam to pass module by module. For each of Modules 1–6 I look for the module's **learning goals** in your portfolio and record its points as soon as I can see them — in a checkpoint, in the studio, or in the final portfolio review, whichever comes first. **You never have to prove the same goal twice.**
 
-**Checkpoints are feedback, not assessment.** We meet for about ten minutes with your **Task Pod** (two or three people), look at what you have, and talk about what is missing. Nothing is decided in that conversation. If a module's goals are not visible yet, the answer is **"not yet"**, and you show them later. Missing a checkpoint costs you feedback, not points.
+**Checkpoints are feedback, not assessment.** We meet for about ten minutes with your **Task Pod** (three or four people), look at what you have, and talk about what is missing. Nothing is decided in that conversation. If a module's goals are not visible yet, the answer is **"not yet"**, and you show them later. Missing a checkpoint costs you feedback, not points.
 
-**Checkpoint 2 is spread over Sessions 8 and 9** — ten pods per session, while the rest of the room works on the project. Part 1 looks at Modules 4–5, part 2 at Modules 6a–6b. Ten minutes per pod, in person; the TA helps teams between slots.
+**Checkpoint 2 is spread over Sessions 8 and 9** — half the pods per session, while the rest of the room works on the project. Every slot covers all modules. Ten minutes per pod, in person; the TA helps teams between slots.
 
 **Each round opens with a peer practice.** Your pod presents to a neighbouring pod, then they present to you — **12 minutes each way**, with a three-minute switch to write feedback notes. You start by opening your **own portfolio** on your own device, so the other pod can check that it is yours and that you can edit, commit, and link in it. Then each of you shows **one artefact** that proves a learning goal, and the pod shows **one reflection** it is proud of.
 
 **If you are ill on the day.** Tell your pod and me — this is not a problem to solve alone. You can **join the round by video call**, your pod can **record it** and share the recording, and if something about *your* contribution is missing from what they show, **send me a short message** so it is on the record. If it needs a real conversation, **book a 15-minute slot in my office hour**. None of this changes your points; it only changes how much feedback you get.
 
-**Task Pods and Project Teams.** Your Task Pod of two or three is the unit for labs and checkpoints. For the final project, two or three pods merge into a **Project Team of 6–9** (4–6 where the cohort allows).
+**Task Pods and Project Teams.** Your Task Pod of three or four is the unit for labs and checkpoints. For the final project, two pods merge into a **Project Team of 6–8** (4–6 where the cohort allows).
 
 **Why it is built this way.** In database work the evidence is the artefact: a schema, a query plan, a benchmark table, a constraint that refuses bad data. Your portfolio is where those live, and a short conversation about them is a better test than a written exam — and a better use of our time than grading every task.
 
@@ -186,8 +186,8 @@ The full roadmap — with a one-line summary and learning goals for every studio
 | 5 | [Module 5 — Normalization vs. Denormalization](./modules/05-normalization-vs-denormalization.md) | Normalize to 3NF, denormalize on purpose, and measure read/write/storage trade-offs in SQLite. |
 | 6 | [Module 6a — The Analytical Engine (DuckDB)](./modules/06a-duckdb-analytical-engine.md) | Stretch the report to 2M rows, move it to Parquet, race DuckDB against SQLite, and find the boundary where it loses. |
 | 7 | [Module 6b — Polyglot Persistence & the Decision](./modules/06b-polyglot-persistence.md) | A shared PostgreSQL server first (concurrency and failure), JSON metadata in SQLite, a key-value comparison at the end (homework), and a one-page engine decision record. |
-| 8 | [Module 7 — Final Project: kickoff and first slice](./modules/07-final-project-studio.md) **+ Checkpoint 2, part 1** | Teams merge; story, one-page plan with your own dates, first vertical slice. Feedback rounds run for half the pods while the rest work. |
-| 9 | [Module 7 — Final Project: build and performance clinic](./modules/07-final-project-studio.md) **+ Checkpoint 2, part 2** | Build the slice out: ingestion, headline query, interface. The remaining pods get their feedback round. |
+| 8 | [Module 7 — Final Project: kickoff and first slice](./modules/07-final-project-studio.md) **+ Checkpoint 2 (first half)** | Teams merge; story, one-page plan with your own dates, first vertical slice. Feedback rounds run for half the pods while the rest work. |
+| 9 | [Module 7 — Final Project: build and performance clinic](./modules/07-final-project-studio.md) **+ Checkpoint 2 (second half)** | Build the slice out: ingestion, headline query, interface. The other half gets its feedback round. |
 | 10 | [Module 7 — Final Project: harden, review, rehearse](./modules/07-final-project-studio.md) | Constraints, parameterization, index proof, peer review, timed rehearsal. |
 | 11 | [Module 7 — Final Project: fair demo and discussions](./modules/07-final-project-studio.md#the-fair-demo--project-discussion) | Demo fair: five tables per 90-minute block; 10-minute live demo + 5-minute discussion per table; the rest of the room visits and gives feedback; retrospective. |
 
@@ -196,7 +196,7 @@ The full roadmap — with a one-line summary and learning goals for every studio
 
 ## Final Project Requirements (5 Points)
 
-The final project is a local-first, embedded database application built by **Project Teams of 6–9 students** — three Task Pods from Modules 1–6 (4–6 students where the cohort allows), so you keep your pod and gain two more. Project Teams form and pitch a stakeholder story during the project kickoff (Module 7), then map their requirements onto the criteria below. A Project Team may, by agreement with the instructor, continue a project from another course — this is a possibility, not a requirement; the default is a self-contained database application.
+The final project is a local-first, embedded database application built by **Project Teams of 6–8 students** — two Task Pods of 3–4 from Modules 1–6 (4–6 students where the cohort allows), so you keep your pod and gain one more. Project Teams form and pitch a stakeholder story during the project kickoff (Module 7), then map their requirements onto the criteria below. A Project Team may, by agreement with the instructor, continue a project from another course — this is a possibility, not a requirement; the default is a self-contained database application.
 
 ### Must-Have System Criteria:
 

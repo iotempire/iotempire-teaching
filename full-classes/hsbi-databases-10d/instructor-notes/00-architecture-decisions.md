@@ -452,8 +452,8 @@ surprise; it costs 15 minutes of Module 6a. The test ritual is removed.
 one session cannot hold it. Grading mid-term is not permitted for the chosen form.
 
 **Decision.** Checkpoints are **feedback rounds**, never graded. Checkpoint 1 sits in session 4;
-**Checkpoint 2 is spread over sessions 8 and 9** (ten pods each, ~10 minutes), while the project
-runs. The round opens with a peer practice (portfolio check, one artefact, one reflection); "not yet"
+**Checkpoint 2 is spread over sessions 8 and 9** (half the pods each, ~10 minutes; every slot
+covers all modules), while the project runs. The round opens with a peer practice (portfolio check, one artefact, one reflection); "not yet"
 is a complete answer. A TA can run a second lane: the TA gives feedback and may suggest
 **points and readiness** and **mark an individual for recheck**; **only the instructor records
 points, grades, and pass/fail.**
@@ -475,8 +475,8 @@ mid-term feedback.
 **Status:** accepted.
 
 **Context.** The project is the graded artefact; students need time to build, review and rehearse.
-Two pods of 2–3 merge into a team of 4–6. The 2026/27 cohort forced three pods and 6–9 people, so
-the Task Pod stays the working unit inside the team (D21).
+Two pods of 2–3 merge into a team of 4–6. The 2026/27 cohort ran big pods — 3–4 people — so two
+pods make a team of 6–8, and the Task Pod stays the working unit inside the team (D21).
 
 **Decision.** Sessions 8–10 are project studios (story/architecture/plan → build/integrate →
 harden/review/rehearse); session 11 is a **five-tables-per-90-minute-block fair** plus individual
@@ -624,7 +624,7 @@ a template to maintain.
 
 **Context.** The first run produced projects with one actor, one workflow and four tables: they met the criteria and taught too little, because a schema with one actor has no state and a schema without state has no reason for a trigger. The 2026-11-19 6b session showed the same thing from the other side — a server task that was one `SELECT` and one `UPDATE` had no depth once it worked. Becking's semester project (a company case study with business areas, use cases that drive the SQL, and 29 work packages) is the reference shape, but this class has three build weeks, not a semester.
 
-**Decision.** Projects are chosen from **families** (3–4 actors, 2–3 workflows with states, 7–10 entities) and built as **one vertical slice**. In Session 8 every team writes a one-page `docs/charter.md`, turns it into a work-package board, and elects a **Product Owner** and a **process keeper**. Above six people the Task Pod stays the working unit: each pod owns one delivery and names a pod lead, the stand-up runs per pod with a two-minute leads sync, and each session closes with a 3-minute review per pod. This is a light three-week process, **not full Scrum**: no story points, no velocity, no certification, and nothing about the process is graded. AI may generate schemas, code, and prose, but the team keeps `docs/ai-log.md` with at least one rejected suggestion and the fair asks for the worst AI output and its repair. Contribution is individual and peer-confirmed.
+**Decision.** Projects are chosen from **families** (3–4 actors, 2–3 workflows with states, 7–10 entities) and built as **one vertical slice**. In Session 8 every team writes a one-page `docs/charter.md`, turns it into a work-package board, and elects a **Product Owner** and a **process keeper**. The Task Pod stays the working unit: each pod owns one or two deliveries and names a pod lead, the stand-up runs per pod with a two-minute leads sync, and each session closes with a 3-minute review per pod. This is a light three-week process, **not full Scrum**: no story points, no velocity, no certification, and nothing about the process is graded. AI may generate schemas, code, and prose, but the team keeps `docs/ai-log.md` with at least one rejected suggestion and the fair asks for the worst AI output and its repair. Contribution is individual and peer-confirmed.
 
 **Consequences.** Bigger stories without more surface; the schema gains states and actors, so constraints and triggers have a reason. The process costs about fifteen minutes per session. The risk is process theatre; the 5-minute stand-up, the 20-item board, and “prioritise, do not assign” are the guardrails. The points stay at 20; the contribution rule clarifies the existing individual discussion rather than adding a category.
 
@@ -673,7 +673,7 @@ a template to maintain.
   rebalanced points table?
 - **Server after 6b.** The server is now the opening task in 6b. Should it stay up through the
   project weeks, and if so, who resets it and when?
-- **Project team size.** 4–6 is the default; 2026/27 ran 6–9 (three pods). Is 9 too large for an individual defence, and does the relay give every member a real part?
+- **Project team size.** 4–6 is the default; 2026/27 ran 6–8 (two pods of 3–4). Is 8 too large for an individual defence, and does the relay give every member a real part?
 - **Recap in every module.** Should every session open with a 15-minute recap of the previous one,
   or only when homework spans sessions?
 - **Warm-cache method everywhere.** Module 5 and 6a now warm up; should every benchmark in the
