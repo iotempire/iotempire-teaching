@@ -4,7 +4,7 @@
 
 > A sensor and an actuator become a system when you can say what stays on the node, what the user sees, and what the network is allowed to change. The local loop must survive the network.
 
-**Course placement:** Day 8 — one block, after Checkpoint 3 (Modules 7–8), before the project kickoff. This is a clinic, not a catalogue: you define the system boundary and close the local loop, and you may add MQTT if you take the networked track.
+**Course placement:** Day 8 — the clinic block, after Checkpoint 3 (Module 7) and after the Day 7 kickoff that formed the teams. This is a clinic, not a catalogue: you define the system boundary and close the local loop, and you may add MQTT if you take the networked track. The last block of the day is the first project build.
 
 ## 🎯 Learning Goals
 

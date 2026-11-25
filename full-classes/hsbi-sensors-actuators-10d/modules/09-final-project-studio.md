@@ -2,7 +2,7 @@
 
 [← Back to Module 8](./08-sensor-to-system-and-integration.md) | [Quick module index](./00-index.md) | [Next: Module 10 →](./10-demonstration-and-presentation.md)
 
-**Course placement:** Days 8–9 — the final project studio: ideation, requirement mapping, building, characterization, hardening, and rehearsal. Day 8 starts after the Module 8 clinic; Day 9 ends with the feedback walkthrough (Module 10).
+**Course placement:** Days 7–9 — the final project studio: ideation, requirement mapping, building, characterization, hardening, and rehearsal. Teams form and draft the story in Day 7's supervised self-study slot; Day 8 starts after the Module 8 clinic; Day 9 ends with the feedback walkthrough (Module 10).
 
 ## 🎯 Learning Goals
 
@@ -108,6 +108,8 @@ A strong project uses each layer it includes deliberately and can explain the ch
 *Project Teams of 4–6 students (two merged Task Pods). Work through the milestones; they are not a rigid clock.*
 
 ### ★ Task 1: Project Kickoff — Story, Project Team & Requirements
+
+*Start in Day 7's supervised self-study slot; confirm the requirements on Day 8, once you have the Module 8 boundary template.*
 
 1. Craft a story around a real stakeholder (a person with a name and a problem). Start from your pre-study abstract and refine it. It must be playable and pitchable.
 2. Pitch to a neighboring Project Team and note their questions.

@@ -166,7 +166,7 @@ You do not submit and grade every task. Module points are earned through the **w
 
 - **Checkpoint 1 — start of Day 4 (Modules 1–3).** For a larger cohort this runs as a **30-minute 2-pod practice round**: two pods pair up; each pod walks the other through its portfolio evidence, and the other pod gives free-style feedback and questions checking how well the goals are documented. The instructor joins the feedback and notes where the written evidence still needs work. In a small cohort, use the same slot for individual pod checkpoints.
 - **Checkpoint 2 — start of Day 7 (Modules 4–6).**
-- **Checkpoint 3 — start of Day 8 (Modules 7–8)**, before the project block; it may be folded into the project feedback by agreement with the instructor.
+- **Checkpoint 3 — start of Day 8 (Module 7).** Module 8 is taught after this checkpoint, so its boundary document is reviewed at the Day 9 rehearsal instead.
 
 Dates and slots are confirmed through the LMS.
 
@@ -268,13 +268,13 @@ The module is planned as **48 school hours (≈36 clock hours)** over **9 teachi
 | 4 | [Module 4 — Liquid Measurement & Sensor Selection](./modules/04-liquid-measurement-and-sensor-selection.md) **+ Checkpoint 1** | *2-pod practice round (larger cohorts) or pod checkpoints first (Modules 1–3), then:* liquid-level sensing for a charter boat — binary/threshold/continuous/hybrid sensing, two pods aim for 4–5 decision-sheet rows, failure cases, IMU shock/motion; pod recommendation and theory reports. |
 | 5 | [Module 5 — LEDs & Light as Output](./modules/05-leds-and-light-output.md) | LED current limiting, PWM and gamma, RGB mixing, first addressable strip and power budget. |
 | 6 | [Module 6 — LED Animation, Sound & Interactive Installations](./modules/06-led-animation-sound-and-installations.md) | Two-controller 32×32 HUB75 bring-up and power ceiling, non-blocking breathing, microphone/IMU over UART (ESP-NOW optional), mandatory play task with a story hook. |
-| 7 | [Module 7 — Motors & Motion Actuators](./modules/07-motors-and-motion-actuators.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–6), then:* servo control, DC motor speed/direction with an H-bridge, stepper stepping, current measurement; the remaining actuator families from the handbook as reading and a short lecture. |
-| 8 | [Module 8 — From Sensor to System: Boundary, Local Loop & Optional MQTT](./modules/08-sensor-to-system-and-integration.md) **+ Checkpoint 3 + Project kickoff** | *Checkpoint 3 first (Modules 7–8), then:* system boundary and interface specification, local orchestration/filter/fault behavior; MQTT and dashboard as the optional networked track; project kickoff and first build. |
+| 7 | [Module 7 — Motors & Motion Actuators](./modules/07-motors-and-motion-actuators.md) **+ Checkpoint 2** | *Checkpoint 2 first (Modules 4–6), then:* servo control, DC motor speed/direction with an H-bridge, stepper stepping, current measurement; the remaining actuator families from the handbook as reading and a short round-robin. The supervised self-study slot closes the day by forming the project teams and drafting the story. |
+| 8 | [Module 8 — From Sensor to System: Boundary, Local Loop & Optional MQTT](./modules/08-sensor-to-system-and-integration.md) **+ Checkpoint 3 + kickoff confirmation** | *Checkpoint 3 first (Module 7), then:* system boundary and interface specification, local orchestration/filter/fault behavior; MQTT and dashboard as the optional networked track; the teams confirm their requirements and start the first build. |
 | 9 | [Module 9 — Final Project Studio](./modules/09-final-project-studio.md) + [Module 10 — Project Video & Feedback Walkthrough](./modules/10-demonstration-and-presentation.md) | Finish and beautify, then demo preparation and a full rehearsal; three teams, 30 minutes each, in the third slot (15–20 presentation, feedback fills the slot); video recorded and edited after class and submitted by the last day of the examination period; retrospective and portfolio polish. |
 
 
 > [!TIP]
-> **Day 9 run sheet:** 08:30–11:30 finish, beautify, and practise; 11:30–12:30 break; 12:30–14:00 demo preparation and a full rehearsal; 14:15–15:45 the three 30-minute walkthroughs. Teams record and edit the 5–10 minute final video after class and submit it with the slides and documentation by the **last day of the examination period** (*Prüfungszeitraum*), announced in the LMS.
+> **Day 9 run sheet:** everything is frozen and working at the end of Day 8 — the morning is polish, not new features. 08:30–11:30 finish, beautify, and practise; 11:30–12:30 break; 12:30–14:00 demo preparation and a full rehearsal; 14:15–15:45 the three 30-minute walkthroughs. Teams record and edit the 5–10 minute final video after class and submit it with the slides and documentation by the **last day of the examination period** (*Prüfungszeitraum*), announced in the LMS.
 
 <a id="final-project-requirements-5-points"></a>
 ## Final Project Requirements (5 Points)

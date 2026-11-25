@@ -35,7 +35,7 @@ weeks before the cut-off. The LMS submission record is the receipt.
 | M2 — Part 1 foundations | Modules 1–3 evidence + reflections 1–3 | Start of day 4 | Feedback at the checkpoint; no points decision |
 | M3 — Part 1 core | Modules 4–6 evidence + reflections 4–6 | Start of day 7 | Written reminder; the evidence must exist before the final cut-off |
 | M4 — Part 1 final | Complete written portfolio documentation (Modules 0–8 + nine reflections, Days 1–9; the Day 9 entry may be written on the evening of Day 9 or the next morning) | Last day of the examination period | See §5 — this is an examination-law question, not a judgement call |
-| M5 — Part 2 code/system docs | Project repository, code, wiring/architecture, system boundary, characterization, measurement evidence | Working version before day 9 (for the walkthrough); final by the last day of the examination period | See §5 |
+| M5 — Part 2 code/system docs | Project repository, code, wiring/architecture, system boundary, characterization, measurement evidence | Frozen and working end to end at the end of day 8; final by the last day of the examination period | See §5 |
 | M6 — Part 2 slide deck/demo artifacts | Slide deck and demo artifacts for the walkthrough | Before day 9 (working version); final deck with the video submission | See §5 |
 | M7 — Part 2 video | 5–10 minute video, edited with the feedback | Last day of the examination period (*Prüfungszeitraum*; announced in the LMS) | See §5 — this is an examination-law question, not a judgement call |
 
