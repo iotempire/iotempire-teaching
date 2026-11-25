@@ -45,7 +45,7 @@ Split something into its own file only when a section outgrows the page.
 - `## Discussion log` — one line per exchange: who listened, what they asked, what you changed. This is personal.
 - `## MQTT experiments` — the retained value, the will, the detection time, the QoS observations.
 - `## Simulated warehouse` — the AC unit, the HVAC, the integrator, and the swap.
-- `## Node-RED flow` — the exported flow JSON and the dashboard/command proof.
+- `## Node-RED flow` — the exported flow JSON and the dashboard/command proof (plus the bridge, if you built it).
 - `## Story seeds` — optional: the odd bits worth turning into a story later.
 
 ### Three rules that keep this clean
@@ -68,6 +68,7 @@ The day opens with a pod check-in: one artefact from Modules 1–3, one open que
 | 4 | **Simulate the warehouse** | An AC unit, an HVAC, an integrator, and the swap | G3, G4 | "What changed downstream when the mock became real?" |
 | 5 | **Build the Node-RED flow** | The exported flow and the dashboard/command proof | G2 | "Where does the logic live, and what if Node-RED dies?" |
 | ◇ | **The threshold service on the router** | A MicroPython service on the router | G3 | "Why is this a service, not Node-RED?" |
+| ◇ | **Bridge the warehouse into the chat** | A Node-RED flow that carries one event across the chat boundary, either direction | G3, G4 | "Which side should retry when the chat is down?" |
 
 *Hardware per pod:* the Module 2 router with Mosquitto, your laptops (Python 3, no admin rights needed), your pod's Node-RED on the cluster — address and port on the board — and, if your pod has one, an M5StickC as an optional extra publisher for the swap.
 
@@ -302,6 +303,23 @@ In [Module 3](./03-overlay-and-mesh-networks.md#the-build--challenging) you made
 
 > **Show and ask.** Show the alarm firing. *"Why is this a service, not Node-RED?"*
 
+### ◇ Task 7 (Stretcher) — Bridge the warehouse into the chat
+
+**Proves:** Goals 3 and 4 · **Produces:** a Node-RED flow that carries one event across the boundary in **either or both** directions — MQTT → chat, chat → MQTT, or a loop that proves both.
+
+*The chain below is an **example, not a recipe**.* Any bridge that survives the discussion question counts, and the reverse direction is often the more interesting one.
+
+1. **One example, MQTT → chat:** `mqtt in` on `pod<NN>/cold/alarm` → `function` → `http request` POST to a room's incoming webhook (room settings → integrations; the address is on the board). One alarm in, one message out.
+2. **The other direction:** let an incoming message *act* on something in your own router network — a command topic the router or an ESP obeys, a lamp, a relay. A human writes prose, a machine needs a typed command; your bridge is where the translation happens.
+3. **Do not forward every reading.** Rate is the design question: alarm, state change, or periodic digest. Say which, and why, in one sentence.
+4. Save the flow as `bridge.json` and screenshot both ends. **One direction proved is enough; both is better.**
+
+**Theory you need.** A bridge is an **adapter, not a new protocol**: it maps one address space onto another and decides what *not* to carry. A topic is chosen by the publisher and carries a typed payload plus the last value; a room is joined by people and carries prose plus history. The HTTP call is the easy part. The design questions are rate, direction and failure: what happens to an alarm raised while the chat is unreachable — retry, drop, or buffer?
+
+> **Show and ask.** Show one event crossing, then stop the bridge. *"What did MQTT lose, what did the chat lose, and which side should retry?"*
+
+> **Certificate note.** The class chat is HTTPS with a self-signed certificate, so an `http request` node rejects it. Set `msg.rejectUnauthorized = false` for that node, and write one sentence in your log on why that is acceptable *only* inside the overlay.
+
 ## Ask an LLM — then verify
 
 Treat every answer as a **claim to test**, not a fact, and run it against your own broker.
@@ -329,6 +347,7 @@ A suggestion, not a checklist — the learning goals are the contract, and an ar
 6. **The log and the exchanges:** `## Study log` and `## Discussion log`.
 7. **Protocol choice (goal 1):** one paragraph on MQTT vs CoAP vs HTTP for this warehouse.
 8. **Optional:** the MicroPython threshold service on the router, and the two-integrator comparison.
+9. **Optional:** the bridge — `bridge.json`, whichever direction(s) you built, and the one sentence on rate and failure.
 
 > [!IMPORTANT]
 > Never commit secrets, credentials, private keys, or a broker configuration with passwords. Where you did not work alone, link your pod mates and your sources.
@@ -341,7 +360,7 @@ A suggestion, not a checklist — the learning goals are the contract, and an ar
 - [`paho-mqtt` documentation](https://eclipse.dev/paho/files/paho.mqtt.python/html/index.html) — the Python client, including the 2.x callback API.
 - [CoAP (RFC 7252)](https://www.rfc-editor.org/rfc/rfc7252) and [coap.technology](https://coap.technology/) — the constrained-device alternative.
 - [MicroPython `umqtt`](https://github.com/micropython/micropython-lib/tree/master/micropython/umqtt.simple) — the small MQTT client for the router path.
-- [Chatto](https://github.com/chattocorp/chatto) — the self-hosted chat the class uses; compare a room with a topic.
+- [Chatto](https://github.com/chattocorp/chatto) — the self-hosted chat the class uses; compare a room with a topic. Its [self-hosting docs](https://docs.chatto.run/) cover the HTTP API and incoming webhooks that Task 7 talks to.
 - The [resource bank](./Z-resources-bank.md) — the [protocol/port table](./Z-resources-bank.md#protocol-port-table), the [`uv` environment](./Z-resources-bank.md#python-environment-with-uv-optional), and the [MQTT command cheat sheet](./Z-resources-bank.md#mqtt-command-cheat-sheet).
 
 ---

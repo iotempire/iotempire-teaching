@@ -109,7 +109,23 @@
 
 ## Module 4 — before the session
 
-- [x] **Deploy Chatto before Friday.** Installed and running on `oldplex01` on 2026-11-24 (`http://10.100.1.1:4000`, systemd unit `chatto`, firewall `4000/tcp` from the class prefix). Manual: [`chatto-session.md`](./chatto-session.md). Remaining before the session: the owner account and the rooms in the browser wizard, and the URL plus credentials on the board.
+- [x] **Deploy Chatto before Friday.** Installed and running on `oldplex01`: `https://10.100.1.1:4000` (TLS is mandatory — the web client needs a secure context for `crypto.randomUUID`), systemd units `chatto` (loopback `4001`) and `chatto-tls` (stunnel on `4000`), firewall `4000/tcp` from the class prefix, owner account `ulno` claimed 2026-11-25. Self-signed certificate, reasoned in [D25](./00-architecture-decisions.md#d25--the-chat-is-served-over-self-signed-tls-inside-the-overlay-a-public-name-is-the-recorded-upgrade-path). Manual: [`chatto-session.md`](./chatto-session.md).
+- [x] **Create the accounts.** `ulno` (owner) plus `pod01`…`pod15` (password `iotempire`) created
+      2026-11-25 through the operator socket. One student on the spot is a single
+      `chatto operator user create --login … --password iotempire` as root on `oldplex01`
+      ([`chatto-session.md`](./chatto-session.md) §4).
+- [x] **Create the rooms.** `announcements` and `general` were seeded; `pod01`…`pod14` and
+      `curiosities` created 2026-11-25 via `operator room create`. `pod15` has an account but no room
+      (14 room names were requested) — add it if the fifteenth pod is real. Then the URL **and** the
+      credentials on the board, plus one sentence about accepting the certificate warning.
+- [ ] **Decide the bridge credentials for Task 7.** One incoming webhook per pod room (create in the
+      UI; not available from the operator CLI) is enough for MQTT → chat; a single `bridge` bot
+      covers the reverse direction. Test one self-registration too, since
+      `[auth] direct_registration = true` and there is no SMTP behind it.
+- [ ] **Take the trusted-certificate route next time.** A public name resolving to `10.100.1.1` plus
+      a Let's Encrypt DNS-01 challenge removes the click-through; the stunnel unit stays, only
+      `cert`/`key`, `webserver.url` and `allowed_origins` change
+      ([D25](./00-architecture-decisions.md#d25--the-chat-is-served-over-self-signed-tls-inside-the-overlay-a-public-name-is-the-recorded-upgrade-path)).
 - [ ] **Decide the M5StickC hand-out.** Flash IoTempower onto each stick and set its pod's Wi-Fi
       credentials *before* the session — at the end of Module 4 or the start of Module 5, not during
       it. Module 4 no longer depends on the sticks, because the AC unit is a simulation; the stick
