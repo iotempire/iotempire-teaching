@@ -170,28 +170,7 @@ In `src/main.cpp`, use `M5Unified`: initialize the display, microphone, IMU, and
 
 **Done when:** someone can interact with it for thirty seconds without instructions, and the hook, the design note, and the video exist.
 
-**This task stays open after Task 5.** Keep the folder and the video in the portfolio; return to it in self-study, or bring it into the final project. The hook is the seed for your project story.
-
-## ★ Task 4 — Share the repo
-
-**Proves:** Goals 1–6 · **Produces:** the committed `Module06/` folder and its README.
-
-1. Open the portfolio repo in Zed or VS Code. The Source Control panel (or `gh`) commits and pushes; the [Git primer](./Z-resources-bank.md#git--github-primer-template-editor-markdown-conflicts) has the workflow.
-2. Finish the README: the wiring, the protocol, the power table, the three task folders, the play hook, and the videos.
-3. Verify before you commit: pin map, panel size, colour order, library, brightness cap, baud rate, and the measured current. The AI’s arithmetic is a claim, not a measurement.
-4. Commit code, READMEs, `AGENTS.md`, the power table, and the videos. No secrets, no `.pio/`, no `compile_commands.json`, no large binaries.
-
-The AI is the drafting tool; verification is the skill.
-
-## ★ Task 5 — Exchange and evidence
-
-**Proves:** Goals 1–6 · **Produces:** the agreed learning in your shared log, one shared artefact, and the evidence list below.
-
-1. Show each other the panel, the power table, the breathing and sound modes, and the play interaction.
-2. Compare architectures: who used UART, who tried ESP-NOW, and what broke in each case? Compare the prompts: what did the agents get wrong?
-3. Agree on the 3–5 most noteworthy points and one learning you jointly stand behind; one of you writes the “Agreed learning (pod discussion)” note into the shared log.
-4. Pick one shared artefact — the best video, the power table, the hook, or a wiring photo — and post it in the course Discord with one sentence on why.
-5. Check the evidence list below and fill the gaps.
+**This task stays open after the session.** Keep the folder and the video in the portfolio; return to it in self-study, or bring it into the final project. The hook is the seed for your project story.
 
 ## ✅ Suggested portfolio evidence (proofs of the learning goals)
 

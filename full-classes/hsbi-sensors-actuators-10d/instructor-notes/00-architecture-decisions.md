@@ -449,7 +449,7 @@ Dates are design events, not every commit; Git history is the authority.
 - The main divider is `### ★ Task N — <outcome>`; every task states `Proves:` (the learning goals it evidences) and `Produces:` (the artefact).
 - Subtasks are the short, unnumbered bold moves inside a task (`1. Create the folder.`); cap them at four, sequence only, and never give a subtask its own evidence. Number them only when the run sheet or an evidence item must point at one.
 - Every task ends with the same standing line, **Log it** — or the task is the module's closing exchange.
-- The module closes with a final task for the pod exchange and the evidence check; the `## ✅ Suggested portfolio evidence` section stays and maps back to the goals.
+- The module closes with a final task for the pod exchange and the evidence check; the `## ✅ Suggested portfolio evidence` section stays and maps back to the goals. Module 6 is the exception: its exchange is an instructor-run end-of-session demo, and the evidence list closes the module; Tasks 1–3 are the module.
 - `Session` remains the time unit (one 90-minute block). `Task Pod` and `Project Team` keep their names. `Stage`, `Round`, and `Studio` retire as student-facing activity names; `Studio` survives only as a heading word where the block is one open challenge (Module 4), not as a level in the vocabulary.
 - Tasks remain tiered (`★`/`◇`) and negotiable; the vocabulary changes the label, not the contract.
 
@@ -531,7 +531,8 @@ Dates are design events, not every commit; Git history is the authority.
   [`module6-panel-lab/pxmatrix-fallback/`](module6-panel-lab/pxmatrix-fallback/README.md). Students
   should still be able to explain the trade (see the resource bank's
   [1/16-scan entry](../modules/Z-resources-bank.md#hub75-scan)).
-- **Play is mandatory.** Task 3 is a `★` task, stays open after the exchange, and starts with a one-sentence story hook. The hook is part of the design note and the evidence; the realization may stay small.
+- **Play is mandatory.** Task 3 is a `★` task, stays open after the session, and starts with a one-sentence story hook. The hook is part of the design note and the evidence; the realization may stay small.
+- **No closing task.** The repo and the evidence list are implicit; the instructor runs a short demo at the end. Module 6's tasks are 1–3 (D21 exception).
 - **One 180-minute studio.** Two halves with a break; the run sheet is in the Module 6 studio note.
 
 **Consequences.** More moving parts than Module 5: two boards, a link, a 5 V supply, and a level shifter. Pre-flight is mandatory; keep a known-good reference project. The play task gives the creativity a home and seeds the final-project story. The Stick's speaker and microphone cannot run simultaneously; use a piezo on the panel controller or a second Stick.

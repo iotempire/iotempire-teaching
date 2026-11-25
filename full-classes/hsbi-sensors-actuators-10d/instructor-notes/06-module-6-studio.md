@@ -40,9 +40,8 @@ Praktikum slot in WS 2026/27; take the break inside it.
 | 10–55 | Task 1 — first light | Wire the panel, flash the library example, measure 25/50/75/100 %, fill the power table, choose the cap |
 | 55–65 | Break | — |
 | 65–115 | Task 2 — breathe and listen | Two projects, two prompts, UART link, mic envelope, IMU/ToF hue, video |
-| 115–155 | Task 3 — play | Story hook first, one interaction, optional motor/joystick/piezo; this task continues after the exchange |
-| 155–170 | Share and exchange | Commit, compare architectures and prompts, one shared artefact |
-| 170–180 | Buffer and demo | One working and one broken thing per pod; point to the open play task |
+| 115–155 | Task 3 — play | Story hook first, one interaction, optional motor/joystick/piezo; this task continues after the session |
+| 155–180 | Share and demo | One working and one broken thing per pod; commit; point to the open play task |
 
 If Task 1 runs long, protect the link and the mic: Task 3 moves to self-study. If Task 1 is fast,
 start Task 2 early; the play task is the reward, not the schedule's hostage.
