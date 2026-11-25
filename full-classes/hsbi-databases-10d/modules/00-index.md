@@ -22,6 +22,7 @@
 | [Resource Prompts](./Y-resources-prompt-bank.md) | — | Supplementary | — | Reflection prompts, LLM-verification drills, quick references. |
 | [Resource Bank](./Z-resources-bank.md) | — | Supplementary | — | Cheat sheets, troubleshooting, datasets, extended reading. |
 | [Session 1 slides](../slides/01-introduction.md) | 1 | Supplementary | — | Plain-Markdown slide deck Session 1 is presented from (any Markdown viewer; render to a 16:9 PDF with pandoc + Typst). See the [instructor hints](./Z-resources-bank.md#instructor-hints-presenting-the-markdown-slide-deck). |
+| [Session 8 slides](../slides/07-project-kickoff.md) | 8 | Supplementary | — | Three slides for the kickoff: what the modules gave you, what the project asks, and today's steps. |
 | *Tutorial sessions* | dates TBA | Tutorial support (TA) | — | Catch-up, deeper practice, stretcher deep dives, project support. Times announced via the LMS. |
 
 ## What changed, and why

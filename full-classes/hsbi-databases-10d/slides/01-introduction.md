@@ -52,7 +52,7 @@
 # Class logistics & assessment (short version)
 
 - Usually **no dedicated homework** — but finish lab work, module tasks, portfolio, and reflections
-- **You work in small Task Pods** — two or three (three by default; a few pairs; four only by arrangement). For the **final project, two pods merge into a Project Team (4–6)**.
+- **You work in Task Pods** — three or four (three by default; a fourth by arrangement). For the **final project, two pods merge into a Project Team of 6–8**.
 - In-class exercises are initially **individual**
 - **Ongoing feedback** in the lab — talk to us!
 - Final assessment: **module points + final project + reflections**, with your **portfolio** as the record
@@ -90,9 +90,9 @@ Central entry point: **the course repository**.
 
 1. On a note, write **your skills** (languages, tools, hardware, design, …) and **your expectations / what you want to build**.
 2. No pod yet? Find **two other unpaired people**, compare notes, and check whether you **complement** each other — not just “same as me”.
-3. **You will work in a Task Pod — two or three (three by default)** (a few pairs). Exchange contacts and a first idea today.
+3. **You will work in a Task Pod — three or four (three by default; a fourth by arrangement)**. Exchange contacts and a first idea today.
 4. Very optional (more chances later - even to change your initial pod): pair your pod with a **neighbouring pod** for a **2-pod practice round** — present your learning-goal proof and give each other free-style feedback.
-5. For the **final project, two pods merge into a Project Team of 4–6** — your neighbouring pod is the natural partner.
+5. For the **final project, two pods merge into a Project Team of 6–8** — your neighbouring pod is the natural partner.
 
 <!-- Note: ask one pod to say aloud what they expect from the module. -->
 

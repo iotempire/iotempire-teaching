@@ -134,6 +134,7 @@ The portfolio's *Projektbericht* uses `docs/report.md` with five headings: story
 ### D. Pointers
 
 - [Project catalogue](./07-project-catalogue.md) — families, where the data lives, and the self-check.
+- [Kickoff deck](../slides/07-project-kickoff.md) — three slides for the first ten minutes of Session 8.
 - [Story canon](./Z-resources-bank.md#story-canon-the-recurring-cast) — the recurring cast, if you want to borrow it.
 - [Resource bank](./Z-resources-bank.md) — datasets, visualization, tooling.
 - [Syllabus assessment](../syllabus.md#assessment-project-work-20-points) — points, grade scale, Excellence Stretcher.
