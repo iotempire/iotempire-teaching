@@ -88,6 +88,8 @@ pod<NN>/cold/ac/status       presence       "online" / "offline"   (retained + w
 pod<NN>/+/+/env              dashboard wildcard: every device, every zone
 ```
 
+> **Why `pod<NN>/` at all?** Every pod has its own broker, so today the prefix is redundant — a bare `cold/ac/env` would work. It earns its place anyway: if your Node-RED shows **another** pod's prefix, you are on the wrong broker instead of silently reading a plausible temperature; a command you paste into the chat, or a flow you hand to another pod, carries its provenance; and two brokers bridged one day would collide without a namespace. Read it as a **fleet namespace, not a rule the broker enforces** — then answer the design question: *what would you have to change if all fifteen pods shared one broker?*
+
 **Theory you need.** HTTP is request/response: the client must know the server, both must be online, and ten consumers mean ten requests. MQTT decouples in three dimensions: **space** (publishers and subscribers know only the broker), **time** (retained messages and sessions let a late subscriber catch up), and **synchronisation** (publishing is non-blocking and asynchronous).
 
 - **Wildcards.** `+` matches exactly one level (`pod07/+/ac/env`); `#` matches the rest (`pod07/#`) and must be last.
