@@ -349,16 +349,17 @@ the chat a comparison object.
 
 **Do students need bot accounts, Discord-style?** Two different jobs need two different mechanisms:
 
-| Job | Mechanism | Who can create it |
+| Job | Mechanism | Who creates it |
 |---|---|---|
-| MQTT → chat, one way | an **incoming webhook** on the room — no account, the URL *is* the credential | whoever may manage the room; as owner you can make one per pod room |
-| chat → MQTT, read and reply | a **bot account** with an API key, inheriting its owner's permissions | the pod, if the UI offers it to a member; otherwise the owner creates it |
+| MQTT → chat, one way | an **incoming webhook** on the room — no account, the URL *is* the credential | **the pod itself**, in room settings → integrations |
+| chat → MQTT, read and reply | a **bot account** with an API key, inheriting its owner's permissions (permissions `bot.create`, `bot.manage`) | the pod if its role allows; otherwise the owner |
 
-For the bridge task the lazy and good answer is **one webhook per pod room**, created in the UI (room
-settings → integrations) and handed to the pod. The reverse direction can share a single `bridge`
-bot, with the caveat that everything it posts looks like the same author. Webhook URLs and API keys
-are secrets: never in the repository, never on a slide — hand them over like the bundle keys. Bot
-accounts cannot be created through the operator CLI, only in the app.
+A webhook is preferable to a bot for Task 4, and not only because it is less work: the URL belongs to
+the room the pod posts into, so the secret stays with the people who own it instead of living in the
+instructor's notes. Let the pod try — if the *Integrations* panel offers no "create" button, the role
+does not allow it, and you create one per pod room as the owner. Webhook URLs and API keys are
+secrets: never in the repository, never on a slide — and a URL pasted into a shared flow lets anyone
+post as that room's bot.
 
 ## 6. Traps
 

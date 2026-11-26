@@ -4,9 +4,9 @@ Tracked instructor material for [Module 4 Task 3](../../modules/04-mqtt-and-inte
 Students may read it as a worked example; it is not an answer key to hide.
 
 `coap_unit.py` is the sender from Task 1 with a **second door**: the same
-`state` dict exposed over CoAP next to the MQTT topics of Task 2. It exists
-because the Python server side is the one piece of the day nobody has run end to
-end yet.
+`state` dict exposed over CoAP next to the MQTT topics of Task 2. It was smoke-tested
+on the class host (see *Validated* below), because the Python server side is where
+pods get stuck, not the MQTT half they already know.
 
 ## Run it
 
@@ -58,6 +58,21 @@ CoAP listening on coap://<this host>:5683/warehouse/temp
 - **The failure modes differ.** Kill the MQTT publisher: the gauge freezes on the
   last retained value but CoAP keeps answering. Kill the CoAP server: the MQTT
   side does not notice at all.
+
+## Validated
+
+Run on `ulno-oldplex01`, 2026-11-25, against a local Mosquitto — Python 3.13.5,
+`aiocoap` 0.4.17, `paho-mqtt` 2.2.0, both from PyPI:
+
+- `GET /warehouse/temp` → `{"temp": 26.8, "hvac": "OFF"}`
+- `POST /warehouse/set {"power":"ON"}` → `2.04 Changed`, and the next `GET` reports
+  `"hvac": "ON"` — the two doors really do share one state
+- `POST` with the payload `nonsense` → `4.00 Bad Request`
+- MQTT `cold/ac/env` arrives every tick; `cold/ac/status` reads `online`, then
+  `offline` about 10–18 s after a `kill -9`, so the will is registered correctly
+
+Not tested there: a real pod router, the LuCI forward, and `node-red-contrib-coap` —
+those need the classroom hardware.
 
 ## Traps
 
