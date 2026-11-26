@@ -12,8 +12,8 @@ By the end of this module, you can:
 
 1. Explain the MQTT mechanisms — topic hierarchy, QoS levels, retained messages, and the Last Will and Testament — and place MQTT against CoAP and HTTP, in the layer model and on the wire.
 2. Build a command-and-dashboard flow on **your pod's Node-RED on the class cluster**.
-3. Write an event-driven **integration service in Python** on your own machine with `paho-mqtt`, and a small one in **MicroPython on the router** where the service fits.
-4. **Simulate a device before it exists** — a fake AC unit with a temperature and an on/off HVAC — and then swap the simulation for another publisher without changing a line downstream.
+3. Write an event-driven **integration service in Python or Micropython** on your own machine or on the router.
+4. **Simulate a device before it exists** — an AC unit mock-up with a temperature and an on/off HVAC — and then swap the simulation for another publisher without changing a line downstream.
 
 **⬇︎ ===== DRAFT BOUNDARY — content below is a provisional draft ===== ⬇︎**
 
