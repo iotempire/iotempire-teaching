@@ -1,17 +1,18 @@
 # Module 4 CoAP reference — the unit with two doors
 
-Tracked instructor material for [Module 4 Task 5](../../modules/04-mqtt-and-integration.md#-task-5-stretcher--give-the-warehouse-a-coap-door).
+Tracked instructor material for [Module 4 Task 3](../../modules/04-mqtt-and-integration.md#-task-3--a-little-bit-of-coap).
 Students may read it as a worked example; it is not an answer key to hide.
 
-`coap_unit.py` is the AC unit from Task 3 with a **second door**: the same
-`state` dict exposed over CoAP next to the MQTT topics. It exists because
-Task 5 is the one piece of the day nobody has run end to end yet.
+`coap_unit.py` is the sender from Task 1 with a **second door**: the same
+`state` dict exposed over CoAP next to the MQTT topics of Task 2. It exists
+because the Python server side is the one piece of the day nobody has run end to
+end yet.
 
 ## Run it
 
 ```bash
 uv add "paho-mqtt>=2,<3" aiocoap
-BROKER=192.168.14.1 BASE=pod14/cold/ac python coap_unit.py
+BROKER=192.168.14.1 BASE=cold/ac python coap_unit.py
 ```
 
 Expect:
@@ -75,7 +76,7 @@ CoAP listening on coap://<this host>:5683/warehouse/temp
 - **paho 2.x.** `CallbackAPIVersion.VERSION2` and `reason_code.is_failure`; the
   1.x callback signature fails in a way that blames the broker.
 
-## Extending it for Task 7
+## Extending it for Task 4
 
 The bridge does not care which door the value came from. If a pod wants a CoAP
 source in the bridge, point the `coap request` node at the same resource and let

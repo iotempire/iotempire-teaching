@@ -240,7 +240,7 @@ challenge (HTTP-01 cannot reach a private address); the same unit then only swap
 Anything **scripted** that posts to the chat must skip certificate verification: `requests.post(url,
 verify=False)` in Python, `msg.rejectUnauthorized = false` in a Node-RED `http request`. That is fine
 inside the overlay and wrong anywhere else — it is the sentence students are asked to write in
-Module 4 Task 7.
+Module 4 Task 4 (the bridges).
 
 ## 3. Open the firewall — the only Nebula change
 
@@ -333,15 +333,15 @@ Node-RED login — say so out loud so nobody reuses a real password.
 
 ## 5. The MQTT bridge — a student task, not an install
 
-The comparison gets sharp if a message can cross from MQTT into chat, so it is now **Module 4 Task 7**:
-Node-RED subscribes `pod<NN>/cold/alarm` and posts to a room's incoming webhook, optionally the other
-way round. Chatto has webhooks and an HTTP API; there is no ready-made MQTT bridge, and it should not
-become one more service to operate during the session.
+The comparison gets sharp if a message can cross from MQTT into chat, so it is now part of
+**Module 4 Task 4 — bridges**: Node-RED subscribes `cold/ac/alarm` and posts to a room's incoming
+webhook, optionally the other way round. Chatto has webhooks and an HTTP API; there is no ready-made
+MQTT bridge, and it should not become one more service to operate during the session.
 
 | Direction | Shape |
 |---|---|
 | MQTT → chat | `mqtt in` → `function` → `http request` POST to the room's incoming webhook |
-| chat → MQTT | a bot token (Telegram/Discord) or the Chatto API → `mqtt out` on `pod<NN>/cold/ac/set` |
+| chat → MQTT | a bot token (Telegram/Discord) or the Chatto API → `mqtt out` on `cold/ac/set` |
 
 The teaching point is that both are publish/subscribe and only the addressing differs: a topic is
 chosen by the publisher, a room by the people who joined it. Keep it out of assessment — D24 makes
@@ -354,11 +354,11 @@ the chat a comparison object.
 | MQTT → chat, one way | an **incoming webhook** on the room — no account, the URL *is* the credential | whoever may manage the room; as owner you can make one per pod room |
 | chat → MQTT, read and reply | a **bot account** with an API key, inheriting its owner's permissions | the pod, if the UI offers it to a member; otherwise the owner creates it |
 
-For Task 7 the lazy and good answer is **one webhook per pod room**, created in the UI (room settings
-→ integrations) and handed to the pod. The reverse direction can share a single `bridge` bot, with the
-caveat that everything it posts looks like the same author. Webhook URLs and API keys are secrets:
-never in the repository, never on a slide — hand them over like the bundle keys. Bot accounts cannot
-be created through the operator CLI, only in the app.
+For the bridge task the lazy and good answer is **one webhook per pod room**, created in the UI (room
+settings → integrations) and handed to the pod. The reverse direction can share a single `bridge`
+bot, with the caveat that everything it posts looks like the same author. Webhook URLs and API keys
+are secrets: never in the repository, never on a slide — hand them over like the bundle keys. Bot
+accounts cannot be created through the operator CLI, only in the app.
 
 ## 6. Traps
 

@@ -118,7 +118,7 @@
       `curiosities` created 2026-11-25 via `operator room create`. `pod15` has an account but no room
       (14 room names were requested) — add it if the fifteenth pod is real. Then the URL **and** the
       credentials on the board, plus one sentence about accepting the certificate warning.
-- [ ] **Decide the bridge credentials for Task 7.** One incoming webhook per pod room (create in the
+- [ ] **Decide the bridge credentials for Task 4.** One incoming webhook per pod room (create in the
       UI; not available from the operator CLI) is enough for MQTT → chat; a single `bridge` bot
       covers the reverse direction. Test one self-registration too, since
       `[auth] direct_registration = true` and there is no SMTP behind it.
@@ -140,10 +140,10 @@
 
 ## Before the next semester (reset)
 
-- [ ] **Combine Module 4's stretchers.** The module now has four core plus three optional tasks (CoAP door,
-      router threshold service, chat bridge), which is too many for one day. Candidates: fold the router
-      threshold service into the bridge task as one "second consumer" step, or make the CoAP door the
-      price of admission for the bridge instead of a task of its own.
+- [ ] **Watch the timing of the four new tasks.** Module 4 is now HTTP baseline → MQTT deep dive → a
+      little CoAP → bridges (at least three, one reverse). If the day runs short, Task 3 (CoAP) is the
+      one to drop or hand out as homework; the bridges must not be the thing that gets cut. The router
+      MicroPython service from the old module survives only as one possible bridge target.
 
 - [ ] **Rename the closing section in Modules 1 and 2 to `## 📚 Resources`.** Modules 3–9 were
       renamed in WS 2026/27, because the section now also carries comparison material (Tailscale,

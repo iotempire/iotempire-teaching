@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reference for Module 4 Task 5 — the AC unit with two doors.
+"""Reference for Module 4 Task 3 — the AC unit with two doors.
 
 One process, one temperature, two protocols:
 
@@ -21,9 +21,9 @@ main thread with a `while True` — that is what the asyncio task below is for.
 Run
 ---
     uv add "paho-mqtt>=2,<3" aiocoap
-    BROKER=192.168.14.1 BASE=pod14/cold/ac python coap_unit.py
+    BROKER=192.168.14.1 BASE=cold/ac python coap_unit.py
 
-BROKER defaults to the pod router; BASE must match the topic tree from Task 1.
+BROKER defaults to the pod router; BASE must match the topic tree from Task 2.
 Environment variables are read once at import, so a typo means an empty tree
 rather than an error — print them if nothing arrives.
 """
@@ -39,7 +39,7 @@ import paho.mqtt.client as mqtt
 from aiocoap.numbers.codes import Code
 
 BROKER = os.environ.get("BROKER", "192.168.14.1")
-BASE = os.environ.get("BASE", "pod14/cold/ac")
+BASE = os.environ.get("BASE", "cold/ac")
 COAP_PORT = int(os.environ.get("COAP_PORT", "5683"))
 
 # The single source of truth. Both doors touch only this.
@@ -71,10 +71,9 @@ def on_message(client, userdata, msg):
 
 mqttc = mqtt.Client(
     mqtt.CallbackAPIVersion.VERSION2,
-    # derive the id from the topic base: two students running the reference
-    # under the same client_id kick each other off the broker, which looks
-    # like a flaky network and is not.
-    client_id="ac-dual-" + BASE.replace("/", "-"),
+    # unique per process: two students sharing a client_id kick each other off
+    # the broker, which looks like a flaky network and is not.
+    client_id=f"ac-dual-{os.getpid()}",
 )
 mqttc.will_set(f"{BASE}/status", "offline", qos=1, retain=True)
 mqttc.on_connect = on_connect
