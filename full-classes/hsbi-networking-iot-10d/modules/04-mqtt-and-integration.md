@@ -2,7 +2,7 @@
 
 [← Back to Module 3](./03-overlay-and-mesh-networks.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-wireless-technologies-and-espnow.md)
 
-**Course placement:** Fri 2026-11-27 — the messaging and integration day. Task 1 is pre-work; the session itself starts with the pod check-in and the warehouse.
+**Course placement:** Fri 2026-11-27 — the messaging and integration day. There is no pre-work task: five minutes with the [protocol and port table](./Z-resources-bank.md#protocol-port-table) is enough, and the session starts with the pod check-in and the warehouse.
 
 ## 🎯 Learning Goals
 
@@ -10,7 +10,7 @@ This module gives you the opportunity to explore decoupled messaging and system 
 
 By the end of this module, you can:
 
-1. Explain the MQTT mechanisms — topic hierarchy, QoS levels, retained messages, and the Last Will and Testament — and place MQTT against CoAP and HTTP, in the layer model and on the wire.
+1. Explain the MQTT mechanisms — topic hierarchy, QoS levels, retained messages, and the Last Will and Testament — and place MQTT against CoAP and HTTP **on the wire**: what each costs in transport, latency, and security posture. The layer model itself is [Module 1's](./01-foundations-and-masterclass.md) job, not a second lecture here.
 2. Build a command-and-dashboard flow on **your pod's Node-RED on the class cluster**.
 3. Write an event-driven **integration service in Python or Micropython** on your own machine or on the router.
 4. **Simulate a device before it exists** — an AC unit mock-up with a temperature and an on/off HVAC — and then swap the simulation for another publisher without changing a line downstream.
@@ -25,12 +25,11 @@ Operations lead **Rosa Klein** asks the question that changes the architecture: 
 
 **Your challenge.** Decouple the warehouse with MQTT and prove the decoupling works. You are done when you can show:
 
-1. A protocol map that places MQTT, CoAP, HTTP, SSH, and Telnet in OSI and TCP/IP, with the transport and the security posture.
-2. A topic hierarchy for the warehouse with wildcards, QoS, retained state, and LWT — and one sentence for each choice.
-3. A retain-and-LWT experiment that shows the broker publishing the will when a client dies without a `DISCONNECT`, with the detection time measured.
-4. A **simulated cooling unit** in Python — a temperature that drifts, an HVAC that answers commands — plus an integrator that closes the loop.
-5. A Node-RED flow on your pod's instance that renders the warehouse and sends a command, and a dashboard that keeps working when the integrator is stopped.
-6. One paragraph on MQTT vs CoAP vs HTTP for this warehouse.
+1. A topic hierarchy for the warehouse with wildcards, QoS, retained state, and LWT — and one sentence for each choice.
+2. A retain-and-LWT experiment that shows the broker publishing the will when a client dies without a `DISCONNECT`, with the detection time measured.
+3. A **simulated cooling unit** in Python — a temperature that drifts, an HVAC that answers commands — plus an integrator that closes the loop.
+4. A Node-RED flow on your pod's instance that renders the warehouse and sends a command, and a dashboard that keeps working when the integrator is stopped.
+5. One paragraph on MQTT vs CoAP vs HTTP for this warehouse — transport, cost, and security posture.
 
 **The cooling unit is the trick that makes the day possible.** Nobody waits for hardware: the AC is a Python script with a fake temperature and a fake compressor, and it behaves like a device — it publishes, it listens for commands, it dies when you kill it. When a real node appears (an M5StickC, if your pod has one), you swap the publisher and nothing downstream changes. That is the abstraction, and today you can see it work twice.
 
@@ -46,11 +45,12 @@ Split something into its own file only when a section outgrows the page.
 - `## MQTT experiments` — the retained value, the will, the detection time, the QoS observations.
 - `## Simulated warehouse` — the AC unit, the HVAC, the integrator, and the swap.
 - `## Node-RED flow` — the exported flow JSON and the dashboard/command proof (plus the bridge, if you built it).
+- `## CoAP experiment` — optional: the second door, the forwarded port, and the sentence on what UDP cost.
 - `## Story seeds` — optional: the odd bits worth turning into a story later.
 
 ### Three rules that keep this clean
 
-- **Stay inside the pod LAN or the overlay.** The broker is anonymous and has **no TLS in this lab** (port `1883` only; TLS is a later topic, not a task today). Do not expose it to the WAN except in the controlled port-forward test from Module 2.
+- **Stay inside the pod LAN or the overlay.** The broker is anonymous and has **no TLS in this lab** (port `1883` only; TLS is a later topic, not a task today). Do not expose it to the WAN except in the controlled port-forward test from Module 2. The posture of every other protocol on the day — which port is plaintext, which is not — is in the [protocol and port table](./Z-resources-bank.md#protocol-port-table).
 - **No secrets on the broker.** No credentials, no personal data, no other pod's traffic. Topic names are not a security boundary.
 - **One owner for the topic tree.** Agree the `pod<NN>/...` prefix and the command/state split before anyone publishes. A second tree is how dashboards lie.
 
@@ -62,62 +62,20 @@ The day opens with a pod check-in: one artefact from Modules 1–3, one open que
 
 | # | Task | You produce | Proves | Exchange question |
 |---|---|---|---|---|
-| 1 | **Place the protocols** (pre-work) | A marked protocol map and the three answers | G1 | "Which would you expose, and why?" |
-| 2 | **Design the topic tree** | The hierarchy and the QoS/retain/LWT reasons | G1, G4 | "Why does the sensor not need to know who is listening?" |
-| 3 | **Prove retain and LWT** | The retained will, the timing, the QoS notes | G1 | "What happens when the client dies without `DISCONNECT`?" |
-| 4 | **Simulate the warehouse** | An AC unit, an HVAC, an integrator, and the swap | G3, G4 | "What changed downstream when the mock became real?" |
-| 5 | **Build the Node-RED flow** | The exported flow and the dashboard/command proof | G2 | "Where does the logic live, and what if Node-RED dies?" |
+| 1 | **Design the topic tree** | The hierarchy and the QoS/retain/LWT reasons | G1, G4 | "Why does the sensor not need to know who is listening?" |
+| 2 | **Prove retain and LWT** | The retained will, the timing, the QoS notes | G1 | "What happens when the client dies without `DISCONNECT`?" |
+| 3 | **Simulate the warehouse** | An AC unit, an HVAC, an integrator, and the swap | G3, G4 | "What changed downstream when the mock became real?" |
+| 4 | **Build the Node-RED flow** | The exported flow and the dashboard/command proof | G2 | "Where does the logic live, and what if Node-RED dies?" |
+| ◇ | **Give the warehouse a CoAP door** | A second door on the same unit, plus one forwarded UDP port | G1, G4 | "Which would you put on a battery-powered sensor, and why?" |
 | ◇ | **The threshold service on the router** | A MicroPython service on the router | G3 | "Why is this a service, not Node-RED?" |
-| ◇ | **Bridge the warehouse into the chat** | A Node-RED flow that carries one event across the chat boundary, either direction | G3, G4 | "Which side should retry when the chat is down?" |
+| ◇ | **Bridge the warehouse into the chat** | A Node-RED flow across two of the four doors, either direction | G3, G4 | "Which side should retry when the chat is down?" |
 
 *Hardware per pod:* the Module 2 router with Mosquitto, your laptops (Python 3, no admin rights needed), your pod's Node-RED on the cluster — address and port on the board — and, if your pod has one, an M5StickC as an optional extra publisher for the swap.
 
 ## The Build — **Challenging**
 
-### ★ Task 1 — Place the protocols
 
-**Proves:** Goal 1 · **Produces:** the marked protocol map and three short answers.
-
-**Pre-work.** Do this before the session; ten minutes with the table is enough. It is the vocabulary the rest of the day uses.
-
-The OSI model is the reference dictionary; TCP/IP is what the operating system implements. Layers 5–7 of OSI collapse into the TCP/IP **Application** layer, which is why "it is a layer-7 protocol" tells you almost nothing.
-
-| OSI | TCP/IP | What lives there | Examples |
-|---|---|---|---|
-| 7 — Application | Application | Protocols that do useful work | DNS, DHCP, NTP, HTTP, SSH, Telnet, MQTT, CoAP, Modbus TCP |
-| 6 — Presentation | Application | Encoding, encryption, compression | TLS, JSON, CBOR, Protobuf |
-| 5 — Session | Application | Session setup, teardown, resumption | SSH session, TLS session, MQTT session |
-| 4 — Transport | Transport | Process-to-process delivery | TCP, UDP, QUIC |
-| 3 — Network | Internet | Addressing and routing | IPv4, IPv6, ICMP |
-| 2 — Data link | Link | Frames on the local medium | Ethernet, Wi-Fi, ARP |
-| 1 — Physical | Link | Bits on the wire or in the air | Twisted pair, fiber, 2.4/5 GHz radio |
-
-| Protocol | Port / transport | Security posture |
-|---|---|---|
-| DNS | 53 UDP/TCP | plaintext; DoT/DoH encrypt it |
-| DHCP | 67/68 UDP | plaintext, LAN only |
-| NTP | 123 UDP | plaintext; NTS exists |
-| HTTP / HTTPS | 80 / 443 TCP | plaintext / TLS |
-| SSH | 22 TCP | encrypted; also your tunnel tool from Module 2 |
-| Telnet | 23 TCP | plaintext — do not use |
-| MQTT | 1883 TCP (8883 TLS) | **today: 1883, no TLS** |
-| CoAP | 5683 UDP (5684 DTLS) | DTLS / OSCORE |
-| Modbus TCP | 502 TCP | no security |
-
-The legacy mail and file protocols the module handbook names — SMTP, POP3, FTP, SNMP, TFTP — are in the [resource bank](./Z-resources-bank.md#protocol-port-table) with ports and security posture. They are not part of the lab; the point is the layer and the posture, not the product.
-
-**Theory you need.** The layer tells you what a protocol can assume; the transport tells you what it costs. DNS, DHCP and NTP use UDP because a lost answer is cheaper than a connection; MQTT and HTTP use TCP because the stream must arrive in order. CoAP is the interesting middle: HTTP-like methods over UDP, with confirmable messages and observe. Being "application layer" says nothing about whether something is encrypted.
-
-**Do.** Answer these three before the session:
-1. Which of these would you expose to the internet without a wrapper, and why?
-2. Why do CoAP, DHCP and NTP use UDP while MQTT and HTTP use TCP?
-3. Where would SSH or Telnet help you troubleshoot, and why is Telnet still in the table?
-
-> **Story hook.** *Rosa's question.* The sensor should not need to know who is listening. The protocol map is how you decide *where* that decoupling belongs.
-
-> **Show and ask.** Show your marked map. *"Which would you expose, and why?"*
-
-### ★ Task 2 — Design the topic tree
+### ★ Task 1 — Design the topic tree
 
 **Proves:** Goals 1 and 4 · **Produces:** `## Topic plan` with the hierarchy, the wildcards, and one line each for QoS, retain and LWT.
 
@@ -162,7 +120,7 @@ pod<NN>/+/+/env              dashboard wildcard: every device, every zone
 
 > **Show and ask.** Show your tree. *"Why does the sensor not need to know who is listening?"*
 
-### ★ Task 3 — Prove retain and LWT
+### ★ Task 2 — Prove retain and LWT
 
 **Proves:** Goal 1 · **Produces:** the retained will, the measured detection time, and three QoS notes.
 
@@ -196,7 +154,7 @@ Everything here runs **on the router**, so no laptop tool is needed. If the clie
 
 > **Show and ask.** Show the transition and the timing. *"What happens when the client dies without `DISCONNECT`?"*
 
-### ★ Task 4 — Simulate the warehouse
+### ★ Task 3 — Simulate the warehouse
 
 **Proves:** Goals 3 and 4 · **Produces:** `## Simulated warehouse` — three small scripts, the loop running, and the swap.
 
@@ -275,7 +233,7 @@ Watch with `mosquitto_sub -h 192.168.14.1 -v -t 'pod07/#'` (run it on the router
 
 > **Show and ask.** Show the loop and the swap. *"What changed downstream when the mock became real?"*
 
-### ★ Task 5 — Build the Node-RED flow
+### ★ Task 4 — Build the Node-RED flow
 
 **Proves:** Goal 2 · **Produces:** the exported flow JSON and the dashboard plus a command on the wire.
 
@@ -291,6 +249,36 @@ Watch with `mosquitto_sub -h 192.168.14.1 -v -t 'pod07/#'` (run it on the router
 
 > **Show and ask.** Show the gauge and the override, then stop the flow. *"Where does the logic live, and what if Node-RED dies?"*
 
+### ◇ Task 5 (Stretcher) — Give the warehouse a CoAP door
+
+**Proves:** Goals 1 and 4 · **Produces:** a CoAP endpoint on the same simulated unit, one forwarded UDP port, and one sentence on what the transport bought and cost.
+
+The unit from Task 3 already speaks MQTT. Give it a second door without changing what it knows.
+
+1. In the same `uv` environment: `uv add aiocoap`. Add a small server to `ac_unit.py`: a `Resource` whose `render_get` returns `{"temp": …, "hvac": …}`, and a `render_post` on `warehouse/set` that flips the HVAC. **Both doors must share the same two variables** — that is the whole exercise. The MQTT loop blocks, so run the CoAP context in a background thread (`threading.Thread(target=asyncio.run, args=(main_coap,), daemon=True)`) and let the resources read the module-level `temp` and `hvac`.
+2. **Prove it inside the pod first.** From a second laptop (or a second terminal): `aiocoap-client coap://<laptop LAN IP>:5683/warehouse/temp`. Same subnet, no rule, no router — CoAP between two peers is just UDP.
+3. **Now cross the subnet boundary.** Node-RED is not in your LAN, so it needs a door: on the router, a port forward **UDP `5683` → your laptop** (Network → Firewall → Port Forwards). You did the TCP version in Module 2; UDP is the same screen and a different NAT problem. **One forward per server** — two laptops serving CoAP means `5683` → A and `5684` → B, because there is no broker to multiplex them. Quick check from the router: `nc -u -w 1 <laptop LAN IP> 5683`; silence is not proof, but a refusal is a fast answer.
+4. In Node-RED, install `node-red-contrib-coap` and add a `coap request` node next to the `mqtt in` node from Task 4, polling `coap://<router overlay address>:5683/warehouse/temp`. Both feed the same gauge.
+5. Break one door at a time: stop the MQTT publisher, read the gauge; stop the CoAP server, read it again. Note how differently the two failures look.
+6. Log one sentence: **what did UDP buy, and what did it cost?**
+
+> **Count the rules — this is the comparison the module is after.**
+>
+> | | What must be reachable | Rules to keep correct | A laptop with a new IP |
+> |---|---|---|---|
+> | MQTT | one broker, on the router | **none** — every client dials out | nothing breaks |
+> | CoAP, others pull | every server | **one forward per server** | that device, silently |
+> | CoAP, device pushes | one collector | one rule, set up once | nothing breaks |
+> | HTTP, others poll | every server | one forward per server | that device, silently |
+>
+> Three clients and one server need no rule at all; three servers and one client need three. That is why a warehouse with twenty sensors and four dashboards talks MQTT: the broker is a **rendezvous point**, so reachability is configured once instead of once per pair. CoAP is not worse — it is the honest peer-to-peer bill, which is exactly what you want on a constrained device that only ever talks to one neighbour. And note the third row: push into a single collector gives CoAP MQTT-like economics, which is precisely the idea MQTT turned into a protocol.
+
+**Theory you need.** The layer tells you what a protocol can assume; the transport tells you what it costs. CoAP is HTTP's method model over UDP — confirmable messages with retransmission instead of a stream, `observe` instead of polling, `5683` instead of `80`. The price is that anything unreliable in the path becomes your application's problem.
+
+> **Direction matters more than the protocol.** The cluster cannot reach a laptop on the pod LAN: only the router stands in both worlds, so reaching *in* from the cluster needs the forward above. Invert the direction and you need no router rule at all — a `coap in` node in your pod's Node-RED becomes the server and your laptop POSTs to `coap://<Node-RED host>:<port>/…` — but that costs a UDP port mapped into the container plus one overlay rule on the cluster host, and it turns the device back into a client that must know its collector. A third way is the [Module 3 laptop-join stretcher](./03-overlay-and-mesh-networks.md#the-build--challenging): with a Nebula client the laptop has its own overlay address, so **both** directions work with no forward at all — at the price of a client, a bundle, and an inbound UDP rule in that laptop's own policy. One door either way; the pull direction teaches the most about reachability.
+
+> **Show and ask.** Show the same reading arriving twice, over two protocols. *"Which would you put on a battery-powered sensor, and why?"*
+
 ### ◇ Task 6 (Stretcher) — The threshold service on the router
 
 **Proves:** Goal 3 · **Produces:** a MicroPython service on the router that acts on the warehouse telemetry.
@@ -305,14 +293,17 @@ In [Module 3](./03-overlay-and-mesh-networks.md#the-build--challenging) you made
 
 ### ◇ Task 7 (Stretcher) — Bridge the warehouse into the chat
 
-**Proves:** Goals 3 and 4 · **Produces:** a Node-RED flow that carries one event across the boundary in **either or both** directions — MQTT → chat, chat → MQTT, or a loop that proves both.
+**Proves:** Goals 1, 3 and 4 · **Produces:** a Node-RED flow that carries one event across a boundary in **either or both** directions, between two of the four doors the warehouse now has: MQTT, CoAP, a chat webhook, Telegram or Discord.
 
 *The chain below is an **example, not a recipe**.* Any bridge that survives the discussion question counts, and the reverse direction is often the more interesting one.
 
-1. **One example, MQTT → chat:** `mqtt in` on `pod<NN>/cold/alarm` → `function` → `http request` POST to a room's incoming webhook (room settings → integrations; the address is on the board). One alarm in, one message out.
+1. **One example, a topic → chat:** `mqtt in` (or a `coap request`) → `function` → `http request` POST to a room's incoming webhook (room settings → integrations; the address is on the board). One alarm in, one message out.
 2. **The other direction:** let an incoming message *act* on something in your own router network — a command topic the router or an ESP obeys, a lamp, a relay. A human writes prose, a machine needs a typed command; your bridge is where the translation happens.
-3. **Do not forward every reading.** Rate is the design question: alarm, state change, or periodic digest. Say which, and why, in one sentence.
-4. Save the flow as `bridge.json` and screenshot both ends. **One direction proved is enough; both is better.**
+3. **Mix the doors.** MQTT in and CoAP out, a chat message that moves a CoAP resource, a Telegram alert from a topic. Two protocols are enough to make the point — the interesting pairs are the ones that disagree about reliability.
+4. **Do not forward every reading.** Rate is the design question: alarm, state change, or periodic digest. Say which, and why, in one sentence.
+5. Save the flow as `bridge.json` and screenshot both ends. **One direction proved is enough; both is better.**
+
+> **Exposure question.** Which of these doors would you put on the internet, and which only inside the overlay? The webhook is an **outbound** door with a secret URL, your CoAP forward is an **inbound** door into the pod LAN, and Discord or Telegram is somebody else's server. Say which you would leave open after the class, and who holds the credential.
 
 **Theory you need.** A bridge is an **adapter, not a new protocol**: it maps one address space onto another and decides what *not* to carry. A topic is chosen by the publisher and carries a typed payload plus the last value; a room is joined by people and carries prose plus history. The HTTP call is the easy part. The design questions are rate, direction and failure: what happens to an alarm raised while the chat is unreachable — retry, drop, or buffer?
 
@@ -328,6 +319,7 @@ Treat every answer as a **claim to test**, not a fact, and run it against your o
 - "Explain retained messages and Last Will and Testament with a concrete offline-detection example. What does the broker publish, and when?"
 - "Design an MQTT topic hierarchy for a warehouse with several zones, sensors, and actuators. Justify the levels and the command/state split."
 - "My Python subscriber misses messages when it restarts. Which MQTT features fix this, and what are their limits?"
+- "Compare MQTT over TCP with CoAP over UDP for a battery-powered sensor that reports every ten minutes. When does `observe` beat polling, and what does each cost when the link drops packets?"
 
 Record where the model is wrong, vague, or over-confident in `## Study log`.
 
@@ -339,15 +331,15 @@ We dropped the formal harvest. Keep collecting anyway: note the odd bits in `## 
 
 A suggestion, not a checklist — the learning goals are the contract, and an artefact of your own that proves them is worth more than a ticked list.
 
-1. **Protocol map (goal 1):** the marked OSI/TCP-IP map, the port/transport table, and the three answers from Task 1.
-2. **Topic plan (goals 1 and 4):** the hierarchy, the wildcard, the command/state split, and one line each for QoS, retain and LWT.
-3. **Retain and LWT (goal 1):** the `online` → `offline` transition, the measured detection time, and one paragraph on why a graceful disconnect stays silent.
-4. **Simulated warehouse (goals 3 and 4):** the AC unit, the integrator, the loop in the terminal, and the swap — with the one sentence on why nothing downstream changed.
-5. **Node-RED flow (goal 2):** the exported `flow.json`, the gauge, the override command, and the observation of what still works with the flow stopped.
+1. **Topic plan (goals 1 and 4):** the hierarchy, the wildcard, the command/state split, and one line each for QoS, retain and LWT.
+2. **Retain and LWT (goal 1):** the `online` → `offline` transition, the measured detection time, and one paragraph on why a graceful disconnect stays silent.
+3. **Simulated warehouse (goals 3 and 4):** the AC unit, the integrator, the loop in the terminal, and the swap — with the one sentence on why nothing downstream changed.
+4. **Node-RED flow (goal 2):** the exported `flow.json`, the gauge, the override command, and the observation of what still works with the flow stopped.
+5. **Protocol choice (goal 1):** one paragraph on MQTT vs CoAP vs HTTP — transport, cost, and what you would put on a battery-powered sensor.
 6. **The log and the exchanges:** `## Study log` and `## Discussion log`.
-7. **Protocol choice (goal 1):** one paragraph on MQTT vs CoAP vs HTTP for this warehouse.
+7. **Optional:** the CoAP door — the endpoint, the forwarded port, the two readings, and the sentence on what UDP cost.
 8. **Optional:** the MicroPython threshold service on the router, and the two-integrator comparison.
-9. **Optional:** the bridge — `bridge.json`, whichever direction(s) you built, and the one sentence on rate and failure.
+9. **Optional:** the bridge — `bridge.json`, whichever direction(s) and doors you used, and the one sentence on rate and failure.
 
 > [!IMPORTANT]
 > Never commit secrets, credentials, private keys, or a broker configuration with passwords. Where you did not work alone, link your pod mates and your sources.
@@ -359,6 +351,8 @@ A suggestion, not a checklist — the learning goals are the contract, and an ar
 - [Node-RED documentation](https://nodered.org/docs/) — flows, context, and dashboards.
 - [`paho-mqtt` documentation](https://eclipse.dev/paho/files/paho.mqtt.python/html/index.html) — the Python client, including the 2.x callback API.
 - [CoAP (RFC 7252)](https://www.rfc-editor.org/rfc/rfc7252) and [coap.technology](https://coap.technology/) — the constrained-device alternative.
+- [`aiocoap`](https://aiocoap.readthedocs.io/) — the Python CoAP library in Task 5: client, server and `ObservableResource`.
+- [`node-red-contrib-coap`](https://flows.nodered.org/node/node-red-contrib-coap) — the `coap request`, `coap in` and `coap response` nodes.
 - [MicroPython `umqtt`](https://github.com/micropython/micropython-lib/tree/master/micropython/umqtt.simple) — the small MQTT client for the router path.
 - [Chatto](https://github.com/chattocorp/chatto) — the self-hosted chat the class uses; compare a room with a topic. Its [self-hosting docs](https://docs.chatto.run/) cover the HTTP API and incoming webhooks that Task 7 talks to.
 - The [resource bank](./Z-resources-bank.md) — the [protocol/port table](./Z-resources-bank.md#protocol-port-table), the [`uv` environment](./Z-resources-bank.md#python-environment-with-uv-optional), and the [MQTT command cheat sheet](./Z-resources-bank.md#mqtt-command-cheat-sheet).

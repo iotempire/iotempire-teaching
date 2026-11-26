@@ -140,6 +140,11 @@
 
 ## Before the next semester (reset)
 
+- [ ] **Combine Module 4's stretchers.** The module now has four core plus three optional tasks (CoAP door,
+      router threshold service, chat bridge), which is too many for one day. Candidates: fold the router
+      threshold service into the bridge task as one "second consumer" step, or make the CoAP door the
+      price of admission for the bridge instead of a task of its own.
+
 - [ ] **Rename the closing section in Modules 1 and 2 to `## 📚 Resources`.** Modules 3–9 were
       renamed in WS 2026/27, because the section now also carries comparison material (Tailscale,
       NetBird, Headscale) and not only "go deeper" links. Modules 1 and 2 still say
