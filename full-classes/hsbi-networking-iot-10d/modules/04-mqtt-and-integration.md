@@ -2,9 +2,9 @@
 
 [← Back to Module 3](./03-overlay-and-mesh-networks.md) | [Quick module index](./00-index.md) | [Next: Module 5 →](./05-wireless-technologies-and-espnow.md)
 
-**Course placement:** Fri 2026-11-27 — the messaging and integration day. There is no pre-work task: five minutes with the [protocol and port table](./Z-resources-bank.md#protocol-port-table) is enough, and the session starts with the pod check-in and the warehouse.
+**Course placement:** Fri 2026-11-27 — the messaging and integration day.
 
-**This day is experimental.** The tasks below say what you are after, not every keystroke. Some things will break — a bridge, a port, a library, the chat — and a broken thing you can explain is worth more than a copied flow that happens to work. When something fails: read the error, change one variable, tell another pod, then ask us. Keep a list of what broke; it goes into `## Study log` and it is the best part of the day.
+**Attention:** This day is experimental. Therefore, tasks below say what you are after, not every keystroke. Some things will break — a bridge, a port, a library, the chat — and a broken thing you can explain is worth more than a copied flow that happens to work. When something fails: read the error, change one variable, tell another pod, then ask us. Keep a list of what broke and enjoy the exploration.
 
 ## 🎯 Learning Goals
 
