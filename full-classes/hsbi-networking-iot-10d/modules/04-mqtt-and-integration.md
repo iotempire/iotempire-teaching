@@ -47,6 +47,7 @@ Split something into its own file only when a section outgrows the page.
 - `## MQTT experiments` — QoS 0/1/2, the retained value, the will, the detection time.
 - `## CoAP experiment` — the second door, the forward, and the sentence on what UDP cost.
 - `## Bridges` — the three flows, what crossed, what broke.
+- `## Hardware experiment` — optional: what you built, the payload comparison, and what the mock had decided for you.
 - `## Study log` — the theory you actually needed, the commands that surprised you, the LLM answers you checked. One pod member keeps it; the others link to it and add one sentence.
 - `## Discussion log` — one line per exchange: who listened, what they asked, what you changed. This is personal.
 - `## Story seeds` — optional: the odd bits worth turning into a story later.
@@ -69,8 +70,9 @@ As usual, there is no separate study phase: each task gives you the theory when 
 | 2 | **MQTT deep dive** | The tree and the QoS/retain/will measurements | G1 | "What does the broker take off your hands?" |
 | 3 | **A little bit of CoAP** | A second door on the same data, plus one forwarded port | G1 | "Which would you put on a battery-powered sensor?" |
 | 4 | **Bridges — build at least three** | Three flows crossing systems, one of them reverse | G2, G3, G4 | "Which side should retry?" |
+| ◇ | **Take it onto real hardware** (optional, open-ended) | One device of your choice publishing into your tree | G3, G4 | "What did the mock hide from you?" |
 
-*Hardware per pod:* the Module 2 router with Mosquitto, your laptops (Python 3, no admin rights needed), your pod's Node-RED on the cluster — address and port on the board — and, if your pod has one, an M5StickC as an optional extra publisher.
+*Hardware per pod:* the Module 2 router with Mosquitto, your laptops (Python 3, no admin rights needed), your pod's Node-RED on the cluster — address and port on the board — and, if your pod has one, an M5StickC as an optional extra publisher. For the hardware stretcher your instructor brings **ESP32/M5Stack boards and a box of sensors on request**.
 
 ## The Build — **Challenging**
 
@@ -172,6 +174,26 @@ This is the day's real work. A bridge is where two worlds meet, and each one you
 
 > **Show and ask.** Show one event crossing, then stop the bridge. *"Which side should retry?"*
 
+### ◇ Task 5 (Stretcher) — Take it onto real hardware
+
+**Proves:** Goals 3 and 4 · **Produces:** one device of your own choosing, publishing into your own tree, and a short note on what surprised you.
+
+Completely optional, and open-ended on purpose. Do it when the bridges work — or when you are stuck and want a different kind of stuck. Your instructor brings **ESP32 and M5Stack hardware** and a box of **sensors on demand**: ask before you take one, and hand it back working.
+
+**Pick a door and follow it:**
+
+- **A button.** The smallest useful device: one topic, one payload, no dashboard. If you do one thing here, do this.
+- **A sensor.** Temperature, light, distance — whatever is in the box. Publish on an interval and compare the payload with your simulated unit. If the shape matches, you can swap it in and no consumer notices: that is Goal 4 on real silicon.
+- **CoAP on the device.** The same reading, no broker. Which is easier to reach from Node-RED, and why is the answer different from MQTT?
+- **IoTempower**, the fleet path: [IoTempower](https://iotempower.us) flashes and configures nodes from your laptop with a `node.conf`, the tool Module 1 touched in its [open-ended explorations](../../../workshops/mastering-iot-solutions/README.md#open-ended-explorations). Longest path, closest to a real deployment.
+- **Something none of us thought of.** Explicitly allowed. Say what you tried and what it taught you.
+
+> **A shortcut that usually works.** Install PlatformIO in a throwaway environment with `uv tool install platformio`, then hand an agent the fixed facts — the board, your pod's Wi-Fi name and password, the broker's address, the topic and the payload shape — and ask it for a minimal sketch that publishes when you press the button. That is often enough to have a device talking in one sitting. Read what comes back before you flash it: board definitions and pin numbers are exactly where agents guess, and credentials belong in a file the sketch reads, not in the prompt or the repository. Your instructor still prefers **[IoTempower](https://iotempower.us)** for anything you want to keep: it is reproducible from a `node.conf`, it deploys over the air, and it does not depend on a conversation you cannot repeat.
+
+**Theory you need.** A device is a client with a power budget and a flaky radio. Wi-Fi join time, keepalive against battery life, a broker that may be unreachable at boot, and credentials that must not be committed — your simulation quietly decided every one of those for you.
+
+> **Show and ask.** Show the device in `mosquitto_sub` or on the dashboard, then unplug it. *"What did the mock hide from you?"*
+
 ## Ask an LLM — then verify
 
 Treat every answer as a **claim to test**, not a fact, and run it against your own broker.
@@ -200,6 +222,7 @@ A suggestion, not a checklist — the learning goals are the contract, and an ar
 6. **Bridges (goals 2 and 3):** the three flow JSONs, one of them reverse, and the line per bridge on rate, direction and failure.
 7. **The log and the exchanges:** `## Study log`, `## Discussion log`, and the list of what broke.
 8. **Protocol choice (goal 1):** one paragraph on MQTT vs CoAP vs HTTP — transport, cost, and what you would put on a battery-powered sensor.
+9. **Optional — hardware (goals 3 and 4):** the device, the topic it publishes to, and one sentence on what the simulation had quietly decided for you.
 
 > [!IMPORTANT]
 > Never commit secrets, credentials, private keys, a webhook URL, or a broker configuration with passwords. Where you did not work alone, link your pod mates and your sources.
@@ -215,6 +238,9 @@ A suggestion, not a checklist — the learning goals are the contract, and an ar
 - [`aiocoap`](https://aiocoap.readthedocs.io/) — the Python CoAP library in Task 3: client, server and `ObservableResource`.
 - [`node-red-contrib-coap`](https://flows.nodered.org/node/node-red-contrib-coap) — the `coap request`, `coap in` and `coap response` nodes.
 - [MicroPython `umqtt`](https://github.com/micropython/micropython-lib/tree/master/micropython/umqtt.simple) — the small MQTT client for the router path.
+- [M5Stack documentation](https://docs.m5stack.com/) — the boards and sticks the instructor brings; their Arduino examples are the shortest path to a first publish.
+- [PubSubClient](https://pubsubclient.knolleary.net/) — the usual small MQTT client for Arduino/PlatformIO boards.
+- [IoTempower](https://iotempower.us) — declarative node setup and OTA deploy; Module 7 takes it apart.
 - [Chatto](https://github.com/chattocorp/chatto) — the self-hosted chat the class uses; compare a room with a topic. Its [self-hosting docs](https://docs.chatto.run/) cover the HTTP API and incoming webhooks that Task 4 talks to.
 - The [resource bank](./Z-resources-bank.md) — the [protocol/port table](./Z-resources-bank.md#protocol-port-table), the [`uv` environment](./Z-resources-bank.md#python-environment-with-uv-optional), and the [MQTT command cheat sheet](./Z-resources-bank.md#mqtt-command-cheat-sheet).
 

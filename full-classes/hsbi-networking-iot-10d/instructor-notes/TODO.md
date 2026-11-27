@@ -142,6 +142,9 @@
 
 ## Before the next semester (reset)
 
+- [ ] **Pack the hardware box for the stretcher.** ESP32/M5Stack boards and the sensors students will
+      ask for (temperature, light, distance). Task 5 is optional and on demand — bring a few of each,
+      and keep a note of what went out and came back.
 - [ ] **Watch the timing of the four new tasks.** Module 4 is now HTTP baseline → MQTT deep dive → a
       little CoAP → bridges (at least three, one reverse). If the day runs short, Task 3 (CoAP) is the
       one to drop or hand out as homework; the bridges must not be the thing that gets cut. The router
