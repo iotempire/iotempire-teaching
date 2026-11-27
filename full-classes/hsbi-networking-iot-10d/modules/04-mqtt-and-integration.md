@@ -146,6 +146,8 @@ Now take the same reading through the MQTT broker (your Mosquitto on the router)
 | Reliability | QoS 0/1/2 | confirmable messages, retries | TCP |
 | Security | TLS (8883) — **not used today** | DTLS/OSCORE | TLS |
 
+**CoAP appears in this table before you have met it.** Treat that column as a promissory note: [Task 3](#-task-3--a-little-bit-of-coap) is where it stops being a comparison and becomes something you can actually call — and where the missing broker sends its bill.
+
 **Theory you need.** MQTT decouples in three dimensions: **space** (publishers and subscribers know only the broker), **time** (retained messages and sessions let a late subscriber catch up), and **synchronisation** (publishing is non-blocking). The broker notices a dead client in one of two ways, and the difference matters: a **closed connection** is detected at once, a **silent** one only when the keepalive expires. A graceful `DISCONNECT` is a third case again — the client says goodbye, so the will stays unpublished and the retained state keeps the last true value.
 
 > **You are not done with theory until you answer this:** the broker in this lab is `1883`, plaintext, and anyone on the overlay can read and write everything. What would a real warehouse need, and what does the protocol already give you to build it on? One paragraph in `## Study log`.
