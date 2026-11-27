@@ -29,7 +29,7 @@ Operations lead **Rosa Klein** asks the question that changes the architecture: 
 
 1. An **HTTP endpoint** on your Node-RED that takes a reading from your laptop and shows it — plus one sentence on what the sender had to know.
 2. A **topic tree** with the QoS and retain decisions written down, and the will behaviour you measured.
-3. A **CoAP door** on the same data, reached from another machine.
+3. A **CoAP interface** on the same data, reached from another machine.
 4. **Three bridges** that move an event between different systems, at least one of them in the reverse direction.
 5. One paragraph on MQTT vs CoAP vs HTTP — transport, cost, and security posture.
 
@@ -45,7 +45,7 @@ Split something into its own file only when a section outgrows the page.
 - `## HTTP endpoint` — the Node-RED endpoint, the curl and Python calls, and what the sender had to know.
 - `## Topic plan` — the hierarchy, the wildcard, and one line each for QoS, retain and the will.
 - `## MQTT experiments` — QoS 0/1/2, the retained value, the will, the detection time.
-- `## CoAP experiment` — the second door, the forward, and the sentence on what UDP cost.
+- `## CoAP experiment` — the second interface, the forward, and the sentence on what UDP cost.
 - `## Bridges` — the three flows, what crossed, what broke.
 - `## Hardware experiment` — optional: what you built, the payload comparison, and what the mock had decided for you.
 - `## Study log` — the theory you actually needed, the commands that surprised you, the LLM answers you checked. One pod member keeps it; the others link to it and add one sentence.
@@ -68,7 +68,7 @@ As usual, there is no separate study phase: each task gives you the theory when 
 |---|---|---|---|---|
 | 1 | **Reach the warehouse over HTTP** | An endpoint, two clients, a reading on the dashboard | G1, G2 | "Who had to know whom?" |
 | 2 | **MQTT deep dive** | The tree and the QoS/retain/will measurements | G1 | "What does the broker take off your hands?" |
-| 3 | **A little bit of CoAP** | A second door on the same data, plus one forwarded port | G1 | "Which would you put on a battery-powered sensor?" |
+| 3 | **A little bit of CoAP** | A second interface on the same data, plus one forwarded port | G1 | "Which would you put on a battery-powered sensor?" |
 | 4 | **Bridges — build at least three** | Three flows crossing systems, one of them reverse | G2, G3, G4 | "Which side should retry?" |
 | ◇ | **Take it onto real hardware** (optional, open-ended) | One device of your choice publishing into your tree | G3, G4 | "What did the mock hide from you?" |
 
@@ -101,7 +101,7 @@ Start with the thing MQTT replaces. Frachtflow's first version is one endpoint a
 Now take the same reading through the MQTT broker (your Mosquitto on the router) and see what changes for the sender.
 
 1. **Design the tree.** Your pod owns a broker, so a short tree is enough — `cold/ac/env`, `cold/ac/set`, `cold/ac/status`. Write down the command/state split and the one wildcard you will actually use. Then answer in one sentence: *what would you have to change if all fifteen pods shared one broker?*
-2. **Send your reading through it.** Your Python sender from Task 1 publishes to the tree instead of posting; Node-RED subscribes. The dashboard should not care which door the value came through. That is the whole point.
+2. **Send your reading through it.** Your Python sender from Task 1 publishes to the tree instead of posting; Node-RED subscribes. The dashboard should not care which interface the value came through. That is the whole point.
 3. **Retain.** Publish a state value retained, then start a *new* subscriber and watch it arrive without a publisher running.
 4. **The will — three ways to end a client, and only one of them is the story.**
 
@@ -141,9 +141,9 @@ Now take the same reading through the MQTT broker (your Mosquitto on the router)
 MQTT needs a broker; CoAP does not. Find out what that trades.
 
 1. **Prove it inside the pod first.** Expose the same reading over CoAP on your laptop and read it from the second laptop. Same subnet, no rule, no router — CoAP between two peers is just UDP. Say why that needed no configuration at all.
-2. **Then cross a boundary.** Node-RED is not on your LAN, so it needs a door: one **UDP port forward** on the router (`5683` → your laptop). You did the TCP version in Module 2; UDP is the same screen and a different NAT problem.
+2. **Then cross a boundary.** Node-RED is not on your LAN, so it needs a way in: one **UDP port forward** on the router (`5683` → your laptop). That is [Module 2's *Round 7 — One door*](./02-local-networking-and-gateways.md) again, now for UDP: same screen, different NAT problem.
 3. Read it from Node-RED with a `coap request` node next to your `mqtt in` node. Same gauge, two protocols, one source of truth.
-4. Break one door at a time and compare the two failures.
+4. Break one interface at a time and compare the two failures.
 5. One sentence: **what did UDP buy, and what did it cost?**
 
 A worked server (`coap_unit.py`, MQTT and CoAP on one state) is in the [Task 3 reference lab](../instructor-notes/module4-coap-lab/README.md) — try yours first, then compare. The library for the Python side is [`aiocoap`](https://aiocoap.readthedocs.io/), the Node-RED side is [`node-red-contrib-coap`](https://flows.nodered.org/node/node-red-contrib-coap).
@@ -158,7 +158,7 @@ A worked server (`coap_unit.py`, MQTT and CoAP on one state) is in the [Task 3 r
 
 This is the day's real work. A bridge is where two worlds meet, and each one you build teaches you something the others do not.
 
-1. **Pick three** from the doors you now have: HTTP, MQTT, CoAP, the class chat's incoming webhook, Telegram or Discord, and the router itself (a command topic it obeys). Node-RED is your workbench for all of them.
+1. **Pick three** from the interfaces you now have: HTTP, MQTT, CoAP, the class chat's incoming webhook, Telegram or Discord, and the router itself (a command topic it obeys). Node-RED is your workbench for all of them.
 2. **At least one must run the other way:** something arriving from *outside* your pod makes something happen *inside* it — a message that flips a CoAP resource, a chat line that switches the HVAC, a button on the router.
 3. **Rate is a design decision.** A bridge at one message per reading is a flood. Send the alarm, the state change, or a digest, and say why in one sentence.
 4. **The chat is the most experimental thing on the board.** It may refuse a certificate, hang, or lose its session. That is part of the day, not a reason to stop: capture the error, try once more, and use a Telegram or Discord webhook if it stays broken — each is one URL.
@@ -168,7 +168,7 @@ This is the day's real work. A bridge is where two worlds meet, and each one you
 
 > **Certificate note.** The class chat is HTTPS with a self-signed certificate, so an `http request` node rejects it. Set `msg.rejectUnauthorized = false` for that node, and write one sentence on why that is acceptable *only* inside the overlay.
 
-> **Exposure question.** Which of these doors would you put on the internet, and which only inside the overlay? The webhook is an **outbound** door with a secret URL, the CoAP forward is an **inbound** door into the pod LAN, and Discord or Telegram is somebody else's server. Say which you would leave open after the class, and who holds the credential.
+> **Exposure question.** Which of these would you put on the internet, and which only inside the overlay? The webhook is an **outbound** connection whose secret URL works from anywhere; the CoAP forward is an **inbound** opening you punched into the pod LAN's NAT; and Discord or Telegram is somebody else's server. Say which you would leave open after the class, and who holds the credential.
 
 > **Story hook.** *The warehouse that talks to the city.* Rosa wants an alarm in the chat before anyone opens a dashboard. Nils builds it in an afternoon and learns that the hard part is not the message.
 
@@ -180,7 +180,7 @@ This is the day's real work. A bridge is where two worlds meet, and each one you
 
 Completely optional, and open-ended on purpose. Do it when the bridges work — or when you are stuck and want a different kind of stuck. Your instructor brings **ESP32 and M5Stack hardware** and a box of **sensors on demand**: ask before you take one, and hand it back working.
 
-**Pick a door and follow it:**
+**Choose an experiment:**
 
 - **A button.** The smallest useful device: one topic, one payload, no dashboard. If you do one thing here, do this.
 - **A sensor.** Temperature, light, distance — whatever is in the box. Publish on an interval and compare the payload with your simulated unit. If the shape matches, you can swap it in and no consumer notices: that is Goal 4 on real silicon.
@@ -218,7 +218,7 @@ A suggestion, not a checklist — the learning goals are the contract, and an ar
 2. **Topic plan (goals 1 and 4):** the hierarchy, the wildcard, the command/state split, and one line each for QoS, retain and the will.
 3. **MQTT experiments (goal 1):** the retained value, the will and the measured detection time, the QoS 0/1/2 observations, and the security paragraph.
 4. **The sender and the swap (goals 3 and 4):** the Python service, and the one sentence on why nothing downstream changed when the publisher changed.
-5. **CoAP door (goal 1):** the resource, the forward, the two readings, and the sentence on what UDP cost.
+5. **CoAP interface (goal 1):** the resource, the forward, the two readings, and the sentence on what UDP cost.
 6. **Bridges (goals 2 and 3):** the three flow JSONs, one of them reverse, and the line per bridge on rate, direction and failure.
 7. **The log and the exchanges:** `## Study log`, `## Discussion log`, and the list of what broke.
 8. **Protocol choice (goal 1):** one paragraph on MQTT vs CoAP vs HTTP — transport, cost, and what you would put on a battery-powered sensor.

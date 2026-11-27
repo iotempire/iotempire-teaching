@@ -1,9 +1,9 @@
-# Module 4 CoAP reference — the unit with two doors
+# Module 4 CoAP reference — one state, two interfaces
 
 Tracked instructor material for [Module 4 Task 3](../../modules/04-mqtt-and-integration.md#-task-3--a-little-bit-of-coap).
 Students may read it as a worked example; it is not an answer key to hide.
 
-`coap_unit.py` is the sender from Task 1 with a **second door**: the same
+`coap_unit.py` is the sender from Task 1 with a **second interface**: the same
 `state` dict exposed over CoAP next to the MQTT topics of Task 2. It was smoke-tested
 on the class host (see *Validated* below), because the Python server side is where
 pods get stuck, not the MQTT half they already know.
@@ -32,7 +32,7 @@ CoAP listening on coap://<this host>:5683/warehouse/temp
    aiocoap-client coap://192.168.14.5:5683/warehouse/set --method POST --payload '{"power":"ON"}'
    ```
 
-   Both doors must agree: the MQTT gauge in another terminal changes on the next
+   Both interfaces must agree: the MQTT gauge in another terminal changes on the next
    tick after the CoAP POST.
 
 2. **Across the subnet boundary.** Add the port forward on the router
@@ -52,9 +52,9 @@ CoAP listening on coap://<this host>:5683/warehouse/temp
 
 - **Count the rules.** MQTT needed none; CoAP needed one per reachable server.
   That is the comparison the module is after, not "which protocol is better".
-- **One state, two doors.** The CoAP POST does *not* re-publish to MQTT; the next
+- **One state, two interfaces.** The CoAP POST does *not* re-publish to MQTT; the next
   telemetry tick carries the change. Ask what would break if it did re-publish
-  (the two doors quoting each other, and a command loop under a bad integrator).
+  (the two interfaces quoting each other, and a command loop under a bad integrator).
 - **The failure modes differ.** Kill the MQTT publisher: the gauge freezes on the
   last retained value but CoAP keeps answering. Kill the CoAP server: the MQTT
   side does not notice at all.
@@ -66,7 +66,7 @@ Run on `ulno-oldplex01`, 2026-11-25, against a local Mosquitto — Python 3.13.5
 
 - `GET /warehouse/temp` → `{"temp": 26.8, "hvac": "OFF"}`
 - `POST /warehouse/set {"power":"ON"}` → `2.04 Changed`, and the next `GET` reports
-  `"hvac": "ON"` — the two doors really do share one state
+  `"hvac": "ON"` — the two interfaces really do share one state
 - `POST` with the payload `nonsense` → `4.00 Bad Request`
 - MQTT `cold/ac/env` arrives every tick; `cold/ac/status` reads `online`, then
   `offline` about 10–18 s after a `kill -9`, so the will is registered correctly
@@ -93,6 +93,6 @@ those need the classroom hardware.
 
 ## Extending it for Task 4
 
-The bridge does not care which door the value came from. If a pod wants a CoAP
+The bridge does not care which interface the value came from. If a pod wants a CoAP
 source in the bridge, point the `coap request` node at the same resource and let
 the `http request` node post to the room's webhook. Nothing in this file changes.

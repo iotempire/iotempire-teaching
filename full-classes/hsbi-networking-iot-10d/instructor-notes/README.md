@@ -15,7 +15,7 @@ Prüfungsausschuss.
 | [Assessment & operations](./00-assessment-and-operations.md) | Assessment form, milestone plan, submission hygiene, group accountability and sign-off template, re-examination, privacy, AI assistance |
 | [Nebula session](./nebula-session.md) | Preparing the lighthouse, class CA, bundles, handout, in-session recovery, cleanup |
 | [Chatto session](./chatto-session.md) | The class chat on `oldplex01`: single binary, port 4000 over the overlay, TLS with a self-signed certificate, the one firewall rule, rooms, accounts, and the optional MQTT bridge |
-| [Module 4 CoAP lab](./module4-coap-lab/README.md) | The reference `coap_unit.py` for Task 3: one state, two doors (MQTT and CoAP), three tests from the pod LAN to the cluster, and the traps that cost an afternoon |
+| [Module 4 CoAP lab](./module4-coap-lab/README.md) | The reference `coap_unit.py` for Task 3: one state, two interfaces (MQTT and CoAP), three tests from the pod LAN to the cluster, and the traps that cost an afternoon |
 | [Collecting portfolios](./portfolios.md) | The one-click template link, the invite rule, bulk-accepting invitations and cloning repositories |
 
 Technical hints that are useful to students (capture points, router quirks,

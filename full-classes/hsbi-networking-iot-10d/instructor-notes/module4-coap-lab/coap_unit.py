@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reference for Module 4 Task 3 — the AC unit with two doors.
+"""Reference for Module 4 Task 3 — the AC unit with two interfaces.
 
 One process, one temperature, two protocols:
 
@@ -10,7 +10,7 @@ One process, one temperature, two protocols:
   CoAP   GET  /warehouse/temp         -> the same JSON
          POST /warehouse/set          {"power": "ON" | "OFF"} -> 2.04 Changed
 
-The point of the exercise is that both doors read and write the *same*
+The point of the exercise is that both interfaces read and write the *same*
 `state` dict. Nothing is synchronised by copying messages; there is one
 source of truth and two ways in.
 
@@ -42,12 +42,12 @@ BROKER = os.environ.get("BROKER", "192.168.14.1")
 BASE = os.environ.get("BASE", "cold/ac")
 COAP_PORT = int(os.environ.get("COAP_PORT", "5683"))
 
-# The single source of truth. Both doors touch only this.
+# The single source of truth. Both interfaces touch only this.
 state = {"temp": 26.0, "hvac": "OFF"}
 
 
 # --------------------------------------------------------------------------
-# Door 1: MQTT
+# Interface 1: MQTT
 # --------------------------------------------------------------------------
 def on_connect(client, userdata, flags, reason_code, properties):
     if reason_code.is_failure:
@@ -94,7 +94,7 @@ async def telemetry():
 
 
 # --------------------------------------------------------------------------
-# Door 2: CoAP
+# Interface 2: CoAP
 # --------------------------------------------------------------------------
 def snapshot() -> bytes:
     return json.dumps({"temp": round(state["temp"], 1), "hvac": state["hvac"]}).encode()
@@ -120,7 +120,7 @@ class Set(resource.Resource):
         state["hvac"] = power
         print(f"CoAP command -> {power}")
         # No re-publish: the next telemetry tick carries the new state to MQTT
-        # subscribers, which is enough and keeps the two doors from quoting
+        # subscribers, which is enough and keeps the two interfaces from quoting
         # each other. Say this out loud in the task.
         return aiocoap.Message(code=Code.CHANGED, payload=b"ok")
 
