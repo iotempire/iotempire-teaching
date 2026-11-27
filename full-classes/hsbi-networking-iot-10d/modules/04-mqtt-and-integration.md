@@ -84,7 +84,7 @@ Start with the thing MQTT replaces. Frachtflow's first version is one endpoint a
 
 1. In your pod's Node-RED, build an `http in` node (`POST`, a path such as `/warehouse/temp`), parse the JSON, and put the value on the dashboard. Deploy it. The address is your Node-RED's own host and port, on the board (the class already opens those ports per pod, so if a call hangs you have the wrong address, not a firewall problem - but still don't hesitate to ask questions if something "hangs").
 2. Call it from your laptop with `curl`, through the router. Watch the dashboard change. Ask your favorite llm for some examples how to use curl to do http requests and try to connect it to Node-RED.
-3. Now write the caller in Python: a small loop that POSTs a drifting temperature every two seconds. This is your sender for the rest of the day — keep it, you will swap it later without touching the reader.
+3. Now write the caller in Python: a small loop that POSTs a drifting temperature every two seconds. Use the [`uv` environment](./Z-resources-bank.md#python-environment-with-uv-optional) from the resource bank — `uv add requests` now, and `uv add "paho-mqtt>=2,<3"` when Task 2 needs it (the 2.x callback API is a different signature). This is your sender for the rest of the day; keep it, you will swap it later without touching the reader.
 4. Break it on purpose. Restart the sender while the reader runs; then stop/disable the flow in Node-RED. Write down what each failure looks like from the sender's side.
 5. Answer: what did your sender have to know? What would you have to change for a second consumer — and who would have to change it (in the story)?
 
@@ -100,20 +100,40 @@ Start with the thing MQTT replaces. Frachtflow's first version is one endpoint a
 
 Now take the same reading through the MQTT broker (your Mosquitto on the router) and see what changes for the sender.
 
-1. **Design the tree.** Your pod owns a broker, so a short tree is enough — `cold/ac/env`, `cold/ac/set`, `cold/ac/status`. Write down the command/state split and the one wildcard you will actually use. Then answer in one sentence: *what would you have to change if all fifteen pods shared one broker?*
-2. **Send your reading through it.** Your Python sender from Task 1 publishes to the tree instead of posting; Node-RED subscribes. The dashboard should not care which interface the value came through. That is the whole point.
-3. **Retain.** Publish a state value retained, then start a *new* subscriber and watch it arrive without a publisher running.
-4. **The will — three ways to end a client, and only one of them is the story.**
+**Where you run it matters.** The broker lives on the router, and `mosquitto_pub` / `mosquitto_sub` on the router are fine for a quick look (`apk add mosquitto-client-nossl` if they are missing). Anything that should behave like a *device* — a will, a reconnection, a shutdown — runs on your laptop, because a client that shares a machine with its broker cannot lose the network between them.
 
-   ```sh
-   mosquitto_sub -i node-you -k 10 -t 'nothing/here' \
-     --will-topic 'cold/ac/status' --will-payload 'offline' --will-retain
+1. **Design the tree.** Your pod owns a broker, so a short tree is enough — `cold/ac/env`, `cold/ac/set`, `cold/ac/status`. Write down the command/state split and the one wildcard you will actually use. Then answer in one sentence: *what would you have to change if all fifteen pods shared one broker?*
+2. **Send your reading through it.** Your Python sender from Task 1 publishes to the tree instead of posting (same `uv` environment, now with `paho-mqtt` 2.x); Node-RED subscribes. The dashboard should not care which interface the value came through. That is the whole point.
+3. **Retain.** Publish a state value retained, then start a *new* subscriber and watch it arrive without a publisher running.
+4. **The will — three ways to end a client, and only one of them is the story.** Run this on **your laptop**, with the broker on the router. In Python, because the shutdown path is the thing you are testing and the library will not decide it for you:
+
+   ```python
+   import paho.mqtt.client as mqtt
+
+   BROKER, BASE = "192.168.14.1", "cold/ac"      # the router's address, from Task 1
+
+   c = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id="will-test")
+   c.will_set(f"{BASE}/status", "offline", qos=1, retain=True)
+   c.connect(BROKER, 1883, 10)                    # keepalive 10 s
+   c.publish(f"{BASE}/status", "online", qos=1, retain=True)
+   try:
+       c.loop_forever()
+   except KeyboardInterrupt:
+       c.disconnect()                             # comment this line out for case 2
    ```
 
-   - **`Ctrl+C` in a Linux terminal:** `mosquitto_sub` catches the signal and sends a proper `DISCONNECT`, so the broker stays silent. That is the point of the will — a polite goodbye needs no announcement. (Measured here: nothing appeared for 28 s.)
-   - **A hard kill** (`kill -9 <pid>`; on Windows `taskkill /F /PID <pid>`): the socket closes, the broker notices at once and publishes the will **immediately** — we measured 0.4 s, not 15 s. The connection ended; the broker does not need the keepalive to find out.
-   - **A silent death:** turn the Wi-Fi off or pull the cable. Nothing is sent, the socket stays half-open, and the broker only notices when the keepalive expires — that is the `1.5 × keepalive ≈ 15 s` case with `-k 10`, and it is exactly Nils's dead sensor. Here a short keepalive makes the test fast; on a real deployment it decides how long a dashboard believes a corpse.
-   - **Windows differs in one way:** the Windows build of the CLI clients installs no `Ctrl+C` handler, so there `Ctrl+C` *is* the hard kill and the will fires. Use Linux, WSL, or a Python client that calls `disconnect()` when you want to show the graceful case.
+   Watch `mosquitto_sub -v -t 'cold/ac/status'` from a second terminal and try all three:
+
+   - **Polite:** `Ctrl+C` with the `disconnect()` in place — the broker stays silent. A goodbye needs no announcement.
+   - **Hard:** delete the `disconnect()` line and `Ctrl+C` again. The process dies, the socket closes, and the will fires **at once** — measured 0.4 s, not 15. `kill -9 <pid>` (Windows: `taskkill /F /PID <pid>`) does the same. **The will is not the library's job; it is your shutdown path** — which is exactly why a real service needs one.
+   - **Silent:** turn the Wi-Fi off. Nothing is sent, the socket stays half-open, and the broker notices only when the keepalive expires — `1.5 × keepalive ≈ 15 s`. That is Nils's dead sensor, and the reason the keepalive is a design decision rather than a default.
+
+   > The CLI one-liner is the same experiment with less control — and it is what you use all day when you only want to *look*:
+   > ```sh
+   > mosquitto_sub -i node-you -k 10 -t 'nothing/here' \
+   >   --will-topic 'cold/ac/status' --will-payload 'offline' --will-retain
+   > ```
+   > Its `Ctrl+C` sends a proper `DISCONNECT` (measured: nothing appeared for 28 s), so the polite case is free — but that behaviour belongs to the tool, not to MQTT, and on Windows the same CLI installs no `Ctrl+C` handler, so there `Ctrl+C` *is* the hard case. Two tools, two answers: that is the lesson.
 
 5. **QoS.** Publish the same message at `-q 0`, `-q 1`, `-q 2` and note what the broker acknowledged. Duplicates are rare on a working LAN — explain *when* QoS 1 duplicates instead of waiting for one.
 
@@ -187,6 +207,8 @@ Completely optional, and open-ended on purpose. Do it when the bridges work — 
 - **CoAP on the device.** The same reading, no broker. Which is easier to reach from Node-RED, and why is the answer different from MQTT?
 - **IoTempower**, the fleet path: [IoTempower](https://iotempower.us) flashes and configures nodes from your laptop with a `node.conf`, the tool Module 1 touched in its [open-ended explorations](../../../workshops/mastering-iot-solutions/README.md#open-ended-explorations). Longest path, closest to a real deployment.
 - **Something none of us thought of.** Explicitly allowed. Say what you tried and what it taught you.
+
+> **IoTempower needs a real Linux (or macOS) command line.** A router shell is not enough — it wants bash, a package manager, git and USB access to the board. If you already use Ubuntu, Debian or Fedora — directly, in a VM, or under WSL 2 on Windows — go ahead: it installs cleanly and pulls in what this class needs for networks and microcontrollers. If you have never worked in a terminal like that, pick a different experiment today; that is a separate afternoon, not a step in this task.
 
 > **A shortcut that usually works.** Install PlatformIO in a throwaway environment with `uv tool install platformio`, then hand an agent the fixed facts — the board, your pod's Wi-Fi name and password, the broker's address, the topic and the payload shape — and ask it for a minimal sketch that publishes when you press the button. That is often enough to have a device talking in one sitting. Read what comes back before you flash it: board definitions and pin numbers are exactly where agents guess, and credentials belong in a file the sketch reads, not in the prompt or the repository. Your instructor still prefers **[IoTempower](https://iotempower.us)** for anything you want to keep: it is reproducible from a `node.conf`, it deploys over the air, and it does not depend on a conversation you cannot repeat.
 
