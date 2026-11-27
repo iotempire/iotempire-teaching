@@ -10,8 +10,7 @@ separate LiveKit server; **we do not run it**. Config lives in `chatto.toml` nex
 data in `./data`.
 
 **Why it is here.** Module 4 asks whether a chat protocol and MQTT solve the same problem. A
-live server students can actually use beats a paragraph. It is *not* an assessment target and
-not part of the grading pipeline; it is a comparison object and a place to swap curiosities.
+live server students can actually use beats a paragraph.
 
 **Current state (2026-11-25).** Installed and running:
 
