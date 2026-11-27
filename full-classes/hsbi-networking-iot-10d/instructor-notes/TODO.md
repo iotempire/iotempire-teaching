@@ -18,7 +18,9 @@
 
       **Do not fix Module 2 during this run.** Use the observation as the design constraint for
       everything that follows, starting with Module 3 (Nebula). After the run, audit Module 2 and
-      the other modules against it.
+      the other modules against it. **First module written in that tone: Module 4** — see
+      [D26](./00-architecture-decisions.md#d26--tasks-state-the-goal-and-the-question-not-the-keystrokes-the-day-may-be-experimental);
+      it is the template to audit the others against.
 
       **Keep explicit:** safety-critical commands, credential handling, recovery paths, and the
       minimum hardware facts that prevent damage. **Cut or convert:** step-by-step recipes that

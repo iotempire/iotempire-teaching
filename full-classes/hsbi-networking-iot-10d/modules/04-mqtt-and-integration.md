@@ -55,15 +55,13 @@ Split something into its own file only when a section outgrows the page.
 
 - **Stay inside the pod LAN or the overlay.** The broker is anonymous and has **no TLS in this lab** (port `1883` only; TLS is a later topic, not a task today). Do not expose it to the WAN except in the controlled forward from Task 3. The posture of every other protocol on the day is in the [protocol and port table](./Z-resources-bank.md#protocol-port-table).
 - **No secrets on the broker.** No credentials, no personal data, no other pod's traffic.
-- **A topic name is not a permission.** Agree the tree in the pod before anyone publishes; a second tree is how dashboards lie. And nothing on this broker is protected by a topic prefix.
+- **A topic name is not a permission.** Agree the tree in the pod before anyone publishes; a second tree is how dashboards "lie".
 
-## 🧭 How this works
+## 🧭 How today works
 
-There is no separate study phase: each task gives you the theory when the task makes you want it. End every task by showing the artefact to **one person at another pod** and asking the discussion question — a brag, not a quiz — then write one line in `## Discussion log`. Take a study break when a task raises a question you cannot answer; explaining it to someone is the test.
+As usual, there is no separate study phase: each task gives you the theory when the task makes you want it. End every task by showing the artefact to **one person at another pod** and asking the discussion question — a brag, not a quiz — then write one line into your portfolio, for example into `## Discussion log`. Take a study break when a task raises a question you cannot answer; explaining it to someone is the test.
 
-The day opens with a pod check-in: one artefact from Modules 1–3, one open question on the board, and the roles — one drives the broker and the CLI, one drives Node-RED, one keeps the topic tree and the notes. Swap after every task; everybody should publish, subscribe, and see one will fire.
-
-**The order is a suggestion**, and Task 4 is the reason for the day. If a bridge fires early, chase it and come back — but leave time for it.
+**The following order is a suggestion**, and Task 4 is the reason for the day. If a bridge fires early, chase it and come back — but leave time for it.
 
 | # | Task | You produce | Proves | Exchange question |
 |---|---|---|---|---|
@@ -82,33 +80,38 @@ The day opens with a pod check-in: one artefact from Modules 1–3, one open que
 
 Start with the thing MQTT replaces. Frachtflow's first version is one endpoint and one caller, and it works fine — until there are two callers.
 
-1. In your pod's Node-RED, build an `http in` node (`POST`, a path such as `/warehouse/temp`), parse the JSON, and put the value on the dashboard. Deploy it. The address is your Node-RED's own host and port, on the board — **the class already opens those ports per pod**, so if a call hangs you have the wrong address, not a firewall problem.
-2. Call it from your laptop with `curl`, through the router. Watch the dashboard change.
-3. Now write the caller in Python: a small loop that POSTs a drifting temperature every two seconds. This is **your sender for the rest of the day** — keep it, you will swap it later without touching the reader.
-4. Break it on purpose. Restart the sender while the reader runs; then stop the flow in Node-RED. Write down what each failure looks like from the sender's side.
-5. **The question that is the point:** what did your sender have to know? What would you have to change for a second consumer — and who would have to change it?
+1. In your pod's Node-RED, build an `http in` node (`POST`, a path such as `/warehouse/temp`), parse the JSON, and put the value on the dashboard. Deploy it. The address is your Node-RED's own host and port, on the board (the class already opens those ports per pod, so if a call hangs you have the wrong address, not a firewall problem - but still don't hesitate to ask questions if something "hangs").
+2. Call it from your laptop with `curl`, through the router. Watch the dashboard change. Ask your favorite llm for some examples how to use curl to do http requests and try to connect it to Node-RED.
+3. Now write the caller in Python: a small loop that POSTs a drifting temperature every two seconds. This is your sender for the rest of the day — keep it, you will swap it later without touching the reader.
+4. Break it on purpose. Restart the sender while the reader runs; then stop/disable the flow in Node-RED. Write down what each failure looks like from the sender's side.
+5. Answer: what did your sender have to know? What would you have to change for a second consumer — and who would have to change it (in the story)?
 
-**Theory you need.** HTTP is request/response: the client must know the server, both must be online, and ten consumers mean ten requests with ten copies of the parsing code. A sensor that posts to a dashboard is coupled to that dashboard's address and its life. The reverse direction is worse — for the dashboard to call the sensor, the sensor needs a forwarded port or a client on the laptop, which is the same wall you hit in Task 3.
+**A bit of theory:** HTTP is request/response: the client must know the server, both must be online, and ten consumers mean ten requests with ten copies of the parsing code. A sensor that posts to a dashboard is coupled to that dashboard's address and its life. The reverse direction is worse — for the dashboard to call the sensor, the sensor needs a forwarded port or a client on the laptop, which is the same wall you hit in Task 3.
 
 > **Story hook.** *Nils's first version.* One sensor, one screen, one afternoon. Then Rosa hires a second analyst.
 
-> **Show and ask.** Show one value arriving from `curl`. *"Who had to know whom?"*
+> **Share/brag about your results** to neigboring pods - help them to get to your point, share curiosities.
 
 ### ★ Task 2 — MQTT deep dive
 
 **Proves:** Goal 1 · **Produces:** `## Topic plan` and `## MQTT experiments` — the tree, the decisions, and what you measured.
 
-Now take the same reading through a broker and see what changes for the sender.
+Now take the same reading through the MQTT broker (your Mosquitto on the router) and see what changes for the sender.
 
 1. **Design the tree.** Your pod owns a broker, so a short tree is enough — `cold/ac/env`, `cold/ac/set`, `cold/ac/status`. Write down the command/state split and the one wildcard you will actually use. Then answer in one sentence: *what would you have to change if all fifteen pods shared one broker?*
 2. **Send your reading through it.** Your Python sender from Task 1 publishes to the tree instead of posting; Node-RED subscribes. The dashboard should not care which door the value came through. That is the whole point.
 3. **Retain.** Publish a state value retained, then start a *new* subscriber and watch it arrive without a publisher running.
-4. **The will.** Register a will, then kill the client **hard** (`kill -9`, not `Ctrl+C` — a clean disconnect stays silent by design) and measure how long the broker takes. A short keepalive makes the test fast.
+4. **The will — three ways to end a client, and only one of them is the story.**
 
    ```sh
    mosquitto_sub -i node-you -k 10 -t 'nothing/here' \
      --will-topic 'cold/ac/status' --will-payload 'offline' --will-retain
    ```
+
+   - **`Ctrl+C` in a Linux terminal:** `mosquitto_sub` catches the signal and sends a proper `DISCONNECT`, so the broker stays silent. That is the point of the will — a polite goodbye needs no announcement. (Measured here: nothing appeared for 28 s.)
+   - **A hard kill** (`kill -9 <pid>`; on Windows `taskkill /F /PID <pid>`): the socket closes, the broker notices at once and publishes the will **immediately** — we measured 0.4 s, not 15 s. The connection ended; the broker does not need the keepalive to find out.
+   - **A silent death:** turn the Wi-Fi off or pull the cable. Nothing is sent, the socket stays half-open, and the broker only notices when the keepalive expires — that is the `1.5 × keepalive ≈ 15 s` case with `-k 10`, and it is exactly Nils's dead sensor. Here a short keepalive makes the test fast; on a real deployment it decides how long a dashboard believes a corpse.
+   - **Windows differs in one way:** the Windows build of the CLI clients installs no `Ctrl+C` handler, so there `Ctrl+C` *is* the hard kill and the will fires. Use Linux, WSL, or a Python client that calls `disconnect()` when you want to show the graceful case.
 
 5. **QoS.** Publish the same message at `-q 0`, `-q 1`, `-q 2` and note what the broker acknowledged. Duplicates are rare on a working LAN — explain *when* QoS 1 duplicates instead of waiting for one.
 
@@ -121,7 +124,7 @@ Now take the same reading through a broker and see what changes for the sender.
 | Reliability | QoS 0/1/2 | confirmable messages, retries | TCP |
 | Security | TLS (8883) — **not used today** | DTLS/OSCORE | TLS |
 
-**Theory you need.** MQTT decouples in three dimensions: **space** (publishers and subscribers know only the broker), **time** (retained messages and sessions let a late subscriber catch up), and **synchronisation** (publishing is non-blocking). The broker notices a dead client only when the connection or the keepalive fails, which is why the will fires seconds late and a graceful `DISCONNECT` stays silent.
+**Theory you need.** MQTT decouples in three dimensions: **space** (publishers and subscribers know only the broker), **time** (retained messages and sessions let a late subscriber catch up), and **synchronisation** (publishing is non-blocking). The broker notices a dead client in one of two ways, and the difference matters: a **closed connection** is detected at once, a **silent** one only when the keepalive expires. A graceful `DISCONNECT` is a third case again — the client says goodbye, so the will stays unpublished and the retained state keeps the last true value.
 
 > **You are not done with theory until you answer this:** the broker in this lab is `1883`, plaintext, and anyone on the overlay can read and write everything. What would a real warehouse need, and what does the protocol already give you to build it on? One paragraph in `## Study log`.
 
